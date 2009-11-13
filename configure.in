@@ -1,0 +1,33 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(configure.in)
+AM_INIT_AUTOMAKE(simple_scan, 0.6.0)
+AM_MAINTAINER_MODE
+GNOME_MAINTAINER_MODE_DEFINES
+
+AC_ISC_POSIX
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_HEADER_STDC
+
+dnl ###########################################################################
+dnl Dependencies
+dnl ###########################################################################
+
+PKG_CHECK_MODULES(SIMPLE_SCAN, [
+    gtk+-2.0
+    gconf-2.0
+    gmodule-export-2.0
+    gthread-2.0
+    cairo-pdf
+])
+
+dnl ###########################################################################
+dnl Files to generate
+dnl ###########################################################################
+
+AC_OUTPUT([
+Makefile
+src/Makefile
+data/Makefile
+])
