@@ -1,13 +1,20 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <gtk/gtk.h>
 #include <cairo/cairo-pdf.h>
 #include <math.h>
 
+#include "config.h"
 #include "ui.h"
 #include "scanner.h"
 
 #define DEFAULT_DPI 75 // FIXME
+
+#define SIMPLE_SCAN_BINARY "simple-scan"
+
+
+static const char *default_device = NULL;
 
 static SimpleScan *ui;
 
@@ -469,11 +476,94 @@ print_cb (SimpleScan *ui, cairo_t *context)
 }
 
 
+static void
+version()
+{
+    /* NOTE: Is not translated so can be easily parsed */
+    fprintf(stderr, "%1$s %2$s\n", SIMPLE_SCAN_BINARY, VERSION);
+}
+
+
+static void
+usage(int show_gtk)
+{
+    fprintf(stderr,
+            "Usage:\n"
+            "  %s [DEVICE...] - Scanning utility", SIMPLE_SCAN_BINARY);
+
+    fprintf(stderr,
+            "\n\n");
+
+    fprintf(stderr,
+            "Help Options:\n"
+            "  -v, --version                   Show release version\n"
+            "  -h, --help                      Show help options\n"
+            "  --help-all                      Show all help options\n"
+            "  --help-gtk                      Show GTK+ options");
+    fprintf(stderr,
+            "\n\n");
+
+    if (show_gtk) {
+        fprintf(stderr,
+                "GTK+ Options:\n"
+                "  --class=CLASS                   Program class as used by the window manager\n"
+                "  --name=NAME                     Program name as used by the window manager\n"
+                "  --screen=SCREEN                 X screen to use\n"
+                "  --sync                          Make X calls synchronous\n"
+                "  --gtk-module=MODULES            Load additional GTK+ modules\n"
+                "  --g-fatal-warnings              Make all warnings fatal");
+        fprintf(stderr,
+                "\n\n");
+    }
+
+    //fprintf(stderr,
+    //        "Application Options:\n"
+    //        "  -u, --unittest                  Perform unittests\n");
+    //fprintf(stderr,
+    //        "\n\n");
+}
+
+
+static void
+get_options (int argc, char **argv)
+{
+    int i;
+
+    for (i = 1; i < argc; i++) {
+        char *arg = argv[i];
+
+        if (strcmp (arg, "-v") == 0 ||
+            strcmp (arg, "--version") == 0) {
+            version ();
+            exit (0);
+        }
+        else if (strcmp (arg, "-h") == 0 ||
+                 strcmp (arg, "--help") == 0) {
+            usage (FALSE);
+            exit (0);
+        }
+        else if (strcmp (arg, "--help-all") == 0) {
+            usage (TRUE);
+            exit (0);
+        }
+        else {
+            if (default_device) {
+                fprintf (stderr, "Unknown argument: '%s'\n", arg);
+                exit (1);
+            }
+            default_device = arg;
+        }
+    }
+}
+
+
 int
 main(int argc, char **argv)
 {
-    g_thread_init (NULL);    
+    g_thread_init (NULL);
     gtk_init (&argc, &argv);
+    
+    get_options (argc, argv);
 
     scanner = scanner_new ();
     g_signal_connect (G_OBJECT (scanner), "ready", G_CALLBACK (scanner_ready_cb), NULL);
