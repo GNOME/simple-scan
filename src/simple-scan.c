@@ -423,7 +423,7 @@ save_cb (SimpleScan *ui, gchar *uri)
 
     stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, &error);
     if (!stream) {
-        // ...
+        g_warning ("Error saving file: %s", error->message);
         g_error_free (error);
     }
     else {
@@ -444,10 +444,12 @@ save_cb (SimpleScan *ui, gchar *uri)
         g_free (uri_lower);           
         g_object_unref (image);
 
-        if (!result) {
-            // ...
+        if (error) {
+            g_warning ("Error saving file: %s", error->message);
             g_error_free (error);
         }
+
+        g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
     }
 }
 
