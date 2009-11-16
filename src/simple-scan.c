@@ -169,7 +169,7 @@ static void
 scanner_image_done_cb (Scanner *scanner)
 {
     /* Trim image */
-    if (current_line != gdk_pixbuf_get_height (raw_image)) {
+    if (raw_image && current_line != gdk_pixbuf_get_height (raw_image)) {
         GdkPixbuf *image;
 
         gint height, width, new_height;
@@ -188,10 +188,10 @@ scanner_image_done_cb (Scanner *scanner)
         g_object_unref (raw_image);
         raw_image = image;
     }
-    
+
     scan_complete = TRUE;
     ui_redraw_preview (ui);
-    ui_set_have_scan (ui, TRUE);
+    ui_set_have_scan (ui, raw_image != NULL);
 }
 
 

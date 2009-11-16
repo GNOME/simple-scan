@@ -139,7 +139,8 @@ scan_thread (Scanner *scanner)
                 status = sane_open (device, &handle);
                 if (status != SANE_STATUS_GOOD) {
                     g_warning ("Unable to get open device: Error %s", sane_strstatus(status));
-                    state = STATE_IDLE;
+                    handle = NULL;
+                    state = STATE_CLOSE;
                 }
                 else {
                     state = STATE_GET_OPTION;
@@ -254,7 +255,8 @@ scan_thread (Scanner *scanner)
             
         case STATE_CLOSE:
             emit_signal (scanner, IMAGE_DONE, NULL);
-            sane_close (handle);
+            if (handle)
+                sane_close (handle);
             handle = NULL;
             g_free (data);
             data = NULL;
