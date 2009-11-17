@@ -43,6 +43,8 @@ void ui_mark_devices_undetected (SimpleScan *ui);
 
 void ui_add_scan_device (SimpleScan *ui, const gchar *device, const gchar *label);
 
+void ui_set_selected_device (SimpleScan *ui, const gchar *device);
+
 void ui_set_scanning (SimpleScan *ui, gboolean scanning);
 
 void ui_set_have_scan (SimpleScan *ui, gboolean have_scan);

@@ -577,6 +577,9 @@ main(int argc, char **argv)
     g_signal_connect (ui, "save", G_CALLBACK (save_cb), NULL);
     g_signal_connect (ui, "print", G_CALLBACK (print_cb), NULL);
 
+    if (default_device)
+        ui_set_selected_device (ui, default_device);
+
     gtk_main ();
 
     return 0;

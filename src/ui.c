@@ -108,6 +108,23 @@ ui_add_scan_device (SimpleScan *ui, const gchar *device, const gchar *label)
 }
 
 
+void ui_set_selected_device (SimpleScan *ui, const gchar *device)
+{
+    GtkTreeIter iter;
+
+    /* If doesn't exist add with label set to device name */
+    if (!find_scan_device (ui, device, &iter)) {
+        GtkTreeModel *model;
+
+        model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
+        gtk_list_store_append (GTK_LIST_STORE (model), &iter);
+        gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, device, 1, device, 2, FALSE, -1);
+    }
+
+    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
+}
+
+
 static void
 get_document_hint (SimpleScan *ui)
 {
