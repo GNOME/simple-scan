@@ -24,6 +24,7 @@ struct SimpleScanPrivate
     GtkWidget *scan_label;
     GtkWidget *actions_box;
     GtkWidget *device_combo, *mode_combo;
+    GtkTreeModel *device_model;
     GtkWidget *preview_area;
 
     gboolean scanning;
@@ -36,18 +37,16 @@ G_DEFINE_TYPE (SimpleScan, ui, G_TYPE_OBJECT);
 static gboolean
 find_scan_device (SimpleScan *ui, const char *device, GtkTreeIter *iter)
 {
-    GtkTreeModel *model;
     gboolean have_iter = FALSE;
 
-    model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
-    if (gtk_tree_model_get_iter_first (model, iter)) {
+    if (gtk_tree_model_get_iter_first (ui->priv->device_model, iter)) {
         do {
             gchar *d;
-            gtk_tree_model_get (model, iter, 0, &d, -1);
+            gtk_tree_model_get (ui->priv->device_model, iter, 0, &d, -1);
             if (strcmp (d, device) == 0)
                 have_iter = TRUE;
             g_free (d);
-        } while (!have_iter && gtk_tree_model_iter_next (model, iter));
+        } while (!have_iter && gtk_tree_model_iter_next (ui->priv->device_model, iter));
     }
     
     return have_iter;
@@ -60,11 +59,8 @@ get_selected_device (SimpleScan *ui)
     GtkTreeIter iter;
 
     if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter)) {
-        GtkTreeModel *model;
         gchar *device;
-
-        model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
-        gtk_tree_model_get (model, &iter, 0, &device, -1);
+        gtk_tree_model_get (ui->priv->device_model, &iter, 0, &device, -1);
         return device;
     }
 
@@ -75,14 +71,12 @@ get_selected_device (SimpleScan *ui)
 void
 ui_mark_devices_undetected (SimpleScan *ui)
 {
-    GtkTreeModel *model;
     GtkTreeIter iter;
     
-    model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
-    if (gtk_tree_model_get_iter_first (model, &iter)) {
+    if (gtk_tree_model_get_iter_first (ui->priv->device_model, &iter)) {
         do {
-            gtk_list_store_set (GTK_LIST_STORE (model), &iter, 2, FALSE, -1);
-        } while (gtk_tree_model_iter_next (model, &iter));
+            gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 2, FALSE, -1);
+        } while (gtk_tree_model_iter_next (ui->priv->device_model, &iter));
     }
 }
 
@@ -91,16 +85,13 @@ void
 ui_add_scan_device (SimpleScan *ui, const gchar *device, const gchar *label)
 {
     GtkTreeIter iter;
-    GtkTreeModel *model;
-
-    model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
     
     if (!find_scan_device (ui, device, &iter)) {
-        gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, device, -1);
+        gtk_list_store_append (GTK_LIST_STORE (ui->priv->device_model), &iter);
+        gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 0, device, -1);
     }
 
-    gtk_list_store_set (GTK_LIST_STORE (model), &iter, 1, label, 2, TRUE, -1);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 1, label, 2, TRUE, -1);
     
     /* Select this device if none selected */
     if (gtk_combo_box_get_active (GTK_COMBO_BOX (ui->priv->device_combo)) == -1)
@@ -108,17 +99,15 @@ ui_add_scan_device (SimpleScan *ui, const gchar *device, const gchar *label)
 }
 
 
-void ui_set_selected_device (SimpleScan *ui, const gchar *device)
+void
+ui_set_selected_device (SimpleScan *ui, const gchar *device)
 {
     GtkTreeIter iter;
 
     /* If doesn't exist add with label set to device name */
     if (!find_scan_device (ui, device, &iter)) {
-        GtkTreeModel *model;
-
-        model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
-        gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, device, 1, device, 2, FALSE, -1);
+        gtk_list_store_append (GTK_LIST_STORE (ui->priv->device_model), &iter);
+        gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 0, device, 1, device, 2, FALSE, -1);
     }
 
     gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
@@ -309,7 +298,7 @@ save_device_cache (SimpleScan *ui)
 
     g_debug ("Saving device cache");
 
-    model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
+    model = ui->priv->device_model;
     if (gtk_tree_model_get_iter_first (model, &iter)) {
         GKeyFile *key_file;
         gchar *data;
@@ -407,6 +396,7 @@ ui_load (SimpleScan *ui)
     ui->priv->scan_label = GTK_WIDGET (gtk_builder_get_object (builder, "scan_label"));
     ui->priv->actions_box = GTK_WIDGET (gtk_builder_get_object (builder, "actions_box"));
     ui->priv->device_combo = GTK_WIDGET (gtk_builder_get_object (builder, "device_combo"));
+    ui->priv->device_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
     ui->priv->mode_combo = GTK_WIDGET (gtk_builder_get_object (builder, "mode_combo"));
     ui->priv->preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
 
@@ -467,6 +457,31 @@ ui_redraw_preview (SimpleScan *ui)
     gtk_widget_queue_draw (ui->priv->preview_area);    
 }
 
+
+void
+ui_show_error (SimpleScan *ui, const gchar *error_title, const gchar *error_text)
+{
+    GtkWidget *dialog;
+
+    dialog = gtk_message_dialog_new (GTK_WINDOW (ui->priv->window),
+                                     GTK_DIALOG_MODAL,
+                                     GTK_MESSAGE_WARNING,
+                                     GTK_BUTTONS_CLOSE,
+                                     "%s", error_title);
+    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+                                              "%s", error_text);
+
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+}
+
+
+void
+ui_start (SimpleScan *ui)
+{
+    if (gtk_tree_model_iter_n_children (ui->priv->device_model, NULL) == 0)
+        ui_show_error (ui, "No scanners detected", "Please check your scanner is connected and powered on");
+}
 
 static void
 g_cclosure_user_marshal_VOID__POINTER_DOUBLE_DOUBLE (GClosure     *closure,

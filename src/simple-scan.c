@@ -580,6 +580,8 @@ main(int argc, char **argv)
     if (default_device)
         ui_set_selected_device (ui, default_device);
 
+    ui_start (ui);
+
     gtk_main ();
 
     return 0;

@@ -53,4 +53,8 @@ Orientation ui_get_orientation (SimpleScan *ui);
 
 void ui_redraw_preview (SimpleScan *ui);
 
+void ui_show_error (SimpleScan *ui, const gchar *error_title, const gchar *error_text);
+
+void ui_start (SimpleScan *ui);
+
 #endif /* _UI_H_ */
