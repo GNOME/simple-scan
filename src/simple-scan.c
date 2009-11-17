@@ -3,6 +3,7 @@
 #include <string.h>
 #include <gtk/gtk.h>
 #include <cairo/cairo-pdf.h>
+#include <cairo/cairo-ps.h>
 #include <math.h>
 
 #include "config.h"
@@ -355,7 +356,7 @@ save_png (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
 
     
 static cairo_status_t
-write_pdf_data (GFileOutputStream *stream, unsigned char *data, unsigned int length)
+write_cairo_data (GFileOutputStream *stream, unsigned char *data, unsigned int length)
 {
     gboolean result;
     GError *error = NULL;
@@ -363,27 +364,18 @@ write_pdf_data (GFileOutputStream *stream, unsigned char *data, unsigned int len
     result = g_output_stream_write_all (G_OUTPUT_STREAM (stream), data, length, NULL, NULL, &error);
     
     if (error) {
-        g_warning ("Error writing PDF data: %s", error->message);
+        g_warning ("Error writing data: %s", error->message);
         g_error_free (error);
     }
 
     return result ? CAIRO_STATUS_SUCCESS : CAIRO_STATUS_WRITE_ERROR;
 }
-   
 
-static gboolean
-save_pdf (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
+
+static void
+save_ps_pdf_surface (cairo_surface_t *surface, GdkPixbuf *image)
 {
-    cairo_surface_t *surface;
     cairo_t *context;
-    double width, height;
-    
-    width = gdk_pixbuf_get_width (image) * 72.0 / DEFAULT_DPI;
-    height = gdk_pixbuf_get_height (image) * 72.0 / DEFAULT_DPI;
-
-    surface = cairo_pdf_surface_create_for_stream ((cairo_write_func_t) write_pdf_data,
-                                                   stream,
-                                                   width, height);
     
     context = cairo_create (surface);
 
@@ -393,8 +385,41 @@ save_pdf (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
     cairo_paint (context);
 
     cairo_destroy (context);
+}
+
+
+static gboolean
+save_pdf (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
+{
+    cairo_surface_t *surface;
+    double width, height;
+    
+    width = gdk_pixbuf_get_width (image) * 72.0 / DEFAULT_DPI;
+    height = gdk_pixbuf_get_height (image) * 72.0 / DEFAULT_DPI;
+    surface = cairo_pdf_surface_create_for_stream ((cairo_write_func_t) write_cairo_data,
+                                                   stream,
+                                                   width, height);
+    save_ps_pdf_surface (surface, image);
     cairo_surface_destroy (surface);
     
+    return TRUE;
+}
+
+
+static gboolean
+save_ps (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
+{
+    cairo_surface_t *surface;
+    double width, height;
+    
+    width = gdk_pixbuf_get_width (image) * 72.0 / DEFAULT_DPI;
+    height = gdk_pixbuf_get_height (image) * 72.0 / DEFAULT_DPI;
+    surface = cairo_ps_surface_create_for_stream ((cairo_write_func_t) write_cairo_data,
+                                                  stream,
+                                                  width, height);
+    save_ps_pdf_surface (surface, image);
+    cairo_surface_destroy (surface);
+
     return TRUE;
 }
 
@@ -439,6 +464,8 @@ save_cb (SimpleScan *ui, gchar *uri)
         uri_lower = g_utf8_strdown (uri, -1);
         if (g_str_has_suffix (uri_lower, ".pdf"))
             result = save_pdf (image, stream, &error);
+        else if (g_str_has_suffix (uri_lower, ".ps"))
+            result = save_ps (image, stream, &error);
         else if (g_str_has_suffix (uri_lower, ".png"))
             result = save_png (image, stream, &error);
         else
