@@ -9,7 +9,8 @@ simple_scan_SOURCES = \
 	
 simple_scan_CFLAGS = \
 	$(SIMPLE_SCAN_CFLAGS) \
-	-DUI_DIR=\"$(datadir)/simple-scan/\"
+	-DUI_DIR=\"$(datadir)/simple-scan/\" \
+	-DSIMPLE_SCAN_BINARY=\"simple-scan\"
 
 simple_scan_LDADD = \
 	$(SIMPLE_SCAN_LIBS) \

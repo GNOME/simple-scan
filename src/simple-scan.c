@@ -11,8 +11,6 @@
 
 #define DEFAULT_DPI 75 // FIXME
 
-#define SIMPLE_SCAN_BINARY "simple-scan"
-
 
 static const char *default_device = NULL;
 
