@@ -76,6 +76,7 @@ send_signal (SignalInfo *info)
     case READY:
     case IMAGE_DONE:
     case LAST_SIGNAL:
+        g_assert (info->data == NULL);
         break;
     }
     g_free (info);
