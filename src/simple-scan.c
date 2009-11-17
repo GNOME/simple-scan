@@ -475,7 +475,7 @@ print_cb (SimpleScan *ui, cairo_t *context)
 static void
 quit_cb (SimpleScan *ui)
 {
-    //scanner_free (scanner);
+    scanner_free (scanner);
     gtk_main_quit ();
 }
 

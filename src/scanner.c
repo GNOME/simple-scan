@@ -342,8 +342,8 @@ scanner_cancel (Scanner *scanner)
 
 void scanner_free (Scanner *scanner)
 {
-    g_free (scanner);
-    sane_exit ();
+    g_object_unref (scanner);
+    sane_exit (); // crashes for some reason
 }
 
 
