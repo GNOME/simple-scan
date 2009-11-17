@@ -45,7 +45,41 @@ static gboolean
 send_signal (SignalInfo *info)
 {
     g_signal_emit (info->instance, signals[info->sig], 0, info->data);
+    
+    switch (info->sig) {
+    case UPDATE_DEVICES:
+        {
+            GList *iter, *devices = info->data;
+            for (iter = devices; iter; iter = iter->next) {
+                ScanDevice *device = iter->data;
+                g_free (device->name);
+                g_free (device->label);
+                g_free (device);
+            }
+            g_list_free (devices);
+        }
+        break;
+    case GOT_PAGE_INFO:
+        {
+            ScanPageInfo *page_info = info->data;
+            g_free (page_info);
+        }
+        break;
+    case GOT_LINE:
+        {
+            ScanLine *line = info->data;
+            g_free(line->data);
+            g_free(line);
+        }
+        break;
+    default:
+    case READY:
+    case IMAGE_DONE:
+    case LAST_SIGNAL:
+        break;
+    }
     g_free (info);
+
     return FALSE;
 }
 

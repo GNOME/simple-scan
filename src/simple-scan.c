@@ -35,14 +35,9 @@ update_scan_devices_cb (Scanner *scanner, GList *devices)
 
     /* Add/update detected devices */
     for (dev_iter = devices; dev_iter; dev_iter = dev_iter->next) {
-        ScanDevice *device = dev_iter->data;
-        
+        ScanDevice *device = dev_iter->data;       
         ui_add_scan_device (ui, device->name, device->label);
-        g_free (device->name);
-        g_free (device->label);
-        g_free (device);
     }
-    g_list_free (devices);
 }
 
 
@@ -64,7 +59,6 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
                                 info->depth,
                                 info->width,
                                 height);
-    g_free (info);
 
     current_line = 0;
     scan_complete = FALSE;
@@ -162,9 +156,6 @@ scanner_line_cb (Scanner *scanner, ScanLine *line)
     }
 
     current_line = line->number + 1;
-
-    g_free(line->data);
-    g_free(line);
 
     ui_redraw_preview (ui);
 }
