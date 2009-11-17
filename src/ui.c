@@ -11,6 +11,7 @@ enum {
     STOP_SCAN,
     SAVE,
     PRINT,
+    QUIT,
     LAST_SIGNAL
 };
 static guint signals[LAST_SIGNAL] = { 0, };
@@ -370,7 +371,7 @@ window_delete_event_cb (GtkWidget *widget, GdkEvent *event, SimpleScan *ui)
         gconf_client_set_string(ui->priv->client, "/apps/simple-scan/selected_device", device, NULL);
         g_free (device);
     }
-    gtk_main_quit ();
+    g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
     return TRUE;
 }
 
@@ -565,6 +566,14 @@ ui_class_init (SimpleScanClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__POINTER,
                       G_TYPE_NONE, 1, G_TYPE_POINTER);
+    signals[QUIT] =
+        g_signal_new ("quit",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (SimpleScanClass, quit),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
     g_type_class_add_private (klass, sizeof (SimpleScanPrivate));
 }

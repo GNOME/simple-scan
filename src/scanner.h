@@ -57,6 +57,7 @@ typedef struct
     void (*update_devices) (Scanner *scanner, GList *devices);
     void (*got_page_info) (Scanner *scanner, ScanPageInfo *info);
     void (*got_line) (Scanner *scanner, ScanLine *line);
+    void (*scan_failed) (Scanner *scanner, GError *error);
     void (*image_done) (Scanner *scanner);
 } ScannerClass;
 
@@ -66,5 +67,7 @@ Scanner *scanner_new ();
 void scanner_scan (Scanner *scanner, const char *device, gint dpi);
 
 void scanner_cancel (Scanner *scanner);
+
+void scanner_free (Scanner *scanner);
 
 #endif /* _SCANNER_H_ */

@@ -26,6 +26,13 @@ static int current_line;
 
 
 static void
+scanner_ready_cb (Scanner *scanner)
+{
+    ui_set_scanning (ui, FALSE);
+}
+
+
+static void
 update_scan_devices_cb (Scanner *scanner, GList *devices)
 {
     GList *dev_iter;
@@ -192,9 +199,9 @@ scanner_image_done_cb (Scanner *scanner)
 
 
 static void
-scanner_ready_cb (Scanner *scanner)
+scanner_failed_cb (Scanner *scanner, GError *error)
 {
-    ui_set_scanning (ui, FALSE);
+    ui_show_error (ui, "Failed to scan", error->message);
 }
 
 
@@ -466,6 +473,14 @@ print_cb (SimpleScan *ui, cairo_t *context)
 
 
 static void
+quit_cb (SimpleScan *ui)
+{
+    //scanner_free (scanner);
+    gtk_main_quit ();
+}
+
+
+static void
 version()
 {
     /* NOTE: Is not translated so can be easily parsed */
@@ -560,6 +575,7 @@ main(int argc, char **argv)
     g_signal_connect (G_OBJECT (scanner), "got-page-info", G_CALLBACK (scanner_page_info_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "got-line", G_CALLBACK (scanner_line_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "image-done", G_CALLBACK (scanner_image_done_cb), NULL);
+    g_signal_connect (G_OBJECT (scanner), "scan-failed", G_CALLBACK (scanner_failed_cb), NULL);
 
     ui = ui_new ();
     g_signal_connect (ui, "render-preview", G_CALLBACK (render_cb), NULL);
@@ -567,6 +583,7 @@ main(int argc, char **argv)
     g_signal_connect (ui, "stop-scan", G_CALLBACK (cancel_cb), NULL);
     g_signal_connect (ui, "save", G_CALLBACK (save_cb), NULL);
     g_signal_connect (ui, "print", G_CALLBACK (print_cb), NULL);
+    g_signal_connect (ui, "quit", G_CALLBACK (quit_cb), NULL);
 
     if (default_device)
         ui_set_selected_device (ui, default_device);

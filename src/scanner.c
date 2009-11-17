@@ -10,6 +10,7 @@ enum {
     UPDATE_DEVICES,
     GOT_PAGE_INFO,
     GOT_LINE,
+    SCAN_FAILED,
     IMAGE_DONE,
     LAST_SIGNAL
 };
@@ -70,6 +71,12 @@ send_signal (SignalInfo *info)
             ScanLine *line = info->data;
             g_free(line->data);
             g_free(line);
+        }
+        break;
+    case SCAN_FAILED:
+        {
+            GError *error = info->data;
+            g_error_free (error);
         }
         break;
     default:
@@ -173,7 +180,8 @@ scan_thread (Scanner *scanner)
             } else if (device[0] != '\0') {
                 status = sane_open (device, &handle);
                 if (status != SANE_STATUS_GOOD) {
-                    g_warning ("Unable to get open device: Error %s", sane_strstatus(status));
+                    g_warning ("Unable to get open device: Error %s", sane_strstatus (status));
+                    emit_signal (scanner, SCAN_FAILED, g_error_new (SCANNER_TYPE, status, "Unable to connect to scanner"));
                     handle = NULL;
                     state = STATE_CLOSE;
                 }
@@ -210,7 +218,8 @@ scan_thread (Scanner *scanner)
         case STATE_START:
             status = sane_start (handle);
             if (status != SANE_STATUS_GOOD) {
-                g_warning ("Unable to start device: Error %s", sane_strstatus(status));
+                g_warning ("Unable to start device: Error %s", sane_strstatus (status));
+                emit_signal (scanner, SCAN_FAILED, g_error_new (SCANNER_TYPE, status, "Unable to start scan"));
                 state = STATE_CLOSE;
             } else {
                 state = STATE_GET_PARAMETERS;
@@ -220,7 +229,8 @@ scan_thread (Scanner *scanner)
         case STATE_GET_PARAMETERS:
             status = sane_get_parameters (handle, &parameters);
             if (status != SANE_STATUS_GOOD) {
-                g_warning ("Unable to get device parameters: Error %s", sane_strstatus(status));
+                g_warning ("Unable to get device parameters: Error %s", sane_strstatus (status));
+                emit_signal (scanner, SCAN_FAILED, g_error_new (SCANNER_TYPE, status, "Error communicating with scanner"));
                 state = STATE_CLOSE;
             } else {
                 ScanPageInfo *info;
@@ -244,7 +254,8 @@ scan_thread (Scanner *scanner)
                 bytes_remaining == parameters.bytes_per_line) {
                 state = STATE_CLOSE;
             } else if (status != SANE_STATUS_GOOD) {
-                g_warning ("Unable to read frame from device: Error %s", sane_strstatus(status));
+                g_warning ("Unable to read frame from device: Error %s", sane_strstatus (status));
+                emit_signal (scanner, SCAN_FAILED, g_error_new (SCANNER_TYPE, status, "Error communicating with scanner"));
                 state = STATE_CLOSE;
             } else {
                 bytes_remaining -= n_read;
@@ -307,14 +318,6 @@ scan_thread (Scanner *scanner)
 }
 
 
-/* FIXME: Do I need to call this anytime?
-static void
-scanner_close ()
-{
-    sane_exit ();
-}*/
-
-
 Scanner *
 scanner_new ()
 {
@@ -334,6 +337,13 @@ void
 scanner_cancel (Scanner *scanner)
 {
     g_async_queue_push (scanner->priv->scan_queue, "");
+}
+
+
+void scanner_free (Scanner *scanner)
+{
+    g_free (scanner);
+    sane_exit ();
 }
 
 
@@ -369,6 +379,14 @@ scanner_class_init (ScannerClass *klass)
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (ScannerClass, got_line),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__POINTER,
+                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+    signals[SCAN_FAILED] =
+        g_signal_new ("scan-failed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (ScannerClass, scan_failed),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__POINTER,
                       G_TYPE_NONE, 1, G_TYPE_POINTER);
