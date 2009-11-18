@@ -12,6 +12,7 @@
 #include <string.h>
 #include <sane/sane.h>
 #include <sane/saneopts.h>
+#include <glib/gi18n.h>
 
 #include "scanner.h"
 
