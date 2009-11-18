@@ -25,9 +25,10 @@ struct SimpleScanPrivate
     GtkWidget *scan_label;
     GtkWidget *actions_box;
     GtkWidget *device_combo, *mode_combo;
-    GtkTreeModel *device_model;
+    GtkTreeModel *device_model, *mode_model;
     GtkWidget *preview_area;
 
+    gchar *default_file_name;
     gboolean scanning;
     Orientation orientation;
 };
@@ -66,6 +67,14 @@ get_selected_device (SimpleScan *ui)
     }
 
     return NULL;
+}
+
+
+void
+ui_set_default_file_name (SimpleScan *ui, const gchar *default_file_name)
+{
+    g_free (ui->priv->default_file_name);
+    ui->priv->default_file_name = g_strdup (default_file_name);
 }
 
 
@@ -116,18 +125,38 @@ ui_set_selected_device (SimpleScan *ui, const gchar *device)
 
 
 static void
-get_document_hint (SimpleScan *ui)
+set_document_hint (SimpleScan *ui, const gchar *document_hint)
 {
     GtkTreeIter iter;
 
-    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->mode_combo), &iter)) {
-        GtkTreeModel *model;
-        gchar *mode;
+    if (gtk_tree_model_get_iter_first (ui->priv->mode_model, &iter)) {
+        do {
+            gchar *d;
+            gboolean have_match;
 
-        model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->mode_combo));
-        gtk_tree_model_get (model, &iter, 0, &mode, -1);
-        g_free (mode);
-    }
+            gtk_tree_model_get (ui->priv->mode_model, &iter, 0, &d, -1);
+            have_match = strcmp (d, document_hint) == 0;
+            g_free (d);
+
+            if (have_match) {
+                gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->mode_combo), &iter);                
+                return;
+            }
+        } while (gtk_tree_model_iter_next (ui->priv->mode_model, &iter));
+     }
+}
+
+
+static gchar *
+get_document_hint (SimpleScan *ui)
+{
+    GtkTreeIter iter;
+    gchar *mode = NULL;
+
+    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->mode_combo), &iter))
+        gtk_tree_model_get (ui->priv->mode_model, &iter, 0, &mode, -1);
+    
+    return mode;
 }
 
 
@@ -157,11 +186,14 @@ scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     if (ui->priv->scanning) {
         g_signal_emit (G_OBJECT (ui), signals[STOP_SCAN], 0);
     } else {
-        gchar *device;
+        gchar *device, *mode;
+
         device = get_selected_device (ui);
         if (device) {
-            g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device);
+            mode = get_document_hint (ui);
+            g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode);
             g_free (device);
+            g_free (mode);
         }
     }
 }
@@ -192,7 +224,7 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
                                           NULL);
     gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), TRUE);
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);
-    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), "Scanned Document.pdf");
+    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), ui->priv->default_file_name);
     
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     if (response == GTK_RESPONSE_ACCEPT) {
@@ -364,13 +396,20 @@ G_MODULE_EXPORT
 gboolean
 window_delete_event_cb (GtkWidget *widget, GdkEvent *event, SimpleScan *ui)
 {
-    char *device;
+    char *device, *document_type;
+
     save_device_cache (ui);
+
     device = get_selected_device (ui);
     if (device) {
         gconf_client_set_string(ui->priv->client, "/apps/simple-scan/selected_device", device, NULL);
         g_free (device);
     }
+
+    document_type = get_document_hint (ui);
+    gconf_client_set_string(ui->priv->client, "/apps/simple-scan/document_type", document_type, NULL);
+    g_free (document_type);
+
     g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
     return TRUE;
 }
@@ -382,8 +421,7 @@ ui_load (SimpleScan *ui)
     GtkBuilder *builder;
     GError *error = NULL;
     GtkCellRenderer *renderer;
-    GtkTreeIter iter;
-    gchar *device;
+    gchar *device, *document_type;
 
     builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, UI_DIR "simple-scan.ui", &error);
@@ -399,6 +437,7 @@ ui_load (SimpleScan *ui)
     ui->priv->device_combo = GTK_WIDGET (gtk_builder_get_object (builder, "device_combo"));
     ui->priv->device_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
     ui->priv->mode_combo = GTK_WIDGET (gtk_builder_get_object (builder, "mode_combo"));
+    ui->priv->mode_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->mode_combo));
     ui->priv->preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
 
     renderer = gtk_cell_renderer_text_new();
@@ -413,8 +452,17 @@ ui_load (SimpleScan *ui)
     /* Load previously detected scanners and select the last used one */
     load_device_cache (ui);
     device = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/selected_device", NULL);
-    if (device && find_scan_device (ui, device, &iter)) {
-        gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
+    if (device) {
+        GtkTreeIter iter;
+        if (find_scan_device (ui, device, &iter))
+            gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
+        g_free (device);
+    }
+    
+    document_type = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/document_type", NULL);
+    if (document_type) {
+        set_document_hint (ui, document_type);
+        g_free (document_type);
     }
 
     return TRUE;
@@ -484,6 +532,8 @@ ui_start (SimpleScan *ui)
         ui_show_error (ui, "No scanners detected", "Please check your scanner is connected and powered on");
 }
 
+
+/* Generated with glib-genmarshal */
 static void
 g_cclosure_user_marshal_VOID__POINTER_DOUBLE_DOUBLE (GClosure     *closure,
                                                      GValue       *return_value G_GNUC_UNUSED,
@@ -523,6 +573,44 @@ g_cclosure_user_marshal_VOID__POINTER_DOUBLE_DOUBLE (GClosure     *closure,
 }
 
 
+/* Generated with glib-genmarshal */
+void
+g_cclosure_user_marshal_VOID__STRING_STRING (GClosure     *closure,
+                                             GValue       *return_value G_GNUC_UNUSED,
+                                             guint         n_param_values,
+                                             const GValue *param_values,
+                                             gpointer      invocation_hint G_GNUC_UNUSED,
+                                             gpointer      marshal_data)
+{
+  typedef void (*GMarshalFunc_VOID__STRING_STRING) (gpointer       data1,
+                                                    gconstpointer  arg_1,
+                                                    gconstpointer  arg_2,
+                                                    gpointer       data2);
+  register GMarshalFunc_VOID__STRING_STRING callback;
+  register GCClosure *cc = (GCClosure*) closure;
+  register gpointer data1, data2;
+
+  g_return_if_fail (n_param_values == 3);
+
+  if (G_CCLOSURE_SWAP_DATA (closure))
+    {
+      data1 = closure->data;
+      data2 = g_value_peek_pointer (param_values + 0);
+    }
+  else
+    {
+      data1 = g_value_peek_pointer (param_values + 0);
+      data2 = closure->data;
+    }
+  callback = (GMarshalFunc_VOID__STRING_STRING) (marshal_data ? marshal_data : cc->callback);
+
+  callback (data1,
+            g_value_get_string (param_values + 1),
+            g_value_get_string (param_values + 2),
+            data2);
+}
+
+
 static void
 ui_class_init (SimpleScanClass *klass)
 {
@@ -540,8 +628,8 @@ ui_class_init (SimpleScanClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (SimpleScanClass, start_scan),
                       NULL, NULL,
-                      g_cclosure_marshal_VOID__INT,
-                      G_TYPE_NONE, 1, G_TYPE_INT);
+                      g_cclosure_user_marshal_VOID__STRING_STRING,
+                      G_TYPE_NONE, 2, G_TYPE_STRING, G_TYPE_STRING);
     signals[STOP_SCAN] =
         g_signal_new ("stop-scan",
                       G_TYPE_FROM_CLASS (klass),
@@ -586,7 +674,8 @@ ui_init (SimpleScan *ui)
 
     ui->priv->client = gconf_client_get_default();
     gconf_client_add_dir(ui->priv->client, "/apps/simple-scan", GCONF_CLIENT_PRELOAD_NONE, NULL);
-    
+
+    ui->priv->default_file_name = g_strdup ("Scanned Document.pdf");
     ui->priv->scanning = FALSE;
     ui->priv->orientation = TOP_TO_BOTTOM;
 

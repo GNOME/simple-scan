@@ -10,8 +10,6 @@
 #include "ui.h"
 #include "scanner.h"
 
-#define DEFAULT_DPI 75 // FIXME
-
 
 static const char *default_device = NULL;
 
@@ -19,7 +17,13 @@ static SimpleScan *ui;
 
 static Scanner *scanner;
 
-static GdkPixbuf *raw_image = NULL;
+typedef struct
+{
+    gint dpi;
+    GdkPixbuf *image;
+} ScannedImage;
+
+static ScannedImage *raw_image = NULL;
 
 static gboolean scan_complete = FALSE;
 
@@ -63,10 +67,10 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
     else
         height = info->height;
 
-    raw_image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
-                                info->depth,
-                                info->width,
-                                height);
+    raw_image->image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
+                                       info->depth,
+                                       info->width,
+                                       height);
 
     current_line = 0;
     scan_complete = FALSE;
@@ -111,26 +115,26 @@ scanner_line_cb (Scanner *scanner, ScanLine *line)
     gint i, j;
     
     /* Extend image if necessary */
-    while (line->number >= gdk_pixbuf_get_height (raw_image)) {
+    while (line->number >= gdk_pixbuf_get_height (raw_image->image)) {
         GdkPixbuf *image;
         gint height, width, new_height;
 
-        width = gdk_pixbuf_get_width (raw_image);        
-        height = gdk_pixbuf_get_height (raw_image);
+        width = gdk_pixbuf_get_width (raw_image->image);
+        height = gdk_pixbuf_get_height (raw_image->image);
         new_height = height + width / 2;
         g_debug("Resizing image height from %d pixels to %d pixels", height, new_height);
 
         image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
-                                gdk_pixbuf_get_bits_per_sample (raw_image),
+                                gdk_pixbuf_get_bits_per_sample (raw_image->image),
                                 width, new_height);
         memcpy (gdk_pixbuf_get_pixels (image),
-                gdk_pixbuf_get_pixels (raw_image),
-                height * gdk_pixbuf_get_rowstride (raw_image));
-        g_object_unref (raw_image);
-        raw_image = image;
+                gdk_pixbuf_get_pixels (raw_image->image),
+                height * gdk_pixbuf_get_rowstride (raw_image->image));
+        g_object_unref (raw_image->image);
+        raw_image->image = image;
     }
 
-    pixels = gdk_pixbuf_get_pixels (raw_image) + line->number * gdk_pixbuf_get_rowstride (raw_image);
+    pixels = gdk_pixbuf_get_pixels (raw_image->image) + line->number * gdk_pixbuf_get_rowstride (raw_image->image);
     switch (line->format) {
     case LINE_RGB:
         memcpy (pixels, line->data, line->data_length);
@@ -173,29 +177,29 @@ static void
 scanner_image_done_cb (Scanner *scanner)
 {
     /* Trim image */
-    if (raw_image && current_line != gdk_pixbuf_get_height (raw_image)) {
+    if (raw_image->image && current_line != gdk_pixbuf_get_height (raw_image->image)) {
         GdkPixbuf *image;
 
         gint height, width, new_height;
 
-        width = gdk_pixbuf_get_width (raw_image);        
-        height = gdk_pixbuf_get_height (raw_image);
+        width = gdk_pixbuf_get_width (raw_image->image);
+        height = gdk_pixbuf_get_height (raw_image->image);
         new_height = current_line;
         g_debug("Trimming image height from %d pixels to %d pixels", height, new_height);
 
         image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
-                                gdk_pixbuf_get_bits_per_sample (raw_image),
+                                gdk_pixbuf_get_bits_per_sample (raw_image->image),
                                 width, new_height);
         memcpy (gdk_pixbuf_get_pixels (image),
-                gdk_pixbuf_get_pixels (raw_image),
-                new_height * gdk_pixbuf_get_rowstride (raw_image));
-        g_object_unref (raw_image);
-        raw_image = image;
+                gdk_pixbuf_get_pixels (raw_image->image),
+                new_height * gdk_pixbuf_get_rowstride (raw_image->image));
+        g_object_unref (raw_image->image);
+        raw_image->image = image;
     }
 
     scan_complete = TRUE;
     ui_redraw_preview (ui);
-    ui_set_have_scan (ui, raw_image != NULL);
+    ui_set_have_scan (ui, raw_image->image != NULL);
 }
 
 
@@ -207,14 +211,14 @@ scanner_failed_cb (Scanner *scanner, GError *error)
 
 
 static void
-render_scan (cairo_t *context, GdkPixbuf *image, Orientation orientation, double canvas_width, double canvas_height, gboolean show_scan_line)
+render_scan (cairo_t *context, ScannedImage *image, Orientation orientation, double canvas_width, double canvas_height, gboolean show_scan_line)
 {
     double orig_img_width, orig_img_height, img_width, img_height;
     double source_aspect, canvas_aspect;
     double x_offset = 0.0, y_offset = 0.0, scale = 1.0, rotation = 0.0;
 
-    orig_img_width = img_width = gdk_pixbuf_get_width (image);
-    orig_img_height = img_height = gdk_pixbuf_get_height (image);
+    orig_img_width = img_width = gdk_pixbuf_get_width (image->image);
+    orig_img_height = img_height = gdk_pixbuf_get_height (image->image);
 
     switch (orientation) {
     case TOP_TO_BOTTOM:
@@ -261,7 +265,7 @@ render_scan (cairo_t *context, GdkPixbuf *image, Orientation orientation, double
     cairo_rotate (context, rotation);
     cairo_translate (context, -orig_img_width / 2, -orig_img_height / 2);
 
-    gdk_cairo_set_source_pixbuf (context, image, 0, 0);
+    gdk_cairo_set_source_pixbuf (context, image->image, 0, 0);
     cairo_pattern_set_filter (cairo_get_source (context), CAIRO_FILTER_BEST);
     cairo_paint (context);
 
@@ -298,7 +302,7 @@ render_scan (cairo_t *context, GdkPixbuf *image, Orientation orientation, double
 static void
 render_cb (SimpleScan *ui, cairo_t *context, double width, double height)
 {
-    if (raw_image) {
+    if (raw_image->image) {
         render_scan (context, raw_image, ui_get_orientation (ui),
                      width, height, TRUE);
     }
@@ -311,12 +315,33 @@ render_cb (SimpleScan *ui, cairo_t *context, double width, double height)
 
 
 static void
-scan_cb (SimpleScan *ui, const gchar *device)
+scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
 {
-    g_debug ("Requesting scan from device '%s'", device);
+    g_debug ("Requesting scan of type %s from device '%s'", document_type, device);
+
     ui_set_have_scan (ui, FALSE);
     ui_set_scanning (ui, TRUE);
-    scanner_scan (scanner, device, DEFAULT_DPI);
+    
+    if (strcmp (document_type, "photo") == 0) {
+        ui_set_default_file_name (ui, "Scanned Document.jpeg");
+        raw_image->dpi = 400;
+    }
+    else if (strcmp (document_type, "document") == 0) {
+        ui_set_default_file_name (ui, "Scanned Document.pdf");
+        raw_image->dpi = 200;
+    }
+    else if (strcmp (document_type, "raw") == 0) {
+        ui_set_default_file_name (ui, "Scanned Document.png");
+        raw_image->dpi = 400;
+    }
+    /* Draft or unknown */
+    else
+    {
+        ui_set_default_file_name (ui, "Scanned Document.jpeg");
+        raw_image->dpi = 75;
+    }
+    
+    scanner_scan (scanner, device, raw_image->dpi);
 }
 
 
@@ -335,9 +360,9 @@ write_pixbuf_data (const gchar *buf, gsize count, GError **error, GFileOutputStr
 
 
 static gboolean
-save_jpeg (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
+save_jpeg (ScannedImage *image, GFileOutputStream *stream, GError **error)
 {
-    return gdk_pixbuf_save_to_callback (image,
+    return gdk_pixbuf_save_to_callback (image->image,
                                         (GdkPixbufSaveFunc) write_pixbuf_data, stream,
                                         "jpeg", error,
                                         "quality", "90",
@@ -346,9 +371,9 @@ save_jpeg (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
 
 
 static gboolean
-save_png (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
+save_png (ScannedImage *image, GFileOutputStream *stream, GError **error)
 {
-    return gdk_pixbuf_save_to_callback (image,
+    return gdk_pixbuf_save_to_callback (image->image,
                                         (GdkPixbufSaveFunc) write_pixbuf_data, stream,
                                         "png", error,
                                         NULL);
@@ -373,14 +398,14 @@ write_cairo_data (GFileOutputStream *stream, unsigned char *data, unsigned int l
 
 
 static void
-save_ps_pdf_surface (cairo_surface_t *surface, GdkPixbuf *image)
+save_ps_pdf_surface (cairo_surface_t *surface, ScannedImage *image)
 {
     cairo_t *context;
     
     context = cairo_create (surface);
 
-    cairo_scale (context, 72.0 / DEFAULT_DPI, 72.0 / DEFAULT_DPI);
-    gdk_cairo_set_source_pixbuf (context, image, 0, 0);
+    cairo_scale (context, 72.0 / image->dpi, 72.0 / image->dpi);
+    gdk_cairo_set_source_pixbuf (context, image->image, 0, 0);
     cairo_pattern_set_filter (cairo_get_source (context), CAIRO_FILTER_BEST);
     cairo_paint (context);
 
@@ -389,13 +414,13 @@ save_ps_pdf_surface (cairo_surface_t *surface, GdkPixbuf *image)
 
 
 static gboolean
-save_pdf (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
+save_pdf (ScannedImage *image, GFileOutputStream *stream, GError **error)
 {
     cairo_surface_t *surface;
     double width, height;
     
-    width = gdk_pixbuf_get_width (image) * 72.0 / DEFAULT_DPI;
-    height = gdk_pixbuf_get_height (image) * 72.0 / DEFAULT_DPI;
+    width = gdk_pixbuf_get_width (image->image) * 72.0 / image->dpi;
+    height = gdk_pixbuf_get_height (image->image) * 72.0 / image->dpi;
     surface = cairo_pdf_surface_create_for_stream ((cairo_write_func_t) write_cairo_data,
                                                    stream,
                                                    width, height);
@@ -407,13 +432,13 @@ save_pdf (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
 
 
 static gboolean
-save_ps (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
+save_ps (ScannedImage *image, GFileOutputStream *stream, GError **error)
 {
     cairo_surface_t *surface;
     double width, height;
     
-    width = gdk_pixbuf_get_width (image) * 72.0 / DEFAULT_DPI;
-    height = gdk_pixbuf_get_height (image) * 72.0 / DEFAULT_DPI;
+    width = gdk_pixbuf_get_width (image->image) * 72.0 / image->dpi;
+    height = gdk_pixbuf_get_height (image->image) * 72.0 / image->dpi;
     surface = cairo_ps_surface_create_for_stream ((cairo_write_func_t) write_cairo_data,
                                                   stream,
                                                   width, height);
@@ -424,19 +449,28 @@ save_ps (GdkPixbuf *image, GFileOutputStream *stream, GError **error)
 }
 
 
-static GdkPixbuf *get_rotated_image (Orientation orientation)
+static ScannedImage *get_rotated_image (Orientation orientation)
 {
+    ScannedImage *image;
+
+    image = g_malloc0 (sizeof (ScannedImage));
+    image->dpi = raw_image->dpi;
     switch (orientation) {
     default:
     case TOP_TO_BOTTOM:
-        return gdk_pixbuf_ref (raw_image);
+        image->image = gdk_pixbuf_ref (raw_image->image);
+        break;
     case BOTTOM_TO_TOP:
-        return gdk_pixbuf_rotate_simple (raw_image, GDK_PIXBUF_ROTATE_UPSIDEDOWN);
+        image->image = gdk_pixbuf_rotate_simple (raw_image->image, GDK_PIXBUF_ROTATE_UPSIDEDOWN);
+        break;
     case LEFT_TO_RIGHT:
-        return gdk_pixbuf_rotate_simple (raw_image, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
+        image->image = gdk_pixbuf_rotate_simple (raw_image->image, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
+        break;
     case RIGHT_TO_LEFT:
-        return gdk_pixbuf_rotate_simple (raw_image, GDK_PIXBUF_ROTATE_CLOCKWISE);
-    }   
+        image->image = gdk_pixbuf_rotate_simple (raw_image->image, GDK_PIXBUF_ROTATE_CLOCKWISE);
+        break;
+    }
+    return image;
 }
 
 
@@ -457,7 +491,7 @@ save_cb (SimpleScan *ui, gchar *uri)
     else {
         gboolean result;
         gchar *uri_lower;
-        GdkPixbuf *image;
+        ScannedImage *image;
 
         image = get_rotated_image (ui_get_orientation (ui));
 
@@ -472,7 +506,8 @@ save_cb (SimpleScan *ui, gchar *uri)
             result = save_jpeg (image, stream, &error);
 
         g_free (uri_lower);           
-        g_object_unref (image);
+        g_object_unref (image->image);
+        g_free (image);
 
         if (error) {
             g_warning ("Error saving file: %s", error->message);
@@ -487,15 +522,16 @@ save_cb (SimpleScan *ui, gchar *uri)
 static void
 print_cb (SimpleScan *ui, cairo_t *context)
 {
-    GdkPixbuf *image;
+    ScannedImage *image;
 
     image = get_rotated_image (ui_get_orientation (ui));
 
-    gdk_cairo_set_source_pixbuf (context, image, 0, 0);
+    gdk_cairo_set_source_pixbuf (context, image->image, 0, 0);
     cairo_pattern_set_filter (cairo_get_source (context), CAIRO_FILTER_BEST);
     cairo_paint (context);
 
-    g_object_unref (image);
+    g_object_unref (image->image);
+    g_free (image);
 }
 
 
@@ -595,6 +631,8 @@ main(int argc, char **argv)
     gtk_init (&argc, &argv);
     
     get_options (argc, argv);
+
+    raw_image = g_malloc0(sizeof(ScannedImage));
 
     scanner = scanner_new ();
     g_signal_connect (G_OBJECT (scanner), "ready", G_CALLBACK (scanner_ready_cb), NULL);

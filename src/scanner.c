@@ -209,6 +209,12 @@ scan_thread (Scanner *scanner)
                 }
                 if (option->name && strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
                     SANE_Int dpi = scanner->priv->dpi;
+                    if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
+                        if (dpi < option->constraint.range->min)
+                            dpi = option->constraint.range->min;
+                        if (dpi > option->constraint.range->max)
+                            dpi = option->constraint.range->max;
+                    }
                     sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &dpi, NULL);
                 }
                 option_index++;
@@ -343,7 +349,7 @@ scanner_cancel (Scanner *scanner)
 void scanner_free (Scanner *scanner)
 {
     g_object_unref (scanner);
-    sane_exit (); // crashes for some reason
+    sane_exit (); // FIXME: Join thread first
 }
 
 

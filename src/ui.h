@@ -30,15 +30,17 @@ typedef struct
     GObjectClass parent_class;
 
     void (*render_preview) (SimpleScan *ui, cairo_t *context, double width, double height);
-    void (*start_scan) (SimpleScan *ui, const gint dpi);
+    void (*start_scan) (SimpleScan *ui, const gchar *device, const gchar *document_type);
     void (*stop_scan) (SimpleScan *ui);
-    void (*save) (SimpleScan *ui, const gchar *format);    
+    void (*save) (SimpleScan *ui, const gchar *format);
     void (*print) (SimpleScan *ui, cairo_t *context);
     void (*quit) (SimpleScan *ui);
 } SimpleScanClass;
 
 
 SimpleScan *ui_new ();
+
+void ui_set_default_file_name (SimpleScan *ui, const gchar *default_file_name);
 
 void ui_mark_devices_undetected (SimpleScan *ui);
 
