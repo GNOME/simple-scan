@@ -186,9 +186,8 @@ scan_thread (Scanner *scanner)
             } else if (device[0] != '\0') {
                 status = sane_open (device, &handle);
                 if (status != SANE_STATUS_GOOD) {
-                    g_warning ("Unable to get open device: Error %s", sane_strstatus (status));
+                    g_warning ("Unable to get open device: %s", sane_strstatus (status));
                     emit_signal (scanner, SCAN_FAILED, g_error_new (SCANNER_TYPE, status, "Unable to connect to scanner"));
-                    handle = NULL;
                     state = STATE_CLOSE;
                 }
                 else {
@@ -197,7 +196,7 @@ scan_thread (Scanner *scanner)
                 }
             }
             break;
-            
+
         case STATE_GET_OPTION:
             option = sane_get_option_descriptor (handle, option_index);
             if (!option) {
