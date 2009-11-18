@@ -9,6 +9,7 @@
  * license.
  */
 
+#include <stdlib.h>
 #include <string.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
@@ -430,7 +431,7 @@ window_delete_event_cb (GtkWidget *widget, GdkEvent *event, SimpleScan *ui)
 }
 
 
-static gboolean
+static void
 ui_load (SimpleScan *ui)
 {
     GtkBuilder *builder;
@@ -441,9 +442,13 @@ ui_load (SimpleScan *ui)
     builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, UI_DIR "simple-scan.ui", &error);
     if (error) {
-        // FIXME: Error dialog
         g_critical ("Unable to load UI: %s\n", error->message);
-        return FALSE;
+        ui_show_error (ui,
+                       /* Title of dialog when cannot load required files */
+                       _("Files missing"),
+                       /* Description in dialog when cannot load required files */
+                       _("Please check your installation"));
+        exit (1);
     }
     gtk_builder_connect_signals (builder, ui);
 
@@ -480,8 +485,6 @@ ui_load (SimpleScan *ui)
         set_document_hint (ui, document_type);
         g_free (document_type);
     }
-
-    return TRUE;
 }
 
 

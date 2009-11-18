@@ -361,6 +361,18 @@ scanner_new ()
 
 
 void
+scanner_start (Scanner *scanner)
+{
+    GError *error = NULL;
+    scanner->priv->thread = g_thread_create ((GThreadFunc) scan_thread, scanner, TRUE, &error);
+    if (error) {
+        g_critical ("Unable to create thread: %s", error->message);
+        g_error_free (error);
+    }    
+}
+
+
+void
 scanner_scan (Scanner *scanner, const char *device, gint dpi_)
 {
     scanner->priv->dpi = dpi_;
@@ -380,7 +392,8 @@ void scanner_free (Scanner *scanner)
     g_debug ("Stopping scan thread");
     scanner->priv->running = FALSE;
     g_async_queue_push (scanner->priv->scan_queue, "");
-    g_thread_join (scanner->priv->thread);
+    if (scanner->priv->thread)
+        g_thread_join (scanner->priv->thread);
 
     g_async_queue_unref (scanner->priv->scan_queue);
     g_object_unref (scanner);
@@ -450,15 +463,7 @@ scanner_class_init (ScannerClass *klass)
 static void
 scanner_init (Scanner *scanner)
 {
-    GError *error = NULL;
-    
     scanner->priv = G_TYPE_INSTANCE_GET_PRIVATE (scanner, SCANNER_TYPE, ScannerPrivate);
-
     scanner->priv->running = TRUE;
     scanner->priv->scan_queue = g_async_queue_new ();
-    scanner->priv->thread = g_thread_create ((GThreadFunc) scan_thread, scanner, TRUE, &error);
-    if (error) {
-        g_critical ("Unable to create thread: %s", error->message);
-        g_error_free (error);
-    }
 }
