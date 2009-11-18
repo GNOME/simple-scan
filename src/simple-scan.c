@@ -217,7 +217,10 @@ scanner_image_done_cb (Scanner *scanner)
 static void
 scanner_failed_cb (Scanner *scanner, GError *error)
 {
-    ui_show_error (ui, "Failed to scan", error->message);
+    ui_show_error (ui,
+                   /* Title of error dialog when scan failed */
+                   _("Failed to scan"),
+                   error->message);
 }
 
 
@@ -333,22 +336,29 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
     ui_set_have_scan (ui, FALSE);
     ui_set_scanning (ui, TRUE);
     
+    // FIXME: Translate
     if (strcmp (document_type, "photo") == 0) {
-        ui_set_default_file_name (ui, "Scanned Document.jpeg");
+        ui_set_default_file_name (ui,
+                                  /* Default name for JPEG documents */
+                                  _("Scanned Document.jpeg"));
         raw_image->dpi = 400;
     }
     else if (strcmp (document_type, "document") == 0) {
-        ui_set_default_file_name (ui, "Scanned Document.pdf");
+        ui_set_default_file_name (ui,
+                                  /* Default name for PDF documents */
+                                  _("Scanned Document.pdf"));
         raw_image->dpi = 200;
     }
     else if (strcmp (document_type, "raw") == 0) {
-        ui_set_default_file_name (ui, "Scanned Document.png");
+        ui_set_default_file_name (ui,
+                                  /* Default name for PNG documents */
+                                  _("Scanned Document.png"));
         raw_image->dpi = 400;
     }
     /* Draft or unknown */
     else
     {
-        ui_set_default_file_name (ui, "Scanned Document.jpeg");
+        ui_set_default_file_name (ui, _("Scanned Document.jpeg"));
         raw_image->dpi = 75;
     }
     
@@ -566,30 +576,33 @@ static void
 usage(int show_gtk)
 {
     fprintf(stderr,
-            "Usage:\n"
-            "  %s [DEVICE...] - Scanning utility", SIMPLE_SCAN_BINARY);
+            /* Description on how to use simple-scan displayed on command-line */
+            _("Usage:\n"
+              "  %s [DEVICE...] - Scanning utility"), SIMPLE_SCAN_BINARY);
 
     fprintf(stderr,
             "\n\n");
 
     fprintf(stderr,
-            "Help Options:\n"
-            "  -v, --version                   Show release version\n"
-            "  -h, --help                      Show help options\n"
-            "  --help-all                      Show all help options\n"
-            "  --help-gtk                      Show GTK+ options");
+            /* Description on how to use simple-scan displayed on command-line */    
+            _("Help Options:\n"
+              "  -v, --version                   Show release version\n"
+              "  -h, --help                      Show help options\n"
+              "  --help-all                      Show all help options\n"
+              "  --help-gtk                      Show GTK+ options"));
     fprintf(stderr,
             "\n\n");
 
     if (show_gtk) {
         fprintf(stderr,
-                "GTK+ Options:\n"
-                "  --class=CLASS                   Program class as used by the window manager\n"
-                "  --name=NAME                     Program name as used by the window manager\n"
-                "  --screen=SCREEN                 X screen to use\n"
-                "  --sync                          Make X calls synchronous\n"
-                "  --gtk-module=MODULES            Load additional GTK+ modules\n"
-                "  --g-fatal-warnings              Make all warnings fatal");
+                /* Description on simple-scan command-line GTK+ options displayed on command-line */
+                _("GTK+ Options:\n"
+                  "  --class=CLASS                   Program class as used by the window manager\n"
+                  "  --name=NAME                     Program name as used by the window manager\n"
+                  "  --screen=SCREEN                 X screen to use\n"
+                  "  --sync                          Make X calls synchronous\n"
+                  "  --gtk-module=MODULES            Load additional GTK+ modules\n"
+                  "  --g-fatal-warnings              Make all warnings fatal"));
         fprintf(stderr,
                 "\n\n");
     }

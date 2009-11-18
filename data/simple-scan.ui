@@ -5,7 +5,7 @@
   <object class="GtkWindow" id="simple_scan_window">
     <property name="visible">True</property>
     <property name="border_width">18</property>
-    <property name="title" translatable="yes">Scan Document</property>
+    <property name="title" translatable="yes" comments="Title of scan window">Scan Document</property>
     <signal name="delete_event" handler="window_delete_event_cb"/>
     <child>
       <object class="GtkHBox" id="hbox1">
@@ -27,7 +27,7 @@
                   <object class="GtkLabel" id="device_label">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Scan Source:</property>
+                    <property name="label" translatable="yes" comments="Label beside scan device combo box">Scan Source:</property>
                   </object>
                   <packing>
                     <property name="x_options">GTK_FILL</property>
@@ -38,7 +38,7 @@
                   <object class="GtkLabel" id="mode_label">
                     <property name="visible">True</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes">_Document Type:</property>
+                    <property name="label" translatable="yes" comments="Label beside document type combo box">_Document Type:</property>
                     <property name="use_underline">True</property>
                   </object>
                   <packing>
@@ -99,7 +99,7 @@
                     <child>
                       <object class="GtkLabel" id="scan_label">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Scan</property>
+                        <property name="label" translatable="yes" comments="Label on scan button">_Scan</property>
                         <property name="use_underline">True</property>
                       </object>
                     </child>
@@ -110,7 +110,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="rotate_button">
-                    <property name="label" translatable="yes">_Rotate</property>
+                    <property name="label" translatable="yes" comments="Label on button that rotates image">_Rotate</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -135,7 +135,7 @@
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkButton" id="save_file_button">
-                    <property name="label" translatable="yes">_Save to Filesystem</property>
+                    <property name="label" translatable="yes" comments="Label on button that saves image to file">_Save to Filesystem</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -148,7 +148,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="print_button">
-                    <property name="label" translatable="yes">_Print</property>
+                    <property name="label" translatable="yes" comments="Label on print scanned image button">_Print</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -196,20 +196,20 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">draft</col>
-        <col id="1" translatable="yes">Draft</col>
+        <col id="0">draft</col>
+        <col id="1" translatable="yes" comments="Combo box label for draft scan mode">Draft</col>
       </row>
       <row>
-        <col id="0" translatable="yes">document</col>
-        <col id="1" translatable="yes">Document</col>
+        <col id="0">document</col>
+        <col id="1" translatable="yes" comments="Combo box label for document scan mode">Document</col>
       </row>
       <row>
-        <col id="0" translatable="yes">photo</col>
-        <col id="1" translatable="yes">Photo</col>
+        <col id="0">photo</col>
+        <col id="1" translatable="yes" comments="Combo box label for photo scan mode">Photo</col>
       </row>
       <row>
-        <col id="0" translatable="yes">raw</col>
-        <col id="1" translatable="yes">Raw</col>
+        <col id="0">raw</col>
+        <col id="1" translatable="yes" comments="Combo box label for raw scan mode">Raw</col>
       </row>
     </data>
   </object>

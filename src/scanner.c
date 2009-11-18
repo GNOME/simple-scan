@@ -198,7 +198,10 @@ scan_thread (Scanner *scanner)
                 status = sane_open (device, &handle);
                 if (status != SANE_STATUS_GOOD) {
                     g_warning ("Unable to get open device: %s", sane_strstatus (status));
-                    emit_signal (scanner, SCAN_FAILED, g_error_new (SCANNER_TYPE, status, "Unable to connect to scanner"));
+                    emit_signal (scanner, SCAN_FAILED,
+                                 g_error_new (SCANNER_TYPE, status,
+                                              /* Error displayed when cannot connect to scanner */
+                                              _("Unable to connect to scanner")));
                     state = STATE_CLOSE;
                 }
                 else {
@@ -241,7 +244,10 @@ scan_thread (Scanner *scanner)
             status = sane_start (handle);
             if (status != SANE_STATUS_GOOD) {
                 g_warning ("Unable to start device: Error %s", sane_strstatus (status));
-                emit_signal (scanner, SCAN_FAILED, g_error_new (SCANNER_TYPE, status, "Unable to start scan"));
+                emit_signal (scanner, SCAN_FAILED,
+                             g_error_new (SCANNER_TYPE, status,
+                                          /* Error display when unable to start scan */
+                                          _("Unable to start scan")));
                 state = STATE_CLOSE;
             } else {
                 state = STATE_GET_PARAMETERS;
@@ -252,7 +258,10 @@ scan_thread (Scanner *scanner)
             status = sane_get_parameters (handle, &parameters);
             if (status != SANE_STATUS_GOOD) {
                 g_warning ("Unable to get device parameters: Error %s", sane_strstatus (status));
-                emit_signal (scanner, SCAN_FAILED, g_error_new (SCANNER_TYPE, status, "Error communicating with scanner"));
+                emit_signal (scanner, SCAN_FAILED,
+                             g_error_new (SCANNER_TYPE, status,
+                                          /* Error displayed when communication with scanner broken */
+                                          _("Error communicating with scanner")));
                 state = STATE_CLOSE;
             } else {
                 ScanPageInfo *info;
@@ -277,7 +286,10 @@ scan_thread (Scanner *scanner)
                 state = STATE_CLOSE;
             } else if (status != SANE_STATUS_GOOD) {
                 g_warning ("Unable to read frame from device: Error %s", sane_strstatus (status));
-                emit_signal (scanner, SCAN_FAILED, g_error_new (SCANNER_TYPE, status, "Error communicating with scanner"));
+                emit_signal (scanner, SCAN_FAILED,
+                             g_error_new (SCANNER_TYPE, status,
+                                          /* Error displayed when communication with scanner broken */
+                                          _("Error communicating with scanner")));
                 state = STATE_CLOSE;
             } else {
                 bytes_remaining -= n_read;

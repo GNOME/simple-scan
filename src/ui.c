@@ -228,7 +228,9 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     GtkWidget *dialog;
     gint response;
 
-    dialog = gtk_file_chooser_dialog_new ("Save As...", GTK_WINDOW (ui->priv->window),
+    /* Title of save dialog */
+    dialog = gtk_file_chooser_dialog_new (_("Save As..."),
+                                          GTK_WINDOW (ui->priv->window),
                                           GTK_FILE_CHOOSER_ACTION_SAVE,
                                           GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
                                           GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
@@ -438,6 +440,7 @@ ui_load (SimpleScan *ui)
     builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, UI_DIR "simple-scan.ui", &error);
     if (error) {
+        // FIXME: Error dialog
         g_critical ("Unable to load UI: %s\n", error->message);
         return FALSE;
     }
@@ -493,9 +496,13 @@ ui_set_scanning (SimpleScan *ui, gboolean scanning)
 {
     ui->priv->scanning = scanning;
     if (ui->priv->scanning)
-        gtk_label_set_label (GTK_LABEL (ui->priv->scan_label), "_Cancel");
+        gtk_label_set_label (GTK_LABEL (ui->priv->scan_label),
+                             /* Label on cancel scan button */
+                             _("_Cancel"));
     else
-        gtk_label_set_label (GTK_LABEL (ui->priv->scan_label), "_Scan");
+        gtk_label_set_label (GTK_LABEL (ui->priv->scan_label),
+                             /* Label on scan button */
+                             _("_Scan"));
 }
 
 
@@ -541,7 +548,11 @@ void
 ui_start (SimpleScan *ui)
 {
     if (gtk_tree_model_iter_n_children (ui->priv->device_model, NULL) == 0)
-        ui_show_error (ui, "No scanners detected", "Please check your scanner is connected and powered on");
+        ui_show_error (ui,
+                       /* Warning displayed when no scanners are detected */
+                       _("No scanners detected"),
+                       /* Hint to user on why there are no scanners detected */
+                       _("Please check your scanner is connected and powered on"));
 }
 
 
@@ -687,7 +698,7 @@ ui_init (SimpleScan *ui)
     ui->priv->client = gconf_client_get_default();
     gconf_client_add_dir(ui->priv->client, "/apps/simple-scan", GCONF_CLIENT_PRELOAD_NONE, NULL);
 
-    ui->priv->default_file_name = g_strdup ("Scanned Document.pdf");
+    ui->priv->default_file_name = g_strdup (_("Scanned Document.pdf"));
     ui->priv->scanning = FALSE;
     ui->priv->orientation = TOP_TO_BOTTOM;
 
