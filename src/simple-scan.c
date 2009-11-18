@@ -533,6 +533,10 @@ save_cb (SimpleScan *ui, gchar *uri)
 
         if (error) {
             g_warning ("Error saving file: %s", error->message);
+            ui_show_error (ui,
+                           /* Title of error dialog when save failed */
+                           _("Failed to save file"),
+                           error->message);
             g_error_free (error);
         }
 
