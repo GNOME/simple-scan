@@ -175,6 +175,10 @@ scan_thread (Scanner *scanner)
                 state = STATE_CLOSE;
         }
         
+        /* Interrupted */
+        if (!scanner->priv->running)
+            break;
+        
         switch (state) {
         case STATE_IDLE:
             if (device == NULL) {
@@ -350,11 +354,17 @@ scanner_cancel (Scanner *scanner)
 
 void scanner_free (Scanner *scanner)
 {
+    g_debug ("Stopping scan thread");
     scanner->priv->running = FALSE;
+    g_async_queue_push (scanner->priv->scan_queue, "");
     g_thread_join (scanner->priv->thread);
+
     g_async_queue_unref (scanner->priv->scan_queue);
     g_object_unref (scanner);
+
+    g_debug ("Closing SANE interface");
     sane_exit ();
+    g_debug ("SANE interface closed");
 }
 
 
