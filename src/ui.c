@@ -290,7 +290,8 @@ load_device_cache (SimpleScan *ui)
     key_file = g_key_file_new ();
     result = g_key_file_load_from_file (key_file, filename, G_KEY_FILE_NONE, &error);
     if (error) {
-        g_warning ("Error loading device cache file: %s", error->message);
+        if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+            g_warning ("Error loading device cache file: %s", error->message);
         g_error_free (error);
         error = NULL;
     }
