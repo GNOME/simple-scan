@@ -593,12 +593,6 @@ usage(int show_gtk)
         fprintf(stderr,
                 "\n\n");
     }
-
-    //fprintf(stderr,
-    //        "Application Options:\n"
-    //        "  -u, --unittest                  Perform unittests\n");
-    //fprintf(stderr,
-    //        "\n\n");
 }
 
 

@@ -16,9 +16,9 @@
 
 G_BEGIN_DECLS
 
-#define SCANNER_TYPE                (scanner_get_type ())
-#define SCANNER(obj)                (G_TYPE_CHECK_INSTANCE_CAST ((obj), SCANNER_TYPE, Scanner))
-    
+#define SCANNER_TYPE  (scanner_get_type ())
+#define SCANNER(obj)  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SCANNER_TYPE, Scanner))
+
 
 typedef struct
 {

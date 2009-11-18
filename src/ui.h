@@ -16,8 +16,8 @@
 
 G_BEGIN_DECLS
 
-#define SIMPLE_SCAN_TYPE                     (ui_get_type ())
-#define SIMPLE_SCAN(obj)                     (G_TYPE_CHECK_INSTANCE_CAST ((obj), SIMPLE_SCAN_TYPE, SimpleScan))
+#define SIMPLE_SCAN_TYPE  (ui_get_type ())
+#define SIMPLE_SCAN(obj)  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SIMPLE_SCAN_TYPE, SimpleScan))
 
 typedef enum
 {
