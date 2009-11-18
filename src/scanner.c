@@ -37,6 +37,8 @@ struct ScannerPrivate
 {
     GAsyncQueue *scan_queue;
     gint dpi;
+    gboolean running;
+    GThread *thread;
 };
 
 G_DEFINE_TYPE (Scanner, scanner, G_TYPE_OBJECT);
@@ -163,7 +165,7 @@ scan_thread (Scanner *scanner)
              SANE_VERSION_MINOR(version_code),
              SANE_VERSION_BUILD(version_code));
 
-    while (1) {
+    while (scanner->priv->running) {
         /* Get device to use */
         if (state == STATE_IDLE) {
             GTimeVal timeout = { 1, 0 };
@@ -348,8 +350,11 @@ scanner_cancel (Scanner *scanner)
 
 void scanner_free (Scanner *scanner)
 {
+    scanner->priv->running = FALSE;
+    g_thread_join (scanner->priv->thread);
+    g_async_queue_unref (scanner->priv->scan_queue);
     g_object_unref (scanner);
-    sane_exit (); // FIXME: Join thread first
+    sane_exit ();
 }
 
 
@@ -415,9 +420,10 @@ scanner_init (Scanner *scanner)
     GError *error = NULL;
     
     scanner->priv = G_TYPE_INSTANCE_GET_PRIVATE (scanner, SCANNER_TYPE, ScannerPrivate);
-    
+
+    scanner->priv->running = TRUE;
     scanner->priv->scan_queue = g_async_queue_new ();
-    g_thread_create ((GThreadFunc) scan_thread, scanner, FALSE, &error);
+    scanner->priv->thread = g_thread_create ((GThreadFunc) scan_thread, scanner, TRUE, &error);
     if (error) {
         g_critical ("Unable to create thread: %s", error->message);
         g_error_free (error);
