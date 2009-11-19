@@ -80,7 +80,8 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
         height = info->height;
 
     raw_image->image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
-                                       info->depth,
+                                       8, // Pixbuf only supports 8 bit images
+                                       //info->depth,
                                        info->width,
                                        height);
 
@@ -89,7 +90,7 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 }
 
 
-static int
+static gint
 get_sample (guchar *data, int depth, int index)
 {
     int i, offset, value, n_bits;
@@ -115,7 +116,7 @@ get_sample (guchar *data, int depth, int index)
     /* Trim remaining bits off */
     if (n_bits > depth)
         value >>= n_bits - depth;
-    
+
     return value;
 }
 
@@ -149,31 +150,45 @@ scanner_line_cb (Scanner *scanner, ScanLine *line)
     pixels = gdk_pixbuf_get_pixels (raw_image->image) + line->number * gdk_pixbuf_get_rowstride (raw_image->image);
     switch (line->format) {
     case LINE_RGB:
-        memcpy (pixels, line->data, line->data_length);
+        if (line->depth == 8) {
+            memcpy (pixels, line->data, line->data_length);
+        } else {
+            for (i = 0, j = 0; i < line->width; i++) {
+                pixels[j] = get_sample (line->data, line->depth, j) * 0xFF / (1 << (line->depth - 1));
+                pixels[j+1] = get_sample (line->data, line->depth, j+1) * 0xFF / (1 << (line->depth - 1));
+                pixels[j+2] = get_sample (line->data, line->depth, j+2) * 0xFF / (1 << (line->depth - 1));
+                j += 3;
+            }
+        }
         break;
     case LINE_GRAY:
-        for (i = 0; i < line->width; i++) {
-            pixels[j] = get_sample (line->data, line->depth, i);
-            pixels[j+1] = get_sample (line->data, line->depth, i);
-            pixels[j+2] = get_sample (line->data, line->depth, i);
+        for (i = 0, j = 0; i < line->width; i++) {
+            int sample;
+
+            /* Bitmap, 0 = white, 1 = black */
+            sample = get_sample (line->data, line->depth, i) * 0xFF / (1 << (line->depth - 1));
+            if (line->depth == 1)
+                sample = sample ? 0x00 : 0xFF;
+
+            pixels[j] = pixels[j+1] = pixels[j+2] = sample;
             j += 3;
         }
         break;
     case LINE_RED:
-        for (i = 0; i < line->width; i++) {
-            pixels[j] = get_sample (line->data, line->depth, i);
+        for (i = 0, j = 0; i < line->width; i++) {
+            pixels[j] = get_sample (line->data, line->depth, i) * 0xFF / (1 << (line->depth - 1));
             j += 3;
         }
         break;
     case LINE_GREEN:
-        for (i = 0; i < line->width; i++) {
-            pixels[j+1] = get_sample (line->data, line->depth, i);
+        for (i = 0, j = 0; i < line->width; i++) {
+            pixels[j+1] = get_sample (line->data, line->depth, i) * 0xFF / (1 << (line->depth - 1));
             j += 3;
         }
         break;
     case LINE_BLUE:
-        for (i = 0; i < line->width; i++) {
-            pixels[j+2] = get_sample (line->data, line->depth, i);
+        for (i = 0, j = 0; i < line->width; i++) {
+            pixels[j+2] = get_sample (line->data, line->depth, i) * 0xFF / (1 << (line->depth - 1));
             j += 3;
         }
         break;
@@ -269,11 +284,17 @@ render_scan (cairo_t *context, ScannedImage *image, Orientation orientation, dou
             scale = canvas_width / img_width;
             y_offset = (int) (canvas_height - (img_height * scale)) / 2;
         }
+    /* Otherwise just center */
+    } else {
+        if (canvas_width > img_width)
+            x_offset = (int) (canvas_width - img_width) / 2;
+        if (canvas_height > img_height)
+            y_offset = (int) (canvas_height - img_height) / 2;
     }
     
     /* Render the image */
     cairo_save (context);
-
+    
     cairo_translate (context, x_offset, y_offset);
     cairo_scale (context, scale, scale);
     cairo_translate (context, img_width / 2, img_height / 2);
@@ -309,6 +330,14 @@ render_scan (cairo_t *context, ScannedImage *image, Orientation orientation, dou
         cairo_set_source_rgb (context, 1.0, 0.0, 0.0);
         cairo_move_to (context, 0, h);
         cairo_line_to (context, scale * orig_img_width, h);
+        cairo_stroke (context);
+
+        cairo_set_source_rgb (context, 1.0, 0.0, 0.0);        
+        cairo_move_to (context, 0, 0);
+        cairo_line_to (context, scale * orig_img_width, 0);
+        cairo_line_to (context, scale * orig_img_width, scale * orig_img_height);
+        cairo_line_to (context, 0, scale * orig_img_height);
+        cairo_line_to (context, 0, 0);
         cairo_stroke (context);
     }
 }

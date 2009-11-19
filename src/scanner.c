@@ -153,6 +153,166 @@ poll_for_devices (Scanner *scanner)
 }
 
 
+static void
+set_bool_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, SANE_Bool value)
+{
+    SANE_Bool v = value;
+    g_return_if_fail (option->type == SANE_TYPE_BOOL);
+    sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v, NULL);
+}
+
+
+static void
+set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, SANE_Int value)
+{
+    SANE_Int v = value;
+
+    g_return_if_fail (option->type == SANE_TYPE_INT);
+
+    if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
+        v *= option->constraint.range->quant;
+        if (v < option->constraint.range->min)
+            v = option->constraint.range->min;
+        if (v > option->constraint.range->max)
+            v = option->constraint.range->max;
+    }
+    sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v, NULL);
+}
+
+
+static void
+set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, SANE_Fixed value)
+{
+    SANE_Fixed v = value;
+
+    g_return_if_fail (option->type == SANE_TYPE_FIXED);
+
+    if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
+        v *= option->constraint.range->quant;
+        if (v < option->constraint.range->min)
+            v = option->constraint.range->min;
+        if (v > option->constraint.range->max)
+            v = option->constraint.range->max;
+    }
+    sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v, NULL);
+}
+
+
+static void
+set_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, const char *value)
+{
+    char *string;
+    gsize value_size, size;
+
+    g_return_if_fail (option->type == SANE_TYPE_STRING);
+    
+    value_size = strlen (value) + 1;
+    size = option->size > value_size ? option->size : value_size;
+    string = g_malloc(sizeof(char) * size);
+    strcpy (string, value);
+    sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, string, NULL);
+    g_free (string);
+}
+
+
+static void
+log_option (SANE_Int index, const SANE_Option_Descriptor *option)
+{
+    GString *string;
+    SANE_String_Const *string_iter;
+    SANE_Word i;
+    
+    string = g_string_new ("");
+
+    g_string_append_printf (string, "Option %d: name='%s', title='%s'",
+                            index, option->name, option->title);
+
+    switch (option->type) {
+    case SANE_TYPE_BOOL:
+        g_string_append (string, " type=bool");
+        break;
+    case SANE_TYPE_INT:
+        g_string_append (string, " type=int");
+        break;
+    case SANE_TYPE_FIXED:
+        g_string_append (string, " type=fixed");        
+        break;
+    case SANE_TYPE_STRING:
+        g_string_append (string, " type=string");        
+        break;
+    case SANE_TYPE_BUTTON:
+        g_string_append (string, " type=button");        
+        break;
+    case SANE_TYPE_GROUP:
+        g_string_append (string, " type=group");
+        break;
+    default:
+        g_string_append_printf (string, " type=%d", option->type);
+        break;
+    }
+
+    switch (option->unit) {
+    case SANE_UNIT_NONE:
+        break;
+    case SANE_UNIT_PIXEL:
+        g_string_append (string, " unit=pixels");
+        break;
+    case SANE_UNIT_BIT:
+        g_string_append (string, " unit=bits");
+        break;
+    case SANE_UNIT_MM:
+        g_string_append (string, " unit=mm");
+        break;
+    case SANE_UNIT_DPI:
+        g_string_append (string, " unit=dpi");
+        break;
+    case SANE_UNIT_PERCENT:
+        g_string_append (string, " unit=percent");
+        break;
+    case SANE_UNIT_MICROSECOND:
+        g_string_append (string, " unit=microseconds");
+        break;
+    default:
+        g_string_append_printf (string, " unit=%d", option->unit);
+        break;
+    }
+
+    switch (option->constraint_type) {
+    case SANE_CONSTRAINT_RANGE:
+        g_string_append_printf (string, " min=%d, max=%d, quant=%d",
+                                option->constraint.range->min, option->constraint.range->max,
+                                option->constraint.range->quant);
+        break;
+    case SANE_CONSTRAINT_WORD_LIST:
+        g_string_append (string, " values=[");
+        for (i = 0; i < option->constraint.word_list[0]; i++) {
+            if (i != 0)
+                g_string_append (string, ", ");
+            g_string_append_printf (string, "%d", option->constraint.word_list[i+1]);
+        }
+        g_string_append (string, "]");
+        break;
+    case SANE_CONSTRAINT_STRING_LIST:
+        g_string_append (string, " values=[");
+        for (i = 0; option->constraint.string_list[i]; i++) {
+            if (i != 0)
+                g_string_append (string, ", ");
+            g_string_append_printf (string, "\"%s\"", option->constraint.string_list[i]);
+        }
+        g_string_append (string, "]");
+        break;
+    default:
+        break;
+    }
+
+    g_debug ("%s", string->str);
+    g_string_free (string, TRUE);
+
+    if (option->desc)
+        g_debug ("  Description: %s", option->desc);
+}
+
+
 static gpointer
 scan_thread (Scanner *scanner)
 {
@@ -217,25 +377,11 @@ scan_thread (Scanner *scanner)
             if (!option) {
                 state = STATE_START;
             } else {
-                g_debug ("Option %d: name='%s', title='%s'", option_index, option->name, option->title);
-                if (option->desc)
-                    g_debug ("  Description: %s", option->desc);
-                switch (option->constraint_type) {
-                case SANE_CONSTRAINT_RANGE:
-                    g_debug ("  Range: min=%d, max=%d, quant=%d", option->constraint.range->min, option->constraint.range->max, option->constraint.range->quant);
-                    break;
-                default:
-                    break;
-                }
-                if (option->name && strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
-                    SANE_Int dpi = scanner->priv->dpi;
-                    if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
-                        if (dpi < option->constraint.range->min)
-                            dpi = option->constraint.range->min;
-                        if (dpi > option->constraint.range->max)
-                            dpi = option->constraint.range->max;
+                log_option (option_index, option);
+                if (option->name) {
+                    if (strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
+                        set_fixed_option (handle, option, option_index, scanner->priv->dpi);
                     }
-                    sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &dpi, NULL);
                 }
                 option_index++;
             }
