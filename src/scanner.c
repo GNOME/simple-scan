@@ -328,7 +328,7 @@ scan_thread (Scanner *scanner)
     const SANE_Option_Descriptor *option;
     SANE_Int option_index = 0;
     ScanState state = STATE_IDLE;
-    SANE_Int bytes_remaining, line_count = 0, n_read, page_num;
+    SANE_Int bytes_remaining, line_count = 0, n_read, pass_number;
     SANE_Byte *data;
     SANE_Int version_code;
     gboolean done;
@@ -363,7 +363,7 @@ scan_thread (Scanner *scanner)
             if (device == NULL) {
                 poll_for_devices (scanner);
             } else if (device[0] != '\0') {
-                g_debug ("sane_open ()");
+                g_debug ("sane_open (\"%s\")", device);
                 status = sane_open (device, &handle);
                 if (status != SANE_STATUS_GOOD) {
                     g_warning ("Unable to get open device: %s", sane_strstatus (status));
@@ -376,6 +376,7 @@ scan_thread (Scanner *scanner)
                 else {
                     state = STATE_GET_OPTION;
                     option_index = 0;
+                    pass_number = 0;
                 }
             }
             break;
@@ -391,6 +392,27 @@ scan_thread (Scanner *scanner)
                     if (strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
                         set_fixed_option (handle, option, option_index, scanner->priv->dpi);
                     }
+#if 0                    
+                    /* Test scanner options */
+                    else if (strcmp (option->name, "depth") == 0) {
+                        set_int_option (handle, option, option_index, 1);
+                    }
+                    else if (strcmp (option->name, "mode") == 0) {
+                        set_string_option (handle, option, option_index, "Color");
+                    }
+                    else if (strcmp (option->name, "three-pass") == 0) {
+                        set_bool_option (handle, option, option_index, FALSE);
+                    }                    
+                    else if (strcmp (option->name, "test-picture") == 0) {
+                        set_string_option (handle, option, option_index, "Color pattern");
+                    }
+                    else if (strcmp (option->name, "read-delay") == 0) {
+                        set_bool_option (handle, option, option_index, TRUE);
+                    }
+                    else if (strcmp (option->name, "read-delay-duration") == 0) {
+                        set_int_option (handle, option, option_index, 100000);
+                    }
+#endif                    
                 }
                 option_index++;
             }
@@ -407,7 +429,6 @@ scan_thread (Scanner *scanner)
                                           _("Unable to start scan")));
                 state = STATE_CLOSE;
             } else {
-                page_num = 0;
                 state = STATE_GET_PARAMETERS;
             }
             break;
@@ -430,7 +451,7 @@ scan_thread (Scanner *scanner)
                 info->height = parameters.lines;
                 info->depth = parameters.depth;
 
-                if (page_num == 0)
+                if (pass_number == 0)
                     emit_signal (scanner, GOT_PAGE_INFO, info);
 
                 /* Prepare for read */
@@ -510,8 +531,8 @@ scan_thread (Scanner *scanner)
                 if (parameters.last_frame)
                     state = STATE_CLOSE;
                 else {
-                    page_num++;
-                    state = STATE_GET_PARAMETERS;
+                    pass_number++;
+                    state = STATE_START;
                 }
             }
             break;
