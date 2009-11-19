@@ -127,9 +127,10 @@ poll_for_devices (Scanner *scanner)
     SANE_Status status;
     GList *devices = NULL;
 
+    g_debug ("sane_get_devices ()");
     status = sane_get_devices (&device_list, SANE_FALSE);
     if (status != SANE_STATUS_GOOD) {
-        g_warning ("Unable to get SANE devices: Error %s", sane_strstatus(status));
+        g_warning ("Unable to get SANE devices: %s", sane_strstatus(status));
         return;
     }
 
@@ -158,6 +159,7 @@ set_bool_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_
 {
     SANE_Bool v = value;
     g_return_if_fail (option->type == SANE_TYPE_BOOL);
+    g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s)", option_index, value ? "TRUE" : "FALSE");
     sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v, NULL);
 }
 
@@ -176,6 +178,7 @@ set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_I
         if (v > option->constraint.range->max)
             v = option->constraint.range->max;
     }
+    g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %d)", option_index, value);
     sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v, NULL);
 }
 
@@ -194,6 +197,7 @@ set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE
         if (v > option->constraint.range->max)
             v = option->constraint.range->max;
     }
+    g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %d)", option_index, value);
     sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v, NULL);
 }
 
@@ -210,6 +214,7 @@ set_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SAN
     size = option->size > value_size ? option->size : value_size;
     string = g_malloc(sizeof(char) * size);
     strcpy (string, value);
+    g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\")", option_index, value);
     sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, string, NULL);
     g_free (string);
 }
@@ -323,13 +328,15 @@ scan_thread (Scanner *scanner)
     const SANE_Option_Descriptor *option;
     SANE_Int option_index = 0;
     ScanState state = STATE_IDLE;
-    SANE_Int bytes_remaining, line_count = 0, n_read;
+    SANE_Int bytes_remaining, line_count = 0, n_read, page_num;
     SANE_Byte *data;
     SANE_Int version_code;
+    gboolean done;
 
+    g_debug ("sane_init ()");
     status = sane_init (&version_code, NULL);
     if (status != SANE_STATUS_GOOD) {
-        g_warning ("Unable to initialize SANE backend: Error %s", sane_strstatus(status));
+        g_warning ("Unable to initialize SANE backend: %s", sane_strstatus(status));
         return FALSE;
     }
     g_debug ("SANE version %d.%d.%d",
@@ -356,6 +363,7 @@ scan_thread (Scanner *scanner)
             if (device == NULL) {
                 poll_for_devices (scanner);
             } else if (device[0] != '\0') {
+                g_debug ("sane_open ()");
                 status = sane_open (device, &handle);
                 if (status != SANE_STATUS_GOOD) {
                     g_warning ("Unable to get open device: %s", sane_strstatus (status));
@@ -373,6 +381,7 @@ scan_thread (Scanner *scanner)
             break;
 
         case STATE_GET_OPTION:
+            g_debug ("sane_get_option_descriptor (%d)", option_index);
             option = sane_get_option_descriptor (handle, option_index);
             if (!option) {
                 state = STATE_START;
@@ -388,23 +397,26 @@ scan_thread (Scanner *scanner)
             break;
             
         case STATE_START:
+            g_debug ("sane_start ()");
             status = sane_start (handle);
             if (status != SANE_STATUS_GOOD) {
-                g_warning ("Unable to start device: Error %s", sane_strstatus (status));
+                g_warning ("Unable to start device: %s", sane_strstatus (status));
                 emit_signal (scanner, SCAN_FAILED,
                              g_error_new (SCANNER_TYPE, status,
                                           /* Error display when unable to start scan */
                                           _("Unable to start scan")));
                 state = STATE_CLOSE;
             } else {
+                page_num = 0;
                 state = STATE_GET_PARAMETERS;
             }
             break;
             
         case STATE_GET_PARAMETERS:
+            g_debug ("sane_get_parameters ()");
             status = sane_get_parameters (handle, &parameters);
             if (status != SANE_STATUS_GOOD) {
-                g_warning ("Unable to get device parameters: Error %s", sane_strstatus (status));
+                g_warning ("Unable to get device parameters: %s", sane_strstatus (status));
                 emit_signal (scanner, SCAN_FAILED,
                              g_error_new (SCANNER_TYPE, status,
                                           /* Error displayed when communication with scanner broken */
@@ -412,33 +424,45 @@ scan_thread (Scanner *scanner)
                 state = STATE_CLOSE;
             } else {
                 ScanPageInfo *info;
-                
+
                 info = g_malloc(sizeof(ScanPageInfo));
                 info->width = parameters.pixels_per_line;
                 info->height = parameters.lines;
                 info->depth = parameters.depth;
-                emit_signal (scanner, GOT_PAGE_INFO, info);
+
+                if (page_num == 0)
+                    emit_signal (scanner, GOT_PAGE_INFO, info);
+
+                /* Prepare for read */
                 bytes_remaining = parameters.bytes_per_line;
                 data = g_malloc(sizeof(SANE_Byte) * bytes_remaining);
                 line_count = 0;
                 state = STATE_READ;
             }
             break;
-            
+
         case STATE_READ:
+            g_debug ("sane_read (%d)", bytes_remaining);
             status = sane_read (handle, data, bytes_remaining, &n_read);
+            done = FALSE;
+
+            /* End of variable length frame */
             if (status == SANE_STATUS_EOF &&
                 parameters.lines == -1 &&
-                bytes_remaining == parameters.bytes_per_line) {
-                state = STATE_CLOSE;
-            } else if (status != SANE_STATUS_GOOD) {
-                g_warning ("Unable to read frame from device: Error %s", sane_strstatus (status));
+                bytes_remaining == parameters.bytes_per_line)
+                done = TRUE;
+            
+            /* Communication error */
+            else if (status != SANE_STATUS_GOOD) {
+                g_warning ("Unable to read frame from device: %s", sane_strstatus (status));
                 emit_signal (scanner, SCAN_FAILED,
                              g_error_new (SCANNER_TYPE, status,
                                           /* Error displayed when communication with scanner broken */
                                           _("Error communicating with scanner")));
                 state = STATE_CLOSE;
-            } else {
+            }
+            /* Successful read */
+            else {
                 bytes_remaining -= n_read;
                 if (bytes_remaining == 0) {
                     ScanLine *line;
@@ -467,23 +491,37 @@ scan_thread (Scanner *scanner)
                     line->data_length = parameters.bytes_per_line;
                     line->number = line_count;
                     emit_signal (scanner, GOT_LINE, line);
+                    data = NULL;
 
+                    /* On last line */
                     line_count++;
                     if (parameters.lines > 0 && line_count == parameters.lines) {
-                        data = NULL;
-                        state = STATE_CLOSE;
-                    } else {
+                        done = TRUE;
+                    }
+                    else {
                         bytes_remaining = parameters.bytes_per_line;
                         data = g_malloc(sizeof(SANE_Byte) * bytes_remaining);
                     }
+                }
+            }
+
+            /* End scan or start next frame */
+            if (done) {
+                if (parameters.last_frame)
+                    state = STATE_CLOSE;
+                else {
+                    page_num++;
+                    state = STATE_GET_PARAMETERS;
                 }
             }
             break;
             
         case STATE_CLOSE:
             emit_signal (scanner, IMAGE_DONE, NULL);
-            if (handle)
+            if (handle) {
+                g_debug ("sane_close ()");
                 sane_close (handle);
+            }
             handle = NULL;
             g_free (data);
             data = NULL;
@@ -544,9 +582,8 @@ void scanner_free (Scanner *scanner)
     g_async_queue_unref (scanner->priv->scan_queue);
     g_object_unref (scanner);
 
-    g_debug ("Closing SANE interface");
+    g_debug ("sane_exit ()");
     sane_exit ();
-    g_debug ("SANE interface closed");
 }
 
 
