@@ -179,10 +179,31 @@
                       </packing>
                     </child>
                     <child>
-                      <placeholder/>
+                      <object class="GtkLabel" id="page_mode_label">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes" comments="Label beside document type combo box">_Pages:</property>
+                        <property name="use_underline">True</property>
+                      </object>
+                      <packing>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_FILL</property>
+                      </packing>
                     </child>
                     <child>
-                      <placeholder/>
+                      <object class="GtkComboBox" id="page_mode_combo">
+                        <property name="visible">True</property>
+                        <property name="model">page_mode_store</property>
+                        <property name="button_sensitivity">on</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">2</property>
+                        <property name="bottom_attach">3</property>
+                      </packing>
                     </child>
                   </object>
                   <packing>
@@ -203,7 +224,7 @@
                         <property name="use_underline">True</property>
                         <signal name="clicked" handler="scan_button_clicked_cb"/>
                         <child>
-                          <object class="GtkLabel" id="scan_label">
+                          <object class="GtkLabel" id="scan_button_label">
                             <property name="visible">True</property>
                             <property name="label" translatable="yes" comments="Label on scan button">_Scan</property>
                             <property name="use_underline">True</property>
@@ -281,10 +302,73 @@
               </packing>
             </child>
             <child>
-              <object class="GtkDrawingArea" id="preview_area">
-                <property name="width_request">200</property>
+              <object class="GtkVBox" id="vbox4">
                 <property name="visible">True</property>
-                <signal name="expose_event" handler="preview_area_expose_event_cb"/>
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkDrawingArea" id="preview_area">
+                    <property name="width_request">200</property>
+                    <property name="visible">True</property>
+                    <signal name="expose_event" handler="preview_area_expose_event_cb"/>
+                  </object>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkHBox" id="hbox2">
+                    <property name="visible">True</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="prev_page_button">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <child>
+                          <object class="GtkImage" id="image1">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-go-back</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="page_label">
+                        <property name="visible">True</property>
+                        <property name="label">Page 1/1</property>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="next_page_button">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <child>
+                          <object class="GtkImage" id="image2">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-go-forward</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="position">1</property>
@@ -333,5 +417,27 @@
       <!-- column-name detected -->
       <column type="gboolean"/>
     </columns>
+  </object>
+  <object class="GtkListStore" id="page_mode_store">
+    <columns>
+      <!-- column-name page_mode -->
+      <column type="gchararray"/>
+      <!-- column-name label -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">single</col>
+        <col id="1" translatable="yes">Single Page</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">multiple</col>
+        <col id="1" translatable="yes">Multiple Pages</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">automatic</col>
+        <col id="1" translatable="yes">Document Feeder</col>
+      </row>
+    </data>
   </object>
 </interface>

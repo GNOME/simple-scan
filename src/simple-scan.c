@@ -38,7 +38,7 @@ static ScannedImage *raw_image = NULL;
 
 static gboolean scanning = FALSE;
 
-static int current_line;
+static int current_line = 0, page_count = 0;
 
 
 static void
@@ -84,8 +84,12 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
                                        //info->depth,
                                        info->width,
                                        height);
+    memset (gdk_pixbuf_get_pixels (raw_image->image), 0xFF,
+            gdk_pixbuf_get_height (raw_image->image) * gdk_pixbuf_get_rowstride (raw_image->image));
 
     current_line = 0;
+    page_count++;
+    ui_set_page_count (ui, page_count);
 }
 
 
@@ -139,6 +143,8 @@ scanner_line_cb (Scanner *scanner, ScanLine *line)
         image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
                                 gdk_pixbuf_get_bits_per_sample (raw_image->image),
                                 width, new_height);
+        memset (gdk_pixbuf_get_pixels (raw_image->image), 0xFF,
+                gdk_pixbuf_get_height (raw_image->image) * gdk_pixbuf_get_rowstride (raw_image->image));
         memcpy (gdk_pixbuf_get_pixels (image),
                 gdk_pixbuf_get_pixels (raw_image->image),
                 height * gdk_pixbuf_get_rowstride (raw_image->image));
@@ -367,6 +373,8 @@ render_cb (SimpleScan *ui, cairo_t *context, double width, double height)
 static void
 scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
 {
+    PageMode page_mode;
+
     g_debug ("Requesting scan of type %s from device '%s'", document_type, device);
 
     scanning = TRUE;
@@ -398,8 +406,17 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
         ui_set_default_file_name (ui, _("Scanned Document.jpeg"));
         raw_image->dpi = 75;
     }
-    
-    scanner_scan (scanner, device, raw_image->dpi);
+
+    page_mode = ui_get_page_mode (ui);
+
+    /* Start again if not using multiple scans */
+    if (page_mode != PAGE_MULTIPLE) {
+        // Clear existing pages
+        page_count = 0;
+        ui_set_page_count (ui, 0);
+    }
+
+    scanner_scan (scanner, device, raw_image->dpi, page_mode == PAGE_AUTOMATIC);
 }
 
 

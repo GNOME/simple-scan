@@ -77,7 +77,7 @@ Scanner *scanner_new ();
 
 void scanner_start (Scanner *scanner);
 
-void scanner_scan (Scanner *scanner, const char *device, gint dpi);
+void scanner_scan (Scanner *scanner, const char *device, gint dpi, gboolean multi_page);
 
 void scanner_cancel (Scanner *scanner);
 

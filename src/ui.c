@@ -35,15 +35,16 @@ struct SimpleScanPrivate
     GConfClient *client;
 
     GtkWidget *window;
-    GtkWidget *scan_label;
+    GtkWidget *scan_button_label, *page_label;
     GtkWidget *actions_box;
-    GtkWidget *device_combo, *mode_combo;
-    GtkTreeModel *device_model, *mode_model;
+    GtkWidget *device_combo, *mode_combo, *page_mode_combo;
+    GtkTreeModel *device_model, *mode_model, *page_mode_model;
     GtkWidget *preview_area;
 
     gchar *default_file_name;
     gboolean scanning;
     Orientation orientation;
+    gint selected_page, n_pages;
 };
 
 G_DEFINE_TYPE (SimpleScan, ui, G_TYPE_OBJECT);
@@ -464,6 +465,8 @@ quit (SimpleScan *ui)
     gconf_client_set_string(ui->priv->client, "/apps/simple-scan/document_type", document_type, NULL);
     g_free (document_type);
 
+    // TODO: Save page mode
+
     g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
 }
 
@@ -491,7 +494,7 @@ ui_load (SimpleScan *ui)
     GtkBuilder *builder;
     GError *error = NULL;
     GtkCellRenderer *renderer;
-    gchar *device, *document_type;
+    gchar *device, *document_type, *page_mode;
 
     builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, UI_DIR "simple-scan.ui", &error);
@@ -507,12 +510,15 @@ ui_load (SimpleScan *ui)
     gtk_builder_connect_signals (builder, ui);
 
     ui->priv->window = GTK_WIDGET (gtk_builder_get_object (builder, "simple_scan_window"));
-    ui->priv->scan_label = GTK_WIDGET (gtk_builder_get_object (builder, "scan_label"));
+    ui->priv->scan_button_label = GTK_WIDGET (gtk_builder_get_object (builder, "scan_button_label"));
+    ui->priv->page_label = GTK_WIDGET (gtk_builder_get_object (builder, "page_label"));
     ui->priv->actions_box = GTK_WIDGET (gtk_builder_get_object (builder, "actions_box"));
     ui->priv->device_combo = GTK_WIDGET (gtk_builder_get_object (builder, "device_combo"));
     ui->priv->device_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
     ui->priv->mode_combo = GTK_WIDGET (gtk_builder_get_object (builder, "mode_combo"));
     ui->priv->mode_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->mode_combo));
+    ui->priv->page_mode_combo = GTK_WIDGET (gtk_builder_get_object (builder, "page_mode_combo"));
+    ui->priv->page_mode_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->page_mode_combo));
     ui->priv->preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
 
     renderer = gtk_cell_renderer_text_new();
@@ -523,6 +529,11 @@ ui_load (SimpleScan *ui)
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->mode_combo), renderer, TRUE);
     gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->mode_combo), renderer, "text", 1);
     gtk_combo_box_set_active (GTK_COMBO_BOX (ui->priv->mode_combo), 0);
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->page_mode_combo), renderer, TRUE);
+    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->page_mode_combo), renderer, "text", 1);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (ui->priv->page_mode_combo), 0);
 
     /* Load previously detected scanners and select the last used one */
     load_device_cache (ui);
@@ -539,6 +550,14 @@ ui_load (SimpleScan *ui)
         set_document_hint (ui, document_type);
         g_free (document_type);
     }
+
+    page_mode = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/page_mode", NULL);
+    if (document_type) {
+        // FIXME
+        g_free (page_mode);
+    }
+
+    ui_set_page_count (ui, 0);
 }
 
 
@@ -554,11 +573,11 @@ ui_set_scanning (SimpleScan *ui, gboolean scanning)
 {
     ui->priv->scanning = scanning;
     if (ui->priv->scanning)
-        gtk_label_set_label (GTK_LABEL (ui->priv->scan_label),
+        gtk_label_set_label (GTK_LABEL (ui->priv->scan_button_label),
                              /* Label on cancel scan button */
                              _("_Cancel"));
     else
-        gtk_label_set_label (GTK_LABEL (ui->priv->scan_label),
+        gtk_label_set_label (GTK_LABEL (ui->priv->scan_button_label),
                              /* Label on scan button */
                              _("_Scan"));
 }
@@ -568,6 +587,46 @@ void
 ui_set_have_scan (SimpleScan *ui, gboolean have_scan)
 {
     gtk_widget_set_sensitive (ui->priv->actions_box, have_scan);
+}
+
+
+void
+ui_set_page_count (SimpleScan *ui, gint n_pages)
+{
+    GString *text;
+
+    ui->priv->n_pages = n_pages;
+    
+    text = g_string_new ("");
+    g_string_printf (text,
+                     /* Label showing which page is being viewed */
+                     _("Page %1$d of %2$d"),
+                     ui->priv->selected_page, ui->priv->n_pages);
+    gtk_label_set_label (GTK_LABEL (ui->priv->page_label), text->str);
+    g_string_free (text, TRUE);
+}
+
+
+PageMode
+ui_get_page_mode (SimpleScan *ui)
+{
+    GtkTreeIter iter;
+    PageMode mode = PAGE_SINGLE;
+
+    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->page_mode_combo), &iter)) {
+        gchar *mode_name;
+        gtk_tree_model_get (ui->priv->page_mode_model, &iter, 0, &mode_name, -1);
+
+        if (strcmp (mode_name, "single") == 0)
+            mode = PAGE_SINGLE;
+        else if (strcmp (mode_name, "multiple") == 0)
+            mode = PAGE_MULTIPLE;
+        else if (strcmp (mode_name, "automatic") == 0)
+            mode = PAGE_AUTOMATIC;
+        g_free (mode_name);
+    }
+
+    return mode;
 }
 
 
@@ -759,6 +818,6 @@ ui_init (SimpleScan *ui)
     ui->priv->default_file_name = g_strdup (_("Scanned Document.pdf"));
     ui->priv->scanning = FALSE;
     ui->priv->orientation = TOP_TO_BOTTOM;
-
+    ui->priv->selected_page = 0;
     ui_load (ui);
 }

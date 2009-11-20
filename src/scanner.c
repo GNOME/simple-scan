@@ -35,6 +35,13 @@ typedef struct
     gpointer data;
 } SignalInfo;
 
+typedef struct
+{
+    gchar *device;
+    gint dpi;
+    gboolean multi_page;
+} ScanRequest;
+
 typedef enum
 {
     STATE_IDLE = 0,
@@ -48,7 +55,6 @@ typedef enum
 struct ScannerPrivate
 {
     GAsyncQueue *scan_queue;
-    gint dpi;
     gboolean running;
     GThread *thread;
 };
@@ -184,20 +190,13 @@ set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_I
 
 
 static void
-set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, SANE_Fixed value)
+set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, double value)
 {
-    SANE_Fixed v = value;
+    SANE_Fixed v = SANE_FIX (value);
 
     g_return_if_fail (option->type == SANE_TYPE_FIXED);
 
-    if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
-        v *= option->constraint.range->quant;
-        if (v < option->constraint.range->min)
-            v = option->constraint.range->min;
-        if (v > option->constraint.range->max)
-            v = option->constraint.range->max;
-    }
-    g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %d)", option_index, value);
+    g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %f)", option_index, value);
     sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v, NULL);
 }
 
@@ -226,6 +225,7 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
     GString *string;
     SANE_String_Const *string_iter;
     SANE_Word i;
+    SANE_Int cap;
     
     string = g_string_new ("");
 
@@ -255,6 +255,8 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
         g_string_append_printf (string, " type=%d", option->type);
         break;
     }
+    
+    g_string_append_printf (string, " size=%d", option->size);
 
     switch (option->unit) {
     case SANE_UNIT_NONE:
@@ -309,6 +311,42 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
     default:
         break;
     }
+    
+    cap = option->cap;
+    if (cap) {
+        struct {
+            SANE_Int cap;
+            const char *name;
+        } caps[] = {
+            { SANE_CAP_SOFT_SELECT,     "soft-select"},
+            { SANE_CAP_HARD_SELECT,     "hard-select"},
+            { SANE_CAP_SOFT_DETECT,     "soft-detect"},
+            { SANE_CAP_EMULATED,        "emulated"},
+            { SANE_CAP_AUTOMATIC,       "automatic"},
+            { SANE_CAP_INACTIVE,        "inactive"},
+            { SANE_CAP_ADVANCED,        "advanced"},
+            { SANE_CAP_ALWAYS_SETTABLE, "always-settable"},
+            { 0,                        NULL}
+        };
+        int i, n = 0;
+        
+        g_string_append (string, " cap=");
+        for (i = 0; caps[i].cap > 0; i++) {
+            if (cap & caps[i].cap) {
+                cap &= ~caps[i].cap;
+                if (n != 0)
+                    g_string_append (string, ",");
+                g_string_append (string, caps[i].name);
+                n++;
+            }
+        }
+        /* Unknown capabilities */
+        if (cap) {
+            if (n != 0)
+                g_string_append (string, ",");
+            g_string_append_printf (string, "%x", cap);
+        }
+    }
 
     g_debug ("%s", string->str);
     g_string_free (string, TRUE);
@@ -321,17 +359,17 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
 static gpointer
 scan_thread (Scanner *scanner)
 {
-    gchar *device;
+    ScanRequest *request;
     SANE_Status status;
     SANE_Handle handle = NULL;
     SANE_Parameters parameters;
     const SANE_Option_Descriptor *option;
     SANE_Int option_index = 0;
     ScanState state = STATE_IDLE;
-    SANE_Int bytes_remaining, line_count = 0, n_read, pass_number;
+    SANE_Int bytes_remaining = 0, line_count = 0, n_read = 0, pass_number = 0, page_number = 0, notified_page = -1;
     SANE_Byte *data;
     SANE_Int version_code;
-    gboolean done;
+    gboolean done = FALSE;
 
     g_debug ("sane_init ()");
     status = sane_init (&version_code, NULL);
@@ -345,10 +383,10 @@ scan_thread (Scanner *scanner)
              SANE_VERSION_BUILD(version_code));
 
     while (scanner->priv->running) {
-        /* Get device to use */
+        /* Look for requests */
         if (state == STATE_IDLE) {
             GTimeVal timeout = { 1, 0 };
-            device = g_async_queue_timed_pop (scanner->priv->scan_queue, &timeout);
+            request = g_async_queue_timed_pop (scanner->priv->scan_queue, &timeout);
         } else if (state != STATE_CLOSE) {
             if (g_async_queue_length (scanner->priv->scan_queue) > 0)
                 state = STATE_CLOSE;
@@ -360,11 +398,11 @@ scan_thread (Scanner *scanner)
         
         switch (state) {
         case STATE_IDLE:
-            if (device == NULL) {
+            if (request == NULL) {
                 poll_for_devices (scanner);
-            } else if (device[0] != '\0') {
-                g_debug ("sane_open (\"%s\")", device);
-                status = sane_open (device, &handle);
+            } else if (request->device[0] != '\0') {
+                g_debug ("sane_open (\"%s\")", request->device);
+                status = sane_open (request->device, &handle);
                 if (status != SANE_STATUS_GOOD) {
                     g_warning ("Unable to get open device: %s", sane_strstatus (status));
                     emit_signal (scanner, SCAN_FAILED,
@@ -377,6 +415,8 @@ scan_thread (Scanner *scanner)
                     state = STATE_GET_OPTION;
                     option_index = 0;
                     pass_number = 0;
+                    page_number = 0;
+                    notified_page = -1;
                 }
             }
             break;
@@ -390,13 +430,16 @@ scan_thread (Scanner *scanner)
                 log_option (option_index, option);
                 if (option->name) {
                     if (strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
-                        set_fixed_option (handle, option, option_index, scanner->priv->dpi);
+                        if (option->type == SANE_TYPE_FIXED)
+                            set_fixed_option (handle, option, option_index, request->dpi);
+                        else
+                            set_int_option (handle, option, option_index, request->dpi);                            
                     }
 #if 0
                     /* Test scanner options */
                     else if (strcmp (option->name, "source") == 0) {
-                        //set_string_option (handle, option, option_index, "Automatic Document Feeder");
-                        set_string_option (handle, option, option_index, "Flatbed");
+                        set_string_option (handle, option, option_index, "Automatic Document Feeder");
+                        //set_string_option (handle, option, option_index, "Flatbed");
                     }
                     else if (strcmp (option->name, "depth") == 0) {
                         set_int_option (handle, option, option_index, 8);
@@ -427,17 +470,21 @@ scan_thread (Scanner *scanner)
             break;
             
         case STATE_START:
-            g_debug ("sane_start ()");
+            g_debug ("sane_start (page=%d, pass=%d)", page_number, pass_number);
             status = sane_start (handle);
-            if (status != SANE_STATUS_GOOD) {
+            if (status == SANE_STATUS_GOOD) {
+                state = STATE_GET_PARAMETERS;
+            }
+            else if (status == SANE_STATUS_NO_DOCS) {
+                state = STATE_CLOSE;
+            }
+            else {
                 g_warning ("Unable to start device: %s", sane_strstatus (status));
                 emit_signal (scanner, SCAN_FAILED,
                              g_error_new (SCANNER_TYPE, status,
                                           /* Error display when unable to start scan */
                                           _("Unable to start scan")));
                 state = STATE_CLOSE;
-            } else {
-                state = STATE_GET_PARAMETERS;
             }
             break;
             
@@ -459,8 +506,10 @@ scan_thread (Scanner *scanner)
                 info->height = parameters.lines;
                 info->depth = parameters.depth;
 
-                if (pass_number == 0)
+                if (page_number != notified_page) {
                     emit_signal (scanner, GOT_PAGE_INFO, info);
+                    notified_page = page_number;
+                }
 
                 /* Prepare for read */
                 bytes_remaining = parameters.bytes_per_line;
@@ -536,15 +585,23 @@ scan_thread (Scanner *scanner)
 
             /* End scan or start next frame */
             if (done) {
-                if (parameters.last_frame)
-                    state = STATE_CLOSE;
+                if (parameters.last_frame) {
+                    pass_number = 0;
+                    if (request->multi_page) {
+                        page_number++;
+                        emit_signal (scanner, IMAGE_DONE, NULL);
+                        state = STATE_START;
+                    }
+                    else
+                        state = STATE_CLOSE;
+                }
                 else {
                     pass_number++;
                     state = STATE_START;
                 }
             }
             break;
-            
+
         case STATE_CLOSE:
             emit_signal (scanner, IMAGE_DONE, NULL);
             if (handle) {
@@ -554,8 +611,9 @@ scan_thread (Scanner *scanner)
             handle = NULL;
             g_free (data);
             data = NULL;
-            g_free (device);
-            device = NULL;
+            g_free (request->device);
+            g_free (request);
+            request = NULL;
             state = STATE_IDLE;
             emit_signal (scanner, READY, NULL);            
             break;
@@ -586,17 +644,23 @@ scanner_start (Scanner *scanner)
 
 
 void
-scanner_scan (Scanner *scanner, const char *device, gint dpi_)
+scanner_scan (Scanner *scanner, const char *device, gint dpi, gboolean multi_page)
 {
-    scanner->priv->dpi = dpi_;
-    g_async_queue_push (scanner->priv->scan_queue, g_strdup (device));    
+    ScanRequest *request;
+
+    g_debug ("scanner_scan (\"%s\", %d, %s)", device ? device : "(null)", dpi, multi_page ? "TRUE" : "FALSE");
+    request = g_malloc0 (sizeof (ScanRequest));
+    request->device = g_strdup (device);
+    request->dpi = dpi;
+    request->multi_page = multi_page;
+    g_async_queue_push (scanner->priv->scan_queue, request);
 }
 
 
 void
 scanner_cancel (Scanner *scanner)
 {
-    g_async_queue_push (scanner->priv->scan_queue, "");
+    scanner_scan (scanner, NULL, 0, FALSE);
 }
 
 

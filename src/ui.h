@@ -27,6 +27,13 @@ typedef enum
     RIGHT_TO_LEFT
 } Orientation;
 
+typedef enum
+{
+    PAGE_SINGLE,
+    PAGE_MULTIPLE,
+    PAGE_AUTOMATIC
+} PageMode;
+
 
 typedef struct SimpleScanPrivate SimpleScanPrivate;
 
@@ -62,6 +69,10 @@ void ui_set_selected_device (SimpleScan *ui, const gchar *device);
 void ui_set_scanning (SimpleScan *ui, gboolean scanning);
 
 void ui_set_have_scan (SimpleScan *ui, gboolean have_scan);
+
+void ui_set_page_count (SimpleScan *ui, gint n_pages);
+
+PageMode ui_get_page_mode (SimpleScan *ui);
 
 Orientation ui_get_orientation (SimpleScan *ui);
 
