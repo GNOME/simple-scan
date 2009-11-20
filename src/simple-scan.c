@@ -46,6 +46,7 @@ scanner_ready_cb (Scanner *scanner)
 {
     scanning = FALSE;
     ui_set_scanning (ui, FALSE);
+    ui_redraw_preview (ui);
 }
 
 
@@ -90,6 +91,7 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
     current_line = 0;
     page_count++;
     ui_set_page_count (ui, page_count);
+    ui_set_selected_page (ui, page_count);
 }
 
 
@@ -380,6 +382,7 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
     scanning = TRUE;
     ui_set_have_scan (ui, FALSE);
     ui_set_scanning (ui, TRUE);
+    ui_redraw_preview (ui);
     
     // FIXME: Translate
     if (strcmp (document_type, "photo") == 0) {
@@ -413,10 +416,13 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
     if (page_mode != PAGE_MULTIPLE) {
         // Clear existing pages
         page_count = 0;
-        ui_set_page_count (ui, 0);
+        ui_set_page_count (ui, 1);
+        ui_set_selected_page (ui, 1);
     }
 
-    scanner_scan (scanner, device, raw_image->dpi, page_mode == PAGE_AUTOMATIC);
+    scanner_scan (scanner, device, NULL, raw_image->dpi, NULL, 8, page_mode == PAGE_AUTOMATIC);
+    //scanner_scan (scanner, device, "Flatbed", 50, "Color", 8, page_mode == PAGE_AUTOMATIC);
+    //scanner_scan (scanner, device, "Automatic Document Feeder", 50, "Color", 8, page_mode == PAGE_AUTOMATIC);
 }
 
 
@@ -724,6 +730,9 @@ main(int argc, char **argv)
     g_signal_connect (ui, "save", G_CALLBACK (save_cb), NULL);
     g_signal_connect (ui, "print", G_CALLBACK (print_cb), NULL);
     g_signal_connect (ui, "quit", G_CALLBACK (quit_cb), NULL);
+    
+    ui_set_page_count (ui, 1);
+    ui_set_selected_page (ui, 1);
 
     scanner = scanner_new ();
     g_signal_connect (G_OBJECT (scanner), "ready", G_CALLBACK (scanner_ready_cb), NULL);

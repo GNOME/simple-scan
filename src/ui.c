@@ -174,6 +174,44 @@ get_document_hint (SimpleScan *ui)
 }
 
 
+static void
+set_page_mode (SimpleScan *ui, const gchar *page_mode)
+{
+    GtkTreeIter iter;
+
+    if (gtk_tree_model_get_iter_first (ui->priv->page_mode_model, &iter)) {
+        do {
+            gchar *d;
+            gboolean have_match;
+
+            gtk_tree_model_get (ui->priv->page_mode_model, &iter, 0, &d, -1);
+            have_match = strcmp (d, page_mode) == 0;
+            g_free (d);
+
+            if (have_match) {
+                gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->page_mode_combo), &iter);                
+                return;
+            }
+        } while (gtk_tree_model_iter_next (ui->priv->page_mode_model, &iter));
+     }
+}
+
+
+char *
+get_page_mode (SimpleScan *ui)
+{
+    GtkTreeIter iter;
+
+    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->page_mode_combo), &iter)) {
+        gchar *mode_name;
+        gtk_tree_model_get (ui->priv->page_mode_model, &iter, 0, &mode_name, -1);
+        return mode_name;
+    }
+
+    return NULL;
+}
+
+
 G_MODULE_EXPORT
 gboolean
 preview_area_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, SimpleScan *ui)
@@ -451,7 +489,7 @@ about_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
 static void
 quit (SimpleScan *ui)
 {
-    char *device, *document_type;
+    char *device, *document_type, *page_mode;
 
     save_device_cache (ui);
 
@@ -465,7 +503,9 @@ quit (SimpleScan *ui)
     gconf_client_set_string(ui->priv->client, "/apps/simple-scan/document_type", document_type, NULL);
     g_free (document_type);
 
-    // TODO: Save page mode
+    page_mode = get_page_mode (ui);
+    gconf_client_set_string(ui->priv->client, "/apps/simple-scan/page_mode", page_mode, NULL);
+    g_free (page_mode);
 
     g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
 }
@@ -552,8 +592,8 @@ ui_load (SimpleScan *ui)
     }
 
     page_mode = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/page_mode", NULL);
-    if (document_type) {
-        // FIXME
+    if (page_mode) {
+        set_page_mode (ui, page_mode);
         g_free (page_mode);
     }
 
@@ -590,13 +630,11 @@ ui_set_have_scan (SimpleScan *ui, gboolean have_scan)
 }
 
 
-void
-ui_set_page_count (SimpleScan *ui, gint n_pages)
+static void
+update_page_label (SimpleScan *ui)
 {
     GString *text;
 
-    ui->priv->n_pages = n_pages;
-    
     text = g_string_new ("");
     g_string_printf (text,
                      /* Label showing which page is being viewed */
@@ -607,24 +645,36 @@ ui_set_page_count (SimpleScan *ui, gint n_pages)
 }
 
 
+void
+ui_set_page_count (SimpleScan *ui, gint n_pages)
+{
+    ui->priv->n_pages = n_pages;
+    update_page_label (ui);
+}
+
+
+void
+ui_set_selected_page (SimpleScan *ui, gint page_number)
+{
+    ui->priv->selected_page = page_number;
+    update_page_label (ui);
+}
+
+
 PageMode
 ui_get_page_mode (SimpleScan *ui)
 {
-    GtkTreeIter iter;
+    gchar *mode_name;
     PageMode mode = PAGE_SINGLE;
 
-    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->page_mode_combo), &iter)) {
-        gchar *mode_name;
-        gtk_tree_model_get (ui->priv->page_mode_model, &iter, 0, &mode_name, -1);
-
-        if (strcmp (mode_name, "single") == 0)
-            mode = PAGE_SINGLE;
-        else if (strcmp (mode_name, "multiple") == 0)
-            mode = PAGE_MULTIPLE;
-        else if (strcmp (mode_name, "automatic") == 0)
-            mode = PAGE_AUTOMATIC;
-        g_free (mode_name);
-    }
+    mode_name = get_page_mode (ui);
+    if (mode_name == NULL || strcmp (mode_name, "single") == 0)
+        mode = PAGE_SINGLE;
+    else if (strcmp (mode_name, "multiple") == 0)
+        mode = PAGE_MULTIPLE;
+    else if (strcmp (mode_name, "automatic") == 0)
+        mode = PAGE_AUTOMATIC;
+    g_free (mode_name);
 
     return mode;
 }

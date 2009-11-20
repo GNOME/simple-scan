@@ -38,7 +38,10 @@ typedef struct
 typedef struct
 {
     gchar *device;
+    gchar *source;
     gint dpi;
+    gchar *scan_mode;
+    gint depth;
     gboolean multi_page;
 } ScanRequest;
 
@@ -435,18 +438,20 @@ scan_thread (Scanner *scanner)
                         else
                             set_int_option (handle, option, option_index, request->dpi);                            
                     }
-#if 0
-                    /* Test scanner options */
-                    else if (strcmp (option->name, "source") == 0) {
-                        set_string_option (handle, option, option_index, "Automatic Document Feeder");
-                        //set_string_option (handle, option, option_index, "Flatbed");
+                    else if (strcmp (option->name, SANE_NAME_SCAN_SOURCE) == 0) {
+                        if (request->source)
+                            set_string_option (handle, option, option_index, request->source);
                     }
-                    else if (strcmp (option->name, "depth") == 0) {
-                        set_int_option (handle, option, option_index, 8);
+                    else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
+                        if (request->depth > 0)
+                            set_int_option (handle, option, option_index, request->depth);
                     }
-                    else if (strcmp (option->name, "mode") == 0) {
-                        set_string_option (handle, option, option_index, "Color");
+                    else if (strcmp (option->name, SANE_NAME_SCAN_MODE) == 0) {
+                        if (request->scan_mode)
+                            set_string_option (handle, option, option_index, request->scan_mode);
                     }
+
+                    /* Test scanner options (hoping will not effect other scanners...) */
                     else if (strcmp (option->name, "hand-scanner") == 0) {
                         set_bool_option (handle, option, option_index, FALSE);
                     }
@@ -463,7 +468,6 @@ scan_thread (Scanner *scanner)
                     else if (strcmp (option->name, "read-delay-duration") == 0) {
                         set_int_option (handle, option, option_index, 200000);
                     }
-#endif                    
                 }
                 option_index++;
             }
@@ -612,6 +616,8 @@ scan_thread (Scanner *scanner)
             g_free (data);
             data = NULL;
             g_free (request->device);
+            g_free (request->source);
+            g_free (request->scan_mode);
             g_free (request);
             request = NULL;
             state = STATE_IDLE;
@@ -644,14 +650,20 @@ scanner_start (Scanner *scanner)
 
 
 void
-scanner_scan (Scanner *scanner, const char *device, gint dpi, gboolean multi_page)
+scanner_scan (Scanner *scanner, const char *device, const char *source,
+              gint dpi, const char *scan_mode, gint depth, gboolean multi_page)
 {
     ScanRequest *request;
 
     g_debug ("scanner_scan (\"%s\", %d, %s)", device ? device : "(null)", dpi, multi_page ? "TRUE" : "FALSE");
     request = g_malloc0 (sizeof (ScanRequest));
     request->device = g_strdup (device);
+    if (source)
+        request->source = g_strdup (source);
     request->dpi = dpi;
+    if (scan_mode)
+        request->scan_mode = g_strdup (scan_mode);
+    request->depth = depth;
     request->multi_page = multi_page;
     g_async_queue_push (scanner->priv->scan_queue, request);
 }
@@ -660,7 +672,7 @@ scanner_scan (Scanner *scanner, const char *device, gint dpi, gboolean multi_pag
 void
 scanner_cancel (Scanner *scanner)
 {
-    scanner_scan (scanner, NULL, 0, FALSE);
+    scanner_scan (scanner, NULL, NULL, 0, NULL, 0, FALSE);
 }
 
 

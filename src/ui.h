@@ -72,6 +72,8 @@ void ui_set_have_scan (SimpleScan *ui, gboolean have_scan);
 
 void ui_set_page_count (SimpleScan *ui, gint n_pages);
 
+void ui_set_selected_page (SimpleScan *ui, gint page_number);
+
 PageMode ui_get_page_mode (SimpleScan *ui);
 
 Orientation ui_get_orientation (SimpleScan *ui);
