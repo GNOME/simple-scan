@@ -403,7 +403,7 @@ scan_thread (Scanner *scanner)
         case STATE_IDLE:
             if (request == NULL) {
                 poll_for_devices (scanner);
-            } else if (request->device[0] != '\0') {
+            } else if (request->device) {
                 g_debug ("sane_open (\"%s\")", request->device);
                 status = sane_open (request->device, &handle);
                 if (status != SANE_STATUS_GOOD) {
@@ -657,7 +657,8 @@ scanner_scan (Scanner *scanner, const char *device, const char *source,
 
     g_debug ("scanner_scan (\"%s\", %d, %s)", device ? device : "(null)", dpi, multi_page ? "TRUE" : "FALSE");
     request = g_malloc0 (sizeof (ScanRequest));
-    request->device = g_strdup (device);
+    if (device)
+        request->device = g_strdup (device);
     if (source)
         request->source = g_strdup (source);
     request->dpi = dpi;
