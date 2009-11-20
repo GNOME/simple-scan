@@ -18,7 +18,6 @@
 #include <cairo/cairo-ps.h>
 #include <math.h>
 
-#include "config.h"
 #include "ui.h"
 #include "scanner.h"
 

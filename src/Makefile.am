@@ -9,6 +9,7 @@ simple_scan_SOURCES = \
 	
 simple_scan_CFLAGS = \
 	$(SIMPLE_SCAN_CFLAGS) \
+	-DVERSION=\"$(VERSION)\" \
 	-DUI_DIR=\"$(datadir)/simple-scan/\" \
 	-DSIMPLE_SCAN_BINARY=\"simple-scan\"
 

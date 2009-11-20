@@ -4,76 +4,272 @@
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="simple_scan_window">
     <property name="visible">True</property>
-    <property name="border_width">18</property>
     <property name="title" translatable="yes" comments="Title of scan window">Scan Document</property>
     <signal name="delete_event" handler="window_delete_event_cb"/>
     <child>
-      <object class="GtkHBox" id="hbox1">
+      <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <property name="spacing">15</property>
+        <property name="orientation">vertical</property>
         <child>
-          <object class="GtkVBox" id="vbox1">
+          <object class="GtkMenuBar" id="menubar1">
             <property name="visible">True</property>
-            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkMenuItem" id="scanner_menu">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Scanner</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu1">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkImageMenuItem" id="new_menuitem">
+                        <property name="label">gtk-new</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="save_menuitem">
+                        <property name="label">gtk-save</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="save_file_button_clicked_cb"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="print_menuitem">
+                        <property name="label">gtk-print</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="print_button_clicked_cb"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="separatormenuitem1">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="quit_menuitem">
+                        <property name="label">gtk-quit</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="quit_menuitem_activate_cb"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="image_menu">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Image</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu2">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkMenuItem" id="rotate_menuitem">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">_Rotate</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="rotate_button_clicked_cb"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="help_menu">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">_Help</property>
+                <property name="use_underline">True</property>
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu3">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkImageMenuItem" id="about_menuitem">
+                        <property name="label">gtk-about</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="about_menuitem_activate_cb"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox1">
+            <property name="visible">True</property>
+            <property name="border_width">18</property>
             <property name="spacing">15</property>
             <child>
-              <object class="GtkTable" id="table1">
+              <object class="GtkVBox" id="vbox2">
                 <property name="visible">True</property>
-                <property name="n_rows">3</property>
-                <property name="n_columns">2</property>
-                <property name="column_spacing">6</property>
-                <property name="row_spacing">6</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">15</property>
                 <child>
-                  <object class="GtkLabel" id="device_label">
+                  <object class="GtkTable" id="table1">
                     <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes" comments="Label beside scan device combo box">Scan Source:</property>
+                    <property name="n_rows">3</property>
+                    <property name="n_columns">2</property>
+                    <property name="column_spacing">6</property>
+                    <property name="row_spacing">6</property>
+                    <child>
+                      <object class="GtkLabel" id="device_label">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes" comments="Label beside scan device combo box">Scan Source:</property>
+                      </object>
+                      <packing>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_FILL</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="mode_label">
+                        <property name="visible">True</property>
+                        <property name="xalign">0</property>
+                        <property name="label" translatable="yes" comments="Label beside document type combo box">_Document Type:</property>
+                        <property name="use_underline">True</property>
+                      </object>
+                      <packing>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_FILL</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="device_combo">
+                        <property name="visible">True</property>
+                        <property name="model">device_store</property>
+                        <property name="button_sensitivity">on</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="mode_combo">
+                        <property name="visible">True</property>
+                        <property name="model">mode_store</property>
+                        <property name="button_sensitivity">on</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                   <packing>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options">GTK_FILL</property>
+                    <property name="expand">False</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="mode_label">
+                  <object class="GtkVBox" id="vbox3">
                     <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes" comments="Label beside document type combo box">_Document Type:</property>
-                    <property name="use_underline">True</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="scan_button">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="use_underline">True</property>
+                        <signal name="clicked" handler="scan_button_clicked_cb"/>
+                        <child>
+                          <object class="GtkLabel" id="scan_label">
+                            <property name="visible">True</property>
+                            <property name="label" translatable="yes" comments="Label on scan button">_Scan</property>
+                            <property name="use_underline">True</property>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="rotate_button">
+                        <property name="label" translatable="yes" comments="Label on button that rotates image">_Rotate</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="use_underline">True</property>
+                        <signal name="clicked" handler="rotate_button_clicked_cb"/>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
                   </object>
                   <packing>
-                    <property name="top_attach">1</property>
-                    <property name="bottom_attach">2</property>
-                    <property name="x_options">GTK_FILL</property>
-                    <property name="y_options">GTK_FILL</property>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBox" id="device_combo">
+                  <object class="GtkVBox" id="actions_box">
                     <property name="visible">True</property>
-                    <property name="model">device_store</property>
-                    <property name="button_sensitivity">on</property>
+                    <property name="sensitive">False</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="save_file_button">
+                        <property name="label" translatable="yes" comments="Label on button that saves image to file">_Save to Filesystem</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="use_underline">True</property>
+                        <signal name="clicked" handler="save_file_button_clicked_cb"/>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="print_button">
+                        <property name="label" translatable="yes" comments="Label on print scanned image button">_Print</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="use_underline">True</property>
+                        <signal name="clicked" handler="print_button_clicked_cb"/>
+                      </object>
+                      <packing>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
                   </object>
                   <packing>
-                    <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
+                    <property name="expand">False</property>
+                    <property name="position">2</property>
                   </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBox" id="mode_combo">
-                    <property name="visible">True</property>
-                    <property name="model">mode_store</property>
-                    <property name="button_sensitivity">on</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="right_attach">2</property>
-                    <property name="top_attach">1</property>
-                    <property name="bottom_attach">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
                 <child>
                   <placeholder/>
@@ -85,100 +281,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox3">
+              <object class="GtkDrawingArea" id="preview_area">
+                <property name="width_request">200</property>
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkButton" id="scan_button">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="use_underline">True</property>
-                    <signal name="clicked" handler="scan_button_clicked_cb"/>
-                    <child>
-                      <object class="GtkLabel" id="scan_label">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes" comments="Label on scan button">_Scan</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="rotate_button">
-                    <property name="label" translatable="yes" comments="Label on button that rotates image">_Rotate</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="use_underline">True</property>
-                    <signal name="clicked" handler="rotate_button_clicked_cb"/>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
+                <signal name="expose_event" handler="preview_area_expose_event_cb"/>
               </object>
               <packing>
-                <property name="expand">False</property>
                 <property name="position">1</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkVBox" id="actions_box">
-                <property name="visible">True</property>
-                <property name="sensitive">False</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkButton" id="save_file_button">
-                    <property name="label" translatable="yes" comments="Label on button that saves image to file">_Save to Filesystem</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="use_underline">True</property>
-                    <signal name="clicked" handler="save_file_button_clicked_cb"/>
-                  </object>
-                  <packing>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkButton" id="print_button">
-                    <property name="label" translatable="yes" comments="Label on print scanned image button">_Print</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="use_underline">True</property>
-                    <signal name="clicked" handler="print_button_clicked_cb"/>
-                  </object>
-                  <packing>
-                    <property name="position">3</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkDrawingArea" id="preview_area">
-            <property name="width_request">200</property>
-            <property name="visible">True</property>
-            <signal name="expose_event" handler="preview_area_expose_event_cb"/>
           </object>
           <packing>
             <property name="position">1</property>

@@ -409,8 +409,46 @@ save_device_cache (SimpleScan *ui)
 
 
 G_MODULE_EXPORT
-gboolean
-window_delete_event_cb (GtkWidget *widget, GdkEvent *event, SimpleScan *ui)
+void
+about_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    const gchar *authors[] = { "Robert Ancell <robert.ancell@canonical.com>", NULL };
+
+    /* The license this software is under (GPL3+) */
+    const char *license = _("This program is free software: you can redistribute it and/or modify\n"
+                            "it under the terms of the GNU General Public License as published by\n"
+                            "the Free Software Foundation, either version 3 of the License, or\n"
+                            "(at your option) any later version.\n"
+                            "\n"
+                            "This program is distributed in the hope that it will be useful,\n"
+                            "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+                            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+                            "GNU General Public License for more details.\n"
+                            "\n"
+                            "You should have received a copy of the GNU General Public License\n"
+                            "along with this program.  If not, see <http://www.gnu.org/licenses/>.");
+
+    /* Title of about dialog */
+    const char *title = _("About Simple Scan");
+
+    /* Description of program */
+    const char *description = _("Simple document scanning tool");
+
+    gtk_show_about_dialog (GTK_WINDOW (ui->priv->window),
+                           "title", title,
+                           "program-name", "Simple Scan",
+                           "version", VERSION,
+                           "comments", description,
+                           "authors", authors,
+                           "website", "https://launchpad.net/simple-scan",
+                           "copyright", "Copyright (C) 2009 Canonical Ltd.",
+                           "license", license,
+                           NULL);
+}
+
+
+static void
+quit (SimpleScan *ui)
 {
     char *device, *document_type;
 
@@ -427,6 +465,22 @@ window_delete_event_cb (GtkWidget *widget, GdkEvent *event, SimpleScan *ui)
     g_free (document_type);
 
     g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
+}
+
+
+G_MODULE_EXPORT
+void
+quit_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    quit (ui);
+}
+
+
+G_MODULE_EXPORT
+gboolean
+window_delete_event_cb (GtkWidget *widget, GdkEvent *event, SimpleScan *ui)
+{
+    quit (ui);
     return TRUE;
 }
 

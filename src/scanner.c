@@ -411,13 +411,14 @@ scan_thread (Scanner *scanner)
                         set_bool_option (handle, option, option_index, FALSE);
                     }                    
                     else if (strcmp (option->name, "test-picture") == 0) {
-                        set_string_option (handle, option, option_index, "Color pattern");
+                        //set_string_option (handle, option, option_index, "Color pattern");
+                        set_string_option (handle, option, option_index, "Solid white");
                     }
                     else if (strcmp (option->name, "read-delay") == 0) {
                         set_bool_option (handle, option, option_index, TRUE);
                     }
                     else if (strcmp (option->name, "read-delay-duration") == 0) {
-                        set_int_option (handle, option, option_index, 100000);
+                        set_int_option (handle, option, option_index, 200000);
                     }
 #endif                    
                 }
