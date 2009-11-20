@@ -392,13 +392,20 @@ scan_thread (Scanner *scanner)
                     if (strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
                         set_fixed_option (handle, option, option_index, scanner->priv->dpi);
                     }
-#if 0                    
+#if 0
                     /* Test scanner options */
+                    else if (strcmp (option->name, "source") == 0) {
+                        //set_string_option (handle, option, option_index, "Automatic Document Feeder");
+                        set_string_option (handle, option, option_index, "Flatbed");
+                    }
                     else if (strcmp (option->name, "depth") == 0) {
-                        set_int_option (handle, option, option_index, 1);
+                        set_int_option (handle, option, option_index, 8);
                     }
                     else if (strcmp (option->name, "mode") == 0) {
                         set_string_option (handle, option, option_index, "Color");
+                    }
+                    else if (strcmp (option->name, "hand-scanner") == 0) {
+                        set_bool_option (handle, option, option_index, FALSE);
                     }
                     else if (strcmp (option->name, "three-pass") == 0) {
                         set_bool_option (handle, option, option_index, FALSE);
