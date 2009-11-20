@@ -37,7 +37,7 @@ typedef struct
 
 static ScannedImage *raw_image = NULL;
 
-static gboolean scan_complete = FALSE;
+static gboolean scanning = FALSE;
 
 static int current_line;
 
@@ -45,6 +45,7 @@ static int current_line;
 static void
 scanner_ready_cb (Scanner *scanner)
 {
+    scanning = FALSE;
     ui_set_scanning (ui, FALSE);
 }
 
@@ -86,7 +87,6 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
                                        height);
 
     current_line = 0;
-    scan_complete = FALSE;
 }
 
 
@@ -224,9 +224,8 @@ scanner_image_done_cb (Scanner *scanner)
         raw_image->image = image;
     }
 
-    scan_complete = TRUE;
     ui_redraw_preview (ui);
-    ui_set_have_scan (ui, raw_image->image != NULL);
+    ui_set_have_scan (ui, TRUE);
 }
 
 
@@ -243,9 +242,11 @@ scanner_failed_cb (Scanner *scanner, GError *error)
 static void
 render_scan (cairo_t *context, ScannedImage *image, Orientation orientation, double canvas_width, double canvas_height, gboolean show_scan_line)
 {
+    double inner_width, inner_height;
     double orig_img_width, orig_img_height, img_width, img_height;
-    double source_aspect, canvas_aspect;
+    double source_aspect, inner_aspect;
     double x_offset = 0.0, y_offset = 0.0, scale = 1.0, rotation = 0.0;
+    double left_border = 1.0, right_border = 1.0, top_border = 1.0, bottom_border = 1.0;
 
     orig_img_width = img_width = gdk_pixbuf_get_width (image->image);
     orig_img_height = img_height = gdk_pixbuf_get_height (image->image);
@@ -268,76 +269,89 @@ render_scan (cairo_t *context, ScannedImage *image, Orientation orientation, dou
         rotation = M_PI_2;
         break;
     }
+    
+    /* Area available for page inside canvas */
+    inner_width = canvas_width - left_border - right_border;
+    inner_height = canvas_height - top_border - bottom_border;
 
     /* Scale if cannot fit into canvas */
-    if (img_width > canvas_width || img_height > canvas_height) {
-        canvas_aspect = canvas_width / canvas_height;
+    if (img_width > inner_width || img_height > inner_height) {
+        inner_aspect = inner_width / inner_height;
         source_aspect = img_width / img_height;
 
         /* Scale to canvas height */
-        if (canvas_aspect > source_aspect) {
-            scale = canvas_height / img_height;
-            x_offset = (int) (canvas_width - (img_width * scale)) / 2;
+        if (inner_aspect > source_aspect) {
+            scale = inner_height / img_height;
+            x_offset = (int) (inner_width - (img_width * scale)) / 2;
         }
         /* Otherwise scale to canvas width */
         else {
-            scale = canvas_width / img_width;
-            y_offset = (int) (canvas_height - (img_height * scale)) / 2;
+            scale = inner_width / img_width;
+            y_offset = (int) (inner_height - (img_height * scale)) / 2;
         }
     /* Otherwise just center */
     } else {
-        if (canvas_width > img_width)
-            x_offset = (int) (canvas_width - img_width) / 2;
-        if (canvas_height > img_height)
-            y_offset = (int) (canvas_height - img_height) / 2;
+        if (inner_width > img_width)
+            x_offset = (int) (inner_width - img_width) / 2;
+        if (inner_height > img_height)
+            y_offset = (int) (inner_height - img_height) / 2;
     }
+    x_offset += left_border;
+    y_offset += top_border;
     
-    /* Render the image */
     cairo_save (context);
-    
+
     cairo_translate (context, x_offset, y_offset);
     cairo_scale (context, scale, scale);
     cairo_translate (context, img_width / 2, img_height / 2);
     cairo_rotate (context, rotation);
     cairo_translate (context, -orig_img_width / 2, -orig_img_height / 2);
 
+    /* Render the image */
     gdk_cairo_set_source_pixbuf (context, image->image, 0, 0);
     cairo_pattern_set_filter (cairo_get_source (context), CAIRO_FILTER_BEST);
     cairo_paint (context);
 
     cairo_restore (context);
 
-    /* Show scan line */
-    if (show_scan_line && !scan_complete) {
+    /* Overlay transform */
+    switch (orientation) {
+    case TOP_TO_BOTTOM:
+        cairo_translate (context, x_offset, y_offset);
+        break;
+    case BOTTOM_TO_TOP:
+        // FIXME: Doesn't work if right/bottom border not the same as left/right
+        cairo_translate (context, canvas_width - x_offset, canvas_height - y_offset);
+        break;
+    case LEFT_TO_RIGHT:
+        // FIXME: Doesn't work if right/bottom border not the same as left/right
+        cairo_translate (context, x_offset, canvas_height - y_offset);
+        break;
+    case RIGHT_TO_LEFT:
+        // FIXME: Doesn't work if right/bottom border not the same as left/right
+        cairo_translate (context, canvas_width - x_offset, y_offset);
+        break;
+    }
+    cairo_rotate (context, rotation);
+    
+    /* Render page border */
+    /* NOTE: Border width and height is rounded up so border is sharp.  Background may not
+     * extend to border, should fill with white (?) before drawing scanned image or extend
+     * edges slightly */
+    cairo_set_source_rgb (context, 0, 0, 0);
+    cairo_set_line_width (context, 1);
+    cairo_rectangle (context, -0.5, -0.5,
+                     (int) (scale * orig_img_width + 1 + 0.5),
+                     (int) (scale * orig_img_height + 1 + 0.5));
+    cairo_stroke (context);
+
+    /* Render scan line */
+    if (show_scan_line && scanning) {
         double h = scale * (double)(current_line * orig_img_height) / (double)img_height;
-        
-        switch (orientation) {
-        case TOP_TO_BOTTOM:
-            cairo_translate (context, x_offset, y_offset);
-            break;
-        case BOTTOM_TO_TOP:
-            cairo_translate (context, canvas_width - x_offset, canvas_height - y_offset);
-            break;
-        case LEFT_TO_RIGHT:
-            cairo_translate (context, x_offset, canvas_height - y_offset);
-            break;
-        case RIGHT_TO_LEFT:
-            cairo_translate (context, canvas_width - x_offset, y_offset);
-            break;
-        }
-        cairo_rotate (context, rotation);
 
         cairo_set_source_rgb (context, 1.0, 0.0, 0.0);
         cairo_move_to (context, 0, h);
         cairo_line_to (context, scale * orig_img_width, h);
-        cairo_stroke (context);
-
-        cairo_set_source_rgb (context, 1.0, 0.0, 0.0);        
-        cairo_move_to (context, 0, 0);
-        cairo_line_to (context, scale * orig_img_width, 0);
-        cairo_line_to (context, scale * orig_img_width, scale * orig_img_height);
-        cairo_line_to (context, 0, scale * orig_img_height);
-        cairo_line_to (context, 0, 0);
         cairo_stroke (context);
     }
 }
@@ -346,15 +360,8 @@ render_scan (cairo_t *context, ScannedImage *image, Orientation orientation, dou
 static void
 render_cb (SimpleScan *ui, cairo_t *context, double width, double height)
 {
-    if (raw_image->image) {
-        render_scan (context, raw_image, ui_get_orientation (ui),
-                     width, height, TRUE);
-    }
-    else {
-        cairo_set_source_rgb (context, 0.0, 0.0, 0.0);
-        cairo_rectangle (context, 0, 0, width, height);
-        cairo_fill (context);
-    }
+    render_scan (context, raw_image, ui_get_orientation (ui),
+                 width, height, TRUE);
 }
 
 
@@ -363,6 +370,7 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
 {
     g_debug ("Requesting scan of type %s from device '%s'", document_type, device);
 
+    scanning = TRUE;
     ui_set_have_scan (ui, FALSE);
     ui_set_scanning (ui, TRUE);
     
@@ -684,7 +692,14 @@ main(int argc, char **argv)
     
     get_options (argc, argv);
 
+    /* Start with A4 white image at 72dpi */
+    /* TODO: Should be like the last scanned image for the selected scanner */
     raw_image = g_malloc0(sizeof(ScannedImage));
+    raw_image->dpi = 72;
+    raw_image->image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
+                                       8, 595, 842);
+    memset (gdk_pixbuf_get_pixels (raw_image->image), 0xFF,
+            gdk_pixbuf_get_height (raw_image->image) * gdk_pixbuf_get_rowstride (raw_image->image));
 
     ui = ui_new ();
     g_signal_connect (ui, "render-preview", G_CALLBACK (render_cb), NULL);
