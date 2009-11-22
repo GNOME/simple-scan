@@ -211,7 +211,9 @@ static void
 scanner_image_done_cb (Scanner *scanner)
 {
     /* Trim image */
-    if (raw_image->image && current_line != gdk_pixbuf_get_height (raw_image->image)) {
+    if (raw_image->image &&
+        current_line > 0 &&
+        current_line != gdk_pixbuf_get_height (raw_image->image)) {
         GdkPixbuf *image;
 
         gint height, width, new_height;

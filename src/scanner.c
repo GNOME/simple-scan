@@ -232,8 +232,13 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
     
     string = g_string_new ("");
 
-    g_string_append_printf (string, "Option %d: name='%s', title='%s'",
-                            index, option->name, option->title);
+    g_string_append_printf (string, "Option %d:", index);
+    
+    if (option->name)    
+        g_string_append_printf (string, " name='%s'", option->name);
+    
+    if (option->title)
+        g_string_append_printf (string, " title='%s'", option->title);
 
     switch (option->type) {
     case SANE_TYPE_BOOL:
@@ -370,7 +375,7 @@ scan_thread (Scanner *scanner)
     SANE_Int option_index = 0;
     ScanState state = STATE_IDLE;
     SANE_Int bytes_remaining = 0, line_count = 0, n_read = 0, pass_number = 0, page_number = 0, notified_page = -1;
-    SANE_Byte *data;
+    SANE_Byte *data = NULL;
     SANE_Int version_code;
     gboolean done = FALSE;
 
