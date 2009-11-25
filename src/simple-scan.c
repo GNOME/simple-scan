@@ -33,7 +33,7 @@ static gboolean clear_pages = FALSE;
 
 static gboolean first_autodetect = TRUE;
 
-static int current_line = 0, page_count = 0;
+static int page_count = 0;
 
 
 static void
@@ -82,7 +82,8 @@ update_scan_devices_cb (Scanner *scanner, GList *devices)
 static void
 scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 {
-    gint height, page_number;
+    Page *page;
+    gint height;
 
     g_debug ("Page is %d pixels wide, %d pixels high, %d bits per pixel",
              info->width, info->height, info->depth);
@@ -93,10 +94,9 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
         clear_pages = FALSE;
     }
 
-    page_number = book_add_page (book, info->width, info->height, info->dpi, TOP_TO_BOTTOM);
-    book_set_scan_line (book, page_number, 0);
+    page = book_append_page (book, info->width, info->height, info->dpi, TOP_TO_BOTTOM);
+    page_start (page);
 
-    current_line = 0;
     page_count++;
 }
 
@@ -104,9 +104,10 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 static void
 scanner_line_cb (Scanner *scanner, ScanLine *line)
 {
-    book_parse_raster_line (book, page_count - 1, line);
-    current_line = line->number + 1;
-    book_set_scan_line (book, page_count - 1, current_line);
+    Page *page;
+
+    page = book_get_page (book, page_count - 1);
+    page_parse_scan_line (page, line);
     ui_redraw_preview (ui);
 }
 
@@ -114,12 +115,10 @@ scanner_line_cb (Scanner *scanner, ScanLine *line)
 static void
 scanner_image_done_cb (Scanner *scanner)
 {
-    /* Trim image */
-    if (current_line > 0)
-        book_trim_page (book, page_count - 1, current_line);
+    Page *page;
     
-    book_set_scan_line (book, page_count - 1, -1);
-
+    page = book_get_page (book, page_count - 1);
+    page_finish (page);
     ui_redraw_preview (ui);
     ui_set_have_scan (ui, TRUE);
 }
@@ -204,7 +203,17 @@ cancel_cb (SimpleScan *ui)
 static void
 rotate_cb (SimpleScan *ui)
 {
-    book_rotate_page (book, page_count - 1);
+    Page *page;
+    gint t;
+    Orientation orientation;
+
+    page = book_get_page (book, page_count - 1);
+    orientation = page_get_orientation (page);
+    orientation++;
+    if (orientation > RIGHT_TO_LEFT)
+        orientation = TOP_TO_BOTTOM;
+    page_set_orientation (page, orientation);
+
     ui_redraw_preview (ui);  
 }
 
@@ -373,11 +382,7 @@ main(int argc, char **argv)
     book = book_new ();
     /* Start with A4 white image at 72dpi */
     /* TODO: Should be like the last scanned image for the selected scanner */
-    book_add_page (book, 595, 842, 72, TOP_TO_BOTTOM);
-    page_count++;
-    book_add_page (book, 595, 842, 72, TOP_TO_BOTTOM);
-    page_count++;
-    book_add_page (book, 595, 842, 72, TOP_TO_BOTTOM);
+    book_append_page (book, 595, 842, 72, TOP_TO_BOTTOM);
     page_count++;
 
     ui = ui_new ();
