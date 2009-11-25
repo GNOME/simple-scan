@@ -26,6 +26,16 @@ typedef enum
     PAGE_AUTOMATIC
 } PageMode;
 
+typedef struct
+{
+    gdouble width, height;
+} RenderEvent;
+
+typedef struct
+{
+    gdouble x, y;
+} PanEvent;
+
 
 typedef struct SimpleScanPrivate SimpleScanPrivate;
 
@@ -39,10 +49,12 @@ typedef struct
 {
     GObjectClass parent_class;
 
-    void (*render_preview) (SimpleScan *ui, cairo_t *context, double width, double height);
+    void (*render_preview) (SimpleScan *ui, cairo_t *context, RenderEvent *event);
     void (*start_scan) (SimpleScan *ui, const gchar *device, const gchar *document_type);
     void (*stop_scan) (SimpleScan *ui);
-    void (*rotate) (SimpleScan *ui);    
+    void (*rotate) (SimpleScan *ui);
+    void (*pan) (SimpleScan *ui, PanEvent *event);
+    void (*zoom) (SimpleScan *ui, gdouble zoom);
     void (*save) (SimpleScan *ui, const gchar *format);
     void (*print) (SimpleScan *ui, cairo_t *context);
     void (*quit) (SimpleScan *ui);

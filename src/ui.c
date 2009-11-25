@@ -23,6 +23,8 @@ enum {
     START_SCAN,
     STOP_SCAN,
     ROTATE,
+    PAN,
+    ZOOM,
     SAVE,
     PRINT,
     QUIT,
@@ -41,9 +43,12 @@ struct SimpleScanPrivate
     GtkWidget *device_combo, *mode_combo, *page_mode_combo;
     GtkTreeModel *device_model, *mode_model, *page_mode_model;
     GtkWidget *preview_area;
+    GtkWidget *zoom_scale;
 
     gchar *default_file_name;
     gboolean scanning;
+
+    gdouble mouse_x, mouse_y;
 };
 
 G_DEFINE_TYPE (SimpleScan, ui, G_TYPE_OBJECT);
@@ -218,13 +223,14 @@ gboolean
 preview_area_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, SimpleScan *ui)
 {
     cairo_t *context;
-    double width, height;
+    double width, height, zoom;
+    RenderEvent render_event;
     
     context = gdk_cairo_create (widget->window);
     
-    width = widget->allocation.width;
-    height = widget->allocation.height;
-    g_signal_emit (G_OBJECT (ui), signals[RENDER_PREVIEW], 0, context, width, height);
+    render_event.width = widget->allocation.width;
+    render_event.height = widget->allocation.height;
+    g_signal_emit (G_OBJECT (ui), signals[RENDER_PREVIEW], 0, context, &render_event);
 
     cairo_destroy (context);
 
@@ -236,7 +242,8 @@ G_MODULE_EXPORT
 gboolean
 preview_area_button_press_event_cb (GtkWidget *widget, GdkEventButton *event, SimpleScan *ui)
 {
-    g_debug("button x=%f y=%f\n", event->x, event->y);
+    ui->priv->mouse_x = event->x;
+    ui->priv->mouse_y = event->y;
     return FALSE;
 }
 
@@ -245,7 +252,15 @@ G_MODULE_EXPORT
 gboolean
 preview_area_motion_notify_event_cb (GtkWidget *widget, GdkEventMotion *event, SimpleScan *ui)
 {
-    g_debug("motion x=%f y=%f\n", event->x, event->y);
+    PanEvent pan_event;
+    
+    pan_event.x = event->x - ui->priv->mouse_x;
+    pan_event.y = event->y - ui->priv->mouse_y;
+    ui->priv->mouse_x = event->x;
+    ui->priv->mouse_y = event->y;
+    
+    g_signal_emit (G_OBJECT (ui), signals[PAN], 0, &pan_event);
+    
     return FALSE;
 }
 
@@ -256,6 +271,15 @@ preview_area_key_press_event_cb (GtkWidget *widget, GdkEventKey *event, SimpleSc
 {
     g_debug("key\n");
     return FALSE;
+}
+
+
+G_MODULE_EXPORT
+void
+zoom_scale_value_changed_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    g_signal_emit (G_OBJECT (ui), signals[ZOOM], 0,
+                   gtk_range_get_value (GTK_RANGE (ui->priv->zoom_scale)));
 }
 
 
@@ -585,6 +609,7 @@ ui_load (SimpleScan *ui)
     ui->priv->page_mode_combo = GTK_WIDGET (gtk_builder_get_object (builder, "page_mode_combo"));
     ui->priv->page_mode_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->page_mode_combo));
     ui->priv->preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
+    ui->priv->zoom_scale = GTK_WIDGET (gtk_builder_get_object (builder, "zoom_scale"));
 
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->device_combo), renderer, TRUE);
@@ -705,23 +730,22 @@ ui_start (SimpleScan *ui)
 
 /* Generated with glib-genmarshal */
 static void
-g_cclosure_user_marshal_VOID__POINTER_DOUBLE_DOUBLE (GClosure     *closure,
-                                                     GValue       *return_value G_GNUC_UNUSED,
-                                                     guint         n_param_values,
-                                                     const GValue *param_values,
-                                                     gpointer      invocation_hint G_GNUC_UNUSED,
-                                                     gpointer      marshal_data)
+g_cclosure_user_marshal_VOID__POINTER_POINTER (GClosure     *closure,
+                                               GValue       *return_value G_GNUC_UNUSED,
+                                               guint         n_param_values,
+                                               const GValue *param_values,
+                                               gpointer      invocation_hint G_GNUC_UNUSED,
+                                               gpointer      marshal_data)
 {
-    typedef void (*GMarshalFunc_VOID__POINTER_DOUBLE_DOUBLE) (gpointer     data1,
-                                                              gpointer     arg_1,
-                                                              gdouble      arg_2,
-                                                              gdouble      arg_3,
-                                                              gpointer     data2);
-    register GMarshalFunc_VOID__POINTER_DOUBLE_DOUBLE callback;
+    typedef void (*GMarshalFunc_VOID__POINTER_POINTER) (gpointer     data1,
+                                                                     gpointer     arg_1,
+                                                                     gpointer     arg_2,
+                                                                     gpointer     data2);
+    register GMarshalFunc_VOID__POINTER_POINTER callback;
     register GCClosure *cc = (GCClosure*) closure;
     register gpointer data1, data2;
     
-    g_return_if_fail (n_param_values == 4);
+    g_return_if_fail (n_param_values == 3);
     
     if (G_CCLOSURE_SWAP_DATA (closure))
     {
@@ -733,12 +757,11 @@ g_cclosure_user_marshal_VOID__POINTER_DOUBLE_DOUBLE (GClosure     *closure,
         data1 = g_value_peek_pointer (param_values + 0);
         data2 = closure->data;
     }
-    callback = (GMarshalFunc_VOID__POINTER_DOUBLE_DOUBLE) (marshal_data ? marshal_data : cc->callback);
+    callback = (GMarshalFunc_VOID__POINTER_POINTER) (marshal_data ? marshal_data : cc->callback);
     
     callback (data1,
               g_value_get_pointer (param_values + 1),
-              g_value_get_double (param_values + 2),
-              g_value_get_double (param_values + 3),
+              g_value_get_pointer (param_values + 2),
               data2);
 }
 
@@ -790,8 +813,8 @@ ui_class_init (SimpleScanClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (SimpleScanClass, render_preview),
                       NULL, NULL,
-                      g_cclosure_user_marshal_VOID__POINTER_DOUBLE_DOUBLE,
-                      G_TYPE_NONE, 3, G_TYPE_POINTER, G_TYPE_DOUBLE, G_TYPE_DOUBLE);
+                      g_cclosure_user_marshal_VOID__POINTER_POINTER,
+                      G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
     signals[START_SCAN] =
         g_signal_new ("start-scan",
                       G_TYPE_FROM_CLASS (klass),
@@ -816,6 +839,22 @@ ui_class_init (SimpleScanClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
+    signals[PAN] =
+        g_signal_new ("pan",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (SimpleScanClass, pan),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__POINTER,
+                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+    signals[ZOOM] =
+        g_signal_new ("zoom",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (SimpleScanClass, zoom),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__DOUBLE,
+                      G_TYPE_NONE, 1, G_TYPE_DOUBLE);
     signals[SAVE] =
         g_signal_new ("save",
                       G_TYPE_FROM_CLASS (klass),

@@ -136,9 +136,10 @@ scanner_failed_cb (Scanner *scanner, GError *error)
 
 
 static void
-render_cb (SimpleScan *ui, cairo_t *context, double width, double height)
+render_cb (SimpleScan *ui, cairo_t *context, RenderEvent *event)
 {
-    book_render (book, context, width, height);
+    book_resize (book, event->width, event->height);
+    book_render (book, context);
 }
 
 
@@ -204,6 +205,22 @@ static void
 rotate_cb (SimpleScan *ui)
 {
     book_rotate_page (book, page_count - 1);
+    ui_redraw_preview (ui);  
+}
+
+
+static void
+pan_cb (SimpleScan *ui, PanEvent *event)
+{
+    book_pan (book, event->x, event->y);
+    ui_redraw_preview (ui);  
+}
+
+
+static void
+zoom_cb (SimpleScan *ui, gdouble zoom)
+{
+    book_zoom (book, zoom);
     ui_redraw_preview (ui);  
 }
 
@@ -358,12 +375,18 @@ main(int argc, char **argv)
     /* TODO: Should be like the last scanned image for the selected scanner */
     book_add_page (book, 595, 842, 72, TOP_TO_BOTTOM);
     page_count++;
+    book_add_page (book, 595, 842, 72, TOP_TO_BOTTOM);
+    page_count++;
+    book_add_page (book, 595, 842, 72, TOP_TO_BOTTOM);
+    page_count++;
 
     ui = ui_new ();
     g_signal_connect (ui, "render-preview", G_CALLBACK (render_cb), NULL);
     g_signal_connect (ui, "start-scan", G_CALLBACK (scan_cb), NULL);
     g_signal_connect (ui, "stop-scan", G_CALLBACK (cancel_cb), NULL);
     g_signal_connect (ui, "rotate", G_CALLBACK (rotate_cb), NULL);
+    g_signal_connect (ui, "pan", G_CALLBACK (pan_cb), NULL);
+    g_signal_connect (ui, "zoom", G_CALLBACK (zoom_cb), NULL);
     g_signal_connect (ui, "save", G_CALLBACK (save_cb), NULL);
     g_signal_connect (ui, "print", G_CALLBACK (print_cb), NULL);
     g_signal_connect (ui, "quit", G_CALLBACK (quit_cb), NULL);
