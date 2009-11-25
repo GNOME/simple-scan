@@ -17,6 +17,7 @@
 #include "ui.h"
 #include "scanner.h"
 #include "book.h"
+#include "book-view.h"
 
 
 static const char *default_device = NULL;
@@ -26,6 +27,8 @@ static SimpleScan *ui;
 static Scanner *scanner;
 
 static Book *book;
+
+static BookView *book_view;
 
 static gboolean scanning = FALSE;
 
@@ -137,8 +140,8 @@ scanner_failed_cb (Scanner *scanner, GError *error)
 static void
 render_cb (SimpleScan *ui, cairo_t *context, RenderEvent *event)
 {
-    book_resize (book, event->width, event->height);
-    book_render (book, context);
+    book_view_resize (book_view, event->width, event->height);
+    book_view_render (book_view, context);
 }
 
 
@@ -221,7 +224,7 @@ rotate_cb (SimpleScan *ui)
 static void
 pan_cb (SimpleScan *ui, PanEvent *event)
 {
-    book_pan (book, event->x, event->y);
+    book_view_pan (book_view, event->x, event->y);
     ui_redraw_preview (ui);  
 }
 
@@ -229,7 +232,7 @@ pan_cb (SimpleScan *ui, PanEvent *event)
 static void
 zoom_cb (SimpleScan *ui, gdouble zoom)
 {
-    book_zoom (book, zoom);
+    book_view_zoom (book_view, zoom);
     ui_redraw_preview (ui);  
 }
 
@@ -384,6 +387,9 @@ main(int argc, char **argv)
     /* TODO: Should be like the last scanned image for the selected scanner */
     book_append_page (book, 595, 842, 72, TOP_TO_BOTTOM);
     page_count++;
+
+    book_view = book_view_new ();
+    book_view_set_book (book_view, book);
 
     ui = ui_new ();
     g_signal_connect (ui, "render-preview", G_CALLBACK (render_cb), NULL);

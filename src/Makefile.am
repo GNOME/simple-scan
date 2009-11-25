@@ -3,6 +3,8 @@ bin_PROGRAMS = simple-scan
 simple_scan_SOURCES = \
 	book.c \
 	book.h \
+	book-view.c \
+	book-view.h \
 	page.c \
 	page.h \       
 	simple-scan.c \
