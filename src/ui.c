@@ -22,6 +22,7 @@ enum {
     RENDER_PREVIEW,
     START_SCAN,
     STOP_SCAN,
+    ROTATE,
     SAVE,
     PRINT,
     QUIT,
@@ -43,8 +44,6 @@ struct SimpleScanPrivate
 
     gchar *default_file_name;
     gboolean scanning;
-    Orientation orientation;
-    gint selected_page, n_pages;
 };
 
 G_DEFINE_TYPE (SimpleScan, ui, G_TYPE_OBJECT);
@@ -69,19 +68,6 @@ find_scan_device (SimpleScan *ui, const char *device, GtkTreeIter *iter)
 }
 
 
-static gchar *
-get_selected_device (SimpleScan *ui)
-{
-    GtkTreeIter iter;
-
-    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter)) {
-        gchar *device;
-        gtk_tree_model_get (ui->priv->device_model, &iter, 0, &device, -1);
-        return device;
-    }
-
-    return NULL;
-}
 
 
 void
@@ -120,6 +106,21 @@ ui_add_scan_device (SimpleScan *ui, const gchar *device, const gchar *label)
     /* Select this device if none selected */
     if (gtk_combo_box_get_active (GTK_COMBO_BOX (ui->priv->device_combo)) == -1)
         gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
+}
+
+
+gchar *
+ui_get_selected_device (SimpleScan *ui)
+{
+    GtkTreeIter iter;
+
+    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter)) {
+        gchar *device;
+        gtk_tree_model_get (ui->priv->device_model, &iter, 0, &device, -1);
+        return device;
+    }
+
+    return NULL;
 }
 
 
@@ -232,6 +233,33 @@ preview_area_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, SimpleSc
 
 
 G_MODULE_EXPORT
+gboolean
+preview_area_button_press_event_cb (GtkWidget *widget, GdkEventButton *event, SimpleScan *ui)
+{
+    g_debug("button x=%f y=%f\n", event->x, event->y);
+    return FALSE;
+}
+
+
+G_MODULE_EXPORT
+gboolean
+preview_area_motion_notify_event_cb (GtkWidget *widget, GdkEventMotion *event, SimpleScan *ui)
+{
+    g_debug("motion x=%f y=%f\n", event->x, event->y);
+    return FALSE;
+}
+
+
+G_MODULE_EXPORT
+gboolean
+preview_area_key_press_event_cb (GtkWidget *widget, GdkEventKey *event, SimpleScan *ui)
+{
+    g_debug("key\n");
+    return FALSE;
+}
+
+
+G_MODULE_EXPORT
 void
 scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
@@ -240,7 +268,7 @@ scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     } else {
         gchar *device, *mode;
 
-        device = get_selected_device (ui);
+        device = ui_get_selected_device (ui);
         if (device) {
             mode = get_document_hint (ui);
             g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode);
@@ -255,10 +283,7 @@ G_MODULE_EXPORT
 void
 rotate_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    ui->priv->orientation++;
-    if (ui->priv->orientation > RIGHT_TO_LEFT)
-        ui->priv->orientation = TOP_TO_BOTTOM;
-    ui_redraw_preview (ui);
+    g_signal_emit (G_OBJECT (ui), signals[ROTATE], 0);
 }
 
 
@@ -493,7 +518,7 @@ quit (SimpleScan *ui)
 
     save_device_cache (ui);
 
-    device = get_selected_device (ui);
+    device = ui_get_selected_device (ui);
     if (device) {
         gconf_client_set_string(ui->priv->client, "/apps/simple-scan/selected_device", device, NULL);
         g_free (device);
@@ -596,8 +621,6 @@ ui_load (SimpleScan *ui)
         set_page_mode (ui, page_mode);
         g_free (page_mode);
     }
-
-    ui_set_page_count (ui, 0);
 }
 
 
@@ -630,37 +653,6 @@ ui_set_have_scan (SimpleScan *ui, gboolean have_scan)
 }
 
 
-static void
-update_page_label (SimpleScan *ui)
-{
-    GString *text;
-
-    text = g_string_new ("");
-    g_string_printf (text,
-                     /* Label showing which page is being viewed */
-                     _("Page %1$d of %2$d"),
-                     ui->priv->selected_page, ui->priv->n_pages);
-    gtk_label_set_label (GTK_LABEL (ui->priv->page_label), text->str);
-    g_string_free (text, TRUE);
-}
-
-
-void
-ui_set_page_count (SimpleScan *ui, gint n_pages)
-{
-    ui->priv->n_pages = n_pages;
-    update_page_label (ui);
-}
-
-
-void
-ui_set_selected_page (SimpleScan *ui, gint page_number)
-{
-    ui->priv->selected_page = page_number;
-    update_page_label (ui);
-}
-
-
 PageMode
 ui_get_page_mode (SimpleScan *ui)
 {
@@ -677,12 +669,6 @@ ui_get_page_mode (SimpleScan *ui)
     g_free (mode_name);
 
     return mode;
-}
-
-
-Orientation ui_get_orientation (SimpleScan *ui)
-{
-    return ui->priv->orientation;
 }
 
 
@@ -714,12 +700,6 @@ ui_show_error (SimpleScan *ui, const gchar *error_title, const gchar *error_text
 void
 ui_start (SimpleScan *ui)
 {
-    if (gtk_tree_model_iter_n_children (ui->priv->device_model, NULL) == 0)
-        ui_show_error (ui,
-                       /* Warning displayed when no scanners are detected */
-                       _("No scanners detected"),
-                       /* Hint to user on why there are no scanners detected */
-                       _("Please check your scanner is connected and powered on"));
 }
 
 
@@ -828,6 +808,14 @@ ui_class_init (SimpleScanClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
+    signals[ROTATE] =
+        g_signal_new ("rotate",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (SimpleScanClass, rotate),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
     signals[SAVE] =
         g_signal_new ("save",
                       G_TYPE_FROM_CLASS (klass),
@@ -867,7 +855,5 @@ ui_init (SimpleScan *ui)
 
     ui->priv->default_file_name = g_strdup (_("Scanned Document.pdf"));
     ui->priv->scanning = FALSE;
-    ui->priv->orientation = TOP_TO_BOTTOM;
-    ui->priv->selected_page = 0;
     ui_load (ui);
 }

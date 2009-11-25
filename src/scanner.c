@@ -464,8 +464,7 @@ scan_thread (Scanner *scanner)
                         set_bool_option (handle, option, option_index, FALSE);
                     }                    
                     else if (strcmp (option->name, "test-picture") == 0) {
-                        //set_string_option (handle, option, option_index, "Color pattern");
-                        set_string_option (handle, option, option_index, "Solid white");
+                        set_string_option (handle, option, option_index, "Color pattern");
                     }
                     else if (strcmp (option->name, "read-delay") == 0) {
                         set_bool_option (handle, option, option_index, TRUE);
@@ -514,6 +513,7 @@ scan_thread (Scanner *scanner)
                 info->width = parameters.pixels_per_line;
                 info->height = parameters.lines;
                 info->depth = parameters.depth;
+                info->dpi = request->dpi;
 
                 if (page_number != notified_page) {
                     emit_signal (scanner, GOT_PAGE_INFO, info);

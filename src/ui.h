@@ -21,14 +21,6 @@ G_BEGIN_DECLS
 
 typedef enum
 {
-    TOP_TO_BOTTOM,
-    LEFT_TO_RIGHT,
-    BOTTOM_TO_TOP,
-    RIGHT_TO_LEFT
-} Orientation;
-
-typedef enum
-{
     PAGE_SINGLE,
     PAGE_MULTIPLE,
     PAGE_AUTOMATIC
@@ -50,6 +42,7 @@ typedef struct
     void (*render_preview) (SimpleScan *ui, cairo_t *context, double width, double height);
     void (*start_scan) (SimpleScan *ui, const gchar *device, const gchar *document_type);
     void (*stop_scan) (SimpleScan *ui);
+    void (*rotate) (SimpleScan *ui);    
     void (*save) (SimpleScan *ui, const gchar *format);
     void (*print) (SimpleScan *ui, cairo_t *context);
     void (*quit) (SimpleScan *ui);
@@ -64,19 +57,15 @@ void ui_mark_devices_undetected (SimpleScan *ui);
 
 void ui_add_scan_device (SimpleScan *ui, const gchar *device, const gchar *label);
 
+gchar *ui_get_selected_device (SimpleScan *ui);
+
 void ui_set_selected_device (SimpleScan *ui, const gchar *device);
 
 void ui_set_scanning (SimpleScan *ui, gboolean scanning);
 
 void ui_set_have_scan (SimpleScan *ui, gboolean have_scan);
 
-void ui_set_page_count (SimpleScan *ui, gint n_pages);
-
-void ui_set_selected_page (SimpleScan *ui, gint page_number);
-
 PageMode ui_get_page_mode (SimpleScan *ui);
-
-Orientation ui_get_orientation (SimpleScan *ui);
 
 void ui_redraw_preview (SimpleScan *ui);
 

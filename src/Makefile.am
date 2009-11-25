@@ -1,6 +1,8 @@
 bin_PROGRAMS = simple-scan
 
 simple_scan_SOURCES = \
+	book.c \
+	book.h \
 	simple-scan.c \
 	scanner.c \
 	scanner.h \
