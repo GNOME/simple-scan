@@ -53,6 +53,7 @@ page_updated (Page *page, BookView *view)
 {
     PageView *page_view = g_hash_table_lookup (view->priv->page_data, page);
     page_view->update_image = TRUE;
+    g_signal_emit (view, signals[REDRAW], 0);
 }
 
 
@@ -193,11 +194,30 @@ render_page (BookView *view, PageView *page, cairo_t *context,
     /* Draw scan line */
     scan_line = page_get_scan_line (page->page);
     if (scan_line >= 0) {
-        double h = scale * (double) scan_line;
+        double w = gdk_pixbuf_get_width (page->image);
+        double h = gdk_pixbuf_get_height (page->image);
+        double s = scale * (double) scan_line;
+        
+        switch (page_get_orientation (page->page)) {
+        case TOP_TO_BOTTOM:
+            cairo_move_to (context, 0, s);
+            cairo_line_to (context, w, s);
+            break;
+        case BOTTOM_TO_TOP:
+            cairo_move_to (context, 0, h - s);
+            cairo_line_to (context, w, h - s);
+            break;
+        case LEFT_TO_RIGHT:
+            cairo_move_to (context, s, 0);
+            cairo_line_to (context, s, h);
+            break;
+        case RIGHT_TO_LEFT:
+            cairo_move_to (context, w - s, 0);
+            cairo_line_to (context, w - s, h);
+            break;
+        }
 
         cairo_set_source_rgb (context, 1.0, 0.0, 0.0);
-        cairo_move_to (context, 0, h);
-        cairo_line_to (context, gdk_pixbuf_get_width (page->image), h);
         cairo_stroke (context);
     }
     

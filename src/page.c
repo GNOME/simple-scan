@@ -252,7 +252,7 @@ page_get_dpi (Page *page)
 gint
 page_get_width (Page *page)
 {
-    if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == LEFT_TO_RIGHT)
+    if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == BOTTOM_TO_TOP)
         return gdk_pixbuf_get_width (page->priv->image);
     else
         return gdk_pixbuf_get_height (page->priv->image);
@@ -262,7 +262,7 @@ page_get_width (Page *page)
 gint
 page_get_height (Page *page)
 {
-    if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == LEFT_TO_RIGHT)
+    if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == BOTTOM_TO_TOP)
         return gdk_pixbuf_get_height (page->priv->image);
     else
         return gdk_pixbuf_get_width (page->priv->image);

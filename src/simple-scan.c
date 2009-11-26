@@ -36,6 +36,8 @@ static gboolean clear_pages = FALSE;
 
 static gboolean first_autodetect = TRUE;
 
+static Orientation default_orientation = TOP_TO_BOTTOM;
+
 static int page_count = 0;
 
 
@@ -44,7 +46,6 @@ scanner_ready_cb (Scanner *scanner)
 {
     scanning = FALSE;
     ui_set_scanning (ui, FALSE);
-    ui_redraw_preview (ui);
 }
 
 
@@ -97,7 +98,7 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
         clear_pages = FALSE;
     }
 
-    page = book_append_page (book, info->width, info->height, info->dpi, TOP_TO_BOTTOM);
+    page = book_append_page (book, info->width, info->height, info->dpi, default_orientation);
     page_start (page);
 
     page_count++;
@@ -111,7 +112,6 @@ scanner_line_cb (Scanner *scanner, ScanLine *line)
 
     page = book_get_page (book, page_count - 1);
     page_parse_scan_line (page, line);
-    ui_redraw_preview (ui);
 }
 
 
@@ -122,7 +122,6 @@ scanner_image_done_cb (Scanner *scanner)
     
     page = book_get_page (book, page_count - 1);
     page_finish (page);
-    ui_redraw_preview (ui);
     ui_set_have_scan (ui, TRUE);
 }
 
@@ -146,6 +145,13 @@ render_cb (SimpleScan *ui, cairo_t *context, RenderEvent *event)
 
 
 static void
+redraw_cb (BookView *view)
+{
+    ui_redraw_preview (ui);  
+}
+
+
+static void
 scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
 {
     PageMode page_mode;
@@ -156,7 +162,6 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
     scanning = TRUE;
     ui_set_have_scan (ui, FALSE);
     ui_set_scanning (ui, TRUE);
-    ui_redraw_preview (ui);
     
     // FIXME: Translate
     if (strcmp (document_type, "photo") == 0) {
@@ -204,7 +209,7 @@ cancel_cb (SimpleScan *ui)
 
 
 static void
-rotate_cb (SimpleScan *ui)
+rotate_left_cb (SimpleScan *ui)
 {
     Page *page;
     gint t;
@@ -212,12 +217,30 @@ rotate_cb (SimpleScan *ui)
 
     page = book_get_page (book, page_count - 1);
     orientation = page_get_orientation (page);
-    orientation++;
-    if (orientation > RIGHT_TO_LEFT)
+    if (orientation == RIGHT_TO_LEFT)
         orientation = TOP_TO_BOTTOM;
+    else
+        orientation++;
     page_set_orientation (page, orientation);
+    default_orientation = orientation;
+}
 
-    ui_redraw_preview (ui);  
+
+static void
+rotate_right_cb (SimpleScan *ui)
+{
+    Page *page;
+    gint t;
+    Orientation orientation;
+
+    page = book_get_page (book, page_count - 1);
+    orientation = page_get_orientation (page);
+    if (orientation == TOP_TO_BOTTOM)
+        orientation = RIGHT_TO_LEFT;
+    else
+        orientation--;
+    page_set_orientation (page, orientation);
+    default_orientation = orientation;
 }
 
 
@@ -225,7 +248,6 @@ static void
 pan_cb (SimpleScan *ui, PanEvent *event)
 {
     book_view_pan (book_view, event->x, event->y);
-    ui_redraw_preview (ui);  
 }
 
 
@@ -233,7 +255,6 @@ static void
 zoom_cb (SimpleScan *ui, gdouble zoom)
 {
     book_view_zoom (book_view, zoom);
-    ui_redraw_preview (ui);  
 }
 
 
@@ -385,22 +406,24 @@ main(int argc, char **argv)
     book = book_new ();
     /* Start with A4 white image at 72dpi */
     /* TODO: Should be like the last scanned image for the selected scanner */
-    book_append_page (book, 595, 842, 72, TOP_TO_BOTTOM);
+    book_append_page (book, 595, 842, 72, default_orientation);
     page_count++;
-
-    book_view = book_view_new ();
-    book_view_set_book (book_view, book);
 
     ui = ui_new ();
     g_signal_connect (ui, "render-preview", G_CALLBACK (render_cb), NULL);
     g_signal_connect (ui, "start-scan", G_CALLBACK (scan_cb), NULL);
     g_signal_connect (ui, "stop-scan", G_CALLBACK (cancel_cb), NULL);
-    g_signal_connect (ui, "rotate", G_CALLBACK (rotate_cb), NULL);
+    g_signal_connect (ui, "rotate-left", G_CALLBACK (rotate_left_cb), NULL);
+    g_signal_connect (ui, "rotate-right", G_CALLBACK (rotate_right_cb), NULL);
     g_signal_connect (ui, "pan", G_CALLBACK (pan_cb), NULL);
     g_signal_connect (ui, "zoom", G_CALLBACK (zoom_cb), NULL);
     g_signal_connect (ui, "save", G_CALLBACK (save_cb), NULL);
     g_signal_connect (ui, "print", G_CALLBACK (print_cb), NULL);
     g_signal_connect (ui, "quit", G_CALLBACK (quit_cb), NULL);
+
+    book_view = book_view_new ();
+    book_view_set_book (book_view, book);
+    g_signal_connect (book_view, "redraw", G_CALLBACK (redraw_cb), NULL);
     
     scanner = scanner_new ();
     g_signal_connect (G_OBJECT (scanner), "ready", G_CALLBACK (scanner_ready_cb), NULL);

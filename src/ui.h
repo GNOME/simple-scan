@@ -52,7 +52,8 @@ typedef struct
     void (*render_preview) (SimpleScan *ui, cairo_t *context, RenderEvent *event);
     void (*start_scan) (SimpleScan *ui, const gchar *device, const gchar *document_type);
     void (*stop_scan) (SimpleScan *ui);
-    void (*rotate) (SimpleScan *ui);
+    void (*rotate_left) (SimpleScan *ui);
+    void (*rotate_right) (SimpleScan *ui);
     void (*pan) (SimpleScan *ui, PanEvent *event);
     void (*zoom) (SimpleScan *ui, gdouble zoom);
     void (*save) (SimpleScan *ui, const gchar *format);

@@ -22,7 +22,8 @@ enum {
     RENDER_PREVIEW,
     START_SCAN,
     STOP_SCAN,
-    ROTATE,
+    ROTATE_LEFT,
+    ROTATE_RIGHT,
     PAN,
     ZOOM,
     SAVE,
@@ -305,9 +306,17 @@ scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 
 G_MODULE_EXPORT
 void
-rotate_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
+rotate_left_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    g_signal_emit (G_OBJECT (ui), signals[ROTATE], 0);
+    g_signal_emit (G_OBJECT (ui), signals[ROTATE_LEFT], 0);
+}
+
+
+G_MODULE_EXPORT
+void
+rotate_right_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    g_signal_emit (G_OBJECT (ui), signals[ROTATE_RIGHT], 0);
 }
 
 
@@ -831,11 +840,19 @@ ui_class_init (SimpleScanClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
-    signals[ROTATE] =
-        g_signal_new ("rotate",
+    signals[ROTATE_LEFT] =
+        g_signal_new ("rotate-left",
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (SimpleScanClass, rotate),
+                      G_STRUCT_OFFSET (SimpleScanClass, rotate_left),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+    signals[ROTATE_RIGHT] =
+        g_signal_new ("rotate-right",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (SimpleScanClass, rotate_right),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);

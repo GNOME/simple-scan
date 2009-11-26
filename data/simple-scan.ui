@@ -75,11 +75,21 @@
                   <object class="GtkMenu" id="menu2">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkMenuItem" id="rotate_menuitem">
+                      <object class="GtkMenuItem" id="rotate_left_menuitem">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Rotate</property>
+                        <property name="label" translatable="yes" comments="Menu item to rotate page to left (anti-clockwise)">Rotate _Left</property>
                         <property name="use_underline">True</property>
-                        <signal name="activate" handler="rotate_button_clicked_cb"/>
+                        <accelerator key="bracketleft" signal="activate"/>
+                        <signal name="activate" handler="rotate_left_button_clicked_cb"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuItem" id="rotate_right_menuitem">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes" comments="Menu item to rotate page to right (clockwise)">Rotate _Right</property>
+                        <property name="use_underline">True</property>
+                        <accelerator key="bracketright" signal="activate"/>
+                        <signal name="activate" handler="rotate_right_button_clicked_cb"/>
                       </object>
                     </child>
                   </object>
@@ -234,19 +244,6 @@
                       </object>
                       <packing>
                         <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="rotate_button">
-                        <property name="label" translatable="yes" comments="Label on button that rotates image">_Rotate</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="use_underline">True</property>
-                        <signal name="clicked" handler="rotate_button_clicked_cb"/>
-                      </object>
-                      <packing>
-                        <property name="position">1</property>
                       </packing>
                     </child>
                   </object>
