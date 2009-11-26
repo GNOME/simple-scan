@@ -147,12 +147,24 @@ poll_for_devices (Scanner *scanner)
         const SANE_Device *device = *device_iter;
         ScanDevice *scan_device;
         GString *label;
+        gchar *c;
         
         scan_device = g_malloc(sizeof(ScanDevice));
 
         scan_device->name = g_strdup (device->name);
+
         label = g_string_new ("");
-        g_string_printf (label, "%s %s", device->vendor, device->model);
+        /* Abbreviate HP as it is a long string and does not match what is on the physical scanner */
+        if (strcmp (device->vendor, "Hewlett-Packard") == 0)
+            g_string_printf (label, "HP %s", device->model);
+        else
+            g_string_printf (label, "%s %s", device->vendor, device->model);
+        
+        /* Replace underscored in name */
+        for (c = label->str; *c; c++)
+            if (*c == '_')
+                *c = ' ';
+
         scan_device->label = label->str;
         g_string_free (label, FALSE);
 
