@@ -133,6 +133,8 @@ book_view_pan (BookView *view, gint x_offset, gint y_offset)
 void
 book_view_zoom (BookView *view, gdouble zoom)
 {
+    view->priv->x_offset += (view->priv->zoom - zoom) * view->priv->width;
+    view->priv->y_offset += (view->priv->zoom - zoom) * view->priv->height;
     view->priv->zoom = zoom;    
 }
 
