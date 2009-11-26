@@ -16,17 +16,18 @@
             <child>
               <object class="GtkMenuItem" id="scanner_menu">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">_Scanner</property>
+                <property name="label" translatable="yes">_Document</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
                   <object class="GtkMenu" id="menu1">
                     <property name="visible">True</property>
                     <child>
                       <object class="GtkImageMenuItem" id="new_menuitem">
-                        <property name="label">gtk-new</property>
+                        <property name="label">_Scan</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="image">image1</property>
+                        <property name="use_stock">False</property>
                       </object>
                     </child>
                     <child>
@@ -68,7 +69,7 @@
             <child>
               <object class="GtkMenuItem" id="image_menu">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">_Image</property>
+                <property name="label" translatable="yes">_Page</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
                   <object class="GtkMenu" id="menu2">
@@ -409,5 +410,9 @@
     <property name="step_increment">0.01</property>
     <property name="page_increment">0.10000000000000001</property>
     <signal name="value_changed" handler="zoom_scale_value_changed_cb"/>
+  </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="stock">gtk-missing-image</property>
   </object>
 </interface>
