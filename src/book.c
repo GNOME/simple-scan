@@ -46,6 +46,7 @@ book_clear (Book *book)
     GList *iter;
     for (iter = book->priv->pages; iter; iter = iter->next) {
         Page *page = iter->data;
+        g_signal_emit (book, signals[PAGE_REMOVED], 0, page);
         g_object_unref (page);
     }
     g_list_free (book->priv->pages);

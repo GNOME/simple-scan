@@ -189,7 +189,7 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
 
     //scanner_scan (scanner, device, NULL, dpi, NULL, 8, page_mode == PAGE_AUTOMATIC);
     //scanner_scan (scanner, device, "Flatbed", 50, "Color", 8, page_mode == PAGE_AUTOMATIC);
-    scanner_scan (scanner, device, "Automatic Document Feeder", 50, "Color", 8, page_mode == PAGE_AUTOMATIC);
+    scanner_scan (scanner, device, "Automatic Document Feeder", 200, "Color", 8, page_mode == PAGE_AUTOMATIC);
 }
 
 
@@ -384,6 +384,10 @@ main(int argc, char **argv)
     book = book_new ();
     /* Start with A4 white image at 72dpi */
     /* TODO: Should be like the last scanned image for the selected scanner */
+    book_append_page (book, 595, 842, 72, default_orientation);
+    page_count++;
+    book_append_page (book, 595, 842, 72, default_orientation);
+    page_count++;
     book_append_page (book, 595, 842, 72, default_orientation);
     page_count++;
 
