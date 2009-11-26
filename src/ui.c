@@ -13,20 +13,16 @@
 #include <string.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h>
 #include <gconf/gconf-client.h>
 
 #include "ui.h"
 
 
 enum {
-    RENDER_PREVIEW,
     START_SCAN,
     STOP_SCAN,
     ROTATE_LEFT,
     ROTATE_RIGHT,
-    PAN,
-    ZOOM,
     SAVE,
     PRINT,
     QUIT,
@@ -49,8 +45,6 @@ struct SimpleScanPrivate
 
     gchar *default_file_name;
     gboolean scanning;
-
-    gdouble mouse_x, mouse_y;
 };
 
 G_DEFINE_TYPE (SimpleScan, ui, G_TYPE_OBJECT);
@@ -73,8 +67,6 @@ find_scan_device (SimpleScan *ui, const char *device, GtkTreeIter *iter)
     
     return have_iter;
 }
-
-
 
 
 void
@@ -217,107 +209,6 @@ get_page_mode (SimpleScan *ui)
     }
 
     return NULL;
-}
-
-
-G_MODULE_EXPORT
-gboolean
-preview_area_expose_event_cb (GtkWidget *widget, GdkEventExpose *event, SimpleScan *ui)
-{
-    cairo_t *context;
-    double width, height, zoom;
-    RenderEvent render_event;
-    
-    context = gdk_cairo_create (widget->window);
-    
-    render_event.width = widget->allocation.width;
-    render_event.height = widget->allocation.height;
-    g_signal_emit (G_OBJECT (ui), signals[RENDER_PREVIEW], 0, context, &render_event);
-
-    cairo_destroy (context);
-
-    return FALSE;
-}
-
-
-G_MODULE_EXPORT
-gboolean
-preview_area_button_press_event_cb (GtkWidget *widget, GdkEventButton *event, SimpleScan *ui)
-{
-    ui->priv->mouse_x = event->x;
-    ui->priv->mouse_y = event->y;
-    return FALSE;
-}
-
-
-static void
-emit_pan (SimpleScan *ui, gdouble x, gdouble y)
-{
-    PanEvent pan_event;
-    
-    pan_event.x = x;
-    pan_event.y = y;
-    g_signal_emit (G_OBJECT (ui), signals[PAN], 0, &pan_event);
-}
-
-
-G_MODULE_EXPORT
-gboolean
-preview_area_motion_notify_event_cb (GtkWidget *widget, GdkEventMotion *event, SimpleScan *ui)
-{
-    emit_pan (ui, event->x - ui->priv->mouse_x, event->y - ui->priv->mouse_y);
-    ui->priv->mouse_x = event->x;
-    ui->priv->mouse_y = event->y;
-   
-    return FALSE;
-}
-
-
-G_MODULE_EXPORT
-gboolean
-preview_area_key_press_event_cb (GtkWidget *widget, GdkEventKey *event, SimpleScan *ui)
-{
-    switch (event->keyval) {
-    /* Pan */
-    case GDK_Left:
-        emit_pan (ui, 5, 0);
-        return TRUE;
-    case GDK_Right:
-        emit_pan (ui, -5, 0);
-        return TRUE;
-    case GDK_Up:
-        emit_pan (ui, 0, 5);        
-        return TRUE;
-    case GDK_Down:
-        emit_pan (ui, 0, -5);
-        return TRUE;
-
-    /* Zoom */
-    case GDK_plus:
-    case GDK_equal:
-        gtk_range_set_value (GTK_RANGE (ui->priv->zoom_scale),
-                             gtk_range_get_value (GTK_RANGE (ui->priv->zoom_scale)) + 0.1);
-        return TRUE;
-    case GDK_minus:
-        gtk_range_set_value (GTK_RANGE (ui->priv->zoom_scale),
-                             gtk_range_get_value (GTK_RANGE (ui->priv->zoom_scale)) - 0.1);
-        return TRUE;
-
-    case GDK_Delete:
-        return TRUE;
-
-    default:
-        return FALSE;
-    }
-}
-
-
-G_MODULE_EXPORT
-void
-zoom_scale_value_changed_cb (GtkWidget *widget, SimpleScan *ui)
-{
-    g_signal_emit (G_OBJECT (ui), signals[ZOOM], 0,
-                   gtk_range_get_value (GTK_RANGE (ui->priv->zoom_scale)));
 }
 
 
@@ -702,6 +593,20 @@ ui_new ()
 }
 
 
+GtkWidget *
+ui_get_preview_widget (SimpleScan *ui)
+{
+    return ui->priv->preview_area;
+}
+
+
+void
+ui_set_zoom_adjustment (SimpleScan *ui, GtkAdjustment *adjustment)
+{
+    gtk_range_set_adjustment (GTK_RANGE (ui->priv->zoom_scale), adjustment);
+}
+
+
 void
 ui_set_scanning (SimpleScan *ui, gboolean scanning)
 {
@@ -740,13 +645,6 @@ ui_get_page_mode (SimpleScan *ui)
     g_free (mode_name);
 
     return mode;
-}
-
-
-void
-ui_redraw_preview (SimpleScan *ui)
-{
-    gtk_widget_queue_draw (ui->priv->preview_area);    
 }
 
 
@@ -853,14 +751,6 @@ g_cclosure_user_marshal_VOID__STRING_STRING (GClosure     *closure,
 static void
 ui_class_init (SimpleScanClass *klass)
 {
-    signals[RENDER_PREVIEW] =
-        g_signal_new ("render-preview",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (SimpleScanClass, render_preview),
-                      NULL, NULL,
-                      g_cclosure_user_marshal_VOID__POINTER_POINTER,
-                      G_TYPE_NONE, 2, G_TYPE_POINTER, G_TYPE_POINTER);
     signals[START_SCAN] =
         g_signal_new ("start-scan",
                       G_TYPE_FROM_CLASS (klass),
@@ -893,22 +783,6 @@ ui_class_init (SimpleScanClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
-    signals[PAN] =
-        g_signal_new ("pan",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (SimpleScanClass, pan),
-                      NULL, NULL,
-                      g_cclosure_marshal_VOID__POINTER,
-                      G_TYPE_NONE, 1, G_TYPE_POINTER);
-    signals[ZOOM] =
-        g_signal_new ("zoom",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (SimpleScanClass, zoom),
-                      NULL, NULL,
-                      g_cclosure_marshal_VOID__DOUBLE,
-                      G_TYPE_NONE, 1, G_TYPE_DOUBLE);
     signals[SAVE] =
         g_signal_new ("save",
                       G_TYPE_FROM_CLASS (klass),

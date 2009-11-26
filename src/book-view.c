@@ -9,6 +9,8 @@
  * license.
  */
 
+#include <gdk/gdkkeysyms.h>
+
 #include "book-view.h"
 
 
@@ -21,12 +23,6 @@ typedef struct
 } PageView;
 
 
-enum {
-    REDRAW,
-    LAST_SIGNAL
-};
-static guint signals[LAST_SIGNAL] = { 0, };
-
 struct BookViewPrivate
 {
     Book *book;
@@ -34,8 +30,12 @@ struct BookViewPrivate
 
     gint width, height;
     gint x_offset, y_offset;
-    gdouble zoom;
+    GtkAdjustment *zoom_adjustment;
+    gdouble old_zoom;
     gint selected_page;
+    
+    GtkWidget *widget;
+    gdouble mouse_x, mouse_y;
 };
 
 G_DEFINE_TYPE (BookView, book_view, G_TYPE_OBJECT);
@@ -48,12 +48,19 @@ book_view_new ()
 }
 
 
+GtkAdjustment *
+book_view_get_zoom_adjustment (BookView *view)
+{
+    return view->priv->zoom_adjustment;
+}
+
+
 static void
 page_updated (Page *page, BookView *view)
 {
     PageView *page_view = g_hash_table_lookup (view->priv->page_data, page);
     page_view->update_image = TRUE;
-    g_signal_emit (view, signals[REDRAW], 0);
+    gtk_widget_queue_draw (view->priv->widget);
 }
 
 
@@ -83,7 +90,7 @@ page_added (Book *book, Page *page, BookView *view)
 {
     g_hash_table_insert (view->priv->page_data, page, page_view_alloc (page));
     g_signal_connect (page, "updated", G_CALLBACK (page_updated), view);
-    g_signal_emit (view, signals[REDRAW], 0);
+    gtk_widget_queue_draw (view->priv->widget);
 }
 
 
@@ -91,7 +98,7 @@ static void
 page_removed (Book *book, Page *page, BookView *view)
 {
     g_hash_table_remove (view->priv->page_data, page);
-    g_signal_emit (view, signals[REDRAW], 0);
+    gtk_widget_queue_draw (view->priv->widget);
 }
 
 
@@ -115,13 +122,11 @@ book_view_set_book (BookView *view, Book *book)
 }
 
 
-void
-book_view_resize (BookView *view, gint width, gint height)
+static gboolean
+configure_cb (GtkWidget *widget, GdkEventConfigure *event, BookView *view)
 {
-    view->priv->width = width;
-    view->priv->height = height;
-    // TEMP: Causing loop in redraw callback
-    //g_signal_emit (view, signals[REDRAW], 0);
+    view->priv->width = event->width;
+    view->priv->height = event->height;
 }
 
 
@@ -130,17 +135,14 @@ book_view_pan (BookView *view, gint x_offset, gint y_offset)
 {
     view->priv->x_offset += x_offset;
     view->priv->y_offset += y_offset;
-    g_signal_emit (view, signals[REDRAW], 0);
+    gtk_widget_queue_draw (view->priv->widget);
 }
 
 
 void
-book_view_zoom (BookView *view, gdouble zoom)
+book_view_set_zoom (BookView *view, gdouble zoom)
 {
-    view->priv->x_offset += (view->priv->zoom - zoom) * view->priv->width;
-    view->priv->y_offset += (view->priv->zoom - zoom) * view->priv->height;
-    view->priv->zoom = zoom;
-    g_signal_emit (view, signals[REDRAW], 0);
+    gtk_adjustment_set_value (view->priv->zoom_adjustment, zoom);
 }
 
 
@@ -247,9 +249,10 @@ page_set_scale (PageView *page, gdouble scale)
 }
 
 
-void
-book_view_render (BookView *view, cairo_t *context)
+static gboolean
+expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
 {
+    cairo_t *context;    
     gint i, n_pages;
     gdouble max_width = 0, max_height = 0;
     gdouble inner_width, inner_height;
@@ -261,7 +264,7 @@ book_view_render (BookView *view, cairo_t *context)
     
     n_pages = book_get_n_pages (view->priv->book);
     if (n_pages == 0)
-        return;
+        return FALSE;
 
     /* Get area required to fit all pages */
     for (i = 0; i < n_pages; i++) {
@@ -292,7 +295,7 @@ book_view_render (BookView *view, cairo_t *context)
     if (scale >= 1.0)
         scale = 1.0;
     else {
-        scale += (1.0 - scale) * view->priv->zoom;
+        scale += (1.0 - scale) * gtk_adjustment_get_value (view->priv->zoom_adjustment);
     }
     
     /* Get total dimensions of all pages */
@@ -344,9 +347,7 @@ book_view_render (BookView *view, cairo_t *context)
     x_offset += view->priv->x_offset;
     y_offset += view->priv->y_offset;
     
-    /* Offset so the first page is centered */
-    
-    /* Can slide between center of first page and last page */
+    context = gdk_cairo_create (widget->window);
 
     /* Render each page */
     for (i = 0; i < n_pages; i++) {
@@ -358,29 +359,125 @@ book_view_render (BookView *view, cairo_t *context)
         render_page (view, page, context, x_offset, y, scale, FALSE);
         x_offset += page->width + (2 * border) + spacing;
     }
+
+    cairo_destroy (context);
+
+    return FALSE;
 }
 
 static void
 book_view_class_init (BookViewClass *klass)
 {
-    signals[REDRAW] =
-        g_signal_new ("redraw",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (BookViewClass, redraw),
-                      NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
-
     g_type_class_add_private (klass, sizeof (BookViewPrivate));
 }
 
 
 static void
-book_view_init (BookView *book)
+zoom_cb (GtkAdjustment *adjustment, BookView *view)
 {
-    book->priv = G_TYPE_INSTANCE_GET_PRIVATE (book, BOOK_VIEW_TYPE, BookViewPrivate);
-    book->priv->page_data = g_hash_table_new_full (g_direct_hash, g_direct_equal,
+    gdouble zoom;
+    
+    zoom = gtk_adjustment_get_value (view->priv->zoom_adjustment);    
+    view->priv->x_offset += (zoom - view->priv->old_zoom) * view->priv->width;
+    view->priv->y_offset += (zoom - view->priv->old_zoom) * view->priv->height;
+    view->priv->old_zoom = zoom;
+
+    gtk_widget_queue_draw (view->priv->widget);
+}
+
+
+static void
+book_view_init (BookView *view)
+{
+    view->priv = G_TYPE_INSTANCE_GET_PRIVATE (view, BOOK_VIEW_TYPE, BookViewPrivate);
+    view->priv->page_data = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                    NULL, (GDestroyNotify) page_view_free);
-    book->priv->selected_page = -1;
+    view->priv->selected_page = -1;
+    view->priv->zoom_adjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
+                                                                      0.0, 1.0,
+                                                                      0.01,
+                                                                      0.1,
+                                                                      0));
+    g_signal_connect (view->priv->zoom_adjustment, "value-changed", G_CALLBACK (zoom_cb), view);
+}
+
+
+static gboolean
+button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
+{
+    view->priv->mouse_x = event->x;
+    view->priv->mouse_y = event->y;
+    return FALSE;
+}
+
+
+static gboolean
+scroll_cb (GtkWidget *widget, GdkEventScroll *event, BookView *view)
+{
+    if (event->direction == GDK_SCROLL_UP)
+        book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) + 0.1);
+    else if (event->direction == GDK_SCROLL_DOWN)
+        book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) - 0.1);
+    return FALSE;
+}
+
+
+static gboolean
+motion_cb (GtkWidget *widget, GdkEventMotion *event, BookView *view)
+{
+    book_view_pan (view, event->x - view->priv->mouse_x, event->y - view->priv->mouse_y);
+    view->priv->mouse_x = event->x;
+    view->priv->mouse_y = event->y;
+   
+    return FALSE;
+}
+
+
+static gboolean
+key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
+{
+    switch (event->keyval) {
+    /* Pan */
+    case GDK_Left:
+        book_view_pan (view, 5, 0);
+        return TRUE;
+    case GDK_Right:
+        book_view_pan (view, -5, 0);
+        return TRUE;
+    case GDK_Up:
+        book_view_pan (view, 0, 5);
+        return TRUE;
+    case GDK_Down:
+        book_view_pan (view, 0, -5);
+        return TRUE;
+
+    /* Zoom */
+    case GDK_plus:
+    case GDK_equal:
+        book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) + 0.1);
+        return TRUE;
+    case GDK_minus:
+        book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) - 0.1);        
+        return TRUE;
+
+    case GDK_Delete:
+        return TRUE;
+
+    default:
+        return FALSE;
+    }
+}
+
+
+void
+book_view_set_widget (BookView *view, GtkWidget *widget)
+{
+    g_return_if_fail (view->priv->widget == NULL);
+    view->priv->widget = widget;
+    g_signal_connect (widget, "configure-event", G_CALLBACK (configure_cb), view);
+    g_signal_connect (widget, "expose-event", G_CALLBACK (expose_cb), view);
+    g_signal_connect (widget, "motion-notify-event", G_CALLBACK (motion_cb), view);
+    g_signal_connect (widget, "key-press-event", G_CALLBACK (key_cb), view);
+    g_signal_connect (widget, "button-press-event", G_CALLBACK (button_cb), view);
+    g_signal_connect (widget, "scroll-event", G_CALLBACK (scroll_cb), view);
 }

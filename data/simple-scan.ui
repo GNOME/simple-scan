@@ -309,11 +309,7 @@
                     <property name="width_request">200</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="events">GDK_BUTTON_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK</property>
-                    <signal name="expose_event" handler="preview_area_expose_event_cb"/>
-                    <signal name="motion_notify_event" handler="preview_area_motion_notify_event_cb"/>
-                    <signal name="key_press_event" handler="preview_area_key_press_event_cb"/>
-                    <signal name="button_press_event" handler="preview_area_button_press_event_cb"/>
+                    <property name="events">GDK_BUTTON_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK | GDK_SCROLL_MASK</property>
                   </object>
                   <packing>
                     <property name="position">0</property>
@@ -323,7 +319,6 @@
                   <object class="GtkHScale" id="zoom_scale">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="adjustment">zoom_adjustment</property>
                     <property name="draw_value">False</property>
                   </object>
                   <packing>
@@ -401,12 +396,6 @@
         <col id="1" translatable="yes">Document Feeder</col>
       </row>
     </data>
-  </object>
-  <object class="GtkAdjustment" id="zoom_adjustment">
-    <property name="upper">1</property>
-    <property name="step_increment">0.01</property>
-    <property name="page_increment">0.10000000000000001</property>
-    <signal name="value_changed" handler="zoom_scale_value_changed_cb"/>
   </object>
   <object class="GtkImage" id="image1">
     <property name="visible">True</property>

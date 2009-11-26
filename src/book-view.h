@@ -13,6 +13,7 @@
 #define _BOOK_VIEW_H_
 
 #include <glib-object.h>
+#include <gtk/gtk.h>
 #include <cairo.h>
 #include "book.h"
 
@@ -33,23 +34,20 @@ typedef struct
 typedef struct
 {
     GObjectClass parent_class;
-
-    // FIXME: Automatically render onto a GtkWidget
-    void (*redraw) (BookView *view);
 } BookViewClass;
 
 BookView *book_view_new ();
 
+GtkAdjustment *book_view_get_zoom_adjustment (BookView *view);
+
+// FIXME: Book view should extend GtkWidget
+void book_view_set_widget (BookView *view, GtkWidget *widget);
+
 // FIXME: Should be part of book_view_new
 void book_view_set_book (BookView *view, Book *book);
 
-void book_view_resize (BookView *view, gint width, gint height);
-
 void book_view_pan (BookView *view, gint x_offset, gint y_offset);
 
-void book_view_zoom (BookView *view, gdouble zoom);
-
-// FIXME: Automatically render onto a GtkWidget
-void book_view_render (BookView *view, cairo_t *context);
+void book_view_set_zoom (BookView *view, gdouble zoom);
 
 #endif /* _BOOK_VIEW_H_ */

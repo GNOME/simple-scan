@@ -137,14 +137,6 @@ scanner_failed_cb (Scanner *scanner, GError *error)
 
 
 static void
-render_cb (SimpleScan *ui, cairo_t *context, RenderEvent *event)
-{
-    book_view_resize (book_view, event->width, event->height);
-    book_view_render (book_view, context);
-}
-
-
-static void
 redraw_cb (BookView *view)
 {
     ui_redraw_preview (ui);  
@@ -241,20 +233,6 @@ rotate_right_cb (SimpleScan *ui)
         orientation--;
     page_set_orientation (page, orientation);
     default_orientation = orientation;
-}
-
-
-static void
-pan_cb (SimpleScan *ui, PanEvent *event)
-{
-    book_view_pan (book_view, event->x, event->y);
-}
-
-
-static void
-zoom_cb (SimpleScan *ui, gdouble zoom)
-{
-    book_view_zoom (book_view, zoom);
 }
 
 
@@ -410,20 +388,19 @@ main(int argc, char **argv)
     page_count++;
 
     ui = ui_new ();
-    g_signal_connect (ui, "render-preview", G_CALLBACK (render_cb), NULL);
     g_signal_connect (ui, "start-scan", G_CALLBACK (scan_cb), NULL);
     g_signal_connect (ui, "stop-scan", G_CALLBACK (cancel_cb), NULL);
     g_signal_connect (ui, "rotate-left", G_CALLBACK (rotate_left_cb), NULL);
     g_signal_connect (ui, "rotate-right", G_CALLBACK (rotate_right_cb), NULL);
-    g_signal_connect (ui, "pan", G_CALLBACK (pan_cb), NULL);
-    g_signal_connect (ui, "zoom", G_CALLBACK (zoom_cb), NULL);
     g_signal_connect (ui, "save", G_CALLBACK (save_cb), NULL);
     g_signal_connect (ui, "print", G_CALLBACK (print_cb), NULL);
     g_signal_connect (ui, "quit", G_CALLBACK (quit_cb), NULL);
 
     book_view = book_view_new ();
+    book_view_set_widget (book_view, ui_get_preview_widget (ui)); // FIXME
     book_view_set_book (book_view, book);
-    g_signal_connect (book_view, "redraw", G_CALLBACK (redraw_cb), NULL);
+    
+    ui_set_zoom_adjustment (ui, book_view_get_zoom_adjustment (book_view));
     
     scanner = scanner_new ();
     g_signal_connect (G_OBJECT (scanner), "ready", G_CALLBACK (scanner_ready_cb), NULL);

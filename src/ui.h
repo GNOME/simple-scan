@@ -26,16 +26,6 @@ typedef enum
     PAGE_AUTOMATIC
 } PageMode;
 
-typedef struct
-{
-    gdouble width, height;
-} RenderEvent;
-
-typedef struct
-{
-    gdouble x, y;
-} PanEvent;
-
 
 typedef struct SimpleScanPrivate SimpleScanPrivate;
 
@@ -49,13 +39,10 @@ typedef struct
 {
     GObjectClass parent_class;
 
-    void (*render_preview) (SimpleScan *ui, cairo_t *context, RenderEvent *event);
     void (*start_scan) (SimpleScan *ui, const gchar *device, const gchar *document_type);
     void (*stop_scan) (SimpleScan *ui);
     void (*rotate_left) (SimpleScan *ui);
     void (*rotate_right) (SimpleScan *ui);
-    void (*pan) (SimpleScan *ui, PanEvent *event);
-    void (*zoom) (SimpleScan *ui, gdouble zoom);
     void (*save) (SimpleScan *ui, const gchar *format);
     void (*print) (SimpleScan *ui, cairo_t *context);
     void (*quit) (SimpleScan *ui);
@@ -63,6 +50,11 @@ typedef struct
 
 
 SimpleScan *ui_new ();
+
+// FIXME: Make a custom widget
+GtkWidget *ui_get_preview_widget (SimpleScan *ui);
+
+void ui_set_zoom_adjustment (SimpleScan *ui, GtkAdjustment *adjustment);
 
 void ui_set_default_file_name (SimpleScan *ui, const gchar *default_file_name);
 
@@ -79,8 +71,6 @@ void ui_set_scanning (SimpleScan *ui, gboolean scanning);
 void ui_set_have_scan (SimpleScan *ui, gboolean have_scan);
 
 PageMode ui_get_page_mode (SimpleScan *ui);
-
-void ui_redraw_preview (SimpleScan *ui);
 
 void ui_show_error (SimpleScan *ui, const gchar *error_title, const gchar *error_text);
 
