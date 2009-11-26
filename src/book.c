@@ -18,7 +18,12 @@
 #include "book.h"
 
 
-// FIXME: Split into BookModel and BookView
+enum {
+    PAGE_ADDED,
+    PAGE_REMOVED,
+    LAST_SIGNAL
+};
+static guint signals[LAST_SIGNAL] = { 0, };
 
 struct BookPrivate
 {
@@ -58,6 +63,8 @@ book_append_page (Book *book, gint width, gint height, gint dpi, Orientation ori
     page_set_orientation (page, orientation);
 
     book->priv->pages = g_list_append (book->priv->pages, page);
+
+    g_signal_emit (book, signals[PAGE_ADDED], 0, page);
 
     return page;
 }
@@ -238,17 +245,26 @@ book_print (Book *book, cairo_t *context)
 }
 
 
-void
-book_delete (Book *book)
-{  
-    book_clear (book);
-    g_free (book);
-}
-
-
 static void
 book_class_init (BookClass *klass)
 {
+    signals[PAGE_ADDED] =
+        g_signal_new ("page-added",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (BookClass, page_added),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__POINTER,
+                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+    signals[PAGE_REMOVED] =
+        g_signal_new ("page-removed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (BookClass, page_removed),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__POINTER,
+                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+
     g_type_class_add_private (klass, sizeof (BookPrivate));
 }
 
@@ -257,4 +273,13 @@ static void
 book_init (Book *book)
 {
     book->priv = G_TYPE_INSTANCE_GET_PRIVATE (book, BOOK_TYPE, BookPrivate);
+}
+
+
+static void
+book_finalize (GObject *object)
+{
+    Book *book = BOOK (object);
+    book_clear (book);
+    G_OBJECT_CLASS (book_parent_class)->finalize (object);
 }

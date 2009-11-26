@@ -14,7 +14,6 @@
 
 #include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
-#include <cairo.h>
 #include "scanner.h"
 
 G_BEGIN_DECLS
@@ -42,6 +41,8 @@ typedef struct
 typedef struct
 {
     GObjectClass parent_class;
+
+    void (*updated) (Page *page);
 } PageClass;
 
 
@@ -56,6 +57,8 @@ gint page_get_height (Page *page);
 
 void page_start (Page *page);
 
+gint page_get_scan_line (Page *page);
+
 void page_parse_scan_line (Page *page, ScanLine *line);
 
 void page_finish (Page *page);
@@ -69,18 +72,5 @@ gint page_get_width (Page *page);
 gint page_get_height (Page *page);
 
 GdkPixbuf *page_get_image (Page *page);
-
-
-// FIXME: The following should be in a PageView
-
-void page_set_scale (Page *page, gdouble scale);
-
-gint page_get_display_width (Page *page);
-
-gint page_get_display_height (Page *page);
-
-void page_render (Page *page, cairo_t *context,
-                  gdouble x, gdouble y, gdouble scale,
-                  gboolean selected);
 
 #endif /* _PAGE_H_ */

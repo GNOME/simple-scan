@@ -33,6 +33,8 @@ typedef struct
 typedef struct
 {
     GObjectClass parent_class;
+
+    void (*redraw) (BookView *view);
 } BookViewClass;
 
 

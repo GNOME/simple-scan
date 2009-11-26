@@ -33,6 +33,9 @@ typedef struct
 typedef struct
 {
     GObjectClass parent_class;
+
+    void (*page_added) (Book *book, Page *page);
+    void (*page_removed) (Book *book, Page *page);
 } BookClass;
 
 
@@ -55,8 +58,5 @@ gboolean book_save_ps (Book *book, GFileOutputStream *stream, GError **error);
 gboolean book_save_pdf (Book *book, GFileOutputStream *stream, GError **error);
 
 void book_print (Book *book, cairo_t *context);
-
-// FIXME: Do standard unref
-void book_delete (Book *book);
 
 #endif /* _BOOK_H_ */

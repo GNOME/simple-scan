@@ -13,6 +13,12 @@
 #include "page.h"
 
 
+enum {
+    UPDATED,
+    LAST_SIGNAL
+};
+static guint signals[LAST_SIGNAL] = { 0, };
+
 struct PagePrivate
 {
     /* Resolution of page */
@@ -24,17 +30,11 @@ struct PagePrivate
     /* Scanned image data */
     GdkPixbuf *image;
 
-    /* Last row scanned */
+    /* Expected next scan row */
     gint scan_line;
 
     /* Rotation of scanned data */
     Orientation orientation;
-
-    gint width, height;
-
-    GdkPixbuf *display_image;
-    gint display_width, display_height;
-    gboolean display_image_changed;
 };
 
 G_DEFINE_TYPE (Page, page, G_TYPE_OBJECT);
@@ -58,22 +58,16 @@ void page_set_scan_area (Page *page, gint width, gint rows, gint dpi)
         h = rows;
 
     page->priv->rows = rows;
-    page->priv->width = width;
-    page->priv->height = h;
     page->priv->dpi = dpi;
 
-    /* Fill with white */
+    /* Create a white page */
     /* NOTE: Pixbuf only supports 8 bit RGB images */
     page->priv->image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
                                         8,
                                         width,
                                         h);
-    page->priv->display_image = g_object_ref (page->priv->image);
     memset (gdk_pixbuf_get_pixels (page->priv->image), 0xFF,
             gdk_pixbuf_get_height (page->priv->image) * gdk_pixbuf_get_rowstride (page->priv->image));
-    
-    /* Regenerate display image */
-    page_set_scale (page, 1.0);
 }
 
 
@@ -112,6 +106,12 @@ get_sample (guchar *data, gint depth, gint index)
         value >>= n_bits - depth;
 
     return value;
+}
+
+
+gint page_get_scan_line (Page *page)
+{
+    return page->priv->scan_line;
 }
 
 
@@ -191,7 +191,7 @@ page_parse_scan_line (Page *page, ScanLine *line)
     }
 
     page->priv->scan_line = line->number;
-    page->priv->display_image_changed = TRUE;
+    g_signal_emit (page, signals[UPDATED], 0);
 }
 
 
@@ -218,8 +218,7 @@ page_finish (Page *page)
         g_object_unref (page->priv->image);
         page->priv->image = image;
 
-        page->priv->height = page->priv->scan_line; // FIXME: Doesn't take into account rotation
-        page->priv->display_image_changed = TRUE;
+        g_signal_emit (page, signals[UPDATED], 0);
     }
     page->priv->scan_line = -1;
 }
@@ -239,17 +238,7 @@ page_set_orientation (Page *page, Orientation orientation)
         return;
 
     page->priv->orientation = orientation;
-    
-    if (orientation == TOP_TO_BOTTOM || orientation == LEFT_TO_RIGHT) {
-        page->priv->width = gdk_pixbuf_get_width (page->priv->image);
-        page->priv->height = gdk_pixbuf_get_height (page->priv->image);
-    }
-    else {
-        page->priv->width = gdk_pixbuf_get_height (page->priv->image);
-        page->priv->height = gdk_pixbuf_get_width (page->priv->image);
-    }
-
-    page->priv->display_image_changed = TRUE;
+    g_signal_emit (page, signals[UPDATED], 0);
 }
 
 
@@ -263,14 +252,20 @@ page_get_dpi (Page *page)
 gint
 page_get_width (Page *page)
 {
-    return page->priv->width;
+    if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == LEFT_TO_RIGHT)
+        return gdk_pixbuf_get_width (page->priv->image);
+    else
+        return gdk_pixbuf_get_height (page->priv->image);
 }
 
 
 gint
 page_get_height (Page *page)
 {
-    return page->priv->height;
+    if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == LEFT_TO_RIGHT)
+        return gdk_pixbuf_get_height (page->priv->image);
+    else
+        return gdk_pixbuf_get_width (page->priv->image);
 }
 
 
@@ -291,103 +286,18 @@ page_get_image (Page *page)
 }
 
 
-
-static void
-update_display_image (Page *page)
-{
-    GdkPixbuf *image;
-
-    if (!page->priv->display_image_changed)
-        return;
-
-    g_object_unref (page->priv->display_image);
-    image = page_get_image (page);
-    page->priv->display_image = gdk_pixbuf_scale_simple (image, 
-                                                         page->priv->display_width, page->priv->display_height,
-                                                         GDK_INTERP_BILINEAR);
-    g_object_unref (image);
-
-    page->priv->display_image_changed = FALSE;
-}
-
-
-void
-page_set_scale (Page *page, gdouble scale)
-{
-    gint width, height;
-
-    width = (scale * page->priv->width + 0.5);
-    height = (scale * page->priv->height + 0.5);
-
-    if (page->priv->display_width == width &&
-        page->priv->display_height == height)
-        return;
-
-    page->priv->display_width = width;
-    page->priv->display_height = height;
-    page->priv->display_image_changed = TRUE;
-}
-
-
-gint
-page_get_display_width (Page *page)
-{
-    return page->priv->display_width;
-}
-
-
-gint
-page_get_display_height (Page *page)
-{
-    return page->priv->display_height;
-}
-
-
-void
-page_render (Page *page, cairo_t *context,
-             gdouble x, gdouble y, gdouble scale,
-             gboolean selected)
-{
-    update_display_image (page);
-
-    cairo_save (context);
-
-    /* Draw background */
-    cairo_translate (context, x, y);
-    cairo_translate (context, 1, 1);
-    gdk_cairo_set_source_pixbuf (context, page->priv->display_image, 0, 0);
-    cairo_paint (context);
-    cairo_translate (context, -1, -1);
-
-    /* Draw page border */
-    /* NOTE: Border width and height is rounded up so border is sharp.  Background may not
-     * extend to border, should fill with white (?) before drawing scanned image or extend
-     * edges slightly */
-    if (selected)
-        cairo_set_source_rgb (context, 1, 0, 0);
-    else
-        cairo_set_source_rgb (context, 0, 0, 0);
-    cairo_set_line_width (context, 1);
-    cairo_rectangle (context, 0.5, 0.5, page->priv->display_width + 1, page->priv->display_height + 1);
-    cairo_stroke (context);
-
-    /* Draw scan line */
-    if (page->priv->scan_line >= 0) {
-        double h = scale * (double) page->priv->scan_line;
-
-        cairo_set_source_rgb (context, 1.0, 0.0, 0.0);
-        cairo_move_to (context, 0, h);
-        cairo_line_to (context, page->priv->display_width, h);
-        cairo_stroke (context);
-    }
-    
-    cairo_restore (context);
-}
-
-
 static void
 page_class_init (PageClass *klass)
 {
+    signals[UPDATED] =
+        g_signal_new ("updated",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (PageClass, updated),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+
     g_type_class_add_private (klass, sizeof (PagePrivate));
 }
 
@@ -406,6 +316,5 @@ page_finalize (GObject *object)
 {
     Page *page = PAGE (object);
     g_object_unref (page->priv->image);
-    g_object_unref (page->priv->display_image);
     G_OBJECT_CLASS (page_parent_class)->finalize (object);
 }
