@@ -120,6 +120,8 @@ book_view_resize (BookView *view, gint width, gint height)
 {
     view->priv->width = width;
     view->priv->height = height;
+    // TEMP: Causing loop in redraw callback
+    //g_signal_emit (view, signals[REDRAW], 0);
 }
 
 
@@ -128,6 +130,7 @@ book_view_pan (BookView *view, gint x_offset, gint y_offset)
 {
     view->priv->x_offset += x_offset;
     view->priv->y_offset += y_offset;
+    g_signal_emit (view, signals[REDRAW], 0);
 }
 
 
@@ -136,7 +139,8 @@ book_view_zoom (BookView *view, gdouble zoom)
 {
     view->priv->x_offset += (view->priv->zoom - zoom) * view->priv->width;
     view->priv->y_offset += (view->priv->zoom - zoom) * view->priv->height;
-    view->priv->zoom = zoom;    
+    view->priv->zoom = zoom;
+    g_signal_emit (view, signals[REDRAW], 0);
 }
 
 
@@ -254,7 +258,7 @@ book_view_render (BookView *view, cairo_t *context)
     gdouble book_width = 0, book_height = 0;
     gdouble x_offset = 0, y_offset = 0, scale;
     gdouble x_range = 0, y_range = 0;
-
+    
     n_pages = book_get_n_pages (view->priv->book);
     if (n_pages == 0)
         return;

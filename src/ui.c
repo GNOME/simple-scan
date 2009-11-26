@@ -13,6 +13,7 @@
 #include <string.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>
 #include <gconf/gconf-client.h>
 
 #include "ui.h"
@@ -249,19 +250,25 @@ preview_area_button_press_event_cb (GtkWidget *widget, GdkEventButton *event, Si
 }
 
 
+static void
+emit_pan (SimpleScan *ui, gdouble x, gdouble y)
+{
+    PanEvent pan_event;
+    
+    pan_event.x = x;
+    pan_event.y = y;
+    g_signal_emit (G_OBJECT (ui), signals[PAN], 0, &pan_event);
+}
+
+
 G_MODULE_EXPORT
 gboolean
 preview_area_motion_notify_event_cb (GtkWidget *widget, GdkEventMotion *event, SimpleScan *ui)
 {
-    PanEvent pan_event;
-    
-    pan_event.x = event->x - ui->priv->mouse_x;
-    pan_event.y = event->y - ui->priv->mouse_y;
+    emit_pan (ui, event->x - ui->priv->mouse_x, event->y - ui->priv->mouse_y);
     ui->priv->mouse_x = event->x;
     ui->priv->mouse_y = event->y;
-    
-    g_signal_emit (G_OBJECT (ui), signals[PAN], 0, &pan_event);
-    
+   
     return FALSE;
 }
 
@@ -270,8 +277,38 @@ G_MODULE_EXPORT
 gboolean
 preview_area_key_press_event_cb (GtkWidget *widget, GdkEventKey *event, SimpleScan *ui)
 {
-    g_debug("key\n");
-    return FALSE;
+    switch (event->keyval) {
+    /* Pan */
+    case GDK_Left:
+        emit_pan (ui, 5, 0);
+        return TRUE;
+    case GDK_Right:
+        emit_pan (ui, -5, 0);
+        return TRUE;
+    case GDK_Up:
+        emit_pan (ui, 0, 5);        
+        return TRUE;
+    case GDK_Down:
+        emit_pan (ui, 0, -5);
+        return TRUE;
+
+    /* Zoom */
+    case GDK_plus:
+    case GDK_equal:
+        gtk_range_set_value (GTK_RANGE (ui->priv->zoom_scale),
+                             gtk_range_get_value (GTK_RANGE (ui->priv->zoom_scale)) + 0.1);
+        return TRUE;
+    case GDK_minus:
+        gtk_range_set_value (GTK_RANGE (ui->priv->zoom_scale),
+                             gtk_range_get_value (GTK_RANGE (ui->priv->zoom_scale)) - 0.1);
+        return TRUE;
+
+    case GDK_Delete:
+        return TRUE;
+
+    default:
+        return FALSE;
+    }
 }
 
 
