@@ -154,14 +154,13 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type, gboole
     ui_set_have_scan (ui, FALSE);
     ui_set_scanning (ui, TRUE);
     
-    // FIXME: Translate
     if (strcmp (document_type, "photo") == 0) {
         ui_set_default_file_name (ui,
                                   /* Default name for JPEG documents */
                                   _("Scanned Document.jpeg"));
         dpi = 400;
     }
-    else if (strcmp (document_type, "document") == 0) {
+    else if (strcmp (document_type, "text") == 0) {
         ui_set_default_file_name (ui,
                                   /* Default name for PDF documents */
                                   _("Scanned Document.pdf"));
@@ -171,7 +170,7 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type, gboole
         ui_set_default_file_name (ui,
                                   /* Default name for PNG documents */
                                   _("Scanned Document.png"));
-        dpi = 400;
+        dpi = 800;
     }
     /* Draft or unknown */
     else
@@ -183,9 +182,9 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type, gboole
     if (replace)
         clear_pages = TRUE;
 
-    //scanner_scan (scanner, device, NULL, dpi, NULL, 8, continuous);
+    scanner_scan (scanner, device, NULL, dpi, "Color", 8, continuous);
     //scanner_scan (scanner, device, "Flatbed", 50, "Color", 8, continuous);
-    scanner_scan (scanner, device, "Automatic Document Feeder", 200, "Color", 8, continuous);
+    //scanner_scan (scanner, device, "Automatic Document Feeder", 200, "Color", 8, continuous);
 }
 
 

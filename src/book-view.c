@@ -237,8 +237,12 @@ render_page (BookView *view, PageView *page, cairo_t *context, gboolean selected
     /* NOTE: Border width and height is rounded up so border is sharp.  Background may not
      * extend to border, should fill with white (?) before drawing scanned image or extend
      * edges slightly */
-    if (selected)
-        cairo_set_source_rgb (context, 1, 0, 0);
+    if (selected) {
+        if (gtk_widget_has_focus (view->priv->widget))
+            cairo_set_source_rgb (context, 1, 0, 0);
+        else
+            cairo_set_source_rgb (context, 0.5, 0, 0);
+    }
     else
         cairo_set_source_rgb (context, 0, 0, 0);
     cairo_set_line_width (context, 1);
@@ -406,12 +410,7 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
     for (i = 0; i < n_pages; i++) {
         Page *p = book_get_page (view->priv->book, i);
         PageView *page = g_hash_table_lookup (view->priv->page_data, p);
-        gboolean selected;
-
-        // FIXME: Should indicate keyboard focus : gtk_widget_has_focus (view->priv->widget) &&
-        selected = n_pages > 0 && i == view->priv->selected_page;
-
-        render_page (view, page, context, selected);
+        render_page (view, page, context, i == view->priv->selected_page);
     }
 
     cairo_destroy (context);
@@ -510,7 +509,7 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
         g_signal_connect (item, "activate", G_CALLBACK (rotate_right_cb), view);
         gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
 
-        item = gtk_menu_item_new_with_label ("Crop");
+        /*item = gtk_menu_item_new_with_label ("Crop");
         gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
         crop_menu = gtk_menu_new ();
         gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), crop_menu);
@@ -538,7 +537,7 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
         gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
         //item = gtk_radio_menu_item_new_with_label (group, "Custom");
         //gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
-        //group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+        //group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));*/
 
         item = gtk_menu_item_new_with_label ("Delete");
         g_signal_connect (item, "activate", G_CALLBACK (delete_cb), view);

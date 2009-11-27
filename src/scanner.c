@@ -176,12 +176,23 @@ poll_for_devices (Scanner *scanner)
 
 
 static void
+control_option (SANE_Handle handle, SANE_Int index, SANE_Action action, void *value)
+{
+    SANE_Status status;
+    
+    status = sane_control_option (handle, index, action, value, NULL);
+    if (status != SANE_STATUS_GOOD)
+        g_warning ("Error setting control option: %s", sane_strstatus(status));
+}
+
+
+static void
 set_bool_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, SANE_Bool value)
 {
     SANE_Bool v = value;
     g_return_if_fail (option->type == SANE_TYPE_BOOL);
     g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s)", option_index, value ? "TRUE" : "FALSE");
-    sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v, NULL);
+    control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
 
@@ -193,14 +204,15 @@ set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_I
     g_return_if_fail (option->type == SANE_TYPE_INT);
 
     if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
-        v *= option->constraint.range->quant;
+        if (option->constraint.range->quant)
+            v *= option->constraint.range->quant;
         if (v < option->constraint.range->min)
             v = option->constraint.range->min;
         if (v > option->constraint.range->max)
             v = option->constraint.range->max;
     }
     g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %d)", option_index, value);
-    sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v, NULL);
+    control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
 
@@ -212,7 +224,7 @@ set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE
     g_return_if_fail (option->type == SANE_TYPE_FIXED);
 
     g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %f)", option_index, value);
-    sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v, NULL);
+    control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
 
@@ -229,7 +241,7 @@ set_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SAN
     string = g_malloc(sizeof(char) * size);
     strcpy (string, value);
     g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\")", option_index, value);
-    sane_control_option (handle, option_index, SANE_ACTION_SET_VALUE, string, NULL);
+    control_option (handle, option_index, SANE_ACTION_SET_VALUE, string);
     g_free (string);
 }
 
