@@ -135,47 +135,45 @@ scanner_failed_cb (Scanner *scanner, GError *error)
 
 
 static void
-scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type, gboolean continuous, gboolean replace)
+scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolean continuous, gboolean replace)
 {
-    gint dpi;
+    struct {
+        const gchar *name;
+        gint dpi;
+        ScanMode mode;
+        const gchar *file_name;
+    } profiles[] = 
+    {
+        { "text", 200, SCAN_MODE_LINEART,
+          /* Default name for PDF documents */
+          _("Scanned Document.pdf") },
+        { "photo", 400, SCAN_MODE_COLOR,
+          /* Default name for JPEG documents */
+          _("Scanned Document.jpeg") },
+        { "raw", 800, SCAN_MODE_COLOR,
+          /* Default name for PNG documents */
+          _("Scanned Document.png") },
+        { NULL, 75, SCAN_MODE_COLOR,
+          /* Default name for JPEG documents */
+          _("Scanned Document.jpeg") }                
+    };
+    gint i;
 
-    g_debug ("Requesting scan of type %s from device '%s'", document_type, device);
+    g_debug ("Requesting scan of type %s from device '%s'", profile_name, device);
 
     scanning = TRUE;
     ui_set_have_scan (ui, FALSE);
     ui_set_scanning (ui, TRUE);
     
-    if (strcmp (document_type, "photo") == 0) {
-        ui_set_default_file_name (ui,
-                                  /* Default name for JPEG documents */
-                                  _("Scanned Document.jpeg"));
-        dpi = 400;
-    }
-    else if (strcmp (document_type, "text") == 0) {
-        ui_set_default_file_name (ui,
-                                  /* Default name for PDF documents */
-                                  _("Scanned Document.pdf"));
-        dpi = 200;
-    }
-    else if (strcmp (document_type, "raw") == 0) {
-        ui_set_default_file_name (ui,
-                                  /* Default name for PNG documents */
-                                  _("Scanned Document.png"));
-        dpi = 800;
-    }
-    /* Draft or unknown */
-    else
-    {
-        ui_set_default_file_name (ui, _("Scanned Document.jpeg"));
-        dpi = 75;
-    }
+    /* Find this profile */
+    for (i = 0; profiles[i].name && strcmp (profiles[i].name, profile_name) != 0; i++);
 
     if (replace)
         clear_pages = TRUE;
-
-    scanner_scan (scanner, device, NULL, dpi, "Color", 8, continuous);
-    //scanner_scan (scanner, device, "Flatbed", 50, "Color", 8, continuous);
-    //scanner_scan (scanner, device, "Automatic Document Feeder", 200, "Color", 8, continuous);
+    ui_set_default_file_name (ui, profiles[i].file_name);
+    scanner_scan (scanner, device, NULL, profiles[i].dpi, profiles[i].mode, 8, continuous);
+    //scanner_scan (scanner, device, "Flatbed", 50, mode, 8, continuous);
+    //scanner_scan (scanner, device, "Automatic Document Feeder", 200, mode, 8, continuous);
 }
 
 

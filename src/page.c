@@ -189,7 +189,7 @@ page_parse_scan_line (Page *page, ScanLine *line)
         }
         break;
     }
-
+    
     page->priv->scan_line = line->number;
     g_signal_emit (page, signals[UPDATED], 0);
 }

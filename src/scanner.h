@@ -51,6 +51,14 @@ typedef struct
     gsize data_length;
 } ScanLine;
 
+typedef enum
+{
+    SCAN_MODE_DEFAULT,    
+    SCAN_MODE_COLOR,
+    SCAN_MODE_GRAY,
+    SCAN_MODE_LINEART
+} ScanMode;
+
 
 typedef struct ScannerPrivate ScannerPrivate;
 
@@ -80,7 +88,7 @@ Scanner *scanner_new (void);
 void scanner_start (Scanner *scanner);
 
 void scanner_scan (Scanner *scanner, const char *device, const char *source,
-                   gint dpi, const char *scan_mode, gint depth, gboolean multi_page);
+                   gint dpi, ScanMode scan_mode, gint depth, gboolean multi_page);
 
 void scanner_cancel (Scanner *scanner);
 

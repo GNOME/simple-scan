@@ -679,7 +679,7 @@ scanner_start (Scanner *scanner)
 
 void
 scanner_scan (Scanner *scanner, const char *device, const char *source,
-              gint dpi, const char *scan_mode, gint depth, gboolean multi_page)
+              gint dpi, ScanMode scan_mode, gint depth, gboolean multi_page)
 {
     ScanRequest *request;
 
@@ -690,8 +690,19 @@ scanner_scan (Scanner *scanner, const char *device, const char *source,
     if (source)
         request->source = g_strdup (source);
     request->dpi = dpi;
-    if (scan_mode)
-        request->scan_mode = g_strdup (scan_mode);
+    switch (scan_mode) {
+    case SCAN_MODE_COLOR:
+        request->scan_mode = g_strdup (SANE_VALUE_SCAN_MODE_COLOR);
+        break;
+    case SCAN_MODE_GRAY:
+        request->scan_mode = g_strdup (SANE_VALUE_SCAN_MODE_GRAY);
+        break;
+    case SCAN_MODE_LINEART:
+        request->scan_mode = g_strdup (SANE_VALUE_SCAN_MODE_LINEART);
+        break;
+    default:
+        break;
+    }
     request->depth = depth;
     request->multi_page = multi_page;
     g_async_queue_push (scanner->priv->scan_queue, request);
@@ -701,7 +712,7 @@ scanner_scan (Scanner *scanner, const char *device, const char *source,
 void
 scanner_cancel (Scanner *scanner)
 {
-    scanner_scan (scanner, NULL, NULL, 0, NULL, 0, FALSE);
+    scanner_scan (scanner, NULL, NULL, 0, SCAN_MODE_DEFAULT, 0, FALSE);
 }
 
 
