@@ -242,6 +242,34 @@ page_set_orientation (Page *page, Orientation orientation)
 }
 
 
+void
+page_rotate_left (Page *page)
+{
+    Orientation orientation;
+
+    orientation = page_get_orientation (page);
+    if (orientation == RIGHT_TO_LEFT)
+        orientation = TOP_TO_BOTTOM;
+    else
+        orientation++;
+    page_set_orientation (page, orientation);
+}
+
+
+void
+page_rotate_right (Page *page)
+{
+    Orientation orientation;
+
+    orientation = page_get_orientation (page);
+    if (orientation == TOP_TO_BOTTOM)
+        orientation = RIGHT_TO_LEFT;
+    else
+        orientation--;
+    page_set_orientation (page, orientation);
+}
+
+
 gint
 page_get_dpi (Page *page)
 {

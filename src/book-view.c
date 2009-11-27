@@ -408,7 +408,8 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
         PageView *page = g_hash_table_lookup (view->priv->page_data, p);
         gboolean selected;
 
-        selected = gtk_widget_has_focus (view->priv->widget) && i == view->priv->selected_page;
+        // FIXME: Should indicate keyboard focus : gtk_widget_has_focus (view->priv->widget) &&
+        selected = n_pages > 0 && i == view->priv->selected_page;
 
         render_page (view, page, context, selected);
     }
@@ -416,12 +417,6 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
     cairo_destroy (context);
 
     return FALSE;
-}
-
-static void
-book_view_class_init (BookViewClass *klass)
-{
-    g_type_class_add_private (klass, sizeof (BookViewPrivate));
 }
 
 
@@ -442,19 +437,26 @@ zoom_cb (GtkAdjustment *adjustment, BookView *view)
 
 
 static void
-book_view_init (BookView *view)
+rotate_left_cb (GtkWidget *widget, BookView *view)
 {
-    view->priv = G_TYPE_INSTANCE_GET_PRIVATE (view, BOOK_VIEW_TYPE, BookViewPrivate);
-    view->priv->need_layout = TRUE;
-    view->priv->page_data = g_hash_table_new_full (g_direct_hash, g_direct_equal,
-                                                   NULL, (GDestroyNotify) page_view_free);
-    view->priv->selected_page = 0;
-    view->priv->zoom_adjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
-                                                                      0.0, 1.0,
-                                                                      0.01,
-                                                                      0.1,
-                                                                      0));
-    g_signal_connect (view->priv->zoom_adjustment, "value-changed", G_CALLBACK (zoom_cb), view);
+    page_rotate_left (book_view_get_selected (view));
+}
+
+
+static void
+rotate_right_cb (GtkWidget *widget, BookView *view)
+{
+    page_rotate_right (book_view_get_selected (view));
+}
+
+
+static void
+delete_cb (GtkWidget *widget, BookView *view)
+{
+    book_delete_page (view->priv->book, book_view_get_selected (view));
+    // FIXME: Should be in simple-scan.c
+    if (book_get_n_pages (view->priv->book) == 0)
+        book_append_page (view->priv->book, 595, 842, 72, TOP_TO_BOTTOM);
 }
 
 
@@ -462,6 +464,7 @@ static gboolean
 button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
 {
     gint i, n_pages;
+    gboolean on_page = FALSE;
 
     view->priv->mouse_x = event->x;
     view->priv->mouse_y = event->y;
@@ -485,11 +488,66 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
         if (x >= left && x <= right && y >= top && y <= bottom) {
             view->priv->selected_page = i;
             gtk_widget_queue_draw (view->priv->widget);
+            on_page = TRUE;
             break;
         }
     }
-
+    
     gtk_widget_grab_focus (view->priv->widget);
+
+    /* Show pop-up menu */
+    if (on_page && event->button == 3) {
+        GtkWidget *menu, *crop_menu, *item;
+        GSList *group;
+        
+        menu = gtk_menu_new ();
+
+        item = gtk_menu_item_new_with_label ("Rotate Left");
+        g_signal_connect (item, "activate", G_CALLBACK (rotate_left_cb), view);
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+        item = gtk_menu_item_new_with_label ("Rotate Right");
+        g_signal_connect (item, "activate", G_CALLBACK (rotate_right_cb), view);
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+        item = gtk_menu_item_new_with_label ("Crop");
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+        crop_menu = gtk_menu_new ();
+        gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), crop_menu);
+
+        item = gtk_radio_menu_item_new_with_label (group, "None");
+        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
+        item = gtk_radio_menu_item_new_with_label (group, "A4");
+        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
+        item = gtk_radio_menu_item_new_with_label (group, "A5");
+        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
+        item = gtk_radio_menu_item_new_with_label (group, "A6");
+        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
+        item = gtk_radio_menu_item_new_with_label (group, "Letter");
+        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
+        item = gtk_radio_menu_item_new_with_label (group, "Legal");
+        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
+        item = gtk_radio_menu_item_new_with_label (group, "4×6");
+        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
+        //item = gtk_radio_menu_item_new_with_label (group, "Custom");
+        //gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
+        //group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
+
+        item = gtk_menu_item_new_with_label ("Delete");
+        g_signal_connect (item, "activate", G_CALLBACK (delete_cb), view);
+        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+        gtk_widget_show_all (menu);
+        gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
+                        event->button, event->time);
+    }
 
     return FALSE;
 }
@@ -523,16 +581,32 @@ key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
     switch (event->keyval) {
     /* Pan */
     case GDK_Left:
-        book_view_pan (view, 5, 0);
+        if (event->state & GDK_CONTROL_MASK)
+            book_view_pan (view, 5, 0);
+        else {
+            if (view->priv->selected_page != 0) {
+                view->priv->selected_page--;
+                gtk_widget_queue_draw (view->priv->widget);
+            }
+        }
         return TRUE;
     case GDK_Right:
-        book_view_pan (view, -5, 0);
+        if (event->state & GDK_CONTROL_MASK)        
+            book_view_pan (view, -5, 0);
+        else {
+            view->priv->selected_page++;
+            if (view->priv->selected_page >= book_get_n_pages (view->priv->book))
+                view->priv->selected_page = book_get_n_pages (view->priv->book) - 1;
+            gtk_widget_queue_draw (view->priv->widget);            
+        }
         return TRUE;
     case GDK_Up:
-        book_view_pan (view, 0, 5);
+        if (event->state = GDK_CONTROL_MASK)
+            book_view_pan (view, 0, 5);
         return TRUE;
     case GDK_Down:
-        book_view_pan (view, 0, -5);
+        if (event->state = GDK_CONTROL_MASK)
+            book_view_pan (view, 0, -5);
         return TRUE;
 
     /* Zoom */
@@ -545,6 +619,7 @@ key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
         return TRUE;
 
     case GDK_Delete:
+        delete_cb (NULL, view);
         return TRUE;
 
     default:
@@ -573,4 +648,34 @@ book_view_set_widget (BookView *view, GtkWidget *widget)
     g_signal_connect (widget, "scroll-event", G_CALLBACK (scroll_cb), view);
     g_signal_connect (widget, "focus-in-event", G_CALLBACK (focus_cb), view);
     g_signal_connect (widget, "focus-out-event", G_CALLBACK (focus_cb), view);
+}
+
+
+Page *book_view_get_selected (BookView *view)
+{
+    return book_get_page (view->priv->book, view->priv->selected_page);
+}
+
+
+static void
+book_view_class_init (BookViewClass *klass)
+{
+    g_type_class_add_private (klass, sizeof (BookViewPrivate));
+}
+
+
+static void
+book_view_init (BookView *view)
+{
+    view->priv = G_TYPE_INSTANCE_GET_PRIVATE (view, BOOK_VIEW_TYPE, BookViewPrivate);
+    view->priv->need_layout = TRUE;
+    view->priv->page_data = g_hash_table_new_full (g_direct_hash, g_direct_equal,
+                                                   NULL, (GDestroyNotify) page_view_free);
+    view->priv->selected_page = 0;
+    view->priv->zoom_adjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
+                                                                      0.0, 1.0,
+                                                                      0.01,
+                                                                      0.1,
+                                                                      0));
+    g_signal_connect (view->priv->zoom_adjustment, "value-changed", G_CALLBACK (zoom_cb), view);
 }

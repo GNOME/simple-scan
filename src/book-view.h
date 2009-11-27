@@ -50,4 +50,6 @@ void book_view_pan (BookView *view, gint x_offset, gint y_offset);
 
 void book_view_set_zoom (BookView *view, gdouble zoom);
 
+Page *book_view_get_selected (BookView *view);
+
 #endif /* _BOOK_VIEW_H_ */

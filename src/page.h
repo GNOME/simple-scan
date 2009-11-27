@@ -67,6 +67,10 @@ Orientation page_get_orientation (Page *page);
 
 void page_set_orientation (Page *page, Orientation orientation);
 
+void page_rotate_left (Page *page);
+
+void page_rotate_right (Page *page);
+
 gint page_get_width (Page *page);
 
 gint page_get_height (Page *page);

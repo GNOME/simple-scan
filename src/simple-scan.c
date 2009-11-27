@@ -204,17 +204,9 @@ static void
 rotate_left_cb (SimpleScan *ui)
 {
     Page *page;
-    gint t;
-    Orientation orientation;
-
-    page = book_get_page (book, page_count - 1);
-    orientation = page_get_orientation (page);
-    if (orientation == RIGHT_TO_LEFT)
-        orientation = TOP_TO_BOTTOM;
-    else
-        orientation++;
-    page_set_orientation (page, orientation);
-    default_orientation = orientation;
+    page = book_view_get_selected (book_view);
+    page_rotate_left (page);
+    default_orientation = page_get_orientation (page);
 }
 
 
@@ -222,17 +214,9 @@ static void
 rotate_right_cb (SimpleScan *ui)
 {
     Page *page;
-    gint t;
-    Orientation orientation;
-
-    page = book_get_page (book, page_count - 1);
-    orientation = page_get_orientation (page);
-    if (orientation == TOP_TO_BOTTOM)
-        orientation = RIGHT_TO_LEFT;
-    else
-        orientation--;
-    page_set_orientation (page, orientation);
-    default_orientation = orientation;
+    page = book_view_get_selected (book_view);
+    page_rotate_right (page);
+    default_orientation = page_get_orientation (page);
 }
 
 

@@ -45,6 +45,8 @@ void book_clear (Book *book);
 
 Page *book_append_page (Book *book, gint width, gint height, gint dpi, Orientation orientation);
 
+void book_delete_page (Book *book, Page *page);
+
 gint book_get_n_pages (Book *book);
 
 Page *book_get_page (Book *book, gint page_number);
