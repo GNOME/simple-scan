@@ -19,13 +19,6 @@ G_BEGIN_DECLS
 #define SIMPLE_SCAN_TYPE  (ui_get_type ())
 #define SIMPLE_SCAN(obj)  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SIMPLE_SCAN_TYPE, SimpleScan))
 
-typedef enum
-{
-    PAGE_SINGLE,
-    PAGE_MULTIPLE,
-    PAGE_AUTOMATIC
-} PageMode;
-
 
 typedef struct SimpleScanPrivate SimpleScanPrivate;
 
@@ -39,7 +32,7 @@ typedef struct
 {
     GObjectClass parent_class;
 
-    void (*start_scan) (SimpleScan *ui, const gchar *device, const gchar *document_type);
+    void (*start_scan) (SimpleScan *ui, const gchar *device, const gchar *document_type, gboolean continuous, gboolean replace);
     void (*stop_scan) (SimpleScan *ui);
     void (*rotate_left) (SimpleScan *ui);
     void (*rotate_right) (SimpleScan *ui);
@@ -69,8 +62,6 @@ void ui_set_selected_device (SimpleScan *ui, const gchar *device);
 void ui_set_scanning (SimpleScan *ui, gboolean scanning);
 
 void ui_set_have_scan (SimpleScan *ui, gboolean have_scan);
-
-PageMode ui_get_page_mode (SimpleScan *ui);
 
 void ui_show_error (SimpleScan *ui, const gchar *error_title, const gchar *error_text);
 

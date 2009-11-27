@@ -144,9 +144,8 @@ redraw_cb (BookView *view)
 
 
 static void
-scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
+scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type, gboolean continuous, gboolean replace)
 {
-    PageMode page_mode;
     gint dpi;
 
     g_debug ("Requesting scan of type %s from device '%s'", document_type, device);
@@ -181,15 +180,12 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *document_type)
         dpi = 75;
     }
 
-    page_mode = ui_get_page_mode (ui);
-
-    /* Start again if not using multiple scans */
-    if (page_mode != PAGE_MULTIPLE)
+    if (replace)
         clear_pages = TRUE;
 
-    //scanner_scan (scanner, device, NULL, dpi, NULL, 8, page_mode == PAGE_AUTOMATIC);
-    //scanner_scan (scanner, device, "Flatbed", 50, "Color", 8, page_mode == PAGE_AUTOMATIC);
-    scanner_scan (scanner, device, "Automatic Document Feeder", 200, "Color", 8, page_mode == PAGE_AUTOMATIC);
+    //scanner_scan (scanner, device, NULL, dpi, NULL, 8, continuous);
+    //scanner_scan (scanner, device, "Flatbed", 50, "Color", 8, continuous);
+    scanner_scan (scanner, device, "Automatic Document Feeder", 200, "Color", 8, continuous);
 }
 
 
@@ -368,10 +364,6 @@ main(int argc, char **argv)
     book = book_new ();
     /* Start with A4 white image at 72dpi */
     /* TODO: Should be like the last scanned image for the selected scanner */
-    book_append_page (book, 595, 842, 72, default_orientation);
-    page_count++;
-    book_append_page (book, 595, 842, 72, default_orientation);
-    page_count++;
     book_append_page (book, 595, 842, 72, default_orientation);
     page_count++;
 

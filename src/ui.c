@@ -36,10 +36,11 @@ struct SimpleScanPrivate
     GConfClient *client;
 
     GtkWidget *window;
-    GtkWidget *scan_button_label, *page_label;
+    GtkWidget *scan_button_label, *continuous_scan_button_label, *page_label;
     GtkWidget *actions_box;
-    GtkWidget *device_combo, *mode_combo, *page_mode_combo;
-    GtkTreeModel *device_model, *mode_model, *page_mode_model;
+    GtkWidget *device_combo, *mode_combo;
+    GtkTreeModel *device_model, *mode_model;
+    GtkWidget *replace_pages_check;
     GtkWidget *preview_area;
     GtkWidget *zoom_scale;
 
@@ -174,41 +175,10 @@ get_document_hint (SimpleScan *ui)
 }
 
 
-static void
-set_page_mode (SimpleScan *ui, const gchar *page_mode)
+static gboolean
+get_replace_pages (SimpleScan *ui)
 {
-    GtkTreeIter iter;
-
-    if (gtk_tree_model_get_iter_first (ui->priv->page_mode_model, &iter)) {
-        do {
-            gchar *d;
-            gboolean have_match;
-
-            gtk_tree_model_get (ui->priv->page_mode_model, &iter, 0, &d, -1);
-            have_match = strcmp (d, page_mode) == 0;
-            g_free (d);
-
-            if (have_match) {
-                gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->page_mode_combo), &iter);                
-                return;
-            }
-        } while (gtk_tree_model_iter_next (ui->priv->page_mode_model, &iter));
-     }
-}
-
-
-char *
-get_page_mode (SimpleScan *ui)
-{
-    GtkTreeIter iter;
-
-    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->page_mode_combo), &iter)) {
-        gchar *mode_name;
-        gtk_tree_model_get (ui->priv->page_mode_model, &iter, 0, &mode_name, -1);
-        return mode_name;
-    }
-
-    return NULL;
+    return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check));
 }
 
 
@@ -224,7 +194,29 @@ scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
         device = ui_get_selected_device (ui);
         if (device) {
             mode = get_document_hint (ui);
-            g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode);
+            g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode,
+                           FALSE, get_replace_pages (ui));
+            g_free (device);
+            g_free (mode);
+        }
+    }
+}
+
+
+G_MODULE_EXPORT
+void
+continuous_scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (ui->priv->scanning) {
+        g_signal_emit (G_OBJECT (ui), signals[STOP_SCAN], 0);
+    } else {
+        gchar *device, *mode;
+
+        device = ui_get_selected_device (ui);
+        if (device) {
+            mode = get_document_hint (ui);
+            g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode,
+                           TRUE, get_replace_pages (ui));
             g_free (device);
             g_free (mode);
         }
@@ -475,7 +467,7 @@ about_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
 static void
 quit (SimpleScan *ui)
 {
-    char *device, *document_type, *page_mode;
+    char *device, *document_type;
 
     save_device_cache (ui);
 
@@ -489,9 +481,8 @@ quit (SimpleScan *ui)
     gconf_client_set_string(ui->priv->client, "/apps/simple-scan/document_type", document_type, NULL);
     g_free (document_type);
 
-    page_mode = get_page_mode (ui);
-    gconf_client_set_string(ui->priv->client, "/apps/simple-scan/page_mode", page_mode, NULL);
-    g_free (page_mode);
+    gconf_client_set_bool(ui->priv->client, "/apps/simple-scan/replace_pages",
+                          get_replace_pages (ui), NULL);
 
     g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
 }
@@ -520,7 +511,8 @@ ui_load (SimpleScan *ui)
     GtkBuilder *builder;
     GError *error = NULL;
     GtkCellRenderer *renderer;
-    gchar *device, *document_type, *page_mode;
+    gchar *device, *document_type;
+    gboolean replace_pages;
 
     builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, UI_DIR "simple-scan.ui", &error);
@@ -537,14 +529,14 @@ ui_load (SimpleScan *ui)
 
     ui->priv->window = GTK_WIDGET (gtk_builder_get_object (builder, "simple_scan_window"));
     ui->priv->scan_button_label = GTK_WIDGET (gtk_builder_get_object (builder, "scan_button_label"));
+    ui->priv->continuous_scan_button_label = GTK_WIDGET (gtk_builder_get_object (builder, "continuous_scan_button_label"));
     ui->priv->page_label = GTK_WIDGET (gtk_builder_get_object (builder, "page_label"));
     ui->priv->actions_box = GTK_WIDGET (gtk_builder_get_object (builder, "actions_box"));
     ui->priv->device_combo = GTK_WIDGET (gtk_builder_get_object (builder, "device_combo"));
     ui->priv->device_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
     ui->priv->mode_combo = GTK_WIDGET (gtk_builder_get_object (builder, "mode_combo"));
     ui->priv->mode_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->mode_combo));
-    ui->priv->page_mode_combo = GTK_WIDGET (gtk_builder_get_object (builder, "page_mode_combo"));
-    ui->priv->page_mode_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->page_mode_combo));
+    ui->priv->replace_pages_check = GTK_WIDGET (gtk_builder_get_object (builder, "replace_pages_check"));
     ui->priv->preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
     ui->priv->zoom_scale = GTK_WIDGET (gtk_builder_get_object (builder, "zoom_scale"));
 
@@ -556,11 +548,6 @@ ui_load (SimpleScan *ui)
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->mode_combo), renderer, TRUE);
     gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->mode_combo), renderer, "text", 1);
     gtk_combo_box_set_active (GTK_COMBO_BOX (ui->priv->mode_combo), 0);
-
-    renderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->page_mode_combo), renderer, TRUE);
-    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->page_mode_combo), renderer, "text", 1);
-    gtk_combo_box_set_active (GTK_COMBO_BOX (ui->priv->page_mode_combo), 0);
 
     /* Load previously detected scanners and select the last used one */
     load_device_cache (ui);
@@ -578,11 +565,12 @@ ui_load (SimpleScan *ui)
         g_free (document_type);
     }
 
-    page_mode = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/page_mode", NULL);
-    if (page_mode) {
-        set_page_mode (ui, page_mode);
-        g_free (page_mode);
-    }
+    replace_pages = gconf_client_get_bool (ui->priv->client, "/apps/simple-scan/replace_pages", &error);
+    if (error)
+        g_error_free (error);
+    else
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check), replace_pages);
+                                  
 }
 
 
@@ -611,14 +599,22 @@ void
 ui_set_scanning (SimpleScan *ui, gboolean scanning)
 {
     ui->priv->scanning = scanning;
-    if (ui->priv->scanning)
+    if (ui->priv->scanning) {
         gtk_label_set_label (GTK_LABEL (ui->priv->scan_button_label),
                              /* Label on cancel scan button */
                              _("_Cancel"));
-    else
+        gtk_label_set_label (GTK_LABEL (ui->priv->continuous_scan_button_label),
+                             /* Label on cancel scan button */
+                             _("_Cancel"));
+    }
+    else {
         gtk_label_set_label (GTK_LABEL (ui->priv->scan_button_label),
                              /* Label on scan button */
                              _("_Scan"));
+        gtk_label_set_label (GTK_LABEL (ui->priv->continuous_scan_button_label),
+                             /* Label on continuous scan button */
+                             _("_Continuous Scan"));
+    }
 }
 
 
@@ -626,25 +622,6 @@ void
 ui_set_have_scan (SimpleScan *ui, gboolean have_scan)
 {
     gtk_widget_set_sensitive (ui->priv->actions_box, have_scan);
-}
-
-
-PageMode
-ui_get_page_mode (SimpleScan *ui)
-{
-    gchar *mode_name;
-    PageMode mode = PAGE_SINGLE;
-
-    mode_name = get_page_mode (ui);
-    if (mode_name == NULL || strcmp (mode_name, "single") == 0)
-        mode = PAGE_SINGLE;
-    else if (strcmp (mode_name, "multiple") == 0)
-        mode = PAGE_MULTIPLE;
-    else if (strcmp (mode_name, "automatic") == 0)
-        mode = PAGE_AUTOMATIC;
-    g_free (mode_name);
-
-    return mode;
 }
 
 
@@ -712,22 +689,24 @@ g_cclosure_user_marshal_VOID__POINTER_POINTER (GClosure     *closure,
 
 /* Generated with glib-genmarshal */
 void
-g_cclosure_user_marshal_VOID__STRING_STRING (GClosure     *closure,
-                                             GValue       *return_value G_GNUC_UNUSED,
-                                             guint         n_param_values,
-                                             const GValue *param_values,
-                                             gpointer      invocation_hint G_GNUC_UNUSED,
-                                             gpointer      marshal_data)
+g_cclosure_user_marshal_VOID__STRING_STRING_BOOLEAN_BOOLEAN (GClosure     *closure,
+                                                             GValue       *return_value G_GNUC_UNUSED,
+                                                             guint         n_param_values,
+                                                             const GValue *param_values,
+                                                             gpointer      invocation_hint G_GNUC_UNUSED,
+                                                             gpointer      marshal_data)
 {
-  typedef void (*GMarshalFunc_VOID__STRING_STRING) (gpointer       data1,
-                                                    gconstpointer  arg_1,
-                                                    gconstpointer  arg_2,
-                                                    gpointer       data2);
-  register GMarshalFunc_VOID__STRING_STRING callback;
+  typedef void (*GMarshalFunc_VOID__STRING_STRING_BOOLEAN_BOOLEAN) (gpointer       data1,
+                                                                    gconstpointer  arg_1,
+                                                                    gconstpointer  arg_2,
+                                                                    gboolean       arg_3,
+                                                                    gboolean       arg_4,
+                                                                    gpointer       data2);
+  register GMarshalFunc_VOID__STRING_STRING_BOOLEAN_BOOLEAN callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
 
-  g_return_if_fail (n_param_values == 3);
+  g_return_if_fail (n_param_values == 5);
 
   if (G_CCLOSURE_SWAP_DATA (closure))
     {
@@ -739,11 +718,13 @@ g_cclosure_user_marshal_VOID__STRING_STRING (GClosure     *closure,
       data1 = g_value_peek_pointer (param_values + 0);
       data2 = closure->data;
     }
-  callback = (GMarshalFunc_VOID__STRING_STRING) (marshal_data ? marshal_data : cc->callback);
+  callback = (GMarshalFunc_VOID__STRING_STRING_BOOLEAN_BOOLEAN) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
             g_value_get_string (param_values + 1),
             g_value_get_string (param_values + 2),
+            g_value_get_boolean (param_values + 3),
+            g_value_get_boolean (param_values + 4),
             data2);
 }
 
@@ -757,8 +738,8 @@ ui_class_init (SimpleScanClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (SimpleScanClass, start_scan),
                       NULL, NULL,
-                      g_cclosure_user_marshal_VOID__STRING_STRING,
-                      G_TYPE_NONE, 2, G_TYPE_STRING, G_TYPE_STRING);
+                      g_cclosure_user_marshal_VOID__STRING_STRING_BOOLEAN_BOOLEAN,
+                      G_TYPE_NONE, 4, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
     signals[STOP_SCAN] =
         g_signal_new ("stop-scan",
                       G_TYPE_FROM_CLASS (klass),
