@@ -42,7 +42,9 @@ typedef struct
 } SimpleScanClass;
 
 
-SimpleScan *ui_new ();
+GType ui_get_type (void);
+
+SimpleScan *ui_new (void);
 
 // FIXME: Make a custom widget
 GtkWidget *ui_get_preview_widget (SimpleScan *ui);

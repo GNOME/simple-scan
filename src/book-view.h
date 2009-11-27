@@ -36,7 +36,10 @@ typedef struct
     GObjectClass parent_class;
 } BookViewClass;
 
-BookView *book_view_new ();
+
+GType book_view_get_type (void);
+
+BookView *book_view_new (void);
 
 GtkAdjustment *book_view_get_zoom_adjustment (BookView *view);
 

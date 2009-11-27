@@ -53,7 +53,6 @@ static void
 update_scan_devices_cb (Scanner *scanner, GList *devices)
 {
     GList *dev_iter;
-    gboolean first;
 
     if (first_autodetect) {
         first_autodetect = FALSE;
@@ -87,7 +86,6 @@ static void
 scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 {
     Page *page;
-    gint height;
 
     g_debug ("Page is %d pixels wide, %d pixels high, %d bits per pixel",
              info->width, info->height, info->depth);
@@ -133,13 +131,6 @@ scanner_failed_cb (Scanner *scanner, GError *error)
                    /* Title of error dialog when scan failed */
                    _("Failed to scan"),
                    error->message);
-}
-
-
-static void
-redraw_cb (BookView *view)
-{
-    ui_redraw_preview (ui);  
 }
 
 

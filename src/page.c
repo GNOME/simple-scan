@@ -315,8 +315,21 @@ page_get_image (Page *page)
 
 
 static void
+page_finalize (GObject *object)
+{
+    Page *page = PAGE (object);
+    g_object_unref (page->priv->image);
+    G_OBJECT_CLASS (page_parent_class)->finalize (object);
+}
+
+
+static void
 page_class_init (PageClass *klass)
 {
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = page_finalize;
+
     signals[UPDATED] =
         g_signal_new ("updated",
                       G_TYPE_FROM_CLASS (klass),
@@ -336,13 +349,4 @@ page_init (Page *page)
     page->priv = G_TYPE_INSTANCE_GET_PRIVATE (page, PAGE_TYPE, PagePrivate);
     page->priv->scan_line = -1;
     page->priv->orientation = TOP_TO_BOTTOM;
-}
-
-
-static void
-page_finalize (GObject *object)
-{
-    Page *page = PAGE (object);
-    g_object_unref (page->priv->image);
-    G_OBJECT_CLASS (page_parent_class)->finalize (object);
 }

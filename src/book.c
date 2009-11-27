@@ -11,6 +11,7 @@
 
 #include <string.h>
 #include <math.h>
+#include <gdk/gdk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <cairo/cairo-pdf.h>
 #include <cairo/cairo-ps.h>
@@ -256,8 +257,21 @@ book_print (Book *book, cairo_t *context)
 
 
 static void
+book_finalize (GObject *object)
+{
+    Book *book = BOOK (object);
+    book_clear (book);
+    G_OBJECT_CLASS (book_parent_class)->finalize (object);
+}
+
+
+static void
 book_class_init (BookClass *klass)
 {
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = book_finalize;
+
     signals[PAGE_ADDED] =
         g_signal_new ("page-added",
                       G_TYPE_FROM_CLASS (klass),
@@ -283,13 +297,4 @@ static void
 book_init (Book *book)
 {
     book->priv = G_TYPE_INSTANCE_GET_PRIVATE (book, BOOK_TYPE, BookPrivate);
-}
-
-
-static void
-book_finalize (GObject *object)
-{
-    Book *book = BOOK (object);
-    book_clear (book);
-    G_OBJECT_CLASS (book_parent_class)->finalize (object);
 }

@@ -39,7 +39,9 @@ typedef struct
 } BookClass;
 
 
-Book *book_new ();
+GType book_get_type (void);
+
+Book *book_new (void);
 
 void book_clear (Book *book);
 

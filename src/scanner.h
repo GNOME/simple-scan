@@ -73,7 +73,9 @@ typedef struct
 } ScannerClass;
 
 
-Scanner *scanner_new ();
+GType scanner_get_type (void);
+
+Scanner *scanner_new (void);
 
 void scanner_start (Scanner *scanner);
 

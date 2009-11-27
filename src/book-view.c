@@ -176,6 +176,7 @@ configure_cb (GtkWidget *widget, GdkEventConfigure *event, BookView *view)
     view->priv->width = event->width;
     view->priv->height = event->height;
     view->priv->need_layout = TRUE;
+    return FALSE;
 }
 
 
@@ -496,8 +497,8 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
 
     /* Show pop-up menu */
     if (on_page && event->button == 3) {
-        GtkWidget *menu, *crop_menu, *item;
-        GSList *group;
+        GtkWidget *menu, /**crop_menu,*/ *item;
+        //GSList *group;
         
         menu = gtk_menu_new ();
 
@@ -600,11 +601,11 @@ key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
         }
         return TRUE;
     case GDK_Up:
-        if (event->state = GDK_CONTROL_MASK)
+        if (event->state & GDK_CONTROL_MASK)
             book_view_pan (view, 0, 5);
         return TRUE;
     case GDK_Down:
-        if (event->state = GDK_CONTROL_MASK)
+        if (event->state & GDK_CONTROL_MASK)
             book_view_pan (view, 0, -5);
         return TRUE;
 
@@ -630,7 +631,8 @@ key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
 static gboolean
 focus_cb (GtkWidget *widget, GdkEventFocus *event, BookView *view)
 {
-    gtk_widget_queue_draw (view->priv->widget);    
+    gtk_widget_queue_draw (view->priv->widget);
+    return FALSE;
 }
 
 

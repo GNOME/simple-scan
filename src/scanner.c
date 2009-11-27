@@ -250,7 +250,6 @@ static void
 log_option (SANE_Int index, const SANE_Option_Descriptor *option)
 {
     GString *string;
-    SANE_String_Const *string_iter;
     SANE_Word i;
     SANE_Int cap;
     
@@ -391,7 +390,7 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
 static gpointer
 scan_thread (Scanner *scanner)
 {
-    ScanRequest *request;
+    ScanRequest *request = NULL;
     SANE_Status status;
     SANE_Handle handle = NULL;
     SANE_Parameters parameters;

@@ -46,10 +46,14 @@ typedef struct
 } PageClass;
 
 
-Page *page_new ();
+GType page_get_type (void);
+
+Page *page_new (void);
 
 // FIXME: Should be part of page_new
 void page_set_scan_area (Page *page, gint width, gint rows, gint dpi);
+
+gint page_get_dpi (Page *page);
 
 gint page_get_width (Page *page);
 
