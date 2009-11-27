@@ -187,6 +187,9 @@ book_view_pan (BookView *view, gint x_offset, gint y_offset)
     view->priv->y_offset += y_offset;
     view->priv->need_layout = TRUE;
     gtk_widget_queue_draw (view->priv->widget);
+
+    gdk_window_set_cursor (gtk_widget_get_window (view->priv->widget),
+                           gdk_cursor_new (GDK_HAND1));
 }
 
 
@@ -465,6 +468,12 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
 {
     gint i, n_pages;
     gboolean on_page = FALSE;
+    
+    if (event->type == GDK_BUTTON_RELEASE) {
+        gdk_window_set_cursor (gtk_widget_get_window (view->priv->widget),
+                               gdk_cursor_new (GDK_ARROW));
+        return FALSE;
+    }
 
     view->priv->mouse_x = event->x;
     view->priv->mouse_y = event->y;
@@ -646,6 +655,7 @@ book_view_set_widget (BookView *view, GtkWidget *widget)
     g_signal_connect (widget, "motion-notify-event", G_CALLBACK (motion_cb), view);
     g_signal_connect (widget, "key-press-event", G_CALLBACK (key_cb), view);
     g_signal_connect (widget, "button-press-event", G_CALLBACK (button_cb), view);
+    g_signal_connect (widget, "button-release-event", G_CALLBACK (button_cb), view);
     g_signal_connect (widget, "scroll-event", G_CALLBACK (scroll_cb), view);
     g_signal_connect (widget, "focus-in-event", G_CALLBACK (focus_cb), view);
     g_signal_connect (widget, "focus-out-event", G_CALLBACK (focus_cb), view);
