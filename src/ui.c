@@ -569,8 +569,7 @@ ui_load (SimpleScan *ui)
     if (error)
         g_error_free (error);
     else
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check), replace_pages);
-                                  
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check), replace_pages);                                  
 }
 
 
@@ -646,6 +645,7 @@ ui_show_error (SimpleScan *ui, const gchar *error_title, const gchar *error_text
 void
 ui_start (SimpleScan *ui)
 {
+    gtk_widget_show (ui->priv->window);
 }
 
 
