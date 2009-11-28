@@ -244,8 +244,10 @@ render_page (BookView *view, PageView *page, cairo_t *context, gboolean selected
     if (selected) {
         if (gtk_widget_has_focus (view->priv->widget))
             cairo_set_source_rgb (context, 1, 0, 0);
+        else if (book_get_n_pages (view->priv->book) > 1)
+            cairo_set_source_rgb (context, 0.75, 0, 0);
         else
-            cairo_set_source_rgb (context, 0.5, 0, 0);
+            cairo_set_source_rgb (context, 0, 0, 0);            
     }
     else
         cairo_set_source_rgb (context, 0, 0, 0);
