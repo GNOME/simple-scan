@@ -137,7 +137,7 @@ poll_for_devices (Scanner *scanner)
     GList *devices = NULL;
 
     g_debug ("sane_get_devices ()");
-    status = sane_get_devices (&device_list, SANE_FALSE);
+    status = sane_get_devices (&device_list, SANE_TRUE);
     if (status != SANE_STATUS_GOOD) {
         g_warning ("Unable to get SANE devices: %s", sane_strstatus(status));
         return;

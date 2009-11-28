@@ -14,7 +14,9 @@
 
 
 enum {
-    UPDATED,
+    IMAGE_CHANGED,
+    ORIENTATION_CHANGED,
+    CROP_CHANGED,
     LAST_SIGNAL
 };
 static guint signals[LAST_SIGNAL] = { 0, };
@@ -35,6 +37,11 @@ struct PagePrivate
 
     /* Rotation of scanned data */
     Orientation orientation;
+    
+    /* Crop */
+    gboolean has_crop;
+    gchar *crop_name;
+    gint crop_x, crop_y, crop_width, crop_height;
 };
 
 G_DEFINE_TYPE (Page, page, G_TYPE_OBJECT);
@@ -50,6 +57,8 @@ page_new ()
 void page_set_scan_area (Page *page, gint width, gint rows, gint dpi)
 {
     gint h;
+
+    g_return_if_fail (page != NULL);
 
     /* Variable height, try 50% of the width for now */
     if (rows < 0)
@@ -74,6 +83,8 @@ void page_set_scan_area (Page *page, gint width, gint rows, gint dpi)
 void
 page_start (Page *page)
 {
+    g_return_if_fail (page != NULL);
+
     page->priv->scan_line = 0;
 }
 
@@ -111,6 +122,8 @@ get_sample (guchar *data, gint depth, gint index)
 
 gint page_get_scan_line (Page *page)
 {
+    g_return_val_if_fail (page != NULL, -1);
+
     return page->priv->scan_line;
 }
 
@@ -120,6 +133,8 @@ page_parse_scan_line (Page *page, ScanLine *line)
 {
     guchar *pixels;
     gint i, j;
+
+    g_return_if_fail (page != NULL);
 
     /* Extend image if necessary */
     while (line->number >= gdk_pixbuf_get_height (page->priv->image)) {
@@ -191,13 +206,15 @@ page_parse_scan_line (Page *page, ScanLine *line)
     }
     
     page->priv->scan_line = line->number;
-    g_signal_emit (page, signals[UPDATED], 0);
+    g_signal_emit (page, signals[IMAGE_CHANGED], 0);
 }
 
 
 void
 page_finish (Page *page)
 {
+    g_return_if_fail (page != NULL);
+
     /* Trim page */
     if (page->priv->rows < 0 &&
         page->priv->scan_line != gdk_pixbuf_get_height (page->priv->image)) {
@@ -218,7 +235,7 @@ page_finish (Page *page)
         g_object_unref (page->priv->image);
         page->priv->image = image;
 
-        g_signal_emit (page, signals[UPDATED], 0);
+        g_signal_emit (page, signals[IMAGE_CHANGED], 0);
     }
     page->priv->scan_line = -1;
 }
@@ -227,6 +244,8 @@ page_finish (Page *page)
 Orientation
 page_get_orientation (Page *page)
 {
+    g_return_val_if_fail (page != NULL, TOP_TO_BOTTOM);
+
     return page->priv->orientation;
 }
 
@@ -234,11 +253,13 @@ page_get_orientation (Page *page)
 void
 page_set_orientation (Page *page, Orientation orientation)
 {
+    g_return_if_fail (page != NULL);
+
     if (page->priv->orientation == orientation)
         return;
 
     page->priv->orientation = orientation;
-    g_signal_emit (page, signals[UPDATED], 0);
+    g_signal_emit (page, signals[ORIENTATION_CHANGED], 0);
 }
 
 
@@ -246,6 +267,8 @@ void
 page_rotate_left (Page *page)
 {
     Orientation orientation;
+
+    g_return_if_fail (page != NULL);
 
     orientation = page_get_orientation (page);
     if (orientation == RIGHT_TO_LEFT)
@@ -273,6 +296,8 @@ page_rotate_right (Page *page)
 gint
 page_get_dpi (Page *page)
 {
+    g_return_val_if_fail (page != NULL, 0);
+
     return page->priv->dpi;
 }
 
@@ -280,6 +305,8 @@ page_get_dpi (Page *page)
 gint
 page_get_width (Page *page)
 {
+    g_return_val_if_fail (page != NULL, 0);
+
     if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == BOTTOM_TO_TOP)
         return gdk_pixbuf_get_width (page->priv->image);
     else
@@ -290,6 +317,8 @@ page_get_width (Page *page)
 gint
 page_get_height (Page *page)
 {
+    g_return_val_if_fail (page != NULL, 0);
+
     if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == BOTTOM_TO_TOP)
         return gdk_pixbuf_get_height (page->priv->image);
     else
@@ -297,9 +326,182 @@ page_get_height (Page *page)
 }
 
 
+void
+page_set_no_crop (Page *page)
+{
+    g_return_if_fail (page != NULL);
+
+    if (!page->priv->has_crop)
+        return;
+    page->priv->has_crop = FALSE;
+    g_signal_emit (page, signals[CROP_CHANGED], 0);
+}
+
+
+void
+page_set_custom_crop (Page *page, gint width, gint height)
+{
+    gint pw, ph;
+
+    g_return_if_fail (page != NULL);
+
+    if (!page->priv->crop_name &&
+        page->priv->has_crop &&
+        page->priv->crop_width == width &&
+        page->priv->crop_height == height)
+        return;
+    g_free (page->priv->crop_name);
+    page->priv->crop_name = NULL;
+    page->priv->has_crop = TRUE;
+
+    page->priv->crop_width = width;
+    page->priv->crop_height = height;
+
+    pw = page_get_width (page);
+    ph = page_get_height (page);
+    if (page->priv->crop_width < pw)
+        page->priv->crop_x = (pw - page->priv->crop_width) / 2;
+    else
+        page->priv->crop_x = 0;
+    if (page->priv->crop_height < ph)
+        page->priv->crop_y = (ph - page->priv->crop_height) / 2;
+    else
+        page->priv->crop_y = 0;
+    
+    g_signal_emit (page, signals[CROP_CHANGED], 0);
+}
+
+
+void
+page_set_named_crop (Page *page, const gchar *name)
+{
+    struct {
+        const gchar *name;
+        /* Width and height in inches */
+        gdouble width, height;
+    } named_crops[] =
+    {
+        {"A4", 8.3, 11.7},
+        {"A5", 5.8, 8.3},
+        {"A6", 4.1, 5.8},
+        {"letter", 8.5, 11},
+        {"legal", 8.5, 14},
+        {"4x6", 4, 6},
+        {"custom", 0, 0},
+        {NULL, 0, 0}
+    };
+    gint i;
+    gint pw, ph;
+    double width, height;
+
+    g_return_if_fail (page != NULL);
+    
+    for (i = 0; named_crops[i].name && strcmp (name, named_crops[i].name) != 0; i++);
+    width = named_crops[i].width;
+    height = named_crops[i].height;
+
+    if (!named_crops[i].name) {
+        g_warning ("Unknown paper size '%s'", name);
+        return;
+    }
+
+    g_free (page->priv->crop_name);
+    page->priv->crop_name = g_strdup (name);
+    page->priv->has_crop = TRUE;
+    
+    pw = page_get_width (page);
+    ph = page_get_height (page);
+   
+    /* Rotate to match original aspect */
+    if (pw > ph) {
+        double t;
+        t = width;
+        width = height;
+        height = t;
+    }
+
+    /* Custom crop, make slightly smaller than original */
+    if (width == 0 || height == 0) {
+        page->priv->crop_width = (int) (pw * 0.8 + 0.5);
+        page->priv->crop_height = (int) (ph * 0.8 + 0.5);
+    }
+    else {
+        page->priv->crop_width = (int) (width * page->priv->dpi + 0.5);
+        page->priv->crop_height = (int) (height * page->priv->dpi + 0.5);
+    }
+        
+    if (page->priv->crop_width < pw)
+        page->priv->crop_x = (pw - page->priv->crop_width) / 2;
+    else
+        page->priv->crop_x = 0;
+    if (page->priv->crop_height < ph)
+        page->priv->crop_y = (ph - page->priv->crop_height) / 2;
+    else
+        page->priv->crop_y = 0;
+    g_signal_emit (page, signals[CROP_CHANGED], 0);
+}
+
+
+void
+page_move_crop (Page *page, gint x, gint y)
+{
+    page->priv->crop_x = x;
+    page->priv->crop_y = y;
+    g_signal_emit (page, signals[CROP_CHANGED], 0);    
+}
+
+
+void
+page_rotate_crop (Page *page)
+{
+    gint t;
+    
+    g_return_if_fail (page != NULL);
+
+    t = page->priv->crop_width;
+    page->priv->crop_width = page->priv->crop_height;
+    page->priv->crop_height = t;
+    g_signal_emit (page, signals[CROP_CHANGED], 0);
+}
+
+
+gboolean
+page_has_crop (Page *page)
+{
+    g_return_val_if_fail (page != NULL, FALSE);
+    return page->priv->has_crop;
+}
+
+
+void
+page_get_crop (Page *page, gint *x, gint *y, gint *width, gint *height)
+{
+    g_return_if_fail (page != NULL);
+
+    *x = page->priv->crop_x;
+    *y = page->priv->crop_y;
+    *width = page->priv->crop_width;
+    *height = page->priv->crop_height;
+}
+
+
+gchar *
+page_get_named_crop (Page *page)
+{
+    g_return_val_if_fail (page != NULL, NULL);
+
+    if (page->priv->crop_name)
+        return g_strdup (page->priv->crop_name);
+    else
+        return NULL;
+}
+
+
 GdkPixbuf *
 page_get_image (Page *page)
 {
+    g_return_val_if_fail (page != NULL, NULL);
+
     switch (page->priv->orientation) {
     default:
     case TOP_TO_BOTTOM:
@@ -311,6 +513,44 @@ page_get_image (Page *page)
     case RIGHT_TO_LEFT:
         return gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_CLOCKWISE);
     }
+}
+
+
+GdkPixbuf *
+page_get_cropped_image (Page *page)
+{
+    GdkPixbuf *image, *cropped_image, *i;
+    gint x, y, w, h, pw, ph;
+
+    g_return_val_if_fail (page != NULL, NULL);
+    
+    image = page_get_image (page);
+    
+    if (!page->priv->has_crop)
+        return image;
+    
+    x = page->priv->crop_x;
+    y = page->priv->crop_y;
+    w = page->priv->crop_width;
+    h = page->priv->crop_height;
+    pw = gdk_pixbuf_get_width (image);
+    ph = gdk_pixbuf_get_height (image);
+    
+    if (x >= pw)
+        x = pw - 1;
+    if (y >= ph)
+        y = ph - 1;
+    if (x + w > pw)
+        w = pw - x;
+    if (y + h > ph)
+        h = ph - y;
+    cropped_image = gdk_pixbuf_new_subpixbuf (image, x, y, w, h);
+    g_object_unref (image);
+    
+    i = gdk_pixbuf_copy (cropped_image);
+    g_object_unref (cropped_image);
+
+    return i;
 }
 
 
@@ -330,11 +570,27 @@ page_class_init (PageClass *klass)
 
     object_class->finalize = page_finalize;
 
-    signals[UPDATED] =
-        g_signal_new ("updated",
+    signals[IMAGE_CHANGED] =
+        g_signal_new ("image-changed",
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (PageClass, updated),
+                      G_STRUCT_OFFSET (PageClass, image_changed),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+    signals[ORIENTATION_CHANGED] =
+        g_signal_new ("orientation-changed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (PageClass, orientation_changed),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+    signals[CROP_CHANGED] =
+        g_signal_new ("crop-changed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (PageClass, crop_changed),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);

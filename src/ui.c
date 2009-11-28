@@ -16,13 +16,12 @@
 #include <gconf/gconf-client.h>
 
 #include "ui.h"
+#include "book-view.h"
 
 
 enum {
     START_SCAN,
     STOP_SCAN,
-    ROTATE_LEFT,
-    ROTATE_RIGHT,
     SAVE,
     PRINT,
     QUIT,
@@ -34,6 +33,8 @@ static guint signals[LAST_SIGNAL] = { 0, };
 struct SimpleScanPrivate
 {
     GConfClient *client;
+    
+    GtkBuilder *builder;
 
     GtkWidget *window;
     GtkWidget *scan_button_label, *continuous_scan_button_label, *page_label;
@@ -43,6 +44,9 @@ struct SimpleScanPrivate
     GtkWidget *replace_pages_check;
     GtkWidget *preview_area;
     GtkWidget *zoom_scale;
+    GtkWidget *page_delete_menuitem, *crop_rotate_menuitem;
+    BookView *book_view;
+    gboolean updating_page_menu;
 
     gchar *default_file_name;
     gboolean scanning;
@@ -226,12 +230,56 @@ continuous_scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 }
 
 
+static void
+page_selected_cb (BookView *view, Page *page, SimpleScan *ui)
+{
+    char *name = NULL;
+
+    if (page == NULL)
+        return;
+
+    ui->priv->updating_page_menu = TRUE;
+    
+    if (page_has_crop (page)) {
+        char *crop_name;
+
+        // FIXME: Make more generic
+        crop_name = page_get_named_crop (page);
+        if (crop_name) {
+            if (strcmp (crop_name, "A4") == 0)
+                name = "a4_menuitem";
+            else if (strcmp (crop_name, "A5") == 0)
+                name = "a5_menuitem";
+            else if (strcmp (crop_name, "A6") == 0)
+                name = "a6_menuitem";
+            else if (strcmp (crop_name, "letter") == 0)
+                name = "letter_menuitem";
+            else if (strcmp (crop_name, "legal") == 0)
+                name = "legal_menuitem";
+            else if (strcmp (crop_name, "4x6") == 0)
+                name = "4x6_menuitem";
+            g_free (crop_name);
+        }
+        else
+            name = "custom_crop_menuitem";
+    }
+    else
+        name = "no_crop_menuitem";
+
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_builder_get_object (ui->priv->builder, name)), TRUE);
+    
+    ui->priv->updating_page_menu = FALSE;
+}
+
+
 void rotate_left_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
 void
 rotate_left_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    g_signal_emit (G_OBJECT (ui), signals[ROTATE_LEFT], 0);
+    if (ui->priv->updating_page_menu)
+        return;
+    page_rotate_left (book_view_get_selected (ui->priv->book_view));
 }
 
 
@@ -240,7 +288,137 @@ G_MODULE_EXPORT
 void
 rotate_right_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    g_signal_emit (G_OBJECT (ui), signals[ROTATE_RIGHT], 0);
+    if (ui->priv->updating_page_menu)
+        return;
+    page_rotate_right (book_view_get_selected (ui->priv->book_view));    
+}
+
+
+static void
+set_crop (SimpleScan *ui, const gchar *crop_name)
+{
+    Page *page;
+    
+    gtk_widget_set_sensitive (ui->priv->crop_rotate_menuitem, crop_name != NULL);
+
+    if (ui->priv->updating_page_menu)
+        return;
+    
+    page = book_view_get_selected (ui->priv->book_view);
+    if (!page)
+        return;
+    
+    if (!crop_name) {
+        page_set_no_crop (page);
+        return;
+    }
+    
+    page_set_named_crop (page, crop_name);
+}
+
+
+void no_crop_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+no_crop_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        set_crop (ui, NULL);
+}
+
+
+void custom_crop_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+custom_crop_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        set_crop (ui, "custom");
+}
+
+
+void four_by_six_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+four_by_six_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        set_crop (ui, "4x6");
+}
+
+                         
+void legal_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+legal_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        set_crop (ui, "legal");
+}
+
+                         
+void letter_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+letter_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        set_crop (ui, "letter");
+}
+
+                         
+void a6_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+a6_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        set_crop (ui, "A6");
+}
+
+
+void a5_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+a5_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        set_crop (ui, "A5");
+}
+
+                         
+void a4_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+a4_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        set_crop (ui, "A4");
+}
+
+
+void crop_rotate_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+crop_rotate_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    Page *page;
+
+    page = book_view_get_selected (ui->priv->book_view);
+    if (!page)
+        return;
+    
+    page_rotate_crop (page);
+}
+
+
+void page_delete_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+page_delete_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    book_delete_page (book_view_get_book (ui->priv->book_view),
+                      book_view_get_selected (ui->priv->book_view));
 }
 
 
@@ -523,7 +701,7 @@ ui_load (SimpleScan *ui)
     gchar *device, *document_type;
     gboolean replace_pages;
 
-    builder = gtk_builder_new ();
+    builder = ui->priv->builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, UI_DIR "simple-scan.ui", &error);
     if (error) {
         g_critical ("Unable to load UI: %s\n", error->message);
@@ -548,6 +726,8 @@ ui_load (SimpleScan *ui)
     ui->priv->replace_pages_check = GTK_WIDGET (gtk_builder_get_object (builder, "replace_pages_check"));
     ui->priv->preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
     ui->priv->zoom_scale = GTK_WIDGET (gtk_builder_get_object (builder, "zoom_scale"));
+    ui->priv->page_delete_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_delete_menuitem"));
+    ui->priv->crop_rotate_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "crop_rotate_menuitem"));
 
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->device_combo), renderer, TRUE);
@@ -578,7 +758,14 @@ ui_load (SimpleScan *ui)
     if (error)
         g_error_free (error);
     else
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check), replace_pages);                                  
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check), replace_pages);
+    
+    ui->priv->book_view = book_view_new ();
+    g_signal_connect (ui->priv->book_view, "page-selected", G_CALLBACK (page_selected_cb), ui);
+    book_view_set_widget (ui->priv->book_view, ui->priv->preview_area,
+                          GTK_WIDGET (gtk_builder_get_object (builder, "page_menu")));
+    gtk_range_set_adjustment (GTK_RANGE (ui->priv->zoom_scale),
+                              book_view_get_zoom_adjustment (ui->priv->book_view));
 }
 
 
@@ -589,17 +776,17 @@ ui_new ()
 }
 
 
-GtkWidget *
-ui_get_preview_widget (SimpleScan *ui)
+void
+ui_set_book (SimpleScan *ui, Book *book)
 {
-    return ui->priv->preview_area;
+    book_view_set_book (ui->priv->book_view, book);
 }
 
 
-void
-ui_set_zoom_adjustment (SimpleScan *ui, GtkAdjustment *adjustment)
+Page *
+ui_get_selected_page (SimpleScan *ui)
 {
-    gtk_range_set_adjustment (GTK_RANGE (ui->priv->zoom_scale), adjustment);
+    return book_view_get_selected (ui->priv->book_view);
 }
 
 
@@ -623,6 +810,8 @@ ui_set_scanning (SimpleScan *ui, gboolean scanning)
                              /* Label on continuous scan button */
                              _("_Continuous Scan"));
     }
+
+    gtk_widget_set_sensitive (ui->priv->page_delete_menuitem, !scanning);
 }
 
 
@@ -716,22 +905,6 @@ ui_class_init (SimpleScanClass *klass)
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (SimpleScanClass, stop_scan),
-                      NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
-    signals[ROTATE_LEFT] =
-        g_signal_new ("rotate-left",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (SimpleScanClass, rotate_left),
-                      NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
-    signals[ROTATE_RIGHT] =
-        g_signal_new ("rotate-right",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (SimpleScanClass, rotate_right),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);

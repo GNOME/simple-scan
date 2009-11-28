@@ -36,6 +36,7 @@ typedef struct
 
     void (*page_added) (Book *book, Page *page);
     void (*page_removed) (Book *book, Page *page);
+    void (*cleared) (Book *book);
 } BookClass;
 
 

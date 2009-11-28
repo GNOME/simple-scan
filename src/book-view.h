@@ -34,6 +34,8 @@ typedef struct
 typedef struct
 {
     GObjectClass parent_class;
+    
+    void (*page_selected) (BookView *view, Page *page);
 } BookViewClass;
 
 
@@ -44,14 +46,18 @@ BookView *book_view_new (void);
 GtkAdjustment *book_view_get_zoom_adjustment (BookView *view);
 
 // FIXME: Book view should extend GtkWidget
-void book_view_set_widget (BookView *view, GtkWidget *widget);
+void book_view_set_widget (BookView *view, GtkWidget *widget, GtkWidget *page_menu);
 
 // FIXME: Should be part of book_view_new
 void book_view_set_book (BookView *view, Book *book);
 
+Book *book_view_get_book (BookView *view);
+
 void book_view_pan (BookView *view, gint x_offset, gint y_offset);
 
 void book_view_set_zoom (BookView *view, gdouble zoom);
+
+void book_view_select_page (BookView *view, Page *page);
 
 Page *book_view_get_selected (BookView *view);
 

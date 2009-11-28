@@ -14,6 +14,13 @@
 #include "book-view.h"
 
 
+
+enum {
+    PAGE_SELECTED,
+    LAST_SIGNAL
+};
+static guint signals[LAST_SIGNAL] = { 0, };
+
 typedef struct
 {
     /* Page being rendered */
@@ -54,10 +61,12 @@ struct BookViewPrivate
     GtkAdjustment *zoom_adjustment;
     gdouble old_zoom;
 
-    gint selected_page;
+    Page *selected_page;
     
     /* Widget being rendered to */
     GtkWidget *widget;
+
+    GtkWidget *page_menu;
 
     /* Last location of mouse */
     gdouble mouse_x, mouse_y;
@@ -77,6 +86,49 @@ GtkAdjustment *
 book_view_get_zoom_adjustment (BookView *view)
 {
     return view->priv->zoom_adjustment;
+}
+
+
+static Page *
+get_next_page (BookView *view)
+{
+    gint i;
+    
+    for (i = 0; ; i++) {
+        Page *page;
+        page = book_get_page (view->priv->book, i);
+        if (!page)
+            break;
+        if (page == view->priv->selected_page) {
+            page = book_get_page (view->priv->book, i + 1);
+            if (page)
+                return page;
+        }
+    }
+    
+    return view->priv->selected_page;
+}
+
+
+static Page *
+get_prev_page (BookView *view)
+{
+    gint i;
+    Page *prev_page = view->priv->selected_page;
+
+    for (i = 0; ; i++) {
+        Page *page;
+        page = book_get_page (view->priv->book, i);
+        if (!page)
+            break;
+        if (page == view->priv->selected_page) {
+            if (i != 0)
+                return prev_page;
+        }
+        prev_page = page;
+    }
+    
+    return prev_page;
 }
 
 
@@ -110,6 +162,13 @@ update_cb (Page *p, BookView *view)
 }
 
 
+static void
+crop_update_cb (Page *p, BookView *view)
+{
+    gtk_widget_queue_draw (view->priv->widget);
+}
+
+
 static PageView *
 page_view_alloc (Page *page)
 {
@@ -135,7 +194,9 @@ static void
 add_cb (Book *book, Page *page, BookView *view)
 {
     g_hash_table_insert (view->priv->page_data, page, page_view_alloc (page));
-    g_signal_connect (page, "updated", G_CALLBACK (update_cb), view);
+    g_signal_connect (page, "image-changed", G_CALLBACK (update_cb), view);
+    g_signal_connect (page, "orientation-changed", G_CALLBACK (update_cb), view);
+    g_signal_connect (page, "crop-changed", G_CALLBACK (crop_update_cb), view);
     view->priv->need_layout = TRUE;
     gtk_widget_queue_draw (view->priv->widget);
 }
@@ -144,9 +205,30 @@ add_cb (Book *book, Page *page, BookView *view)
 static void
 remove_cb (Book *book, Page *page, BookView *view)
 {
+    Page *new_selection = view->priv->selected_page;
+
+    /* Select previous page or next if removing the first page */
+    if (page == view->priv->selected_page) {
+        new_selection = get_prev_page (view);
+        if (new_selection == view->priv->selected_page)
+            new_selection = get_next_page (view);
+    }
+
     g_hash_table_remove (view->priv->page_data, page);
     view->priv->need_layout = TRUE;
     gtk_widget_queue_draw (view->priv->widget);
+    
+    book_view_select_page (view, new_selection);
+}
+
+
+static void
+clear_cb (Book *book, BookView *view)
+{
+    g_hash_table_remove_all (view->priv->page_data);
+    view->priv->need_layout = TRUE;
+    gtk_widget_queue_draw (view->priv->widget);
+    book_view_select_page (view, NULL);
 }
 
 
@@ -155,7 +237,7 @@ book_view_set_book (BookView *view, Book *book)
 {
     gint i, n_pages;
 
-    view->priv->book = book;
+    view->priv->book = g_object_ref (book);
 
     /* Load existing pages */
     n_pages = book_get_n_pages (view->priv->book);
@@ -163,10 +245,19 @@ book_view_set_book (BookView *view, Book *book)
         Page *page = book_get_page (book, i);
         add_cb (book, page, view);
     }
+    
+    book_view_select_page (view, book_get_page (book, 0));
 
     /* Watch for new pages */
     g_signal_connect (book, "page-added", G_CALLBACK (add_cb), view);
     g_signal_connect (book, "page-removed", G_CALLBACK (remove_cb), view);
+    g_signal_connect (book, "cleared", G_CALLBACK (clear_cb), view);
+}
+
+
+Book *book_view_get_book (BookView *view)
+{
+    return view->priv->book;
 }
 
 
@@ -220,8 +311,22 @@ update_page_view (PageView *page)
 }
 
 
+static gint
+page_to_screen_x (PageView *page, gint x)
+{
+    return (double) x * page->width / page_get_width (page->page) + 0.5;
+}
+
+
+static gint
+page_to_screen_y (PageView *page, gint y)
+{
+    return (double) y * page->height / page_get_height (page->page) + 0.5;    
+}
+
+
 static void
-render_page (BookView *view, PageView *page, cairo_t *context, gboolean selected)
+render_page (BookView *view, PageView *page, cairo_t *context)
 {
     gint scan_line;
 
@@ -229,19 +334,80 @@ render_page (BookView *view, PageView *page, cairo_t *context, gboolean selected
     update_page_view (page);
 
     cairo_save (context);
+    cairo_set_line_width (context, 1);
 
     /* Draw background */
     cairo_translate (context, view->priv->x_offset + page->x, view->priv->y_offset + page->y);
     cairo_translate (context, 1, 1);
     gdk_cairo_set_source_pixbuf (context, page->image, 0, 0);
     cairo_paint (context);
-    cairo_translate (context, -1, -1);
+
+    /* Draw scan line */
+    scan_line = page_get_scan_line (page->page);
+    if (scan_line >= 0) {
+        double s;
+        double x1, y1, x2, y2;
+        
+        switch (page_get_orientation (page->page)) {
+        case TOP_TO_BOTTOM:
+            s = page_to_screen_y (page, scan_line);
+            x1 = 0; y1 = s + 0.5;
+            x2 = page->width; y2 = s + 0.5;
+            break;
+        case BOTTOM_TO_TOP:
+            s = page_to_screen_y (page, scan_line);
+            x1 = 0; y1 = page->height - s + 0.5;
+            x2 = page->width; y2 = page->height - s + 0.5;
+            break;
+        case LEFT_TO_RIGHT:
+            s = page_to_screen_x (page, scan_line);
+            x1 = s + 0.5; y1 = 0;
+            x2 = s + 0.5; y2 = page->height;
+            break;
+        case RIGHT_TO_LEFT:
+            s = page_to_screen_x (page, scan_line);
+            x1 = page->width - s + 0.5; y1 = 0;
+            x2 = page->width - s + 0.5; y2 = page->height;
+            break;
+        }
+
+        cairo_move_to (context, x1, y1);
+        cairo_line_to (context, x2, y2);
+        cairo_set_source_rgb (context, 1.0, 0.0, 0.0);
+        cairo_stroke (context);
+    }
+    
+    /* Draw crop */
+    if (page_has_crop (page->page)) {
+        gint x, y, width, height;
+        gdouble dx, dy, dw, dh;
+
+        page_get_crop (page->page, &x, &y, &width, &height);
+
+        dx = page_to_screen_x (page, x);
+        dy = page_to_screen_y (page, y);
+        dw = page_to_screen_x (page, width);
+        dh = page_to_screen_y (page, height);
+        
+        /* Shade out cropped area */
+        cairo_rectangle (context, 0, 0, page->width, page->height);
+        cairo_new_sub_path (context);
+        cairo_rectangle (context, dx, dy, dw, dh);
+        cairo_set_fill_rule (context, CAIRO_FILL_RULE_EVEN_ODD);
+        cairo_set_source_rgba (context, 0.5, 0.5, 0.5, 0.5);
+        cairo_fill (context);
+        
+        /* Show new edge */
+        cairo_rectangle (context, dx - 0.5, dy - 0.5, dw + 1, dh + 1);
+        cairo_set_source_rgb (context, 0.5, 0.5, 0.5);
+        cairo_stroke (context);
+    }
 
     /* Draw page border */
     /* NOTE: Border width and height is rounded up so border is sharp.  Background may not
      * extend to border, should fill with white (?) before drawing scanned image or extend
      * edges slightly */
-    if (selected) {
+    if (page->page == view->priv->selected_page) {
         if (gtk_widget_has_focus (view->priv->widget))
             cairo_set_source_rgb (context, 1, 0, 0);
         else if (book_get_n_pages (view->priv->book) > 1)
@@ -251,41 +417,8 @@ render_page (BookView *view, PageView *page, cairo_t *context, gboolean selected
     }
     else
         cairo_set_source_rgb (context, 0, 0, 0);
-    cairo_set_line_width (context, 1);
-    cairo_rectangle (context, 0.5, 0.5, gdk_pixbuf_get_width (page->image) + 1, gdk_pixbuf_get_height (page->image) + 1);
+    cairo_rectangle (context, -0.5, -0.5, gdk_pixbuf_get_width (page->image) + 1, gdk_pixbuf_get_height (page->image) + 1);
     cairo_stroke (context);
-
-    /* Draw scan line */
-    scan_line = page_get_scan_line (page->page);
-    if (scan_line >= 0) {
-        double s;
-        
-        switch (page_get_orientation (page->page)) {
-        case TOP_TO_BOTTOM:
-            s = (double) scan_line * page->height / page_get_height (page->page);
-            cairo_move_to (context, 0, s);
-            cairo_line_to (context, page->width, s);
-            break;
-        case BOTTOM_TO_TOP:
-            s = (double) scan_line * page->height / page_get_height (page->page);
-            cairo_move_to (context, 0, page->height - s);
-            cairo_line_to (context, page->width, page->height - s);
-            break;
-        case LEFT_TO_RIGHT:
-            s = (double) scan_line * page->width / page_get_width (page->page);
-            cairo_move_to (context, s, 0);
-            cairo_line_to (context, s, page->height);
-            break;
-        case RIGHT_TO_LEFT:
-            s = (double) scan_line * page->width / page_get_width (page->page);
-            cairo_move_to (context, page->width - s, 0);
-            cairo_line_to (context, page->width - s, page->height);
-            break;
-        }
-
-        cairo_set_source_rgb (context, 1.0, 0.0, 0.0);
-        cairo_stroke (context);
-    }
     
     cairo_restore (context);
 }
@@ -416,7 +549,7 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
     for (i = 0; i < n_pages; i++) {
         Page *p = book_get_page (view->priv->book, i);
         PageView *page = g_hash_table_lookup (view->priv->page_data, p);
-        render_page (view, page, context, i == view->priv->selected_page);
+        render_page (view, page, context);
     }
 
     cairo_destroy (context);
@@ -438,30 +571,6 @@ zoom_cb (GtkAdjustment *adjustment, BookView *view)
     view->priv->need_layout = TRUE;
 
     gtk_widget_queue_draw (view->priv->widget);
-}
-
-
-static void
-rotate_left_cb (GtkWidget *widget, BookView *view)
-{
-    page_rotate_left (book_view_get_selected (view));
-}
-
-
-static void
-rotate_right_cb (GtkWidget *widget, BookView *view)
-{
-    page_rotate_right (book_view_get_selected (view));
-}
-
-
-static void
-delete_cb (GtkWidget *widget, BookView *view)
-{
-    book_delete_page (view->priv->book, book_view_get_selected (view));
-    // FIXME: Should be in simple-scan.c
-    if (book_get_n_pages (view->priv->book) == 0)
-        book_append_page (view->priv->book, 595, 842, 72, TOP_TO_BOTTOM);
 }
 
 
@@ -497,8 +606,7 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
         top = page->y;
         bottom = page->y + page->height;
         if (x >= left && x <= right && y >= top && y <= bottom) {
-            view->priv->selected_page = i;
-            gtk_widget_queue_draw (view->priv->widget);
+            book_view_select_page (view, page->page);
             on_page = TRUE;
             break;
         }
@@ -508,55 +616,7 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
 
     /* Show pop-up menu */
     if (on_page && event->button == 3) {
-        GtkWidget *menu, /**crop_menu,*/ *item;
-        //GSList *group;
-        
-        menu = gtk_menu_new ();
-
-        item = gtk_menu_item_new_with_label ("Rotate Left");
-        g_signal_connect (item, "activate", G_CALLBACK (rotate_left_cb), view);
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-
-        item = gtk_menu_item_new_with_label ("Rotate Right");
-        g_signal_connect (item, "activate", G_CALLBACK (rotate_right_cb), view);
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-
-        /*item = gtk_menu_item_new_with_label ("Crop");
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-        crop_menu = gtk_menu_new ();
-        gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), crop_menu);
-
-        item = gtk_radio_menu_item_new_with_label (group, "None");
-        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
-        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
-        item = gtk_radio_menu_item_new_with_label (group, "A4");
-        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
-        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
-        item = gtk_radio_menu_item_new_with_label (group, "A5");
-        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
-        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
-        item = gtk_radio_menu_item_new_with_label (group, "A6");
-        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
-        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
-        item = gtk_radio_menu_item_new_with_label (group, "Letter");
-        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
-        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
-        item = gtk_radio_menu_item_new_with_label (group, "Legal");
-        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
-        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
-        item = gtk_radio_menu_item_new_with_label (group, "4×6");
-        group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));
-        gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
-        //item = gtk_radio_menu_item_new_with_label (group, "Custom");
-        //gtk_menu_shell_append (GTK_MENU_SHELL (crop_menu), item);
-        //group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item));*/
-
-        item = gtk_menu_item_new_with_label ("Delete");
-        g_signal_connect (item, "activate", G_CALLBACK (delete_cb), view);
-        gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
-
-        gtk_widget_show_all (menu);
-        gtk_menu_popup (GTK_MENU (menu), NULL, NULL, NULL, NULL,
+        gtk_menu_popup (GTK_MENU (view->priv->page_menu), NULL, NULL, NULL, NULL,
                         event->button, event->time);
     }
 
@@ -594,22 +654,14 @@ key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
     case GDK_Left:
         if (event->state & GDK_CONTROL_MASK)
             book_view_pan (view, 5, 0);
-        else {
-            if (view->priv->selected_page != 0) {
-                view->priv->selected_page--;
-                gtk_widget_queue_draw (view->priv->widget);
-            }
-        }
+        else
+            book_view_select_page (view, get_prev_page (view));
         return TRUE;
     case GDK_Right:
-        if (event->state & GDK_CONTROL_MASK)        
+        if (event->state & GDK_CONTROL_MASK)
             book_view_pan (view, -5, 0);
-        else {
-            view->priv->selected_page++;
-            if (view->priv->selected_page >= book_get_n_pages (view->priv->book))
-                view->priv->selected_page = book_get_n_pages (view->priv->book) - 1;
-            gtk_widget_queue_draw (view->priv->widget);            
-        }
+        else
+            book_view_select_page (view, get_next_page (view));
         return TRUE;
     case GDK_Up:
         if (event->state & GDK_CONTROL_MASK)
@@ -629,10 +681,6 @@ key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
         book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) - 0.1);        
         return TRUE;
 
-    case GDK_Delete:
-        delete_cb (NULL, view);
-        return TRUE;
-
     default:
         return FALSE;
     }
@@ -648,7 +696,7 @@ focus_cb (GtkWidget *widget, GdkEventFocus *event, BookView *view)
 
 
 void
-book_view_set_widget (BookView *view, GtkWidget *widget)
+book_view_set_widget (BookView *view, GtkWidget *widget, GtkWidget *page_menu)
 {
     g_return_if_fail (view->priv->widget == NULL);
     view->priv->widget = widget;
@@ -661,18 +709,40 @@ book_view_set_widget (BookView *view, GtkWidget *widget)
     g_signal_connect (widget, "scroll-event", G_CALLBACK (scroll_cb), view);
     g_signal_connect (widget, "focus-in-event", G_CALLBACK (focus_cb), view);
     g_signal_connect (widget, "focus-out-event", G_CALLBACK (focus_cb), view);
+    view->priv->page_menu = page_menu;
+}
+
+
+void
+book_view_select_page (BookView *view, Page *page)
+{
+    if (view->priv->selected_page == page)
+        return;
+    
+    view->priv->selected_page = page;
+    gtk_widget_queue_draw (view->priv->widget);    
+    g_signal_emit (view, signals[PAGE_SELECTED], 0, view->priv->selected_page);
 }
 
 
 Page *book_view_get_selected (BookView *view)
 {
-    return book_get_page (view->priv->book, view->priv->selected_page);
+    return view->priv->selected_page;
 }
 
 
 static void
 book_view_class_init (BookViewClass *klass)
 {
+    signals[PAGE_SELECTED] =
+        g_signal_new ("page-selected",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (BookViewClass, page_selected),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__POINTER,
+                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+
     g_type_class_add_private (klass, sizeof (BookViewPrivate));
 }
 
@@ -684,7 +754,6 @@ book_view_init (BookView *view)
     view->priv->need_layout = TRUE;
     view->priv->page_data = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                    NULL, (GDestroyNotify) page_view_free);
-    view->priv->selected_page = 0;
     view->priv->zoom_adjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
                                                                       0.0, 1.0,
                                                                       0.01,

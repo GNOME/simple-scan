@@ -22,6 +22,7 @@
 enum {
     PAGE_ADDED,
     PAGE_REMOVED,
+    CLEARED,
     LAST_SIGNAL
 };
 static guint signals[LAST_SIGNAL] = { 0, };
@@ -47,11 +48,11 @@ book_clear (Book *book)
     GList *iter;
     for (iter = book->priv->pages; iter; iter = iter->next) {
         Page *page = iter->data;
-        g_signal_emit (book, signals[PAGE_REMOVED], 0, page);
         g_object_unref (page);
     }
     g_list_free (book->priv->pages);
     book->priv->pages = NULL;
+    g_signal_emit (book, signals[CLEARED], 0);
 }
 
 
@@ -91,6 +92,8 @@ book_get_n_pages (Book *book)
 Page *
 book_get_page (Book *book, gint page_number)
 {
+    if (page_number < 0)
+        page_number = g_list_length (book->priv->pages) + page_number;
     return g_list_nth_data (book->priv->pages, page_number);
 }
 
@@ -110,7 +113,7 @@ book_save_jpeg (Book *book, GFileOutputStream *stream, GError **error)
     gboolean result;
     
     page = book_get_page (book, 0);
-    image = page_get_image (page);
+    image = page_get_cropped_image (page);
     result = gdk_pixbuf_save_to_callback (image,
                                           (GdkPixbufSaveFunc) write_pixbuf_data, stream,
                                           "jpeg", error,
@@ -129,7 +132,7 @@ book_save_png (Book *book, GFileOutputStream *stream, GError **error)
     gboolean result;
 
     page = book_get_page (book, 0);
-    image = page_get_image (page);
+    image = page_get_cropped_image (page);
     result = gdk_pixbuf_save_to_callback (image,
                                           (GdkPixbufSaveFunc) write_pixbuf_data, stream,
                                           "png", error,
@@ -188,7 +191,7 @@ book_save_ps (Book *book, GFileOutputStream *stream, GError **error)
         double width, height;
         GdkPixbuf *image;
 
-        image = page_get_image (page);
+        image = page_get_cropped_image (page);
 
         width = gdk_pixbuf_get_width (image) * 72.0 / page_get_dpi (page);
         height = gdk_pixbuf_get_height (image) * 72.0 / page_get_dpi (page);
@@ -221,7 +224,7 @@ book_save_pdf (Book *book, GFileOutputStream *stream, GError **error)
         double width, height;
         GdkPixbuf *image;
         
-        image = page_get_image (page);
+        image = page_get_cropped_image (page);
 
         width = gdk_pixbuf_get_width (image) * 72.0 / page_get_dpi (page);
         height = gdk_pixbuf_get_height (image) * 72.0 / page_get_dpi (page);
@@ -246,7 +249,7 @@ book_print (Book *book, cairo_t *context)
     GdkPixbuf *image;
 
     page = book_get_page (book, 0);
-    image = page_get_image (page);
+    image = page_get_cropped_image (page);
 
     gdk_cairo_set_source_pixbuf (context, image, 0, 0);
     cairo_pattern_set_filter (cairo_get_source (context), CAIRO_FILTER_BEST);
@@ -288,6 +291,14 @@ book_class_init (BookClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__POINTER,
                       G_TYPE_NONE, 1, G_TYPE_POINTER);
+    signals[CLEARED] =
+        g_signal_new ("cleared",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (BookClass, cleared),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
     g_type_class_add_private (klass, sizeof (BookPrivate));
 }

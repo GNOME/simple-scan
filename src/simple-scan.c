@@ -17,7 +17,6 @@
 #include "ui.h"
 #include "scanner.h"
 #include "book.h"
-#include "book-view.h"
 
 
 static const char *default_device = NULL;
@@ -28,17 +27,11 @@ static Scanner *scanner;
 
 static Book *book;
 
-static BookView *book_view;
-
 static gboolean scanning = FALSE;
 
 static gboolean clear_pages = FALSE;
 
 static gboolean first_autodetect = TRUE;
-
-static Orientation default_orientation = TOP_TO_BOTTOM;
-
-static int page_count = 0;
 
 
 static void
@@ -86,20 +79,22 @@ static void
 scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 {
     Page *page;
+    Orientation orientation = TOP_TO_BOTTOM;
 
     g_debug ("Page is %d pixels wide, %d pixels high, %d bits per pixel",
              info->width, info->height, info->depth);
     
+    page = book_get_page (book, -1);
+    if (page)
+        orientation = page_get_orientation (page);
+
     if (clear_pages) {
-        page_count = 0;
         book_clear (book);
         clear_pages = FALSE;
     }
 
-    page = book_append_page (book, info->width, info->height, info->dpi, default_orientation);
+    page = book_append_page (book, info->width, info->height, info->dpi, orientation);
     page_start (page);
-
-    page_count++;
 }
 
 
@@ -108,7 +103,7 @@ scanner_line_cb (Scanner *scanner, ScanLine *line)
 {
     Page *page;
 
-    page = book_get_page (book, page_count - 1);
+    page = book_get_page (book, book_get_n_pages (book) - 1);
     page_parse_scan_line (page, line);
 }
 
@@ -118,7 +113,7 @@ scanner_image_done_cb (Scanner *scanner)
 {
     Page *page;
     
-    page = book_get_page (book, page_count - 1);
+    page = book_get_page (book, book_get_n_pages (book) - 1);
     page_finish (page);
     ui_set_have_scan (ui, TRUE);
 }
@@ -185,22 +180,20 @@ cancel_cb (SimpleScan *ui)
 
 
 static void
-rotate_left_cb (SimpleScan *ui)
+add_default_page ()
 {
-    Page *page;
-    page = book_view_get_selected (book_view);
-    page_rotate_left (page);
-    default_orientation = page_get_orientation (page);
+    /* Start with A4 white image at 72dpi */
+    /* TODO: Should be like the last scanned image for the selected scanner */
+    book_append_page (book, 595, 842, 72, TOP_TO_BOTTOM);   
 }
 
 
 static void
-rotate_right_cb (SimpleScan *ui)
+page_removed_cb (Book *book, Page *page, SimpleScan *ui)
 {
-    Page *page;
-    page = book_view_get_selected (book_view);
-    page_rotate_right (page);
-    default_orientation = page_get_orientation (page);
+    /* Ensure always one page */
+    if (book_get_n_pages (book) == 0)
+        add_default_page ();
 }
 
 
@@ -350,26 +343,17 @@ main(int argc, char **argv)
     get_options (argc, argv);
 
     book = book_new ();
-    /* Start with A4 white image at 72dpi */
-    /* TODO: Should be like the last scanned image for the selected scanner */
-    book_append_page (book, 595, 842, 72, default_orientation);
-    page_count++;
+    g_signal_connect (book, "page-removed", G_CALLBACK (page_removed_cb), NULL);
+    add_default_page ();
 
     ui = ui_new ();
+    ui_set_book (ui, book);
     g_signal_connect (ui, "start-scan", G_CALLBACK (scan_cb), NULL);
     g_signal_connect (ui, "stop-scan", G_CALLBACK (cancel_cb), NULL);
-    g_signal_connect (ui, "rotate-left", G_CALLBACK (rotate_left_cb), NULL);
-    g_signal_connect (ui, "rotate-right", G_CALLBACK (rotate_right_cb), NULL);
     g_signal_connect (ui, "save", G_CALLBACK (save_cb), NULL);
     g_signal_connect (ui, "print", G_CALLBACK (print_cb), NULL);
     g_signal_connect (ui, "quit", G_CALLBACK (quit_cb), NULL);
 
-    book_view = book_view_new ();
-    book_view_set_widget (book_view, ui_get_preview_widget (ui)); // FIXME
-    book_view_set_book (book_view, book);
-    
-    ui_set_zoom_adjustment (ui, book_view_get_zoom_adjustment (book_view));
-    
     scanner = scanner_new ();
     g_signal_connect (G_OBJECT (scanner), "ready", G_CALLBACK (scanner_ready_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "update-devices", G_CALLBACK (update_scan_devices_cb), NULL);

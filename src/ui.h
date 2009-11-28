@@ -13,6 +13,7 @@
 #define _UI_H_
 
 #include <glib-object.h>
+#include "book.h"
 
 G_BEGIN_DECLS
 
@@ -34,8 +35,6 @@ typedef struct
 
     void (*start_scan) (SimpleScan *ui, const gchar *device, const gchar *document_type, gboolean continuous, gboolean replace);
     void (*stop_scan) (SimpleScan *ui);
-    void (*rotate_left) (SimpleScan *ui);
-    void (*rotate_right) (SimpleScan *ui);
     void (*save) (SimpleScan *ui, const gchar *format);
     void (*print) (SimpleScan *ui, cairo_t *context);
     void (*quit) (SimpleScan *ui);
@@ -46,10 +45,9 @@ GType ui_get_type (void);
 
 SimpleScan *ui_new (void);
 
-// FIXME: Make a custom widget
-GtkWidget *ui_get_preview_widget (SimpleScan *ui);
+void ui_set_book (SimpleScan *ui, Book *book);
 
-void ui_set_zoom_adjustment (SimpleScan *ui, GtkAdjustment *adjustment);
+Page *ui_get_selected_page (SimpleScan *ui);
 
 void ui_set_default_file_name (SimpleScan *ui, const gchar *default_file_name);
 
