@@ -258,10 +258,12 @@
                     <property name="column_spacing">6</property>
                     <property name="row_spacing">6</property>
                     <child>
-                      <object class="GtkLabel" id="device_label">
+                      <object class="GtkLabel" id="source_label">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes" comments="Label beside scan device combo box">Scan Source:</property>
+                        <property name="label" translatable="yes" comments="Label beside scan source combo box">Scan S_ource:</property>
+                        <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">device_combo</property>
                       </object>
                       <packing>
                         <property name="x_options">GTK_FILL</property>
@@ -269,11 +271,12 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="mode_label">
+                      <object class="GtkLabel" id="document_type_label">
                         <property name="visible">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes" comments="Label beside document type combo box">_Document Type:</property>
+                        <property name="label" translatable="yes" comments="Label beside document type combo box">Document _Type:</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">mode_combo</property>
                       </object>
                       <packing>
                         <property name="top_attach">1</property>
@@ -383,7 +386,7 @@
                     <property name="spacing">6</property>
                     <child>
                       <object class="GtkButton" id="save_file_button">
-                        <property name="label" translatable="yes" comments="Label on button that saves image to file">_Save to Filesystem</property>
+                        <property name="label" translatable="yes" comments="Label on button that saves image to file">Save to _File</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>

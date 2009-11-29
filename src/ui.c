@@ -766,6 +766,9 @@ ui_load (SimpleScan *ui)
                           GTK_WIDGET (gtk_builder_get_object (builder, "page_menu")));
     gtk_range_set_adjustment (GTK_RANGE (ui->priv->zoom_scale),
                               book_view_get_zoom_adjustment (ui->priv->book_view));
+    
+    /* Start with a reasonable size */
+    gtk_window_resize (GTK_WINDOW (ui->priv->window), 600, 400);
 }
 
 
