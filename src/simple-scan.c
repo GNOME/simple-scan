@@ -94,6 +94,8 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
     }
 
     page = book_append_page (book, info->width, info->height, info->dpi, orientation);
+    ui_set_selected_page (ui, page);
+
     page_start (page);
 }
 

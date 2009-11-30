@@ -14,7 +14,6 @@
 #include "book-view.h"
 
 
-
 enum {
     PAGE_SELECTED,
     LAST_SIGNAL
@@ -36,6 +35,9 @@ typedef struct
 
     /* Dimensions of image to generate */
     gint width, height;
+    
+    /* Border around image */
+    gint border;
     
     /* Location to place this page */
     gint x, y;
@@ -121,10 +123,8 @@ get_prev_page (BookView *view)
         page = book_get_page (view->priv->book, i);
         if (!page)
             break;
-        if (page == view->priv->selected_page) {
-            if (i != 0)
-                return prev_page;
-        }
+        if (page == view->priv->selected_page)
+            return prev_page;
         prev_page = page;
     }
     
@@ -449,7 +449,7 @@ layout (BookView *view)
         if (page_get_height (page) > max_height)
             max_height = page_get_height (page);
     }
-
+    
     /* Make space for fixed size border */
     inner_width = view->priv->width - 2*border;
     inner_height = view->priv->height - 2*border;
@@ -508,6 +508,22 @@ layout (BookView *view)
         y_range = (int) (book_height - view->priv->height);
     }
     
+    /* Make selected page visible */
+    if (view->priv->selected_page) {
+        PageView *page;
+        gint left_edge, right_edge;
+
+        page = g_hash_table_lookup (view->priv->page_data, view->priv->selected_page);
+
+        left_edge = page->x;
+        right_edge = left_edge + page->border + page->width + page->border;
+        if (right_edge + view->priv->x_offset > view->priv->width)
+            view->priv->x_offset = view->priv->width - right_edge;
+        else if (left_edge + view->priv->x_offset < 0)
+            view->priv->x_offset = -left_edge;
+    }
+
+    /* Clamp offsets */
     if (view->priv->x_offset < -x_range)
         view->priv->x_offset = -x_range;
     if (view->priv->x_offset > 0)
@@ -521,9 +537,10 @@ layout (BookView *view)
         Page *p = book_get_page (view->priv->book, i);
         PageView *page = g_hash_table_lookup (view->priv->page_data, p);
 
+        page->border = border;
         page->x = x_offset;
-        x_offset += page->width + (2 * border) + spacing;
-        page->y = y_offset + (book_height - page->height) / 2 - border;
+        x_offset += page->width + (2 * page->border) + spacing;
+        page->y = y_offset + (book_height - page->height) / 2 - page->border;
     }
     
     view->priv->need_layout = FALSE;
@@ -718,8 +735,12 @@ book_view_select_page (BookView *view, Page *page)
 {
     if (view->priv->selected_page == page)
         return;
-    
+
     view->priv->selected_page = page;
+
+    /* Shift this page into view */
+    view->priv->need_layout = TRUE;
+    
     gtk_widget_queue_draw (view->priv->widget);    
     g_signal_emit (view, signals[PAGE_SELECTED], 0, view->priv->selected_page);
 }

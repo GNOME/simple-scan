@@ -786,6 +786,13 @@ ui_set_book (SimpleScan *ui, Book *book)
 }
 
 
+void
+ui_set_selected_page (SimpleScan *ui, Page *page)
+{
+    book_view_select_page (ui->priv->book_view, page);
+}
+
+
 Page *
 ui_get_selected_page (SimpleScan *ui)
 {

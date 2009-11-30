@@ -47,6 +47,8 @@ SimpleScan *ui_new (void);
 
 void ui_set_book (SimpleScan *ui, Book *book);
 
+void ui_set_selected_page (SimpleScan *ui, Page *page);
+
 Page *ui_get_selected_page (SimpleScan *ui);
 
 void ui_set_default_file_name (SimpleScan *ui, const gchar *default_file_name);
