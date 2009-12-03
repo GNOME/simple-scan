@@ -80,13 +80,23 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 {
     Page *page;
     Orientation orientation = TOP_TO_BOTTOM;
+    gboolean do_crop = FALSE;
+    gchar *named_crop = NULL;
+    gint cx, cy, cw, ch;
 
     g_debug ("Page is %d pixels wide, %d pixels high, %d bits per pixel",
              info->width, info->height, info->depth);
     
     page = book_get_page (book, -1);
-    if (page)
+    if (page) {
         orientation = page_get_orientation (page);
+        
+        do_crop = page_has_crop (page);
+        if (do_crop) {
+            named_crop = page_get_named_crop (page);
+            page_get_crop (page, &cx, &cy, &cw, &ch);
+        }
+    }
 
     if (clear_pages) {
         book_clear (book);
@@ -94,6 +104,16 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
     }
 
     page = book_append_page (book, info->width, info->height, info->dpi, orientation);
+    if (do_crop) {
+        if (named_crop)  {
+            page_set_named_crop (page, named_crop);
+            g_free (named_crop);
+        }
+        else
+            page_set_custom_crop (page, cw, ch);
+        page_move_crop (page, cx, cy);
+    }
+    
     ui_set_selected_page (ui, page);
 
     page_start (page);
@@ -184,9 +204,15 @@ cancel_cb (SimpleScan *ui)
 static void
 add_default_page ()
 {
+    if (book_get_n_pages (book) > 0)
+        return;
+
     /* Start with A4 white image at 72dpi */
     /* TODO: Should be like the last scanned image for the selected scanner */
-    book_append_page (book, 595, 842, 72, TOP_TO_BOTTOM);   
+    book_append_page (book, 595, 842, 72, TOP_TO_BOTTOM);
+
+    /* Remove this page on the next scan */
+    clear_pages = TRUE;
 }
 
 
@@ -194,8 +220,7 @@ static void
 page_removed_cb (Book *book, Page *page, SimpleScan *ui)
 {
     /* Ensure always one page */
-    if (book_get_n_pages (book) == 0)
-        add_default_page ();
+    add_default_page ();
 }
 
 

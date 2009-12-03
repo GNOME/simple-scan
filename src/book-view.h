@@ -59,6 +59,10 @@ void book_view_set_zoom (BookView *view, gdouble zoom);
 
 void book_view_select_page (BookView *view, Page *page);
 
+void book_view_select_next_page (BookView *view);
+
+void book_view_select_prev_page (BookView *view);
+
 Page *book_view_get_selected (BookView *view);
 
 #endif /* _BOOK_VIEW_H_ */

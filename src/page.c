@@ -478,10 +478,14 @@ page_get_crop (Page *page, gint *x, gint *y, gint *width, gint *height)
 {
     g_return_if_fail (page != NULL);
 
-    *x = page->priv->crop_x;
-    *y = page->priv->crop_y;
-    *width = page->priv->crop_width;
-    *height = page->priv->crop_height;
+    if (x)
+        *x = page->priv->crop_x;
+    if (y)
+        *y = page->priv->crop_y;
+    if (width)
+        *width = page->priv->crop_width;
+    if (height)
+        *height = page->priv->crop_height;
 }
 
 

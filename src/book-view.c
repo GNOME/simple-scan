@@ -65,6 +65,11 @@ struct BookViewPrivate
 
     Page *selected_page;
     
+    /* The page the crop is being moved on or NULL */
+    PageView *selected_crop;
+    gdouble selected_crop_px, selected_crop_py;
+    gint selected_crop_x, selected_crop_y;
+
     /* Widget being rendered to */
     GtkWidget *widget;
 
@@ -271,6 +276,14 @@ configure_cb (GtkWidget *widget, GdkEventConfigure *event, BookView *view)
 }
 
 
+static void
+set_cursor (BookView *view, gint cursor)
+{
+    gdk_window_set_cursor (gtk_widget_get_window (view->priv->widget),
+                           gdk_cursor_new (cursor));
+}
+
+
 void
 book_view_pan (BookView *view, gint x_offset, gint y_offset)
 {
@@ -279,8 +292,7 @@ book_view_pan (BookView *view, gint x_offset, gint y_offset)
     view->priv->need_layout = TRUE;
     gtk_widget_queue_draw (view->priv->widget);
 
-    gdk_window_set_cursor (gtk_widget_get_window (view->priv->widget),
-                           gdk_cursor_new (GDK_HAND1));
+    set_cursor (view, GDK_HAND1);
 }
 
 
@@ -302,6 +314,7 @@ update_page_view (PageView *page)
     if (page->image)
         g_object_unref (page->image);
     image = page_get_image (page->page);
+    
     page->image = gdk_pixbuf_scale_simple (image,
                                            page->width, page->height,
                                            GDK_INTERP_BILINEAR);
@@ -309,6 +322,7 @@ update_page_view (PageView *page)
 
     page->update_image = FALSE;
 }
+
 
 
 static gint
@@ -322,6 +336,20 @@ static gint
 page_to_screen_y (PageView *page, gint y)
 {
     return (double) y * page->height / page_get_height (page->page) + 0.5;    
+}
+
+
+static gint
+screen_to_page_x (PageView *page, gint x)
+{
+    return (double) x * page_get_width (page->page) / page->width + 0.5;
+}
+
+
+static gint
+screen_to_page_y (PageView *page, gint y)
+{
+    return (double) y * page_get_height (page->page) / page->height  + 0.5;    
 }
 
 
@@ -453,6 +481,11 @@ layout (BookView *view)
     /* Make space for fixed size border */
     inner_width = view->priv->width - 2*border;
     inner_height = view->priv->height - 2*border;
+    
+    /* Make space to see adjacent pages */
+    // FIXME: If selected first or last only need half amount
+    if (n_pages > 1)
+        inner_width -= spacing * 4;
 
     max_aspect = max_width / max_height;
     inner_aspect = inner_width / inner_height;
@@ -508,21 +541,6 @@ layout (BookView *view)
         y_range = (int) (book_height - view->priv->height);
     }
     
-    /* Make selected page visible */
-    if (view->priv->selected_page) {
-        PageView *page;
-        gint left_edge, right_edge;
-
-        page = g_hash_table_lookup (view->priv->page_data, view->priv->selected_page);
-
-        left_edge = page->x;
-        right_edge = left_edge + page->border + page->width + page->border;
-        if (right_edge + view->priv->x_offset > view->priv->width)
-            view->priv->x_offset = view->priv->width - right_edge;
-        else if (left_edge + view->priv->x_offset < 0)
-            view->priv->x_offset = -left_edge;
-    }
-
     /* Clamp offsets */
     if (view->priv->x_offset < -x_range)
         view->priv->x_offset = -x_range;
@@ -552,13 +570,33 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
 {
     gint i, n_pages;
 
-    cairo_t *context;    
-    
+    cairo_t *context;
+
     n_pages = book_get_n_pages (view->priv->book);
     if (n_pages == 0)
         return FALSE;
 
     layout (view);
+    
+    /* Make sure the selected page is visible */
+    if (view->priv->selected_page) {
+        PageView *page;
+        gint left_edge, right_edge;
+
+        page = g_hash_table_lookup (view->priv->page_data, view->priv->selected_page);
+
+        /* Left and right edges of the page */
+        left_edge = page->x;
+        right_edge = left_edge + page->border + page->width + page->border;
+
+        /* Make sure can see adjacent pages */
+        // FIXME: Hardcoded spacing 24
+
+        if (right_edge + view->priv->x_offset > view->priv->width)
+            view->priv->x_offset = view->priv->width - right_edge - 24;
+        else if (left_edge + view->priv->x_offset < 0)
+            view->priv->x_offset = -left_edge + 24;
+    }
 
     context = gdk_cairo_create (widget->window);
 
@@ -592,14 +630,31 @@ zoom_cb (GtkAdjustment *adjustment, BookView *view)
 
 
 static gboolean
+is_inside_crop (PageView *page, gint x, gint y)
+{
+    gint cx, cy, cw, ch;
+    gint dx, dy, dw, dh;
+
+    if (!page_has_crop (page->page))
+        return FALSE;
+
+    page_get_crop (page->page, &cx, &cy, &cw, &ch);
+    dx = page_to_screen_x (page, cx) + page->x;
+    dy = page_to_screen_y (page, cy) + page->y;
+    dw = page_to_screen_x (page, cw);
+    dh = page_to_screen_y (page, ch);
+    return (x >= dx && x <= dx + dw) && (y >= dy && y <= dy + dh);
+}
+
+
+static gboolean
 button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
 {
     gint i, n_pages;
     gboolean on_page = FALSE;
     
     if (event->type == GDK_BUTTON_RELEASE) {
-        gdk_window_set_cursor (gtk_widget_get_window (view->priv->widget),
-                               gdk_cursor_new (GDK_ARROW));
+        view->priv->selected_crop = NULL;
         return FALSE;
     }
 
@@ -625,6 +680,18 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
         if (x >= left && x <= right && y >= top && y <= bottom) {
             book_view_select_page (view, page->page);
             on_page = TRUE;
+
+            /* See if selecting crop */
+            if (is_inside_crop (page, x, y)) {
+                view->priv->selected_crop = page;
+                view->priv->selected_crop_px = event->x;
+                view->priv->selected_crop_py = event->y;
+                page_get_crop (page->page,
+                               &view->priv->selected_crop_x,
+                               &view->priv->selected_crop_y,
+                               NULL, NULL);
+            }
+
             break;
         }
     }
@@ -655,9 +722,60 @@ scroll_cb (GtkWidget *widget, GdkEventScroll *event, BookView *view)
 static gboolean
 motion_cb (GtkWidget *widget, GdkEventMotion *event, BookView *view)
 {
-    book_view_pan (view, event->x - view->priv->mouse_x, event->y - view->priv->mouse_y);
+    gint x, y;
+    gint sx, sy;
+    gint i, n_pages;
+    gboolean over_crop = FALSE;
+
+    sx = event->x - view->priv->mouse_x;
+    sy = event->y - view->priv->mouse_y;
     view->priv->mouse_x = event->x;
     view->priv->mouse_y = event->y;
+
+    /* Location of cursor in book */
+    x = event->x - view->priv->x_offset;
+    y = event->y - view->priv->y_offset;
+    
+    /* Check if inside crop */
+    n_pages = book_get_n_pages (view->priv->book);
+    for (i = 0; i < n_pages; i++) {
+        Page *p = book_get_page (view->priv->book, i);
+        PageView *page = g_hash_table_lookup (view->priv->page_data, p);
+
+        if (is_inside_crop (page, x, y)) {
+            over_crop = TRUE;
+            continue;
+        }
+    }
+
+    /* Move the crop */
+    if (view->priv->selected_crop && event->state & GDK_BUTTON1_MASK) {
+        gint pw, ph;
+        gint cx, cy, cw, ch;
+        gint new_x, new_y;
+        
+        pw = page_get_width (view->priv->selected_crop->page);
+        ph = page_get_height (view->priv->selected_crop->page);
+        page_get_crop (view->priv->selected_crop->page, &cx, &cy, &cw, &ch);
+        new_x = view->priv->selected_crop_x + screen_to_page_x (view->priv->selected_crop, event->x - view->priv->selected_crop_px);
+        new_y = view->priv->selected_crop_y + screen_to_page_y (view->priv->selected_crop, event->y - view->priv->selected_crop_py);
+        if (new_x < 0)
+            new_x = 0;
+        if (new_x > pw - cw)
+            new_x = pw - cw;
+        if (new_y < 0)
+            new_y = 0;
+        if (new_y > ph - ch)
+            new_y = ph - ch;        
+
+        page_move_crop (view->priv->selected_crop->page, new_x, new_y);
+    }
+    
+    // FIXME: Do this in the rendering loop (what if disable/change crop without rotating) */
+    if (view->priv->selected_crop || over_crop)
+        set_cursor (view, GDK_HAND1);
+    else
+        set_cursor (view, GDK_ARROW);
    
     return FALSE;
 }
@@ -738,15 +856,29 @@ book_view_select_page (BookView *view, Page *page)
 
     view->priv->selected_page = page;
 
-    /* Shift this page into view */
-    view->priv->need_layout = TRUE;
-    
+    /* Make selected page visible */
+
     gtk_widget_queue_draw (view->priv->widget);    
     g_signal_emit (view, signals[PAGE_SELECTED], 0, view->priv->selected_page);
 }
 
 
-Page *book_view_get_selected (BookView *view)
+void
+book_view_select_next_page (BookView *view)
+{
+    book_view_select_page (view, get_next_page (view));
+}
+
+
+void
+book_view_select_prev_page (BookView *view)
+{
+    book_view_select_page (view, get_prev_page (view));
+}
+
+
+Page *
+book_view_get_selected (BookView *view)
 {
     return view->priv->selected_page;
 }
