@@ -269,6 +269,18 @@ save_cb (SimpleScan *ui, gchar *uri)
 
 
 static void
+email_cb (SimpleScan *ui)
+{
+    GError *error = NULL;
+    g_spawn_command_line_async ("xdg-email", &error);
+    if (error) {
+        g_warning ("Unable to start email: %s", error->message);
+        g_error_free (error);
+    }
+}
+
+
+static void
 print_cb (SimpleScan *ui, cairo_t *context)
 {
     book_print (book, context);
@@ -378,6 +390,7 @@ main(int argc, char **argv)
     g_signal_connect (ui, "start-scan", G_CALLBACK (scan_cb), NULL);
     g_signal_connect (ui, "stop-scan", G_CALLBACK (cancel_cb), NULL);
     g_signal_connect (ui, "save", G_CALLBACK (save_cb), NULL);
+    g_signal_connect (ui, "email", G_CALLBACK (email_cb), NULL);
     g_signal_connect (ui, "print", G_CALLBACK (print_cb), NULL);
     g_signal_connect (ui, "quit", G_CALLBACK (quit_cb), NULL);
 

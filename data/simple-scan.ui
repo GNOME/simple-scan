@@ -397,6 +397,18 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkButton" id="email_button">
+                        <property name="label" translatable="yes" comments="Label on print scanned image button">E_mail</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="use_underline">True</property>
+                        <signal name="clicked" handler="email_button_clicked_cb"/>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkButton" id="print_button">
                         <property name="label" translatable="yes" comments="Label on print scanned image button">_Print</property>
                         <property name="visible">True</property>
@@ -406,7 +418,7 @@
                         <signal name="clicked" handler="print_button_clicked_cb"/>
                       </object>
                       <packing>
-                        <property name="position">3</property>
+                        <property name="position">4</property>
                       </packing>
                     </child>
                   </object>
@@ -490,7 +502,6 @@
                     </child>
                     <child>
                       <object class="GtkLabel" id="label1">
-                        <property name="visible">True</property>
                         <property name="label">&#x2212;</property>
                       </object>
                       <packing>
@@ -501,7 +512,6 @@
                     <child>
                       <object class="GtkHScale" id="zoom_scale">
                         <property name="width_request">100</property>
-                        <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="draw_value">False</property>
@@ -513,7 +523,6 @@
                     </child>
                     <child>
                       <object class="GtkLabel" id="label2">
-                        <property name="visible">True</property>
                         <property name="label">+</property>
                       </object>
                       <packing>

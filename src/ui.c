@@ -23,6 +23,7 @@ enum {
     START_SCAN,
     STOP_SCAN,
     SAVE,
+    EMAIL,
     PRINT,
     QUIT,
     LAST_SIGNAL
@@ -468,6 +469,21 @@ draw_page (GtkPrintOperation *operation,
 
     //For some reason can't destroy until job complete
     //cairo_destroy (context);
+}
+
+
+void email_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+email_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    g_signal_emit (G_OBJECT (ui), signals[EMAIL], 0);
+    GError *error = NULL;
+    g_spawn_command_line_async ("xdg-email", &error);
+    if (error) {
+        g_warning ("Unable to start email: %s", error->message);
+        g_error_free (error);
+    }
 }
 
 
@@ -944,6 +960,14 @@ ui_class_init (SimpleScanClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__POINTER,
                       G_TYPE_NONE, 1, G_TYPE_POINTER);
+    signals[EMAIL] =
+        g_signal_new ("email",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (SimpleScanClass, email),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
     signals[PRINT] =
         g_signal_new ("print",
                       G_TYPE_FROM_CLASS (klass),
