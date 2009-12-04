@@ -59,7 +59,7 @@ struct ScannerPrivate
 {
     GAsyncQueue *scan_queue;
     gboolean running;
-    GThread *thread;
+    GThread *thread, *detect_thread;
 };
 
 G_DEFINE_TYPE (Scanner, scanner, G_TYPE_OBJECT);
@@ -388,6 +388,18 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
 
 
 static gpointer
+detect_thread (Scanner *scanner)
+{
+    while (scanner->priv->running) {
+        poll_for_devices (scanner);
+        g_usleep (1000);
+    }
+    
+    return NULL;
+}
+
+
+static gpointer
 scan_thread (Scanner *scanner)
 {
     ScanRequest *request = NULL;
@@ -401,6 +413,8 @@ scan_thread (Scanner *scanner)
     SANE_Byte *data = NULL;
     SANE_Int version_code;
     gboolean done = FALSE;
+    GError *error = NULL;
+    gchar *open_device = NULL;
 
     g_debug ("sane_init ()");
     status = sane_init (&version_code, NULL);
@@ -413,11 +427,17 @@ scan_thread (Scanner *scanner)
              SANE_VERSION_MINOR(version_code),
              SANE_VERSION_BUILD(version_code));
 
+    // NOTE: This assumes that sane_get_devices is thread safe
+    scanner->priv->detect_thread = g_thread_create ((GThreadFunc) detect_thread, scanner, TRUE, &error);
+    if (error) {
+        g_critical ("Unable to create thread: %s", error->message);
+        g_error_free (error);
+    }
+
     while (scanner->priv->running) {
         /* Look for requests */
         if (state == STATE_IDLE) {
-            GTimeVal timeout = { 1, 0 };
-            request = g_async_queue_timed_pop (scanner->priv->scan_queue, &timeout);
+            request = g_async_queue_pop (scanner->priv->scan_queue);
         } else if (state != STATE_CLOSE) {
             if (g_async_queue_length (scanner->priv->scan_queue) > 0)
                 state = STATE_CLOSE;
@@ -426,14 +446,26 @@ scan_thread (Scanner *scanner)
         /* Interrupted */
         if (!scanner->priv->running)
             break;
-        
+
         switch (state) {
         case STATE_IDLE:
-            if (request == NULL) {
-                poll_for_devices (scanner);
-            } else if (request->device) {
-                g_debug ("sane_open (\"%s\")", request->device);
-                status = sane_open (request->device, &handle);
+            if (request->device) {
+                /* Close existing device */
+                if (open_device && strcmp (open_device, request->device) != 0) {
+                    g_debug ("sane_close ()");
+                    sane_close (handle);
+                    handle = NULL;
+                    open_device = NULL;
+                }
+                
+                if (open_device) {
+                    status = SANE_STATUS_GOOD;
+                }
+                else {
+                    g_debug ("sane_open (\"%s\")", request->device);
+                    status = sane_open (request->device, &handle);
+                }
+
                 if (status != SANE_STATUS_GOOD) {
                     g_warning ("Unable to get open device: %s", sane_strstatus (status));
                     emit_signal (scanner, SCAN_FAILED,
@@ -443,12 +475,16 @@ scan_thread (Scanner *scanner)
                     state = STATE_CLOSE;
                 }
                 else {
+                    open_device = g_strdup (request->device);
                     state = STATE_GET_OPTION;
                     option_index = 0;
                     pass_number = 0;
                     page_number = 0;
                     notified_page = -1;
                 }
+            }
+            else {
+                state = STATE_CLOSE;
             }
             break;
 
@@ -636,11 +672,6 @@ scan_thread (Scanner *scanner)
 
         case STATE_CLOSE:
             emit_signal (scanner, IMAGE_DONE, NULL);
-            if (handle) {
-                g_debug ("sane_close ()");
-                sane_close (handle);
-            }
-            handle = NULL;
             g_free (data);
             data = NULL;
             g_free (request->device);
@@ -723,6 +754,8 @@ void scanner_free (Scanner *scanner)
     g_async_queue_push (scanner->priv->scan_queue, "");
     if (scanner->priv->thread)
         g_thread_join (scanner->priv->thread);
+    if (scanner->priv->detect_thread)
+        g_thread_join (scanner->priv->detect_thread);    
 
     g_async_queue_unref (scanner->priv->scan_queue);
     g_object_unref (scanner);
