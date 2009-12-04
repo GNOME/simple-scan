@@ -759,14 +759,14 @@ motion_cb (GtkWidget *widget, GdkEventMotion *event, BookView *view)
         page_get_crop (view->priv->selected_crop->page, &cx, &cy, &cw, &ch);
         new_x = view->priv->selected_crop_x + screen_to_page_x (view->priv->selected_crop, event->x - view->priv->selected_crop_px);
         new_y = view->priv->selected_crop_y + screen_to_page_y (view->priv->selected_crop, event->y - view->priv->selected_crop_py);
-        if (new_x < 0)
-            new_x = 0;
         if (new_x > pw - cw)
             new_x = pw - cw;
+        if (new_x < 0)
+            new_x = 0;
+        if (new_y > ph - ch)
+            new_y = ph - ch;
         if (new_y < 0)
             new_y = 0;
-        if (new_y > ph - ch)
-            new_y = ph - ch;        
 
         page_move_crop (view->priv->selected_crop->page, new_x, new_y);
     }

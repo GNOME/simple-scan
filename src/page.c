@@ -344,7 +344,9 @@ page_set_custom_crop (Page *page, gint width, gint height)
     gint pw, ph;
 
     g_return_if_fail (page != NULL);
-
+    g_return_if_fail (width >= 1);
+    g_return_if_fail (height >= 1);
+    
     if (!page->priv->crop_name &&
         page->priv->has_crop &&
         page->priv->crop_width == width &&
@@ -445,6 +447,11 @@ page_set_named_crop (Page *page, const gchar *name)
 void
 page_move_crop (Page *page, gint x, gint y)
 {
+    g_return_if_fail (x >= 0);
+    g_return_if_fail (y >= 0);
+    g_return_if_fail (x < page_get_width (page));
+    g_return_if_fail (y < page_get_height (page));
+
     page->priv->crop_x = x;
     page->priv->crop_y = y;
     g_signal_emit (page, signals[CROP_CHANGED], 0);    
@@ -540,14 +547,12 @@ page_get_cropped_image (Page *page)
     pw = gdk_pixbuf_get_width (image);
     ph = gdk_pixbuf_get_height (image);
     
-    if (x >= pw)
-        x = pw - 1;
-    if (y >= ph)
-        y = ph - 1;
-    if (x + w > pw)
+    /* Trim crop */
+    if (x + w >= pw)
         w = pw - x;
-    if (y + h > ph)
+    if (y + h >= ph)
         h = ph - y;
+    
     cropped_image = gdk_pixbuf_new_subpixbuf (image, x, y, w, h);
     g_object_unref (image);
     
