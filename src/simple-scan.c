@@ -281,13 +281,6 @@ email_cb (SimpleScan *ui)
 
 
 static void
-print_cb (SimpleScan *ui, cairo_t *context)
-{
-    book_print (book, context);
-}
-
-
-static void
 quit_cb (SimpleScan *ui)
 {
     scanner_free (scanner);
@@ -391,7 +384,6 @@ main(int argc, char **argv)
     g_signal_connect (ui, "stop-scan", G_CALLBACK (cancel_cb), NULL);
     g_signal_connect (ui, "save", G_CALLBACK (save_cb), NULL);
     g_signal_connect (ui, "email", G_CALLBACK (email_cb), NULL);
-    g_signal_connect (ui, "print", G_CALLBACK (print_cb), NULL);
     g_signal_connect (ui, "quit", G_CALLBACK (quit_cb), NULL);
 
     scanner = scanner_new ();

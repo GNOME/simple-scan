@@ -14,6 +14,7 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
+#include <math.h>
 
 #include "ui.h"
 #include "book-view.h"
@@ -24,7 +25,6 @@ enum {
     STOP_SCAN,
     SAVE,
     EMAIL,
-    PRINT,
     QUIT,
     LAST_SIGNAL
 };
@@ -459,16 +459,36 @@ static void
 draw_page (GtkPrintOperation *operation,
            GtkPrintContext   *print_context,
            gint               page_number,
-           SimpleScan                *ui)
+           SimpleScan        *ui)
 {
     cairo_t *context;
+    Book *book;
+    Page *page;
+    GdkPixbuf *image;
+    gboolean is_landscape = FALSE;
 
     context = gtk_print_context_get_cairo_context (print_context);
+   
+    book = book_view_get_book (ui->priv->book_view);
+    page = book_get_page (book, page_number);
 
-    g_signal_emit (G_OBJECT (ui), signals[PRINT], 0, context);
+    /* Rotate to same aspect */
+    if (gtk_print_context_get_width (print_context) > gtk_print_context_get_height (print_context))
+        is_landscape = TRUE;
+    if (page_is_landscape (page) != is_landscape) {
+        cairo_translate (context, gtk_print_context_get_width (print_context), 0);
+        cairo_rotate (context, M_PI_2);
+    }
+   
+    cairo_scale (context,
+		 gtk_print_context_get_dpi_x (print_context) / page_get_dpi (page),
+		 gtk_print_context_get_dpi_y (print_context) / page_get_dpi (page));
 
-    //For some reason can't destroy until job complete
-    //cairo_destroy (context);
+    image = page_get_cropped_image (page);
+    gdk_cairo_set_source_pixbuf (context, image, 0, 0);
+    cairo_paint (context);
+
+    g_object_unref (image);
 }
 
 
@@ -495,11 +515,12 @@ print_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     GtkPrintOperation *print;
     GtkPrintOperationResult result;
     GError *error = NULL;
-    
+    Book *book;
+   
+    book = book_view_get_book (ui->priv->book_view);
+
     print = gtk_print_operation_new ();
-    gtk_print_operation_set_n_pages (print, 1);
-    gtk_print_operation_set_use_full_page (print, TRUE);
-    // FIXME: Auto portrait, landscape
+    gtk_print_operation_set_n_pages (print, book_get_n_pages (book));
     g_signal_connect (print, "draw-page", G_CALLBACK (draw_page), ui);
 
     result = gtk_print_operation_run (print, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
@@ -968,14 +989,6 @@ ui_class_init (SimpleScanClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
-    signals[PRINT] =
-        g_signal_new ("print",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (SimpleScanClass, print),
-                      NULL, NULL,
-                      g_cclosure_marshal_VOID__POINTER,
-                      G_TYPE_NONE, 1, G_TYPE_POINTER);
     signals[QUIT] =
         g_signal_new ("quit",
                       G_TYPE_FROM_CLASS (klass),

@@ -302,6 +302,13 @@ page_get_dpi (Page *page)
 }
 
 
+gboolean
+page_is_landscape (Page *page)
+{
+   return page_get_width (page) > page_get_height (page);
+}
+
+
 gint
 page_get_width (Page *page)
 {

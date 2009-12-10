@@ -223,7 +223,7 @@ book_save_pdf (Book *book, GFileOutputStream *stream, GError **error)
         Page *page = iter->data;
         double width, height;
         GdkPixbuf *image;
-        
+
         image = page_get_cropped_image (page);
 
         width = gdk_pixbuf_get_width (image) * 72.0 / page_get_dpi (page);
@@ -238,24 +238,6 @@ book_save_pdf (Book *book, GFileOutputStream *stream, GError **error)
     cairo_surface_destroy (surface);
 
     return TRUE;
-}
-
-
-/* FIXME: Just book_render? */
-void
-book_print (Book *book, cairo_t *context)
-{
-    Page *page;
-    GdkPixbuf *image;
-
-    page = book_get_page (book, 0);
-    image = page_get_cropped_image (page);
-
-    gdk_cairo_set_source_pixbuf (context, image, 0, 0);
-    cairo_pattern_set_filter (cairo_get_source (context), CAIRO_FILTER_BEST);
-    cairo_paint (context);
-    
-    g_object_unref (image);
 }
 
 

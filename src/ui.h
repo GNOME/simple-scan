@@ -37,7 +37,6 @@ typedef struct
     void (*stop_scan) (SimpleScan *ui);
     void (*save) (SimpleScan *ui, const gchar *format);
     void (*email) (SimpleScan *ui);
-    void (*print) (SimpleScan *ui, cairo_t *context);
     void (*quit) (SimpleScan *ui);
 } SimpleScanClass;
 

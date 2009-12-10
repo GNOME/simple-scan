@@ -57,6 +57,8 @@ void page_set_scan_area (Page *page, gint width, gint rows, gint dpi);
 
 gint page_get_dpi (Page *page);
 
+gboolean page_is_landscape (Page *page);
+
 gint page_get_width (Page *page);
 
 gint page_get_height (Page *page);

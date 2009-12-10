@@ -62,6 +62,4 @@ gboolean book_save_ps (Book *book, GFileOutputStream *stream, GError **error);
 
 gboolean book_save_pdf (Book *book, GFileOutputStream *stream, GError **error);
 
-void book_print (Book *book, cairo_t *context);
-
 #endif /* _BOOK_H_ */
