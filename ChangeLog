@@ -1,4 +1,296 @@
 ------------------------------------------------------------
+revno: 74
+committer: Robert Ancell <bob@alchemy>
+branch nick: simple-scan
+timestamp: Thu 2009-12-10 17:05:31 +1100
+message:
+  Fix print scaling, rotation and multi-page print
+------------------------------------------------------------
+revno: 73
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-12-04 15:02:42 +1100
+message:
+  Add NEWS about missing zoom
+------------------------------------------------------------
+revno: 72
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-12-04 15:00:58 +1100
+message:
+  Trim cropped image when saving
+------------------------------------------------------------
+revno: 71
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-12-04 14:48:03 +1100
+message:
+  Disable zoom as not working
+  Add some email code (not working)
+------------------------------------------------------------
+revno: 70
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-12-04 14:45:13 +1100
+message:
+  Run detect in a separate thread as it seems to lock up frequently
+  Only close handle to scanner when changing devices as SANE crashes for me on the third open (and to guarantee have lock for entire document)
+------------------------------------------------------------
+revno: 69
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-12-04 13:43:37 +1100
+message:
+  prep for 0.7.0
+------------------------------------------------------------
+revno: 68
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Thu 2009-12-03 18:13:11 +1100
+message:
+  Can pan crop with mouse, crop copied to new scans
+------------------------------------------------------------
+revno: 67
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Mon 2009-11-30 17:10:59 +1100
+message:
+  Keep selected page visible, select new pages when scanned
+------------------------------------------------------------
+revno: 66
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Mon 2009-11-30 10:16:11 +1100
+message:
+  Set window title to be the same as Desktop entry
+------------------------------------------------------------
+revno: 65
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Mon 2009-11-30 09:45:20 +1100
+message:
+  Fix keyboard accelerators, set default window size to larger
+------------------------------------------------------------
+revno: 64
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Sat 2009-11-28 23:42:01 +1100
+message:
+  Add crop options
+------------------------------------------------------------
+revno: 63
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Sat 2009-11-28 19:20:13 +1100
+message:
+  Make selected page colour more obvious
+------------------------------------------------------------
+revno: 62
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-27 14:20:50 +1100
+message:
+  Set cursor when panning
+------------------------------------------------------------
+revno: 61
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-27 14:06:42 +1100
+message:
+  Scan text in lineart mode
+------------------------------------------------------------
+revno: 60
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-27 13:38:30 +1100
+message:
+  Add warning flags to build and fix compile warnings
+------------------------------------------------------------
+revno: 59
+tags: simple-scan-0.6.4
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-27 13:08:45 +1100
+message:
+  Released 0.6.4
+------------------------------------------------------------
+revno: 58
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-27 11:59:24 +1100
+message:
+  Show main window after all sub-elements
+------------------------------------------------------------
+revno: 57
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-27 11:58:03 +1100
+message:
+  Fix some defaults
+------------------------------------------------------------
+revno: 56
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-27 11:31:34 +1100
+message:
+  Make continuous scan easier
+------------------------------------------------------------
+revno: 55
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-27 11:06:38 +1100
+message:
+  Popup menu
+------------------------------------------------------------
+revno: 54
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-27 10:10:50 +1100
+message:
+  Select pages with mouse
+------------------------------------------------------------
+revno: 53
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-27 09:18:56 +1100
+message:
+  Make BookView more directly connected to the GtkDrawingArea
+------------------------------------------------------------
+revno: 52
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Thu 2009-11-26 13:06:54 +1100
+message:
+  Handle keyboard shortcuts
+------------------------------------------------------------
+revno: 51
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Thu 2009-11-26 12:46:17 +1100
+message:
+  Fix up rotation
+------------------------------------------------------------
+revno: 50
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Thu 2009-11-26 12:18:13 +1100
+message:
+  Rename menus
+------------------------------------------------------------
+revno: 49
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Thu 2009-11-26 12:18:05 +1100
+message:
+  Attempt to make device names readable
+------------------------------------------------------------
+revno: 48
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Thu 2009-11-26 11:24:34 +1100
+message:
+  Zoom in center of image
+------------------------------------------------------------
+revno: 47
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Thu 2009-11-26 11:22:13 +1100
+message:
+  Move rendering code from page.c to book-view.c
+------------------------------------------------------------
+revno: 46
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Wed 2009-11-25 15:45:25 +1100
+message:
+  Split book view out
+------------------------------------------------------------
+revno: 45
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Wed 2009-11-25 15:27:35 +1100
+message:
+  Split book and page into gobjects
+------------------------------------------------------------
+revno: 44
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Wed 2009-11-25 12:46:59 +1100
+message:
+  Add zoom and pan
+------------------------------------------------------------
+revno: 43
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Wed 2009-11-25 11:05:43 +1100
+message:
+  Multi-page partly working
+------------------------------------------------------------
+revno: 42
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Sun 2009-11-22 17:00:37 -0600
+message:
+  Fix some crashes
+------------------------------------------------------------
+revno: 41
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-20 14:54:17 -0600
+message:
+  Fix broken cancel
+------------------------------------------------------------
+revno: 40
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-20 14:49:20 -0600
+message:
+  More multi-page fixes
+------------------------------------------------------------
+revno: 39
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-20 14:20:39 -0600
+message:
+  Support multiple document scanning (not yet finished)
+------------------------------------------------------------
+revno: 38
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-20 12:14:02 -0600
+message:
+  Add menubar
+------------------------------------------------------------
+revno: 37
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-20 11:07:10 -0600
+message:
+   * Show white page on startup
+   * Add border around scanned page
+------------------------------------------------------------
+revno: 36
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Fri 2009-11-20 10:05:09 -0600
+message:
+  test scanner options
+------------------------------------------------------------
+revno: 35
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Thu 2009-11-19 16:03:45 -0600
+message:
+  Fix multi-pass logic
+------------------------------------------------------------
+revno: 34
+tags: simple-scan-0.6.3
+committer: robert.ancell@gmail.com
+branch nick: simple-scan
+timestamp: Thu 2009-11-19 15:19:56 -0600
+message:
+  Released 0.6.3
+------------------------------------------------------------
 revno: 33
 committer: robert.ancell@gmail.com
 branch nick: simple-scan
