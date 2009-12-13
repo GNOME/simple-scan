@@ -16,7 +16,7 @@
             <child>
               <object class="GtkMenuItem" id="document_menuitem">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">_Document</property>
+                <property name="label" translatable="yes" comments="Label on document menu (contains actions for this document, e.g. save, print)">_Document</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
                   <object class="GtkMenu" id="document_menu">
@@ -71,7 +71,7 @@
             <child>
               <object class="GtkMenuItem" id="page_menuitem">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">_Page</property>
+                <property name="label" translatable="yes" comments="Page menu (contains action for each page, e.g. delete, crop)">_Page</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
                   <object class="GtkMenu" id="page_menu">
@@ -97,7 +97,7 @@
                     <child>
                       <object class="GtkMenuItem" id="crop_menuitem">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Crop</property>
+                        <property name="label" translatable="yes" comments="Label for page crop submenu">_Crop</property>
                         <property name="use_underline">True</property>
                         <child type="submenu">
                           <object class="GtkMenu" id="crop_menu">
@@ -105,7 +105,7 @@
                             <child>
                               <object class="GtkRadioMenuItem" id="no_crop_menuitem">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">_None</property>
+                                <property name="label" translatable="yes" comments="Radio button for no crop">_None</property>
                                 <property name="use_underline">True</property>
                                 <property name="active">True</property>
                                 <property name="draw_as_radio">True</property>
@@ -115,7 +115,7 @@
                             <child>
                               <object class="GtkRadioMenuItem" id="a4_menuitem">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">A_4</property>
+                                <property name="label" translatable="yes" comments="Radio button for cropping page to A4 size">A_4</property>
                                 <property name="use_underline">True</property>
                                 <property name="draw_as_radio">True</property>
                                 <property name="group">no_crop_menuitem</property>
@@ -125,7 +125,7 @@
                             <child>
                               <object class="GtkRadioMenuItem" id="a5_menuitem">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">A_5</property>
+                                <property name="label" translatable="yes" comments="Radio button for cropping page to A5 size">A_5</property>
                                 <property name="use_underline">True</property>
                                 <property name="draw_as_radio">True</property>
                                 <property name="group">no_crop_menuitem</property>
@@ -135,7 +135,7 @@
                             <child>
                               <object class="GtkRadioMenuItem" id="a6_menuitem">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">A_6</property>
+                                <property name="label" translatable="yes" comments="Radio button for cropping page to A6 size">A_6</property>
                                 <property name="use_underline">True</property>
                                 <property name="draw_as_radio">True</property>
                                 <property name="group">no_crop_menuitem</property>
@@ -145,7 +145,7 @@
                             <child>
                               <object class="GtkRadioMenuItem" id="letter_menuitem">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">_Letter</property>
+                                <property name="label" translatable="yes" comments="Radio button for cropping page to US letter size">_Letter</property>
                                 <property name="use_underline">True</property>
                                 <property name="draw_as_radio">True</property>
                                 <property name="group">no_crop_menuitem</property>
@@ -155,7 +155,7 @@
                             <child>
                               <object class="GtkRadioMenuItem" id="legal_menuitem">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Le_gal</property>
+                                <property name="label" translatable="yes" comments="Radio button for cropping to page to US legal size">Le_gal</property>
                                 <property name="use_underline">True</property>
                                 <property name="draw_as_radio">True</property>
                                 <property name="group">no_crop_menuitem</property>
@@ -165,7 +165,7 @@
                             <child>
                               <object class="GtkRadioMenuItem" id="4x6_menuitem">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">4&#xD7;6</property>
+                                <property name="label" translatable="yes" comments="Radio button for cropping page to 4x6 inch">4&#xD7;6</property>
                                 <property name="use_underline">True</property>
                                 <property name="draw_as_radio">True</property>
                                 <property name="group">no_crop_menuitem</property>
@@ -174,7 +174,7 @@
                             </child>
                             <child>
                               <object class="GtkRadioMenuItem" id="custom_crop_menuitem">
-                                <property name="label" translatable="yes">_Custom</property>
+                                <property name="label" translatable="yes" comments="Radio button for cropping to custom page size">_Custom</property>
                                 <property name="use_underline">True</property>
                                 <property name="draw_as_radio">True</property>
                                 <property name="group">no_crop_menuitem</property>
@@ -190,7 +190,7 @@
                               <object class="GtkMenuItem" id="crop_rotate_menuitem">
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
-                                <property name="label" translatable="yes">_Rotate Crop</property>
+                                <property name="label" translatable="yes" comments="Menu item to rotate the crop area">_Rotate Crop</property>
                                 <property name="use_underline">True</property>
                                 <signal name="activate" handler="crop_rotate_menuitem_activate_cb"/>
                               </object>
@@ -202,7 +202,7 @@
                     <child>
                       <object class="GtkMenuItem" id="page_delete_menuitem">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">_Delete</property>
+                        <property name="label" translatable="yes" comments="Label on page delete menuitem">_Delete</property>
                         <property name="use_underline">True</property>
                         <accelerator key="Delete" signal="activate"/>
                         <signal name="activate" handler="page_delete_menuitem_activate_cb"/>
@@ -215,7 +215,7 @@
             <child>
               <object class="GtkMenuItem" id="help_menuitem">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">_Help</property>
+                <property name="label" translatable="yes" comments="Label on help menu">_Help</property>
                 <property name="use_underline">True</property>
                 <child type="submenu">
                   <object class="GtkMenu" id="help_menu">
@@ -348,7 +348,7 @@
                         <child>
                           <object class="GtkLabel" id="continuous_scan_button_label">
                             <property name="visible">True</property>
-                            <property name="label" translatable="yes" comments="Label on scan button">_Continuous Scan</property>
+                            <property name="label" translatable="yes" comments="Label on continuous scan button">_Continuous Scan</property>
                             <property name="use_underline">True</property>
                           </object>
                         </child>
@@ -359,7 +359,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="replace_pages_check">
-                        <property name="label" translatable="yes">_Replace current pages</property>
+                        <property name="label" translatable="yes" comments="Check button to delete all existing pages on a new scan when enabled">_Replace current pages</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -398,7 +398,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="email_button">
-                        <property name="label" translatable="yes" comments="Label on print scanned image button">E_mail</property>
+                        <property name="label" translatable="yes" comments="Label on email document button">E_mail</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="use_underline">True</property>
@@ -640,7 +640,7 @@
                 <child>
                   <object class="GtkLabel" id="username_label">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Username for resource:</property>
+                    <property name="label" translatable="yes" comments="Label beside username entry">_Username for resource:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">username_entry</property>
                   </object>
@@ -652,7 +652,7 @@
                 <child>
                   <object class="GtkLabel" id="password_label">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Password:</property>
+                    <property name="label" translatable="yes" comments="Label beside password entry">_Password:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">password_entry</property>
                   </object>
@@ -679,8 +679,8 @@
             <property name="visible">True</property>
             <property name="layout_style">end</property>
             <child>
-              <object class="GtkButton" id="button1">
-                <property name="label" translatable="yes">_Authorize</property>
+              <object class="GtkButton" id="authorize_button">
+                <property name="label" translatable="yes" comments="Button to submit authorization dialog">_Authorize</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -702,7 +702,7 @@
       </object>
     </child>
     <action-widgets>
-      <action-widget response="0">button1</action-widget>
+      <action-widget response="0">authorize_button</action-widget>
     </action-widgets>
   </object>
 </interface>
