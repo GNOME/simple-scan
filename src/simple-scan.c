@@ -76,6 +76,17 @@ update_scan_devices_cb (Scanner *scanner, GList *devices)
 
 
 static void
+authorize_cb (Scanner *scanner, const gchar *resource)
+{
+    gchar *username = NULL, *password = NULL;
+    ui_authorize (ui, resource, &username, &password);
+    scanner_authorize (scanner, username, password);
+    g_free (username);
+    g_free (password);
+}
+
+
+static void
 scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 {
     Page *page;
@@ -175,6 +186,12 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolea
           _("Scanned Document.jpeg") }                
     };
     gint i;
+
+	 {
+	    gchar *u = NULL, *p = NULL;
+	    ui_authorize (ui, "test", &u, &p);
+	 }
+
 
     g_debug ("Requesting scan of type %s from device '%s'", profile_name, device);
 
@@ -389,6 +406,7 @@ main(int argc, char **argv)
     scanner = scanner_new ();
     g_signal_connect (G_OBJECT (scanner), "ready", G_CALLBACK (scanner_ready_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "update-devices", G_CALLBACK (update_scan_devices_cb), NULL);
+    g_signal_connect (G_OBJECT (scanner), "authorize", G_CALLBACK (authorize_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "got-page-info", G_CALLBACK (scanner_page_info_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "got-line", G_CALLBACK (scanner_line_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "image-done", G_CALLBACK (scanner_image_done_cb), NULL);

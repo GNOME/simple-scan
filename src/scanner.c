@@ -20,6 +20,7 @@
 enum {
     READY,
     UPDATE_DEVICES,
+    AUTHORIZE,
     GOT_PAGE_INFO,
     GOT_LINE,
     SCAN_FAILED,
@@ -45,6 +46,11 @@ typedef struct
     gboolean multi_page;
 } ScanRequest;
 
+typedef struct
+{
+    gchar *username, *password;
+} Credentials;
+
 typedef enum
 {
     STATE_IDLE = 0,
@@ -57,12 +63,16 @@ typedef enum
 
 struct ScannerPrivate
 {
-    GAsyncQueue *scan_queue;
+    GAsyncQueue *scan_queue, *authorize_queue;
     gboolean running;
     GThread *thread, *detect_thread;
 };
 
 G_DEFINE_TYPE (Scanner, scanner, G_TYPE_OBJECT);
+
+
+/* Table of scanner objects for each thread (required for authorization callback) */
+static GHashTable *scanners;
 
 
 static gboolean
@@ -81,6 +91,12 @@ send_signal (SignalInfo *info)
                 g_free (device);
             }
             g_list_free (devices);
+        }
+        break;
+    case AUTHORIZE:
+        {
+            gchar *resource = info->data;
+            g_free (resource);
         }
         break;
     case GOT_PAGE_INFO:
@@ -137,7 +153,7 @@ poll_for_devices (Scanner *scanner)
     GList *devices = NULL;
 
     g_debug ("sane_get_devices ()");
-    status = sane_get_devices (&device_list, SANE_TRUE);
+    status = sane_get_devices (&device_list, SANE_FALSE);
     if (status != SANE_STATUS_GOOD) {
         g_warning ("Unable to get SANE devices: %s", sane_strstatus(status));
         return;
@@ -399,6 +415,35 @@ detect_thread (Scanner *scanner)
 }
 
 
+static void
+authorization_cb (SANE_String_Const resource, SANE_Char username[SANE_MAX_USERNAME_LEN], SANE_Char password[SANE_MAX_PASSWORD_LEN])
+{
+    Scanner *scanner;
+    Credentials *credentials;
+   
+    scanner = g_hash_table_lookup (scanners, g_thread_self ());
+
+    emit_signal (scanner, AUTHORIZE, g_strdup (resource));
+
+    credentials = g_async_queue_pop (scanner->priv->authorize_queue);
+    strncpy (username, credentials->username, SANE_MAX_USERNAME_LEN);
+    strncpy (password, credentials->password, SANE_MAX_PASSWORD_LEN);
+    g_free (credentials);
+}
+
+
+void
+scanner_authorize (Scanner *scanner, const gchar *username, const gchar *password)
+{
+    Credentials *credentials;
+
+    credentials = g_malloc (sizeof (Credentials));
+    credentials->username = g_strdup (username);
+    credentials->password = g_strdup (password);
+    g_async_queue_push (scanner->priv->authorize_queue, credentials);
+}
+
+
 static gpointer
 scan_thread (Scanner *scanner)
 {
@@ -416,8 +461,10 @@ scan_thread (Scanner *scanner)
     GError *error = NULL;
     gchar *open_device = NULL;
 
+    g_hash_table_insert (scanners, g_thread_self (), scanner);
+
     g_debug ("sane_init ()");
-    status = sane_init (&version_code, NULL);
+    status = sane_init (&version_code, authorization_cb);
     if (status != SANE_STATUS_GOOD) {
         g_warning ("Unable to initialize SANE backend: %s", sane_strstatus(status));
         return FALSE;
@@ -776,6 +823,14 @@ scanner_class_init (ScannerClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
+    signals[AUTHORIZE] =
+        g_signal_new ("authorize",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (ScannerClass, authorize),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__STRING,
+                      G_TYPE_NONE, 1, G_TYPE_STRING);
     signals[UPDATE_DEVICES] =
         g_signal_new ("update-devices",
                       G_TYPE_FROM_CLASS (klass),
@@ -818,6 +873,8 @@ scanner_class_init (ScannerClass *klass)
                       G_TYPE_NONE, 0);
 
     g_type_class_add_private (klass, sizeof (ScannerPrivate));
+
+    scanners = g_hash_table_new (g_direct_hash, g_direct_equal);
 }
 
 
@@ -827,4 +884,5 @@ scanner_init (Scanner *scanner)
     scanner->priv = G_TYPE_INSTANCE_GET_PRIVATE (scanner, SCANNER_TYPE, ScannerPrivate);
     scanner->priv->running = TRUE;
     scanner->priv->scan_queue = g_async_queue_new ();
+    scanner->priv->authorize_queue = g_async_queue_new ();
 }

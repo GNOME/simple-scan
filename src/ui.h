@@ -53,6 +53,8 @@ Page *ui_get_selected_page (SimpleScan *ui);
 
 void ui_set_default_file_name (SimpleScan *ui, const gchar *default_file_name);
 
+void ui_authorize (SimpleScan *ui, const gchar *resource, gchar **username, gchar **password);
+
 void ui_mark_devices_undetected (SimpleScan *ui);
 
 void ui_add_scan_device (SimpleScan *ui, const gchar *device, const gchar *label);

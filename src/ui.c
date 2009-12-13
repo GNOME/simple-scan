@@ -46,6 +46,10 @@ struct SimpleScanPrivate
     GtkWidget *preview_area;
     GtkWidget *zoom_scale;
     GtkWidget *page_delete_menuitem, *crop_rotate_menuitem;
+    GtkWidget *authorize_dialog;
+    GtkWidget *authorize_label;
+    GtkWidget *username_entry, *password_entry;
+
     BookView *book_view;
     gboolean updating_page_menu;
 
@@ -80,6 +84,31 @@ ui_set_default_file_name (SimpleScan *ui, const gchar *default_file_name)
 {
     g_free (ui->priv->default_file_name);
     ui->priv->default_file_name = g_strdup (default_file_name);
+}
+
+
+void
+ui_authorize (SimpleScan *ui, const gchar *resource, gchar **username, gchar **password)
+{
+    GString *description;
+
+    description = g_string_new ("");
+    g_string_printf (description,
+                     /* Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization */
+                     _("Username and password required to access '%s'"),
+                     resource);
+
+    gtk_entry_set_text (GTK_ENTRY (ui->priv->username_entry), *username ? *username : "");
+    gtk_entry_set_text (GTK_ENTRY (ui->priv->password_entry), "");
+    gtk_label_set_text (GTK_LABEL (ui->priv->authorize_label), description->str);
+    g_string_free (description, TRUE);
+
+    gtk_widget_show (ui->priv->authorize_dialog);
+    gtk_dialog_run (GTK_DIALOG (ui->priv->authorize_dialog));
+    gtk_widget_hide (ui->priv->authorize_dialog);
+
+    *username = g_strdup (gtk_entry_get_text (GTK_ENTRY (ui->priv->username_entry)));
+    *password = g_strdup (gtk_entry_get_text (GTK_ENTRY (ui->priv->password_entry)));
 }
 
 
@@ -481,8 +510,8 @@ draw_page (GtkPrintOperation *operation,
     }
    
     cairo_scale (context,
-		 gtk_print_context_get_dpi_x (print_context) / page_get_dpi (page),
-		 gtk_print_context_get_dpi_y (print_context) / page_get_dpi (page));
+                 gtk_print_context_get_dpi_x (print_context) / page_get_dpi (page),
+                 gtk_print_context_get_dpi_y (print_context) / page_get_dpi (page));
 
     image = page_get_cropped_image (page);
     gdk_cairo_set_source_pixbuf (context, image, 0, 0);
@@ -783,6 +812,10 @@ ui_load (SimpleScan *ui)
     ui->priv->zoom_scale = GTK_WIDGET (gtk_builder_get_object (builder, "zoom_scale"));
     ui->priv->page_delete_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_delete_menuitem"));
     ui->priv->crop_rotate_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "crop_rotate_menuitem"));
+    ui->priv->authorize_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "authorize_dialog"));
+    ui->priv->authorize_label = GTK_WIDGET (gtk_builder_get_object (builder, "authorize_label"));
+    ui->priv->username_entry = GTK_WIDGET (gtk_builder_get_object (builder, "username_entry"));
+    ui->priv->password_entry = GTK_WIDGET (gtk_builder_get_object (builder, "password_entry"));
 
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->device_combo), renderer, TRUE);
