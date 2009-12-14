@@ -187,12 +187,6 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolea
     };
     gint i;
 
-	 {
-	    gchar *u = NULL, *p = NULL;
-	    ui_authorize (ui, "test", &u, &p);
-	 }
-
-
     g_debug ("Requesting scan of type %s from device '%s'", profile_name, device);
 
     scanning = TRUE;
