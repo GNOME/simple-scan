@@ -284,6 +284,7 @@
                 <property name="use_underline">True</property>
                 <property name="icon_name">scanner</property>
                 <property name="menu">scan_menu</property>
+                <signal name="clicked" handler="scan_button_clicked_cb"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -697,7 +698,7 @@
     <property name="transient_for">simple_scan_window</property>
     <property name="has_separator">False</property>
     <signal name="response" handler="preferences_dialog_response_cb"/>
-    <signal name="delete-event" handler="preferences_dialog_delete_event_cb"/>
+    <signal name="delete_event" handler="preferences_dialog_delete_event_cb"/>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
