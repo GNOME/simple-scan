@@ -39,16 +39,18 @@ struct SimpleScanPrivate
 
     GtkWidget *window;
     GtkWidget *scan_button_label, *continuous_scan_button_label, *page_label;
-    GtkWidget *actions_box;
     GtkWidget *device_combo, *mode_combo;
     GtkTreeModel *device_model, *mode_model;
-    GtkWidget *replace_pages_check;
     GtkWidget *preview_area;
     GtkWidget *zoom_scale;
     GtkWidget *page_delete_menuitem, *crop_rotate_menuitem;
+
     GtkWidget *authorize_dialog;
     GtkWidget *authorize_label;
     GtkWidget *username_entry, *password_entry;
+
+    GtkWidget *preferences_dialog;
+    GtkWidget *replace_pages_check;
 
     BookView *book_view;
     gboolean updating_page_menu;
@@ -257,6 +259,33 @@ continuous_scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
             g_free (mode);
         }
     }
+}
+
+
+void preferences_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+preferences_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    gtk_window_present (GTK_WINDOW (ui->priv->preferences_dialog));
+}
+
+
+gboolean preferences_dialog_delete_event_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+gboolean
+preferences_dialog_delete_event_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    return TRUE;
+}
+
+
+void preferences_dialog_response_cb (GtkWidget *widget, gint response_id, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+preferences_dialog_response_cb (GtkWidget *widget, gint response_id, SimpleScan *ui)
+{
+    gtk_widget_hide (ui->priv->preferences_dialog);
 }
 
 
@@ -527,12 +556,6 @@ void
 email_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
     g_signal_emit (G_OBJECT (ui), signals[EMAIL], 0);
-    GError *error = NULL;
-    g_spawn_command_line_async ("xdg-email", &error);
-    if (error) {
-        g_warning ("Unable to start email: %s", error->message);
-        g_error_free (error);
-    }
 }
 
 
@@ -802,20 +825,22 @@ ui_load (SimpleScan *ui)
     ui->priv->scan_button_label = GTK_WIDGET (gtk_builder_get_object (builder, "scan_button_label"));
     ui->priv->continuous_scan_button_label = GTK_WIDGET (gtk_builder_get_object (builder, "continuous_scan_button_label"));
     ui->priv->page_label = GTK_WIDGET (gtk_builder_get_object (builder, "page_label"));
-    ui->priv->actions_box = GTK_WIDGET (gtk_builder_get_object (builder, "actions_box"));
     ui->priv->device_combo = GTK_WIDGET (gtk_builder_get_object (builder, "device_combo"));
     ui->priv->device_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
     ui->priv->mode_combo = GTK_WIDGET (gtk_builder_get_object (builder, "mode_combo"));
     ui->priv->mode_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->mode_combo));
-    ui->priv->replace_pages_check = GTK_WIDGET (gtk_builder_get_object (builder, "replace_pages_check"));
     ui->priv->preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
     ui->priv->zoom_scale = GTK_WIDGET (gtk_builder_get_object (builder, "zoom_scale"));
     ui->priv->page_delete_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_delete_menuitem"));
     ui->priv->crop_rotate_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "crop_rotate_menuitem"));
+
     ui->priv->authorize_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "authorize_dialog"));
     ui->priv->authorize_label = GTK_WIDGET (gtk_builder_get_object (builder, "authorize_label"));
     ui->priv->username_entry = GTK_WIDGET (gtk_builder_get_object (builder, "username_entry"));
     ui->priv->password_entry = GTK_WIDGET (gtk_builder_get_object (builder, "password_entry"));
+   
+    ui->priv->preferences_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "preferences_dialog"));
+    ui->priv->replace_pages_check = GTK_WIDGET (gtk_builder_get_object (builder, "replace_pages_check"));
 
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->device_combo), renderer, TRUE);
@@ -916,7 +941,7 @@ ui_set_scanning (SimpleScan *ui, gboolean scanning)
 void
 ui_set_have_scan (SimpleScan *ui, gboolean have_scan)
 {
-    gtk_widget_set_sensitive (ui->priv->actions_box, have_scan);
+    //FIXME: gtk_widget_set_sensitive (ui->priv->actions_box, have_scan);
 }
 
 

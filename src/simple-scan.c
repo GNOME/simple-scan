@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#include <unistd.h>
 
 #include "ui.h"
 #include "scanner.h"
@@ -282,11 +283,71 @@ save_cb (SimpleScan *ui, gchar *uri)
 static void
 email_cb (SimpleScan *ui)
 {
+    gint i;
+    GFileOutputStream *stream = NULL;
     GError *error = NULL;
-    g_spawn_command_line_async ("xdg-email", &error);
-    if (error) {
-        g_warning ("Unable to start email: %s", error->message);
-        g_error_free (error);
+    gchar *dir, *path = NULL;
+    GString *filename;
+
+    // TODO: Delete old files on startup
+
+    /* Save in the temporary dir */
+    dir = g_build_filename (g_get_user_cache_dir (), "simple-scan", "email", NULL);
+    g_mkdir_with_parents (dir, 0700);
+
+    for (i = 0; ; i++) {
+        GFile *file;
+        gboolean done = TRUE;
+
+        filename = g_string_new ("");
+        g_string_printf (filename, "scan-%d-%d.pdf", getpid (), i);
+
+        g_free (path);
+        path = g_build_filename (dir, filename->str, NULL);
+        g_string_free (filename, TRUE);
+        file = g_file_new_for_path (path);
+        stream = g_file_create (file, G_FILE_CREATE_NONE, NULL, &error);
+        g_object_unref (file);
+
+        if (!stream) {
+	    done = FALSE;
+
+            if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS)) {
+	        g_warning ("Unable to save email PDF: %s", error->message);
+                done = TRUE;
+            }
+
+            g_clear_error (&error);
+            stream = NULL;
+        }
+
+        if (done)
+            break;
+    }
+
+    g_free (dir);
+
+    if (stream) {
+        if (book_save_pdf (book, stream, &error)) {
+            GString *command_line;
+
+            command_line = g_string_new ("");
+            g_string_printf (command_line, "xdg-email --attach %s", path);
+            g_debug ("Launchind email client: %s", command_line->str);
+            g_spawn_command_line_async (command_line->str, &error);
+
+            if (error) {
+                g_warning ("Unable to start email: %s", error->message);
+                g_clear_error (&error);
+            }
+            g_string_free (command_line, TRUE);
+        }
+        else {
+            g_warning ("Unable to save email PDF: %s", error->message);	   
+            g_clear_error (&error);
+        }
+
+        g_object_unref (stream);
     }
 }
 
