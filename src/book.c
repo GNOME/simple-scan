@@ -198,6 +198,8 @@ book_save_png (Book *book, const gchar *uri, GError **error)
         g_object_unref (image);
         g_object_unref (stream);
     }
+   
+    return result;
 }
 
 
