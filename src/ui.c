@@ -223,20 +223,25 @@ G_MODULE_EXPORT
 void
 scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    if (ui->priv->scanning) {
-        g_signal_emit (G_OBJECT (ui), signals[STOP_SCAN], 0);
-    } else {
-        gchar *device, *mode;
+    gchar *device, *mode;
 
-        device = ui_get_selected_device (ui);
-        if (device) {
-            mode = get_document_hint (ui);
-            g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode,
-                           FALSE, get_replace_pages (ui));
-            g_free (device);
-            g_free (mode);
-        }
+    device = ui_get_selected_device (ui);
+    if (device) {
+        mode = get_document_hint (ui);
+        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode,
+                       FALSE, get_replace_pages (ui));
+        g_free (device);
+        g_free (mode);
     }
+}
+
+
+void stop_scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+stop_scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    g_signal_emit (G_OBJECT (ui), signals[STOP_SCAN], 0);
 }
 
 
@@ -917,23 +922,6 @@ void
 ui_set_scanning (SimpleScan *ui, gboolean scanning)
 {
     ui->priv->scanning = scanning;
-    if (ui->priv->scanning) {
-        gtk_label_set_label (GTK_LABEL (ui->priv->scan_button_label),
-                             /* Label on cancel scan button */
-                             _("_Cancel"));
-        gtk_label_set_label (GTK_LABEL (ui->priv->continuous_scan_button_label),
-                             /* Label on cancel scan button */
-                             _("_Cancel"));
-    }
-    else {
-        gtk_label_set_label (GTK_LABEL (ui->priv->scan_button_label),
-                             /* Label on scan button */
-                             _("_Scan"));
-        gtk_label_set_label (GTK_LABEL (ui->priv->continuous_scan_button_label),
-                             /* Label on continuous scan button */
-                             _("_Continuous Scan"));
-    }
-
     gtk_widget_set_sensitive (ui->priv->page_delete_menuitem, !scanning);
 }
 

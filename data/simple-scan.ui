@@ -35,6 +35,7 @@
                                 <property name="visible">True</property>
                                 <property name="label" translatable="yes">Single _Page</property>
                                 <property name="use_underline">True</property>
+                                <accelerator key="1" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                                 <signal name="activate" handler="scan_button_clicked_cb"/>
                               </object>
                             </child>
@@ -44,6 +45,15 @@
                                 <property name="label" translatable="yes">All Pages From _Feeder</property>
                                 <property name="use_underline">True</property>
                                 <signal name="activate" handler="continuous_scan_button_clicked_cb"/>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkMenuItem" id="stop_scan_menuitem">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">_Stop Scan</property>
+                                <property name="use_underline">True</property>
+                                <accelerator key="Escape" signal="activate"/>
+                                <signal name="activate" handler="stop_scan_button_clicked_cb"/>
                               </object>
                             </child>
                           </object>
@@ -283,7 +293,7 @@
                 <property name="label" translatable="yes">_Scan</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">scanner</property>
-                <property name="menu">scan_menu</property>
+                <property name="menu">scan_toolbutton_menu</property>
                 <signal name="clicked" handler="scan_button_clicked_cb"/>
               </object>
               <packing>
@@ -782,5 +792,23 @@
     <action-widgets>
       <action-widget response="1">preferences_close_button</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkMenu" id="scan_toolbutton_menu">
+    <property name="visible">True</property>
+    <child>
+      <object class="GtkMenuItem" id="scan_single_toolbutton_menuitem">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Single _Page</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="scan_button_clicked_cb"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="scan_all_toolbutton_menuitem">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">All Pages From _Feeder</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
   </object>
 </interface>
