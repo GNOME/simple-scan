@@ -291,6 +291,30 @@
               </packing>
             </child>
             <child>
+              <object class="GtkToolItem" id="toolbutton1">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkComboBox" id="mode_combo">
+                    <property name="visible">True</property>
+                    <property name="model">mode_store</property>
+                    <property name="button_sensitivity">on</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="toolbutton2">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkToolButton" id="save_toolbutton">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Sa_ve</property>
@@ -413,37 +437,6 @@
               <object class="GtkHBox" id="hbox2">
                 <property name="visible">True</property>
                 <property name="spacing">6</property>
-                <child>
-                  <object class="GtkHBox" id="hbox3">
-                    <property name="visible">True</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkLabel" id="document_type_label">
-                        <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="label" translatable="yes" comments="Label beside document type combo box">Document _Type:</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBox" id="mode_combo">
-                        <property name="visible">True</property>
-                        <property name="model">mode_store</property>
-                        <property name="button_sensitivity">on</property>
-                      </object>
-                      <packing>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkButton" id="prev_page_button">
                     <property name="visible">True</property>
