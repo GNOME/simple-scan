@@ -54,12 +54,12 @@ gint book_get_n_pages (Book *book);
 
 Page *book_get_page (Book *book, gint page_number);
 
-gboolean book_save_jpeg (Book *book, GFileOutputStream *stream, GError **error);
+gboolean book_save_jpeg (Book *book, const gchar *uri, GError **error);
 
-gboolean book_save_png (Book *book, GFileOutputStream *stream, GError **error);
+gboolean book_save_png (Book *book, const gchar *uri, GError **error);
 
-gboolean book_save_ps (Book *book, GFileOutputStream *stream, GError **error);
+gboolean book_save_ps (Book *book, const gchar *uri, GError **error);
 
-gboolean book_save_pdf (Book *book, GFileOutputStream *stream, GError **error);
+gboolean book_save_pdf (Book *book, const gchar *uri, GError **error);
 
 #endif /* _BOOK_H_ */

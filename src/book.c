@@ -105,41 +105,99 @@ write_pixbuf_data (const gchar *buf, gsize count, GError **error, GFileOutputStr
 }
 
 
-gboolean
-book_save_jpeg (Book *book, GFileOutputStream *stream, GError **error)
+static GFileOutputStream *
+open_file (const gchar *uri, GError **error)
 {
-    Page *page;
-    GdkPixbuf *image;
-    gboolean result;
-    
-    page = book_get_page (book, 0);
-    image = page_get_cropped_image (page);
-    result = gdk_pixbuf_save_to_callback (image,
-                                          (GdkPixbufSaveFunc) write_pixbuf_data, stream,
-                                          "jpeg", error,
-                                          "quality", "90",
-                                          NULL);
-    g_object_unref (image);
+    GFile *file;
+    GFileOutputStream *stream; 
+
+    file = g_file_new_for_uri (uri);
+    stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
+    g_object_unref (file);
+    return stream;
+}
+
+
+static gchar *
+make_indexed_uri (const gchar *uri, gint i)
+{
+    gchar *basename, *suffix, *indexed_uri;
+
+    if (i == 0)
+        return g_strdup (uri);
+
+    basename = g_path_get_basename (uri);
+    suffix = g_strrstr (basename, ".");
+
+    if (suffix)
+        indexed_uri = g_strdup_printf ("%.*s-%d%s", (int) (strlen (uri) - strlen (suffix)), uri, i, suffix);
+    else
+        indexed_uri = g_strdup_printf ("%s-%d", uri, i);
+    g_free (basename);
+    return indexed_uri;
+}
+
+
+gboolean
+book_save_jpeg (Book *book, const gchar *uri, GError **error)
+{
+    GList *iter;
+    gboolean result = TRUE;
+    gint i;
+
+    for (iter = book->priv->pages, i = 0; iter; iter = iter->next, i++) {
+        Page *page = iter->data;
+        GFileOutputStream *stream;
+        GdkPixbuf *image;
+        gchar *indexed_uri;
+
+        indexed_uri = make_indexed_uri (uri, i);
+        stream = open_file (indexed_uri, error);
+        g_free (indexed_uri);
+        if (!stream)
+            return FALSE;
+
+        image = page_get_cropped_image (page);
+        result = gdk_pixbuf_save_to_callback (image,
+					      (GdkPixbufSaveFunc) write_pixbuf_data, stream,
+					      "jpeg", error,
+					      "quality", "90",
+					      NULL);
+        g_object_unref (image);
+        g_object_unref (stream);
+    }
+   
     return result;
 }
 
 
 gboolean
-book_save_png (Book *book, GFileOutputStream *stream, GError **error)
+book_save_png (Book *book, const gchar *uri, GError **error)
 {
-    Page *page;
-    GdkPixbuf *image;
-    gboolean result;
+    GList *iter;
+    gboolean result = TRUE;
+    gint i;
 
-    page = book_get_page (book, 0);
-    image = page_get_cropped_image (page);
-    result = gdk_pixbuf_save_to_callback (image,
-                                          (GdkPixbufSaveFunc) write_pixbuf_data, stream,
-                                          "png", error,
-                                          NULL);
-    g_object_unref (image);
-    return result;
+    for (iter = book->priv->pages, i = 0; iter; iter = iter->next, i++) {
+        Page *page = iter->data;
+        GFileOutputStream *stream;
+        GdkPixbuf *image;
+        gchar *indexed_uri;
 
+        indexed_uri = make_indexed_uri (uri, i);
+        stream = open_file (indexed_uri, error);
+        g_free (indexed_uri);
+        if (!stream)
+            return FALSE;
+
+        image = page_get_cropped_image (page);
+        result = gdk_pixbuf_save_to_callback (image,
+					      (GdkPixbufSaveFunc) write_pixbuf_data, stream,
+					      "png", error,
+					      NULL);
+        g_object_unref (image);
+        g_object_unref (stream);
+    }
 }
 
 
@@ -177,15 +235,19 @@ write_cairo_data (GFileOutputStream *stream, unsigned char *data, unsigned int l
 
 
 gboolean
-book_save_ps (Book *book, GFileOutputStream *stream, GError **error)
+book_save_ps (Book *book, const gchar *uri, GError **error)
 {
+    GFileOutputStream *stream;
     GList *iter;
     cairo_surface_t *surface;
+
+    stream = open_file (uri, error);
+    if (!stream)
+        return FALSE;
 
     surface = cairo_ps_surface_create_for_stream ((cairo_write_func_t) write_cairo_data,
                                                   stream, 0, 0);
 
-    // FIXME: rotate
     for (iter = book->priv->pages; iter; iter = iter->next) {
         Page *page = iter->data;
         double width, height;
@@ -204,17 +266,22 @@ book_save_ps (Book *book, GFileOutputStream *stream, GError **error)
 
     cairo_surface_destroy (surface);
 
+    g_object_unref (stream);
+
     return TRUE;
 }
 
 
 gboolean
-book_save_pdf (Book *book, GFileOutputStream *stream, GError **error)
+book_save_pdf (Book *book, const gchar *uri, GError **error)
 {
+    GFileOutputStream *stream;
     GList *iter;
     cairo_surface_t *surface;
 
-    // FIXME: rotate
+    stream = open_file (uri, error);
+    if (!stream)
+        return FALSE;
 
     surface = cairo_pdf_surface_create_for_stream ((cairo_write_func_t) write_cairo_data,
                                                    stream, 0, 0);
@@ -236,6 +303,8 @@ book_save_pdf (Book *book, GFileOutputStream *stream, GError **error)
     }
 
     cairo_surface_destroy (surface);
+
+    g_object_unref (stream);
 
     return TRUE;
 }

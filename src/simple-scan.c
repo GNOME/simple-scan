@@ -236,46 +236,42 @@ page_removed_cb (Book *book, Page *page, SimpleScan *ui)
 }
 
 
-static void
-save_cb (SimpleScan *ui, gchar *uri)
+static gboolean
+save_book (const gchar *uri, GError **error)
 {
-    GFile *file;
+    gboolean result;
+    gchar *uri_lower;
+
+    uri_lower = g_utf8_strdown (uri, -1);
+    if (g_str_has_suffix (uri_lower, ".pdf"))
+        result = book_save_pdf (book, uri, error);
+    else if (g_str_has_suffix (uri_lower, ".ps"))
+        result = book_save_ps (book, uri, error);
+    else if (g_str_has_suffix (uri_lower, ".png"))
+        result = book_save_png (book, uri, error);
+    else
+        result = book_save_jpeg (book, uri, error);
+
+    g_free (uri_lower);
+
+    return result;
+}
+
+
+static void
+save_cb (SimpleScan *ui, const gchar *uri)
+{
     GError *error = NULL;
-    GFileOutputStream *stream;
 
-    file = g_file_new_for_uri (uri);
+    g_debug ("Saving to '%s'", uri);
 
-    stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, &error);
-    if (!stream) {
+    if (!save_book (uri, &error)) {
         g_warning ("Error saving file: %s", error->message);
+        ui_show_error (ui,
+                       /* Title of error dialog when save failed */
+                       _("Failed to save file"),
+                       error->message);
         g_error_free (error);
-    }
-    else {
-        gboolean result;
-        gchar *uri_lower;
-
-        uri_lower = g_utf8_strdown (uri, -1);
-        if (g_str_has_suffix (uri_lower, ".pdf"))
-            result = book_save_pdf (book, stream, &error);
-        else if (g_str_has_suffix (uri_lower, ".ps"))
-            result = book_save_ps (book, stream, &error);
-        else if (g_str_has_suffix (uri_lower, ".png"))
-            result = book_save_png (book, stream, &error);
-        else
-            result = book_save_jpeg (book, stream, &error);
-
-        g_free (uri_lower);           
-
-        if (error) {
-            g_warning ("Error saving file: %s", error->message);
-            ui_show_error (ui,
-                           /* Title of error dialog when save failed */
-                           _("Failed to save file"),
-                           error->message);
-            g_error_free (error);
-        }
-
-        g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
     }
 }
 
@@ -284,10 +280,7 @@ static void
 email_cb (SimpleScan *ui)
 {
     gint i;
-    GFileOutputStream *stream = NULL;
-    GError *error = NULL;
-    gchar *dir, *path = NULL;
-    GString *filename;
+    gchar *dir, *path = NULL, *uri = NULL;
 
     // TODO: Delete old files on startup
 
@@ -296,8 +289,8 @@ email_cb (SimpleScan *ui)
     g_mkdir_with_parents (dir, 0700);
 
     for (i = 0; ; i++) {
-        GFile *file;
-        gboolean done = TRUE;
+        GString *filename;
+        GError *error = NULL;
 
         filename = g_string_new ("");
         g_string_printf (filename, "scan-%d-%d.pdf", getpid (), i);
@@ -305,30 +298,11 @@ email_cb (SimpleScan *ui)
         g_free (path);
         path = g_build_filename (dir, filename->str, NULL);
         g_string_free (filename, TRUE);
-        file = g_file_new_for_path (path);
-        stream = g_file_create (file, G_FILE_CREATE_NONE, NULL, &error);
-        g_object_unref (file);
 
-        if (!stream) {
-	    done = FALSE;
+        g_free (uri);
+        uri = g_filename_to_uri (path, NULL, NULL);
 
-            if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS)) {
-	        g_warning ("Unable to save email PDF: %s", error->message);
-                done = TRUE;
-            }
-
-            g_clear_error (&error);
-            stream = NULL;
-        }
-
-        if (done)
-            break;
-    }
-
-    g_free (dir);
-
-    if (stream) {
-        if (book_save_pdf (book, stream, &error)) {
+        if (book_save_pdf (book, uri, &error)) {
             GString *command_line;
 
             command_line = g_string_new ("");
@@ -341,14 +315,20 @@ email_cb (SimpleScan *ui)
                 g_clear_error (&error);
             }
             g_string_free (command_line, TRUE);
+	    break;
         }
         else {
-            g_warning ("Unable to save email PDF: %s", error->message);	   
-            g_clear_error (&error);
+            if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS)) {
+                g_warning ("Unable to save email PDF: %s", error->message);
+                g_clear_error (&error);
+                break;
+            }
         }
-
-        g_object_unref (stream);
     }
+
+    g_free (path);
+    g_free (uri);   
+    g_free (dir);
 }
 
 
