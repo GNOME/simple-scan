@@ -821,7 +821,8 @@ ui_load (SimpleScan *ui)
                        /* Title of dialog when cannot load required files */
                        _("Files missing"),
                        /* Description in dialog when cannot load required files */
-                       _("Please check your installation"));
+                       _("Please check your installation"),
+                       FALSE);
         exit (1);
     }
     gtk_builder_connect_signals (builder, ui);
@@ -934,19 +935,29 @@ ui_set_have_scan (SimpleScan *ui, gboolean have_scan)
 
 
 void
-ui_show_error (SimpleScan *ui, const gchar *error_title, const gchar *error_text)
+ui_show_error (SimpleScan *ui, const gchar *error_title, const gchar *error_text, gboolean change_scanner_hint)
 {
     GtkWidget *dialog;
 
     dialog = gtk_message_dialog_new (GTK_WINDOW (ui->priv->window),
                                      GTK_DIALOG_MODAL,
                                      GTK_MESSAGE_WARNING,
-                                     GTK_BUTTONS_CLOSE,
+                                     GTK_BUTTONS_NONE,
                                      "%s", error_title);
+    if (change_scanner_hint)
+        gtk_dialog_add_button (GTK_DIALOG (dialog),
+                               /* Button in error dialog to open prefereces dialog and change scanner */
+                               _("Change _Scanner"),
+                               1);
+    gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE, 0);
     gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
                                               "%s", error_text);
 
-    gtk_dialog_run (GTK_DIALOG (dialog));
+    if (gtk_dialog_run (GTK_DIALOG (dialog)) == 1) {
+        gtk_widget_grab_focus (ui->priv->device_combo);
+        gtk_window_present (GTK_WINDOW (ui->priv->preferences_dialog));        
+    }
+
     gtk_widget_destroy (dialog);
 }
 

@@ -60,7 +60,8 @@ update_scan_devices_cb (Scanner *scanner, GList *devices)
                                /* Warning displayed when no scanners are detected */
                                _("No scanners detected"),
                                /* Hint to user on why there are no scanners detected */
-                               _("Please check your scanner is connected and powered on"));
+                               _("Please check your scanner is connected and powered on"),
+			       FALSE);
             g_free (selected);
         }
     }
@@ -159,7 +160,8 @@ scanner_failed_cb (Scanner *scanner, GError *error)
     ui_show_error (ui,
                    /* Title of error dialog when scan failed */
                    _("Failed to scan"),
-                   error->message);
+                   error->message,
+		   TRUE);
 }
 
 
@@ -270,7 +272,8 @@ save_cb (SimpleScan *ui, const gchar *uri)
         ui_show_error (ui,
                        /* Title of error dialog when save failed */
                        _("Failed to save file"),
-                       error->message);
+                       error->message,
+		       FALSE);
         g_error_free (error);
     }
 }
