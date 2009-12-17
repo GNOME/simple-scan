@@ -362,6 +362,7 @@ usage(int show_gtk)
     fprintf(stderr,
             /* Description on how to use simple-scan displayed on command-line */    
             _("Help Options:\n"
+              "  -d, --debug                     Print debugging messages\n"	      
               "  -v, --version                   Show release version\n"
               "  -h, --help                      Show help options\n"
               "  --help-all                      Show all help options\n"
@@ -386,14 +387,29 @@ usage(int show_gtk)
 
 
 static void
+log_cb (const gchar *log_domain, GLogLevelFlags log_level,
+	const gchar *message, gpointer data)
+{
+    if (log_level & G_LOG_LEVEL_DEBUG)
+       return;
+    g_log_default_handler (log_domain, log_level, message, data);
+}
+
+
+static void
 get_options (int argc, char **argv)
 {
     int i;
+    gboolean debug = FALSE;
 
     for (i = 1; i < argc; i++) {
         char *arg = argv[i];
 
-        if (strcmp (arg, "-v") == 0 ||
+        if (strcmp (arg, "-d") == 0 ||
+            strcmp (arg, "--debug") == 0) {
+            debug = TRUE;
+        }
+        else if (strcmp (arg, "-v") == 0 ||
             strcmp (arg, "--version") == 0) {
             version ();
             exit (0);
@@ -403,7 +419,8 @@ get_options (int argc, char **argv)
             usage (FALSE);
             exit (0);
         }
-        else if (strcmp (arg, "--help-all") == 0) {
+        else if (strcmp (arg, "--help-all") == 0 ||
+                 strcmp (arg, "--help-gtk") == 0) {
             usage (TRUE);
             exit (0);
         }
@@ -415,6 +432,9 @@ get_options (int argc, char **argv)
             default_device = arg;
         }
     }
+   
+    if (!debug)
+        g_log_set_default_handler (log_cb, NULL);
 }
 
 
@@ -423,7 +443,7 @@ main(int argc, char **argv)
 {
     g_thread_init (NULL);
     gtk_init (&argc, &argv);
-    
+
     get_options (argc, argv);
 
     book = book_new ();
