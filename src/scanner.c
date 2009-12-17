@@ -145,6 +145,34 @@ emit_signal (Scanner *scanner, guint sig, gpointer data)
 }
 
 
+static gint get_device_weight (const gchar *device)
+{
+    /* Use locally connected devices first */
+    if (g_str_has_prefix (device, "usb:"))
+       return 0;
+
+    /* Use webcams as a last resort */
+    if (g_str_has_prefix (device, "vfl:"))
+       return 2;
+   
+    return 1;
+}
+
+
+static gint
+compare_devices (ScanDevice *device1, ScanDevice *device2)
+{
+    gint weight1, weight2;
+   
+    weight1 = get_device_weight (device1->name);
+    weight2 = get_device_weight (device2->name);
+    if (weight1 != weight2)
+        return weight1 - weight2;
+   
+    return strcmp (device1->label, device2->label);
+}
+
+
 static void
 poll_for_devices (Scanner *scanner)
 {
@@ -186,6 +214,9 @@ poll_for_devices (Scanner *scanner)
 
         devices = g_list_append (devices, scan_device);
     }
+
+    /* Sort devices by priority */
+    devices = g_list_sort (devices, (GCompareFunc) compare_devices);
 
     emit_signal (scanner, UPDATE_DEVICES, devices);
 }
