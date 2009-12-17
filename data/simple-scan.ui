@@ -33,7 +33,7 @@
                             <child>
                               <object class="GtkMenuItem" id="scan_single_menuitem">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">Single _Page</property>
+                                <property name="label" translatable="yes" comments="Scan menu item to scan a single page from the scanner">Single _Page</property>
                                 <property name="use_underline">True</property>
                                 <accelerator key="1" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                                 <signal name="activate" handler="scan_button_clicked_cb"/>
@@ -42,7 +42,7 @@
                             <child>
                               <object class="GtkMenuItem" id="scan_all_menuitem">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">All Pages From _Feeder</property>
+                                <property name="label" translatable="yes" comments="Scan menu item to scan all pages from a document feeder">All Pages From _Feeder</property>
                                 <property name="use_underline">True</property>
                                 <signal name="activate" handler="continuous_scan_button_clicked_cb"/>
                               </object>
@@ -50,7 +50,7 @@
                             <child>
                               <object class="GtkMenuItem" id="stop_scan_menuitem">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">_Stop Scan</property>
+                                <property name="label" translatable="yes" comments="Menu entry to stop current scan">_Stop Scan</property>
                                 <property name="use_underline">True</property>
                                 <accelerator key="Escape" signal="activate"/>
                                 <signal name="activate" handler="stop_scan_button_clicked_cb"/>
@@ -290,7 +290,8 @@
             <child>
               <object class="GtkMenuToolButton" id="scan_toolbutton">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">_Scan</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button">Scan a single page from the scanner</property>
+                <property name="label" translatable="yes" comments="Label on scan toolbar item">Scan</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">scanner</property>
                 <property name="menu">scan_toolbutton_menu</property>
@@ -306,6 +307,7 @@
                 <child>
                   <object class="GtkComboBox" id="mode_combo">
                     <property name="visible">True</property>
+                    <property name="tooltip_text" translatable="yes" comments="Tooltip for the toolbar document type combo box">The type of document being scanned.  This changes the time taken to scan and the quality of the scanned data.</property>
                     <property name="model">mode_store</property>
                     <property name="button_sensitivity">on</property>
                   </object>
@@ -327,7 +329,8 @@
             <child>
               <object class="GtkToolButton" id="save_toolbutton">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Sa_ve</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for save toolbar button">Save the current documents to a file</property>
+                <property name="label" translatable="yes" comments="Label on save to file toolbar item">Save</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-save</property>
                 <signal name="clicked" handler="save_file_button_clicked_cb"/>
@@ -340,7 +343,8 @@
             <child>
               <object class="GtkToolButton" id="email_toolbutton">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">E_mail</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for the email toolbar button">Email the scanned documents</property>
+                <property name="label" translatable="yes" comments="Label on email toobar item">Email</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">mail-send</property>
                 <signal name="clicked" handler="email_button_clicked_cb"/>
@@ -353,7 +357,8 @@
             <child>
               <object class="GtkToolButton" id="print_toolbutton">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">_Print</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for print toolbar button">Print the scanned documents</property>
+                <property name="label" translatable="yes" comments="Label on print toolbar item">Print</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-print</property>
                 <signal name="clicked" handler="print_button_clicked_cb"/>
@@ -375,7 +380,7 @@
             <child>
               <object class="GtkToolButton" id="preferences_toolbutton">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Pre_ferences</property>
+                <property name="label" translatable="yes" comments="Label on preferences toolbar item">Preferences</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-preferences</property>
                 <signal name="clicked" handler="preferences_button_clicked_cb"/>
@@ -397,7 +402,7 @@
             <child>
               <object class="GtkToolButton" id="rotate_left_toolbutton">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Rotate _Left</property>
+                <property name="label" translatable="yes" comments="Label on rotate page left (anti-clockwise) item">Rotate Left</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">object-rotate-left</property>
                 <signal name="clicked" handler="rotate_left_button_clicked_cb"/>
@@ -410,7 +415,7 @@
             <child>
               <object class="GtkToolButton" id="rotate_right_toolbutton">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Rotate _Right</property>
+                <property name="label" translatable="yes" comments="Label on rotate page right (clockwise) item">Rotate Right</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">object-rotate-right</property>
                 <signal name="clicked" handler="rotate_right_button_clicked_cb"/>
@@ -798,7 +803,7 @@
     <child>
       <object class="GtkMenuItem" id="scan_single_toolbutton_menuitem">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">Single _Page</property>
+        <property name="label" translatable="yes" comments="Toolbar scan menu item to scan a single page from the scanner">Single _Page</property>
         <property name="use_underline">True</property>
         <signal name="activate" handler="scan_button_clicked_cb"/>
       </object>
@@ -806,7 +811,7 @@
     <child>
       <object class="GtkMenuItem" id="scan_all_toolbutton_menuitem">
         <property name="visible">True</property>
-        <property name="label" translatable="yes">All Pages From _Feeder</property>
+        <property name="label" translatable="yes" comments="Toolbar scan menu item to scan all pages from a document feeder">All Pages From _Feeder</property>
         <property name="use_underline">True</property>
       </object>
     </child>
