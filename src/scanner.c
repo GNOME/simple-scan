@@ -496,15 +496,15 @@ scan_thread (Scanner *scanner)
 
         switch (state) {
         case STATE_IDLE:
+             /* Close existing device */
+             if (open_device && (!request->device || strcmp (open_device, request->device) != 0)) {
+                g_debug ("sane_close ()");
+                sane_close (handle);
+                handle = NULL;
+                open_device = NULL;
+            }
+
             if (request->device) {
-                /* Close existing device */
-                if (open_device && strcmp (open_device, request->device) != 0) {
-                    g_debug ("sane_close ()");
-                    sane_close (handle);
-                    handle = NULL;
-                    open_device = NULL;
-                }
-                
                 if (open_device) {
                     status = SANE_STATUS_GOOD;
                 }
