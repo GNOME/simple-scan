@@ -6,7 +6,7 @@ simple_scan_SOURCES = \
 	book-view.c \
 	book-view.h \
 	page.c \
-	page.h \       
+	page.h \
 	simple-scan.c \
 	scanner.c \
 	scanner.h \
@@ -17,6 +17,8 @@ simple_scan_CFLAGS = \
 	$(SIMPLE_SCAN_CFLAGS) \
 	$(WARN_CFLAGS) \
 	-DVERSION=\"$(VERSION)\" \
+	-DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\" \
+	-DLOCALE_DIR=\"$(localedir)\" \
 	-DUI_DIR=\"$(datadir)/simple-scan/\" \
 	-DSIMPLE_SCAN_BINARY=\"simple-scan\"
 

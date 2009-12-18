@@ -444,6 +444,10 @@ get_options (int argc, char **argv)
 int
 main(int argc, char **argv)
 {
+    bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
+    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+    textdomain (GETTEXT_PACKAGE);
+   
     g_thread_init (NULL);
     gtk_init (&argc, &argv);
 
