@@ -45,7 +45,7 @@ GType ui_get_type (void);
 
 SimpleScan *ui_new (void);
 
-void ui_set_book (SimpleScan *ui, Book *book);
+Book *ui_get_book (SimpleScan *ui);
 
 void ui_set_selected_page (SimpleScan *ui, Page *page);
 

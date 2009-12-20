@@ -59,6 +59,23 @@
       </locale>
     </schema>
     <schema>
+      <applyto>/apps/simple-scan/scan_direction</applyto>
+      <key>/schemas/apps/simple-scan/scan_direction</key>
+      <owner>simple-scan</owner>
+      <type>string</type>
+      <default>top-to-bottom</default>
+      <locale name="C">
+        <short>Direction of scan</short>
+        <long>
+	  The direction of the scanner across the scanned page. It can be one of the following:
+          'top-to-bottom'
+          'bottom-to-top'
+          'left-to-right'
+          'right-to-left'
+        </long>
+      </locale>
+    </schema>
+    <schema>
       <applyto>/apps/simple-scan/replace_pages</applyto>
       <key>/schemas/apps/simple-scan/replace_pages</key>
       <owner>simple-scan</owner>

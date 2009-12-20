@@ -52,8 +52,11 @@ struct SimpleScanPrivate
     GtkWidget *preferences_dialog;
     GtkWidget *replace_pages_check;
 
+    Book *book;
     BookView *book_view;
     gboolean updating_page_menu;
+    Orientation default_orientation;
+    gboolean book_is_placeholder; // FIXME: Needs to be cleared when scan starts
 
     gchar *default_file_name;
     gboolean scanning;
@@ -63,6 +66,19 @@ struct SimpleScanPrivate
 };
 
 G_DEFINE_TYPE (SimpleScan, ui, G_TYPE_OBJECT);
+
+static struct
+{
+   const gchar *key;
+   Orientation orientation;
+} orientation_keys[] = 
+{
+  { "top-to-bottom", TOP_TO_BOTTOM },
+  { "bottom-to-top", BOTTOM_TO_TOP },
+  { "left-to-right", LEFT_TO_RIGHT },
+  { "right-to-left", RIGHT_TO_LEFT },
+  { NULL, 0 }
+};
 
 
 static gboolean
@@ -217,7 +233,7 @@ get_document_hint (SimpleScan *ui)
 static gboolean
 get_replace_pages (SimpleScan *ui)
 {
-    return gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check));
+    return ui->priv->book_is_placeholder || gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check));
 }
 
 
@@ -344,9 +360,13 @@ G_MODULE_EXPORT
 void
 rotate_left_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
+    Page *page;
+
     if (ui->priv->updating_page_menu)
         return;
-    page_rotate_left (book_view_get_selected (ui->priv->book_view));
+    page = book_view_get_selected (ui->priv->book_view);
+    page_rotate_left (page);
+    ui->priv->default_orientation = page_get_orientation (page);
 }
 
 
@@ -355,9 +375,13 @@ G_MODULE_EXPORT
 void
 rotate_right_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
+    Page *page;
+
     if (ui->priv->updating_page_menu)
         return;
-    page_rotate_right (book_view_get_selected (ui->priv->book_view));    
+    page = book_view_get_selected (ui->priv->book_view);
+    page_rotate_right (page);
+    ui->priv->default_orientation = page_get_orientation (page);
 }
 
 
@@ -528,15 +552,13 @@ draw_page (GtkPrintOperation *operation,
            SimpleScan        *ui)
 {
     cairo_t *context;
-    Book *book;
     Page *page;
     GdkPixbuf *image;
     gboolean is_landscape = FALSE;
 
     context = gtk_print_context_get_cairo_context (print_context);
    
-    book = book_view_get_book (ui->priv->book_view);
-    page = book_get_page (book, page_number);
+    page = book_get_page (ui->priv->book, page_number);
 
     /* Rotate to same aspect */
     if (gtk_print_context_get_width (print_context) > gtk_print_context_get_height (print_context))
@@ -575,12 +597,9 @@ print_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     GtkPrintOperation *print;
     GtkPrintOperationResult result;
     GError *error = NULL;
-    Book *book;
    
-    book = book_view_get_book (ui->priv->book_view);
-
     print = gtk_print_operation_new ();
-    gtk_print_operation_set_n_pages (print, book_get_n_pages (book));
+    gtk_print_operation_set_n_pages (print, book_get_n_pages (ui->priv->book));
     g_signal_connect (print, "draw-page", G_CALLBACK (draw_page), ui);
 
     result = gtk_print_operation_run (print, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
@@ -768,6 +787,7 @@ static void
 quit (SimpleScan *ui)
 {
     char *device, *document_type;
+    gint i;
 
     save_device_cache (ui);
 
@@ -787,6 +807,10 @@ quit (SimpleScan *ui)
     gconf_client_set_int(ui->priv->client, "/apps/simple-scan/window_width", ui->priv->window_width, NULL);
     gconf_client_set_int(ui->priv->client, "/apps/simple-scan/window_height", ui->priv->window_height, NULL);
     gconf_client_set_bool(ui->priv->client, "/apps/simple-scan/window_is_maximized", ui->priv->window_is_maximized, NULL);
+
+    for (i = 0; orientation_keys[i].key != NULL && orientation_keys[i].orientation != ui->priv->default_orientation; i++);
+    if (orientation_keys[i].key != NULL)
+        gconf_client_set_string(ui->priv->client, "/apps/simple-scan/scan_direction", orientation_keys[i].key, NULL);
    
     g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
 }
@@ -837,12 +861,42 @@ window_delete_event_cb (GtkWidget *widget, GdkEvent *event, SimpleScan *ui)
 
 
 static void
+add_default_page (SimpleScan *ui)
+{
+    if (book_get_n_pages (ui->priv->book) > 0)
+        return;
+
+    /* Start with A4 white image at 72dpi */
+    book_append_page (ui->priv->book, 595, 842, 72, ui->priv->default_orientation);
+
+    /* Remove this page on the next scan */
+    ui->priv->book_is_placeholder = TRUE;
+}
+
+
+static void
+page_removed_cb (Book *book, Page *page, SimpleScan *ui)
+{
+    /* Ensure always one page */
+    add_default_page (ui);
+}
+
+
+static void
+book_cleared_cb (Book *book, SimpleScan *ui)
+{
+    /* Must have been cleared for next scan */
+    ui->priv->book_is_placeholder = FALSE;
+}
+
+
+static void
 ui_load (SimpleScan *ui)
 {
     GtkBuilder *builder;
     GError *error = NULL;
     GtkCellRenderer *renderer;
-    gchar *device, *document_type;
+    gchar *device, *document_type, *scan_direction;
     gboolean replace_pages;
 
     builder = ui->priv->builder = gtk_builder_new ();
@@ -915,6 +969,15 @@ ui_load (SimpleScan *ui)
     gtk_range_set_adjustment (GTK_RANGE (ui->priv->zoom_scale),
                               book_view_get_zoom_adjustment (ui->priv->book_view));
 
+    /* Find default scan direction */
+    scan_direction = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/scan_direction", NULL);
+    if (scan_direction) {
+        gint i;
+        for (i = 0; orientation_keys[i].key != NULL && strcmp (orientation_keys[i].key, scan_direction) != 0; i++);
+        if (orientation_keys[i].key != NULL)
+	    ui->priv->default_orientation = orientation_keys[i].orientation;
+    }
+
     /* Restore window size */
     ui->priv->window_width = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/window_width", NULL);
     if (ui->priv->window_width <= 0)
@@ -929,6 +992,9 @@ ui_load (SimpleScan *ui)
         g_debug ("Restoring window to maximized");
         gtk_window_maximize (GTK_WINDOW (ui->priv->window));
     }
+
+    add_default_page (ui);
+    book_view_set_book (ui->priv->book_view, ui->priv->book);
 }
 
 
@@ -939,10 +1005,10 @@ ui_new ()
 }
 
 
-void
-ui_set_book (SimpleScan *ui, Book *book)
+Book *
+ui_get_book (SimpleScan *ui)
 {
-    book_view_set_book (ui->priv->book_view, book);
+    return ui->priv->book;
 }
 
 
@@ -1105,6 +1171,10 @@ ui_init (SimpleScan *ui)
 {
     ui->priv = G_TYPE_INSTANCE_GET_PRIVATE (ui, SIMPLE_SCAN_TYPE, SimpleScanPrivate);
 
+    ui->priv->book = book_new ();
+    g_signal_connect (ui->priv->book, "page-removed", G_CALLBACK (page_removed_cb), ui);
+    g_signal_connect (ui->priv->book, "cleared", G_CALLBACK (book_cleared_cb), ui);
+   
     ui->priv->client = gconf_client_get_default();
     gconf_client_add_dir(ui->priv->client, "/apps/simple-scan", GCONF_CLIENT_PRELOAD_NONE, NULL);
 

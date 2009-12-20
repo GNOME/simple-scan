@@ -215,29 +215,6 @@ cancel_cb (SimpleScan *ui)
 }
 
 
-static void
-add_default_page ()
-{
-    if (book_get_n_pages (book) > 0)
-        return;
-
-    /* Start with A4 white image at 72dpi */
-    /* TODO: Should be like the last scanned image for the selected scanner */
-    book_append_page (book, 595, 842, 72, TOP_TO_BOTTOM);
-
-    /* Remove this page on the next scan */
-    clear_pages = TRUE;
-}
-
-
-static void
-page_removed_cb (Book *book, Page *page, SimpleScan *ui)
-{
-    /* Ensure always one page */
-    add_default_page ();
-}
-
-
 static gboolean
 save_book (const gchar *uri, GError **error)
 {
@@ -453,12 +430,8 @@ main(int argc, char **argv)
 
     get_options (argc, argv);
 
-    book = book_new ();
-    g_signal_connect (book, "page-removed", G_CALLBACK (page_removed_cb), NULL);
-    add_default_page ();
-
     ui = ui_new ();
-    ui_set_book (ui, book);
+    book = ui_get_book (ui);
     g_signal_connect (ui, "start-scan", G_CALLBACK (scan_cb), NULL);
     g_signal_connect (ui, "stop-scan", G_CALLBACK (cancel_cb), NULL);
     g_signal_connect (ui, "save", G_CALLBACK (save_cb), NULL);
