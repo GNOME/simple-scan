@@ -711,10 +711,10 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
 static gboolean
 scroll_cb (GtkWidget *widget, GdkEventScroll *event, BookView *view)
 {
-    if (event->direction == GDK_SCROLL_UP)
+    /*if (event->direction == GDK_SCROLL_UP)
         book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) + 0.1);
     else if (event->direction == GDK_SCROLL_DOWN)
-        book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) - 0.1);
+        book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) - 0.1);*/
     return FALSE;
 }
 
