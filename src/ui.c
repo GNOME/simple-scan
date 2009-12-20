@@ -57,6 +57,9 @@ struct SimpleScanPrivate
 
     gchar *default_file_name;
     gboolean scanning;
+
+    gint window_width, window_height;
+    gboolean window_is_maximized;
 };
 
 G_DEFINE_TYPE (SimpleScan, ui, G_TYPE_OBJECT);
@@ -781,6 +784,10 @@ quit (SimpleScan *ui)
     gconf_client_set_bool(ui->priv->client, "/apps/simple-scan/replace_pages",
                           get_replace_pages (ui), NULL);
 
+    gconf_client_set_int(ui->priv->client, "/apps/simple-scan/window_width", ui->priv->window_width, NULL);
+    gconf_client_set_int(ui->priv->client, "/apps/simple-scan/window_height", ui->priv->window_height, NULL);
+    gconf_client_set_bool(ui->priv->client, "/apps/simple-scan/window_is_maximized", ui->priv->window_is_maximized, NULL);
+   
     g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
 }
 
@@ -791,6 +798,31 @@ void
 quit_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
 {
     quit (ui);
+}
+
+
+gboolean simple_scan_window_configure_event_cb (GtkWidget *widget, GdkEventConfigure *event, SimpleScan *ui);
+G_MODULE_EXPORT
+gboolean
+simple_scan_window_configure_event_cb (GtkWidget *widget, GdkEventConfigure *event, SimpleScan *ui)
+{
+    if (!ui->priv->window_is_maximized) {
+        ui->priv->window_width = event->width;
+        ui->priv->window_height = event->height;
+    }
+
+    return FALSE;
+}
+
+
+gboolean simple_scan_window_window_state_event_cb (GtkWidget *widget, GdkEventWindowState *event, SimpleScan *ui);
+G_MODULE_EXPORT
+gboolean
+simple_scan_window_window_state_event_cb (GtkWidget *widget, GdkEventWindowState *event, SimpleScan *ui)
+{
+    if (event->changed_mask & GDK_WINDOW_STATE_MAXIMIZED)
+        ui->priv->window_is_maximized = (event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) != 0;
+    return FALSE;
 }
 
 
@@ -859,7 +891,7 @@ ui_load (SimpleScan *ui)
 
     /* Load previously detected scanners and select the last used one */
     load_device_cache (ui);
-    device = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/selected_device", NULL);
+    device = gconf_client_get_string (ui->priv->client, "/apps/simple-scan/selected_device", NULL);
     if (device) {
         GtkTreeIter iter;
         if (find_scan_device (ui, device, &iter))
@@ -867,17 +899,14 @@ ui_load (SimpleScan *ui)
         g_free (device);
     }
     
-    document_type = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/document_type", NULL);
+    document_type = gconf_client_get_string (ui->priv->client, "/apps/simple-scan/document_type", NULL);
     if (document_type) {
         set_document_hint (ui, document_type);
         g_free (document_type);
     }
 
-    replace_pages = gconf_client_get_bool (ui->priv->client, "/apps/simple-scan/replace_pages", &error);
-    if (error)
-        g_error_free (error);
-    else
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check), replace_pages);
+    replace_pages = gconf_client_get_bool (ui->priv->client, "/apps/simple-scan/replace_pages", NULL);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check), replace_pages);
     
     ui->priv->book_view = book_view_new ();
     g_signal_connect (ui->priv->book_view, "page-selected", G_CALLBACK (page_selected_cb), ui);
@@ -885,9 +914,21 @@ ui_load (SimpleScan *ui)
                           GTK_WIDGET (gtk_builder_get_object (builder, "page_menu")));
     gtk_range_set_adjustment (GTK_RANGE (ui->priv->zoom_scale),
                               book_view_get_zoom_adjustment (ui->priv->book_view));
-    
-    /* Start with a reasonable size */
-    gtk_window_resize (GTK_WINDOW (ui->priv->window), 600, 400);
+
+    /* Restore window size */
+    ui->priv->window_width = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/window_width", NULL);
+    if (ui->priv->window_width <= 0)
+        ui->priv->window_width = 600;
+    ui->priv->window_height = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/window_height", NULL);
+    if (ui->priv->window_height <= 0)
+        ui->priv->window_height = 400;
+    g_debug ("Restoring window to %dx%d pixels", ui->priv->window_width, ui->priv->window_height);
+    gtk_window_set_default_size (GTK_WINDOW (ui->priv->window), ui->priv->window_width, ui->priv->window_height);
+    ui->priv->window_is_maximized = gconf_client_get_bool (ui->priv->client, "/apps/simple-scan/window_is_maximized", NULL);
+    if (ui->priv->window_is_maximized) {
+        g_debug ("Restoring window to maximized");
+        gtk_window_maximize (GTK_WINDOW (ui->priv->window));
+    }
 }
 
 

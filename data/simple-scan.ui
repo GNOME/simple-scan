@@ -5,7 +5,9 @@
   <object class="GtkWindow" id="simple_scan_window">
     <property name="title" translatable="yes" comments="Title of scan window">Simple Scan</property>
     <property name="icon_name">scanner</property>
+    <signal name="configure_event" handler="simple_scan_window_configure_event_cb"/>
     <signal name="delete_event" handler="window_delete_event_cb"/>
+    <signal name="window_state_event" handler="simple_scan_window_window_state_event_cb"/>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -105,8 +107,8 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="q" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <accelerator key="w" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <accelerator key="q" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="quit_menuitem_activate_cb"/>
                       </object>
                     </child>
