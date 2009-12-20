@@ -1,0 +1,72 @@
+<gconfschemafile>
+  <schemalist>
+    <schema>
+      <applyto>/apps/simple-scan/window_width</applyto>
+      <key>/schemas/apps/simple-scan/window_width</key>
+      <owner>simple-scan</owner>
+      <type>int</type>
+      <default>600</default>
+      <locale name="C">
+        <short>Window width in pixels</short>
+      </locale>
+    </schema>
+    <schema>
+      <applyto>/apps/simple-scan/window_height</applyto>
+      <key>/schemas/apps/simple-scan/window_height</key>
+      <owner>simple-scan</owner>
+      <type>int</type>
+      <default>400</default>
+      <locale name="C">
+        <short>Window height in pixels</short>
+      </locale>
+    </schema>
+    <schema>
+      <applyto>/apps/simple-scan/window_is_maximized</applyto>
+      <key>/schemas/apps/simple-scan/window_is_maximized</key>
+      <owner>simple-scan</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>TRUE if the application window is maximized</short>
+      </locale>
+    </schema>
+    <schema>
+      <applyto>/apps/simple-scan/selected_device</applyto>
+      <key>/schemas/apps/simple-scan/selected_device</key>
+      <owner>simple-scan</owner>
+      <type>string</type>
+      <default></default>
+      <locale name="C">
+        <short>Device to scan from</short>
+        <long>
+          SANE device to acquire images from.
+        </long>
+      </locale>
+    </schema>
+    <schema>
+      <applyto>/apps/simple-scan/document_type</applyto>
+      <key>/schemas/apps/simple-scan/document_type</key>
+      <owner>simple-scan</owner>
+      <type>string</type>
+      <default>text</default>
+      <locale name="C">
+        <short>Type of document being scanned</short>
+        <long>
+          Type of document being scanned.
+	  'text' for text documents, 'photo' for photos.
+	  This setting decides on the scan resolution, colors and post-processing.
+        </long>
+      </locale>
+    </schema>
+    <schema>
+      <applyto>/apps/simple-scan/replace_pages</applyto>
+      <key>/schemas/apps/simple-scan/replace_pages</key>
+      <owner>simple-scan</owner>
+      <type>bool</type>
+      <default>FALSE</default>
+      <locale name="C">
+        <short>TRUE if the document is cleared on each scan</short>
+      </locale>
+    </schema>
+  </schemalist>
+</gconfschemafile>
