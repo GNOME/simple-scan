@@ -827,7 +827,7 @@ quit (SimpleScan *ui)
     g_free (document_type);
 
     gconf_client_set_bool(ui->priv->client, "/apps/simple-scan/replace_pages",
-                          get_replace_pages (ui), NULL);
+                          gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check)), NULL);
 
     gconf_client_set_int(ui->priv->client, "/apps/simple-scan/window_width", ui->priv->window_width, NULL);
     gconf_client_set_int(ui->priv->client, "/apps/simple-scan/window_height", ui->priv->window_height, NULL);
@@ -986,7 +986,7 @@ ui_load (SimpleScan *ui)
         gint i;
         for (i = 0; orientation_keys[i].key != NULL && strcmp (orientation_keys[i].key, scan_direction) != 0; i++);
         if (orientation_keys[i].key != NULL)
-	    ui->priv->default_orientation = orientation_keys[i].orientation;
+            ui->priv->default_orientation = orientation_keys[i].orientation;
     }
 
     /* Restore window size */
