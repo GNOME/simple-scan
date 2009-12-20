@@ -195,6 +195,31 @@ ui_set_selected_device (SimpleScan *ui, const gchar *device)
 
 
 static void
+add_default_page (SimpleScan *ui)
+{
+    if (book_get_n_pages (ui->priv->book) > 0)
+        return;
+
+    /* Start with A4 white image at 72dpi */
+   // FIXME: Remember last page dimensions
+    book_append_page (ui->priv->book, 595, 842, 72, ui->priv->default_orientation);
+
+    /* Remove this page on the next scan */
+    ui->priv->book_is_placeholder = TRUE;
+}
+
+
+void new_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+new_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    book_clear (ui->priv->book);
+    add_default_page (ui);
+}
+
+
+static void
 set_document_hint (SimpleScan *ui, const gchar *document_hint)
 {
     GtkTreeIter iter;
@@ -857,20 +882,6 @@ window_delete_event_cb (GtkWidget *widget, GdkEvent *event, SimpleScan *ui)
 {
     quit (ui);
     return TRUE;
-}
-
-
-static void
-add_default_page (SimpleScan *ui)
-{
-    if (book_get_n_pages (ui->priv->book) > 0)
-        return;
-
-    /* Start with A4 white image at 72dpi */
-    book_append_page (ui->priv->book, 595, 842, 72, ui->priv->default_orientation);
-
-    /* Remove this page on the next scan */
-    ui->priv->book_is_placeholder = TRUE;
 }
 
 

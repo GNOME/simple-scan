@@ -24,8 +24,17 @@
                   <object class="GtkMenu" id="document_menu">
                     <property name="visible">True</property>
                     <child>
+                      <object class="GtkImageMenuItem" id="new_menuitem">
+                        <property name="label">gtk-new</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="new_button_clicked_cb"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkImageMenuItem" id="scan_menuitem">
-                        <property name="label">_Scan</property>
+                        <property name="label">Sc_an</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">False</property>
@@ -89,10 +98,11 @@
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="preferences_menuitem">
-                        <property name="label">gtk-preferences</property>
+                        <property name="label">Pre_ferences</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
+                        <property name="image">image1</property>
+                        <property name="use_stock">False</property>
                         <signal name="activate" handler="preferences_button_clicked_cb"/>
                       </object>
                     </child>
@@ -290,6 +300,20 @@
         <child>
           <object class="GtkToolbar" id="toolbar1">
             <property name="visible">True</property>
+            <child>
+              <object class="GtkToolButton" id="new_toolbutton">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for new document button">Start a new document</property>
+                <property name="label" translatable="yes">New</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-new</property>
+                <signal name="clicked" handler="new_button_clicked_cb"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
             <child>
               <object class="GtkMenuToolButton" id="scan_toolbutton">
                 <property name="visible">True</property>
@@ -818,5 +842,9 @@
         <property name="use_underline">True</property>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="image1">
+    <property name="visible">True</property>
+    <property name="stock">gtk-preferences</property>
   </object>
 </interface>
