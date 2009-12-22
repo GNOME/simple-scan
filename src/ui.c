@@ -202,8 +202,6 @@ add_default_page (SimpleScan *ui)
     /* Start with A4 white image at 72dpi */
     // FIXME: Remember last page dimensions
     book_append_page (ui->priv->book, 595, 842, 72, ui->priv->default_orientation);
-    book_append_page (ui->priv->book, 595, 842, 72, ui->priv->default_orientation);
-    book_append_page (ui->priv->book, 595, 842, 72, ui->priv->default_orientation);
 
     /* Remove this page on the next scan */
     ui->priv->book_is_placeholder = TRUE;
