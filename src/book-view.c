@@ -14,6 +14,11 @@
 #include "book-view.h"
 
 
+// FIXME: You can place the window in a certain size which causes it to be continuously laid
+// out with the scrollbar being enabled and disabled - this is relatively easy to fix, you
+// just need to layout with the vbox allocation height any only enable scrollbars if this
+// doesn't fit
+
 enum {
     PAGE_SELECTED,
     LAST_SIGNAL
@@ -60,9 +65,6 @@ struct BookViewPrivate
     /* Amount to offset view by (pixels) */
     gint x_offset, y_offset;
 
-    GtkAdjustment *zoom_adjustment;
-    gdouble old_zoom;
-
     Page *selected_page;
     
     /* The page the crop is being moved on or NULL */
@@ -72,6 +74,9 @@ struct BookViewPrivate
 
     /* Widget being rendered to */
     GtkWidget *widget;
+   
+    GtkWidget *box, *scroll;
+    GtkAdjustment *adjustment;
 
     GtkWidget *page_menu;
 
@@ -86,13 +91,6 @@ BookView *
 book_view_new ()
 {
     return g_object_new (BOOK_VIEW_TYPE, NULL);
-}
-
-
-GtkAdjustment *
-book_view_get_zoom_adjustment (BookView *view)
-{
-    return view->priv->zoom_adjustment;
 }
 
 
@@ -281,25 +279,6 @@ set_cursor (BookView *view, gint cursor)
 {
     gdk_window_set_cursor (gtk_widget_get_window (view->priv->widget),
                            gdk_cursor_new (cursor));
-}
-
-
-void
-book_view_pan (BookView *view, gint x_offset, gint y_offset)
-{
-    view->priv->x_offset += x_offset;
-    view->priv->y_offset += y_offset;
-    view->priv->need_layout = TRUE;
-    gtk_widget_queue_draw (view->priv->widget);
-
-    set_cursor (view, GDK_HAND1);
-}
-
-
-void
-book_view_set_zoom (BookView *view, gdouble zoom)
-{
-    gtk_adjustment_set_value (view->priv->zoom_adjustment, zoom);
 }
 
 
@@ -502,9 +481,6 @@ layout (BookView *view)
     /* Don't scale past exact resolution */
     if (scale >= 1.0)
         scale = 1.0;
-    else {
-        scale += (1.0 - scale) * gtk_adjustment_get_value (view->priv->zoom_adjustment);
-    }
     
     /* Get total dimensions of all pages */
     for (i = 0; i < n_pages; i++) {
@@ -527,12 +503,16 @@ layout (BookView *view)
     if (view->priv->width >= book_width) {
         x_offset = (int) ((view->priv->width - book_width) / 2);
         x_range = 0;
+        gtk_widget_hide (view->priv->scroll);
     }
     else {
         x_offset = 0;
         x_range = book_width - view->priv->width;
+        gtk_adjustment_set_upper (view->priv->adjustment, book_width);
+        gtk_adjustment_set_page_size (view->priv->adjustment, view->priv->width);
+        gtk_widget_show (view->priv->scroll);
     }
-
+   
     if (view->priv->height >= book_height) {
         y_offset = (int) ((view->priv->height - book_height) / 2);
         y_range = 0;
@@ -550,6 +530,7 @@ layout (BookView *view)
         view->priv->y_offset = -y_range;
     if (view->priv->y_offset > 0)
         view->priv->y_offset = 0;
+    gtk_adjustment_set_value (view->priv->adjustment, view->priv->x_offset);
     
     for (i = 0; i < n_pages; i++) {
         Page *p = book_get_page (view->priv->book, i);
@@ -560,7 +541,7 @@ layout (BookView *view)
         x_offset += page->width + (2 * page->border) + spacing;
         page->y = y_offset + (book_height - page->height) / 2 - page->border;
     }
-    
+
     view->priv->need_layout = FALSE;
 }
 
@@ -577,26 +558,6 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
         return FALSE;
 
     layout (view);
-    
-    /* Make sure the selected page is visible */
-    if (view->priv->selected_page) {
-        PageView *page;
-        gint left_edge, right_edge;
-
-        page = g_hash_table_lookup (view->priv->page_data, view->priv->selected_page);
-
-        /* Left and right edges of the page */
-        left_edge = page->x;
-        right_edge = left_edge + page->border + page->width + page->border;
-
-        /* Make sure can see adjacent pages */
-        // FIXME: Hardcoded spacing 24
-
-        if (right_edge + view->priv->x_offset > view->priv->width)
-            view->priv->x_offset = view->priv->width - right_edge - 24;
-        else if (left_edge + view->priv->x_offset < 0)
-            view->priv->x_offset = -left_edge + 24;
-    }
 
     context = gdk_cairo_create (widget->window);
 
@@ -610,22 +571,6 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
     cairo_destroy (context);
 
     return FALSE;
-}
-
-
-static void
-zoom_cb (GtkAdjustment *adjustment, BookView *view)
-{
-    gdouble zoom;
-    
-    zoom = gtk_adjustment_get_value (view->priv->zoom_adjustment);    
-    view->priv->x_offset += (zoom - view->priv->old_zoom) * view->priv->width;
-    view->priv->y_offset += (zoom - view->priv->old_zoom) * view->priv->height;
-    view->priv->old_zoom = zoom;
-    
-    view->priv->need_layout = TRUE;
-
-    gtk_widget_queue_draw (view->priv->widget);
 }
 
 
@@ -709,17 +654,6 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
 
 
 static gboolean
-scroll_cb (GtkWidget *widget, GdkEventScroll *event, BookView *view)
-{
-    /*if (event->direction == GDK_SCROLL_UP)
-        book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) + 0.1);
-    else if (event->direction == GDK_SCROLL_DOWN)
-        book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) - 0.1);*/
-    return FALSE;
-}
-
-
-static gboolean
 motion_cb (GtkWidget *widget, GdkEventMotion *event, BookView *view)
 {
     gint x, y;
@@ -785,35 +719,11 @@ static gboolean
 key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
 {
     switch (event->keyval) {
-    /* Pan */
     case GDK_Left:
-        if (event->state & GDK_CONTROL_MASK)
-            book_view_pan (view, 5, 0);
-        else
-            book_view_select_page (view, get_prev_page (view));
+        book_view_select_page (view, get_prev_page (view));
         return TRUE;
     case GDK_Right:
-        if (event->state & GDK_CONTROL_MASK)
-            book_view_pan (view, -5, 0);
-        else
-            book_view_select_page (view, get_next_page (view));
-        return TRUE;
-    case GDK_Up:
-        if (event->state & GDK_CONTROL_MASK)
-            book_view_pan (view, 0, 5);
-        return TRUE;
-    case GDK_Down:
-        if (event->state & GDK_CONTROL_MASK)
-            book_view_pan (view, 0, -5);
-        return TRUE;
-
-    /* Zoom */
-    case GDK_plus:
-    case GDK_equal:
-        book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) + 0.1);
-        return TRUE;
-    case GDK_minus:
-        book_view_set_zoom (view, gtk_adjustment_get_value (view->priv->zoom_adjustment) - 0.1);        
+        book_view_select_page (view, get_next_page (view));
         return TRUE;
 
     default:
@@ -830,21 +740,34 @@ focus_cb (GtkWidget *widget, GdkEventFocus *event, BookView *view)
 }
 
 
+static void
+scroll_cb (GtkAdjustment *adjustment, BookView *view)
+{
+   view->priv->x_offset = - ((int) (gtk_adjustment_get_value (view->priv->adjustment) + 0.5));
+   gtk_widget_queue_draw (view->priv->widget);
+}
+
+
 void
-book_view_set_widget (BookView *view, GtkWidget *widget, GtkWidget *page_menu)
+book_view_set_widgets (BookView *view, GtkWidget *box, GtkWidget *area, GtkWidget *scroll, GtkWidget *page_menu)
 {
     g_return_if_fail (view->priv->widget == NULL);
-    view->priv->widget = widget;
-    g_signal_connect (widget, "configure-event", G_CALLBACK (configure_cb), view);
-    g_signal_connect (widget, "expose-event", G_CALLBACK (expose_cb), view);
-    g_signal_connect (widget, "motion-notify-event", G_CALLBACK (motion_cb), view);
-    g_signal_connect (widget, "key-press-event", G_CALLBACK (key_cb), view);
-    g_signal_connect (widget, "button-press-event", G_CALLBACK (button_cb), view);
-    g_signal_connect (widget, "button-release-event", G_CALLBACK (button_cb), view);
-    g_signal_connect (widget, "scroll-event", G_CALLBACK (scroll_cb), view);
-    g_signal_connect (widget, "focus-in-event", G_CALLBACK (focus_cb), view);
-    g_signal_connect (widget, "focus-out-event", G_CALLBACK (focus_cb), view);
+
+    view->priv->widget = area;
+    view->priv->box = box;
+    view->priv->scroll = scroll;
+    view->priv->adjustment = gtk_range_get_adjustment (GTK_RANGE (scroll));
     view->priv->page_menu = page_menu;
+
+    g_signal_connect (area, "configure-event", G_CALLBACK (configure_cb), view);
+    g_signal_connect (area, "expose-event", G_CALLBACK (expose_cb), view);
+    g_signal_connect (area, "motion-notify-event", G_CALLBACK (motion_cb), view);
+    g_signal_connect (area, "key-press-event", G_CALLBACK (key_cb), view);
+    g_signal_connect (area, "button-press-event", G_CALLBACK (button_cb), view);
+    g_signal_connect (area, "button-release-event", G_CALLBACK (button_cb), view);
+    g_signal_connect (area, "focus-in-event", G_CALLBACK (focus_cb), view);
+    g_signal_connect (area, "focus-out-event", G_CALLBACK (focus_cb), view);
+    g_signal_connect (view->priv->adjustment, "value-changed", G_CALLBACK (scroll_cb), view);
 }
 
 
@@ -857,6 +780,25 @@ book_view_select_page (BookView *view, Page *page)
     view->priv->selected_page = page;
 
     /* Make selected page visible */
+    if (view->priv->selected_page) {
+        PageView *page;
+        gint left_edge, right_edge;
+
+        page = g_hash_table_lookup (view->priv->page_data, view->priv->selected_page);
+
+        /* Left and right edges of the page */
+        left_edge = page->x;
+        right_edge = left_edge + page->border + page->width + page->border;
+
+        /* Make sure can see adjacent pages */
+        // FIXME: Hardcoded spacing 24
+
+        if (right_edge + view->priv->x_offset > view->priv->width)
+            view->priv->x_offset = view->priv->width - right_edge - 24;
+        else if (left_edge + view->priv->x_offset < 0)
+            view->priv->x_offset = -left_edge + 24;
+        gtk_adjustment_set_value (view->priv->adjustment, -view->priv->x_offset);
+    }
 
     gtk_widget_queue_draw (view->priv->widget);    
     g_signal_emit (view, signals[PAGE_SELECTED], 0, view->priv->selected_page);
@@ -907,10 +849,4 @@ book_view_init (BookView *view)
     view->priv->need_layout = TRUE;
     view->priv->page_data = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                    NULL, (GDestroyNotify) page_view_free);
-    view->priv->zoom_adjustment = GTK_ADJUSTMENT (gtk_adjustment_new (0.0,
-                                                                      0.0, 1.0,
-                                                                      0.01,
-                                                                      0.1,
-                                                                      0));
-    g_signal_connect (view->priv->zoom_adjustment, "value-changed", G_CALLBACK (zoom_cb), view);
 }

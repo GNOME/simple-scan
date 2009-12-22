@@ -43,19 +43,13 @@ GType book_view_get_type (void);
 
 BookView *book_view_new (void);
 
-GtkAdjustment *book_view_get_zoom_adjustment (BookView *view);
-
-// FIXME: Book view should extend GtkWidget
-void book_view_set_widget (BookView *view, GtkWidget *widget, GtkWidget *page_menu);
+// FIXME: Book view should extend GtkVBox
+void book_view_set_widgets (BookView *view, GtkWidget *box, GtkWidget *area, GtkWidget *scroll, GtkWidget *page_menu);
 
 // FIXME: Should be part of book_view_new
 void book_view_set_book (BookView *view, Book *book);
 
 Book *book_view_get_book (BookView *view);
-
-void book_view_pan (BookView *view, gint x_offset, gint y_offset);
-
-void book_view_set_zoom (BookView *view, gdouble zoom);
 
 void book_view_select_page (BookView *view, Page *page);
 

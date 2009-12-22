@@ -41,8 +41,7 @@ struct SimpleScanPrivate
     GtkWidget *scan_button_label, *continuous_scan_button_label, *page_label;
     GtkWidget *device_combo, *mode_combo;
     GtkTreeModel *device_model, *mode_model;
-    GtkWidget *preview_area;
-    GtkWidget *zoom_scale;
+    GtkWidget *preview_box, *preview_area, *preview_scroll;
     GtkWidget *page_delete_menuitem, *crop_rotate_menuitem;
 
     GtkWidget *authorize_dialog;
@@ -201,7 +200,9 @@ add_default_page (SimpleScan *ui)
         return;
 
     /* Start with A4 white image at 72dpi */
-   // FIXME: Remember last page dimensions
+    // FIXME: Remember last page dimensions
+    book_append_page (ui->priv->book, 595, 842, 72, ui->priv->default_orientation);
+    book_append_page (ui->priv->book, 595, 842, 72, ui->priv->default_orientation);
     book_append_page (ui->priv->book, 595, 842, 72, ui->priv->default_orientation);
 
     /* Remove this page on the next scan */
@@ -932,8 +933,9 @@ ui_load (SimpleScan *ui)
     ui->priv->device_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->device_combo));
     ui->priv->mode_combo = GTK_WIDGET (gtk_builder_get_object (builder, "mode_combo"));
     ui->priv->mode_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->mode_combo));
+    ui->priv->preview_box = GTK_WIDGET (gtk_builder_get_object (builder, "preview_vbox"));
     ui->priv->preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
-    ui->priv->zoom_scale = GTK_WIDGET (gtk_builder_get_object (builder, "zoom_scale"));
+    ui->priv->preview_scroll = GTK_WIDGET (gtk_builder_get_object (builder, "preview_scrollbar"));
     ui->priv->page_delete_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_delete_menuitem"));
     ui->priv->crop_rotate_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "crop_rotate_menuitem"));
 
@@ -975,10 +977,11 @@ ui_load (SimpleScan *ui)
     
     ui->priv->book_view = book_view_new ();
     g_signal_connect (ui->priv->book_view, "page-selected", G_CALLBACK (page_selected_cb), ui);
-    book_view_set_widget (ui->priv->book_view, ui->priv->preview_area,
-                          GTK_WIDGET (gtk_builder_get_object (builder, "page_menu")));
-    gtk_range_set_adjustment (GTK_RANGE (ui->priv->zoom_scale),
-                              book_view_get_zoom_adjustment (ui->priv->book_view));
+    book_view_set_widgets (ui->priv->book_view,
+			   ui->priv->preview_box,
+			   ui->priv->preview_area,
+			   ui->priv->preview_scroll,
+			   GTK_WIDGET (gtk_builder_get_object (builder, "page_menu")));
 
     /* Find default scan direction */
     scan_direction = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/scan_direction", NULL);
@@ -1191,5 +1194,5 @@ ui_init (SimpleScan *ui)
 
     ui->priv->default_file_name = g_strdup (_("Scanned Document.pdf"));
     ui->priv->scanning = FALSE;
-    ui_load (ui);
+    ui_load (ui);   
 }
