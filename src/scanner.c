@@ -41,7 +41,7 @@ typedef struct
     gchar *device;
     gchar *source;
     gint dpi;
-    gchar *scan_mode;
+    ScanMode scan_mode;
     gint depth;
     gboolean multi_page;
 } ScanRequest;
@@ -222,7 +222,7 @@ poll_for_devices (Scanner *scanner)
 }
 
 
-static void
+static gboolean
 control_option (SANE_Handle handle, SANE_Int index, SANE_Action action, void *value)
 {
     SANE_Status status;
@@ -230,6 +230,8 @@ control_option (SANE_Handle handle, SANE_Int index, SANE_Action action, void *va
     status = sane_control_option (handle, index, action, value, NULL);
     if (status != SANE_STATUS_GOOD)
         g_warning ("Error setting control option: %s", sane_strstatus(status));
+
+    return status == SANE_STATUS_GOOD;
 }
 
 
@@ -275,21 +277,24 @@ set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE
 }
 
 
-static void
+static gboolean
 set_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, const char *value)
 {
     char *string;
     gsize value_size, size;
+    gboolean result;
 
-    g_return_if_fail (option->type == SANE_TYPE_STRING);
+    g_return_val_if_fail (option->type == SANE_TYPE_STRING, FALSE);
     
     value_size = strlen (value) + 1;
     size = option->size > value_size ? option->size : value_size;
     string = g_malloc(sizeof(char) * size);
     strcpy (string, value);
     g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\")", option_index, value);
-    control_option (handle, option_index, SANE_ACTION_SET_VALUE, string);
+    result = control_option (handle, option_index, SANE_ACTION_SET_VALUE, string);
     g_free (string);
+   
+    return result;
 }
 
 
@@ -589,8 +594,23 @@ scan_thread (Scanner *scanner)
                             set_int_option (handle, option, option_index, request->depth);
                     }
                     else if (strcmp (option->name, SANE_NAME_SCAN_MODE) == 0) {
-                        if (request->scan_mode)
-                            set_string_option (handle, option, option_index, request->scan_mode);
+                        switch (request->scan_mode) {
+                        case SCAN_MODE_COLOR:
+                            set_string_option (handle, option, option_index, SANE_VALUE_SCAN_MODE_COLOR);
+                            break;
+                        case SCAN_MODE_GRAY:
+                            set_string_option (handle, option, option_index, SANE_VALUE_SCAN_MODE_GRAY);
+                            break;
+                        case SCAN_MODE_LINEART:
+                            if (!set_string_option (handle, option, option_index, SANE_VALUE_SCAN_MODE_LINEART)) {
+                                /* Some Canon scanners use "Binary" */
+                                if (!set_string_option (handle, option, option_index, "Binary"))
+                                    set_string_option (handle, option, option_index, SANE_VALUE_SCAN_MODE_GRAY);				 
+                            }
+                            break;
+                        default:
+                            break;
+                        }
                     }
 
                     /* Test scanner options (hoping will not effect other scanners...) */
@@ -754,7 +774,6 @@ scan_thread (Scanner *scanner)
             data = NULL;
             g_free (request->device);
             g_free (request->source);
-            g_free (request->scan_mode);
             g_free (request);
             request = NULL;
             state = STATE_IDLE;
@@ -799,19 +818,7 @@ scanner_scan (Scanner *scanner, const char *device, const char *source,
     if (source)
         request->source = g_strdup (source);
     request->dpi = dpi;
-    switch (scan_mode) {
-    case SCAN_MODE_COLOR:
-        request->scan_mode = g_strdup (SANE_VALUE_SCAN_MODE_COLOR);
-        break;
-    case SCAN_MODE_GRAY:
-        request->scan_mode = g_strdup (SANE_VALUE_SCAN_MODE_GRAY);
-        break;
-    case SCAN_MODE_LINEART:
-        request->scan_mode = g_strdup (SANE_VALUE_SCAN_MODE_LINEART);
-        break;
-    default:
-        break;
-    }
+    request->scan_mode = scan_mode;
     request->depth = depth;
     request->multi_page = multi_page;
     g_async_queue_push (scanner->priv->scan_queue, request);
