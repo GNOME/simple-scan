@@ -603,7 +603,7 @@ scan_thread (Scanner *scanner)
                             break;
                         case SCAN_MODE_LINEART:
                             if (!set_string_option (handle, option, option_index, SANE_VALUE_SCAN_MODE_LINEART)) {
-                                /* Some Canon scanners use "Binary" */
+                                /* Some Epson scanners use "Binary" */
                                 if (!set_string_option (handle, option, option_index, "Binary"))
                                     set_string_option (handle, option, option_index, SANE_VALUE_SCAN_MODE_GRAY);				 
                             }
