@@ -801,9 +801,11 @@ about_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
                            "version", VERSION,
                            "comments", description,
                            "authors", authors,
+			   "translator-credits", _("translator-credits"),
                            "website", "https://launchpad.net/simple-scan",
                            "copyright", "Copyright (C) 2009 Canonical Ltd.",
                            "license", license,
+			   "wrap-license", TRUE,
                            NULL);
 }
 
