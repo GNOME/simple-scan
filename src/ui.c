@@ -633,24 +633,6 @@ print_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 }
 
 
-void next_page_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
-G_MODULE_EXPORT
-void
-next_page_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
-{
-    book_view_select_next_page (ui->priv->book_view);
-}
-
-
-void prev_page_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
-G_MODULE_EXPORT
-void
-prev_page_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
-{
-    book_view_select_prev_page (ui->priv->book_view);    
-}
-
-
 static void
 load_device_cache (SimpleScan *ui)
 {
