@@ -719,11 +719,17 @@ static gboolean
 key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
 {
     switch (event->keyval) {
+    case GDK_Home:
+        book_view_select_page (view, book_get_page (view->priv->book, 0));
+        return TRUE;
     case GDK_Left:
         book_view_select_page (view, get_prev_page (view));
         return TRUE;
     case GDK_Right:
         book_view_select_page (view, get_next_page (view));
+        return TRUE;
+    case GDK_End:
+        book_view_select_page (view, book_get_page (view->priv->book, book_get_n_pages (view->priv->book) - 1));
         return TRUE;
 
     default:
