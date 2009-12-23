@@ -782,9 +782,11 @@ about_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
                            "version", VERSION,
                            "comments", description,
                            "authors", authors,
+                           "translator-credits", _("translator-credits"),
                            "website", "https://launchpad.net/simple-scan",
                            "copyright", "Copyright (C) 2009 Canonical Ltd.",
                            "license", license,
+                           "wrap-license", TRUE,
                            NULL);
 }
 
@@ -958,10 +960,10 @@ ui_load (SimpleScan *ui)
     ui->priv->book_view = book_view_new ();
     g_signal_connect (ui->priv->book_view, "page-selected", G_CALLBACK (page_selected_cb), ui);
     book_view_set_widgets (ui->priv->book_view,
-			   ui->priv->preview_box,
-			   ui->priv->preview_area,
-			   ui->priv->preview_scroll,
-			   GTK_WIDGET (gtk_builder_get_object (builder, "page_menu")));
+                           ui->priv->preview_box,
+                           ui->priv->preview_area,
+                           ui->priv->preview_scroll,
+                           GTK_WIDGET (gtk_builder_get_object (builder, "page_menu")));
 
     /* Find default scan direction */
     scan_direction = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/scan_direction", NULL);
