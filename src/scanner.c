@@ -594,19 +594,63 @@ scan_thread (Scanner *scanner)
                             set_int_option (handle, option, option_index, request->depth);
                     }
                     else if (strcmp (option->name, SANE_NAME_SCAN_MODE) == 0) {
+                        /* The names of scan modes often used in drivers, as taken from the sane-backends source */
+                        const char *color_scan_modes[] =
+                        {
+                            SANE_VALUE_SCAN_MODE_COLOR,
+                            "Color",
+                            NULL
+                        };
+                        const char *gray_scan_modes[] =
+                        {
+                            SANE_VALUE_SCAN_MODE_GRAY,
+                            "Gray",
+                            "Grayscale",
+                            SANE_I18N ("Grayscale"),
+                            NULL
+                        };
+                        const char *lineart_scan_modes[] =
+                        {
+                            SANE_VALUE_SCAN_MODE_LINEART,
+                            "Lineart",
+                            "LineArt",
+                            SANE_I18N ("LineArt"),
+                            "Black & White",
+                            SANE_I18N ("Black & White"),
+                            "Binary",
+                            SANE_I18N ("Binary"),
+                            SANE_VALUE_SCAN_MODE_GRAY,
+                            "Gray",
+                            "Grayscale",
+                            SANE_I18N ("Grayscale"),
+                            NULL
+                        };
+                        int i;
+
                         switch (request->scan_mode) {
                         case SCAN_MODE_COLOR:
-                            set_string_option (handle, option, option_index, SANE_VALUE_SCAN_MODE_COLOR);
+                            for (i = 0; color_scan_modes[i] != NULL; i++) {
+                                if (set_string_option (handle, option, option_index, color_scan_modes[i]))
+                                    break;
+                            }
+                            if (color_scan_modes[i] == NULL)
+                                g_warning ("Unable to set Color mode, please file a bug");
                             break;
                         case SCAN_MODE_GRAY:
-                            set_string_option (handle, option, option_index, SANE_VALUE_SCAN_MODE_GRAY);
+                            for (i = 0; gray_scan_modes[i] != NULL; i++) {
+                                if (set_string_option (handle, option, option_index, gray_scan_modes[i]))
+                                    break;
+                            }
+                            if (gray_scan_modes[i] == NULL)
+                                g_warning ("Unable to set Gray mode, please file a bug");
                             break;
                         case SCAN_MODE_LINEART:
-                            if (!set_string_option (handle, option, option_index, SANE_VALUE_SCAN_MODE_LINEART)) {
-                                /* Some Epson scanners use "Binary" */
-                                if (!set_string_option (handle, option, option_index, "Binary"))
-                                    set_string_option (handle, option, option_index, SANE_VALUE_SCAN_MODE_GRAY);				 
+                            for (i = 0; lineart_scan_modes[i] != NULL; i++) {
+                                if (set_string_option (handle, option, option_index, lineart_scan_modes[i]))
+                                    break;
                             }
+                            if (lineart_scan_modes[i] == NULL)
+                                g_warning ("Unable to set Lineart mode, please file a bug");
                             break;
                         default:
                             break;
