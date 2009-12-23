@@ -117,8 +117,8 @@
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                        <accelerator key="w" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <accelerator key="q" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <accelerator key="w" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="quit_menuitem_activate_cb"/>
                       </object>
                     </child>
@@ -774,6 +774,7 @@
         <property name="visible">True</property>
         <property name="label" translatable="yes" comments="Toolbar scan menu item to scan all pages from a document feeder">All Pages From _Feeder</property>
         <property name="use_underline">True</property>
+        <signal name="activate" handler="continuous_scan_button_clicked_cb"/>
       </object>
     </child>
   </object>
