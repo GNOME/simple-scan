@@ -58,12 +58,8 @@ struct BookViewPrivate
     /* True if the view needs to be laid out again */
     gboolean need_layout;
 
-    /* Dimensions of area to render into (pixels) */
-    // FIXME: Can use widget->allocation.width?
-    gint width, height;
-
     /* Amount to offset view by (pixels) */
-    gint x_offset, y_offset;
+    gint x_offset;
 
     Page *selected_page;
     
@@ -267,8 +263,6 @@ Book *book_view_get_book (BookView *view)
 static gboolean
 configure_cb (GtkWidget *widget, GdkEventConfigure *event, BookView *view)
 {
-    view->priv->width = event->width;
-    view->priv->height = event->height;
     view->priv->need_layout = TRUE;
     return FALSE;
 }
@@ -344,7 +338,7 @@ render_page (BookView *view, PageView *page, cairo_t *context)
     cairo_set_line_width (context, 1);
 
     /* Draw background */
-    cairo_translate (context, view->priv->x_offset + page->x, view->priv->y_offset + page->y);
+    cairo_translate (context, view->priv->x_offset + page->x, page->y);
     cairo_translate (context, 1, 1);
     gdk_cairo_set_source_pixbuf (context, page->image, 0, 0);
     cairo_paint (context);
@@ -411,9 +405,6 @@ render_page (BookView *view, PageView *page, cairo_t *context)
     }
 
     /* Draw page border */
-    /* NOTE: Border width and height is rounded up so border is sharp.  Background may not
-     * extend to border, should fill with white (?) before drawing scanned image or extend
-     * edges slightly */
     if (page->page == view->priv->selected_page) {
         if (gtk_widget_has_focus (view->priv->widget))
             cairo_set_source_rgb (context, 1, 0, 0);
@@ -432,20 +423,16 @@ render_page (BookView *view, PageView *page, cairo_t *context)
 
 
 static void
-layout (BookView *view)
+layout_into (BookView *view, gint width, gint height, gint *book_width, gint *book_height)
 {
-    gint i, n_pages;
-    gdouble max_width = 0, max_height = 0;
-    gdouble inner_width, inner_height;
+    gint inner_width, inner_height;
+    gint border = 1, spacing = 12;
+    gint max_width = 0, max_height = 0;
     gdouble max_aspect, inner_aspect;
-    gdouble border = 1, spacing = 12;
-    gdouble book_width = 0, book_height = 0;
-    gdouble x_offset = 0, y_offset = 0, scale;
-    gdouble x_range = 0, y_range = 0;
+    gdouble scale;
+    gint x_offset = 0;
+    gint i, n_pages;
 
-    if (!view->priv->need_layout)
-        return;
-    
     n_pages = book_get_n_pages (view->priv->book);
 
     /* Get area required to fit all pages */
@@ -456,10 +443,10 @@ layout (BookView *view)
         if (page_get_height (page) > max_height)
             max_height = page_get_height (page);
     }
-    
+
     /* Make space for fixed size border */
-    inner_width = view->priv->width - 2*border;
-    inner_height = view->priv->height - 2*border;
+    inner_width = width - 2*border;
+    inner_height = height - 2*border;
     
     /* Make space to see adjacent pages */
     // FIXME: If selected first or last only need half amount
@@ -471,67 +458,36 @@ layout (BookView *view)
     
     /* Scale based on width... */
     if (max_aspect > inner_aspect) {
-        scale = inner_width / max_width;
+        scale = (double)inner_width / max_width;
     }
     /* ...or height */
     else {
-        scale = inner_height / max_height;
+        scale = (double)inner_height / max_height;
     }
     
     /* Don't scale past exact resolution */
     if (scale >= 1.0)
         scale = 1.0;
-    
+   
     /* Get total dimensions of all pages */
+    *book_width = 0;
+    *book_height = 0;
     for (i = 0; i < n_pages; i++) {
         Page *p = book_get_page (view->priv->book, i);
         PageView *page = g_hash_table_lookup (view->priv->page_data, p);
         gdouble h;
 
         page_set_scale (page, scale);
-        update_page_view (page);
+        update_page_view (page); // FIXME: Don't scale image until next render
 
         h = page->height + (2 * border);
-        if (h > book_height)
-            book_height = h;
-        book_width += page->width + (2 * border);
+        if (h > *book_height)
+            *book_height = h;
+        *book_width += page->width + (2 * border);
         if (i != 0)
-            book_width += spacing;
+            *book_width += spacing;
     }
-    
-    /* Offset so pages are in the middle */
-    if (view->priv->width >= book_width) {
-        x_offset = (int) ((view->priv->width - book_width) / 2);
-        x_range = 0;
-        gtk_widget_hide (view->priv->scroll);
-    }
-    else {
-        x_offset = 0;
-        x_range = book_width - view->priv->width;
-        gtk_adjustment_set_upper (view->priv->adjustment, book_width);
-        gtk_adjustment_set_page_size (view->priv->adjustment, view->priv->width);
-        gtk_widget_show (view->priv->scroll);
-    }
-   
-    if (view->priv->height >= book_height) {
-        y_offset = (int) ((view->priv->height - book_height) / 2);
-        y_range = 0;
-    } else {
-        y_offset = 0;
-        y_range = (int) (book_height - view->priv->height);
-    }
-    
-    /* Clamp offsets */
-    if (view->priv->x_offset < -x_range)
-        view->priv->x_offset = -x_range;
-    if (view->priv->x_offset > 0)
-        view->priv->x_offset = 0;
-    if (view->priv->y_offset < -y_range)
-        view->priv->y_offset = -y_range;
-    if (view->priv->y_offset > 0)
-        view->priv->y_offset = 0;
-    gtk_adjustment_set_value (view->priv->adjustment, view->priv->x_offset);
-    
+
     for (i = 0; i < n_pages; i++) {
         Page *p = book_get_page (view->priv->book, i);
         PageView *page = g_hash_table_lookup (view->priv->page_data, p);
@@ -539,7 +495,39 @@ layout (BookView *view)
         page->border = border;
         page->x = x_offset;
         x_offset += page->width + (2 * page->border) + spacing;
-        page->y = y_offset + (book_height - page->height) / 2 - page->border;
+        page->y = (*book_height - page->height) / 2 - page->border;
+    }
+}
+
+
+static void
+layout (BookView *view)
+{
+    gint width, height, book_width, book_height;
+
+    if (!view->priv->need_layout)
+        return;
+
+    /* Try and fit without scrollbar */
+    width = view->priv->widget->allocation.width;
+    height = view->priv->box->allocation.height;
+    layout_into (view, width, height, &book_width, &book_height);
+
+    /* Relayout with scrollbar */
+    if (book_width > view->priv->widget->allocation.width) {
+        height = view->priv->widget->allocation.height;
+        layout_into (view, width, height, &book_width, &book_height);
+        gtk_adjustment_set_upper (view->priv->adjustment, book_width);
+        gtk_adjustment_set_page_size (view->priv->adjustment, view->priv->widget->allocation.width);
+        if (view->priv->x_offset > 0)
+            view->priv->x_offset = 0;
+        if (view->priv->x_offset < view->priv->widget->allocation.width - book_width)
+            view->priv->x_offset = view->priv->widget->allocation.width - book_width;
+        gtk_adjustment_set_value (view->priv->adjustment, -view->priv->x_offset);
+        gtk_widget_show (view->priv->scroll);
+    } else {
+        view->priv->x_offset = (view->priv->widget->allocation.width - book_width) / 2;
+        gtk_widget_hide (view->priv->scroll);
     }
 
     view->priv->need_layout = FALSE;
@@ -617,7 +605,7 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
         
         update_page_view (page);
         x = event->x - view->priv->x_offset;
-        y = event->y - view->priv->y_offset;
+        y = event->y;
         left = page->x;
         right = page->x + page->width;
         top = page->y;
@@ -668,7 +656,7 @@ motion_cb (GtkWidget *widget, GdkEventMotion *event, BookView *view)
 
     /* Location of cursor in book */
     x = event->x - view->priv->x_offset;
-    y = event->y - view->priv->y_offset;
+    y = event->y;
     
     /* Check if inside crop */
     n_pages = book_get_n_pages (view->priv->book);
@@ -799,8 +787,8 @@ book_view_select_page (BookView *view, Page *page)
         /* Make sure can see adjacent pages */
         // FIXME: Hardcoded spacing 24
 
-        if (right_edge + view->priv->x_offset > view->priv->width)
-            view->priv->x_offset = view->priv->width - right_edge - 24;
+        if (right_edge + view->priv->x_offset > view->priv->widget->allocation.width)
+            view->priv->x_offset = view->priv->widget->allocation.width - right_edge - 24;
         else if (left_edge + view->priv->x_offset < 0)
             view->priv->x_offset = -left_edge + 24;
         gtk_adjustment_set_value (view->priv->adjustment, -view->priv->x_offset);
