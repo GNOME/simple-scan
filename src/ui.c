@@ -427,7 +427,21 @@ set_crop (SimpleScan *ui, const gchar *crop_name)
         page_set_no_crop (page);
         return;
     }
-    
+
+    if (strcmp (crop_name, "custom") == 0) {
+        gint width, height, crop_width, crop_height;
+
+        width = page_get_width (page);
+        height = page_get_height (page);
+
+        crop_width = (int) (width * 0.8 + 0.5);
+        crop_height = (int) (height * 0.8 + 0.5);
+        page_set_custom_crop (page, crop_width, crop_height);
+        page_move_crop (page, (width - crop_width) / 2, (height - crop_height) / 2);
+
+        return;
+    }
+
     page_set_named_crop (page, crop_name);
 }
 

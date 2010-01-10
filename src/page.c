@@ -348,7 +348,7 @@ page_set_no_crop (Page *page)
 void
 page_set_custom_crop (Page *page, gint width, gint height)
 {
-    gint pw, ph;
+    //gint pw, ph;
 
     g_return_if_fail (page != NULL);
     g_return_if_fail (width >= 1);
@@ -366,7 +366,7 @@ page_set_custom_crop (Page *page, gint width, gint height)
     page->priv->crop_width = width;
     page->priv->crop_height = height;
 
-    pw = page_get_width (page);
+    /*pw = page_get_width (page);
     ph = page_get_height (page);
     if (page->priv->crop_width < pw)
         page->priv->crop_x = (pw - page->priv->crop_width) / 2;
@@ -375,7 +375,7 @@ page_set_custom_crop (Page *page, gint width, gint height)
     if (page->priv->crop_height < ph)
         page->priv->crop_y = (ph - page->priv->crop_height) / 2;
     else
-        page->priv->crop_y = 0;
+        page->priv->crop_y = 0;*/
     
     g_signal_emit (page, signals[CROP_CHANGED], 0);
 }
@@ -396,7 +396,6 @@ page_set_named_crop (Page *page, const gchar *name)
         {"letter", 8.5, 11},
         {"legal", 8.5, 14},
         {"4x6", 4, 6},
-        {"custom", 0, 0},
         {NULL, 0, 0}
     };
     gint i;
@@ -430,14 +429,8 @@ page_set_named_crop (Page *page, const gchar *name)
     }
 
     /* Custom crop, make slightly smaller than original */
-    if (width == 0 || height == 0) {
-        page->priv->crop_width = (int) (pw * 0.8 + 0.5);
-        page->priv->crop_height = (int) (ph * 0.8 + 0.5);
-    }
-    else {
-        page->priv->crop_width = (int) (width * page->priv->dpi + 0.5);
-        page->priv->crop_height = (int) (height * page->priv->dpi + 0.5);
-    }
+    page->priv->crop_width = (int) (width * page->priv->dpi + 0.5);
+    page->priv->crop_height = (int) (height * page->priv->dpi + 0.5);
         
     if (page->priv->crop_width < pw)
         page->priv->crop_x = (pw - page->priv->crop_width) / 2;

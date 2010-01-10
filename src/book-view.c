@@ -49,6 +49,15 @@ typedef struct
 } PageView;
 
 
+typedef enum
+{
+    CROP_X      = 1 << 0,
+    CROP_Y      = 1 << 1,
+    CROP_WIDTH  = 1 << 2,
+    CROP_HEIGHT = 1 << 4
+} CropEditFlags;
+
+
 struct BookViewPrivate
 {
     /* Book being rendered */
@@ -65,8 +74,10 @@ struct BookViewPrivate
     
     /* The page the crop is being moved on or NULL */
     PageView *selected_crop;
+    CropEditFlags crop_flags;
     gdouble selected_crop_px, selected_crop_py;
     gint selected_crop_x, selected_crop_y;
+    gint selected_crop_w, selected_crop_h;
 
     /* Widget being rendered to */
     GtkWidget *widget;
@@ -562,21 +573,66 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
 }
 
 
-static gboolean
-is_inside_crop (PageView *page, gint x, gint y)
+static CropEditFlags
+get_crop_flags (PageView *page, gint x, gint y)
 {
     gint cx, cy, cw, ch;
     gint dx, dy, dw, dh;
+    gint ix, iy;
+    gint crop_border = 20;
+    gchar *name;
 
     if (!page_has_crop (page->page))
-        return FALSE;
+        return 0;
 
     page_get_crop (page->page, &cx, &cy, &cw, &ch);
     dx = page_to_screen_x (page, cx) + page->x;
     dy = page_to_screen_y (page, cy) + page->y;
     dw = page_to_screen_x (page, cw);
     dh = page_to_screen_y (page, ch);
-    return (x >= dx && x <= dx + dw) && (y >= dy && y <= dy + dh);
+    ix = x - dx;
+    iy = y - dy;
+
+    if (ix < 0 || ix > dw || iy < 0 || iy > dh)
+        return 0;
+
+    /* Can't resize named crops */
+    name = page_get_named_crop (page->page);
+    if (name != NULL) {
+        g_free (name);
+        return CROP_X | CROP_Y;
+    }
+
+    // FIXME: Adjust edges when small
+
+    /* Top left */
+    if (ix < crop_border && iy < crop_border)
+        return CROP_X | CROP_Y | CROP_WIDTH | CROP_HEIGHT;
+    /* Top right */
+    if (ix > dw - crop_border && iy < crop_border)
+        return CROP_Y | CROP_WIDTH | CROP_HEIGHT;
+    /* Bottom left */
+    if (ix < crop_border && iy > dh - crop_border)
+        return CROP_X | CROP_WIDTH | CROP_HEIGHT;
+    /* Bottom right */
+    if (ix > dw - crop_border && iy > dh - crop_border)
+        return CROP_WIDTH | CROP_HEIGHT;
+
+    /* Left */
+    if (ix < crop_border)
+        return CROP_X | CROP_WIDTH;
+    /* Right */
+    if (ix > dw - crop_border)
+        return CROP_WIDTH;
+    /* Top */
+    if (iy < crop_border)
+        return CROP_Y | CROP_HEIGHT;
+    /* Bottom */
+    if (iy > dh - crop_border)
+        return CROP_HEIGHT;
+
+    /* In the middle */
+    return CROP_X | CROP_Y;
 }
 
 
@@ -611,18 +667,23 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
         top = page->y;
         bottom = page->y + page->height;
         if (x >= left && x <= right && y >= top && y <= bottom) {
+            CropEditFlags flags;
+
             book_view_select_page (view, page->page);
             on_page = TRUE;
 
             /* See if selecting crop */
-            if (is_inside_crop (page, x, y)) {
+            flags = get_crop_flags (page, x, y);;
+            if (flags != 0) {
                 view->priv->selected_crop = page;
+                view->priv->crop_flags = flags;
                 view->priv->selected_crop_px = event->x;
                 view->priv->selected_crop_py = event->y;
                 page_get_crop (page->page,
                                &view->priv->selected_crop_x,
                                &view->priv->selected_crop_y,
-                               NULL, NULL);
+                               &view->priv->selected_crop_w,
+                               &view->priv->selected_crop_h);
             }
 
             break;
@@ -664,7 +725,7 @@ motion_cb (GtkWidget *widget, GdkEventMotion *event, BookView *view)
         Page *p = book_get_page (view->priv->book, i);
         PageView *page = g_hash_table_lookup (view->priv->page_data, p);
 
-        if (is_inside_crop (page, x, y)) {
+        if (get_crop_flags (page, x, y) != 0) {
             over_crop = TRUE;
             continue;
         }
@@ -673,14 +734,42 @@ motion_cb (GtkWidget *widget, GdkEventMotion *event, BookView *view)
     /* Move the crop */
     if (view->priv->selected_crop && event->state & GDK_BUTTON1_MASK) {
         gint pw, ph;
-        gint cx, cy, cw, ch;
-        gint new_x, new_y;
+        gint cx, cy, cw, ch, dx, dy;
+        gint new_x, new_y, new_w, new_h;
         
         pw = page_get_width (view->priv->selected_crop->page);
         ph = page_get_height (view->priv->selected_crop->page);
         page_get_crop (view->priv->selected_crop->page, &cx, &cy, &cw, &ch);
-        new_x = view->priv->selected_crop_x + screen_to_page_x (view->priv->selected_crop, event->x - view->priv->selected_crop_px);
-        new_y = view->priv->selected_crop_y + screen_to_page_y (view->priv->selected_crop, event->y - view->priv->selected_crop_py);
+
+        dx = screen_to_page_x (view->priv->selected_crop, event->x - view->priv->selected_crop_px);
+        dy = screen_to_page_y (view->priv->selected_crop, event->y - view->priv->selected_crop_py);
+
+        new_x = view->priv->selected_crop_x;
+        new_y = view->priv->selected_crop_y;
+        new_w = view->priv->selected_crop_w;
+        new_h = view->priv->selected_crop_h;
+        if (view->priv->crop_flags & CROP_X)
+            new_x += dx;
+        if (view->priv->crop_flags & CROP_Y)
+            new_y += dy;
+        if (view->priv->crop_flags & CROP_WIDTH) {
+            if (view->priv->crop_flags & CROP_X)
+                new_w -= dx;
+            else
+                new_w += dx;
+        }
+        if (view->priv->crop_flags & CROP_HEIGHT) {
+            if (view->priv->crop_flags & CROP_Y)
+                new_h -= dy;
+            else
+                new_h += dy;
+        }
+
+        if (new_w < 1)
+            new_w = 1;
+        if (new_h < 1)
+            new_h = 1;
+
         if (new_x > pw - cw)
             new_x = pw - cw;
         if (new_x < 0)
@@ -691,6 +780,8 @@ motion_cb (GtkWidget *widget, GdkEventMotion *event, BookView *view)
             new_y = 0;
 
         page_move_crop (view->priv->selected_crop->page, new_x, new_y);
+        if (new_w != cw || new_h != ch)
+            page_set_custom_crop (view->priv->selected_crop->page, new_w, new_h);
     }
     
     // FIXME: Do this in the rendering loop (what if disable/change crop without rotating) */
