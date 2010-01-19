@@ -18,9 +18,6 @@ dnl ###########################################################################
 dnl Dependencies
 dnl ###########################################################################
 
-dnl Not checked for dependencies
-dnl * libsane
-
 dnl Run-time dependencies:
 dnl * gnome-icon-theme
 dnl * xdg-utils (for xdg-email)
@@ -34,6 +31,9 @@ PKG_CHECK_MODULES(SIMPLE_SCAN, [
     gdk-pixbuf-2.0
     cairo-pdf
 ])
+
+AC_CHECK_HEADERS([sane/sane.h],[],[AC_MSG_ERROR([SANE not found])])
+AC_CHECK_HEADERS([sane/saneopts.h],[],[AC_MSG_ERROR([SANE not found])])
 
 dnl ###########################################################################
 dnl Internationalization
