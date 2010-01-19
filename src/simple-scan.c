@@ -180,13 +180,13 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolea
           _("Scanned Document.pdf") },
         { "photo", 400, SCAN_MODE_COLOR,
           /* Default name for JPEG documents */
-          _("Scanned Document.jpeg") },
+          _("Scanned Document.jpg") },
         { "raw", 800, SCAN_MODE_COLOR,
           /* Default name for PNG documents */
           _("Scanned Document.png") },
         { NULL, 75, SCAN_MODE_COLOR,
           /* Default name for JPEG documents */
-          _("Scanned Document.jpeg") }                
+          _("Scanned Document.jpg") }                
     };
     gint i;
 
