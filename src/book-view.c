@@ -9,6 +9,7 @@
  * license.
  */
 
+#include <math.h>
 #include <gdk/gdkkeysyms.h>
 
 #include "book-view.h"
@@ -89,6 +90,10 @@ struct BookViewPrivate
 
     /* Last location of mouse */
     gdouble mouse_x, mouse_y;
+  
+    gboolean animate_empty_pages;
+    guint animate_timeout;
+    gint animate_n_segments, animate_segment;
 };
 
 G_DEFINE_TYPE (BookView, book_view, G_TYPE_OBJECT);
@@ -350,13 +355,44 @@ render_page (BookView *view, PageView *page, cairo_t *context)
 
     /* Draw background */
     cairo_translate (context, page->x - view->priv->x_offset, page->y);
-    cairo_translate (context, 1, 1);
+    cairo_translate (context, page->border, page->border);
     gdk_cairo_set_source_pixbuf (context, page->image, 0, 0);
     cairo_paint (context);
 
-    /* Draw scan line */
     scan_line = page_get_scan_line (page->page);
-    if (scan_line >= 0) {
+  
+    if (scan_line == 0) {
+        gdouble inner_radius, outer_radius, x, y, arc, offset = 0.0;
+        gint i;
+
+        if (page->width > page->height)
+            outer_radius = 0.15 * page->width;
+        else
+            outer_radius = 0.15 * page->height;
+        arc = M_PI / view->priv->animate_n_segments;
+
+        /* Space circles */
+        x = outer_radius * sin (arc);
+        y = outer_radius * (cos (arc) - 1.0);
+        inner_radius = 0.6 * sqrt (x*x + y*y);
+
+        for (i = 0; i < view->priv->animate_n_segments; i++, offset += arc * 2) {
+            x = page->width / 2 + outer_radius * sin (offset);
+            y = page->height / 2 - outer_radius * cos (offset);
+            cairo_arc (context, x, y, inner_radius, 0, 2 * M_PI);
+
+            if (i == view->priv->animate_segment) {
+                cairo_set_source_rgb (context, 0.75, 0.75, 0.75);
+                cairo_fill_preserve (context);
+            }
+
+            cairo_set_source_rgb (context, 0.5, 0.5, 0.5);          
+            cairo_stroke (context);
+        }
+    }
+
+    /* Draw scan line */
+    if (scan_line > 0) {
         double s;
         double x1, y1, x2, y2;
         
@@ -569,11 +605,55 @@ layout (BookView *view)
 
 
 static gboolean
+animation_cb (BookView *view)
+{
+    view->priv->animate_segment = (view->priv->animate_segment + 1) % view->priv->animate_n_segments;
+    gtk_widget_queue_draw (view->priv->widget);
+    return TRUE;
+}
+
+
+static void
+update_animation (BookView *view)
+{
+    gboolean animate = FALSE, is_animating;
+    gint i;
+  
+    for (i = 0; i < book_get_n_pages (view->priv->book); i++) {
+        Page *page;
+        page = book_get_page (view->priv->book, i);
+        if (page_get_scan_line (page) == 0) {
+            animate = TRUE;
+            break;
+        }
+    }
+  
+    is_animating = view->priv->animate_timeout != 0;
+    if (animate == is_animating)
+        return;
+  
+    if (animate) {
+        view->priv->animate_n_segments = 7;
+        view->priv->animate_segment = 0;
+        if (view->priv->animate_timeout == 0)
+            view->priv->animate_timeout = g_timeout_add (150, (GSourceFunc) animation_cb, view);
+    }
+    else
+    {
+        if (view->priv->animate_timeout != 0)
+            g_source_remove (view->priv->animate_timeout);
+        view->priv->animate_timeout = 0;
+    }
+}
+
+
+static gboolean
 expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
 {
     gint i, n_pages;
-
     cairo_t *context;
+  
+    update_animation (view);
 
     n_pages = book_get_n_pages (view->priv->book);
     if (n_pages == 0)

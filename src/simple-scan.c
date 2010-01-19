@@ -30,8 +30,6 @@ static Book *book;
 
 static gboolean scanning = FALSE;
 
-static gboolean clear_pages = FALSE;
-
 static gboolean first_autodetect = TRUE;
 
 
@@ -92,44 +90,13 @@ static void
 scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 {
     Page *page;
-    Orientation orientation = TOP_TO_BOTTOM;
-    gboolean do_crop = FALSE;
-    gchar *named_crop = NULL;
-    gint cx, cy, cw, ch;
 
     g_debug ("Page is %d pixels wide, %d pixels high, %d bits per pixel",
              info->width, info->height, info->depth);
-    
+
     page = book_get_page (book, -1);
-    if (page) {
-        orientation = page_get_orientation (page);
-        
-        do_crop = page_has_crop (page);
-        if (do_crop) {
-            named_crop = page_get_named_crop (page);
-            page_get_crop (page, &cx, &cy, &cw, &ch);
-        }
-    }
-
-    if (clear_pages) {
-        book_clear (book);
-        clear_pages = FALSE;
-    }
-
-    page = book_append_page (book, info->width, info->height, info->dpi, orientation);
-    if (do_crop) {
-        if (named_crop)  {
-            page_set_named_crop (page, named_crop);
-            g_free (named_crop);
-        }
-        else
-            page_set_custom_crop (page, cw, ch);
-        page_move_crop (page, cx, cy);
-    }
-    
-    ui_set_selected_page (ui, page);
-
-    page_start (page);
+    g_return_if_fail (page != NULL);
+    page_set_scan_area (page, info->width, info->height, info->dpi);
 }
 
 
@@ -188,6 +155,11 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolea
           /* Default name for JPEG documents */
           _("Scanned Document.jpg") }                
     };
+    Page *page;
+    Orientation orientation = TOP_TO_BOTTOM;
+    gboolean do_crop = FALSE;
+    gchar *named_crop = NULL;
+    gint width = 100, height = 100, dpi = 100, cx, cy, cw, ch;
     gint i;
 
     g_debug ("Requesting scan of type %s from device '%s'", profile_name, device);
@@ -199,8 +171,39 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolea
     /* Find this profile */
     for (i = 0; profiles[i].name && strcmp (profiles[i].name, profile_name) != 0; i++);
 
+    /* Copy info from previous page */
+    page = book_get_page (book, -1);
+    if (page) {
+        orientation = page_get_orientation (page);
+        width = page_get_width (page);
+        height = page_get_height (page);
+        dpi = page_get_dpi (page);
+        
+        do_crop = page_has_crop (page);
+        if (do_crop) {
+            named_crop = page_get_named_crop (page);
+            page_get_crop (page, &cx, &cy, &cw, &ch);
+        }
+    }  
+
     if (replace)
-        clear_pages = TRUE;
+        book_clear (book);
+
+    page = book_append_page (book, width, height, dpi, orientation);
+    if (do_crop) {
+        if (named_crop)  {
+            page_set_named_crop (page, named_crop);
+            g_free (named_crop);
+        }
+        else
+            page_set_custom_crop (page, cw, ch);
+        page_move_crop (page, cx, cy);
+    }
+    
+    ui_set_selected_page (ui, page);
+
+    page_start (page);
+  
     ui_set_default_file_name (ui, profiles[i].file_name);
     scanner_scan (scanner, device, NULL, profiles[i].dpi, profiles[i].mode, 8, continuous);
     //scanner_scan (scanner, device, "Flatbed", 50, mode, 8, continuous);
