@@ -465,6 +465,14 @@ custom_crop_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
         set_crop (ui, "custom");
 }
 
+void crop_toolbutton_clicked_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+crop_toolbutton_clicked_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    set_crop (ui, "custom");
+}
+
 
 void four_by_six_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
