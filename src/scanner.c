@@ -408,7 +408,6 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
             { SANE_CAP_AUTOMATIC,       "automatic"},
             { SANE_CAP_INACTIVE,        "inactive"},
             { SANE_CAP_ADVANCED,        "advanced"},
-            { SANE_CAP_ALWAYS_SETTABLE, "always-settable"},
             { 0,                        NULL}
         };
         int i, n = 0;
