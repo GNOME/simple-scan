@@ -173,6 +173,69 @@ compare_devices (ScanDevice *device1, ScanDevice *device2)
 }
 
 
+static const char *
+get_status_string (SANE_Status status)
+{
+    struct {
+        SANE_Status status;
+        const char *name;
+    } status_names[] = {
+        { SANE_STATUS_GOOD,          "SANE_STATUS_GOOD"},
+        { SANE_STATUS_UNSUPPORTED,   "SANE_STATUS_UNSUPPORTED"},
+        { SANE_STATUS_CANCELLED,     "SANE_STATUS_CANCELLED"},
+        { SANE_STATUS_DEVICE_BUSY,   "SANE_STATUS_DEVICE_BUSY"},
+        { SANE_STATUS_INVAL,         "SANE_STATUS_INVAL"},
+        { SANE_STATUS_EOF,           "SANE_STATUS_EOF"},
+        { SANE_STATUS_JAMMED,        "SANE_STATUS_JAMMED"},
+        { SANE_STATUS_NO_DOCS,       "SANE_STATUS_NO_DOCS"},
+        { SANE_STATUS_COVER_OPEN,    "SANE_STATUS_COVER_OPEN"},
+        { SANE_STATUS_IO_ERROR,      "SANE_STATUS_IO_ERROR"},
+        { SANE_STATUS_NO_MEM,        "SANE_STATUS_NO_MEM"},
+        { SANE_STATUS_ACCESS_DENIED, "SANE_STATUS_ACCESS_DENIED"},
+        { -1,                        NULL}
+    };
+    static char *unknown_string = NULL;
+    int i;
+
+    for (i = 0; status_names[i].name != NULL && status_names[i].status != status; i++);
+
+    if (status_names[i].name == NULL) {
+        g_free (unknown_string);
+        unknown_string = g_strdup_printf ("SANE_STATUS(%d)", status);
+        return unknown_string; /* Note result is undefined on second call to this function */
+    }
+  
+    return status_names[i].name;
+}
+
+
+static const char *
+get_action_string (SANE_Action action)
+{
+    struct {
+        SANE_Action action;
+        const char *name;
+    } action_names[] = {
+        { SANE_ACTION_GET_VALUE, "SANE_ACTION_GET_VALUE" },
+        { SANE_ACTION_SET_VALUE, "SANE_ACTION_SET_VALUE" },
+        { SANE_ACTION_SET_AUTO,  "SANE_ACTION_SET_AUTO" },
+        { -1,                        NULL}
+    };
+    static char *unknown_string = NULL;
+    int i;
+
+    for (i = 0; action_names[i].name != NULL && action_names[i].action != action; i++);
+
+    if (action_names[i].name == NULL) {
+        g_free (unknown_string);
+        unknown_string = g_strdup_printf ("SANE_ACTION(%d)", action);
+        return unknown_string; /* Note result is undefined on second call to this function */
+    }
+  
+    return action_names[i].name;
+}
+
+
 static void
 poll_for_devices (Scanner *scanner)
 {
@@ -180,8 +243,8 @@ poll_for_devices (Scanner *scanner)
     SANE_Status status;
     GList *devices = NULL;
 
-    g_debug ("sane_get_devices ()");
     status = sane_get_devices (&device_list, SANE_FALSE);
+    g_debug ("sane_get_devices () -> %s", get_status_string (status));
     if (status != SANE_STATUS_GOOD) {
         g_warning ("Unable to get SANE devices: %s", sane_strstatus(status));
         return;
@@ -223,11 +286,40 @@ poll_for_devices (Scanner *scanner)
 
 
 static gboolean
-control_option (SANE_Handle handle, SANE_Int index, SANE_Action action, void *value)
+control_option (SANE_Handle handle, SANE_Value_Type type, SANE_Int index, SANE_Action action, void *value)
 {
     SANE_Status status;
     
     status = sane_control_option (handle, index, action, value, NULL);
+    switch (type) {
+    case SANE_TYPE_BOOL:
+        g_debug ("sane_control_option (%d, %s, %s) -> %s",
+                 index, get_action_string (action),
+                 *((SANE_Bool *) value) ? "SANE_TRUE" : "SANE_FALSE",
+                 get_status_string (status));
+        break;
+    case SANE_TYPE_INT:
+        g_debug ("sane_control_option (%d, %s, %d) -> %s",
+                 index, get_action_string (action),
+                 *((SANE_Int *) value),
+                 get_status_string (status));
+        break;
+    case SANE_TYPE_FIXED:
+        g_debug ("sane_control_option (%d, %s, %f) -> %s",
+                 index, get_action_string (action),
+                 SANE_UNFIX (*((SANE_Fixed *) value)),
+                 get_status_string (status));
+        break;
+    case SANE_TYPE_STRING:
+        g_debug ("sane_control_option (%d, %s, \"%s\") -> %s",
+                 index, get_action_string (action),
+                 (char *) value,
+                 get_status_string (status));
+        break;
+    default:
+        break;
+    }
+  
     if (status != SANE_STATUS_GOOD)
         g_warning ("Error setting control option: %s", sane_strstatus(status));
 
@@ -240,8 +332,7 @@ set_bool_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_
 {
     SANE_Bool v = value;
     g_return_if_fail (option->type == SANE_TYPE_BOOL);
-    g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s)", option_index, value ? "TRUE" : "FALSE");
-    control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v);
+    control_option (handle, SANE_TYPE_BOOL, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
 
@@ -260,8 +351,7 @@ set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_I
         if (v > option->constraint.range->max)
             v = option->constraint.range->max;
     }
-    g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %d)", option_index, value);
-    control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v);
+    control_option (handle, SANE_TYPE_INT, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
 
@@ -272,8 +362,7 @@ set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE
 
     g_return_if_fail (option->type == SANE_TYPE_FIXED);
 
-    g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %f)", option_index, value);
-    control_option (handle, option_index, SANE_ACTION_SET_VALUE, &v);
+    control_option (handle, SANE_TYPE_FIXED, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
 
@@ -290,8 +379,7 @@ set_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SAN
     size = option->size > value_size ? option->size : value_size;
     string = g_malloc(sizeof(char) * size);
     strcpy (string, value);
-    g_debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\")", option_index, value);
-    result = control_option (handle, option_index, SANE_ACTION_SET_VALUE, string);
+    result = control_option (handle, SANE_TYPE_STRING, option_index, SANE_ACTION_SET_VALUE, string);
     g_free (string);
    
     return result;
@@ -498,8 +586,8 @@ scan_thread (Scanner *scanner)
 
     g_hash_table_insert (scanners, g_thread_self (), scanner);
 
-    g_debug ("sane_init ()");
     status = sane_init (&version_code, authorization_cb);
+    g_debug ("sane_init () -> %s", get_status_string (status));
     if (status != SANE_STATUS_GOOD) {
         g_warning ("Unable to initialize SANE backend: %s", sane_strstatus(status));
         return FALSE;
@@ -533,8 +621,8 @@ scan_thread (Scanner *scanner)
         case STATE_IDLE:
              /* Close existing device */
              if (open_device && (!request->device || strcmp (open_device, request->device) != 0)) {
-                g_debug ("sane_close ()");
                 sane_close (handle);
+                g_debug ("sane_close ()");
                 handle = NULL;
                 open_device = NULL;
             }
@@ -544,8 +632,8 @@ scan_thread (Scanner *scanner)
                     status = SANE_STATUS_GOOD;
                 }
                 else {
-                    g_debug ("sane_open (\"%s\")", request->device);
                     status = sane_open (request->device, &handle);
+                    g_debug ("sane_open (\"%s\") -> %s", request->device, get_status_string (status));
                 }
 
                 if (status != SANE_STATUS_GOOD) {
@@ -571,8 +659,8 @@ scan_thread (Scanner *scanner)
             break;
 
         case STATE_GET_OPTION:
-            g_debug ("sane_get_option_descriptor (%d)", option_index);
             option = sane_get_option_descriptor (handle, option_index);
+            g_debug ("sane_get_option_descriptor (%d)", option_index);
             if (!option) {
                 state = STATE_START;
             } else {
@@ -678,8 +766,8 @@ scan_thread (Scanner *scanner)
             break;
             
         case STATE_START:
-            g_debug ("sane_start (page=%d, pass=%d)", page_number, pass_number);
             status = sane_start (handle);
+            g_debug ("sane_start (page=%d, pass=%d) -> %s", page_number, pass_number, get_status_string (status));
             if (status == SANE_STATUS_GOOD) {
                 state = STATE_GET_PARAMETERS;
             }
@@ -697,8 +785,8 @@ scan_thread (Scanner *scanner)
             break;
             
         case STATE_GET_PARAMETERS:
-            g_debug ("sane_get_parameters ()");
             status = sane_get_parameters (handle, &parameters);
+            g_debug ("sane_get_parameters () -> %s", get_status_string (status));
             if (status != SANE_STATUS_GOOD) {
                 g_warning ("Unable to get device parameters: %s", sane_strstatus (status));
                 emit_signal (scanner, SCAN_FAILED,
@@ -729,8 +817,8 @@ scan_thread (Scanner *scanner)
             break;
 
         case STATE_READ:
-            g_debug ("sane_read (%d)", bytes_remaining);
             status = sane_read (handle, data, bytes_remaining, &n_read);
+            g_debug ("sane_read (%d) -> %s", bytes_remaining, get_status_string (status));
             done = FALSE;
 
             /* End of variable length frame */
@@ -888,8 +976,8 @@ void scanner_free (Scanner *scanner)
     g_async_queue_unref (scanner->priv->scan_queue);
     g_object_unref (scanner);
 
-    g_debug ("sane_exit ()");
     sane_exit ();
+    g_debug ("sane_exit ()");
 }
 
 
