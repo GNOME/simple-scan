@@ -39,7 +39,6 @@ typedef struct
 typedef struct
 {
     gchar *device;
-    gchar *source;
     gint dpi;
     ScanMode scan_mode;
     gint depth;
@@ -219,7 +218,7 @@ get_action_string (SANE_Action action)
         { SANE_ACTION_GET_VALUE, "SANE_ACTION_GET_VALUE" },
         { SANE_ACTION_SET_VALUE, "SANE_ACTION_SET_VALUE" },
         { SANE_ACTION_SET_AUTO,  "SANE_ACTION_SET_AUTO" },
-        { -1,                        NULL}
+        { -1,                    NULL}
     };
     static char *unknown_string = NULL;
     int i;
@@ -248,7 +247,7 @@ get_frame_string (SANE_Frame frame)
         { SANE_FRAME_RED,   "SANE_FRAME_RED" },
         { SANE_FRAME_GREEN, "SANE_FRAME_GREEN" },
         { SANE_FRAME_BLUE,  "SANE_FRAME_BLUE" },
-        { -1,                        NULL}
+        { -1,               NULL}
     };
     static char *unknown_string = NULL;
     int i;
@@ -357,6 +356,19 @@ control_option (SANE_Handle handle, SANE_Value_Type type, SANE_Int index, SANE_A
 
 
 static void
+set_default_option (SANE_Handle handle, SANE_Int option_index)
+{
+    SANE_Status status;
+    
+    status = sane_control_option (handle, option_index, SANE_ACTION_SET_AUTO, NULL, NULL);
+    g_debug ("sane_control_option (%d, SANE_ACTION_SET_AUTO) -> %s",
+             option_index, get_status_string (status));
+    if (status != SANE_STATUS_GOOD)
+        g_warning ("Error setting control option: %s", sane_strstatus(status));
+}
+
+
+static void
 set_bool_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, SANE_Bool value)
 {
     SANE_Bool v = value;
@@ -412,6 +424,28 @@ set_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SAN
     g_free (string);
    
     return result;
+}
+
+
+static gboolean
+set_constrained_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, const char *values[])
+{
+    gint i, j;
+
+    g_return_val_if_fail (option->type == SANE_TYPE_STRING, FALSE);  
+    g_return_val_if_fail (option->constraint_type == SANE_CONSTRAINT_STRING_LIST, FALSE);
+  
+    for (i = 0; values[i] != NULL; i++) {
+        for (j = 0; option->constraint.string_list[j]; j++) {
+            if (strcmp (values[i], option->constraint.string_list[j]) == 0)
+               break;
+        }
+
+        if (option->constraint.string_list[j] != NULL)
+            return set_string_option (handle, option, option_index, values[i]);
+    }
+  
+    return FALSE;
 }
 
 
@@ -702,8 +736,21 @@ scan_thread (Scanner *scanner)
                             set_int_option (handle, option, option_index, request->dpi);                            
                     }
                     else if (strcmp (option->name, SANE_NAME_SCAN_SOURCE) == 0) {
-                        if (request->source)
-                            set_string_option (handle, option, option_index, request->source);
+                        const char *adf_sources[] =
+                        {
+                            "Automatic Document Feeder",
+                            SANE_I18N ("Automatic Document Feeder"),
+                            "ADF",
+                            NULL
+                        };
+
+                        if (request->multi_page) {
+                            if (!set_constrained_string_option (handle, option, option_index, adf_sources))
+                                g_warning ("Unable to set ADF source, please file a bug");
+                        }
+                        else {
+                            set_default_option (handle, option_index);
+                        }
                     }
                     else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
                         if (request->depth > 0)
@@ -741,31 +788,18 @@ scan_thread (Scanner *scanner)
                             SANE_I18N ("Grayscale"),
                             NULL
                         };
-                        int i;
 
                         switch (request->scan_mode) {
                         case SCAN_MODE_COLOR:
-                            for (i = 0; color_scan_modes[i] != NULL; i++) {
-                                if (set_string_option (handle, option, option_index, color_scan_modes[i]))
-                                    break;
-                            }
-                            if (color_scan_modes[i] == NULL)
+                            if (!set_constrained_string_option (handle, option, option_index, color_scan_modes))
                                 g_warning ("Unable to set Color mode, please file a bug");
                             break;
                         case SCAN_MODE_GRAY:
-                            for (i = 0; gray_scan_modes[i] != NULL; i++) {
-                                if (set_string_option (handle, option, option_index, gray_scan_modes[i]))
-                                    break;
-                            }
-                            if (gray_scan_modes[i] == NULL)
+                            if (!set_constrained_string_option (handle, option, option_index, gray_scan_modes))
                                 g_warning ("Unable to set Gray mode, please file a bug");
                             break;
                         case SCAN_MODE_LINEART:
-                            for (i = 0; lineart_scan_modes[i] != NULL; i++) {
-                                if (set_string_option (handle, option, option_index, lineart_scan_modes[i]))
-                                    break;
-                            }
-                            if (lineart_scan_modes[i] == NULL)
+                            if (!set_constrained_string_option (handle, option, option_index, lineart_scan_modes))
                                 g_warning ("Unable to set Lineart mode, please file a bug");
                             break;
                         default:
@@ -941,7 +975,6 @@ scan_thread (Scanner *scanner)
             g_free (data);
             data = NULL;
             g_free (request->device);
-            g_free (request->source);
             g_free (request);
             request = NULL;
             state = STATE_IDLE;
@@ -974,7 +1007,7 @@ scanner_start (Scanner *scanner)
 
 
 void
-scanner_scan (Scanner *scanner, const char *device, const char *source,
+scanner_scan (Scanner *scanner, const char *device,
               gint dpi, ScanMode scan_mode, gint depth, gboolean multi_page)
 {
     ScanRequest *request;
@@ -983,8 +1016,6 @@ scanner_scan (Scanner *scanner, const char *device, const char *source,
     request = g_malloc0 (sizeof (ScanRequest));
     if (device)
         request->device = g_strdup (device);
-    if (source)
-        request->source = g_strdup (source);
     request->dpi = dpi;
     request->scan_mode = scan_mode;
     request->depth = depth;
@@ -996,7 +1027,7 @@ scanner_scan (Scanner *scanner, const char *device, const char *source,
 void
 scanner_cancel (Scanner *scanner)
 {
-    scanner_scan (scanner, NULL, NULL, 0, SCAN_MODE_DEFAULT, 0, FALSE);
+    scanner_scan (scanner, NULL, 0, SCAN_MODE_DEFAULT, 0, FALSE);
 }
 
 

@@ -90,7 +90,7 @@ void scanner_start (Scanner *scanner);
 
 void scanner_authorize (Scanner *scanner, const gchar *username, const gchar *password);
 
-void scanner_scan (Scanner *scanner, const char *device, const char *source,
+void scanner_scan (Scanner *scanner, const char *device,
                    gint dpi, ScanMode scan_mode, gint depth, gboolean multi_page);
 
 void scanner_cancel (Scanner *scanner);
