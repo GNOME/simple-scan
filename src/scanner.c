@@ -236,6 +236,35 @@ get_action_string (SANE_Action action)
 }
 
 
+static const char *
+get_frame_string (SANE_Frame frame)
+{
+    struct {
+        SANE_Frame frame;
+        const char *name;
+    } frame_names[] = {
+        { SANE_FRAME_GRAY,  "SANE_FRAME_GRAY" },
+        { SANE_FRAME_RGB,   "SANE_FRAME_RGB" },      
+        { SANE_FRAME_RED,   "SANE_FRAME_RED" },
+        { SANE_FRAME_GREEN, "SANE_FRAME_GREEN" },
+        { SANE_FRAME_BLUE,  "SANE_FRAME_BLUE" },
+        { -1,                        NULL}
+    };
+    static char *unknown_string = NULL;
+    int i;
+
+    for (i = 0; frame_names[i].name != NULL && frame_names[i].frame != frame; i++);
+
+    if (frame_names[i].name == NULL) {
+        g_free (unknown_string);
+        unknown_string = g_strdup_printf ("SANE_FRAME(%d)", frame);
+        return unknown_string; /* Note result is undefined on second call to this function */
+    }
+  
+    return frame_names[i].name;
+}
+
+
 static void
 poll_for_devices (Scanner *scanner)
 {
@@ -796,6 +825,14 @@ scan_thread (Scanner *scanner)
                 state = STATE_CLOSE;
             } else {
                 ScanPageInfo *info;
+              
+                g_debug ("Parameters: format=%s last_frame=%s bytes_per_line=%d pixels_per_line=%d lines=%d depth=%d",
+                         get_frame_string (parameters.format),
+                         parameters.last_frame ? "SANE_TRUE" : "SANE_FALSE",
+                         parameters.bytes_per_line,
+                         parameters.pixels_per_line,
+                         parameters.lines,
+                         parameters.depth);
 
                 info = g_malloc(sizeof(ScanPageInfo));
                 info->width = parameters.pixels_per_line;
