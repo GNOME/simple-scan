@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 09:15+1100\n"
+"POT-Creation-Date: 2010-02-11 16:18+1100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -231,105 +231,141 @@ msgid "Scan Documents"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:1
-msgid "Device to scan from"
+msgid "DPI of scanned image"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:2
-msgid "Direction of scan"
+msgid "Device to scan from"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:3
-msgid "SANE device to acquire images from."
+msgid "Direction of scan"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:4
-msgid "TRUE if the application window is maximized"
+msgid "Height of scanned image in pixels"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:5
-msgid "TRUE if the document is cleared on each scan"
+msgid "SANE device to acquire images from."
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:6
+msgid "TRUE if the application window is maximized"
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:7
+msgid "TRUE if the document is cleared on each scan"
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:8
+msgid ""
+"The DPI of scanned image. This value is updated to what the last scanned "
+"page was."
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:9
 msgid ""
 "The direction of the scanner across the scanned page. It can be one of the "
 "following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:7
+#: ../data/simple-scan.schemas.in.h:10
+msgid ""
+"The height of scanned image in pixels. This value is updated to what the "
+"last scanned page was."
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:11
+msgid ""
+"The width of scanned image in pixels. This value is updated to what the last "
+"scanned page was."
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:12
 msgid "Type of document being scanned"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:8
+#: ../data/simple-scan.schemas.in.h:13
 msgid ""
 "Type of document being scanned. 'text' for text documents, 'photo' for "
 "photos. This setting decides on the scan resolution, colors and post-"
 "processing."
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:9
+#: ../data/simple-scan.schemas.in.h:14
+msgid "Width of scanned image in pixels"
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:15
 msgid "Window height in pixels"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:10
+#: ../data/simple-scan.schemas.in.h:16
 msgid "Window width in pixels"
 msgstr ""
 
+#. Error displayed when no scanners to scan with
+#: ../src/scanner.c:768
+#, c-format
+msgid "No scanners available.  Please connect a scanner."
+msgstr ""
+
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.c:556
+#: ../src/scanner.c:798
 #, c-format
 msgid "Unable to connect to scanner"
 msgstr ""
 
 #. Error display when unable to start scan
-#: ../src/scanner.c:694
+#: ../src/scanner.c:973
 #, c-format
 msgid "Unable to start scan"
 msgstr ""
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.c:707 ../src/scanner.c:748
+#: ../src/scanner.c:994 ../src/scanner.c:1081
 #, c-format
 msgid "Error communicating with scanner"
 msgstr ""
 
 #. Warning displayed when no scanners are detected
-#: ../src/simple-scan.c:59
+#: ../src/simple-scan.c:52
 msgid "No scanners detected"
 msgstr ""
 
 #. Hint to user on why there are no scanners detected
-#: ../src/simple-scan.c:61
+#: ../src/simple-scan.c:54
 msgid "Please check your scanner is connected and powered on"
 msgstr ""
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.c:129
+#: ../src/simple-scan.c:184
 msgid "Failed to scan"
 msgstr ""
 
 #. Default name for PDF documents
-#: ../src/simple-scan.c:147 ../src/ui.c:1199
+#: ../src/simple-scan.c:206 ../src/ui.c:1129
 msgid "Scanned Document.pdf"
 msgstr ""
 
 #. Default name for JPEG documents
-#: ../src/simple-scan.c:150 ../src/simple-scan.c:156
+#: ../src/simple-scan.c:209 ../src/simple-scan.c:215
 msgid "Scanned Document.jpg"
 msgstr ""
 
 #. Default name for PNG documents
-#: ../src/simple-scan.c:153
+#: ../src/simple-scan.c:212
 msgid "Scanned Document.png"
 msgstr ""
 
 #. Title of error dialog when save failed
-#: ../src/simple-scan.c:254
+#: ../src/simple-scan.c:277
 msgid "Failed to save file"
 msgstr ""
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:339
+#: ../src/simple-scan.c:362
 #, c-format
 msgid ""
 "Usage:\n"
@@ -337,7 +373,7 @@ msgid ""
 msgstr ""
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:347
+#: ../src/simple-scan.c:370
 #, c-format
 msgid ""
 "Help Options:\n"
@@ -349,7 +385,7 @@ msgid ""
 msgstr ""
 
 #. Description on simple-scan command-line GTK+ options displayed on command-line
-#: ../src/simple-scan.c:359
+#: ../src/simple-scan.c:382
 #, c-format
 msgid ""
 "GTK+ Options:\n"
@@ -364,18 +400,18 @@ msgid ""
 msgstr ""
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.c:118
+#: ../src/ui.c:119
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr ""
 
 #. Title of save dialog
-#: ../src/ui.c:571
+#: ../src/ui.c:586
 msgid "Save As..."
 msgstr ""
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.c:782
+#: ../src/ui.c:681
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -392,30 +428,30 @@ msgid ""
 msgstr ""
 
 #. Title of about dialog
-#: ../src/ui.c:796
+#: ../src/ui.c:695
 msgid "About Simple Scan"
 msgstr ""
 
 #. Description of program
-#: ../src/ui.c:799
+#: ../src/ui.c:698
 msgid "Simple document scanning tool"
 msgstr ""
 
-#: ../src/ui.c:807
+#: ../src/ui.c:706
 msgid "translator-credits"
 msgstr ""
 
 #. Title of dialog when cannot load required files
-#: ../src/ui.c:924
+#: ../src/ui.c:845
 msgid "Files missing"
 msgstr ""
 
 #. Description in dialog when cannot load required files
-#: ../src/ui.c:926
+#: ../src/ui.c:847
 msgid "Please check your installation"
 msgstr ""
 
 #. Button in error dialog to open prefereces dialog and change scanner
-#: ../src/ui.c:1075
+#: ../src/ui.c:1004
 msgid "Change _Scanner"
 msgstr ""
