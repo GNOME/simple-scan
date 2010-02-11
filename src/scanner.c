@@ -740,6 +740,7 @@ do_open (Scanner *scanner)
     scanner->priv->pass_number = 0;
     scanner->priv->page_number = 0;
     scanner->priv->notified_page = -1;
+    scanner->priv->option_index = 0;
 
     /* FIXME: job->device could be NULL */
  
@@ -787,25 +788,25 @@ do_get_option (Scanner *scanner)
   
     job = (ScanJob *) scanner->priv->job_queue->data;  
 
-    option_index = scanner->priv->option_index;
-    option = sane_get_option_descriptor (scanner->priv->handle, option_index);
+    option = sane_get_option_descriptor (scanner->priv->handle, scanner->priv->option_index);
     g_debug ("sane_get_option_descriptor (%d)", scanner->priv->option_index);
+    option_index = scanner->priv->option_index;
+    scanner->priv->option_index++;
+
     if (!option) {
         scanner->priv->state = STATE_START;
         return;
     }
 
-    scanner->priv->option_index++;
-
-    log_option (scanner->priv->option_index, option);
+    log_option (option_index, option);
     if (!option->name)
         return;
 
     if (strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
         if (option->type == SANE_TYPE_FIXED)
-            set_fixed_option (scanner->priv->handle, option, scanner->priv->option_index, job->dpi);
+            set_fixed_option (scanner->priv->handle, option, option_index, job->dpi);
         else
-            set_int_option (scanner->priv->handle, option, scanner->priv->option_index, job->dpi);
+            set_int_option (scanner->priv->handle, option, option_index, job->dpi);
     }
     else if (strcmp (option->name, SANE_NAME_SCAN_SOURCE) == 0) {
         const char *adf_sources[] =
@@ -817,16 +818,16 @@ do_get_option (Scanner *scanner)
         };
 
         if (job->multi_page) {
-            if (!set_constrained_string_option (scanner->priv->handle, option, scanner->priv->option_index, adf_sources))
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))
                  g_warning ("Unable to set ADF source, please file a bug");
         }
         else {
-            set_default_option (scanner->priv->handle, scanner->priv->option_index);
+            set_default_option (scanner->priv->handle, option_index);
         }
     }
     else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
         if (job->depth > 0)
-            set_int_option (scanner->priv->handle, option, scanner->priv->option_index, job->depth);
+            set_int_option (scanner->priv->handle, option, option_index, job->depth);
     }
     else if (strcmp (option->name, SANE_NAME_SCAN_MODE) == 0) {
         /* The names of scan modes often used in drivers, as taken from the sane-backends source */
@@ -863,15 +864,15 @@ do_get_option (Scanner *scanner)
             
         switch (job->scan_mode) {
         case SCAN_MODE_COLOR:
-            if (!set_constrained_string_option (scanner->priv->handle, option, scanner->priv->option_index, color_scan_modes))
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, color_scan_modes))
                 g_warning ("Unable to set Color mode, please file a bug");
             break;
         case SCAN_MODE_GRAY:
-            if (!set_constrained_string_option (scanner->priv->handle, option, scanner->priv->option_index, gray_scan_modes))
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, gray_scan_modes))
                 g_warning ("Unable to set Gray mode, please file a bug");
             break;
         case SCAN_MODE_LINEART:
-            if (!set_constrained_string_option (scanner->priv->handle, option, scanner->priv->option_index, lineart_scan_modes))
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, lineart_scan_modes))
                 g_warning ("Unable to set Lineart mode, please file a bug");
             break;
         default:
@@ -881,19 +882,19 @@ do_get_option (Scanner *scanner)
           
     /* Test scanner options (hoping will not effect other scanners...) */
     else if (strcmp (option->name, "hand-scanner") == 0) {
-        set_bool_option (scanner->priv->handle, option, scanner->priv->option_index, FALSE);
+        set_bool_option (scanner->priv->handle, option, option_index, FALSE);
     }
     else if (strcmp (option->name, "three-pass") == 0) {
-        set_bool_option (scanner->priv->handle, option, scanner->priv->option_index, FALSE);
+        set_bool_option (scanner->priv->handle, option, option_index, FALSE);
     }                    
     else if (strcmp (option->name, "test-picture") == 0) {
-        set_string_option (scanner->priv->handle, option, scanner->priv->option_index, "Color pattern");
+        set_string_option (scanner->priv->handle, option, option_index, "Color pattern");
     }
     else if (strcmp (option->name, "read-delay") == 0) {
-        set_bool_option (scanner->priv->handle, option, scanner->priv->option_index, TRUE);
+        set_bool_option (scanner->priv->handle, option, option_index, TRUE);
     }
     else if (strcmp (option->name, "read-delay-duration") == 0) {
-        set_int_option (scanner->priv->handle, option, scanner->priv->option_index, 200000);
+        set_int_option (scanner->priv->handle, option, option_index, 200000);
     }
 }
 
