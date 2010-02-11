@@ -3,8 +3,13 @@ Overview of changes in simple-scan 0.8.2
  * Make toolbar scan button "important" so it shows button text
  * Add crop toolbar button
  * Compile with standard SANE, not Debian modified SANE
- * Make build process use AM_SILENT_RULES
  * Select ADF source when doing ADF scan
+ * Only rescan for devices when USB add/remove events occur
+ * Don't cache list of devices (can lead to duplicate entries as devices can
+   change names as they change USB ports)
+ * Remember page dimensions between application instances
+ * Improved debug logging
+ * Make build process use AM_SILENT_RULES
  * Added man page from Alessio Treglia
 
 Overview of changes in simple-scan 0.8.1
