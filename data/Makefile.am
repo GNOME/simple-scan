@@ -13,6 +13,6 @@ schema_DATA = $(schema_in_files:.schemas.in=.schemas)
 
 man1_MANS = simple-scan.1
 
-EXTRA_DIST = $(ui_DATA) $(utilities_in_files) $(schema_in_files)
+EXTRA_DIST = $(ui_DATA) $(utilities_in_files) $(schema_in_files) $(man1_MANS)
 
 DISTCLEANFILES = $(schema_DATA) $(utilities_DATA)
