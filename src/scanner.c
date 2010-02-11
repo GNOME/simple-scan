@@ -880,6 +880,7 @@ do_get_option (Scanner *scanner)
             SANE_I18N ("Black & White"),
             "Binary",
             SANE_I18N ("Binary"),
+            "Thresholded",
             SANE_VALUE_SCAN_MODE_GRAY,
             "Gray",
              "Grayscale",
