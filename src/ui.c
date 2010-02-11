@@ -132,35 +132,53 @@ ui_authorize (SimpleScan *ui, const gchar *resource, gchar **username, gchar **p
     *password = g_strdup (gtk_entry_get_text (GTK_ENTRY (ui->priv->password_entry)));
 }
 
-
 void
-ui_mark_devices_undetected (SimpleScan *ui)
+ui_set_scan_devices (SimpleScan *ui, GList *devices)
 {
     GtkTreeIter iter;
-    
-    if (gtk_tree_model_get_iter_first (ui->priv->device_model, &iter)) {
-        do {
-            gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 2, FALSE, -1);
-        } while (gtk_tree_model_iter_next (ui->priv->device_model, &iter));
+    GList *i;
+    gboolean have_iter;
+    gboolean have_selection;
+  
+    have_selection = gtk_combo_box_get_active (GTK_COMBO_BOX (ui->priv->device_combo)) >= 0;
+  
+    /* Remove disappeared devices */
+
+    do {
+        for (have_iter = gtk_tree_model_get_iter_first (ui->priv->device_model, &iter);
+             have_iter;
+             have_iter = gtk_tree_model_iter_next (ui->priv->device_model, &iter)) {
+            gchar *name;
+
+            gtk_tree_model_get (ui->priv->device_model, &iter, 0, &name, -1);
+            for (i = devices; i; i = i->next)
+                if (strcmp (name, ((ScanDevice *) i->data)->name) == 0)
+                    break;
+            g_free (name);
+
+            /* Device was removed */
+            if (i == NULL) {
+                gtk_list_store_remove (GTK_LIST_STORE (ui->priv->device_model), &iter);
+                break;
+            }
+        }
+    } while (have_iter);
+
+    /* Add new devices */
+    for (i = devices; i; i = i->next) {
+        ScanDevice *device = (ScanDevice *) i->data;
+
+        if (!find_scan_device (ui, device->name, &iter)) {
+            gtk_list_store_append (GTK_LIST_STORE (ui->priv->device_model), &iter);
+            gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 0, device->name, 1, device->label, -1);
+
+            /* Select this device if none selected */
+            if (!have_selection) {
+                gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
+                have_selection = TRUE;
+            }
+        }
     }
-}
-
-
-void
-ui_add_scan_device (SimpleScan *ui, const gchar *device, const gchar *label)
-{
-    GtkTreeIter iter;
-    
-    if (!find_scan_device (ui, device, &iter)) {
-        gtk_list_store_append (GTK_LIST_STORE (ui->priv->device_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 0, device, -1);
-    }
-
-    gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 1, label, 2, TRUE, -1);
-    
-    /* Select this device if none selected */
-    if (gtk_combo_box_get_active (GTK_COMBO_BOX (ui->priv->device_combo)) == -1)
-        gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
 }
 
 
@@ -271,13 +289,11 @@ scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     gchar *device, *mode;
 
     device = ui_get_selected_device (ui);
-    if (device) {
-        mode = get_document_hint (ui);
-        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode,
-                       FALSE, get_replace_pages (ui));
-        g_free (device);
-        g_free (mode);
-    }
+    mode = get_document_hint (ui);
+    g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode,
+                   FALSE, get_replace_pages (ui));
+    g_free (device);
+    g_free (mode);
 }
 
 
@@ -301,13 +317,11 @@ continuous_scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
         gchar *device, *mode;
 
         device = ui_get_selected_device (ui);
-        if (device) {
-            mode = get_document_hint (ui);
-            g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode,
-                           TRUE, get_replace_pages (ui));
-            g_free (device);
-            g_free (mode);
-        }
+        mode = get_document_hint (ui);
+        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode,
+                       TRUE, get_replace_pages (ui));
+        g_free (device);
+        g_free (mode);
     }
 }
 
@@ -656,122 +670,6 @@ print_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 }
 
 
-static void
-load_device_cache (SimpleScan *ui)
-{
-    gchar *filename;
-    GKeyFile *key_file;
-    gboolean result;
-    GError *error = NULL;
-    
-    filename = g_build_filename (g_get_user_cache_dir (), "simple-scan", "device_cache", NULL);
-    
-    key_file = g_key_file_new ();
-    result = g_key_file_load_from_file (key_file, filename, G_KEY_FILE_NONE, &error);
-    if (error) {
-        if (!g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
-            g_warning ("Error loading device cache file: %s", error->message);
-        g_error_free (error);
-        error = NULL;
-    }
-    if (result) {
-        gchar **groups, **group_iter;
-
-        groups = g_key_file_get_groups (key_file, NULL);
-        for (group_iter = groups; *group_iter; group_iter++) {
-            gchar *label, *device;
-
-            label = *group_iter;
-            device = g_key_file_get_value (key_file, label, "device", &error);
-            if (error) {
-                g_warning ("Error getting device name for label '%s': %s", label, error->message);
-                g_error_free (error);
-                error = NULL;
-            }
-            
-            if (device)
-                ui_add_scan_device (ui, device, label);
-
-            g_free (device);
-        }
-
-        g_strfreev (groups);
-    }
-
-    g_free (filename);
-    g_key_file_free (key_file);
-}
-
-
-static void
-save_device_cache (SimpleScan *ui)
-{
-    GtkTreeModel *model;
-    GtkTreeIter iter;
-
-    g_debug ("Saving device cache");
-
-    model = ui->priv->device_model;
-    if (gtk_tree_model_get_iter_first (model, &iter)) {
-        GKeyFile *key_file;
-        gchar *data;
-        gsize data_length;
-        GError *error = NULL;
-
-        key_file = g_key_file_new ();
-        do {
-            gchar *name, *label;
-            gboolean detected;
-            
-            gtk_tree_model_get (model, &iter, 0, &name, 1, &label, 2, &detected, -1);
-            
-            if (detected) {
-                g_debug ("Storing device '%s' in cache", name);
-                g_key_file_set_value (key_file, label, "device", name);
-            }
-
-            g_free (name);
-            g_free (label);
-        } while (gtk_tree_model_iter_next (model, &iter));
-        
-        data = g_key_file_to_data (key_file, &data_length, &error);
-        if (data) {
-            gchar *dir, *filename;
-            GFile *file;
-            GFileOutputStream *stream;
-            GError *error = NULL;
-
-            dir = g_build_filename (g_get_user_cache_dir (), "simple-scan", NULL);
-            g_mkdir_with_parents (dir, 0700);
-            filename = g_build_filename (dir, "device_cache", NULL);
-
-            file = g_file_new_for_path (filename);
-            stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, &error);
-            if (error) {
-                g_warning ("Error writing device cache: %s", error->message);
-                g_error_free (error);
-                error = NULL;
-            }
-            if (stream) {
-                g_output_stream_write_all (G_OUTPUT_STREAM (stream), data, data_length, NULL, NULL, &error);
-                if (error) {
-                    g_warning ("Error writing device cache: %s", error->message);
-                    g_error_free (error);
-                    error = NULL;
-                }
-                g_output_stream_close (G_OUTPUT_STREAM (stream), NULL, NULL);
-            }
-            g_free (data);
-
-            g_free (filename);
-            g_free (dir);        
-        }
-
-        g_key_file_free (key_file);
-    }
-}
-
-
 void about_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
 void
@@ -819,8 +717,6 @@ quit (SimpleScan *ui)
 {
     char *device, *document_type;
     gint i;
-
-    save_device_cache (ui);
 
     device = ui_get_selected_device (ui);
     if (device) {
@@ -985,8 +881,6 @@ ui_load (SimpleScan *ui)
     gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->mode_combo), renderer, "text", 1);
     gtk_combo_box_set_active (GTK_COMBO_BOX (ui->priv->mode_combo), 0);
 
-    /* Load previously detected scanners and select the last used one */
-    load_device_cache (ui);
     device = gconf_client_get_string (ui->priv->client, "/apps/simple-scan/selected_device", NULL);
     if (device) {
         GtkTreeIter iter;

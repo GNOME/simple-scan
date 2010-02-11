@@ -78,6 +78,8 @@ struct ScannerPrivate
     GAsyncQueue *scan_queue, *authorize_queue;
     GThread *thread;
 
+    ScanDevice *default_device;
+
     ScanState state;
     gboolean redetect;
   
@@ -193,7 +195,9 @@ static gint
 compare_devices (ScanDevice *device1, ScanDevice *device2)
 {
     gint weight1, weight2;
-   
+  
+    /* Should do some fuzzy matching on the last selected device and set that to the default */
+
     weight1 = get_device_weight (device1->name);
     weight2 = get_device_weight (device2->name);
     if (weight1 != weight2)
@@ -306,6 +310,7 @@ do_redetect (Scanner *scanner)
     g_debug ("sane_get_devices () -> %s", get_status_string (status));
     if (status != SANE_STATUS_GOOD) {
         g_warning ("Unable to get SANE devices: %s", sane_strstatus(status));
+        scanner->priv->state = STATE_IDLE;        
         return;
     }
 
@@ -314,8 +319,11 @@ do_redetect (Scanner *scanner)
         ScanDevice *scan_device;
         GString *label;
         gchar *c;
+
+        g_debug ("Device: name=\"%s\" vendor=\"%s\" model=\"%s\" type=\"%s\"",
+                 device->name, device->vendor, device->model, device->type);
         
-        scan_device = g_malloc(sizeof(ScanDevice));
+        scan_device = g_malloc0 (sizeof (ScanDevice));
 
         scan_device->name = g_strdup (device->name);
 
@@ -342,6 +350,11 @@ do_redetect (Scanner *scanner)
 
     scanner->priv->redetect = FALSE;
     scanner->priv->state = STATE_IDLE;
+
+    if (devices)
+        scanner->priv->default_device = g_list_nth_data (devices, 0);
+    else
+        scanner->priv->default_device = NULL;
 
     emit_signal (scanner, UPDATE_DEVICES, devices);
 }
@@ -742,7 +755,19 @@ do_open (Scanner *scanner)
     scanner->priv->notified_page = -1;
     scanner->priv->option_index = 0;
 
-    /* FIXME: job->device could be NULL */
+    if (!job->device)
+        job->device = g_strdup (scanner->priv->default_device->name);
+
+    if (!job->device) {
+        scanner->priv->state = STATE_IDLE;
+        g_warning ("No scan device available");
+        scanner->priv->state = STATE_IDLE;
+        emit_signal (scanner, SCAN_FAILED,
+                     g_error_new (SCANNER_TYPE, status,
+                                  /* Error displayed when no scanners to scan with */
+                                  _("No scanners available.  Please connect a scanner.")));
+        return;
+    }
  
     /* See if we can use the already open device */
     if (scanner->priv->handle) {
@@ -764,13 +789,13 @@ do_open (Scanner *scanner)
 
     if (status != SANE_STATUS_GOOD) {
         g_warning ("Unable to get open device: %s", sane_strstatus (status));
+        scanner->priv->handle = NULL;
+        close_device (scanner);
+        scanner->priv->state = STATE_IDLE;
         emit_signal (scanner, SCAN_FAILED,
                      g_error_new (SCANNER_TYPE, status,
                                   /* Error displayed when cannot connect to scanner */
                                   _("Unable to connect to scanner")));
-        scanner->priv->handle = NULL;
-        close_device (scanner);
-        scanner->priv->state = STATE_IDLE;
         return;
     }
 
@@ -1126,6 +1151,8 @@ scan_thread (Scanner *scanner)
     while (handle_requests (scanner)) {
         switch (scanner->priv->state) {
         case STATE_IDLE:
+             if (scanner->priv->job_queue)
+                 scanner->priv->state = STATE_OPEN;
              break;
         case STATE_REDETECT:
             do_redetect (scanner);

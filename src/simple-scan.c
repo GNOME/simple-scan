@@ -39,8 +39,6 @@ static gboolean first_autodetect = TRUE;
 static void
 update_scan_devices_cb (Scanner *scanner, GList *devices)
 {
-    GList *dev_iter;
-
     if (first_autodetect) {
         first_autodetect = FALSE;
 
@@ -59,14 +57,8 @@ update_scan_devices_cb (Scanner *scanner, GList *devices)
         }
     }
 
-    /* Mark existing values as undetected */
-    ui_mark_devices_undetected (ui);
-
     /* Add/update detected devices */
-    for (dev_iter = devices; dev_iter; dev_iter = dev_iter->next) {
-        ScanDevice *device = dev_iter->data;       
-        ui_add_scan_device (ui, device->name, device->label);
-    }
+    ui_set_scan_devices (ui, devices);
 }
 
 

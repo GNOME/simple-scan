@@ -14,6 +14,7 @@
 
 #include <glib-object.h>
 #include "book.h"
+#include "scanner.h"
 
 G_BEGIN_DECLS
 
@@ -55,9 +56,7 @@ void ui_set_default_file_name (SimpleScan *ui, const gchar *default_file_name);
 
 void ui_authorize (SimpleScan *ui, const gchar *resource, gchar **username, gchar **password);
 
-void ui_mark_devices_undetected (SimpleScan *ui);
-
-void ui_add_scan_device (SimpleScan *ui, const gchar *device, const gchar *label);
+void ui_set_scan_devices (SimpleScan *ui, GList *devices);
 
 gchar *ui_get_selected_device (SimpleScan *ui);
 
