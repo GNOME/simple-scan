@@ -18,13 +18,13 @@
 
 
 enum {
-    READY,
     UPDATE_DEVICES,
     AUTHORIZE,
     GOT_PAGE_INFO,
     GOT_LINE,
     SCAN_FAILED,
-    IMAGE_DONE,
+    PAGE_DONE,
+    DOCUMENT_DONE,
     LAST_SIGNAL
 };
 static guint signals[LAST_SIGNAL] = { 0, };
@@ -43,6 +43,18 @@ typedef struct
     ScanMode scan_mode;
     gint depth;
     gboolean multi_page;
+} ScanJob;
+
+typedef struct
+{
+    enum
+    {
+       REQUEST_CANCEL,
+       REQUEST_REDETECT,
+       REQUEST_START_SCAN,
+       REQUEST_QUIT
+    } type;
+    ScanJob *job;
 } ScanRequest;
 
 typedef struct
@@ -53,18 +65,37 @@ typedef struct
 typedef enum
 {
     STATE_IDLE = 0,
+    STATE_REDETECT,
+    STATE_OPEN,
     STATE_GET_OPTION,
     STATE_START,
     STATE_GET_PARAMETERS,
-    STATE_READ,
-    STATE_CLOSE
+    STATE_READ
 } ScanState;
 
 struct ScannerPrivate
 {
     GAsyncQueue *scan_queue, *authorize_queue;
-    gboolean running;
-    GThread *thread, *detect_thread;
+    GThread *thread;
+
+    ScanState state;
+    gboolean redetect;
+  
+    GList *job_queue;
+
+    /* Handle to SANE device */
+    SANE_Handle handle;
+    gchar *current_device;
+
+    SANE_Parameters parameters;
+
+    /* Last option read */
+    SANE_Int option_index;
+
+    /* Buffer for received line */
+    SANE_Byte *buffer;
+
+    SANE_Int bytes_remaining, line_count, pass_number, page_number, notified_page;
 };
 
 G_DEFINE_TYPE (Scanner, scanner, G_TYPE_OBJECT);
@@ -118,8 +149,8 @@ send_signal (SignalInfo *info)
         }
         break;
     default:
-    case READY:
-    case IMAGE_DONE:
+    case PAGE_DONE:
+    case DOCUMENT_DONE:
     case LAST_SIGNAL:
         g_assert (info->data == NULL);
         break;
@@ -265,7 +296,7 @@ get_frame_string (SANE_Frame frame)
 
 
 static void
-poll_for_devices (Scanner *scanner)
+do_redetect (Scanner *scanner)
 {
     const SANE_Device **device_list, **device_iter;
     SANE_Status status;
@@ -308,6 +339,9 @@ poll_for_devices (Scanner *scanner)
 
     /* Sort devices by priority */
     devices = g_list_sort (devices, (GCompareFunc) compare_devices);
+
+    scanner->priv->redetect = FALSE;
+    scanner->priv->state = STATE_IDLE;
 
     emit_signal (scanner, UPDATE_DEVICES, devices);
 }
@@ -589,18 +623,6 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
 }
 
 
-static gpointer
-detect_thread (Scanner *scanner)
-{
-    while (scanner->priv->running) {
-        poll_for_devices (scanner);
-        g_usleep (1000);
-    }
-    
-    return NULL;
-}
-
-
 static void
 authorization_cb (SANE_String_Const resource, SANE_Char username[SANE_MAX_USERNAME_LEN], SANE_Char password[SANE_MAX_PASSWORD_LEN])
 {
@@ -630,24 +652,461 @@ scanner_authorize (Scanner *scanner, const gchar *username, const gchar *passwor
 }
 
 
+static void
+close_device (Scanner *scanner)
+{
+    GList *iter;
+
+    if (scanner->priv->handle) {
+        sane_close (scanner->priv->handle);
+        g_debug ("sane_close ()");
+        scanner->priv->handle = NULL;
+    }
+  
+    g_free (scanner->priv->buffer);
+    scanner->priv->buffer = NULL;
+
+    for (iter = scanner->priv->job_queue; iter; iter = iter->next) {
+        ScanJob *job = (ScanJob *) iter->data;
+        g_free (job->device);
+        g_free (job);
+    }
+    g_list_free (scanner->priv->job_queue);
+    scanner->priv->job_queue = NULL;
+}
+
+
+static gboolean
+handle_requests (Scanner *scanner)
+{
+    gint request_count = 0;
+  
+    /* Redetect when idle */
+    if (scanner->priv->state == STATE_IDLE && scanner->priv->redetect)
+        scanner->priv->state = STATE_REDETECT;
+  
+    /* Process all requests */
+    while (TRUE) {
+        ScanRequest *request = NULL;
+
+        if ((scanner->priv->state == STATE_IDLE && request_count == 0) ||
+            g_async_queue_length (scanner->priv->scan_queue) > 0)
+            request = g_async_queue_pop (scanner->priv->scan_queue);
+        else
+            return TRUE;
+
+         g_debug ("Processing request");
+         request_count++;
+
+         switch (request->type) {
+         case REQUEST_REDETECT:
+             break;
+
+         case REQUEST_START_SCAN:
+             scanner->priv->job_queue = g_list_append (scanner->priv->job_queue, request->job);
+             if (g_list_length (scanner->priv->job_queue) == 1)
+                 scanner->priv->state = STATE_OPEN;
+             break;
+
+         case REQUEST_CANCEL:
+             close_device (scanner);
+             scanner->priv->state = STATE_IDLE;
+             emit_signal (scanner, SCAN_FAILED,
+                          g_error_new (SCANNER_TYPE, SANE_STATUS_CANCELLED, "Scan cancelled - do not report this error"));
+             break;
+
+         case REQUEST_QUIT:
+             close_device (scanner);
+             g_free (request);
+             return FALSE;
+         }
+
+         g_free (request);
+    }
+  
+    return TRUE;
+}
+
+
+static void
+do_open (Scanner *scanner)
+{
+    SANE_Status status;
+    ScanJob *job;
+
+    job = (ScanJob *) scanner->priv->job_queue->data;
+
+    scanner->priv->line_count = 0;
+    scanner->priv->pass_number = 0;
+    scanner->priv->page_number = 0;
+    scanner->priv->notified_page = -1;
+
+    /* FIXME: job->device could be NULL */
+ 
+    /* See if we can use the already open device */
+    if (scanner->priv->handle) {
+        if (strcmp (scanner->priv->current_device, job->device) == 0) {
+            scanner->priv->state = STATE_GET_OPTION;
+            return;
+        }
+
+        sane_close (scanner->priv->handle);
+        g_debug ("sane_close ()");
+        scanner->priv->handle = NULL;
+    }
+  
+    g_free (scanner->priv->current_device);
+    scanner->priv->current_device = NULL;
+  
+    status = sane_open (job->device, &scanner->priv->handle);
+    g_debug ("sane_open (\"%s\") -> %s", job->device, get_status_string (status));
+
+    if (status != SANE_STATUS_GOOD) {
+        g_warning ("Unable to get open device: %s", sane_strstatus (status));
+        emit_signal (scanner, SCAN_FAILED,
+                     g_error_new (SCANNER_TYPE, status,
+                                  /* Error displayed when cannot connect to scanner */
+                                  _("Unable to connect to scanner")));
+        scanner->priv->handle = NULL;
+        close_device (scanner);
+        scanner->priv->state = STATE_IDLE;
+        return;
+    }
+
+    scanner->priv->current_device = g_strdup (job->device);
+    scanner->priv->state = STATE_GET_OPTION;
+}
+
+
+static void
+do_get_option (Scanner *scanner)
+{
+    const SANE_Option_Descriptor *option;
+    SANE_Int option_index;
+    ScanJob *job;
+  
+    job = (ScanJob *) scanner->priv->job_queue->data;  
+
+    option_index = scanner->priv->option_index;
+    option = sane_get_option_descriptor (scanner->priv->handle, option_index);
+    g_debug ("sane_get_option_descriptor (%d)", scanner->priv->option_index);
+    if (!option) {
+        scanner->priv->state = STATE_START;
+        return;
+    }
+
+    scanner->priv->option_index++;
+
+    log_option (scanner->priv->option_index, option);
+    if (!option->name)
+        return;
+
+    if (strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
+        if (option->type == SANE_TYPE_FIXED)
+            set_fixed_option (scanner->priv->handle, option, scanner->priv->option_index, job->dpi);
+        else
+            set_int_option (scanner->priv->handle, option, scanner->priv->option_index, job->dpi);
+    }
+    else if (strcmp (option->name, SANE_NAME_SCAN_SOURCE) == 0) {
+        const char *adf_sources[] =
+        {
+            "Automatic Document Feeder",
+            SANE_I18N ("Automatic Document Feeder"),
+            "ADF",
+            NULL
+        };
+
+        if (job->multi_page) {
+            if (!set_constrained_string_option (scanner->priv->handle, option, scanner->priv->option_index, adf_sources))
+                 g_warning ("Unable to set ADF source, please file a bug");
+        }
+        else {
+            set_default_option (scanner->priv->handle, scanner->priv->option_index);
+        }
+    }
+    else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
+        if (job->depth > 0)
+            set_int_option (scanner->priv->handle, option, scanner->priv->option_index, job->depth);
+    }
+    else if (strcmp (option->name, SANE_NAME_SCAN_MODE) == 0) {
+        /* The names of scan modes often used in drivers, as taken from the sane-backends source */
+        const char *color_scan_modes[] =
+        {
+            SANE_VALUE_SCAN_MODE_COLOR,
+            "Color",
+            NULL
+        };
+        const char *gray_scan_modes[] =
+        {
+            SANE_VALUE_SCAN_MODE_GRAY,
+            "Gray",
+            "Grayscale",
+            SANE_I18N ("Grayscale"),
+            NULL
+        };
+        const char *lineart_scan_modes[] =
+        {
+            SANE_VALUE_SCAN_MODE_LINEART,
+            "Lineart",
+            "LineArt",
+            SANE_I18N ("LineArt"),
+            "Black & White",
+            SANE_I18N ("Black & White"),
+            "Binary",
+            SANE_I18N ("Binary"),
+            SANE_VALUE_SCAN_MODE_GRAY,
+            "Gray",
+             "Grayscale",
+            SANE_I18N ("Grayscale"),
+            NULL
+        };
+            
+        switch (job->scan_mode) {
+        case SCAN_MODE_COLOR:
+            if (!set_constrained_string_option (scanner->priv->handle, option, scanner->priv->option_index, color_scan_modes))
+                g_warning ("Unable to set Color mode, please file a bug");
+            break;
+        case SCAN_MODE_GRAY:
+            if (!set_constrained_string_option (scanner->priv->handle, option, scanner->priv->option_index, gray_scan_modes))
+                g_warning ("Unable to set Gray mode, please file a bug");
+            break;
+        case SCAN_MODE_LINEART:
+            if (!set_constrained_string_option (scanner->priv->handle, option, scanner->priv->option_index, lineart_scan_modes))
+                g_warning ("Unable to set Lineart mode, please file a bug");
+            break;
+        default:
+            break;
+        }
+    }
+          
+    /* Test scanner options (hoping will not effect other scanners...) */
+    else if (strcmp (option->name, "hand-scanner") == 0) {
+        set_bool_option (scanner->priv->handle, option, scanner->priv->option_index, FALSE);
+    }
+    else if (strcmp (option->name, "three-pass") == 0) {
+        set_bool_option (scanner->priv->handle, option, scanner->priv->option_index, FALSE);
+    }                    
+    else if (strcmp (option->name, "test-picture") == 0) {
+        set_string_option (scanner->priv->handle, option, scanner->priv->option_index, "Color pattern");
+    }
+    else if (strcmp (option->name, "read-delay") == 0) {
+        set_bool_option (scanner->priv->handle, option, scanner->priv->option_index, TRUE);
+    }
+    else if (strcmp (option->name, "read-delay-duration") == 0) {
+        set_int_option (scanner->priv->handle, option, scanner->priv->option_index, 200000);
+    }
+}
+
+
+static void
+do_complete_document (Scanner *scanner)
+{
+    ScanJob *job;
+
+    job = (ScanJob *) scanner->priv->job_queue->data;
+    g_free (job->device);
+    g_free (job);
+    scanner->priv->job_queue = g_list_remove_link (scanner->priv->job_queue, scanner->priv->job_queue);
+
+    scanner->priv->state = STATE_IDLE;
+  
+    /* Continue onto the next job */
+    if (scanner->priv->job_queue) {
+        scanner->priv->state = STATE_OPEN;
+        return;
+    }
+
+    /* Trigger timeout to close */
+    // TODO
+
+    emit_signal (scanner, DOCUMENT_DONE, NULL);
+}
+
+
+static void
+do_start (Scanner *scanner)
+{
+    SANE_Status status;
+  
+    status = sane_start (scanner->priv->handle);
+    g_debug ("sane_start (page=%d, pass=%d) -> %s", scanner->priv->page_number, scanner->priv->pass_number, get_status_string (status));
+    if (status == SANE_STATUS_GOOD) {
+        scanner->priv->state = STATE_GET_PARAMETERS;
+    }
+    else if (status == SANE_STATUS_NO_DOCS) {
+        do_complete_document (scanner);
+    }
+    else {
+        g_warning ("Unable to start device: %s", sane_strstatus (status));
+        close_device (scanner);
+        scanner->priv->state = STATE_IDLE;
+        emit_signal (scanner, SCAN_FAILED,
+                     g_error_new (SCANNER_TYPE, status,
+                                  /* Error display when unable to start scan */
+                                  _("Unable to start scan")));
+    }
+}
+
+
+static void
+do_get_parameters (Scanner *scanner)
+{
+    SANE_Status status;
+    ScanPageInfo *info;
+    ScanJob *job;
+
+    status = sane_get_parameters (scanner->priv->handle, &scanner->priv->parameters);
+    g_debug ("sane_get_parameters () -> %s", get_status_string (status));
+    if (status != SANE_STATUS_GOOD) {
+        g_warning ("Unable to get device parameters: %s", sane_strstatus (status));
+        close_device (scanner);
+        scanner->priv->state = STATE_IDLE;
+        emit_signal (scanner, SCAN_FAILED,
+                     g_error_new (SCANNER_TYPE, status,
+                                  /* Error displayed when communication with scanner broken */
+                                  _("Error communicating with scanner")));
+        return;
+    }
+  
+    job = (ScanJob *) scanner->priv->job_queue->data;
+
+    g_debug ("Parameters: format=%s last_frame=%s bytes_per_line=%d pixels_per_line=%d lines=%d depth=%d",
+             get_frame_string (scanner->priv->parameters.format),
+             scanner->priv->parameters.last_frame ? "SANE_TRUE" : "SANE_FALSE",
+             scanner->priv->parameters.bytes_per_line,
+             scanner->priv->parameters.pixels_per_line,
+             scanner->priv->parameters.lines,
+             scanner->priv->parameters.depth);
+
+    info = g_malloc(sizeof(ScanPageInfo));
+    info->width = scanner->priv->parameters.pixels_per_line;
+    info->height = scanner->priv->parameters.lines;
+    info->depth = scanner->priv->parameters.depth;
+    info->dpi = job->dpi;
+
+    if (scanner->priv->page_number != scanner->priv->notified_page) {
+        emit_signal (scanner, GOT_PAGE_INFO, info);
+        scanner->priv->notified_page = scanner->priv->page_number;
+    }
+
+    /* Prepare for read */
+    scanner->priv->bytes_remaining = scanner->priv->parameters.bytes_per_line;
+    scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * scanner->priv->bytes_remaining);
+    scanner->priv->line_count = 0;
+    scanner->priv->pass_number = 0;
+    scanner->priv->state = STATE_READ;
+}
+
+
+static void
+do_complete_page (Scanner *scanner)
+{
+    ScanJob *job;
+  
+    job = (ScanJob *) scanner->priv->job_queue->data;
+
+    /* If multi-pass then scan another page */
+    if (!scanner->priv->parameters.last_frame) {
+        scanner->priv->pass_number++;
+        scanner->priv->state = STATE_START;
+        return;
+    }
+
+    /* Go back for another page */
+    if (job->multi_page) {
+        scanner->priv->page_number++;
+        scanner->priv->pass_number = 0;
+        emit_signal (scanner, PAGE_DONE, NULL);
+        scanner->priv->state = STATE_START;
+        return;
+    }
+
+    emit_signal (scanner, PAGE_DONE, NULL);  
+    do_complete_document (scanner);
+}
+
+
+static void
+do_read (Scanner *scanner)
+{
+    SANE_Status status;
+    SANE_Int n_read;
+
+    status = sane_read (scanner->priv->handle, scanner->priv->buffer, scanner->priv->bytes_remaining, &n_read);
+    g_debug ("sane_read (%d) -> (%s, %d)", scanner->priv->bytes_remaining, get_status_string (status), n_read);
+
+    /* End of variable length frame */
+    if (status == SANE_STATUS_EOF &&
+        scanner->priv->parameters.lines == -1 &&
+        scanner->priv->bytes_remaining == scanner->priv->parameters.bytes_per_line) {
+        do_complete_page (scanner);
+        return;
+    }
+            
+    /* Communication error */
+    if (status != SANE_STATUS_GOOD) {
+        g_warning ("Unable to read frame from device: %s", sane_strstatus (status));
+        close_device (scanner);
+        scanner->priv->state = STATE_IDLE;
+        emit_signal (scanner, SCAN_FAILED,
+                     g_error_new (SCANNER_TYPE, status,
+                                  /* Error displayed when communication with scanner broken */
+                                  _("Error communicating with scanner")));
+        return;
+    }
+ 
+    scanner->priv->bytes_remaining -= n_read;
+    if (scanner->priv->bytes_remaining == 0) {
+        ScanLine *line;
+
+        line = g_malloc(sizeof(ScanLine));
+        switch (scanner->priv->parameters.format) {
+        case SANE_FRAME_GRAY:
+            line->format = LINE_GRAY;
+            break;
+        case SANE_FRAME_RGB:
+            line->format = LINE_RGB;
+            break;
+        case SANE_FRAME_RED:
+            line->format = LINE_RED;
+            break;
+        case SANE_FRAME_GREEN:
+            line->format = LINE_GREEN;
+            break;
+        case SANE_FRAME_BLUE:
+            line->format = LINE_BLUE;
+            break;
+        }
+        line->width = scanner->priv->parameters.pixels_per_line;
+        line->depth = scanner->priv->parameters.depth;
+        line->data = scanner->priv->buffer;
+        line->data_length = scanner->priv->parameters.bytes_per_line;
+        line->number = scanner->priv->line_count;
+        emit_signal (scanner, GOT_LINE, line);
+        scanner->priv->buffer = NULL;
+
+        /* On last line */
+        scanner->priv->line_count++;
+        if (scanner->priv->parameters.lines > 0 && scanner->priv->line_count == scanner->priv->parameters.lines) {
+            do_complete_page (scanner);
+        }
+        else {
+            scanner->priv->bytes_remaining = scanner->priv->parameters.bytes_per_line;
+            scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * scanner->priv->bytes_remaining);
+        }
+    }
+}
+
+
 static gpointer
 scan_thread (Scanner *scanner)
 {
-    ScanRequest *request = NULL;
     SANE_Status status;
-    SANE_Handle handle = NULL;
-    SANE_Parameters parameters;
-    const SANE_Option_Descriptor *option;
-    SANE_Int option_index = 0;
-    ScanState state = STATE_IDLE;
-    SANE_Int bytes_remaining = 0, line_count = 0, n_read = 0, pass_number = 0, page_number = 0, notified_page = -1;
-    SANE_Byte *data = NULL;
     SANE_Int version_code;
-    gboolean done = FALSE;
-    GError *error = NULL;
-    gchar *open_device = NULL;
-
+  
     g_hash_table_insert (scanners, g_thread_self (), scanner);
+  
+    scanner->priv->state = STATE_IDLE;
 
     status = sane_init (&version_code, authorization_cb);
     g_debug ("sane_init () -> %s", get_status_string (status));
@@ -660,325 +1119,30 @@ scan_thread (Scanner *scanner)
              SANE_VERSION_MINOR(version_code),
              SANE_VERSION_BUILD(version_code));
 
-    // NOTE: This assumes that sane_get_devices is thread safe
-    scanner->priv->detect_thread = g_thread_create ((GThreadFunc) detect_thread, scanner, TRUE, &error);
-    if (error) {
-        g_critical ("Unable to create thread: %s", error->message);
-        g_error_free (error);
-    }
+    /* Scan for devices on first start */
+    scanner_redetect (scanner);
 
-    while (scanner->priv->running) {
-        /* Look for requests */
-        if (state == STATE_IDLE) {
-            request = g_async_queue_pop (scanner->priv->scan_queue);
-        } else if (state != STATE_CLOSE) {
-            if (g_async_queue_length (scanner->priv->scan_queue) > 0)
-                state = STATE_CLOSE;
-        }
-        
-        /* Interrupted */
-        if (!scanner->priv->running)
-            break;
-
-        switch (state) {
+    while (handle_requests (scanner)) {
+        switch (scanner->priv->state) {
         case STATE_IDLE:
-             /* Close existing device */
-             if (open_device && (!request->device || strcmp (open_device, request->device) != 0)) {
-                sane_close (handle);
-                g_debug ("sane_close ()");
-                handle = NULL;
-                open_device = NULL;
-            }
-
-            if (request->device) {
-                if (open_device) {
-                    status = SANE_STATUS_GOOD;
-                }
-                else {
-                    status = sane_open (request->device, &handle);
-                    g_debug ("sane_open (\"%s\") -> %s", request->device, get_status_string (status));
-                }
-
-                if (status != SANE_STATUS_GOOD) {
-                    g_warning ("Unable to get open device: %s", sane_strstatus (status));
-                    emit_signal (scanner, SCAN_FAILED,
-                                 g_error_new (SCANNER_TYPE, status,
-                                              /* Error displayed when cannot connect to scanner */
-                                              _("Unable to connect to scanner")));
-                    state = STATE_CLOSE;
-                }
-                else {
-                    open_device = g_strdup (request->device);
-                    state = STATE_GET_OPTION;
-                    option_index = 0;
-                    pass_number = 0;
-                    page_number = 0;
-                    notified_page = -1;
-                }
-            }
-            else {
-                state = STATE_CLOSE;
-            }
+             break;
+        case STATE_REDETECT:
+            do_redetect (scanner);
             break;
-
+        case STATE_OPEN:
+            do_open (scanner);
+            break;
         case STATE_GET_OPTION:
-            option = sane_get_option_descriptor (handle, option_index);
-            g_debug ("sane_get_option_descriptor (%d)", option_index);
-            if (!option) {
-                state = STATE_START;
-            } else {
-                log_option (option_index, option);
-                if (option->name) {
-                    if (strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
-                        if (option->type == SANE_TYPE_FIXED)
-                            set_fixed_option (handle, option, option_index, request->dpi);
-                        else
-                            set_int_option (handle, option, option_index, request->dpi);                            
-                    }
-                    else if (strcmp (option->name, SANE_NAME_SCAN_SOURCE) == 0) {
-                        const char *adf_sources[] =
-                        {
-                            "Automatic Document Feeder",
-                            SANE_I18N ("Automatic Document Feeder"),
-                            "ADF",
-                            NULL
-                        };
-
-                        if (request->multi_page) {
-                            if (!set_constrained_string_option (handle, option, option_index, adf_sources))
-                                g_warning ("Unable to set ADF source, please file a bug");
-                        }
-                        else {
-                            set_default_option (handle, option_index);
-                        }
-                    }
-                    else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
-                        if (request->depth > 0)
-                            set_int_option (handle, option, option_index, request->depth);
-                    }
-                    else if (strcmp (option->name, SANE_NAME_SCAN_MODE) == 0) {
-                        /* The names of scan modes often used in drivers, as taken from the sane-backends source */
-                        const char *color_scan_modes[] =
-                        {
-                            SANE_VALUE_SCAN_MODE_COLOR,
-                            "Color",
-                            NULL
-                        };
-                        const char *gray_scan_modes[] =
-                        {
-                            SANE_VALUE_SCAN_MODE_GRAY,
-                            "Gray",
-                            "Grayscale",
-                            SANE_I18N ("Grayscale"),
-                            NULL
-                        };
-                        const char *lineart_scan_modes[] =
-                        {
-                            SANE_VALUE_SCAN_MODE_LINEART,
-                            "Lineart",
-                            "LineArt",
-                            SANE_I18N ("LineArt"),
-                            "Black & White",
-                            SANE_I18N ("Black & White"),
-                            "Binary",
-                            SANE_I18N ("Binary"),
-                            SANE_VALUE_SCAN_MODE_GRAY,
-                            "Gray",
-                            "Grayscale",
-                            SANE_I18N ("Grayscale"),
-                            NULL
-                        };
-
-                        switch (request->scan_mode) {
-                        case SCAN_MODE_COLOR:
-                            if (!set_constrained_string_option (handle, option, option_index, color_scan_modes))
-                                g_warning ("Unable to set Color mode, please file a bug");
-                            break;
-                        case SCAN_MODE_GRAY:
-                            if (!set_constrained_string_option (handle, option, option_index, gray_scan_modes))
-                                g_warning ("Unable to set Gray mode, please file a bug");
-                            break;
-                        case SCAN_MODE_LINEART:
-                            if (!set_constrained_string_option (handle, option, option_index, lineart_scan_modes))
-                                g_warning ("Unable to set Lineart mode, please file a bug");
-                            break;
-                        default:
-                            break;
-                        }
-                    }
-
-                    /* Test scanner options (hoping will not effect other scanners...) */
-                    else if (strcmp (option->name, "hand-scanner") == 0) {
-                        set_bool_option (handle, option, option_index, FALSE);
-                    }
-                    else if (strcmp (option->name, "three-pass") == 0) {
-                        set_bool_option (handle, option, option_index, FALSE);
-                    }                    
-                    else if (strcmp (option->name, "test-picture") == 0) {
-                        set_string_option (handle, option, option_index, "Color pattern");
-                    }
-                    else if (strcmp (option->name, "read-delay") == 0) {
-                        set_bool_option (handle, option, option_index, TRUE);
-                    }
-                    else if (strcmp (option->name, "read-delay-duration") == 0) {
-                        set_int_option (handle, option, option_index, 200000);
-                    }
-                }
-                option_index++;
-            }
-            break;
-            
+            do_get_option (scanner);
+            break;            
         case STATE_START:
-            status = sane_start (handle);
-            g_debug ("sane_start (page=%d, pass=%d) -> %s", page_number, pass_number, get_status_string (status));
-            if (status == SANE_STATUS_GOOD) {
-                state = STATE_GET_PARAMETERS;
-            }
-            else if (status == SANE_STATUS_NO_DOCS) {
-                state = STATE_CLOSE;
-            }
-            else {
-                g_warning ("Unable to start device: %s", sane_strstatus (status));
-                emit_signal (scanner, SCAN_FAILED,
-                             g_error_new (SCANNER_TYPE, status,
-                                          /* Error display when unable to start scan */
-                                          _("Unable to start scan")));
-                state = STATE_CLOSE;
-            }
+            do_start (scanner);
             break;
-            
         case STATE_GET_PARAMETERS:
-            status = sane_get_parameters (handle, &parameters);
-            g_debug ("sane_get_parameters () -> %s", get_status_string (status));
-            if (status != SANE_STATUS_GOOD) {
-                g_warning ("Unable to get device parameters: %s", sane_strstatus (status));
-                emit_signal (scanner, SCAN_FAILED,
-                             g_error_new (SCANNER_TYPE, status,
-                                          /* Error displayed when communication with scanner broken */
-                                          _("Error communicating with scanner")));
-                state = STATE_CLOSE;
-            } else {
-                ScanPageInfo *info;
-              
-                g_debug ("Parameters: format=%s last_frame=%s bytes_per_line=%d pixels_per_line=%d lines=%d depth=%d",
-                         get_frame_string (parameters.format),
-                         parameters.last_frame ? "SANE_TRUE" : "SANE_FALSE",
-                         parameters.bytes_per_line,
-                         parameters.pixels_per_line,
-                         parameters.lines,
-                         parameters.depth);
-
-                info = g_malloc(sizeof(ScanPageInfo));
-                info->width = parameters.pixels_per_line;
-                info->height = parameters.lines;
-                info->depth = parameters.depth;
-                info->dpi = request->dpi;
-
-                if (page_number != notified_page) {
-                    emit_signal (scanner, GOT_PAGE_INFO, info);
-                    notified_page = page_number;
-                }
-
-                /* Prepare for read */
-                bytes_remaining = parameters.bytes_per_line;
-                data = g_malloc(sizeof(SANE_Byte) * bytes_remaining);
-                line_count = 0;
-                state = STATE_READ;
-            }
+            do_get_parameters (scanner);
             break;
-
         case STATE_READ:
-            status = sane_read (handle, data, bytes_remaining, &n_read);
-            g_debug ("sane_read (%d) -> %s", bytes_remaining, get_status_string (status));
-            done = FALSE;
-
-            /* End of variable length frame */
-            if (status == SANE_STATUS_EOF &&
-                parameters.lines == -1 &&
-                bytes_remaining == parameters.bytes_per_line)
-                done = TRUE;
-            
-            /* Communication error */
-            else if (status != SANE_STATUS_GOOD) {
-                g_warning ("Unable to read frame from device: %s", sane_strstatus (status));
-                emit_signal (scanner, SCAN_FAILED,
-                             g_error_new (SCANNER_TYPE, status,
-                                          /* Error displayed when communication with scanner broken */
-                                          _("Error communicating with scanner")));
-                state = STATE_CLOSE;
-            }
-            /* Successful read */
-            else {
-                bytes_remaining -= n_read;
-                if (bytes_remaining == 0) {
-                    ScanLine *line;
-
-                    line = g_malloc(sizeof(ScanLine));
-                    switch (parameters.format) {
-                    case SANE_FRAME_GRAY:
-                        line->format = LINE_GRAY;
-                        break;
-                    case SANE_FRAME_RGB:
-                        line->format = LINE_RGB;
-                        break;
-                    case SANE_FRAME_RED:
-                        line->format = LINE_RED;
-                        break;
-                    case SANE_FRAME_GREEN:
-                        line->format = LINE_GREEN;
-                        break;
-                    case SANE_FRAME_BLUE:
-                        line->format = LINE_BLUE;
-                        break;
-                    }
-                    line->width = parameters.pixels_per_line;
-                    line->depth = parameters.depth;
-                    line->data = data;
-                    line->data_length = parameters.bytes_per_line;
-                    line->number = line_count;
-                    emit_signal (scanner, GOT_LINE, line);
-                    data = NULL;
-
-                    /* On last line */
-                    line_count++;
-                    if (parameters.lines > 0 && line_count == parameters.lines) {
-                        done = TRUE;
-                    }
-                    else {
-                        bytes_remaining = parameters.bytes_per_line;
-                        data = g_malloc(sizeof(SANE_Byte) * bytes_remaining);
-                    }
-                }
-            }
-
-            /* End scan or start next frame */
-            if (done) {
-                if (parameters.last_frame) {
-                    pass_number = 0;
-                    if (request->multi_page) {
-                        page_number++;
-                        emit_signal (scanner, IMAGE_DONE, NULL);
-                        state = STATE_START;
-                    }
-                    else
-                        state = STATE_CLOSE;
-                }
-                else {
-                    pass_number++;
-                    state = STATE_START;
-                }
-            }
-            break;
-
-        case STATE_CLOSE:
-            emit_signal (scanner, IMAGE_DONE, NULL);
-            g_free (data);
-            data = NULL;
-            g_free (request->device);
-            g_free (request);
-            request = NULL;
-            state = STATE_IDLE;
-            emit_signal (scanner, READY, NULL);            
+            do_read (scanner);
             break;
         }
     }
@@ -1007,6 +1171,23 @@ scanner_start (Scanner *scanner)
 
 
 void
+scanner_redetect (Scanner *scanner)
+{
+    ScanRequest *request;
+
+    if (scanner->priv->redetect)
+        return;
+    scanner->priv->redetect = TRUE;
+
+    g_debug ("Requesting redetection of scan devices");
+
+    request = g_malloc0 (sizeof (ScanRequest));
+    request->type = REQUEST_REDETECT;
+    g_async_queue_push (scanner->priv->scan_queue, request);
+}
+
+
+void
 scanner_scan (Scanner *scanner, const char *device,
               gint dpi, ScanMode scan_mode, gint depth, gboolean multi_page)
 {
@@ -1014,12 +1195,13 @@ scanner_scan (Scanner *scanner, const char *device,
 
     g_debug ("scanner_scan (\"%s\", %d, %s)", device ? device : "(null)", dpi, multi_page ? "TRUE" : "FALSE");
     request = g_malloc0 (sizeof (ScanRequest));
-    if (device)
-        request->device = g_strdup (device);
-    request->dpi = dpi;
-    request->scan_mode = scan_mode;
-    request->depth = depth;
-    request->multi_page = multi_page;
+    request->type = REQUEST_START_SCAN;
+    request->job = g_malloc0 (sizeof (ScanJob));
+    request->job->device = g_strdup (device);
+    request->job->dpi = dpi;
+    request->job->scan_mode = scan_mode;
+    request->job->depth = depth;
+    request->job->multi_page = multi_page;
     g_async_queue_push (scanner->priv->scan_queue, request);
 }
 
@@ -1027,19 +1209,26 @@ scanner_scan (Scanner *scanner, const char *device,
 void
 scanner_cancel (Scanner *scanner)
 {
-    scanner_scan (scanner, NULL, 0, SCAN_MODE_DEFAULT, 0, FALSE);
+    ScanRequest *request;
+  
+    request = g_malloc0 (sizeof (ScanRequest));
+    request->type = REQUEST_CANCEL;
+    g_async_queue_push (scanner->priv->scan_queue, request);
 }
 
 
 void scanner_free (Scanner *scanner)
 {
+    ScanRequest *request;
+
     g_debug ("Stopping scan thread");
-    scanner->priv->running = FALSE;
-    g_async_queue_push (scanner->priv->scan_queue, "");
+
+    request = g_malloc0 (sizeof (ScanRequest));
+    request->type = REQUEST_QUIT;
+    g_async_queue_push (scanner->priv->scan_queue, request);
+
     if (scanner->priv->thread)
         g_thread_join (scanner->priv->thread);
-    if (scanner->priv->detect_thread)
-        g_thread_join (scanner->priv->detect_thread);    
 
     g_async_queue_unref (scanner->priv->scan_queue);
     g_object_unref (scanner);
@@ -1052,14 +1241,6 @@ void scanner_free (Scanner *scanner)
 static void
 scanner_class_init (ScannerClass *klass)
 {
-    signals[READY] =
-        g_signal_new ("ready",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (ScannerClass, ready),
-                      NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
     signals[AUTHORIZE] =
         g_signal_new ("authorize",
                       G_TYPE_FROM_CLASS (klass),
@@ -1100,11 +1281,19 @@ scanner_class_init (ScannerClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__POINTER,
                       G_TYPE_NONE, 1, G_TYPE_POINTER);
-    signals[IMAGE_DONE] =
-        g_signal_new ("image-done",
+    signals[PAGE_DONE] =
+        g_signal_new ("page-done",
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (ScannerClass, image_done),
+                      G_STRUCT_OFFSET (ScannerClass, page_done),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+    signals[DOCUMENT_DONE] =
+        g_signal_new ("document-done",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (ScannerClass, document_done),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
@@ -1119,7 +1308,6 @@ static void
 scanner_init (Scanner *scanner)
 {
     scanner->priv = G_TYPE_INSTANCE_GET_PRIVATE (scanner, SCANNER_TYPE, ScannerPrivate);
-    scanner->priv->running = TRUE;
     scanner->priv->scan_queue = g_async_queue_new ();
     scanner->priv->authorize_queue = g_async_queue_new ();
 }

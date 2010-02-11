@@ -14,6 +14,9 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 #include <unistd.h>
+#include <gudev/gudev.h>
+
+#include <sane/sane.h> // For SANE_STATUS_CANCELLED
 
 #include "ui.h"
 #include "scanner.h"
@@ -31,14 +34,6 @@ static Book *book;
 static gboolean scanning = FALSE;
 
 static gboolean first_autodetect = TRUE;
-
-
-static void
-scanner_ready_cb (Scanner *scanner)
-{
-    scanning = FALSE;
-    ui_set_scanning (ui, FALSE);
-}
 
 
 static void
@@ -161,12 +156,19 @@ scanner_line_cb (Scanner *scanner, ScanLine *line)
 
 
 static void
-scanner_image_done_cb (Scanner *scanner)
+scanner_page_done_cb (Scanner *scanner)
 {
     Page *page;
-    
     page = book_get_page (book, book_get_n_pages (book) - 1);
     page_finish (page);
+}
+
+
+static void
+scanner_document_done_cb (Scanner *scanner)
+{
+    scanning = FALSE;
+    ui_set_scanning (ui, FALSE);
     ui_set_have_scan (ui, TRUE);
 }
 
@@ -174,11 +176,26 @@ scanner_image_done_cb (Scanner *scanner)
 static void
 scanner_failed_cb (Scanner *scanner, GError *error)
 {
-    ui_show_error (ui,
-                   /* Title of error dialog when scan failed */
-                   _("Failed to scan"),
-                   error->message,
-		   TRUE);
+    Page *page;
+
+    page = book_get_page (book, book_get_n_pages (book) - 1);
+
+    /* Remove a failed page */
+    if (page_get_scan_line (page) == 0)
+        book_delete_page (book, page);
+    else
+        page_finish (page);
+
+    if (!g_error_matches (error, SCANNER_TYPE, SANE_STATUS_CANCELLED)) {
+        ui_show_error (ui,
+                       /* Title of error dialog when scan failed */
+                       _("Failed to scan"),
+                       error->message,
+                       TRUE);
+    }
+        
+    ui_set_scanning (ui, FALSE);
+    ui_set_have_scan (ui, TRUE);
 }
 
 
@@ -210,15 +227,16 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolea
 
     g_debug ("Requesting scan of type %s from device '%s'", profile_name, device);
 
-    scanning = TRUE;
-    ui_set_have_scan (ui, FALSE);
-    ui_set_scanning (ui, TRUE);
-    
     /* Find this profile */
     for (i = 0; profiles[i].name && strcmp (profiles[i].name, profile_name) != 0; i++);
 
-    page = append_page (replace);
-  
+    if (!scanning)
+        page = append_page (replace);
+
+    scanning = TRUE;
+    ui_set_have_scan (ui, FALSE);
+    ui_set_scanning (ui, TRUE);
+ 
     ui_set_default_file_name (ui, profiles[i].file_name);
     scanner_scan (scanner, device, profiles[i].dpi, profiles[i].mode, 8, continuous);
 }
@@ -434,9 +452,18 @@ get_options (int argc, char **argv)
 }
 
 
-int
-main(int argc, char **argv)
+static void
+on_uevent (GUdevClient *client, const gchar *action, GUdevDevice *device)
 {
+    scanner_redetect (scanner);
+}
+
+int
+main (int argc, char **argv)
+{
+    GUdevClient *udev_client;
+    const char *udev_subsystems[] = { "usb", NULL };
+
     bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
     bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
     textdomain (GETTEXT_PACKAGE);
@@ -445,7 +472,7 @@ main(int argc, char **argv)
     gtk_init (&argc, &argv);
 
     get_options (argc, argv);
-
+  
     ui = ui_new ();
     book = ui_get_book (ui);
     g_signal_connect (ui, "start-scan", G_CALLBACK (scan_cb), NULL);
@@ -455,13 +482,16 @@ main(int argc, char **argv)
     g_signal_connect (ui, "quit", G_CALLBACK (quit_cb), NULL);
 
     scanner = scanner_new ();
-    g_signal_connect (G_OBJECT (scanner), "ready", G_CALLBACK (scanner_ready_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "update-devices", G_CALLBACK (update_scan_devices_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "authorize", G_CALLBACK (authorize_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "got-page-info", G_CALLBACK (scanner_page_info_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "got-line", G_CALLBACK (scanner_line_cb), NULL);
-    g_signal_connect (G_OBJECT (scanner), "image-done", G_CALLBACK (scanner_image_done_cb), NULL);
+    g_signal_connect (G_OBJECT (scanner), "page-done", G_CALLBACK (scanner_page_done_cb), NULL);
+    g_signal_connect (G_OBJECT (scanner), "document-done", G_CALLBACK (scanner_document_done_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "scan-failed", G_CALLBACK (scanner_failed_cb), NULL);
+
+    udev_client = g_udev_client_new (udev_subsystems);
+    g_signal_connect (udev_client, "uevent", G_CALLBACK (on_uevent), NULL);
 
     if (default_device)
         ui_set_selected_device (ui, default_device);

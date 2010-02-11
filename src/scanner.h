@@ -72,13 +72,13 @@ typedef struct
 {
     GObjectClass parent_class;
 
-    void (*ready) (Scanner *scanner);
     void (*update_devices) (Scanner *scanner, GList *devices);
     void (*authorize) (Scanner *scanner, const gchar *resource);
     void (*got_page_info) (Scanner *scanner, ScanPageInfo *info);
     void (*got_line) (Scanner *scanner, ScanLine *line);
     void (*scan_failed) (Scanner *scanner, GError *error);
-    void (*image_done) (Scanner *scanner);
+    void (*page_done) (Scanner *scanner);
+    void (*document_done) (Scanner *scanner);
 } ScannerClass;
 
 
@@ -89,6 +89,8 @@ Scanner *scanner_new (void);
 void scanner_start (Scanner *scanner);
 
 void scanner_authorize (Scanner *scanner, const gchar *username, const gchar *password);
+
+void scanner_redetect (Scanner *scanner);
 
 void scanner_scan (Scanner *scanner, const char *device,
                    gint dpi, ScanMode scan_mode, gint depth, gboolean multi_page);

@@ -234,10 +234,10 @@ page_finish (Page *page)
 
         g_object_unref (page->priv->image);
         page->priv->image = image;
-
-        g_signal_emit (page, signals[IMAGE_CHANGED], 0);
     }
     page->priv->scan_line = -1;
+
+    g_signal_emit (page, signals[IMAGE_CHANGED], 0);
 }
 
 
