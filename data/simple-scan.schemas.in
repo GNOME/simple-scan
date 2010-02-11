@@ -63,7 +63,7 @@
       <key>/schemas/apps/simple-scan/scan_direction</key>
       <owner>simple-scan</owner>
       <type>string</type>
-      <default>top-to-bottom</default>
+      <default>right-to-left</default>
       <locale name="C">
         <short>Direction of scan</short>
         <long>
@@ -72,6 +72,45 @@
           'bottom-to-top'
           'left-to-right'
           'right-to-left'
+        </long>
+      </locale>
+    </schema>
+    <schema>
+      <applyto>/apps/simple-scan/page_width</applyto>
+      <key>/schemas/apps/simple-scan/page_width</key>
+      <owner>simple-scan</owner>
+      <type>int</type>
+      <default>595</default>
+      <locale name="C">
+        <short>Width of scanned image in pixels</short>
+        <long>
+      The width of scanned image in pixels.  This value is updated to what the last scanned page was.
+        </long>
+      </locale>
+    </schema>
+    <schema>
+      <applyto>/apps/simple-scan/page_height</applyto>
+      <key>/schemas/apps/simple-scan/page_height</key>
+      <owner>simple-scan</owner>
+      <type>int</type>
+      <default>842</default>
+      <locale name="C">
+        <short>Height of scanned image in pixels</short>
+        <long>
+      The height of scanned image in pixels.  This value is updated to what the last scanned page was.
+        </long>
+      </locale>
+    </schema>
+    <schema>
+      <applyto>/apps/simple-scan/page_dpi</applyto>
+      <key>/schemas/apps/simple-scan/page_dpi</key>
+      <owner>simple-scan</owner>
+      <type>int</type>
+      <default>72</default>
+      <locale name="C">
+        <short>DPI of scanned image</short>
+        <long>
+      The DPI of scanned image.  This value is updated to what the last scanned page was.
         </long>
       </locale>
     </schema>

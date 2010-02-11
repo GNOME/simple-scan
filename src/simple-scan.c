@@ -94,8 +94,8 @@ append_page (gboolean replace)
     page = book_get_page (book, -1);
     if (page) {
         orientation = page_get_orientation (page);
-        width = page_get_width (page);
-        height = page_get_height (page);
+        width = page_get_scan_width (page);
+        height = page_get_scan_height (page);
         dpi = page_get_dpi (page);
         
         do_crop = page_has_crop (page);

@@ -333,6 +333,24 @@ page_get_height (Page *page)
 }
 
 
+gint
+page_get_scan_width (Page *page)
+{
+    g_return_val_if_fail (page != NULL, 0);
+
+    return gdk_pixbuf_get_width (page->priv->image);
+}
+
+
+gint
+page_get_scan_height (Page *page)
+{
+    g_return_val_if_fail (page != NULL, 0);
+
+    return gdk_pixbuf_get_height (page->priv->image);
+}
+
+
 void
 page_set_no_crop (Page *page)
 {

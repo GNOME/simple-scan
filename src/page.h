@@ -63,6 +63,10 @@ gint page_get_width (Page *page);
 
 gint page_get_height (Page *page);
 
+gint page_get_scan_width (Page *page);
+
+gint page_get_scan_height (Page *page);
+
 void page_start (Page *page);
 
 gint page_get_scan_line (Page *page);
@@ -78,10 +82,6 @@ void page_set_orientation (Page *page, Orientation orientation);
 void page_rotate_left (Page *page);
 
 void page_rotate_right (Page *page);
-
-gint page_get_width (Page *page);
-
-gint page_get_height (Page *page);
 
 void page_set_no_crop (Page *page);
 
