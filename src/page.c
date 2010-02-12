@@ -31,6 +31,9 @@ struct PagePrivate
 
     /* Scanned image data */
     GdkPixbuf *image;
+  
+    /* TRUE if have some page data */
+    gboolean has_data;
 
     /* Expected next scan row */
     gint scan_line;
@@ -120,6 +123,14 @@ get_sample (guchar *data, gint depth, gint index)
 }
 
 
+gboolean page_has_data (Page *page)
+{
+    g_return_val_if_fail (page != NULL, FALSE);
+
+    return page->priv->has_data;
+}
+
+
 gint page_get_scan_line (Page *page)
 {
     g_return_val_if_fail (page != NULL, -1);
@@ -204,7 +215,8 @@ page_parse_scan_line (Page *page, ScanLine *line)
         }
         break;
     }
-    
+
+    page->priv->has_data = TRUE;
     page->priv->scan_line = line->number;
     g_signal_emit (page, signals[IMAGE_CHANGED], 0);
 }

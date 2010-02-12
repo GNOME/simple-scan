@@ -312,7 +312,6 @@
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="homogeneous">False</property>
               </packing>
             </child>
             <child>
@@ -690,27 +689,9 @@
           <object class="GtkTable" id="table3">
             <property name="visible">True</property>
             <property name="border_width">5</property>
-            <property name="n_rows">2</property>
             <property name="n_columns">2</property>
             <property name="column_spacing">6</property>
             <property name="row_spacing">6</property>
-            <child>
-              <object class="GtkCheckButton" id="replace_pages_check">
-                <property name="label" translatable="yes" comments="Check button to delete all existing pages on a new scan when enabled">_Replace current pages</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="right_attach">2</property>
-                <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
-                <property name="y_options">GTK_FILL</property>
-              </packing>
-            </child>
             <child>
               <object class="GtkLabel" id="source_label">
                 <property name="visible">True</property>

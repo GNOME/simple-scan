@@ -31,8 +31,6 @@ static Scanner *scanner;
 
 static Book *book;
 
-static gboolean scanning = FALSE;
-
 static gboolean first_autodetect = TRUE;
 
 
@@ -74,7 +72,7 @@ authorize_cb (Scanner *scanner, const gchar *resource)
 
 
 static Page *
-append_page (gboolean replace)
+append_page ()
 {
     Page *page;
     Orientation orientation = TOP_TO_BOTTOM;
@@ -82,8 +80,12 @@ append_page (gboolean replace)
     gchar *named_crop = NULL;
     gint width = 100, height = 100, dpi = 100, cx, cy, cw, ch;
 
-    /* Copy info from previous page */
+    /* Use current page if not used */
     page = book_get_page (book, -1);
+    if (page && !page_has_data (page))
+        return page;
+  
+    /* Copy info from previous page */
     if (page) {
         orientation = page_get_orientation (page);
         width = page_get_scan_width (page);
@@ -96,9 +98,6 @@ append_page (gboolean replace)
             page_get_crop (page, &cx, &cy, &cw, &ch);
         }
     }  
-
-    if (replace)
-        book_clear (book);
 
     page = book_append_page (book, width, height, dpi, orientation);
     if (do_crop) {
@@ -125,14 +124,8 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
     g_debug ("Page is %d pixels wide, %d pixels high, %d bits per pixel",
              info->width, info->height, info->depth);
 
-    page = book_get_page (book, -1);
-  
     /* Add a new page */
-    if (page_get_scan_line (page) != 0) {
-        page = append_page (FALSE);
-    }
-
-    g_return_if_fail (page != NULL);
+    page = append_page (FALSE);
     page_set_scan_area (page, info->width, info->height, info->dpi);
 }
 
@@ -159,7 +152,6 @@ scanner_page_done_cb (Scanner *scanner)
 static void
 scanner_document_done_cb (Scanner *scanner)
 {
-    scanning = FALSE;
     ui_set_scanning (ui, FALSE);
     ui_set_have_scan (ui, TRUE);
 }
@@ -173,10 +165,10 @@ scanner_failed_cb (Scanner *scanner, GError *error)
     page = book_get_page (book, book_get_n_pages (book) - 1);
 
     /* Remove a failed page */
-    if (page_get_scan_line (page) == 0)
-        book_delete_page (book, page);
-    else
+    if (page_has_data (page))
         page_finish (page);
+    else
+        book_delete_page (book, page); 
 
     if (!g_error_matches (error, SCANNER_TYPE, SANE_STATUS_CANCELLED)) {
         ui_show_error (ui,
@@ -192,7 +184,7 @@ scanner_failed_cb (Scanner *scanner, GError *error)
 
 
 static void
-scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolean continuous, gboolean replace)
+scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolean continuous)
 {
     struct {
         const gchar *name;
@@ -214,7 +206,6 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolea
           /* Default name for JPEG documents */
           _("Scanned Document.jpg") }                
     };
-    Page *page;
     gint i;
 
     g_debug ("Requesting scan of type %s from device '%s'", profile_name, device);
@@ -222,10 +213,8 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolea
     /* Find this profile */
     for (i = 0; profiles[i].name && strcmp (profiles[i].name, profile_name) != 0; i++);
 
-    if (!scanning)
-        page = append_page (replace);
+    append_page ();
 
-    scanning = TRUE;
     ui_set_have_scan (ui, FALSE);
     ui_set_scanning (ui, TRUE);
  

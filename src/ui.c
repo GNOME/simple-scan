@@ -49,14 +49,12 @@ struct SimpleScanPrivate
     GtkWidget *username_entry, *password_entry;
 
     GtkWidget *preferences_dialog;
-    GtkWidget *replace_pages_check;
 
     Book *book;
     BookView *book_view;
     gboolean updating_page_menu;
     gint default_page_width, default_page_height, default_page_dpi;
     Orientation default_page_orientation;
-    gboolean book_is_placeholder; // FIXME: Needs to be cleared when scan starts
 
     gchar *default_file_name;
     gboolean scanning;
@@ -222,9 +220,6 @@ add_default_page (SimpleScan *ui)
                       ui->priv->default_page_width, ui->priv->default_page_height,
                       ui->priv->default_page_dpi,
                       ui->priv->default_page_orientation);
-
-    /* Remove this page on the next scan */
-    ui->priv->book_is_placeholder = TRUE;
 }
 
 
@@ -274,13 +269,6 @@ get_document_hint (SimpleScan *ui)
 }
 
 
-static gboolean
-get_replace_pages (SimpleScan *ui)
-{
-    return ui->priv->book_is_placeholder || gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check));
-}
-
-
 void scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
 void
@@ -290,8 +278,7 @@ scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 
     device = ui_get_selected_device (ui);
     mode = get_document_hint (ui);
-    g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode,
-                   FALSE, get_replace_pages (ui));
+    g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode, FALSE);
     g_free (device);
     g_free (mode);
 }
@@ -318,8 +305,7 @@ continuous_scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 
         device = ui_get_selected_device (ui);
         mode = get_document_hint (ui);
-        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode,
-                       TRUE, get_replace_pages (ui));
+        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode, TRUE);
         g_free (device);
         g_free (mode);
     }
@@ -728,9 +714,6 @@ quit (SimpleScan *ui)
     gconf_client_set_string(ui->priv->client, "/apps/simple-scan/document_type", document_type, NULL);
     g_free (document_type);
 
-    gconf_client_set_bool(ui->priv->client, "/apps/simple-scan/replace_pages",
-                          gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check)), NULL);
-
     gconf_client_set_int(ui->priv->client, "/apps/simple-scan/window_width", ui->priv->window_width, NULL);
     gconf_client_set_int(ui->priv->client, "/apps/simple-scan/window_height", ui->priv->window_height, NULL);
     gconf_client_set_bool(ui->priv->client, "/apps/simple-scan/window_is_maximized", ui->priv->window_is_maximized, NULL);
@@ -820,21 +803,12 @@ page_removed_cb (Book *book, Page *page, SimpleScan *ui)
 
 
 static void
-book_cleared_cb (Book *book, SimpleScan *ui)
-{
-    /* Must have been cleared for next scan */
-    ui->priv->book_is_placeholder = FALSE;
-}
-
-
-static void
 ui_load (SimpleScan *ui)
 {
     GtkBuilder *builder;
     GError *error = NULL;
     GtkCellRenderer *renderer;
     gchar *device, *document_type, *scan_direction;
-    gboolean replace_pages;
 
     builder = ui->priv->builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, UI_DIR "simple-scan.ui", &error);
@@ -870,7 +844,6 @@ ui_load (SimpleScan *ui)
     ui->priv->password_entry = GTK_WIDGET (gtk_builder_get_object (builder, "password_entry"));
    
     ui->priv->preferences_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "preferences_dialog"));
-    ui->priv->replace_pages_check = GTK_WIDGET (gtk_builder_get_object (builder, "replace_pages_check"));
 
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->device_combo), renderer, TRUE);
@@ -895,9 +868,6 @@ ui_load (SimpleScan *ui)
         g_free (document_type);
     }
 
-    replace_pages = gconf_client_get_bool (ui->priv->client, "/apps/simple-scan/replace_pages", NULL);
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (ui->priv->replace_pages_check), replace_pages);
-    
     ui->priv->book_view = book_view_new ();
     g_signal_connect (ui->priv->book_view, "page-selected", G_CALLBACK (page_selected_cb), ui);
     book_view_set_widgets (ui->priv->book_view,
@@ -1121,7 +1091,6 @@ ui_init (SimpleScan *ui)
     ui->priv->book = book_new ();
     g_signal_connect (ui->priv->book, "page-removed", G_CALLBACK (page_removed_cb), ui);
     g_signal_connect (ui->priv->book, "page-added", G_CALLBACK (page_added_cb), ui);
-    g_signal_connect (ui->priv->book, "cleared", G_CALLBACK (book_cleared_cb), ui);
    
     ui->priv->client = gconf_client_get_default();
     gconf_client_add_dir(ui->priv->client, "/apps/simple-scan", GCONF_CLIENT_PRELOAD_NONE, NULL);
