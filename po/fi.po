@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-01-27 09:15+1100\n"
+"POT-Creation-Date: 2010-02-11 16:18+1100\n"
 "PO-Revision-Date: 2010-02-10 11:23+0000\n"
 "Last-Translator: Timo Jyrinki <timo-jyrinki@ubuntu.com>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-11 05:07+0000\n"
+"X-Launchpad-Export-Date: 2010-02-12 04:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -234,105 +234,141 @@ msgid "Scan Documents"
 msgstr "Lue asiakirjoja kuvanlukijalta"
 
 #: ../data/simple-scan.schemas.in.h:1
+msgid "DPI of scanned image"
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:2
 msgid "Device to scan from"
 msgstr "Laite jolta luetaan"
 
-#: ../data/simple-scan.schemas.in.h:2
+#: ../data/simple-scan.schemas.in.h:3
 msgid "Direction of scan"
 msgstr "Lukemisen suunta"
 
-#: ../data/simple-scan.schemas.in.h:3
-msgid "SANE device to acquire images from."
-msgstr "SANE-laite jolta kuvat luetaan."
-
 #: ../data/simple-scan.schemas.in.h:4
-msgid "TRUE if the application window is maximized"
+msgid "Height of scanned image in pixels"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:5
+msgid "SANE device to acquire images from."
+msgstr "SANE-laite jolta kuvat luetaan."
+
+#: ../data/simple-scan.schemas.in.h:6
+msgid "TRUE if the application window is maximized"
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:7
 msgid "TRUE if the document is cleared on each scan"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:6
+#: ../data/simple-scan.schemas.in.h:8
+msgid ""
+"The DPI of scanned image. This value is updated to what the last scanned "
+"page was."
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:9
 msgid ""
 "The direction of the scanner across the scanned page. It can be one of the "
 "following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:7
+#: ../data/simple-scan.schemas.in.h:10
+msgid ""
+"The height of scanned image in pixels. This value is updated to what the "
+"last scanned page was."
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:11
+msgid ""
+"The width of scanned image in pixels. This value is updated to what the last "
+"scanned page was."
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:12
 msgid "Type of document being scanned"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:8
+#: ../data/simple-scan.schemas.in.h:13
 msgid ""
 "Type of document being scanned. 'text' for text documents, 'photo' for "
 "photos. This setting decides on the scan resolution, colors and post-"
 "processing."
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:9
+#: ../data/simple-scan.schemas.in.h:14
+msgid "Width of scanned image in pixels"
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:15
 msgid "Window height in pixels"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:10
+#: ../data/simple-scan.schemas.in.h:16
 msgid "Window width in pixels"
 msgstr ""
 
+#. Error displayed when no scanners to scan with
+#: ../src/scanner.c:768
+#, c-format
+msgid "No scanners available.  Please connect a scanner."
+msgstr ""
+
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.c:556
+#: ../src/scanner.c:798
 #, c-format
 msgid "Unable to connect to scanner"
 msgstr "Kuvanlukijaan ei voi yhdistää"
 
 #. Error display when unable to start scan
-#: ../src/scanner.c:694
+#: ../src/scanner.c:973
 #, c-format
 msgid "Unable to start scan"
 msgstr "Kuvanluvun käynnistäminen ei onnistu"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.c:707 ../src/scanner.c:748
+#: ../src/scanner.c:994 ../src/scanner.c:1081
 #, c-format
 msgid "Error communicating with scanner"
 msgstr ""
 
 #. Warning displayed when no scanners are detected
-#: ../src/simple-scan.c:59
+#: ../src/simple-scan.c:52
 msgid "No scanners detected"
 msgstr "Kuvanlukijoita ei havaittu"
 
 #. Hint to user on why there are no scanners detected
-#: ../src/simple-scan.c:61
+#: ../src/simple-scan.c:54
 msgid "Please check your scanner is connected and powered on"
 msgstr "Varmista että kuvanlukijasi on yhdistetty ja kytketty päälle"
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.c:129
+#: ../src/simple-scan.c:184
 msgid "Failed to scan"
 msgstr "Kuvanluku epäonnistui"
 
 #. Default name for PDF documents
-#: ../src/simple-scan.c:147 ../src/ui.c:1199
+#: ../src/simple-scan.c:206 ../src/ui.c:1129
 msgid "Scanned Document.pdf"
 msgstr "Asiakirja kuvanlukijasta.pdf"
 
 #. Default name for JPEG documents
-#: ../src/simple-scan.c:150 ../src/simple-scan.c:156
+#: ../src/simple-scan.c:209 ../src/simple-scan.c:215
 msgid "Scanned Document.jpg"
 msgstr "Luettu asiakirja.jpg"
 
 #. Default name for PNG documents
-#: ../src/simple-scan.c:153
+#: ../src/simple-scan.c:212
 msgid "Scanned Document.png"
 msgstr "Asiakirja kuvanlukijasta.png"
 
 #. Title of error dialog when save failed
-#: ../src/simple-scan.c:254
+#: ../src/simple-scan.c:277
 msgid "Failed to save file"
 msgstr "Tiedoston tallennus epäonnistui"
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:339
+#: ../src/simple-scan.c:362
 #, c-format
 msgid ""
 "Usage:\n"
@@ -340,7 +376,7 @@ msgid ""
 msgstr ""
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:347
+#: ../src/simple-scan.c:370
 #, c-format
 msgid ""
 "Help Options:\n"
@@ -352,7 +388,7 @@ msgid ""
 msgstr ""
 
 #. Description on simple-scan command-line GTK+ options displayed on command-line
-#: ../src/simple-scan.c:359
+#: ../src/simple-scan.c:382
 #, c-format
 msgid ""
 "GTK+ Options:\n"
@@ -374,18 +410,18 @@ msgstr ""
 "  --g-fatal-warnings              Tee kaikista varoituksista kuolettavia"
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.c:118
+#: ../src/ui.c:119
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr "Käyttäjänimi ja salasana vaaditaan laitteelle ”%s” pääsemiseksi"
 
 #. Title of save dialog
-#: ../src/ui.c:571
+#: ../src/ui.c:586
 msgid "Save As..."
 msgstr "Tallenna nimellä..."
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.c:782
+#: ../src/ui.c:681
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -402,32 +438,32 @@ msgid ""
 msgstr ""
 
 #. Title of about dialog
-#: ../src/ui.c:796
+#: ../src/ui.c:695
 msgid "About Simple Scan"
 msgstr "Tietoja Yksinkertainen kuvanluku (”Simple Scan”) -sovelluksesta"
 
 #. Description of program
-#: ../src/ui.c:799
+#: ../src/ui.c:698
 msgid "Simple document scanning tool"
 msgstr "Yksinkertainen asiakirjojen kuvanlukutyökalu"
 
-#: ../src/ui.c:807
+#: ../src/ui.c:706
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Timo Jyrinki https://launchpad.net/~timo-jyrinki"
 
 #. Title of dialog when cannot load required files
-#: ../src/ui.c:924
+#: ../src/ui.c:845
 msgid "Files missing"
 msgstr "Tiedostoja puuttuu"
 
 #. Description in dialog when cannot load required files
-#: ../src/ui.c:926
+#: ../src/ui.c:847
 msgid "Please check your installation"
 msgstr ""
 
 #. Button in error dialog to open prefereces dialog and change scanner
-#: ../src/ui.c:1075
+#: ../src/ui.c:1004
 msgid "Change _Scanner"
 msgstr "Muuta _kuvanlukijaa"
