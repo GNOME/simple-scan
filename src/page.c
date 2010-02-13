@@ -89,6 +89,7 @@ page_start (Page *page)
     g_return_if_fail (page != NULL);
 
     page->priv->scan_line = 0;
+    g_signal_emit (page, signals[IMAGE_CHANGED], 0);
 }
 
 

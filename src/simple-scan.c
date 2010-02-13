@@ -61,8 +61,11 @@ append_page ()
 
     /* Use current page if not used */
     page = book_get_page (book, -1);
-    if (page && !page_has_data (page))
+    if (page && !page_has_data (page)) {
+        ui_set_selected_page (ui, page);
+        page_start (page);
         return page;
+    }
   
     /* Copy info from previous page */
     if (page) {
@@ -87,7 +90,7 @@ append_page ()
         else
             page_set_custom_crop (page, cw, ch);
         page_move_crop (page, cx, cy);
-    }   
+    }
     ui_set_selected_page (ui, page);
     page_start (page);
   
