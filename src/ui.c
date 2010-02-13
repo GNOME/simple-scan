@@ -349,10 +349,15 @@ continuous_scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
         g_signal_emit (G_OBJECT (ui), signals[STOP_SCAN], 0);
     } else {
         gchar *device, *mode;
+        gint dpi;
 
         device = get_selected_device (ui);
         mode = get_document_hint (ui);
-        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, mode, TRUE);
+        if (strcmp (mode, "text") == 0) 
+            dpi = get_text_dpi (ui);
+        else
+            dpi = get_photo_dpi (ui);
+        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, dpi, mode, TRUE);
         g_free (device);
         g_free (mode);
     }
