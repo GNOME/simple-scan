@@ -656,7 +656,7 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     } file_types[] =
     {
         /* Save dialog: Label for saving in PDF format */
-        { _("PDF"), ".pdf" },
+        { _("PDF (multi-page document)"), ".pdf" },
         /* Save dialog: Label for saving in JPEG format */
         { _("JPEG (compressed)"), ".jpg" },
         /* Save dialog: Label for saving in PNG format */
