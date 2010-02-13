@@ -31,31 +31,10 @@ static Scanner *scanner;
 
 static Book *book;
 
-static gboolean first_autodetect = TRUE;
-
 
 static void
 update_scan_devices_cb (Scanner *scanner, GList *devices)
 {
-    if (first_autodetect) {
-        first_autodetect = FALSE;
-
-        if (!devices) {
-            gchar *selected;
-
-            selected = ui_get_selected_device (ui);
-            if (!selected)
-                ui_show_error (ui,
-                               /* Warning displayed when no scanners are detected */
-                               _("No scanners detected"),
-                               /* Hint to user on why there are no scanners detected */
-                               _("Please check your scanner is connected and powered on"),
-			       FALSE);
-            g_free (selected);
-        }
-    }
-
-    /* Add/update detected devices */
     ui_set_scan_devices (ui, devices);
 }
 
@@ -184,31 +163,27 @@ scanner_failed_cb (Scanner *scanner, GError *error)
 
 
 static void
-scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolean continuous)
+scan_cb (SimpleScan *ui, const gchar *device, gint dpi, const gchar *profile_name, gboolean continuous)
 {
     struct {
         const gchar *name;
-        gint dpi;
         ScanMode mode;
         const gchar *file_name;
     } profiles[] = 
     {
-        { "text", 200, SCAN_MODE_LINEART,
+        { "text", SCAN_MODE_LINEART,
           /* Default name for PDF documents */
           _("Scanned Document.pdf") },
-        { "photo", 400, SCAN_MODE_COLOR,
+        { "photo", SCAN_MODE_COLOR,
           /* Default name for JPEG documents */
           _("Scanned Document.jpg") },
-        { "raw", 800, SCAN_MODE_COLOR,
-          /* Default name for PNG documents */
-          _("Scanned Document.png") },
-        { NULL, 75, SCAN_MODE_COLOR,
+        { NULL, SCAN_MODE_COLOR,
           /* Default name for JPEG documents */
           _("Scanned Document.jpg") }                
     };
     gint i;
 
-    g_debug ("Requesting scan of type %s from device '%s'", profile_name, device);
+    g_debug ("Requesting scan of type %s at %d dpi from device '%s'", profile_name, dpi, device);
 
     /* Find this profile */
     for (i = 0; profiles[i].name && strcmp (profiles[i].name, profile_name) != 0; i++);
@@ -219,7 +194,7 @@ scan_cb (SimpleScan *ui, const gchar *device, const gchar *profile_name, gboolea
     ui_set_scanning (ui, TRUE);
  
     ui_set_default_file_name (ui, profiles[i].file_name);
-    scanner_scan (scanner, device, profiles[i].dpi, profiles[i].mode, 8, continuous);
+    scanner_scan (scanner, device, dpi, profiles[i].mode, 8, continuous);
 }
 
 
