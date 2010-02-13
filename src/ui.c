@@ -607,6 +607,34 @@ page_delete_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
 }
 
 
+static void
+on_file_type_changed (GtkTreeSelection *selection, GtkWidget *dialog)
+{
+    GtkTreeModel *model;
+    GtkTreeIter iter;
+    gchar *path, *filename, *extension, *new_filename;
+
+    if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+        return;
+
+    gtk_tree_model_get (model, &iter, 1, &extension, -1);
+    path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+    filename = g_path_get_basename (path);
+
+    /* Replace extension */
+    if (g_strrstr (filename, "."))
+        new_filename = g_strdup_printf ("%.*s%s", (int)(g_strrstr (filename, ".") - filename), filename, extension);
+    else
+        new_filename = g_strdup_printf ("%s%s", filename, extension);
+    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), new_filename);
+
+    g_free (path);
+    g_free (filename);
+    g_free (new_filename);
+    g_free (extension);
+}
+
+
 void save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
 void
@@ -615,8 +643,28 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     GtkWidget *dialog;
     gint response;
     GtkFileFilter *filter;
+    GtkWidget *expander, *file_type_view;
+    GtkListStore *file_type_store;
+    GtkTreeIter iter;
+    GtkTreeViewColumn *column;
+    const gchar *extension;
+    gint i;
 
-    dialog = gtk_file_chooser_dialog_new (/* Title of save dialog */
+    struct
+    {
+        gchar *label, *extension;
+    } file_types[] =
+    {
+        /* Save dialog: Label for saving in PDF format */
+        { _("PDF"), ".pdf" },
+        /* Save dialog: Label for saving in JPEG format */
+        { _("JPEG (compressed)"), ".jpg" },
+        /* Save dialog: Label for saving in PNG format */
+        { _("PNG (lossless)"), ".png" },
+        { NULL, NULL }
+    };
+
+    dialog = gtk_file_chooser_dialog_new (/* Save dialog: Dialog title */
                                           _("Save As..."),
                                           GTK_WINDOW (ui->priv->window),
                                           GTK_FILE_CHOOSER_ACTION_SAVE,
@@ -626,6 +674,8 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), TRUE);
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);
     gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), ui->priv->default_file_name);
+
+    /* Filter to only show images by default */
     filter = gtk_file_filter_new ();
     gtk_file_filter_set_name (filter,
                               /* Save dialog: Filter name to show only image files */
@@ -638,7 +688,47 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
                               _("All Files"));
     gtk_file_filter_add_pattern (filter, "*");
     gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
-    
+
+    expander = gtk_expander_new_with_mnemonic (/* */
+                                 _("Select File _Type"));
+    gtk_expander_set_spacing (GTK_EXPANDER (expander), 5);
+    gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (dialog), expander);
+  
+    extension = strstr (ui->priv->default_file_name, ".");
+    if (!extension)
+        extension = "";
+
+    file_type_store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+    for (i = 0; file_types[i].label; i++) {
+        gtk_list_store_append (file_type_store, &iter);
+        gtk_list_store_set (file_type_store, &iter, 0, file_types[i].label, 1, file_types[i].extension, -1);
+    }
+
+    file_type_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (file_type_store));
+    gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (file_type_view), FALSE);
+    gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (file_type_view), TRUE);
+    column = gtk_tree_view_column_new_with_attributes ("",
+                                                       gtk_cell_renderer_text_new (),
+                                                       "text", 0, NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (file_type_view), column);
+    gtk_container_add (GTK_CONTAINER (expander), file_type_view);
+
+    if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (file_type_store), &iter)) {
+        do {
+            gchar *e;
+            gtk_tree_model_get (GTK_TREE_MODEL (file_type_store), &iter, 1, &e, -1);
+            if (strcmp (extension, e) == 0)
+                gtk_tree_selection_select_iter (gtk_tree_view_get_selection (GTK_TREE_VIEW (file_type_view)), &iter);
+            g_free (e);
+        } while (gtk_tree_model_iter_next (GTK_TREE_MODEL (file_type_store), &iter));
+    }
+    g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (file_type_view)),
+                      "changed",
+                      G_CALLBACK (on_file_type_changed),
+                      dialog);
+
+    gtk_widget_show_all (expander);
+
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     if (response == GTK_RESPONSE_ACCEPT) {
         gchar *uri;
