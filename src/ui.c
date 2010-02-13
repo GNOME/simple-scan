@@ -614,8 +614,8 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
     GtkWidget *dialog;
     gint response;
+    GtkFileFilter *filter;
 
-  
     dialog = gtk_file_chooser_dialog_new (/* Title of save dialog */
                                           _("Save As..."),
                                           GTK_WINDOW (ui->priv->window),
@@ -626,11 +626,23 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), TRUE);
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);
     gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), ui->priv->default_file_name);
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter,
+                              /* Save dialog: Filter name to show only image files */
+                              _("Image Files"));
+    gtk_file_filter_add_pixbuf_formats (filter);
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter,
+                              /* Save dialog: Filter name to show all files */
+                              _("All Files"));
+    gtk_file_filter_add_pattern (filter, "*");
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
     
     response = gtk_dialog_run (GTK_DIALOG (dialog));
     if (response == GTK_RESPONSE_ACCEPT) {
         gchar *uri;
-        
+
         uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog));
         g_signal_emit (G_OBJECT (ui), signals[SAVE], 0, uri);
 
