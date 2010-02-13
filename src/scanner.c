@@ -1059,7 +1059,10 @@ do_read (Scanner *scanner)
     SANE_Status status;
     SANE_Int n_read;
 
-    status = sane_read (scanner->priv->handle, scanner->priv->buffer, scanner->priv->bytes_remaining, &n_read);
+    status = sane_read (scanner->priv->handle,
+                        scanner->priv->buffer + (scanner->priv->parameters.bytes_per_line - scanner->priv->bytes_remaining),
+                        scanner->priv->bytes_remaining,
+                        &n_read);
     g_debug ("sane_read (%d) -> (%s, %d)", scanner->priv->bytes_remaining, get_status_string (status), n_read);
 
     /* End of variable length frame */
