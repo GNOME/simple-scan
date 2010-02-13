@@ -82,6 +82,15 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkImageMenuItem" id="email_menuitem">
+                        <property name="label" translatable="yes" comments="Label on email menu item">_Email</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <accelerator key="e" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="email_button_clicked_cb"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkImageMenuItem" id="print_menuitem">
                         <property name="label">gtk-print</property>
                         <property name="visible">True</property>
@@ -373,7 +382,7 @@
               <object class="GtkToolButton" id="email_toolbutton">
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes" comments="Tooltip for the email toolbar button">Email the scanned documents</property>
-                <property name="label" translatable="yes" comments="Label on email toobar item">Email</property>
+                <property name="label" translatable="yes" comments="Label on email toolbar item">Email</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">mail-send</property>
                 <signal name="clicked" handler="email_button_clicked_cb"/>
