@@ -806,6 +806,37 @@ print_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 }
 
 
+void help_contents_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+help_contents_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    GdkScreen *screen;
+    GError *error = NULL;
+
+    screen = gtk_widget_get_screen (GTK_WIDGET (ui->priv->window));
+    gtk_show_uri (screen, "ghelp:simple-scan", gtk_get_current_event_time (), &error);
+
+    if (error != NULL)
+    {
+        GtkWidget *d;
+        /* Error message displayed when unable to launch help browser */
+        const char *message = _("Unable to open help file");
+
+        d = gtk_message_dialog_new (GTK_WINDOW (ui->priv->window),
+                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                    GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+                                    "%s", message);
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (d),
+                                                  "%s", error->message);
+        g_signal_connect (d, "response", G_CALLBACK (gtk_widget_destroy), NULL);
+        gtk_window_present (GTK_WINDOW (d));
+
+        g_error_free (error);
+    }
+}
+
+
 void about_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
 void

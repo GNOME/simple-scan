@@ -38,6 +38,12 @@ AC_CHECK_HEADERS([sane/sane.h],[],[AC_MSG_ERROR([SANE not found])])
 AC_CHECK_HEADERS([sane/saneopts.h],[],[AC_MSG_ERROR([SANE not found])])
 
 dnl ###########################################################################
+dnl Documentation
+dnl ###########################################################################
+
+GNOME_DOC_INIT
+
+dnl ###########################################################################
 dnl Internationalization
 dnl ###########################################################################
 
@@ -53,6 +59,7 @@ dnl ###########################################################################
 AC_OUTPUT([
 Makefile
 data/Makefile
+help/Makefile
 po/Makefile.in
 src/Makefile
 ])

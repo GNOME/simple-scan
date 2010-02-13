@@ -290,6 +290,15 @@
                   <object class="GtkMenu" id="help_menu">
                     <property name="visible">True</property>
                     <child>
+                      <object class="GtkImageMenuItem" id="help_contents_menuitem">
+                        <property name="label" comments="Help|Contents menu">_Contents</property>
+                        <property name="visible">True</property>
+                        <property name="use_underline">True</property>
+                        <accelerator key="F1" signal="activate"/>
+                        <signal name="activate" handler="help_contents_menuitem_activate_cb"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkImageMenuItem" id="about_menuitem">
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
