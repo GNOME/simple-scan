@@ -913,7 +913,10 @@ do_get_option (Scanner *scanner)
         switch (option->constraint_type)
         {
             case SANE_CONSTRAINT_RANGE:
-               set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX(option->constraint.range->max));
+               if (option->type == SANE_TYPE_FIXED)
+                   set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX (option->constraint.range->max));
+               else
+                   set_int_option (scanner->priv->handle, option, option_index, option->constraint.range->max);
                break;
             default:
                break;
