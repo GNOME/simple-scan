@@ -839,6 +839,8 @@ do_get_option (Scanner *scanner)
             "Automatic Document Feeder",
             SANE_I18N ("Automatic Document Feeder"),
             "ADF",
+            SANE_I18N ("ADF Front"),
+            "ADF Front",
             NULL
         };
 
