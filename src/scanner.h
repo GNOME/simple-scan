@@ -92,6 +92,8 @@ void scanner_authorize (Scanner *scanner, const gchar *username, const gchar *pa
 
 void scanner_redetect (Scanner *scanner);
 
+gboolean scanner_is_scanning (Scanner *scanner);
+
 void scanner_scan (Scanner *scanner, const char *device,
                    gint dpi, ScanMode scan_mode, gint depth, gboolean multi_page);
 

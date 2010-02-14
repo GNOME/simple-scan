@@ -191,7 +191,8 @@ scan_cb (SimpleScan *ui, const gchar *device, gint dpi, const gchar *profile_nam
     /* Find this profile */
     for (i = 0; profiles[i].name && strcmp (profiles[i].name, profile_name) != 0; i++);
 
-    append_page ();
+    if (!scanner_is_scanning (scanner))
+        append_page ();
 
     ui_set_have_scan (ui, FALSE);
     ui_set_scanning (ui, TRUE);

@@ -98,6 +98,8 @@ struct ScannerPrivate
     SANE_Byte *buffer;
 
     SANE_Int bytes_remaining, line_count, pass_number, page_number, notified_page;
+  
+    gboolean scanning;
 };
 
 G_DEFINE_TYPE (Scanner, scanner, G_TYPE_OBJECT);
@@ -111,7 +113,10 @@ static gboolean
 send_signal (SignalInfo *info)
 {
     g_signal_emit (info->instance, signals[info->sig], 0, info->data);
-    
+
+    if (info->sig == DOCUMENT_DONE || info->sig == SCAN_FAILED)
+        info->instance->priv->scanning = FALSE;
+
     switch (info->sig) {
     case UPDATE_DEVICES:
         {
@@ -186,7 +191,7 @@ static gint get_device_weight (const gchar *device)
     /* Use webcams as a last resort */
     if (g_str_has_prefix (device, "vfl:"))
        return 2;
-   
+
     return 1;
 }
 
@@ -1249,6 +1254,13 @@ scanner_redetect (Scanner *scanner)
 }
 
 
+gboolean
+scanner_is_scanning (Scanner *scanner)
+{
+    return scanner->priv->scanning;
+}
+
+
 void
 scanner_scan (Scanner *scanner, const char *device,
               gint dpi, ScanMode scan_mode, gint depth, gboolean multi_page)
@@ -1265,6 +1277,7 @@ scanner_scan (Scanner *scanner, const char *device,
     request->job->depth = depth;
     request->job->multi_page = multi_page;
     g_async_queue_push (scanner->priv->scan_queue, request);
+    scanner->priv->scanning = TRUE;
 }
 
 
