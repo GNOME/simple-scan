@@ -567,9 +567,14 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
 
     switch (option->constraint_type) {
     case SANE_CONSTRAINT_RANGE:
-        g_string_append_printf (string, " min=%d, max=%d, quant=%d",
-                                option->constraint.range->min, option->constraint.range->max,
-                                option->constraint.range->quant);
+        if (option->type == SANE_TYPE_FIXED)
+            g_string_append_printf (string, " min=%f, max=%f, quant=%d",
+                                    SANE_UNFIX (option->constraint.range->min), SANE_UNFIX (option->constraint.range->max),
+                                    option->constraint.range->quant);
+        else
+            g_string_append_printf (string, " min=%d, max=%d, quant=%d",
+                                    option->constraint.range->min, option->constraint.range->max,
+                                    option->constraint.range->quant);
         break;
     case SANE_CONSTRAINT_WORD_LIST:
         g_string_append (string, " values=[");
@@ -912,14 +917,14 @@ do_get_option (Scanner *scanner)
              strcmp (option->name, SANE_NAME_SCAN_BR_Y) == 0) {
         switch (option->constraint_type)
         {
-            case SANE_CONSTRAINT_RANGE:
-               if (option->type == SANE_TYPE_FIXED)
-                   set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX (option->constraint.range->max));
-               else
-                   set_int_option (scanner->priv->handle, option, option_index, option->constraint.range->max);
-               break;
-            default:
-               break;
+        case SANE_CONSTRAINT_RANGE:
+            if (option->type == SANE_TYPE_FIXED)
+                set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX (option->constraint.range->max));
+            else
+                set_int_option (scanner->priv->handle, option, option_index, option->constraint.range->max);
+            break;
+        default:
+            break;
         }
     }
 
