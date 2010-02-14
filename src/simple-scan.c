@@ -432,6 +432,8 @@ main (int argc, char **argv)
 
     get_options (argc, argv);
   
+    g_debug ("Starting Simple Scan %s", VERSION);
+  
     ui = ui_new ();
     book = ui_get_book (ui);
     g_signal_connect (ui, "start-scan", G_CALLBACK (scan_cb), NULL);
