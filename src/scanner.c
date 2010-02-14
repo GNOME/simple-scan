@@ -676,6 +676,9 @@ close_device (Scanner *scanner)
     GList *iter;
 
     if (scanner->priv->handle) {
+        sane_cancel (scanner->priv->handle);
+        g_debug ("sane_cancel ()");
+
         sane_close (scanner->priv->handle);
         g_debug ("sane_close ()");
         scanner->priv->handle = NULL;
@@ -1053,6 +1056,9 @@ do_complete_page (Scanner *scanner)
     ScanJob *job;
   
     job = (ScanJob *) scanner->priv->job_queue->data;
+
+    sane_cancel (scanner->priv->handle);
+    g_debug ("sane_cancel ()");
 
     /* If multi-pass then scan another page */
     if (!scanner->priv->parameters.last_frame) {
