@@ -907,7 +907,19 @@ do_get_option (Scanner *scanner)
             break;
         }
     }
-          
+    /* Always use maximum scan area - some scanners default to using partial areas.  This should be patched in sane-backends */
+    else if (strcmp (option->name, SANE_NAME_SCAN_BR_X) == 0 ||
+             strcmp (option->name, SANE_NAME_SCAN_BR_Y) == 0) {
+        switch (option->constraint_type)
+        {
+            case SANE_CONSTRAINT_RANGE:
+               set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX(option->constraint.range->max));
+               break;
+            default:
+               break;
+        }
+    }
+
     /* Test scanner options (hoping will not effect other scanners...) */
     else if (strcmp (option->name, "hand-scanner") == 0) {
         set_bool_option (scanner->priv->handle, option, option_index, FALSE);
