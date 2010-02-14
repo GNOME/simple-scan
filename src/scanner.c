@@ -932,20 +932,22 @@ do_get_option (Scanner *scanner)
     }
 
     /* Test scanner options (hoping will not effect other scanners...) */
-    else if (strcmp (option->name, "hand-scanner") == 0) {
-        set_bool_option (scanner->priv->handle, option, option_index, FALSE);
-    }
-    else if (strcmp (option->name, "three-pass") == 0) {
-        set_bool_option (scanner->priv->handle, option, option_index, FALSE);
-    }                    
-    else if (strcmp (option->name, "test-picture") == 0) {
-        set_string_option (scanner->priv->handle, option, option_index, "Color pattern");
-    }
-    else if (strcmp (option->name, "read-delay") == 0) {
-        set_bool_option (scanner->priv->handle, option, option_index, TRUE);
-    }
-    else if (strcmp (option->name, "read-delay-duration") == 0) {
-        set_int_option (scanner->priv->handle, option, option_index, 200000);
+    if (strcmp (scanner->priv->current_device, "test") == 0) {
+        if (strcmp (option->name, "hand-scanner") == 0) {
+            set_bool_option (scanner->priv->handle, option, option_index, FALSE);
+        }
+        else if (strcmp (option->name, "three-pass") == 0) {
+            set_bool_option (scanner->priv->handle, option, option_index, FALSE);
+        }                    
+        else if (strcmp (option->name, "test-picture") == 0) {
+            set_string_option (scanner->priv->handle, option, option_index, "Color pattern");
+        }
+        else if (strcmp (option->name, "read-delay") == 0) {
+            set_bool_option (scanner->priv->handle, option, option_index, TRUE);
+        }
+        else if (strcmp (option->name, "read-delay-duration") == 0) {
+            set_int_option (scanner->priv->handle, option, option_index, 200000);
+        }
     }
 }
 
