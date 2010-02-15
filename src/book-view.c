@@ -783,7 +783,7 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
 
             /* See if selecting crop */
             location = get_crop_location (page, x, y);;
-            if (location != CROP_NONE) {
+            if (event->button == 1 && location != CROP_NONE) {
                 view->priv->selected_crop = page;
                 view->priv->crop_location = location;
                 view->priv->selected_crop_px = event->x;
