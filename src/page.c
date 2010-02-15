@@ -266,10 +266,44 @@ page_get_orientation (Page *page)
 void
 page_set_orientation (Page *page, Orientation orientation)
 {
+    gint left_steps, t;
+
     g_return_if_fail (page != NULL);
 
     if (page->priv->orientation == orientation)
         return;
+  
+    /* Rotate crop */
+    if (page->priv->has_crop) {
+        left_steps = orientation - page->priv->orientation;
+        if (left_steps < 0)
+            left_steps += 4;
+        switch (left_steps) {
+        /* 90 degrees counter-clockwise */
+        case 1:
+            t = page->priv->crop_x;
+            page->priv->crop_x = page->priv->crop_y;
+            page->priv->crop_y = page_get_width (page) - (t + page->priv->crop_width);
+            t = page->priv->crop_width;
+            page->priv->crop_width = page->priv->crop_height;
+            page->priv->crop_height = t;
+            break;
+        /* 180 degrees */
+        case 2:
+            page->priv->crop_x = page_get_width (page) - (page->priv->crop_x + page->priv->crop_width);
+            page->priv->crop_y = page_get_width (page) - (page->priv->crop_y + page->priv->crop_height);
+            break;
+        /* 90 degrees clockwise */
+        case 3:
+            t = page->priv->crop_y;
+            page->priv->crop_y = page->priv->crop_x;
+            page->priv->crop_x = page_get_height (page) - (t + page->priv->crop_height);
+            t = page->priv->crop_width;
+            page->priv->crop_width = page->priv->crop_height;
+            page->priv->crop_height = t;
+            break;
+        }
+    }
 
     page->priv->orientation = orientation;
     g_signal_emit (page, signals[ORIENTATION_CHANGED], 0);
