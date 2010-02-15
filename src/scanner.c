@@ -920,6 +920,20 @@ do_get_option (Scanner *scanner)
             break;
         }
     }
+    /* Disable compression, we will compress after scanning */
+    else if (strcmp (option->name, "compression") == 0) {
+        const char *disable_compression_names[] =
+        {
+            SANE_I18N ("None"),
+            SANE_I18N ("none"),
+            "None",
+            "none",
+            NULL
+        };
+            
+        if (!set_constrained_string_option (scanner->priv->handle, option, option_index, disable_compression_names))
+            g_warning ("Unable to disable compression, please file a bug");
+    }
     /* Always use maximum scan area - some scanners default to using partial areas.  This should be patched in sane-backends */
     else if (strcmp (option->name, SANE_NAME_SCAN_BR_X) == 0 ||
              strcmp (option->name, SANE_NAME_SCAN_BR_Y) == 0) {
