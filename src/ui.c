@@ -523,7 +523,7 @@ G_MODULE_EXPORT
 void
 crop_toolbutton_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    set_crop (ui, "custom");
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_builder_get_object (ui->priv->builder, "custom_crop_menuitem")), TRUE);
 }
 
 
