@@ -289,7 +289,7 @@ static gint
 get_photo_dpi (SimpleScan *ui)
 {
     GtkTreeIter iter;
-    gint dpi = 200;
+    gint dpi = 400;
 
     if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->photo_dpi_combo), &iter))
         gtk_tree_model_get (ui->priv->photo_dpi_model, &iter, 0, &dpi, -1);
