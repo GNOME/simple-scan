@@ -529,10 +529,35 @@ page_rotate_crop (Page *page)
     gint t;
     
     g_return_if_fail (page != NULL);
+  
+    if (!page->priv->has_crop)
+        return;
 
     t = page->priv->crop_width;
     page->priv->crop_width = page->priv->crop_height;
     page->priv->crop_height = t;
+  
+    /* Clip custom crops */
+    if (!page->priv->crop_name) {
+        gint w, h;
+
+        w = page_get_width (page);
+        h = page_get_height (page);
+        
+        if (page->priv->crop_x + page->priv->crop_width > w)
+            page->priv->crop_x = w - page->priv->crop_width;
+        if (page->priv->crop_x < 0) {
+            page->priv->crop_x = 0;
+            page->priv->crop_width = w;
+        }
+        if (page->priv->crop_y + page->priv->crop_height > h)
+            page->priv->crop_y = h - page->priv->crop_height;
+        if (page->priv->crop_y < 0) {
+            page->priv->crop_y = 0;
+            page->priv->crop_height = h;
+        }
+    }
+
     g_signal_emit (page, signals[CROP_CHANGED], 0);
 }
 
