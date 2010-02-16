@@ -31,6 +31,12 @@ static Scanner *scanner;
 
 static Book *book;
 
+static GTimer *log_timer;
+
+static FILE *log_file;
+
+static gboolean debug = FALSE;
+
 
 static void
 update_scan_devices_cb (Scanner *scanner, GList *devices)
@@ -362,11 +368,46 @@ usage(int show_gtk)
 
 static void
 log_cb (const gchar *log_domain, GLogLevelFlags log_level,
-	const gchar *message, gpointer data)
+        const gchar *message, gpointer data)
 {
-    if (log_level & G_LOG_LEVEL_DEBUG)
-       return;
-    g_log_default_handler (log_domain, log_level, message, data);
+    /* Log everything to a file */
+    if (log_file) {
+        const gchar *prefix;
+
+        switch (log_level & G_LOG_LEVEL_MASK) {
+        case G_LOG_LEVEL_ERROR:
+            prefix = "ERROR:";
+            break;
+        case G_LOG_LEVEL_CRITICAL:
+            prefix = "CRITICAL:";
+            break;
+        case G_LOG_LEVEL_WARNING:
+            prefix = "WARNING:";
+            break;
+        case G_LOG_LEVEL_MESSAGE:
+            prefix = "MESSAGE:";
+            break;
+        case G_LOG_LEVEL_INFO:
+            prefix = "INFO:";
+            break;
+        case G_LOG_LEVEL_DEBUG:
+            prefix = "DEBUG:";
+            break;
+        default:
+            prefix = "LOG:";
+            break;
+        }
+
+        fprintf (log_file, "[%+.2fs] %s %s\n", g_timer_elapsed (log_timer, NULL), prefix, message);
+    }
+
+    /* Only show debug if requested */
+    if (log_level & G_LOG_LEVEL_DEBUG) {
+        if (debug)
+            g_log_default_handler (log_domain, log_level, message, data);
+    }
+    else
+        g_log_default_handler (log_domain, log_level, message, data);    
 }
 
 
@@ -374,7 +415,6 @@ static void
 get_options (int argc, char **argv)
 {
     int i;
-    gboolean debug = FALSE;
 
     for (i = 1; i < argc; i++) {
         char *arg = argv[i];
@@ -405,10 +445,7 @@ get_options (int argc, char **argv)
             }
             default_device = arg;
         }
-    }
-   
-    if (!debug)
-        g_log_set_default_handler (log_cb, NULL);
+    }   
 }
 
 
@@ -423,17 +460,29 @@ main (int argc, char **argv)
 {
     GUdevClient *udev_client;
     const char *udev_subsystems[] = { "usb", NULL };
+    gchar *path;
+
+    g_thread_init (NULL);
+
+    /* Log to a file */
+    log_timer = g_timer_new ();
+    path = g_build_filename (g_get_user_cache_dir (), "simple-scan", NULL);
+    g_mkdir_with_parents (path, 0700);
+    g_free (path);
+    path = g_build_filename (g_get_user_cache_dir (), "simple-scan", "simple-scan.log", NULL);
+    log_file = fopen (path, "w");
+    g_free (path);
+    g_log_set_default_handler (log_cb, NULL);
 
     bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
     bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
     textdomain (GETTEXT_PACKAGE);
    
-    g_thread_init (NULL);
     gtk_init (&argc, &argv);
 
     get_options (argc, argv);
   
-    g_debug ("Starting Simple Scan %s", VERSION);
+    g_debug ("Starting Simple Scan %s, PID=%i", VERSION, getpid ());
   
     ui = ui_new ();
     book = ui_get_book (ui);
