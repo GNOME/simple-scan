@@ -223,7 +223,7 @@ ui_set_selected_device (SimpleScan *ui, const gchar *device)
     /* If doesn't exist add with label set to device name */
     if (!find_scan_device (ui, device, &iter)) {
         gtk_list_store_append (GTK_LIST_STORE (ui->priv->device_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 0, device, 1, device, 2, FALSE, -1);
+        gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 0, device, 1, device, -1);
     }
 
     gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
