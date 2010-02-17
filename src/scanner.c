@@ -636,7 +636,10 @@ log_option (SANE_Int index, const SANE_Option_Descriptor *option)
         for (i = 0; i < option->constraint.word_list[0]; i++) {
             if (i != 0)
                 g_string_append (string, ", ");
-            g_string_append_printf (string, "%d", option->constraint.word_list[i+1]);
+            if (option->type == SANE_TYPE_INT)
+                g_string_append_printf (string, "%d", option->constraint.word_list[i+1]);
+            else
+                g_string_append_printf (string, "%f", SANE_UNFIX (option->constraint.word_list[i+1]));
         }
         g_string_append (string, "]");
         break;
