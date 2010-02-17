@@ -213,6 +213,7 @@ page_view_free (PageView *view)
     g_free (view);
 }
 
+
 static void
 add_cb (Book *book, Page *page, BookView *view)
 {
@@ -487,16 +488,33 @@ layout_into (BookView *view, gint width, gint height, gint *book_width, gint *bo
     gdouble scale;
     gint x_offset = 0;
     gint i, n_pages;
+    gint max_dpi = 0;
 
     n_pages = book_get_n_pages (view->priv->book);
+
+    /* Get maximum page resolution */
+    for (i = 0; i < n_pages; i++) {
+        Page *page = book_get_page (view->priv->book, i);
+        if (page_get_dpi (page) > max_dpi)
+            max_dpi = page_get_dpi (page);
+    }
 
     /* Get area required to fit all pages */
     for (i = 0; i < n_pages; i++) {
         Page *page = book_get_page (view->priv->book, i);
-        if (page_get_width (page) > max_width)
-            max_width = page_get_width (page);
-        if (page_get_height (page) > max_height)
-            max_height = page_get_height (page);
+        gint w, h;
+
+        w = page_get_width (page);
+        h = page_get_height (page);
+
+        /* Scale to the same DPI */
+        w = (double)w * max_dpi / page_get_dpi (page) + 0.5;
+        h = (double)h * max_dpi / page_get_dpi (page) + 0.5;
+
+        if (w > max_width)
+            max_width = w;
+        if (h > max_height)
+            max_height = h;
     }
 
     /* Make space for fixed size border */
@@ -532,7 +550,7 @@ layout_into (BookView *view, gint width, gint height, gint *book_width, gint *bo
         PageView *page = g_hash_table_lookup (view->priv->page_data, p);
         gdouble h;
 
-        page_set_scale (page, scale);
+        page_set_scale (page, scale * max_dpi / page_get_dpi (p));
         update_page_view (page); // FIXME: Don't scale image until next render
 
         h = page->height + (2 * border);
