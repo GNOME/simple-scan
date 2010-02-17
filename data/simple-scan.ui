@@ -88,6 +88,8 @@
                         <property name="label" translatable="yes" comments="Label on email menu item">_Email</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
+                        <property name="image">email_image</property>
+                        <property name="use_stock">False</property>
                         <accelerator key="e" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="activate" handler="email_button_clicked_cb"/>
                       </object>
@@ -295,6 +297,8 @@
                         <property name="label" translatable="yes" comments="Help|Contents menu">_Contents</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
+                        <property name="image">help_image</property>
+                        <property name="use_stock">False</property>
                         <accelerator key="F1" signal="activate"/>
                         <signal name="activate" handler="help_contents_menuitem_activate_cb"/>
                       </object>
@@ -893,5 +897,13 @@
       <!-- column-name label -->
       <column type="gchararray"/>
     </columns>
+  </object>
+  <object class="GtkImage" id="help_image">
+    <property name="visible">True</property>
+    <property name="stock">gtk-help</property>
+  </object>
+  <object class="GtkImage" id="email_image">
+    <property name="visible">True</property>
+    <property name="icon_name">mail-send</property>
   </object>
 </interface>
