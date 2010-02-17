@@ -14,6 +14,8 @@
 
 #include "book-view.h"
 
+/* FIXME: Refactor this into book-view and page-view */
+
 
 // FIXME: You can place the window in a certain size which causes it to be continuously laid
 // out with the scrollbar being enabled and disabled - this is relatively easy to fix, you
