@@ -20,6 +20,10 @@
 #include "book-view.h"
 
 
+#define DEFAULT_TEXT_DPI 150
+#define DEFAULT_PHOTO_DPI 300
+
+
 enum {
     START_SCAN,
     STOP_SCAN,
@@ -276,7 +280,7 @@ static gint
 get_text_dpi (SimpleScan *ui)
 {
     GtkTreeIter iter;
-    gint dpi = 200;
+    gint dpi = DEFAULT_TEXT_DPI;
 
     if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->text_dpi_combo), &iter))
         gtk_tree_model_get (ui->priv->text_dpi_model, &iter, 0, &dpi, -1);
@@ -289,7 +293,7 @@ static gint
 get_photo_dpi (SimpleScan *ui)
 {
     GtkTreeIter iter;
-    gint dpi = 400;
+    gint dpi = DEFAULT_PHOTO_DPI;
 
     if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->photo_dpi_combo), &iter))
         gtk_tree_model_get (ui->priv->photo_dpi_model, &iter, 0, &dpi, -1);
@@ -1003,13 +1007,11 @@ set_dpi_combo (GtkWidget *combo, gint default_dpi, gint current_dpi)
       { 75,  _("%d dpi (draft)") },
       /* Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch) */
       { 150, _("%d dpi") },
-      { 200, _("%d dpi") },
-      { 400, _("%d dpi") },
+      { 300, _("%d dpi") },
       { 600, _("%d dpi") },
-      { 800, _("%d dpi") },
-      { 1000, _("%d dpi") },
       /* Preferences dialog: Label for maximum resolution in resolution list */      
       { 1200, _("%d dpi (high resolution)") },
+      { 2400, _("%d dpi") },
       { -1, NULL }
     };
     GtkCellRenderer *renderer;
@@ -1098,12 +1100,12 @@ ui_load (SimpleScan *ui)
 
     dpi = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/text_dpi", NULL);
     if (dpi <= 0)
-        dpi = 200;
-    set_dpi_combo (ui->priv->text_dpi_combo, 200, dpi);
+        dpi = DEFAULT_TEXT_DPI;
+    set_dpi_combo (ui->priv->text_dpi_combo, DEFAULT_TEXT_DPI, dpi);
     dpi = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/photo_dpi", NULL);
     if (dpi <= 0)
-        dpi = 400;
-    set_dpi_combo (ui->priv->photo_dpi_combo, 400, dpi);
+        dpi = DEFAULT_PHOTO_DPI;
+    set_dpi_combo (ui->priv->photo_dpi_combo, DEFAULT_PHOTO_DPI, dpi);
 
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->device_combo), renderer, TRUE);
