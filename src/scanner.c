@@ -366,12 +366,12 @@ do_redetect (Scanner *scanner)
 
 
 static gboolean
-control_option (SANE_Handle handle, SANE_Value_Type type, SANE_Int index, SANE_Action action, void *value)
+control_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int index, SANE_Action action, void *value)
 {
     SANE_Status status;
     
     status = sane_control_option (handle, index, action, value, NULL);
-    switch (type) {
+    switch (option->type) {
     case SANE_TYPE_BOOL:
         g_debug ("sane_control_option (%d, %s, %s) -> %s",
                  index, get_action_string (action),
@@ -399,16 +399,16 @@ control_option (SANE_Handle handle, SANE_Value_Type type, SANE_Int index, SANE_A
     default:
         break;
     }
-  
+
     if (status != SANE_STATUS_GOOD)
-        g_warning ("Error setting control option: %s", sane_strstatus(status));
+        g_warning ("Error setting option %s: %s", option->name, sane_strstatus(status));
 
     return status == SANE_STATUS_GOOD;
 }
 
 
 static void
-set_default_option (SANE_Handle handle, SANE_Int option_index)
+set_default_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index)
 {
     SANE_Status status;
     
@@ -416,7 +416,7 @@ set_default_option (SANE_Handle handle, SANE_Int option_index)
     g_debug ("sane_control_option (%d, SANE_ACTION_SET_AUTO) -> %s",
              option_index, get_status_string (status));
     if (status != SANE_STATUS_GOOD)
-        g_warning ("Error setting control option: %s", sane_strstatus(status));
+        g_warning ("Error setting default option %s: %s", option->name, sane_strstatus(status));
 }
 
 
@@ -425,7 +425,7 @@ set_bool_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_
 {
     SANE_Bool v = value;
     g_return_if_fail (option->type == SANE_TYPE_BOOL);
-    control_option (handle, SANE_TYPE_BOOL, option_index, SANE_ACTION_SET_VALUE, &v);
+    control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
 
@@ -444,7 +444,7 @@ set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_I
         if (v > option->constraint.range->max)
             v = option->constraint.range->max;
     }
-    control_option (handle, SANE_TYPE_INT, option_index, SANE_ACTION_SET_VALUE, &v);
+    control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
 
@@ -455,7 +455,7 @@ set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE
 
     g_return_if_fail (option->type == SANE_TYPE_FIXED);
 
-    control_option (handle, SANE_TYPE_FIXED, option_index, SANE_ACTION_SET_VALUE, &v);
+    control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
 
@@ -472,7 +472,7 @@ set_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SAN
     size = option->size > value_size ? option->size : value_size;
     string = g_malloc(sizeof(char) * size);
     strcpy (string, value);
-    result = control_option (handle, SANE_TYPE_STRING, option_index, SANE_ACTION_SET_VALUE, string);
+    result = control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, string);
     g_free (string);
    
     return result;
@@ -862,7 +862,7 @@ do_get_option (Scanner *scanner)
                  g_warning ("Unable to set ADF source, please file a bug");
         }
         else {
-            set_default_option (scanner->priv->handle, option_index);
+            set_default_option (scanner->priv->handle, option, option_index);
         }
     }
     else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
