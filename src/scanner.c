@@ -768,7 +768,7 @@ do_open (Scanner *scanner)
     scanner->priv->notified_page = -1;
     scanner->priv->option_index = 0;
 
-    if (!job->device)
+    if (!job->device && scanner->priv->default_device)
         job->device = g_strdup (scanner->priv->default_device->name);
 
     if (!job->device) {
