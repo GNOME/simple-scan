@@ -444,6 +444,26 @@ set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_I
         if (v > option->constraint.range->max)
             v = option->constraint.range->max;
     }
+    else if (option->constraint_type == SANE_CONSTRAINT_WORD_LIST) {
+        int i;
+        SANE_Int min = INT_MIN, max = INT_MAX;
+      
+        /* Find nearest value above and below requested */
+        for (i = 0; i < option->constraint.word_list[0]; i++) {
+            SANE_Int x = option->constraint.word_list[i+1];
+            if (x <= v && x > min)
+                min = x;
+            if (x >= v && x < max)
+                max = x;
+        }
+      
+        /* Pick nearest */
+        if (max - v < v - min)
+            v = max;
+        else
+            v = min;
+    }
+
     control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
@@ -451,10 +471,40 @@ set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_I
 static void
 set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, double value)
 {
-    SANE_Fixed v = SANE_FIX (value);
+    SANE_Fixed v;
 
     g_return_if_fail (option->type == SANE_TYPE_FIXED);
 
+    if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
+        double min = SANE_UNFIX (option->constraint.range->min);
+        double max = SANE_UNFIX (option->constraint.range->max);
+
+        if (value < min)
+            value = min;
+        if (value > max)
+            value = max;
+    }
+    else if (option->constraint_type == SANE_CONSTRAINT_WORD_LIST) {
+        int i;
+        double min = DBL_MIN, max = DBL_MAX;
+      
+        /* Find nearest value above and below requested */
+        for (i = 0; i < option->constraint.word_list[0]; i++) {
+            double x = SANE_UNFIX (option->constraint.word_list[i+1]);
+            if (x <= value && x > min)
+                min = x;
+            if (x >= value && x < max)
+                max = x;
+        }
+      
+        /* Pick nearest */
+        if (max - value < value - min)
+            value = max;
+        else
+            value = min;
+    }
+
+    v = SANE_FIX (value);
     control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, &v);
 }
 
@@ -837,14 +887,28 @@ do_get_option (Scanner *scanner)
     }
 
     log_option (option_index, option);
-    if (!option->name)
+  
+    /* Ignore groups */
+    if (option->type == SANE_TYPE_GROUP)
+        return;
+
+    /* Option disabled */
+    if (option->cap & SANE_CAP_INACTIVE)
+        return;
+  
+    /* Some options are unnammed (e.g. Option 0) */
+    if (option->name == NULL)
         return;
 
     if (strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
-        if (option->type == SANE_TYPE_FIXED)
-            set_fixed_option (scanner->priv->handle, option, option_index, job->dpi);
-        else
-            set_int_option (scanner->priv->handle, option, option_index, job->dpi);
+        if (option->type == SANE_TYPE_FIXED) {
+            double dpi = job->dpi;
+            set_fixed_option (scanner->priv->handle, option, option_index, dpi);
+        }
+        else {
+            SANE_Int dpi = job->dpi;
+            set_int_option (scanner->priv->handle, option, option_index, dpi);
+        }
     }
     else if (strcmp (option->name, SANE_NAME_SCAN_SOURCE) == 0) {
         const char *adf_sources[] =
