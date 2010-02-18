@@ -18,3 +18,6 @@ DOC_PAGES = index.page \
             scanning.page
 
 DOC_LINGUAS =
+
+DISTCLEANFILES = \
+	Makefile.in

@@ -25,3 +25,6 @@ simple_scan_CFLAGS = \
 simple_scan_LDADD = \
 	$(SIMPLE_SCAN_LIBS) \
 	-lsane
+
+DISTCLEANFILES = \
+	Makefile.in
