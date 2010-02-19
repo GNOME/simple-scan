@@ -1,7 +1,8 @@
 SUBDIRS = src data help po
 
 EXTRA_DIST = \
-	autogen.sh
+	autogen.sh \
+	simple-scan.doap
 
 DISTCLEANFILES = \
 	Makefile.in \
