@@ -111,11 +111,10 @@
                     </child>
                     <child>
                       <object class="GtkImageMenuItem" id="preferences_menuitem">
-                        <property name="label">Pre_ferences</property>
+                        <property name="label">gtk-preferences</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
-                        <property name="image">preferences_image</property>
-                        <property name="use_stock">False</property>
+                        <property name="use_stock">True</property>
                         <signal name="activate" handler="preferences_button_clicked_cb"/>
                       </object>
                     </child>
@@ -272,10 +271,11 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkMenuItem" id="page_delete_menuitem">
+                      <object class="GtkImageMenuItem" id="page_delete_menuitem">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes" comments="Label on page delete menuitem">_Delete</property>
+                        <property name="label">gtk-delete</property>
                         <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
                         <accelerator key="Delete" signal="activate"/>
                         <signal name="activate" handler="page_delete_menuitem_activate_cb"/>
                       </object>
@@ -871,10 +871,6 @@
         <signal name="activate" handler="continuous_scan_button_clicked_cb"/>
       </object>
     </child>
-  </object>
-  <object class="GtkImage" id="preferences_image">
-    <property name="visible">True</property>
-    <property name="stock">gtk-preferences</property>
   </object>
   <object class="GtkAdjustment" id="preview_adjustment">
     <property name="upper">100</property>
