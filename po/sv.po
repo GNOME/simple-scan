@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-02-18 10:01+1100\n"
-"PO-Revision-Date: 2010-02-19 13:58+0000\n"
+"PO-Revision-Date: 2010-02-20 22:34+0000\n"
 "Last-Translator: Daniel Nylander <yeager@ubuntu.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-20 04:50+0000\n"
+"X-Launchpad-Export-Date: 2010-02-21 05:03+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -40,7 +40,7 @@ msgstr "A_6"
 #. Toolbar scan menu item to scan all pages from a document feeder
 #: ../data/simple-scan.ui.h:10
 msgid "All Pages From _Feeder"
-msgstr ""
+msgstr "Alla sidor från _matare"
 
 #. Tooltip for preferences button
 #: ../data/simple-scan.ui.h:12
@@ -118,12 +118,12 @@ msgstr "Rotera _höger"
 #. Tooltip for rotate left (counter-clockwise) button
 #: ../data/simple-scan.ui.h:40
 msgid "Rotate the page to the left (counter-clockwise)"
-msgstr ""
+msgstr "Rotera sidan åt vänster (motsols)"
 
 #. Tooltip for rotate right (clockwise) button
 #: ../data/simple-scan.ui.h:42
 msgid "Rotate the page to the right (clockwise)"
-msgstr ""
+msgstr "Rotera sidan åt höger (medsols)"
 
 #. Label on save to file toolbar item
 #: ../data/simple-scan.ui.h:44
@@ -143,7 +143,7 @@ msgstr "Läs in"
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:50
 msgid "Scan S_ource:"
-msgstr ""
+msgstr "Inläsnings_källa:"
 
 #. Tooltip for scan toolbar button
 #: ../data/simple-scan.ui.h:52
@@ -153,7 +153,7 @@ msgstr "Läs in en enstaka sida från bildläsaren"
 #. Title of scan window
 #: ../data/simple-scan.ui.h:54 ../data/simple-scan.desktop.in.h:2
 msgid "Simple Scan"
-msgstr ""
+msgstr "Simple Scan"
 
 #. Toolbar scan menu item to scan a single page from the scanner
 #: ../data/simple-scan.ui.h:56
@@ -186,6 +186,9 @@ msgid ""
 "scans of text documents, or \"Photo\" for slower, higher quality scans of "
 "documents with graphics or photographs."
 msgstr ""
+"Typ av dokument som ska läsas in. Använd \"Text\" för snabba, "
+"medelkvalitativa inläsningar av textdokument, eller \"Foto\" för långsammare "
+"inläsningar med högre kvalitet med grafik eller fotografier."
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:67
@@ -306,7 +309,7 @@ msgstr "SANE-enhet att hämta in bilder från."
 
 #: ../data/simple-scan.schemas.in.h:8
 msgid "TRUE if the application window is maximized"
-msgstr ""
+msgstr "TRUE om programfönstret är maximerat"
 
 #: ../data/simple-scan.schemas.in.h:9
 msgid ""
@@ -340,7 +343,7 @@ msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:15
 msgid "Type of document being scanned"
-msgstr ""
+msgstr "Typ av dokument som ska läsas in"
 
 #: ../data/simple-scan.schemas.in.h:16
 msgid ""
@@ -426,6 +429,12 @@ msgid ""
 "  --help-all                      Show all help options\n"
 "  --help-gtk                      Show GTK+ options"
 msgstr ""
+"Hjälpflaggor:\n"
+"  -d, --debug                     Skriv ut felsökningsmeddelanden\n"
+"  -v, --version                   Visa utgåvans version\n"
+"  -h, --help                      Visa hjälpflaggor\n"
+"  --help-all                      Visa alla hjälpflaggor\n"
+"  --help-gtk                      Visa GTK+-flaggor"
 
 #. Description on simple-scan command-line GTK+ options displayed on command-line
 #: ../src/simple-scan.c:356
@@ -441,12 +450,21 @@ msgid ""
 "  --gtk-module=MODULES            Load additional GTK+ modules\n"
 "  --g-fatal-warnings              Make all warnings fatal"
 msgstr ""
+"GTK+-flaggor:\n"
+"  --class=KLASS                   Programklass som används av "
+"fönsterhanteraren\n"
+"  --name=NAMN                     Programnamn som används av "
+"fönsterhanteraren\n"
+"  --screen=SKÄRM                  X-skärm att använda\n"
+"  --sync                          Gör X-anrop synkrona\n"
+"  --gtk-module=MODULER            Läs in ytterligare GTK+-moduler\n"
+"  --g-fatal-warnings              Gör alla varningar ödesdigra"
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
 #: ../src/ui.c:124
 #, c-format
 msgid "Username and password required to access '%s'"
-msgstr ""
+msgstr "Användarnamn och lösenord krävs för åtkomst till \"%s\""
 
 #. Warning displayed when no scanners are detected
 #: ../src/ui.c:154
@@ -456,7 +474,7 @@ msgstr "Inga bildinläsare hittades"
 #. Hint to user on why there are no scanners detected
 #: ../src/ui.c:156
 msgid "Please check your scanner is connected and powered on"
-msgstr ""
+msgstr "Kontrollera att din bildläsare är ansluten och påslagen"
 
 #. Save dialog: Label for saving in PDF format
 #: ../src/ui.c:668
@@ -514,11 +532,24 @@ msgid ""
 "You should have received a copy of the GNU General Public License\n"
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 msgstr ""
+"Detta program är fri programvara. Du kan distribuera det och/eller\n"
+"modifiera det under villkoren i GNU General Public License, publicerad\n"
+"av Free Software Foundation, antingen version 3 eller (om du så vill)\n"
+"någon senare version.\n"
+"\n"
+"Detta program distribueras i hopp om att det ska vara användbart,\n"
+"men UTAN NÅGON SOM HELST GARANTI, även utan underförstådd\n"
+"garanti om SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT\n"
+"SPECIELLT ÄNDAMÅL. Se GNU General Public License för ytterligare\n"
+"information.\n"
+"\n"
+"Du bör ha fått en kopia av GNU General Public License tillsammans\n"
+"med detta program. Om inte, se <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
 #: ../src/ui.c:871
 msgid "About Simple Scan"
-msgstr ""
+msgstr "Om Simple Scan"
 
 #. Description of program
 #: ../src/ui.c:874
