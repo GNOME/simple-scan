@@ -174,22 +174,19 @@ scanner_failed_cb (Scanner *scanner, GError *error)
 static void
 scan_cb (SimpleScan *ui, const gchar *device, gint dpi, const gchar *profile_name, gboolean continuous)
 {
+    /* Default filename to use when saving document (and extension will be added, e.g. .jpg) */
+    const gchar *filename_prefix = _("Scanned Document");
     struct {
         const gchar *name;
         ScanMode mode;
-        const gchar *file_name;
+        const gchar *extension;
     } profiles[] = 
     {
-        { "text", SCAN_MODE_LINEART,
-          /* Default name for PDF documents */
-          _("Scanned Document.pdf") },
-        { "photo", SCAN_MODE_COLOR,
-          /* Default name for JPEG documents */
-          _("Scanned Document.jpg") },
-        { NULL, SCAN_MODE_COLOR,
-          /* Default name for JPEG documents */
-          _("Scanned Document.jpg") }                
+        { "text",  SCAN_MODE_LINEART, "pdf" },
+        { "photo", SCAN_MODE_COLOR,   "jpg" },
+        { NULL,    SCAN_MODE_COLOR,   "jpg" }
     };
+    gchar *filename;
     gint i;
 
     g_debug ("Requesting scan of type %s at %d dpi from device '%s'", profile_name, dpi, device);
@@ -202,8 +199,10 @@ scan_cb (SimpleScan *ui, const gchar *device, gint dpi, const gchar *profile_nam
 
     ui_set_have_scan (ui, FALSE);
     ui_set_scanning (ui, TRUE);
- 
-    ui_set_default_file_name (ui, profiles[i].file_name);
+
+    filename = g_strdup_printf ("%s.%s", filename_prefix, profiles[i].extension);
+    ui_set_default_file_name (ui, filename);
+    g_free (filename);
     scanner_scan (scanner, device, dpi, profiles[i].mode, 8, continuous);
 }
 
