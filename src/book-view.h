@@ -49,6 +49,8 @@ void book_view_set_widgets (BookView *view, GtkWidget *box, GtkWidget *area, Gtk
 // FIXME: Should be part of book_view_new
 void book_view_set_book (BookView *view, Book *book);
 
+void book_view_redraw (BookView *view);
+
 Book *book_view_get_book (BookView *view);
 
 void book_view_select_page (BookView *view, Page *page);

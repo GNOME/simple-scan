@@ -7,6 +7,8 @@ simple_scan_SOURCES = \
 	book-view.h \
 	page.c \
 	page.h \
+	page-view.c \
+	page-view.h \
 	simple-scan.c \
 	scanner.c \
 	scanner.h \

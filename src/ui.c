@@ -407,7 +407,7 @@ page_selected_cb (BookView *view, Page *page, SimpleScan *ui)
     
     if (page_has_crop (page)) {
         char *crop_name;
-
+      
         // FIXME: Make more generic
         crop_name = page_get_named_crop (page);
         if (crop_name) {
@@ -432,7 +432,7 @@ page_selected_cb (BookView *view, Page *page, SimpleScan *ui)
         name = "no_crop_menuitem";
 
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_builder_get_object (ui->priv->builder, name)), TRUE);
-    
+
     ui->priv->updating_page_menu = FALSE;
 }
 
