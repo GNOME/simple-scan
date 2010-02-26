@@ -39,14 +39,6 @@ typedef struct
 } PageViewClass;
 
 
-typedef enum
-{
-    PAGE_VIEW_UNSELECTED,
-    PAGE_VIEW_SELECTED,
-    PAGE_VIEW_SELECTED_SINGLE
-} PageViewBorder;
-
-
 GType page_view_get_type (void);
 
 PageView *page_view_new (void);
@@ -56,7 +48,7 @@ void page_view_set_page (PageView *view, Page *page);
 
 Page *page_view_get_page (PageView *view);
 
-void page_view_set_border (PageView *view, PageViewBorder border);
+void page_view_set_selected (PageView *view, gboolean selected);
 
 void page_view_set_x_offset (PageView *view, gint offset);
 

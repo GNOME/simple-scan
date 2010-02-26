@@ -131,20 +131,30 @@ add_cb (Book *book, Page *page, BookView *view)
 
 
 static void
+update_page_focus (BookView *view)
+{
+    if (!view->priv->selected_page)
+        return;
+
+    if (!gtk_widget_has_focus (view->priv->widget))
+        page_view_set_selected (view->priv->selected_page, FALSE);
+    else
+        page_view_set_selected (view->priv->selected_page, TRUE);
+}
+
+
+static void
 select_page (BookView *view, PageView *page)
 {
     if (view->priv->selected_page == page)
         return;
 
     if (view->priv->selected_page)
-        page_view_set_border (view->priv->selected_page, PAGE_VIEW_UNSELECTED);
+        page_view_set_selected (view->priv->selected_page, FALSE);
 
     view->priv->selected_page = page;
 
-    if (book_get_n_pages (view->priv->book) == 1)
-        page_view_set_border (view->priv->selected_page, PAGE_VIEW_SELECTED_SINGLE);
-    else
-        page_view_set_border (view->priv->selected_page, PAGE_VIEW_SELECTED);
+    update_page_focus (view);
 
     /* Re-layout to make selected page visible */
     // FIXME: Shouldn't need a full layout */
@@ -528,7 +538,7 @@ key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
 static gboolean
 focus_cb (GtkWidget *widget, GdkEventFocus *event, BookView *view)
 {
-    book_view_redraw (view);
+    update_page_focus (view);
     return FALSE;
 }
 
@@ -559,8 +569,8 @@ book_view_set_widgets (BookView *view, GtkWidget *box, GtkWidget *area, GtkWidge
     g_signal_connect (area, "key-press-event", G_CALLBACK (key_cb), view);
     g_signal_connect (area, "button-press-event", G_CALLBACK (button_cb), view);
     g_signal_connect (area, "button-release-event", G_CALLBACK (button_cb), view);
-    g_signal_connect (area, "focus-in-event", G_CALLBACK (focus_cb), view);
-    g_signal_connect (area, "focus-out-event", G_CALLBACK (focus_cb), view);
+    g_signal_connect_after (area, "focus-in-event", G_CALLBACK (focus_cb), view);
+    g_signal_connect_after (area, "focus-out-event", G_CALLBACK (focus_cb), view);
     g_signal_connect (view->priv->adjustment, "value-changed", G_CALLBACK (scroll_cb), view);
 }
 

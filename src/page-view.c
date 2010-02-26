@@ -42,7 +42,7 @@ struct PageViewPrivate
     GdkPixbuf *image;
   
     /* Border around image */
-    PageViewBorder border;
+    gboolean selected;
     gint border_width;
 
     /* True if image needs to be regenerated */
@@ -85,12 +85,12 @@ page_view_get_page (PageView *view)
 
 
 void
-page_view_set_border (PageView *view, PageViewBorder border)
+page_view_set_selected (PageView *view, gboolean selected)
 {
     g_return_if_fail (view != NULL);
-    if (view->priv->border == border)
+    if ((view->priv->selected && selected) || (!view->priv->selected && !selected))
         return;
-    view->priv->border = border;
+    view->priv->selected = selected;
     g_signal_emit (view, signals[CHANGED], 0);  
 }
 
@@ -480,18 +480,10 @@ page_view_render (PageView *view, cairo_t *context)
     cairo_translate (context, view->priv->x, view->priv->y);
 
     /* Draw page border */
-    switch (view->priv->border) {
-    default:
-    case PAGE_VIEW_UNSELECTED:
-        cairo_set_source_rgb (context, 0, 0, 0);
-        break;
-    case PAGE_VIEW_SELECTED:
+    if (view->priv->selected)
         cairo_set_source_rgb (context, 1, 0, 0);
-        break;
-    case PAGE_VIEW_SELECTED_SINGLE:
-        cairo_set_source_rgb (context, 0.75, 0, 0);
-        break;
-    }
+    else
+        cairo_set_source_rgb (context, 0, 0, 0);
     cairo_set_line_width (context, view->priv->border_width);
     cairo_rectangle (context,
                      (double)view->priv->border_width / 2,
@@ -703,7 +695,6 @@ page_view_init (PageView *view)
     view->priv = G_TYPE_INSTANCE_GET_PRIVATE (view, PAGE_VIEW_TYPE, PageViewPrivate);
     view->priv->update_image = TRUE;
     view->priv->cursor = GDK_ARROW;
-    view->priv->border = PAGE_VIEW_UNSELECTED;
     view->priv->border_width = 1;
     view->priv->animate_n_segments = 7;
 }
