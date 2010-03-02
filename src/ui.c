@@ -657,6 +657,7 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     GtkTreeIter iter;
     GtkTreeViewColumn *column;
     const gchar *extension;
+    gchar *directory;
     gint i;
 
     struct
@@ -673,6 +674,13 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
         { NULL, NULL }
     };
 
+    /* Get directory to save to */
+    directory = gconf_client_get_string (ui->priv->client, "/apps/simple-scan/save_directory", NULL);
+    if (!directory || directory[0] == '\0') {
+        g_free (directory);
+        directory = g_strdup (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS));
+    }
+
     dialog = gtk_file_chooser_dialog_new (/* Save dialog: Dialog title */
                                           _("Save As..."),
                                           GTK_WINDOW (ui->priv->window),
@@ -682,8 +690,9 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
                                           NULL);
     gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), TRUE);
     gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);
-    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS));
+    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), directory);
     gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), ui->priv->default_file_name);
+    g_free (directory);
 
     /* Filter to only show images by default */
     filter = gtk_file_filter_new ();
@@ -749,6 +758,11 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 
         g_free (uri);
     }
+
+    gconf_client_set_string (ui->priv->client, "/apps/simple-scan/save_directory",
+                             gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dialog)),
+                             NULL);
+  
     gtk_widget_destroy (dialog);
 }
 
