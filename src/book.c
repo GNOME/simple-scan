@@ -98,13 +98,6 @@ book_get_page (Book *book, gint page_number)
 }
 
 
-static gboolean
-write_pixbuf_data (const gchar *buf, gsize count, GError **error, GFileOutputStream *stream)
-{
-    return g_output_stream_write_all (G_OUTPUT_STREAM (stream), buf, count, NULL, NULL, error);
-}
-
-
 static GFileOutputStream *
 open_file (const gchar *uri, GError **error)
 {
@@ -145,26 +138,13 @@ book_save_jpeg (Book *book, const gchar *uri, GError **error)
     gboolean result = TRUE;
     gint i;
 
-    for (iter = book->priv->pages, i = 0; iter; iter = iter->next, i++) {
+    for (iter = book->priv->pages, i = 0; iter && result; iter = iter->next, i++) {
         Page *page = iter->data;
-        GFileOutputStream *stream;
-        GdkPixbuf *image;
         gchar *indexed_uri;
 
         indexed_uri = make_indexed_uri (uri, i);
-        stream = open_file (indexed_uri, error);
+        result = page_save_jpeg (page, indexed_uri, error);
         g_free (indexed_uri);
-        if (!stream)
-            return FALSE;
-
-        image = page_get_cropped_image (page);
-        result = gdk_pixbuf_save_to_callback (image,
-					      (GdkPixbufSaveFunc) write_pixbuf_data, stream,
-					      "jpeg", error,
-					      "quality", "90",
-					      NULL);
-        g_object_unref (image);
-        g_object_unref (stream);
     }
    
     return result;
@@ -178,25 +158,13 @@ book_save_png (Book *book, const gchar *uri, GError **error)
     gboolean result = TRUE;
     gint i;
 
-    for (iter = book->priv->pages, i = 0; iter; iter = iter->next, i++) {
+    for (iter = book->priv->pages, i = 0; iter && result; iter = iter->next, i++) {
         Page *page = iter->data;
-        GFileOutputStream *stream;
-        GdkPixbuf *image;
         gchar *indexed_uri;
 
         indexed_uri = make_indexed_uri (uri, i);
-        stream = open_file (indexed_uri, error);
+        result = page_save_png (page, indexed_uri, error);
         g_free (indexed_uri);
-        if (!stream)
-            return FALSE;
-
-        image = page_get_cropped_image (page);
-        result = gdk_pixbuf_save_to_callback (image,
-					      (GdkPixbufSaveFunc) write_pixbuf_data, stream,
-					      "png", error,
-					      NULL);
-        g_object_unref (image);
-        g_object_unref (stream);
     }
    
     return result;

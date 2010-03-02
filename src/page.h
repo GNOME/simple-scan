@@ -105,4 +105,8 @@ GdkPixbuf *page_get_image (Page *page);
 
 GdkPixbuf *page_get_cropped_image (Page *page);
 
+gboolean page_save_jpeg (Page *page, const gchar *uri, GError **error);
+
+gboolean page_save_png (Page *page, const gchar *uri, GError **error);
+
 #endif /* _PAGE_H_ */

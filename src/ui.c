@@ -807,7 +807,10 @@ G_MODULE_EXPORT
 void
 email_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    g_signal_emit (G_OBJECT (ui), signals[EMAIL], 0);
+    gchar *mode;
+    mode = get_document_hint (ui);
+    g_signal_emit (G_OBJECT (ui), signals[EMAIL], 0, mode);
+    g_free (mode);
 }
 
 
@@ -1341,8 +1344,8 @@ ui_class_init (SimpleScanClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (SimpleScanClass, email),
                       NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
+                      g_cclosure_marshal_VOID__STRING,
+                      G_TYPE_NONE, 1, G_TYPE_STRING);
     signals[QUIT] =
         g_signal_new ("quit",
                       G_TYPE_FROM_CLASS (klass),

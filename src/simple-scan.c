@@ -255,59 +255,91 @@ save_cb (SimpleScan *ui, const gchar *uri)
 }
 
 
-static void
-email_cb (SimpleScan *ui)
+static gchar *
+get_temporary_filename (const gchar *extension)
 {
-    gint i;
-    gchar *dir, *path = NULL, *uri = NULL;
+    gint fd;
+    gchar *filename, *path;
+    GError *error = NULL;
 
-    // TODO: Delete old files on startup
+    /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
+     * use the filename but it appears to work in practise */
 
-    /* Save in the temporary dir */
-    dir = g_build_filename (g_get_user_cache_dir (), "simple-scan", "email", NULL);
-    g_mkdir_with_parents (dir, 0700);
+    filename = g_strdup_printf ("scanned-document-XXXXXX.%s", extension);
+    fd = g_file_open_tmp (filename, &path, &error);
+    g_free (filename);
+    if (fd < 0) {
+        g_warning ("Error saving email attachment: %s", error->message);
+        g_clear_error (&error);
+        return NULL;
+    }
+    close (fd);
 
-    for (i = 0; ; i++) {
-        GString *filename;
-        GError *error = NULL;
+    return path;
+}
 
-        filename = g_string_new ("");
-        g_string_printf (filename, "scan-%d-%d.pdf", getpid (), i);
 
-        g_free (path);
-        path = g_build_filename (dir, filename->str, NULL);
-        g_string_free (filename, TRUE);
+static void
+email_cb (SimpleScan *ui, const gchar *profile)
+{
+    gboolean saved = FALSE;
+    GError *error = NULL;
+    GString *command_line;
+  
+    command_line = g_string_new ("xdg-email");
 
-        g_free (uri);
-        uri = g_filename_to_uri (path, NULL, NULL);
+    /* Save text files as PDFs */
+    if (strcmp (profile, "text") == 0) {
+        gchar *path, *uri;
 
-        if (book_save_pdf (book, uri, &error)) {
-            GString *command_line;
-
-            command_line = g_string_new ("");
-            g_string_printf (command_line, "xdg-email --attach %s", path);
-            g_debug ("Launchind email client: %s", command_line->str);
-            g_spawn_command_line_async (command_line->str, &error);
-
-            if (error) {
-                g_warning ("Unable to start email: %s", error->message);
-                g_clear_error (&error);
-            }
-            g_string_free (command_line, TRUE);
-	    break;
+        /* Open a temporary file */
+        path = get_temporary_filename ("pdf");
+        if (path) {
+            uri = g_filename_to_uri (path, NULL, NULL);
+            saved = book_save_pdf (book, uri, &error);
+            g_string_append_printf (command_line, " --attach %s", path);
+            g_free (path);
+            g_free (uri);
         }
-        else {
-            if (!g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS)) {
-                g_warning ("Unable to save email PDF: %s", error->message);
-                g_clear_error (&error);
+    }
+    else {
+        gint i;
+
+        for (i = 0; i < book_get_n_pages (book); i++) {
+            gchar *path, *uri;
+
+            path = get_temporary_filename ("jpeg");
+            if (!path) {
+                saved = FALSE;
                 break;
             }
+
+            uri = g_filename_to_uri (path, NULL, NULL);
+            saved = page_save_jpeg (book_get_page (book, i), uri, &error);
+            g_string_append_printf (command_line, " --attach %s", path);
+            g_free (path);
+            g_free (uri);
+          
+            if (!saved)
+                break;
         }
     }
 
-    g_free (path);
-    g_free (uri);   
-    g_free (dir);
+    if (saved) {
+        g_debug ("Launchind email client: %s", command_line->str);
+        g_spawn_command_line_async (command_line->str, &error);
+
+        if (error) {
+            g_warning ("Unable to start email: %s", error->message);
+            g_clear_error (&error);
+        }
+    }
+    else {
+        g_warning ("Unable to save email file: %s", error->message);
+        g_clear_error (&error);
+    }
+
+    g_string_free (command_line, TRUE);
 }
 
 
