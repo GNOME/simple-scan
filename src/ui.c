@@ -690,6 +690,7 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
                               /* Save dialog: Filter name to show only image files */
                               _("Image Files"));
     gtk_file_filter_add_pixbuf_formats (filter);
+    gtk_file_filter_add_mime_type (filter, "application/pdf");
     gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
     filter = gtk_file_filter_new ();
     gtk_file_filter_set_name (filter,
