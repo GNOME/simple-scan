@@ -79,6 +79,7 @@ typedef struct
     void (*scan_failed) (Scanner *scanner, GError *error);
     void (*page_done) (Scanner *scanner);
     void (*document_done) (Scanner *scanner);
+    void (*scanning_changed) (Scanner *scanner);
 } ScannerClass;
 
 

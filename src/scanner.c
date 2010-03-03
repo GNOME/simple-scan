@@ -25,6 +25,7 @@ enum {
     SCAN_FAILED,
     PAGE_DONE,
     DOCUMENT_DONE,
+    SCANNING_CHANGED,
     LAST_SIGNAL
 };
 static guint signals[LAST_SIGNAL] = { 0, };
@@ -98,7 +99,8 @@ struct ScannerPrivate
     SANE_Byte *buffer;
 
     SANE_Int bytes_remaining, line_count, pass_number, page_number, notified_page;
-  
+
+    GMutex *scanning_mutex;
     gboolean scanning;
 };
 
@@ -113,9 +115,6 @@ static gboolean
 send_signal (SignalInfo *info)
 {
     g_signal_emit (info->instance, signals[info->sig], 0, info->data);
-
-    if (info->sig == DOCUMENT_DONE || info->sig == SCAN_FAILED)
-        info->instance->priv->scanning = FALSE;
 
     switch (info->sig) {
     case UPDATE_DEVICES:
@@ -179,6 +178,20 @@ emit_signal (Scanner *scanner, guint sig, gpointer data)
     info->sig = sig;
     info->data = data;
     g_idle_add ((GSourceFunc) send_signal, info);
+}
+
+
+static void
+set_scanning (Scanner *scanner, gboolean is_scanning)
+{
+    g_mutex_lock (scanner->priv->scanning_mutex);
+
+    if ((scanner->priv->scanning && !is_scanning) || (!scanner->priv->scanning && is_scanning)) {
+        scanner->priv->scanning = is_scanning;
+        emit_signal (scanner, SCANNING_CHANGED, NULL);
+    }
+
+    g_mutex_unlock (scanner->priv->scanning_mutex);
 }
 
 
@@ -754,6 +767,14 @@ close_device (Scanner *scanner)
     scanner->priv->job_queue = NULL;
 }
 
+static void
+fail_scan (Scanner *scanner, gint error_code, const gchar *error_string)
+{
+    close_device (scanner);
+    scanner->priv->state = STATE_IDLE;
+    emit_signal (scanner, SCAN_FAILED, g_error_new (SCANNER_TYPE, error_code, "%s", error_string));
+}
+
 
 static gboolean
 handle_requests (Scanner *scanner)
@@ -788,10 +809,7 @@ handle_requests (Scanner *scanner)
              break;
 
          case REQUEST_CANCEL:
-             close_device (scanner);
-             scanner->priv->state = STATE_IDLE;
-             emit_signal (scanner, SCAN_FAILED,
-                          g_error_new (SCANNER_TYPE, SANE_STATUS_CANCELLED, "Scan cancelled - do not report this error"));
+             fail_scan (scanner, SANE_STATUS_CANCELLED, "Scan cancelled - do not report this error");
              break;
 
          case REQUEST_QUIT:
@@ -825,13 +843,10 @@ do_open (Scanner *scanner)
         job->device = g_strdup (scanner->priv->default_device->name);
 
     if (!job->device) {
-        scanner->priv->state = STATE_IDLE;
         g_warning ("No scan device available");
-        scanner->priv->state = STATE_IDLE;
-        emit_signal (scanner, SCAN_FAILED,
-                     g_error_new (SCANNER_TYPE, status,
-                                  /* Error displayed when no scanners to scan with */
-                                  _("No scanners available.  Please connect a scanner.")));
+        fail_scan (scanner, status,
+                   /* Error displayed when no scanners to scan with */
+                   _("No scanners available.  Please connect a scanner."));
         return;
     }
  
@@ -856,12 +871,9 @@ do_open (Scanner *scanner)
     if (status != SANE_STATUS_GOOD) {
         g_warning ("Unable to get open device: %s", sane_strstatus (status));
         scanner->priv->handle = NULL;
-        close_device (scanner);
-        scanner->priv->state = STATE_IDLE;
-        emit_signal (scanner, SCAN_FAILED,
-                     g_error_new (SCANNER_TYPE, status,
-                                  /* Error displayed when cannot connect to scanner */
-                                  _("Unable to connect to scanner")));
+        fail_scan (scanner, status,
+                   /* Error displayed when cannot connect to scanner */
+                   _("Unable to connect to scanner"));
         return;
     }
 
@@ -1060,6 +1072,7 @@ do_complete_document (Scanner *scanner)
     // TODO
 
     emit_signal (scanner, DOCUMENT_DONE, NULL);
+    set_scanning (scanner, FALSE);
 }
 
 
@@ -1078,12 +1091,9 @@ do_start (Scanner *scanner)
     }
     else {
         g_warning ("Unable to start device: %s", sane_strstatus (status));
-        close_device (scanner);
-        scanner->priv->state = STATE_IDLE;
-        emit_signal (scanner, SCAN_FAILED,
-                     g_error_new (SCANNER_TYPE, status,
-                                  /* Error display when unable to start scan */
-                                  _("Unable to start scan")));
+        fail_scan (scanner, status,
+                   /* Error display when unable to start scan */
+                   _("Unable to start scan"));
     }
 }
 
@@ -1099,12 +1109,9 @@ do_get_parameters (Scanner *scanner)
     g_debug ("sane_get_parameters () -> %s", get_status_string (status));
     if (status != SANE_STATUS_GOOD) {
         g_warning ("Unable to get device parameters: %s", sane_strstatus (status));
-        close_device (scanner);
-        scanner->priv->state = STATE_IDLE;
-        emit_signal (scanner, SCAN_FAILED,
-                     g_error_new (SCANNER_TYPE, status,
-                                  /* Error displayed when communication with scanner broken */
-                                  _("Error communicating with scanner")));
+        fail_scan (scanner, status,
+                   /* Error displayed when communication with scanner broken */
+                   _("Error communicating with scanner"));
         return;
     }
   
@@ -1192,12 +1199,9 @@ do_read (Scanner *scanner)
     /* Communication error */
     if (status != SANE_STATUS_GOOD) {
         g_warning ("Unable to read frame from device: %s", sane_strstatus (status));
-        close_device (scanner);
-        scanner->priv->state = STATE_IDLE;
-        emit_signal (scanner, SCAN_FAILED,
-                     g_error_new (SCANNER_TYPE, status,
-                                  /* Error displayed when communication with scanner broken */
-                                  _("Error communicating with scanner")));
+        fail_scan (scanner, status,
+                   /* Error displayed when communication with scanner broken */
+                   _("Error communicating with scanner"));
         return;
     }
  
@@ -1271,6 +1275,7 @@ scan_thread (Scanner *scanner)
     while (handle_requests (scanner)) {
         switch (scanner->priv->state) {
         case STATE_IDLE:
+             set_scanning (scanner, scanner->priv->job_queue != NULL);
              if (scanner->priv->job_queue)
                  scanner->priv->state = STATE_OPEN;
              break;
@@ -1358,7 +1363,7 @@ scanner_scan (Scanner *scanner, const char *device,
     request->job->depth = depth;
     request->job->multi_page = multi_page;
     g_async_queue_push (scanner->priv->scan_queue, request);
-    scanner->priv->scanning = TRUE;
+    set_scanning (scanner, TRUE);
 }
 
 
@@ -1453,6 +1458,14 @@ scanner_class_init (ScannerClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
+    signals[SCANNING_CHANGED] =
+        g_signal_new ("scanning-changed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (ScannerClass, scanning_changed),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
 
     g_type_class_add_private (klass, sizeof (ScannerPrivate));
 
@@ -1466,4 +1479,5 @@ scanner_init (Scanner *scanner)
     scanner->priv = G_TYPE_INSTANCE_GET_PRIVATE (scanner, SCANNER_TYPE, ScannerPrivate);
     scanner->priv->scan_queue = g_async_queue_new ();
     scanner->priv->authorize_queue = g_async_queue_new ();
+    scanner->priv->scanning_mutex = g_mutex_new ();
 }

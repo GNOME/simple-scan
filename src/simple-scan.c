@@ -140,7 +140,6 @@ scanner_page_done_cb (Scanner *scanner)
 static void
 scanner_document_done_cb (Scanner *scanner)
 {
-    ui_set_scanning (ui, FALSE);
     ui_set_have_scan (ui, TRUE);
 }
 
@@ -166,8 +165,14 @@ scanner_failed_cb (Scanner *scanner, GError *error)
                        TRUE);
     }
         
-    ui_set_scanning (ui, FALSE);
     ui_set_have_scan (ui, TRUE);
+}
+
+
+static void
+scanner_scanning_changed_cb (Scanner *scanner)
+{
+    ui_set_scanning (ui, scanner_is_scanning (scanner));
 }
 
 
@@ -198,7 +203,6 @@ scan_cb (SimpleScan *ui, const gchar *device, gint dpi, const gchar *profile_nam
         append_page ();
 
     ui_set_have_scan (ui, FALSE);
-    ui_set_scanning (ui, TRUE);
 
     filename = g_strdup_printf ("%s.%s", filename_prefix, profiles[i].extension);
     ui_set_default_file_name (ui, filename);
@@ -531,6 +535,7 @@ main (int argc, char **argv)
     g_signal_connect (G_OBJECT (scanner), "page-done", G_CALLBACK (scanner_page_done_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "document-done", G_CALLBACK (scanner_document_done_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "scan-failed", G_CALLBACK (scanner_failed_cb), NULL);
+    g_signal_connect (G_OBJECT (scanner), "scanning-changed", G_CALLBACK (scanner_scanning_changed_cb), NULL);
 
     udev_client = g_udev_client_new (udev_subsystems);
     g_signal_connect (udev_client, "uevent", G_CALLBACK (on_uevent), NULL);
