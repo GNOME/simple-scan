@@ -688,6 +688,7 @@ page_view_finalize (GObject *object)
     view->priv->image = NULL;
     if (view->priv->animate_timeout != 0)
         g_source_remove (view->priv->animate_timeout);
+    view->priv->animate_timeout = 0;
     G_OBJECT_CLASS (page_view_parent_class)->finalize (object);
 }
 
