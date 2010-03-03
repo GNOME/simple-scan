@@ -233,13 +233,16 @@ ui_set_selected_device (SimpleScan *ui, const gchar *device)
 static void
 add_default_page (SimpleScan *ui)
 {
+    Page *page;
+  
     if (book_get_n_pages (ui->priv->book) > 0)
         return;
 
-    book_append_page (ui->priv->book,
-                      ui->priv->default_page_width, ui->priv->default_page_height,
-                      ui->priv->default_page_dpi,
-                      ui->priv->default_page_orientation);
+    page = book_append_page (ui->priv->book,
+                             ui->priv->default_page_width, ui->priv->default_page_height,
+                             ui->priv->default_page_dpi,
+                             ui->priv->default_page_orientation);
+    book_view_select_page (ui->priv->book_view, page);
 }
 
 

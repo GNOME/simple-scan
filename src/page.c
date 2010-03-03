@@ -725,6 +725,7 @@ page_finalize (GObject *object)
 {
     Page *page = PAGE (object);
     g_object_unref (page->priv->image);
+    page->priv->image = NULL;
     G_OBJECT_CLASS (page_parent_class)->finalize (object);
 }
 

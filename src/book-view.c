@@ -39,7 +39,7 @@ struct BookViewPrivate
   
     /* Widget being rendered to */
     GtkWidget *widget;
-   
+
     GtkWidget *box, *scroll;
     GtkAdjustment *adjustment;
 
@@ -146,9 +146,12 @@ update_page_focus (BookView *view)
 static void
 select_page (BookView *view, PageView *page)
 {
+    Page *p = NULL;
+  
     if (view->priv->selected_page == page)
         return;
 
+    /* Deselect existing page */
     if (view->priv->selected_page)
         page_view_set_selected (view->priv->selected_page, FALSE);
 
@@ -161,7 +164,9 @@ select_page (BookView *view, PageView *page)
     view->priv->need_layout = TRUE;
     book_view_redraw (view);
 
-    g_signal_emit (view, signals[PAGE_SELECTED], 0, page_view_get_page (view->priv->selected_page));
+    if (page)
+        p = page_view_get_page (page);
+    g_signal_emit (view, signals[PAGE_SELECTED], 0, p);
 }
 
 
@@ -190,9 +195,10 @@ static void
 clear_cb (Book *book, BookView *view)
 {
     g_hash_table_remove_all (view->priv->page_data);
+    view->priv->selected_page = NULL;
+    g_signal_emit (view, signals[PAGE_SELECTED], 0, NULL);
     view->priv->need_layout = TRUE;
     book_view_redraw (view);
-    book_view_select_page (view, NULL);
 }
 
 
@@ -587,12 +593,14 @@ void
 book_view_select_page (BookView *view, Page *page)
 {
     g_return_if_fail (view != NULL);
-    g_return_if_fail (page != NULL);
 
     if (book_view_get_selected (view) == page)
         return;
 
-    select_page (view, g_hash_table_lookup (view->priv->page_data, page));
+    if (page)
+        select_page (view, g_hash_table_lookup (view->priv->page_data, page));
+    else
+        select_page (view, NULL);
 }
 
 
@@ -625,8 +633,24 @@ book_view_get_selected (BookView *view)
 
 
 static void
+book_view_finalize (GObject *object)
+{
+    BookView *view = BOOK_VIEW (object);
+    g_object_unref (view->priv->book);
+    view->priv->book = NULL;
+    g_hash_table_unref (view->priv->page_data);
+    view->priv->page_data = NULL;
+    G_OBJECT_CLASS (book_view_parent_class)->finalize (object);
+}
+
+
+static void
 book_view_class_init (BookViewClass *klass)
 {
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = book_view_finalize;
+
     signals[PAGE_SELECTED] =
         g_signal_new ("page-selected",
                       G_TYPE_FROM_CLASS (klass),

@@ -138,7 +138,7 @@ update_page_view (PageView *view)
     if (view->priv->image)
         g_object_unref (view->priv->image);
     image = page_get_image (view->priv->page);
-    
+
     // FIXME: Only scale changed part onto existing image
     view->priv->image = gdk_pixbuf_scale_simple (image,
                                                  view->priv->width - view->priv->border_width * 2,
@@ -649,31 +649,6 @@ page_view_get_height (PageView *view)
 
 
 static void
-page_view_class_init (PageViewClass *klass)
-{
-    signals[CHANGED] =
-        g_signal_new ("changed",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (PageViewClass, changed),
-                      NULL, NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE, 0);
-
-    g_type_class_add_private (klass, sizeof (PageViewPrivate));
-}
-
-/*static void
-page_view_free (PageView *view)
-{
-    g_object_unref (view->page)
-    if (view->image)
-        g_object_unref (view->image);
-    g_free (view);
-}*/
-
-
-static void
 page_image_changed_cb (Page *p, PageView *view)
 {
     /* Regenerate image */
@@ -689,17 +664,6 @@ page_overlay_changed_cb (Page *p, PageView *view)
 }
 
 
-static void
-page_view_init (PageView *view)
-{
-    view->priv = G_TYPE_INSTANCE_GET_PRIVATE (view, PAGE_VIEW_TYPE, PageViewPrivate);
-    view->priv->update_image = TRUE;
-    view->priv->cursor = GDK_ARROW;
-    view->priv->border_width = 1;
-    view->priv->animate_n_segments = 7;
-}
-
-
 void
 page_view_set_page (PageView *view, Page *page)
 {
@@ -710,4 +674,48 @@ page_view_set_page (PageView *view, Page *page)
     g_signal_connect (view->priv->page, "image-changed", G_CALLBACK (page_image_changed_cb), view);
     g_signal_connect (view->priv->page, "orientation-changed", G_CALLBACK (page_image_changed_cb), view);
     g_signal_connect (view->priv->page, "crop-changed", G_CALLBACK (page_overlay_changed_cb), view);
+}
+
+
+static void
+page_view_finalize (GObject *object)
+{
+    PageView *view = PAGE_VIEW (object);
+    g_object_unref (view->priv->page);
+    view->priv->page = NULL;
+    if (view->priv->image)
+        g_object_unref (view->priv->image);
+    view->priv->image = NULL;
+    G_OBJECT_CLASS (page_view_parent_class)->finalize (object);
+}
+
+
+static void
+page_view_class_init (PageViewClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = page_view_finalize;
+
+    signals[CHANGED] =
+        g_signal_new ("changed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (PageViewClass, changed),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+
+    g_type_class_add_private (klass, sizeof (PageViewPrivate));
+}
+
+
+static void
+page_view_init (PageView *view)
+{
+    view->priv = G_TYPE_INSTANCE_GET_PRIVATE (view, PAGE_VIEW_TYPE, PageViewPrivate);
+    view->priv->update_image = TRUE;
+    view->priv->cursor = GDK_ARROW;
+    view->priv->border_width = 1;
+    view->priv->animate_n_segments = 7;
 }
