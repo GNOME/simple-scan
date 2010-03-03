@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-02-18 10:01+1100\n"
-"PO-Revision-Date: 2010-02-20 12:15+0000\n"
-"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"POT-Creation-Date: 2010-02-22 15:34+1100\n"
+"PO-Revision-Date: 2010-02-27 20:15+0000\n"
+"Last-Translator: Liel Fridman <Unknown>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-21 05:03+0000\n"
+"X-Launchpad-Export-Date: 2010-02-28 05:00+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -210,68 +210,63 @@ msgstr "_חיתוך"
 msgid "_Custom"
 msgstr "_מותאם אישית"
 
-#. Label on page delete menuitem
-#: ../data/simple-scan.ui.h:75
-msgid "_Delete"
-msgstr "מ_חיקה"
-
 #. Label on document menu (contains actions for this document, e.g. save, print)
-#: ../data/simple-scan.ui.h:77
+#: ../data/simple-scan.ui.h:75
 msgid "_Document"
 msgstr "מ_סמך"
 
 #. Label on email menu item
-#: ../data/simple-scan.ui.h:79
+#: ../data/simple-scan.ui.h:77
 msgid "_Email"
 msgstr "_דוא\"ל"
 
 #. Label on help menu
-#: ../data/simple-scan.ui.h:81
+#: ../data/simple-scan.ui.h:79
 msgid "_Help"
 msgstr "ע_זרה"
 
 #. Radio button for cropping page to US letter size
-#: ../data/simple-scan.ui.h:83
+#: ../data/simple-scan.ui.h:81
 msgid "_Letter"
 msgstr "_מכתב"
 
 #. Radio button for no crop
-#: ../data/simple-scan.ui.h:85
+#: ../data/simple-scan.ui.h:83
 msgid "_None"
 msgstr "_ללא"
 
 #. Page menu (contains action for each page, e.g. delete, crop)
-#: ../data/simple-scan.ui.h:87
+#: ../data/simple-scan.ui.h:85
 msgid "_Page"
 msgstr "_עמוד"
 
 #. Label beside password entry
-#: ../data/simple-scan.ui.h:89
+#: ../data/simple-scan.ui.h:87
 msgid "_Password:"
 msgstr "_סיסמה:"
 
 #. Label beside scan source combo box
-#: ../data/simple-scan.ui.h:91
+#: ../data/simple-scan.ui.h:89
 msgid "_Photo Resolution:"
 msgstr "_רזולוציית התמונה:"
 
 #. Menu item to rotate the crop area
-#: ../data/simple-scan.ui.h:93
+#: ../data/simple-scan.ui.h:91
 msgid "_Rotate Crop"
 msgstr "_סיבוב חיתוך"
 
 #. Menu entry to stop current scan
-#: ../data/simple-scan.ui.h:95
+#: ../data/simple-scan.ui.h:93
 msgid "_Stop Scan"
 msgstr "_עצירת הסריקה"
 
 #. Label beside scan source combo box
-#: ../data/simple-scan.ui.h:97
+#: ../data/simple-scan.ui.h:95
 msgid "_Text Resolution:"
 msgstr "רזולו_ציית הטקסט:"
 
 #. Label beside username entry
-#: ../data/simple-scan.ui.h:99
+#: ../data/simple-scan.ui.h:97
 msgid "_Username for resource:"
 msgstr "שם ה_משתמש עבור המשאב:"
 
@@ -402,23 +397,18 @@ msgstr "שגיאה בהתקשרות עם הסורק"
 msgid "Failed to scan"
 msgstr "הסריקה נכשלה"
 
-#. Default name for PDF documents
-#: ../src/simple-scan.c:185 ../src/ui.c:1355
-msgid "Scanned Document.pdf"
-msgstr "מסמך סרוק.pdf"
-
-#. Default name for JPEG documents
-#: ../src/simple-scan.c:188 ../src/simple-scan.c:191
-msgid "Scanned Document.jpg"
-msgstr "מסמך סרוק.jpg"
+#. Default filename to use when saving document (and extension will be added, e.g. .jpg)
+#: ../src/simple-scan.c:178
+msgid "Scanned Document"
+msgstr "מסמך שנסרק"
 
 #. Title of error dialog when save failed
-#: ../src/simple-scan.c:251
+#: ../src/simple-scan.c:250
 msgid "Failed to save file"
 msgstr "שמירת הקובץ נכשלה"
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:336
+#: ../src/simple-scan.c:335
 #, c-format
 msgid ""
 "Usage:\n"
@@ -428,7 +418,7 @@ msgstr ""
 "  %s [DEVICE...] - Scanning utility"
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:344
+#: ../src/simple-scan.c:343
 #, c-format
 msgid ""
 "Help Options:\n"
@@ -446,7 +436,7 @@ msgstr ""
 "  --help-gtk                      Show GTK+ options"
 
 #. Description on simple-scan command-line GTK+ options displayed on command-line
-#: ../src/simple-scan.c:356
+#: ../src/simple-scan.c:355
 #, c-format
 msgid ""
 "GTK+ Options:\n"
@@ -567,8 +557,8 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Ddorda https://launchpad.net/~ddorda\n"
-"  Yaron https://launchpad.net/~sh-yaron\n"
-"  lielf https://launchpad.net/~lielft"
+"  Liel Fridman https://launchpad.net/~lielft\n"
+"  Yaron https://launchpad.net/~sh-yaron"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
 #: ../src/ui.c:1007
@@ -608,3 +598,7 @@ msgstr "יש לבדוק את ההתקנה"
 #: ../src/ui.c:1231
 msgid "Change _Scanner"
 msgstr "ב_חירה בסורק אחר"
+
+#: ../src/ui.c:1355
+msgid "Scanned Document.pdf"
+msgstr "מסמך סרוק.pdf"
