@@ -466,7 +466,6 @@ rotate_right_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
         return;
     page = book_view_get_selected (ui->priv->book_view);
     page_rotate_right (page);
-    ui->priv->default_page_orientation = page_get_orientation (page);
 }
 
 
@@ -994,6 +993,12 @@ page_changed_cb (Page *page, SimpleScan *ui)
     ui->priv->default_page_width = page_get_scan_width (page);
     ui->priv->default_page_height = page_get_scan_height (page);
     ui->priv->default_page_dpi = page_get_dpi (page);
+}
+
+
+static void
+page_orientation_changed_cb (Page *page, SimpleScan *ui)
+{
     ui->priv->default_page_orientation = page_get_orientation (page);
 }
 
@@ -1006,6 +1011,7 @@ page_added_cb (Book *book, Page *page, SimpleScan *ui)
     ui->priv->default_page_dpi = page_get_dpi (page);
     ui->priv->default_page_orientation = page_get_orientation (page);
     g_signal_connect (page, "image-changed", G_CALLBACK (page_changed_cb), ui);
+    g_signal_connect (page, "orientation-changed", G_CALLBACK (page_orientation_changed_cb), ui);
 }
 
 
