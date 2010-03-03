@@ -180,6 +180,7 @@ remove_cb (Book *book, Page *page, BookView *view)
         new_selection = get_prev_page (view);
         if (new_selection == view->priv->selected_page)
             new_selection = get_next_page (view);
+        view->priv->selected_page = NULL;
     }
 
     g_hash_table_remove (view->priv->page_data, page);
