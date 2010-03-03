@@ -63,6 +63,7 @@
                             <child>
                               <object class="GtkMenuItem" id="stop_scan_menuitem">
                                 <property name="visible">True</property>
+                                <property name="sensitive">False</property>
                                 <property name="label" translatable="yes" comments="Menu entry to stop current scan">_Stop Scan</property>
                                 <property name="use_underline">True</property>
                                 <accelerator key="Escape" signal="activate"/>
@@ -372,6 +373,7 @@
             <child>
               <object class="GtkToolButton" id="stop_toolbutton">
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
                 <property name="label" translatable="yes">Stop</property>
                 <property name="use_underline">True</property>

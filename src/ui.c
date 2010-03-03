@@ -46,6 +46,7 @@ struct SimpleScanPrivate
     GtkTreeModel *mode_model;
     GtkWidget *preview_box, *preview_area, *preview_scroll;
     GtkWidget *page_delete_menuitem, *crop_rotate_menuitem;
+    GtkWidget *stop_menuitem, *stop_toolbutton;
 
     GtkWidget *authorize_dialog;
     GtkWidget *authorize_label;
@@ -1101,6 +1102,8 @@ ui_load (SimpleScan *ui)
     ui->priv->preview_scroll = GTK_WIDGET (gtk_builder_get_object (builder, "preview_scrollbar"));
     ui->priv->page_delete_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_delete_menuitem"));
     ui->priv->crop_rotate_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "crop_rotate_menuitem"));
+    ui->priv->stop_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "stop_scan_menuitem"));
+    ui->priv->stop_toolbutton = GTK_WIDGET (gtk_builder_get_object (builder, "stop_toolbutton"));
 
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->mode_combo), renderer, TRUE);
@@ -1227,6 +1230,8 @@ ui_set_scanning (SimpleScan *ui, gboolean scanning)
 {
     ui->priv->scanning = scanning;
     gtk_widget_set_sensitive (ui->priv->page_delete_menuitem, !scanning);
+    gtk_widget_set_sensitive (ui->priv->stop_menuitem, scanning);
+    gtk_widget_set_sensitive (ui->priv->stop_toolbutton, scanning);
 }
 
 
