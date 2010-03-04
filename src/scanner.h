@@ -34,6 +34,9 @@ typedef struct
 {
     /* Line number */
     gint number;
+  
+    /* Number of lines in this packet */
+    gint n_lines;
 
     /* Width in pixels and format */
     gint width, depth;

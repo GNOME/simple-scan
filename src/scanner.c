@@ -97,6 +97,7 @@ struct ScannerPrivate
 
     /* Buffer for received line */
     SANE_Byte *buffer;
+    SANE_Int n_used;
 
     SANE_Int bytes_remaining, line_count, pass_number, page_number, notified_page;
 
@@ -108,6 +109,8 @@ G_DEFINE_TYPE (Scanner, scanner, G_TYPE_OBJECT);
 
 /* Table of scanner objects for each thread (required for authorization callback) */
 static GHashTable *scanners;
+
+#define MAX_READ 10000
 
 
 static gboolean
@@ -1132,8 +1135,8 @@ do_get_parameters (Scanner *scanner)
     }
 
     /* Prepare for read */
-    scanner->priv->bytes_remaining = scanner->priv->parameters.bytes_per_line;
-    scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * scanner->priv->bytes_remaining);
+    scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * MAX_READ);
+    scanner->priv->n_used = 0;
     scanner->priv->line_count = 0;
     scanner->priv->pass_number = 0;
     scanner->priv->state = STATE_READ;
@@ -1175,13 +1178,15 @@ static void
 do_read (Scanner *scanner)
 {
     SANE_Status status;
-    SANE_Int n_read;
+    SANE_Int n_to_read, n_read;
+
+    /* Read as many bytes as we expect */
+    n_to_read = MAX_READ - scanner->priv->n_used;
 
     status = sane_read (scanner->priv->handle,
-                        scanner->priv->buffer + (scanner->priv->parameters.bytes_per_line - scanner->priv->bytes_remaining),
-                        scanner->priv->bytes_remaining,
-                        &n_read);
-    g_debug ("sane_read (%d) -> (%s, %d)", scanner->priv->bytes_remaining, get_status_string (status), n_read);
+                        scanner->priv->buffer + scanner->priv->n_used,
+                        n_to_read, &n_read);
+    g_debug ("sane_read (%d) -> (%s, %d)", n_to_read, get_status_string (status), n_read);
 
     /* End of variable length frame */
     if (status == SANE_STATUS_EOF &&
@@ -1200,8 +1205,10 @@ do_read (Scanner *scanner)
         return;
     }
  
-    scanner->priv->bytes_remaining -= n_read;
-    if (scanner->priv->bytes_remaining == 0) {
+    scanner->priv->n_used += n_read;
+  
+    /* Feed out lines */
+    if (scanner->priv->n_used >= scanner->priv->parameters.bytes_per_line) {
         ScanLine *line;
 
         line = g_malloc(sizeof(ScanLine));
@@ -1227,17 +1234,27 @@ do_read (Scanner *scanner)
         line->data = scanner->priv->buffer;
         line->data_length = scanner->priv->parameters.bytes_per_line;
         line->number = scanner->priv->line_count;
-        emit_signal (scanner, GOT_LINE, line);
+        line->n_lines = scanner->priv->n_used / line->data_length;
+
         scanner->priv->buffer = NULL;
+        scanner->priv->line_count += line->n_lines;
 
         /* On last line */
-        scanner->priv->line_count++;
-        if (scanner->priv->parameters.lines > 0 && scanner->priv->line_count == scanner->priv->parameters.lines) {
+        if (scanner->priv->parameters.lines > 0 && scanner->priv->line_count >= scanner->priv->parameters.lines) {
+            emit_signal (scanner, GOT_LINE, line);
             do_complete_page (scanner);
         }
         else {
-            scanner->priv->bytes_remaining = scanner->priv->parameters.bytes_per_line;
-            scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * scanner->priv->bytes_remaining);
+            int i, n_remaining;
+
+            scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * MAX_READ);
+            n_remaining = scanner->priv->n_used - (line->n_lines * line->data_length);
+            scanner->priv->n_used = 0;
+            for (i = 0; i < n_remaining; i++) {
+                scanner->priv->buffer[i] = line->data[i + (line->n_lines * line->data_length)];
+                scanner->priv->n_used++;                
+            }
+            emit_signal (scanner, GOT_LINE, line);
         }
     }
 }

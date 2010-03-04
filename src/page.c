@@ -151,49 +151,52 @@ gint page_get_scan_line (Page *page)
 
 
 static void
-set_pixel (ScanLine *line, gint i, guchar *pixel)
+set_pixel (ScanLine *line, gint n, gint x, guchar *pixel)
 {
     gint sample;
+    guchar *data;
+  
+    data = line->data + line->data_length * n;
 
     switch (line->format) {
     case LINE_RGB:
-        pixel[0] = get_sample (line->data, line->depth, i*3) * 0xFF / ((1 << line->depth) - 1);
-        pixel[1] = get_sample (line->data, line->depth, i*3+1) * 0xFF / ((1 << line->depth) - 1);
-        pixel[2] = get_sample (line->data, line->depth, i*3+2) * 0xFF / ((1 << line->depth) - 1);
+        pixel[0] = get_sample (data, line->depth, x*3) * 0xFF / ((1 << line->depth) - 1);
+        pixel[1] = get_sample (data, line->depth, x*3+1) * 0xFF / ((1 << line->depth) - 1);
+        pixel[2] = get_sample (data, line->depth, x*3+2) * 0xFF / ((1 << line->depth) - 1);
         break;
     case LINE_GRAY:
         /* Bitmap, 0 = white, 1 = black */
-        sample = get_sample (line->data, line->depth, i) * 0xFF / ((1 << line->depth) - 1);
+        sample = get_sample (data, line->depth, x) * 0xFF / ((1 << line->depth) - 1);
         if (line->depth == 1)
             sample = sample ? 0x00 : 0xFF;
 
         pixel[0] = pixel[1] = pixel[2] = sample;
         break;
     case LINE_RED:
-        pixel[0] = get_sample (line->data, line->depth, i) * 0xFF / ((1 << line->depth) - 1);
+        pixel[0] = get_sample (data, line->depth, x) * 0xFF / ((1 << line->depth) - 1);
         break;
     case LINE_GREEN:
-        pixel[1] = get_sample (line->data, line->depth, i) * 0xFF / ((1 << line->depth) - 1);
+        pixel[1] = get_sample (data, line->depth, x) * 0xFF / ((1 << line->depth) - 1);
         break;
     case LINE_BLUE:
-        pixel[2] = get_sample (line->data, line->depth, i) * 0xFF / ((1 << line->depth) - 1);
+        pixel[2] = get_sample (data, line->depth, x) * 0xFF / ((1 << line->depth) - 1);
         break;
     }
 }
 
 
-void
-page_parse_scan_line (Page *page, ScanLine *line)
+static void
+parse_line (Page *page, ScanLine *line, gint n, gboolean *size_changed)
 {
     guchar *pixels;
+    gint line_number;
     gint i, x = 0, y = 0, x_step = 0, y_step = 0;
     gint rowstride, n_channels;
-    gboolean size_changed = FALSE;
 
-    g_return_if_fail (page != NULL);
+    line_number = line->number + n;
 
     /* Extend image if necessary */
-    while (line->number >= page_get_scan_height (page)) {
+    while (line_number >= page_get_scan_height (page)) {
         GdkPixbuf *image;
         gint height, width, new_width, new_height;
 
@@ -223,30 +226,30 @@ page_parse_scan_line (Page *page, ScanLine *line)
         g_object_unref (page->priv->image);
         page->priv->image = image;
 
-        size_changed = TRUE;
+        *size_changed = TRUE;
     }
   
     switch (page->priv->orientation) {
     case TOP_TO_BOTTOM:
         x = 0;
-        y = line->number;
+        y = line_number;
         x_step = 1;
         y_step = 0;
         break;
     case BOTTOM_TO_TOP:
         x = page_get_width (page) - 1;
-        y = page_get_height (page) - line->number - 1;
+        y = page_get_height (page) - line_number - 1;
         x_step = -1;
         y_step = 0;
         break;
     case LEFT_TO_RIGHT:
-        x = line->number;
+        x = line_number;
         y = page_get_height (page) - 1;
         x_step = 0;
         y_step = -1;
         break;
     case RIGHT_TO_LEFT:
-        x = page_get_width (page) - line->number - 1;
+        x = page_get_width (page) - line_number - 1;
         y = 0;
         x_step = 0;
         y_step = 1;
@@ -259,14 +262,28 @@ page_parse_scan_line (Page *page, ScanLine *line)
         guchar *pixel;
 
         pixel = pixels + y * rowstride + x * n_channels;
-        set_pixel (line, i, pixel);
+        set_pixel (line, n, i, pixel);
         x += x_step;
         y += y_step;
     }
 
+    page->priv->scan_line = line_number;
+}
+
+
+void
+page_parse_scan_line (Page *page, ScanLine *line)
+{
+    gint i;
+    gboolean size_changed = FALSE;
+
+    g_return_if_fail (page != NULL);
+
+    for (i = 0; i < line->n_lines; i++)
+        parse_line (page, line, i, &size_changed);
+
     page->priv->has_data = TRUE;
-    page->priv->scan_line = line->number;
-  
+
     if (size_changed)
         g_signal_emit (page, signals[SIZE_CHANGED], 0);
     g_signal_emit (page, signals[SCAN_LINE_CHANGED], 0);
