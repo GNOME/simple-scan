@@ -110,7 +110,6 @@ get_prev_page (BookView *view)
 static void
 page_view_changed_cb (PageView *page, BookView *view)
 {
-    // FIXME: Only redraw pages that need it
     book_view_redraw (view);
 }
 
@@ -118,7 +117,6 @@ page_view_changed_cb (PageView *page, BookView *view)
 static void
 page_view_size_changed_cb (PageView *page, BookView *view)
 {
-    // FIXME: Only redraw pages that need it
     view->priv->need_layout = TRUE;
     book_view_redraw (view);
 }
