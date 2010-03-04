@@ -15,6 +15,7 @@
 
 enum {
     CHANGED,
+    SIZE_CHANGED,
     LAST_SIGNAL
 };
 static guint signals[LAST_SIGNAL] = { 0, };
@@ -156,6 +157,7 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
     return;
 #endif
 
+#if 0
     // Average all touched pixels
     L = (gint)l;
     R = (gint)(r + 0.5);
@@ -176,13 +178,14 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
     pixel[0] = (guchar)(red * scale + 0.5);
     pixel[1] = (guchar)(green * scale + 0.5);
     pixel[2] = (guchar)(blue * scale + 0.5);
+#endif
 
-#if 0
+#if 1
     // Average partial pixels (not fully working but the above seems good enough
-    L = (gint)(l);
-    R = (gint)(r + 0.5);
-    T = (gint)(t);
-    B = (gint)(b + 0.5);
+    L = (gint)(l + 0.5);
+    R = (gint)(r);
+    T = (gint)(t + 0.5);
+    B = (gint)(b);
   
     red = green = blue = 0.0;
 
@@ -270,23 +273,24 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
 
 
 static void
-update_page_view (PageView *view)
+update_preview (GdkPixbuf *image,
+                GdkPixbuf **output_image, gint output_width, gint output_height,
+                Orientation orientation, gint old_scan_line, gint scan_line)
 {
-    GdkPixbuf *image;
     guchar *input, *output;
     gint input_width, input_height;
     gint input_rowstride, input_n_channels;
-    gint output_width, output_height;
     gint output_rowstride, output_n_channels;
     gint x, y;
     gint L, R, T, B;
-    gint scan_line;
 
-    if (!view->priv->update_image)
-        return;
-
-    image = page_get_image (view->priv->page);
-    scan_line = page_get_scan_line (view->priv->page);
+#if 1
+    /* TEMP: Use innefficient complete rescale */
+    if (*output_image)
+        g_object_unref (*output_image); 
+    *output_image = gdk_pixbuf_scale_simple (image, output_width, output_height, GDK_INTERP_BILINEAR);
+    return;
+#endif
 
     input = gdk_pixbuf_get_pixels (image);
     input_width = gdk_pixbuf_get_width (image);
@@ -294,21 +298,17 @@ update_page_view (PageView *view)
     input_rowstride = gdk_pixbuf_get_rowstride (image);
     input_n_channels = gdk_pixbuf_get_n_channels (image);
 
-    /* Target size */
-    output_width = view->priv->width - view->priv->border_width * 2;
-    output_height = view->priv->height - view->priv->border_width * 2;
-
     /* Create new image if one does not exist or has changed size */
-    if (!view->priv->image ||
-        gdk_pixbuf_get_width (view->priv->image) != output_width ||
-        gdk_pixbuf_get_height (view->priv->image) != output_height) {
-        if (view->priv->image)
-            g_object_unref (view->priv->image); 
-        view->priv->image = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
-                                            FALSE,
-                                            8,
-                                            output_width,
-                                            output_height);
+    if (!*output_image ||
+        gdk_pixbuf_get_width (*output_image) != output_width ||
+        gdk_pixbuf_get_height (*output_image) != output_height) {
+        if (*output_image)
+            g_object_unref (*output_image); 
+        *output_image = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
+                                        FALSE,
+                                        8,
+                                        output_width,
+                                        output_height);
       
         /* Update entire image */
         L = 0;
@@ -318,15 +318,15 @@ update_page_view (PageView *view)
     }
     /* Otherwise only update changed area */
     else {
-        switch (page_get_orientation (view->priv->page)) {
+        switch (orientation) {
         case TOP_TO_BOTTOM:
             L = 0;
             R = output_width - 1;
-            T = (gint)((double)view->priv->scan_line * output_height / input_height);
+            T = (gint)((double)old_scan_line * output_height / input_height);
             B = (gint)((double)scan_line * output_height / input_height + 0.5);
             break;
         case LEFT_TO_RIGHT:
-            L = (gint)((double)view->priv->scan_line * output_width / input_width);
+            L = (gint)((double)old_scan_line * output_width / input_width);
             R = (gint)((double)scan_line * output_width / input_width + 0.5);
             T = 0;
             B = output_height - 1;
@@ -335,11 +335,11 @@ update_page_view (PageView *view)
             L = 0;
             R = output_width - 1;
             T = (gint)((double)(input_height - scan_line) * output_height / input_height);
-            B = (gint)((double)(input_height - view->priv->scan_line) * output_height / input_height + 0.5);
+            B = (gint)((double)(input_height - old_scan_line) * output_height / input_height + 0.5);
             break;
         case RIGHT_TO_LEFT:
             L = (gint)((double)(input_width - scan_line) * output_width / input_width);
-            R = (gint)((double)(input_width - view->priv->scan_line) * output_width / input_width + 0.5);
+            R = (gint)((double)(input_width - old_scan_line) * output_width / input_width + 0.5);
             T = 0;
             B = output_height - 1;
             break;
@@ -360,9 +360,9 @@ update_page_view (PageView *view)
     g_return_if_fail (T >= 0);
     g_return_if_fail (B < output_height);
 
-    output = gdk_pixbuf_get_pixels (view->priv->image);
-    output_rowstride = gdk_pixbuf_get_rowstride (view->priv->image);
-    output_n_channels = gdk_pixbuf_get_n_channels (view->priv->image);
+    output = gdk_pixbuf_get_pixels (*output_image);
+    output_rowstride = gdk_pixbuf_get_rowstride (*output_image);
+    output_n_channels = gdk_pixbuf_get_n_channels (*output_image);
 
     /* Update changed area */
     for (x = L; x <= R; x++) {
@@ -382,7 +382,25 @@ update_page_view (PageView *view)
                        get_pixel (output, output_rowstride, output_n_channels, x, y));
         }
     }
+}
 
+
+static void
+update_page_view (PageView *view)
+{
+    GdkPixbuf *image;
+    gint scan_line;
+
+    if (!view->priv->update_image)
+        return;
+
+    image = page_get_image (view->priv->page);
+    scan_line = page_get_scan_line (view->priv->page);
+    update_preview (image,
+                    &view->priv->image,
+                    view->priv->width - view->priv->border_width * 2,
+                    view->priv->height - view->priv->border_width * 2,
+                    page_get_orientation (view->priv->page), view->priv->scan_line, scan_line);
     g_object_unref (image);
 
     view->priv->update_image = FALSE;
@@ -845,11 +863,16 @@ page_view_set_width (PageView *view, gint width)
 
     // FIXME: Automatically update when get updated image
     height = (double)width * page_get_height (view->priv->page) / page_get_width (view->priv->page);
+    if (view->priv->width == width && view->priv->height == height)
+        return;
+
     view->priv->width = width;
     view->priv->height = height;
   
     /* Regenerate image */
     view->priv->update_image = TRUE;
+
+    g_signal_emit (view, signals[SIZE_CHANGED], 0);
     g_signal_emit (view, signals[CHANGED], 0);
 }
 
@@ -863,11 +886,16 @@ page_view_set_height (PageView *view, gint height)
 
     // FIXME: Automatically update when get updated image
     width = (double)height * page_get_width (view->priv->page) / page_get_height (view->priv->page);
+    if (view->priv->width == width && view->priv->height == height)
+        return;
+
     view->priv->width = width;
     view->priv->height = height;
   
     /* Regenerate image */
     view->priv->update_image = TRUE;
+
+    g_signal_emit (view, signals[SIZE_CHANGED], 0);  
     g_signal_emit (view, signals[CHANGED], 0);
 }
 
@@ -898,6 +926,16 @@ page_image_changed_cb (Page *p, PageView *view)
 
 
 static void
+page_orientation_changed_cb (Page *p, PageView *view)
+{
+    /* Regenerate image */
+    view->priv->update_image = TRUE;
+    g_signal_emit (view, signals[SIZE_CHANGED], 0);
+    g_signal_emit (view, signals[CHANGED], 0);
+}
+
+
+static void
 page_overlay_changed_cb (Page *p, PageView *view)
 {
     g_signal_emit (view, signals[CHANGED], 0);
@@ -912,7 +950,7 @@ page_view_set_page (PageView *view, Page *page)
 
     view->priv->page = g_object_ref (page);
     g_signal_connect (view->priv->page, "image-changed", G_CALLBACK (page_image_changed_cb), view);
-    g_signal_connect (view->priv->page, "orientation-changed", G_CALLBACK (page_image_changed_cb), view);
+    g_signal_connect (view->priv->page, "orientation-changed", G_CALLBACK (page_orientation_changed_cb), view);
     g_signal_connect (view->priv->page, "crop-changed", G_CALLBACK (page_overlay_changed_cb), view);
 }
 
@@ -945,6 +983,14 @@ page_view_class_init (PageViewClass *klass)
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (PageViewClass, changed),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+    signals[SIZE_CHANGED] =
+        g_signal_new ("size-changed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (PageViewClass, size_changed),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);

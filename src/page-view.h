@@ -36,6 +36,7 @@ typedef struct
     GObjectClass parent_class;
 
     void (*changed) (PageView *view);
+    void (*size_changed) (PageView *view);
 } PageViewClass;
 
 
