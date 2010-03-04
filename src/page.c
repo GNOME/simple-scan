@@ -603,6 +603,7 @@ page_get_image (Page *page)
 {
     g_return_val_if_fail (page != NULL, NULL);
 
+    /* FIXME: Store the image already scaled to avoid all the copying */
     switch (page->priv->orientation) {
     default:
     case TOP_TO_BOTTOM:
