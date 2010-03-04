@@ -16,10 +16,12 @@
 
 #include "scanner.h"
 
+/* TODO: Could indicate the start of the next page immediately after the last page is received (i.e. before the sane_cancel()) */
 
 enum {
     UPDATE_DEVICES,
     AUTHORIZE,
+    EXPECT_PAGE,
     GOT_PAGE_INFO,
     GOT_LINE,
     SCAN_FAILED,
@@ -157,6 +159,7 @@ send_signal (SignalInfo *info)
         }
         break;
     default:
+    case EXPECT_PAGE:
     case PAGE_DONE:
     case DOCUMENT_DONE:
     case LAST_SIGNAL:
@@ -1078,7 +1081,9 @@ static void
 do_start (Scanner *scanner)
 {
     SANE_Status status;
-  
+
+    emit_signal (scanner, EXPECT_PAGE, NULL);
+
     status = sane_start (scanner->priv->handle);
     g_debug ("sane_start (page=%d, pass=%d) -> %s", scanner->priv->page_number, scanner->priv->pass_number, get_status_string (status));
     if (status == SANE_STATUS_GOOD) {
@@ -1431,6 +1436,14 @@ scanner_class_init (ScannerClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__POINTER,
                       G_TYPE_NONE, 1, G_TYPE_POINTER);
+    signals[EXPECT_PAGE] =
+        g_signal_new ("expect-page",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (ScannerClass, expect_page),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
     signals[GOT_PAGE_INFO] =
         g_signal_new ("got-page-info",
                       G_TYPE_FROM_CLASS (klass),

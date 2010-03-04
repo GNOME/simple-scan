@@ -105,6 +105,13 @@ append_page ()
 
 
 static void
+scanner_new_page_cb (Scanner *scanner)
+{
+    append_page ();
+}
+
+
+static void
 scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 {
     Page *page;
@@ -113,7 +120,7 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
              info->width, info->height, info->depth);
 
     /* Add a new page */
-    page = append_page (FALSE);
+    page = append_page ();
     page_set_scan_area (page, info->width, info->height, info->dpi);
 }
 
@@ -138,14 +145,7 @@ scanner_page_done_cb (Scanner *scanner)
 
 
 static void
-scanner_document_done_cb (Scanner *scanner)
-{
-    ui_set_have_scan (ui, TRUE);
-}
-
-
-static void
-scanner_failed_cb (Scanner *scanner, GError *error)
+remove_empty_page ()
 {
     Page *page;
 
@@ -156,7 +156,20 @@ scanner_failed_cb (Scanner *scanner, GError *error)
         page_finish (page);
     else
         book_delete_page (book, page); 
+}
 
+
+static void
+scanner_document_done_cb (Scanner *scanner)
+{
+    remove_empty_page ();
+}
+
+
+static void
+scanner_failed_cb (Scanner *scanner, GError *error)
+{
+    remove_empty_page ();
     if (!g_error_matches (error, SCANNER_TYPE, SANE_STATUS_CANCELLED)) {
         ui_show_error (ui,
                        /* Title of error dialog when scan failed */
@@ -164,8 +177,6 @@ scanner_failed_cb (Scanner *scanner, GError *error)
                        error->message,
                        TRUE);
     }
-        
-    ui_set_have_scan (ui, TRUE);
 }
 
 
@@ -201,8 +212,6 @@ scan_cb (SimpleScan *ui, const gchar *device, gint dpi, const gchar *profile_nam
 
     if (!scanner_is_scanning (scanner))
         append_page ();
-
-    ui_set_have_scan (ui, FALSE);
 
     filename = g_strdup_printf ("%s.%s", filename_prefix, profiles[i].extension);
     ui_set_default_file_name (ui, filename);
@@ -530,6 +539,7 @@ main (int argc, char **argv)
     scanner = scanner_new ();
     g_signal_connect (G_OBJECT (scanner), "update-devices", G_CALLBACK (update_scan_devices_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "authorize", G_CALLBACK (authorize_cb), NULL);
+    g_signal_connect (G_OBJECT (scanner), "expect-page", G_CALLBACK (scanner_new_page_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "got-page-info", G_CALLBACK (scanner_page_info_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "got-line", G_CALLBACK (scanner_line_cb), NULL);
     g_signal_connect (G_OBJECT (scanner), "page-done", G_CALLBACK (scanner_page_done_cb), NULL);

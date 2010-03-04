@@ -64,8 +64,6 @@ void ui_set_selected_device (SimpleScan *ui, const gchar *device);
 
 void ui_set_scanning (SimpleScan *ui, gboolean scanning);
 
-void ui_set_have_scan (SimpleScan *ui, gboolean have_scan);
-
 void ui_show_error (SimpleScan *ui, const gchar *error_title, const gchar *error_text, gboolean change_scanner_hint);
 
 void ui_start (SimpleScan *ui);
