@@ -1147,6 +1147,8 @@ static void
 do_complete_page (Scanner *scanner)
 {
     ScanJob *job;
+
+    emit_signal (scanner, PAGE_DONE, NULL);
   
     job = (ScanJob *) scanner->priv->job_queue->data;
 
@@ -1169,7 +1171,6 @@ do_complete_page (Scanner *scanner)
         return;
     }
 
-    emit_signal (scanner, PAGE_DONE, NULL);  
     do_complete_document (scanner);
 }
 
