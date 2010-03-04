@@ -190,12 +190,74 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
      * Same again, just no completely covered pixels.
      */
   
-    L = (gint)(l + 0.5);
+    L = (gint)(l + 1.0);
     R = (gint)(r);
-    T = (gint)(t + 0.5);
+    T = (gint)(t + 1.0);
     B = (gint)(b);
   
     red = green = blue = 0.0;
+
+    /* Target can fit inside one source pixel
+     * +-----+
+     * |     |
+     * | +--+|      +-----+      +-----+-----+
+     * +-----+  or  | +-+ |  or  |   +-|+    |
+     * | +--+|      | +-+ |      |   +-|+    |
+     * |     |      +-----+      +-----+-----+
+     * +-----+
+     */
+    /* FIXME: This only handles the square case - pixels could be stretched in the general case */
+    if (r - l < 1.0 || b - t < 1.0) {
+        /* Inside */
+        if (L > R && T > B) {
+            guchar *p = get_pixel (input, rowstride, n_channels, R, B);
+            pixel[0] = p[0];
+            pixel[1] = p[1];
+            pixel[2] = p[2];
+            return;
+        }
+
+        /* Stradling horizontal edge */
+        if (L > R) {
+            guchar *p = get_pixel (input, rowstride, n_channels, R, T-1);
+            red   += p[0] * (r-l)*(T-t);
+            green += p[1] * (r-l)*(T-t);
+            blue  += p[2] * (r-l)*(T-t);
+            for (y = T; y < B; y++) {
+                guchar *p = get_pixel (input, rowstride, n_channels, R, y);
+                red   += p[0] * (r-l);
+                green += p[1] * (r-l);
+                blue  += p[2] * (r-l);
+            }
+            p = get_pixel (input, rowstride, n_channels, R, B);
+            red   += p[0] * (r-l)*(b-B);
+            green += p[1] * (r-l)*(b-B);
+            blue  += p[2] * (r-l)*(b-B);
+        }
+        /* Stradling vertical edge */
+        else {
+            guchar *p = get_pixel (input, rowstride, n_channels, L - 1, B);
+            red   += p[0] * (b-t)*(L-l);
+            green += p[1] * (b-t)*(L-l);
+            blue  += p[2] * (b-t)*(L-l);
+            for (x = L; x < R; x++) {
+                guchar *p = get_pixel (input, rowstride, n_channels, x, B);
+                red   += p[0] * (b-t);
+                green += p[1] * (b-t);
+                blue  += p[2] * (b-t);
+            }
+            p = get_pixel (input, rowstride, n_channels, R, B);
+            red   += p[0] * (b-t)*(r-R);
+            green += p[1] * (b-t)*(r-R);
+            blue  += p[2] * (b-t)*(r-R);
+        }
+
+        scale = 1.0 / ((r - l) * (b - t));
+        pixel[0] = (guchar)(red * scale + 0.5);
+        pixel[1] = (guchar)(green * scale + 0.5);
+        pixel[2] = (guchar)(blue * scale + 0.5);
+        return;
+    }
 
     /* Add the middle pixels */
     for (x = L; x < R; x++) {
@@ -242,29 +304,25 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
     }
   
     /* Add the corner pixels */
-    if (l != L && t != T) 
-    {
+    if (l != L && t != T) {
         guchar *p = get_pixel (input, rowstride, n_channels, L - 1, T - 1);
         red   += p[0] * (L - l)*(T - t);
         green += p[1] * (L - l)*(T - t);
         blue  += p[2] * (L - l)*(T - t);
     }
-    if (r != R && t != T)
-    {
+    if (r != R && t != T) {
         guchar *p = get_pixel (input, rowstride, n_channels, R, T - 1);
         red   += p[0] * (r - R)*(T - t);
         green += p[1] * (r - R)*(T - t);
         blue  += p[2] * (r - R)*(T - t);
     }
-    if (r != R && b != B)
-    {
+    if (r != R && b != B) {
         guchar *p = get_pixel (input, rowstride, n_channels, R, B);
         red   += p[0] * (r - R)*(b - B);
         green += p[1] * (r - R)*(b - B);
         blue  += p[2] * (r - R)*(b - B);
     }
-    if (l != L && b != B)
-    {
+    if (l != L && b != B) {
         guchar *p = get_pixel (input, rowstride, n_channels, L - 1, B);
         red   += p[0] * (L - l)*(b - B);
         green += p[1] * (L - l)*(b - B);
