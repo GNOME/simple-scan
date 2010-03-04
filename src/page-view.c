@@ -181,7 +181,7 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
 #endif
 
 #if 1
-    // Average partial pixels (not fully working but the above seems good enough
+    // Average partial pixels
     L = (gint)(l + 0.5);
     R = (gint)(r);
     T = (gint)(t + 0.5);
@@ -921,6 +921,7 @@ page_image_changed_cb (Page *p, PageView *view)
 {
     /* Regenerate image */
     view->priv->update_image = TRUE;
+    g_signal_emit (view, signals[SIZE_CHANGED], 0); // FIXME: Required while extended images don't emit a signal
     g_signal_emit (view, signals[CHANGED], 0);
 }
 
