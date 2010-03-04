@@ -100,7 +100,6 @@ struct ScannerPrivate
 
     SANE_Int bytes_remaining, line_count, pass_number, page_number, notified_page;
 
-    GMutex *scanning_mutex;
     gboolean scanning;
 };
 
@@ -184,14 +183,10 @@ emit_signal (Scanner *scanner, guint sig, gpointer data)
 static void
 set_scanning (Scanner *scanner, gboolean is_scanning)
 {
-    g_mutex_lock (scanner->priv->scanning_mutex);
-
     if ((scanner->priv->scanning && !is_scanning) || (!scanner->priv->scanning && is_scanning)) {
         scanner->priv->scanning = is_scanning;
         emit_signal (scanner, SCANNING_CHANGED, NULL);
     }
-
-    g_mutex_unlock (scanner->priv->scanning_mutex);
 }
 
 
@@ -765,6 +760,8 @@ close_device (Scanner *scanner)
     }
     g_list_free (scanner->priv->job_queue);
     scanner->priv->job_queue = NULL;
+  
+    set_scanning (scanner, FALSE);
 }
 
 static void
@@ -804,8 +801,6 @@ handle_requests (Scanner *scanner)
 
          case REQUEST_START_SCAN:
              scanner->priv->job_queue = g_list_append (scanner->priv->job_queue, request->job);
-             if (g_list_length (scanner->priv->job_queue) == 1)
-                 scanner->priv->state = STATE_OPEN;
              break;
 
          case REQUEST_CANCEL:
@@ -1275,9 +1270,10 @@ scan_thread (Scanner *scanner)
     while (handle_requests (scanner)) {
         switch (scanner->priv->state) {
         case STATE_IDLE:
-             set_scanning (scanner, scanner->priv->job_queue != NULL);
-             if (scanner->priv->job_queue)
+             if (scanner->priv->job_queue) {
+                 set_scanning (scanner, TRUE);
                  scanner->priv->state = STATE_OPEN;
+             }
              break;
         case STATE_REDETECT:
             do_redetect (scanner);
@@ -1363,7 +1359,6 @@ scanner_scan (Scanner *scanner, const char *device,
     request->job->depth = depth;
     request->job->multi_page = multi_page;
     g_async_queue_push (scanner->priv->scan_queue, request);
-    set_scanning (scanner, TRUE);
 }
 
 
@@ -1479,5 +1474,4 @@ scanner_init (Scanner *scanner)
     scanner->priv = G_TYPE_INSTANCE_GET_PRIVATE (scanner, SCANNER_TYPE, ScannerPrivate);
     scanner->priv->scan_queue = g_async_queue_new ();
     scanner->priv->authorize_queue = g_async_queue_new ();
-    scanner->priv->scanning_mutex = g_mutex_new ();
 }
