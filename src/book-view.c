@@ -110,7 +110,14 @@ get_prev_page (BookView *view)
 static void
 page_view_changed_cb (PageView *page, BookView *view)
 {
-    // FIXME: Only layout if have changed dimensions
+    // FIXME: Only redraw pages that need it
+    book_view_redraw (view);
+}
+
+
+static void
+page_view_size_changed_cb (PageView *page, BookView *view)
+{
     // FIXME: Only redraw pages that need it
     view->priv->need_layout = TRUE;
     book_view_redraw (view);
@@ -124,6 +131,7 @@ add_cb (Book *book, Page *page, BookView *view)
     page_view = page_view_new ();
     page_view_set_page (page_view, page);
     g_signal_connect (page_view, "changed", G_CALLBACK (page_view_changed_cb), view);
+    g_signal_connect (page_view, "size-changed", G_CALLBACK (page_view_size_changed_cb), view);  
     g_hash_table_insert (view->priv->page_data, page, page_view);
     view->priv->need_layout = TRUE;
     book_view_redraw (view);
