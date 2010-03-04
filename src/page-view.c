@@ -145,43 +145,51 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
     gint x, y;
     gint L, R, T, B;
     double scale, red, green, blue;
-
-#if 0
-    // Nearest algorithm
-    x = (gint) (0.5 * (r + l) + 0.5);
-    y = (gint) (0.5 * (b + t) + 0.5);
-    guchar *p = get_pixel (input, rowstride, n_channels, x, y);
-    pixel[0] = p[0];
-    pixel[1] = p[1];
-    pixel[2] = p[2];
-    return;
-#endif
-
-#if 0
-    // Average all touched pixels
-    L = (gint)l;
-    R = (gint)(r + 0.5);
-    T = (gint)t;
-    B = (gint)(b + 0.5);
-    L = (gint)l;
-    R = (gint)(r + 0.5);
-    red = green = blue = 0.0;
-    for (x = L; x < R; x++) {
-        for (y = T; y < B; y++) {
-            guchar *p = get_pixel (input, rowstride, n_channels, x, y);
-            red += p[0];
-            green += p[1];
-            blue += p[2];
-        }
-    }
-    scale = 1.0 / ((R-L)*(B-T));
-    pixel[0] = (guchar)(red * scale + 0.5);
-    pixel[1] = (guchar)(green * scale + 0.5);
-    pixel[2] = (guchar)(blue * scale + 0.5);
-#endif
-
-#if 1
-    // Average partial pixels
+  
+    /* Decimation:
+     * 
+     * Target pixel is defined by (t,l)-(b,r)
+     * It touches 16 pixels in original image
+     * It completely covers 4 pixels in original image (T,L)-(B,R)
+     * Add covered pixels and add weighted partially covered pixels.
+     * Divide by total area.
+     * 
+     *      l  L           R   r 
+     *   +-----+-----+-----+-----+
+     *   |     |     |     |     |
+     * t |  +--|-----|-----|---+ |
+     * T +-----+-----+-----+-----+
+     *   |  |  |     |     |   | |
+     *   |  |  |     |     |   | |
+     *   +-----+-----+-----+-----+
+     *   |  |  |     |     |   | |
+     *   |  |  |     |     |   | |
+     * B +-----+-----+-----+-----+
+     *   |  |  |     |     |   | |
+     * b |  +--|-----|-----|---+ |
+     *   +-----+-----+-----+-----+
+     * 
+     * 
+     * Interpolation:
+     * 
+     *             l    r
+     *   +-----+-----+-----+-----+
+     *   |     |     |     |     |
+     *   |     |     |     |     |
+     *   +-----+-----+-----+-----+
+     * t |     |   +-|--+  |     |
+     *   |     |   | |  |  |     |
+     *   +-----+-----+-----+-----+
+     * b |     |   +-|--+  |     |
+     *   |     |     |     |     |
+     *   +-----+-----+-----+-----+
+     *   |     |     |     |     |
+     *   |     |     |     |     |
+     *   +-----+-----+-----+-----+
+     * 
+     * Same again, just no completely covered pixels.
+     */
+  
     L = (gint)(l + 0.5);
     R = (gint)(r);
     T = (gint)(t + 0.5);
@@ -268,7 +276,6 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
     pixel[0] = (guchar)(red * scale + 0.5);
     pixel[1] = (guchar)(green * scale + 0.5);
     pixel[2] = (guchar)(blue * scale + 0.5);
-#endif
 }
 
 
@@ -283,14 +290,6 @@ update_preview (GdkPixbuf *image,
     gint output_rowstride, output_n_channels;
     gint x, y;
     gint L, R, T, B;
-
-#if 1
-    /* TEMP: Use innefficient complete rescale */
-    if (*output_image)
-        g_object_unref (*output_image); 
-    *output_image = gdk_pixbuf_scale_simple (image, output_width, output_height, GDK_INTERP_BILINEAR);
-    return;
-#endif
 
     input = gdk_pixbuf_get_pixels (image);
     input_width = gdk_pixbuf_get_width (image);
@@ -921,13 +920,12 @@ page_image_changed_cb (Page *p, PageView *view)
 {
     /* Regenerate image */
     view->priv->update_image = TRUE;
-    g_signal_emit (view, signals[SIZE_CHANGED], 0); // FIXME: Required while extended images don't emit a signal
     g_signal_emit (view, signals[CHANGED], 0);
 }
 
 
 static void
-page_orientation_changed_cb (Page *p, PageView *view)
+page_size_changed_cb (Page *p, PageView *view)
 {
     /* Regenerate image */
     view->priv->update_image = TRUE;
@@ -951,8 +949,9 @@ page_view_set_page (PageView *view, Page *page)
 
     view->priv->page = g_object_ref (page);
     g_signal_connect (view->priv->page, "image-changed", G_CALLBACK (page_image_changed_cb), view);
-    g_signal_connect (view->priv->page, "orientation-changed", G_CALLBACK (page_orientation_changed_cb), view);
+    g_signal_connect (view->priv->page, "size-changed", G_CALLBACK (page_size_changed_cb), view);
     g_signal_connect (view->priv->page, "crop-changed", G_CALLBACK (page_overlay_changed_cb), view);
+    g_signal_connect (view->priv->page, "scan-line-changed", G_CALLBACK (page_overlay_changed_cb), view);
 }
 
 

@@ -15,6 +15,8 @@
 
 enum {
     IMAGE_CHANGED,
+    SIZE_CHANGED,
+    SCAN_LINE_CHANGED,
     ORIENTATION_CHANGED,
     CROP_CHANGED,
     LAST_SIGNAL
@@ -88,6 +90,8 @@ page_set_scan_area (Page *page, gint width, gint rows, gint dpi)
                                         width,
                                         height);
     gdk_pixbuf_fill (page->priv->image, 0xFFFFFFFF);
+    g_signal_emit (page, signals[SIZE_CHANGED], 0);
+    g_signal_emit (page, signals[IMAGE_CHANGED], 0);
 }
 
 
@@ -97,7 +101,7 @@ page_start (Page *page)
     g_return_if_fail (page != NULL);
 
     page->priv->scan_line = 0;
-    g_signal_emit (page, signals[IMAGE_CHANGED], 0);
+    g_signal_emit (page, signals[SCAN_LINE_CHANGED], 0);
 }
 
 
@@ -184,6 +188,7 @@ page_parse_scan_line (Page *page, ScanLine *line)
     guchar *pixels;
     gint i, x = 0, y = 0, x_step = 0, y_step = 0;
     gint rowstride, n_channels;
+    gboolean size_changed = FALSE;
 
     g_return_if_fail (page != NULL);
 
@@ -217,6 +222,8 @@ page_parse_scan_line (Page *page, ScanLine *line)
 
         g_object_unref (page->priv->image);
         page->priv->image = image;
+
+        size_changed = TRUE;
     }
   
     switch (page->priv->orientation) {
@@ -259,6 +266,10 @@ page_parse_scan_line (Page *page, ScanLine *line)
 
     page->priv->has_data = TRUE;
     page->priv->scan_line = line->number;
+  
+    if (size_changed)
+        g_signal_emit (page, signals[SIZE_CHANGED], 0);
+    g_signal_emit (page, signals[SCAN_LINE_CHANGED], 0);
     g_signal_emit (page, signals[IMAGE_CHANGED], 0);
 }
 
@@ -266,6 +277,8 @@ page_parse_scan_line (Page *page, ScanLine *line)
 void
 page_finish (Page *page)
 {
+    gboolean size_changed = FALSE;
+
     g_return_if_fail (page != NULL);
 
     /* Trim page */
@@ -298,10 +311,13 @@ page_finish (Page *page)
 
         g_object_unref (page->priv->image);
         page->priv->image = image;
+        size_changed = TRUE;
     }
     page->priv->scan_line = -1;
 
-    g_signal_emit (page, signals[IMAGE_CHANGED], 0);
+    if (size_changed)
+        g_signal_emit (page, signals[SIZE_CHANGED], 0);
+    g_signal_emit (page, signals[SCAN_LINE_CHANGED], 0);
 }
 
 
@@ -319,6 +335,7 @@ page_set_orientation (Page *page, Orientation orientation)
 {
     gint left_steps, t;
     GdkPixbuf *image;
+    gboolean size_changed = FALSE;
 
     g_return_if_fail (page != NULL);
 
@@ -341,6 +358,8 @@ page_set_orientation (Page *page, Orientation orientation)
         image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_NONE);
     gdk_pixbuf_unref (page->priv->image);
     page->priv->image = image;
+    if (left_steps != 2)
+        size_changed = TRUE;
 
     /* Rotate crop */
     if (page->priv->has_crop) {
@@ -372,7 +391,11 @@ page_set_orientation (Page *page, Orientation orientation)
     }
 
     page->priv->orientation = orientation;
+    if (size_changed)
+        g_signal_emit (page, signals[SIZE_CHANGED], 0);  
+    g_signal_emit (page, signals[IMAGE_CHANGED], 0);
     g_signal_emit (page, signals[ORIENTATION_CHANGED], 0);
+    g_signal_emit (page, signals[CROP_CHANGED], 0);
 }
 
 
@@ -796,6 +819,22 @@ page_class_init (PageClass *klass)
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (PageClass, image_changed),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+    signals[SIZE_CHANGED] =
+        g_signal_new ("size-changed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (PageClass, size_changed),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+    signals[SCAN_LINE_CHANGED] =
+        g_signal_new ("scan-line-changed",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (PageClass, scan_line_changed),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);

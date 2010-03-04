@@ -43,6 +43,8 @@ typedef struct
     GObjectClass parent_class;
 
     void (*image_changed) (Page *page);
+    void (*size_changed) (Page *page);
+    void (*scan_line_changed) (Page *page);
     void (*orientation_changed) (Page *page);
     void (*crop_changed) (Page *page);
 } PageClass;
