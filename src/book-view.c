@@ -297,16 +297,19 @@ layout_into (BookView *view, gint width, gint height, gint *book_width, gint *bo
     *book_height = 0;
     for (i = 0; i < n_pages; i++) {
         PageView *page = get_nth_page (view, i);
-        gdouble h;
+        Page *p = page_view_get_page (page);
+        gint h;
 
-        // FIXME: Keep DPI
-        // FIXME: Don't scale past max size
-        /* Scale based on width... */
-        if (max_aspect > aspect)
-            page_view_set_width (page, width);
-        /* ...or height */
-        else
-            page_view_set_height (page, height);
+        if (max_aspect > aspect) {
+            /* Set width scaled on DPI and maximum width */
+            gint w = page_get_width (p) * max_dpi * width / (page_get_dpi (p) * max_width);
+            page_view_set_width (page, w);
+        }
+        else {
+            /* Set height scaled on DPI and maximum height */
+            gint h = page_get_height (p) * max_dpi * height / (page_get_dpi (p) * max_height);
+            page_view_set_height (page, h);
+        }
 
         h = page_view_get_height (page);
         if (h > *book_height)
@@ -324,7 +327,7 @@ layout_into (BookView *view, gint width, gint height, gint *book_width, gint *bo
         x_offset += page_view_get_width (page) + spacing;
 
         /* Centre page vertically */
-        page_view_set_y_offset (page, (*book_height - page_view_get_height (page)) / 2);
+        page_view_set_y_offset (page, (height - page_view_get_height (page)) / 2);
     }
 }
 
