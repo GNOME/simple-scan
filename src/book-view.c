@@ -439,15 +439,14 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
     /* Render each page */
     for (i = 0; i < n_pages; i++) {
         PageView *page = get_nth_page (view, i);
+        gint left_edge, right_edge;
       
-        /* Page not visible, off to the left */
-        // FIXME: Not working
-        //if (page_view_get_width (page) - get_x_offset (view) < event->area.x)
-        //    continue;
+        left_edge = page_view_get_x_offset (page) - get_x_offset (view);
+        right_edge = page_view_get_x_offset (page) + page_view_get_width (page) - get_x_offset (view);
       
-        /* Page not visible, off to the right */
-        //if (page_view_get_x_offset (page) > event->area.x + event->area.width)
-        //    break;
+        /* Page not visible, don't render */
+        if (right_edge < event->area.x || left_edge > event->area.x + event->area.width)
+            continue;
 
         cairo_save (context);
         cairo_translate (context, -get_x_offset (view), 0);
