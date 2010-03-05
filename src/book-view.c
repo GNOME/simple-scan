@@ -30,19 +30,19 @@ struct BookViewPrivate
     GHashTable *page_data;
     
     /* True if the view needs to be laid out again */
-    gboolean need_layout;
+    gboolean need_layout, laying_out, show_selected_page;
 
-    /* Amount to offset view by (pixels) */
-    gint x_offset;
-
+    /* Currently selected page */
     PageView *selected_page;
   
     /* Widget being rendered to */
     GtkWidget *widget;
 
-    GtkWidget *box, *scroll;
+    /* Horizontal adjustment */
     GtkAdjustment *adjustment;
 
+    GtkWidget *box, *scroll;
+  
     GtkWidget *page_menu;
 
     gint cursor;
@@ -67,43 +67,43 @@ get_nth_page (BookView *view, gint n)
 
 
 static PageView *
-get_next_page (BookView *view)
+get_next_page (BookView *view, PageView *page)
 {
     gint i;
     
     for (i = 0; ; i++) {
-        Page *page;
-        page = book_get_page (view->priv->book, i);
-        if (!page)
+        Page *p;
+        p = book_get_page (view->priv->book, i);
+        if (!p)
             break;
-        if (page == book_view_get_selected (view)) {
-            page = book_get_page (view->priv->book, i + 1);
-            if (page)
-                return g_hash_table_lookup (view->priv->page_data, page);
+        if (p == page_view_get_page (page)) {
+            p = book_get_page (view->priv->book, i + 1);
+            if (p)
+                return g_hash_table_lookup (view->priv->page_data, p);
         }
     }
     
-    return view->priv->selected_page;
+    return page;
 }
 
 
 static PageView *
-get_prev_page (BookView *view)
+get_prev_page (BookView *view, PageView *page)
 {
     gint i;
-    PageView *prev_page = view->priv->selected_page;
+    PageView *prev_page = page;
 
     for (i = 0; ; i++) {
-        Page *page;
-        page = book_get_page (view->priv->book, i);
-        if (!page)
+        Page *p;
+        p = book_get_page (view->priv->book, i);
+        if (!p)
             break;
-        if (page == book_view_get_selected (view))
+        if (p == page_view_get_page (page))
             return prev_page;
-        prev_page = g_hash_table_lookup (view->priv->page_data, page);
+        prev_page = g_hash_table_lookup (view->priv->page_data, p);
     }
 
-    return prev_page;
+    return page;
 }
 
 
@@ -137,15 +137,53 @@ add_cb (Book *book, Page *page, BookView *view)
 
 
 static void
-update_page_focus (BookView *view)
+set_selected_page (BookView *view, PageView *page)
 {
+    /* Deselect existing page if changed */
+    if (view->priv->selected_page && page != view->priv->selected_page)
+        page_view_set_selected (view->priv->selected_page, FALSE);  
+
+    view->priv->selected_page = page;
     if (!view->priv->selected_page)
         return;
 
+    /* Select new page if widget has focus */
     if (!gtk_widget_has_focus (view->priv->widget))
         page_view_set_selected (view->priv->selected_page, FALSE);
     else
         page_view_set_selected (view->priv->selected_page, TRUE);
+}
+
+
+static void
+set_x_offset (BookView *view, gint offset)
+{
+    gtk_adjustment_set_value (view->priv->adjustment, offset);
+}
+
+
+static gint
+get_x_offset (BookView *view)
+{
+    return (gint) gtk_adjustment_get_value (view->priv->adjustment);
+}
+
+
+static void
+show_page (BookView *view, PageView *page)
+{
+    gint left_edge, right_edge;
+
+    if (!page || !gtk_widget_get_visible (view->priv->scroll))
+        return;
+
+    left_edge = page_view_get_x_offset (page);
+    right_edge = page_view_get_x_offset (page) + page_view_get_width (page);
+
+    if (left_edge - get_x_offset (view) < 0)
+        set_x_offset(view, left_edge);
+    else if (right_edge - get_x_offset (view) > view->priv->widget->allocation.width)
+       set_x_offset(view, right_edge - view->priv->widget->allocation.width);
 }
 
 
@@ -157,18 +195,12 @@ select_page (BookView *view, PageView *page)
     if (view->priv->selected_page == page)
         return;
 
-    /* Deselect existing page */
-    if (view->priv->selected_page)
-        page_view_set_selected (view->priv->selected_page, FALSE);
+    set_selected_page (view, page);
 
-    view->priv->selected_page = page;
-
-    update_page_focus (view);
-
-    /* Re-layout to make selected page visible */
-    // FIXME: Shouldn't need a full layout */
-    view->priv->need_layout = TRUE;
-    book_view_redraw (view);
+    if (view->priv->need_layout)
+        view->priv->show_selected_page = TRUE;
+    else
+        show_page (view, page);
 
     if (page)
         p = page_view_get_page (page);
@@ -183,9 +215,9 @@ remove_cb (Book *book, Page *page, BookView *view)
 
     /* Select previous page or next if removing the first page */
     if (page == book_view_get_selected (view)) {
-        new_selection = get_prev_page (view);
+        new_selection = get_prev_page (view, view->priv->selected_page);
         if (new_selection == view->priv->selected_page)
-            new_selection = get_next_page (view);
+            new_selection = get_next_page (view, view->priv->selected_page);
         view->priv->selected_page = NULL;
     }
 
@@ -336,9 +368,16 @@ static void
 layout (BookView *view)
 {
     gint width, height, book_width, book_height;
+    gboolean right_aligned = TRUE;
 
     if (!view->priv->need_layout)
         return;
+  
+    view->priv->laying_out = TRUE;
+
+    /* If scroll is right aligned then keep that after layout */
+    if (gtk_adjustment_get_value (view->priv->adjustment) < gtk_adjustment_get_upper (view->priv->adjustment) - gtk_adjustment_get_page_size (view->priv->adjustment))
+        right_aligned = FALSE;
   
     /* Try and fit without scrollbar */
     width = view->priv->widget->allocation.width;
@@ -347,44 +386,39 @@ layout (BookView *view)
 
     /* Relayout with scrollbar */
     if (book_width > view->priv->widget->allocation.width) {
+        gint max_offset;
+      
         /* Re-layout leaving space for scrollbar */
         height = view->priv->widget->allocation.height;
         layout_into (view, width, height, &book_width, &book_height);
 
         /* Set scrollbar limits */
+        gtk_adjustment_set_lower (view->priv->adjustment, 0);
         gtk_adjustment_set_upper (view->priv->adjustment, book_width);
         gtk_adjustment_set_page_size (view->priv->adjustment, view->priv->widget->allocation.width);
 
-        /* Ensure that selected page is visible */
-        // FIXME: This is too agressive and overrides user control of the scrollbar
-        if (view->priv->selected_page) {
-            gint left_edge, right_edge;
+        /* Keep right-aligned */
+        max_offset = book_width - view->priv->widget->allocation.width;
+        if (right_aligned || get_x_offset (view) > max_offset)
+            set_x_offset(view, max_offset);
 
-            left_edge = page_view_get_x_offset (view->priv->selected_page);
-            right_edge = page_view_get_x_offset (view->priv->selected_page) + page_view_get_width (view->priv->selected_page);
-
-            if (left_edge - view->priv->x_offset < 0) {
-                view->priv->x_offset = left_edge;
-            }
-            else if (right_edge - view->priv->x_offset > view->priv->widget->allocation.width) {
-                view->priv->x_offset = right_edge - view->priv->widget->allocation.width;
-            }
-        }
-
-        /* Make sure offset is still visible */
-        if (view->priv->x_offset < 0)
-            view->priv->x_offset = 0;
-        if (view->priv->x_offset > book_width - view->priv->widget->allocation.width)
-            view->priv->x_offset = book_width - view->priv->widget->allocation.width;
-
-        gtk_adjustment_set_value (view->priv->adjustment, view->priv->x_offset);
         gtk_widget_show (view->priv->scroll);
     } else {
-        view->priv->x_offset = (book_width - view->priv->widget->allocation.width) / 2;
+        gint offset;
         gtk_widget_hide (view->priv->scroll);
+        offset = (book_width - view->priv->widget->allocation.width) / 2;
+        gtk_adjustment_set_lower (view->priv->adjustment, offset);
+        gtk_adjustment_set_upper (view->priv->adjustment, offset);
+        gtk_adjustment_set_page_size (view->priv->adjustment, 0);
+        set_x_offset(view, offset);
     }
+  
+    if (view->priv->show_selected_page)
+       show_page (view, view->priv->selected_page);
 
     view->priv->need_layout = FALSE;
+    view->priv->show_selected_page = FALSE;
+    view->priv->laying_out = FALSE;
 }
 
 
@@ -408,7 +442,7 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
       
         /* Page not visible, off to the left */
         // FIXME: Not working
-        //if (page_view_get_width (page) - view->priv->x_offset < event->area.x)
+        //if (page_view_get_width (page) - get_x_offset (view) < event->area.x)
         //    continue;
       
         /* Page not visible, off to the right */
@@ -416,7 +450,7 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
         //    break;
 
         cairo_save (context);
-        cairo_translate (context, -view->priv->x_offset, 0);
+        cairo_translate (context, -get_x_offset (view), 0);
         page_view_render (page, context);
         cairo_restore (context);
     }
@@ -463,7 +497,7 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
 
     gtk_widget_grab_focus (view->priv->widget);
 
-    select_page (view, get_page_at (view, event->x + view->priv->x_offset, event->y, &x, &y));
+    select_page (view, get_page_at (view, event->x + get_x_offset (view), event->y, &x, &y));
     if (!view->priv->selected_page)
         return FALSE;
 
@@ -508,14 +542,14 @@ motion_cb (GtkWidget *widget, GdkEventMotion *event, BookView *view)
  
     /* Dragging */
     if (view->priv->selected_page && (event->state & GDK_BUTTON1_MASK) != 0) {
-        x = event->x + view->priv->x_offset - page_view_get_x_offset (view->priv->selected_page);
+        x = event->x + get_x_offset (view) - page_view_get_x_offset (view->priv->selected_page);
         y = event->y - page_view_get_y_offset (view->priv->selected_page);
         page_view_motion (view->priv->selected_page, x, y);
         cursor = page_view_get_cursor (view->priv->selected_page);
     }
     else {
         PageView *over_page;
-        over_page = get_page_at (view, event->x + view->priv->x_offset, event->y, &x, &y);
+        over_page = get_page_at (view, event->x + get_x_offset (view), event->y, &x, &y);
         if (over_page) {
             page_view_motion (over_page, x, y);
             cursor = page_view_get_cursor (over_page);
@@ -536,10 +570,10 @@ key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
         book_view_select_page (view, book_get_page (view->priv->book, 0));
         return TRUE;
     case GDK_Left:
-        select_page (view, get_prev_page (view));
+        select_page (view, get_prev_page (view, view->priv->selected_page));
         return TRUE;
     case GDK_Right:
-        select_page (view, get_next_page (view));
+        select_page (view, get_next_page (view, view->priv->selected_page));
         return TRUE;
     case GDK_End:
         book_view_select_page (view, book_get_page (view->priv->book, book_get_n_pages (view->priv->book) - 1));
@@ -554,7 +588,7 @@ key_cb (GtkWidget *widget, GdkEventKey *event, BookView *view)
 static gboolean
 focus_cb (GtkWidget *widget, GdkEventFocus *event, BookView *view)
 {
-    update_page_focus (view);
+    set_selected_page (view, view->priv->selected_page);
     return FALSE;
 }
 
@@ -562,8 +596,8 @@ focus_cb (GtkWidget *widget, GdkEventFocus *event, BookView *view)
 static void
 scroll_cb (GtkAdjustment *adjustment, BookView *view)
 {
-   view->priv->x_offset = (int) (gtk_adjustment_get_value (view->priv->adjustment) + 0.5);
-   book_view_redraw (view);
+   if (!view->priv->laying_out)
+       book_view_redraw (view);
 }
 
 
@@ -618,7 +652,7 @@ void
 book_view_select_next_page (BookView *view)
 {
     g_return_if_fail (view != NULL);
-    select_page (view, get_next_page (view));
+    select_page (view, get_next_page (view, view->priv->selected_page));
 }
 
 
@@ -626,7 +660,7 @@ void
 book_view_select_prev_page (BookView *view)
 {
     g_return_if_fail (view != NULL);
-    select_page (view, get_prev_page (view));
+    select_page (view, get_prev_page (view, view->priv->selected_page));
 }
 
 
