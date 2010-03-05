@@ -198,13 +198,15 @@ set_scanning (Scanner *scanner, gboolean is_scanning)
 
 static gint get_device_weight (const gchar *device)
 {
-    /* Use locally connected devices first */
-    if (g_str_has_prefix (device, "usb:"))
-       return 0;
-
+    /* NOTE: This is using trends in the naming of SANE devices, SANE should be able to provide this information better */
+  
     /* Use webcams as a last resort */
     if (g_str_has_prefix (device, "vfl:"))
        return 2;
+
+    /* Use locally connected devices first */
+    if (strstr (device, "usb"))
+       return 0;
 
     return 1;
 }
@@ -215,7 +217,7 @@ compare_devices (ScanDevice *device1, ScanDevice *device2)
 {
     gint weight1, weight2;
   
-    /* Should do some fuzzy matching on the last selected device and set that to the default */
+    /* TODO: Should do some fuzzy matching on the last selected device and set that to the default */
 
     weight1 = get_device_weight (device1->name);
     weight2 = get_device_weight (device2->name);

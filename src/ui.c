@@ -55,6 +55,7 @@ struct SimpleScanPrivate
     GtkWidget *preferences_dialog;
     GtkWidget *device_combo, *text_dpi_combo, *photo_dpi_combo;
     GtkTreeModel *device_model, *text_dpi_model, *photo_dpi_model;
+    gboolean setting_devices, user_selected_device;
 
     Book *book;
     BookView *book_view;
@@ -138,13 +139,82 @@ ui_authorize (SimpleScan *ui, const gchar *resource, gchar **username, gchar **p
     *password = g_strdup (gtk_entry_get_text (GTK_ENTRY (ui->priv->password_entry)));
 }
 
+
+void device_combo_changed_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+device_combo_changed_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (ui->priv->setting_devices)
+        return;
+    ui->priv->user_selected_device = TRUE;
+}
+
+
 void
 ui_set_scan_devices (SimpleScan *ui, GList *devices)
 {
+    GList *d;
+    gboolean have_selection = FALSE;
+    gint index;
     GtkTreeIter iter;
-    GList *i;
-    gboolean have_iter;
-    gboolean have_selection;
+  
+    ui->priv->setting_devices = TRUE;
+ 
+    /* If the user hasn't chosen a scanner choose the best available one */
+    if (ui->priv->user_selected_device)
+        have_selection = gtk_combo_box_get_active (GTK_COMBO_BOX (ui->priv->device_combo)) >= 0;
+
+    /* Add new devices */
+    index = 0;
+    for (d = devices; d; d = d->next) {
+        ScanDevice *device = (ScanDevice *) d->data;
+        gint n_delete = -1;
+
+        /* Find if already exists */
+        if (gtk_tree_model_iter_nth_child (ui->priv->device_model, &iter, NULL, index)) {
+            gint i = 0;
+            do {
+                gchar *name;
+                gboolean matched;
+
+                gtk_tree_model_get (ui->priv->device_model, &iter, 0, &name, -1);
+                matched = strcmp (name, device->name) == 0;
+                g_free (name);
+
+                if (matched) {
+                    n_delete = i;
+                    break;
+                }
+                i++;
+            } while (gtk_tree_model_iter_next (ui->priv->device_model, &iter));
+        }
+      
+        /* If exists, remove elements up to this one */
+        if (n_delete >= 0) {
+            gint i;
+
+            for (i = 0; i < n_delete; i++) {
+                gtk_tree_model_iter_nth_child (ui->priv->device_model, &iter, NULL, index);
+                gtk_list_store_remove (GTK_LIST_STORE (ui->priv->device_model), &iter);
+            }
+        }
+        else {
+            gtk_list_store_insert (GTK_LIST_STORE (ui->priv->device_model), &iter, index);
+            gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 0, device->name, 1, device->label, -1);
+        }
+        index++;
+    }
+
+    /* Remove any remaining devices */
+    while (gtk_tree_model_iter_nth_child (ui->priv->device_model, &iter, NULL, index))
+        gtk_list_store_remove (GTK_LIST_STORE (ui->priv->device_model), &iter);
+
+    /* Select the first available device */
+    if (!have_selection && devices != NULL)
+        gtk_combo_box_set_active (GTK_COMBO_BOX (ui->priv->device_combo), 0);
+
+    ui->priv->setting_devices = FALSE;
 
     if (!ui->priv->have_device_list) {
         ui->priv->have_device_list = TRUE;
@@ -156,46 +226,6 @@ ui_set_scan_devices (SimpleScan *ui, GList *devices)
                            /* Hint to user on why there are no scanners detected */
                            _("Please check your scanner is connected and powered on"),
                            FALSE);
-        }
-    }
-  
-    have_selection = gtk_combo_box_get_active (GTK_COMBO_BOX (ui->priv->device_combo)) >= 0;
-  
-    /* Remove disappeared devices */
-
-    do {
-        for (have_iter = gtk_tree_model_get_iter_first (ui->priv->device_model, &iter);
-             have_iter;
-             have_iter = gtk_tree_model_iter_next (ui->priv->device_model, &iter)) {
-            gchar *name;
-
-            gtk_tree_model_get (ui->priv->device_model, &iter, 0, &name, -1);
-            for (i = devices; i; i = i->next)
-                if (strcmp (name, ((ScanDevice *) i->data)->name) == 0)
-                    break;
-            g_free (name);
-
-            /* Device was removed */
-            if (i == NULL) {
-                gtk_list_store_remove (GTK_LIST_STORE (ui->priv->device_model), &iter);
-                break;
-            }
-        }
-    } while (have_iter);
-
-    /* Add new devices */
-    for (i = devices; i; i = i->next) {
-        ScanDevice *device = (ScanDevice *) i->data;
-
-        if (!find_scan_device (ui, device->name, &iter)) {
-            gtk_list_store_append (GTK_LIST_STORE (ui->priv->device_model), &iter);
-            gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 0, device->name, 1, device->label, -1);
-
-            /* Select this device if none selected */
-            if (!have_selection) {
-                gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
-                have_selection = TRUE;
-            }
         }
     }
 }
