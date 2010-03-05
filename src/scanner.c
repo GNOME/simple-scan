@@ -81,7 +81,7 @@ struct ScannerPrivate
     GAsyncQueue *scan_queue, *authorize_queue;
     GThread *thread;
 
-    ScanDevice *default_device;
+    gchar *default_device;
 
     ScanState state;
     gboolean redetect;
@@ -336,8 +336,7 @@ do_redetect (Scanner *scanner)
     for (device_iter = device_list; *device_iter; device_iter++) {
         const SANE_Device *device = *device_iter;
         ScanDevice *scan_device;
-        GString *label;
-        gchar *c;
+        gchar *c, *label;
 
         g_debug ("Device: name=\"%s\" vendor=\"%s\" model=\"%s\" type=\"%s\"",
                  device->name, device->vendor, device->model, device->type);
@@ -346,20 +345,18 @@ do_redetect (Scanner *scanner)
 
         scan_device->name = g_strdup (device->name);
 
-        label = g_string_new ("");
         /* Abbreviate HP as it is a long string and does not match what is on the physical scanner */
         if (strcmp (device->vendor, "Hewlett-Packard") == 0)
-            g_string_printf (label, "HP %s", device->model);
+            label = g_strdup_printf ("HP %s", device->model);
         else
-            g_string_printf (label, "%s %s", device->vendor, device->model);
+            label = g_strdup_printf ("%s %s", device->vendor, device->model);
         
         /* Replace underscored in name */
-        for (c = label->str; *c; c++)
+        for (c = label; *c; c++)
             if (*c == '_')
                 *c = ' ';
 
-        scan_device->label = label->str;
-        g_string_free (label, FALSE);
+        scan_device->label = label;
 
         devices = g_list_append (devices, scan_device);
     }
@@ -370,8 +367,11 @@ do_redetect (Scanner *scanner)
     scanner->priv->redetect = FALSE;
     scanner->priv->state = STATE_IDLE;
 
-    if (devices)
-        scanner->priv->default_device = g_list_nth_data (devices, 0);
+    g_free (scanner->priv->default_device);
+    if (devices) {
+        ScanDevice *device = g_list_nth_data (devices, 0);
+        scanner->priv->default_device = g_strdup (device->name);
+    }
     else
         scanner->priv->default_device = NULL;
 
@@ -841,7 +841,7 @@ do_open (Scanner *scanner)
     scanner->priv->option_index = 0;
 
     if (!job->device && scanner->priv->default_device)
-        job->device = g_strdup (scanner->priv->default_device->name);
+        job->device = g_strdup (scanner->priv->default_device);
 
     if (!job->device) {
         g_warning ("No scan device available");
@@ -865,7 +865,7 @@ do_open (Scanner *scanner)
   
     g_free (scanner->priv->current_device);
     scanner->priv->current_device = NULL;
-  
+
     status = sane_open (job->device, &scanner->priv->handle);
     g_debug ("sane_open (\"%s\") -> %s", job->device, get_status_string (status));
 
