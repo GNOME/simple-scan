@@ -930,10 +930,11 @@ about_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
                            "program-name", "Simple Scan",
                            "version", VERSION,
                            "comments", description,
+                           "logo-icon-name", "scanner",
                            "authors", authors,
                            "translator-credits", _("translator-credits"),
                            "website", "https://launchpad.net/simple-scan",
-                           "copyright", "Copyright (C) 2009 Canonical Ltd.",
+                           "copyright", "Copyright © 2009 Canonical Ltd.",
                            "license", license,
                            "wrap-license", TRUE,
                            NULL);
