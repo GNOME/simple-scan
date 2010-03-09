@@ -213,7 +213,7 @@ remove_cb (Book *book, Page *page, BookView *view)
 {
     PageView *new_selection = view->priv->selected_page;
 
-    /* Select previous page or next if removing the first page */
+    /* Select previous page or next if removing the selected page */
     if (page == book_view_get_selected (view)) {
         new_selection = get_prev_page (view, view->priv->selected_page);
         if (new_selection == view->priv->selected_page)
@@ -223,10 +223,10 @@ remove_cb (Book *book, Page *page, BookView *view)
 
     g_hash_table_remove (view->priv->page_data, page);
 
+    select_page (view, new_selection);
+
     view->priv->need_layout = TRUE;
     book_view_redraw (view);
-    
-    select_page (view, new_selection);
 }
 
 
@@ -257,7 +257,7 @@ book_view_set_book (BookView *view, Book *book)
         Page *page = book_get_page (book, i);
         add_cb (book, page, view);
     }
-    
+
     book_view_select_page (view, book_get_page (book, 0));
 
     /* Watch for new pages */

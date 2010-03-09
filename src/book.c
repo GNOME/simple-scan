@@ -76,8 +76,9 @@ book_append_page (Book *book, gint width, gint height, gint dpi, Orientation ori
 void
 book_delete_page (Book *book, Page *page)
 {
-    book->priv->pages = g_list_remove (book->priv->pages, page);
     g_signal_emit (book, signals[PAGE_REMOVED], 0, page);
+
+    book->priv->pages = g_list_remove (book->priv->pages, page);
     g_object_unref (page);
 }
 

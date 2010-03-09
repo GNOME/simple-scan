@@ -266,9 +266,6 @@ add_default_page (SimpleScan *ui)
 {
     Page *page;
   
-    if (book_get_n_pages (ui->priv->book) > 0)
-        return;
-
     page = book_append_page (ui->priv->book,
                              ui->priv->default_page_width, ui->priv->default_page_height,
                              ui->priv->default_page_dpi,
@@ -1049,8 +1046,9 @@ page_added_cb (Book *book, Page *page, SimpleScan *ui)
 static void
 page_removed_cb (Book *book, Page *page, SimpleScan *ui)
 {
-    /* Ensure always one page */
-    add_default_page (ui);
+    /* If this is the last page add a new blank one */
+    if (book_get_n_pages (ui->priv->book) == 1)
+        add_default_page (ui);
 }
 
 
@@ -1229,7 +1227,8 @@ ui_load (SimpleScan *ui)
         gtk_window_maximize (GTK_WINDOW (ui->priv->window));
     }
 
-    add_default_page (ui);
+    if (book_get_n_pages (ui->priv->book) == 0)
+        add_default_page (ui);
     book_view_set_book (ui->priv->book_view, ui->priv->book);
 }
 
