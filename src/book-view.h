@@ -36,6 +36,7 @@ typedef struct
     GObjectClass parent_class;
     
     void (*page_selected) (BookView *view, Page *page);
+    void (*show_page) (BookView *view, Page *page);
 } BookViewClass;
 
 

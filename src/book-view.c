@@ -19,6 +19,7 @@
 
 enum {
     PAGE_SELECTED,
+    SHOW_PAGE,
     LAST_SIGNAL
 };
 static guint signals[LAST_SIGNAL] = { 0, };
@@ -495,7 +496,7 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
     layout (view);
 
     gtk_widget_grab_focus (view->priv->widget);
-
+  
     select_page (view, get_page_at (view, event->x + get_x_offset (view), event->y, &x, &y));
     if (!view->priv->selected_page)
         return FALSE;
@@ -504,8 +505,10 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
     if (event->button == 1) {
         if (event->type == GDK_BUTTON_PRESS)
             page_view_button_press (view->priv->selected_page, x, y);
-        else
+        else if (event->type == GDK_BUTTON_RELEASE)
             page_view_button_release (view->priv->selected_page, x, y);
+        else if (event->type == GDK_2BUTTON_PRESS)
+            g_signal_emit (view, signals[SHOW_PAGE], 0, book_view_get_selected (view));
     }
 
     /* Show pop-up menu on right click */
@@ -699,6 +702,14 @@ book_view_class_init (BookViewClass *klass)
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (BookViewClass, page_selected),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__POINTER,
+                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+    signals[SHOW_PAGE] =
+        g_signal_new ("show-page",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (BookViewClass, show_page),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__POINTER,
                       G_TYPE_NONE, 1, G_TYPE_POINTER);

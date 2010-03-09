@@ -269,7 +269,7 @@ save_cb (SimpleScan *ui, const gchar *uri)
 
 
 static gchar *
-get_temporary_filename (const gchar *extension)
+get_temporary_filename (const gchar *prefix, const gchar *extension)
 {
     gint fd;
     gchar *filename, *path;
@@ -278,7 +278,7 @@ get_temporary_filename (const gchar *extension)
     /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
      * use the filename but it appears to work in practise */
 
-    filename = g_strdup_printf ("scanned-document-XXXXXX.%s", extension);
+    filename = g_strdup_printf ("%s-XXXXXX.%s", prefix, extension);
     fd = g_file_open_tmp (filename, &path, &error);
     g_free (filename);
     if (fd < 0) {
@@ -306,7 +306,7 @@ email_cb (SimpleScan *ui, const gchar *profile)
         gchar *path, *uri;
 
         /* Open a temporary file */
-        path = get_temporary_filename ("pdf");
+        path = get_temporary_filename ("scanned-document", "pdf");
         if (path) {
             uri = g_filename_to_uri (path, NULL, NULL);
             saved = book_save_pdf (book, uri, &error);
@@ -321,7 +321,7 @@ email_cb (SimpleScan *ui, const gchar *profile)
         for (i = 0; i < book_get_n_pages (book); i++) {
             gchar *path, *uri;
 
-            path = get_temporary_filename ("jpeg");
+            path = get_temporary_filename ("scanned-document", "jpg");
             if (!path) {
                 saved = FALSE;
                 break;

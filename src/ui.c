@@ -15,6 +15,7 @@
 #include <gtk/gtk.h>
 #include <gconf/gconf-client.h>
 #include <math.h>
+#include <unistd.h> // TEMP: Needed for close() in get_temporary_filename()
 
 #include "ui.h"
 #include "book-view.h"
@@ -468,6 +469,62 @@ page_selected_cb (BookView *view, Page *page, SimpleScan *ui)
 }
 
 
+// FIXME: Duplicated from simple-scan.c
+static gchar *
+get_temporary_filename (const gchar *prefix, const gchar *extension)
+{
+    gint fd;
+    gchar *filename, *path;
+    GError *error = NULL;
+
+    /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
+     * use the filename but it appears to work in practise */
+
+    filename = g_strdup_printf ("%s-XXXXXX.%s", prefix, extension);
+    fd = g_file_open_tmp (filename, &path, &error);
+    g_free (filename);
+    if (fd < 0) {
+        g_warning ("Error saving page for viewing: %s", error->message);
+        g_clear_error (&error);
+        return NULL;
+    }
+    close (fd);
+
+    return path;
+}
+
+
+static void
+show_page_cb (BookView *view, Page *page, SimpleScan *ui)
+{
+    gchar *path, *uri;
+    GdkScreen *screen;
+    GError *error = NULL;
+  
+    path = get_temporary_filename ("scanned-page", "png");
+    if (!path)
+        return;
+
+    screen = gtk_widget_get_screen (GTK_WIDGET (ui->priv->window));
+
+    uri = g_filename_to_uri (path, NULL, NULL);
+    if (page_save_png (page, uri, &error))
+        gtk_show_uri (screen, uri, gtk_get_current_event_time (), &error);
+
+    if (error) {
+        ui_show_error (ui,
+                       /* Error message display when unable to preview image */
+                       _("Unable to open image preview application"),
+                       error->message,
+                       FALSE);
+        g_clear_error (&error);
+    }
+
+    g_free (uri);
+    g_free (path);
+}
+
+
 void rotate_left_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
 void
@@ -875,22 +932,14 @@ help_contents_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
     screen = gtk_widget_get_screen (GTK_WIDGET (ui->priv->window));
     gtk_show_uri (screen, "ghelp:simple-scan", gtk_get_current_event_time (), &error);
 
-    if (error != NULL)
+    if (error)
     {
-        GtkWidget *d;
-        /* Error message displayed when unable to launch help browser */
-        const char *message = _("Unable to open help file");
-
-        d = gtk_message_dialog_new (GTK_WINDOW (ui->priv->window),
-                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-                                    GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-                                    "%s", message);
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (d),
-                                                  "%s", error->message);
-        g_signal_connect (d, "response", G_CALLBACK (gtk_widget_destroy), NULL);
-        gtk_window_present (GTK_WINDOW (d));
-
-        g_error_free (error);
+        ui_show_error (ui,
+                       /* Error message displayed when unable to launch help browser */
+                       _("Unable to open help file"),
+                       error->message,
+                      FALSE);
+        g_clear_error (&error);
     }
 }
 
@@ -1187,6 +1236,7 @@ ui_load (SimpleScan *ui)
 
     ui->priv->book_view = book_view_new ();
     g_signal_connect (ui->priv->book_view, "page-selected", G_CALLBACK (page_selected_cb), ui);
+    g_signal_connect (ui->priv->book_view, "show-page", G_CALLBACK (show_page_cb), ui);
     book_view_set_widgets (ui->priv->book_view,
                            ui->priv->preview_box,
                            ui->priv->preview_area,
