@@ -59,6 +59,7 @@ dnl ###########################################################################
 AC_OUTPUT([
 Makefile
 data/Makefile
+data/icons/Makefile
 help/Makefile
 po/Makefile.in
 src/Makefile

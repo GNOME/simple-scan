@@ -1,3 +1,5 @@
+SUBDIRS = icons
+
 uidir = $(datadir)/simple-scan
 ui_DATA = simple-scan.ui
 

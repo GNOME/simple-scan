@@ -2,6 +2,14 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkIconFactory" id="icon_factory">
+    <sources>
+      <source stock-id="crop" size="GTK_ICON_SIZE_MENU" filename="crop-16.png"/>
+      <source stock-id="crop" size="GTK_ICON_SIZE_LARGE_TOOLBAR" filename="crop-24.png"/>
+      <source stock-id="crop" size="GTK_ICON_SIZE_DIALOG" filename="crop-48.png"/>
+      <source stock-id="crop" size="GTK_ICON_SIZE_DIALOG" filename="crop-48.svg"/>
+    </sources>
+  </object>
   <object class="GtkWindow" id="simple_scan_window">
     <property name="title" translatable="yes" comments="Title of scan window">Simple Scan</property>
     <property name="icon_name">scanner</property>
@@ -502,7 +510,7 @@
                 <property name="tooltip_text" translatable="yes" comments="Tooltip for crop button">Crop the selected page</property>
                 <property name="label" translatable="yes">Crop</property>
                 <property name="use_underline">True</property>
-                <property name="stock_id">gtk-cut</property>
+                <property name="stock_id">crop</property>
                 <signal name="clicked" handler="crop_toolbutton_clicked_cb"/>
               </object>
               <packing>
