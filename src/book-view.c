@@ -453,6 +453,18 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
         cairo_translate (context, -get_x_offset (view), 0);
         page_view_render (page, context);
         cairo_restore (context);
+
+        if (page_view_get_selected (page))
+            gtk_paint_focus (gtk_widget_get_style (view->priv->widget),
+                             gtk_widget_get_window (view->priv->widget),
+                             GTK_STATE_SELECTED,
+                             &event->area,
+                             NULL,
+                             NULL,
+                             page_view_get_x_offset (page) - get_x_offset (view),
+                             page_view_get_y_offset (page),
+                             page_view_get_width (page),
+                             page_view_get_height (page));
     }
 
     cairo_destroy (context);

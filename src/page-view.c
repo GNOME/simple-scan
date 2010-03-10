@@ -99,6 +99,13 @@ page_view_set_selected (PageView *view, gboolean selected)
 }
 
 
+gboolean page_view_get_selected (PageView *view)
+{
+    g_return_val_if_fail (view != NULL, FALSE);
+    return view->priv->selected;
+}
+
+
 void
 page_view_set_x_offset (PageView *view, gint offset)
 {
@@ -795,10 +802,7 @@ page_view_render (PageView *view, cairo_t *context)
     cairo_translate (context, view->priv->x, view->priv->y);
 
     /* Draw page border */
-    if (view->priv->selected)
-        cairo_set_source_rgb (context, 1, 0, 0);
-    else
-        cairo_set_source_rgb (context, 0, 0, 0);
+    cairo_set_source_rgb (context, 0, 0, 0);
     cairo_set_line_width (context, view->priv->border_width);
     cairo_rectangle (context,
                      (double)view->priv->border_width / 2,

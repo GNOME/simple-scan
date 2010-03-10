@@ -51,6 +51,8 @@ Page *page_view_get_page (PageView *view);
 
 void page_view_set_selected (PageView *view, gboolean selected);
 
+gboolean page_view_get_selected (PageView *view);
+
 void page_view_set_x_offset (PageView *view, gint offset);
 
 void page_view_set_y_offset (PageView *view, gint offset);
