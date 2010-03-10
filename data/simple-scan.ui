@@ -502,7 +502,7 @@
                 <property name="tooltip_text" translatable="yes" comments="Tooltip for crop button">Crop the selected page</property>
                 <property name="label" translatable="yes">Crop</property>
                 <property name="use_underline">True</property>
-                <property name="icon_widget">crop_image</property>
+                <property name="icon_name">object-crop</property>
                 <signal name="clicked" handler="crop_toolbutton_clicked_cb"/>
               </object>
               <packing>
@@ -904,9 +904,5 @@
   <object class="GtkImage" id="email_image">
     <property name="visible">True</property>
     <property name="icon_name">mail-send</property>
-  </object>
-  <object class="GtkImage" id="crop_image">
-    <property name="visible">True</property>
-    <property name="pixbuf">crop.png</property>
   </object>
 </interface>

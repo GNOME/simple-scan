@@ -22,6 +22,7 @@ simple_scan_CFLAGS = \
 	-DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\" \
 	-DLOCALE_DIR=\"$(localedir)\" \
 	-DUI_DIR=\"$(datadir)/simple-scan/\" \
+	-DICON_DIR=\"$(datadir)/simple-scan/icons\" \
 	-DSIMPLE_SCAN_BINARY=\"simple-scan\"
 
 simple_scan_LDADD = \

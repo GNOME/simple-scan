@@ -1164,6 +1164,8 @@ ui_load (SimpleScan *ui)
     gchar *device, *document_type, *scan_direction;
     gint dpi;
 
+    gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (), ICON_DIR);
+
     builder = ui->priv->builder = gtk_builder_new ();
     gtk_builder_add_from_file (builder, UI_DIR "simple-scan.ui", &error);
     if (error) {
