@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-02-22 15:34+1100\n"
+"POT-Creation-Date: 2010-03-05 21:59+1100\n"
 "PO-Revision-Date: 2010-01-26 22:27+0000\n"
 "Last-Translator: Launchpad Translations Administrators "
 "<rosetta@launchpad.net>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-03-03 04:50+0000\n"
+"X-Launchpad-Export-Date: 2010-03-10 05:18+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -281,123 +281,128 @@ msgid "Direction of scan"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:3
-msgid "Height of scanned image in pixels"
+msgid "Directory to save files to"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:4
-msgid "Resolution for photo scans"
+msgid "Height of scanned image in pixels"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:5
-msgid "Resolution for text scans"
+msgid "Resolution for photo scans"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:6
-msgid "Resolution of last scanned image"
+msgid "Resolution for text scans"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:7
-msgid "SANE device to acquire images from."
+msgid "Resolution of last scanned image"
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:8
-msgid "TRUE if the application window is maximized"
+msgid "SANE device to acquire images from."
 msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:9
+msgid "TRUE if the application window is maximized"
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:10
 msgid ""
 "The direction of the scanner across the scanned page. It can be one of the "
 "following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:10
+#: ../data/simple-scan.schemas.in.h:11
+msgid ""
+"The directory to save files to. Defaults to the documents directory if unset."
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:12
 msgid ""
 "The height of scanned image in pixels. This value is updated to what the "
 "last scanned page was."
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:11
+#: ../data/simple-scan.schemas.in.h:13
 msgid "The resolution in dots-per-inch of the previously scanned image."
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:12
+#: ../data/simple-scan.schemas.in.h:14
 msgid "The resolution in dots-per-inch to use when scanning photos."
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:13
+#: ../data/simple-scan.schemas.in.h:15
 msgid "The resolution in dots-per-inch to use when scanning text."
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:14
+#: ../data/simple-scan.schemas.in.h:16
 msgid ""
 "The width of scanned image in pixels. This value is updated to what the last "
 "scanned page was."
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:15
+#: ../data/simple-scan.schemas.in.h:17
 msgid "Type of document being scanned"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:16
+#: ../data/simple-scan.schemas.in.h:18
 msgid ""
 "Type of document being scanned. 'text' for text documents, 'photo' for "
 "photos. This setting decides on the scan resolution, colors and post-"
 "processing."
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:17
+#: ../data/simple-scan.schemas.in.h:19
 msgid "Width of scanned image in pixels"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:18
+#: ../data/simple-scan.schemas.in.h:20
 msgid "Window height in pixels"
 msgstr ""
 
-#: ../data/simple-scan.schemas.in.h:19
+#: ../data/simple-scan.schemas.in.h:21
 msgid "Window width in pixels"
 msgstr ""
 
 #. Error displayed when no scanners to scan with
-#: ../src/scanner.c:834
-#, c-format
+#: ../src/scanner.c:852
 msgid "No scanners available.  Please connect a scanner."
 msgstr ""
 
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.c:864
-#, c-format
+#: ../src/scanner.c:879
 msgid "Unable to connect to scanner"
 msgstr "Không nối được với máy quét hình"
 
 #. Error display when unable to start scan
-#: ../src/scanner.c:1086
-#, c-format
+#: ../src/scanner.c:1101
 msgid "Unable to start scan"
 msgstr "Không quét hình được"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.c:1107 ../src/scanner.c:1200
-#, c-format
+#: ../src/scanner.c:1119 ../src/scanner.c:1212
 msgid "Error communicating with scanner"
 msgstr "Lỗi khi giao dịch với máy quét hình"
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.c:164
+#: ../src/simple-scan.c:176
 msgid "Failed to scan"
 msgstr "Quét hình thất bại"
 
 #. Default filename to use when saving document (and extension will be added, e.g. .jpg)
-#: ../src/simple-scan.c:178
+#: ../src/simple-scan.c:194
 msgid "Scanned Document"
 msgstr ""
 
 #. Title of error dialog when save failed
-#: ../src/simple-scan.c:250
+#: ../src/simple-scan.c:263
 msgid "Failed to save file"
 msgstr "Không lưu được tệp"
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:335
+#: ../src/simple-scan.c:380
 #, c-format
 msgid ""
 "Usage:\n"
@@ -407,7 +412,7 @@ msgstr ""
 "  %s [DEVICE...] - Scanning utility"
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:343
+#: ../src/simple-scan.c:388
 #, c-format
 msgid ""
 "Help Options:\n"
@@ -419,7 +424,7 @@ msgid ""
 msgstr ""
 
 #. Description on simple-scan command-line GTK+ options displayed on command-line
-#: ../src/simple-scan.c:355
+#: ../src/simple-scan.c:400
 #, c-format
 msgid ""
 "GTK+ Options:\n"
@@ -443,63 +448,63 @@ msgstr ""
 "  --g-fatal-warnings              Make all warnings fatal"
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.c:124
+#: ../src/ui.c:126
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr "Tên đăng nhập và mật mã cần thiết để truy cập '%s'"
 
 #. Warning displayed when no scanners are detected
-#: ../src/ui.c:154
+#: ../src/ui.c:225
 msgid "No scanners detected"
 msgstr "Không phát hiện máy quét hình nào hết"
 
 #. Hint to user on why there are no scanners detected
-#: ../src/ui.c:156
+#: ../src/ui.c:227
 msgid "Please check your scanner is connected and powered on"
 msgstr "Vui lòng kiểm tra đã cắm và bật máy quét hình chưa"
 
 #. Save dialog: Label for saving in PDF format
-#: ../src/ui.c:668
+#: ../src/ui.c:702
 msgid "PDF (multi-page document)"
 msgstr ""
 
 #. Save dialog: Label for saving in JPEG format
-#: ../src/ui.c:670
+#: ../src/ui.c:704
 msgid "JPEG (compressed)"
 msgstr ""
 
 #. Save dialog: Label for saving in PNG format
-#: ../src/ui.c:672
+#: ../src/ui.c:706
 msgid "PNG (lossless)"
 msgstr ""
 
 #. Save dialog: Dialog title
-#: ../src/ui.c:677
+#: ../src/ui.c:718
 msgid "Save As..."
 msgstr "Lưu thành..."
 
 #. Save dialog: Filter name to show only image files
-#: ../src/ui.c:691
+#: ../src/ui.c:734
 msgid "Image Files"
 msgstr ""
 
 #. Save dialog: Filter name to show all files
-#: ../src/ui.c:697
+#: ../src/ui.c:741
 msgid "All Files"
 msgstr ""
 
 #. 
-#: ../src/ui.c:702
+#: ../src/ui.c:746
 msgid "Select File _Type"
 msgstr ""
 
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.c:833
+#: ../src/ui.c:885
 msgid "Unable to open help file"
 msgstr ""
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.c:857
+#: ../src/ui.c:909
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -516,60 +521,60 @@ msgid ""
 msgstr ""
 
 #. Title of about dialog
-#: ../src/ui.c:871
+#: ../src/ui.c:923
 msgid "About Simple Scan"
 msgstr "Về Simple Scan"
 
 #. Description of program
-#: ../src/ui.c:874
+#: ../src/ui.c:926
 msgid "Simple document scanning tool"
 msgstr "Công cụ đơn giản để quét tài liệu"
 
-#: ../src/ui.c:882
+#: ../src/ui.c:934
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Vu Do Quynh https://launchpad.net/~vu-do-quynh"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.c:1007
+#: ../src/ui.c:1066
 #, c-format
 msgid "%d dpi (draft)"
 msgstr ""
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.c:1009 ../src/ui.c:1010 ../src/ui.c:1011 ../src/ui.c:1014
+#: ../src/ui.c:1068 ../src/ui.c:1069 ../src/ui.c:1070 ../src/ui.c:1073
 #, c-format
 msgid "%d dpi"
 msgstr ""
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.c:1013
+#: ../src/ui.c:1072
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr ""
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.c:1036
+#: ../src/ui.c:1095
 #, c-format
 msgid "%d dpi (default)"
 msgstr ""
 
 #. Title of dialog when cannot load required files
-#: ../src/ui.c:1066
+#: ../src/ui.c:1125
 msgid "Files missing"
 msgstr "Thiếu các tệp"
 
 #. Description in dialog when cannot load required files
-#: ../src/ui.c:1068
+#: ../src/ui.c:1127
 msgid "Please check your installation"
 msgstr "Vui lòng kiểm tra lại việc cài đặt"
 
 #. Button in error dialog to open prefereces dialog and change scanner
-#: ../src/ui.c:1231
+#: ../src/ui.c:1287
 msgid "Change _Scanner"
 msgstr ""
 
-#: ../src/ui.c:1355
+#: ../src/ui.c:1411
 msgid "Scanned Document.pdf"
 msgstr "Tài liệu quét.pdf"

@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-02-22 15:34+1100\n"
-"PO-Revision-Date: 2010-02-20 21:37+0000\n"
-"Last-Translator: Thanos Lefteris <alefteris@gmail.com>\n"
+"POT-Creation-Date: 2010-03-05 21:59+1100\n"
+"PO-Revision-Date: 2010-03-08 17:26+0000\n"
+"Last-Translator: Jennie Petoumenou <Unknown>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-03-03 04:50+0000\n"
+"X-Launchpad-Export-Date: 2010-03-10 05:18+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -69,7 +69,7 @@ msgstr "Στείλτε με Email τα σαρωμένα έγγραφα"
 #. Radio button for cropping to page to US legal size
 #: ../data/simple-scan.ui.h:21
 msgid "Le_gal"
-msgstr "Δικόγραφο"
+msgstr "Le_gal"
 
 #: ../data/simple-scan.ui.h:22
 msgid "New"
@@ -228,7 +228,7 @@ msgstr "_Βοήθεια"
 #. Radio button for cropping page to US letter size
 #: ../data/simple-scan.ui.h:81
 msgid "_Letter"
-msgstr "_Επιστολή"
+msgstr "_Letter"
 
 #. Radio button for no crop
 #: ../data/simple-scan.ui.h:83
@@ -276,46 +276,56 @@ msgstr "Σάρωση εγγράφων"
 
 #: ../data/simple-scan.schemas.in.h:1
 msgid "Device to scan from"
-msgstr "Σάρωση από συσκευή:"
+msgstr "Συσκευή που χρησιμοποιείται για σάρωση"
 
 #: ../data/simple-scan.schemas.in.h:2
 msgid "Direction of scan"
 msgstr "Κατεύθυνση σάρωσης"
 
 #: ../data/simple-scan.schemas.in.h:3
+msgid "Directory to save files to"
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:4
 msgid "Height of scanned image in pixels"
 msgstr "Ύψος εικόνας σάρωσης σε εικονοστοιχεία"
 
-#: ../data/simple-scan.schemas.in.h:4
+#: ../data/simple-scan.schemas.in.h:5
 msgid "Resolution for photo scans"
 msgstr "Ανάλυση για σάρωση φωτογραφιών"
 
-#: ../data/simple-scan.schemas.in.h:5
+#: ../data/simple-scan.schemas.in.h:6
 msgid "Resolution for text scans"
 msgstr "Ανάλυση για σάρωση κειμένου"
 
-#: ../data/simple-scan.schemas.in.h:6
+#: ../data/simple-scan.schemas.in.h:7
 msgid "Resolution of last scanned image"
 msgstr "Ανάλυση τελευταίας σαρωμένης εικόνας"
 
-#: ../data/simple-scan.schemas.in.h:7
-msgid "SANE device to acquire images from."
-msgstr "Συσκευή SANE για την λήψη των εικόνων."
-
 #: ../data/simple-scan.schemas.in.h:8
+msgid "SANE device to acquire images from."
+msgstr "Συσκευή SANE που χρησιμοποιείται για την λήψη εικόνων."
+
+#: ../data/simple-scan.schemas.in.h:9
 msgid "TRUE if the application window is maximized"
 msgstr "ΑΛΗΘΕΣ αν το παράθυρο της εφαρμογής είναι μεγιστοποιημένο"
 
-#: ../data/simple-scan.schemas.in.h:9
+#: ../data/simple-scan.schemas.in.h:10
 msgid ""
 "The direction of the scanner across the scanned page. It can be one of the "
 "following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
 msgstr ""
 "Η κατεύθυνση του σαρωτή κατά μήκος της σαρωμένης σελίδας. Μπορεί να είναι "
-"κάποιο από τα εξής: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-"
-"to-left'"
+"κάποιο από τα εξής: 'top-to-bottom' (από πάνω προς τα κάτω) 'bottom-to-top' "
+"(από κάτω προς τα πάνω) 'left-to-right' (από αριστερά προς δεξιά) 'right-to-"
+"left' (από δεξιά προς αριστερά)"
 
-#: ../data/simple-scan.schemas.in.h:10
+#: ../data/simple-scan.schemas.in.h:11
+msgid ""
+"The directory to save files to. Defaults to the documents directory if unset."
+msgstr ""
+
+#: ../data/simple-scan.schemas.in.h:12
 msgid ""
 "The height of scanned image in pixels. This value is updated to what the "
 "last scanned page was."
@@ -323,22 +333,22 @@ msgstr ""
 "Το ύψος της σαρωμένης εικόνας σε εικονοστοιχεία. Η τιμή αυτή ενημερώνεται με "
 "το ύψος της τελευταίας σαρωμένης σελίδας."
 
-#: ../data/simple-scan.schemas.in.h:11
+#: ../data/simple-scan.schemas.in.h:13
 msgid "The resolution in dots-per-inch of the previously scanned image."
-msgstr "Η ανάλυση σε κουκκίδες ανά ίντσα του προηγουμένως σαρωμένης εικόνας."
+msgstr "Η ανάλυση σε κουκκίδες ανά ίντσα της προηγούμενης σαρωμένης εικόνας."
 
-#: ../data/simple-scan.schemas.in.h:12
+#: ../data/simple-scan.schemas.in.h:14
 msgid "The resolution in dots-per-inch to use when scanning photos."
 msgstr ""
 "Η ανάλυση σε κουκκίδες ανά ίντσα που θα χρησιμοποιηθεί στην σάρωση "
 "φωτογραφιών."
 
-#: ../data/simple-scan.schemas.in.h:13
+#: ../data/simple-scan.schemas.in.h:15
 msgid "The resolution in dots-per-inch to use when scanning text."
 msgstr ""
 "Η ανάλυση σε κουκκίδες ανά ίντσα που θα χρησιμοποιηθεί στην σάρωση κειμένων."
 
-#: ../data/simple-scan.schemas.in.h:14
+#: ../data/simple-scan.schemas.in.h:16
 msgid ""
 "The width of scanned image in pixels. This value is updated to what the last "
 "scanned page was."
@@ -346,11 +356,11 @@ msgstr ""
 "Το πλάτος της σαρωμένης εικόνας σε εικονοστοιχεία. Η τιμή αυτή ενημερώνεται "
 "με το πλάτος της τελευταίας σαρωμένης σελίδας."
 
-#: ../data/simple-scan.schemas.in.h:15
+#: ../data/simple-scan.schemas.in.h:17
 msgid "Type of document being scanned"
 msgstr "Ο τύπος του εγγράφου που σαρώνεται"
 
-#: ../data/simple-scan.schemas.in.h:16
+#: ../data/simple-scan.schemas.in.h:18
 msgid ""
 "Type of document being scanned. 'text' for text documents, 'photo' for "
 "photos. This setting decides on the scan resolution, colors and post-"
@@ -360,59 +370,55 @@ msgstr ""
 "φωτογραφίες. Αυτή η ρύθμιση καθορίζει την ανάλυση σάρωσης, τα χρώματα και τη "
 "μετέπειτα επεξεργασία."
 
-#: ../data/simple-scan.schemas.in.h:17
+#: ../data/simple-scan.schemas.in.h:19
 msgid "Width of scanned image in pixels"
 msgstr "Πλάτος της σαρωμένης εικόνας σε εικονοστοιχεία"
 
-#: ../data/simple-scan.schemas.in.h:18
+#: ../data/simple-scan.schemas.in.h:20
 msgid "Window height in pixels"
 msgstr "Ύψος παραθύρου σε εικονοστοιχεία"
 
-#: ../data/simple-scan.schemas.in.h:19
+#: ../data/simple-scan.schemas.in.h:21
 msgid "Window width in pixels"
 msgstr "Πλάτος παραθύρου σε εικονοστοιχεία"
 
 #. Error displayed when no scanners to scan with
-#: ../src/scanner.c:834
-#, c-format
+#: ../src/scanner.c:852
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Δεν υπάρχουν διαθέσιμοι σαρωτές. Παρακαλούμε συνδέστε ένα σαρωτή."
 
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.c:864
-#, c-format
+#: ../src/scanner.c:879
 msgid "Unable to connect to scanner"
 msgstr "Αδύνατη η σύνδεση με τον σαρωτή"
 
 #. Error display when unable to start scan
-#: ../src/scanner.c:1086
-#, c-format
+#: ../src/scanner.c:1101
 msgid "Unable to start scan"
 msgstr "Αδύνατη η εκκίνηση της σάρωσης"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.c:1107 ../src/scanner.c:1200
-#, c-format
+#: ../src/scanner.c:1119 ../src/scanner.c:1212
 msgid "Error communicating with scanner"
 msgstr "Σφάλμα κατά την επικοινωνία με τον σαρωτή"
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.c:164
+#: ../src/simple-scan.c:176
 msgid "Failed to scan"
 msgstr "Η σάρωση απέτυχε"
 
 #. Default filename to use when saving document (and extension will be added, e.g. .jpg)
-#: ../src/simple-scan.c:178
+#: ../src/simple-scan.c:194
 msgid "Scanned Document"
-msgstr ""
+msgstr "Σαρωμένο"
 
 #. Title of error dialog when save failed
-#: ../src/simple-scan.c:250
+#: ../src/simple-scan.c:263
 msgid "Failed to save file"
 msgstr "Αποτυχία αποθήκευσης του αρχείου"
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:335
+#: ../src/simple-scan.c:380
 #, c-format
 msgid ""
 "Usage:\n"
@@ -422,7 +428,7 @@ msgstr ""
 "  %s [ΣΥΣΚΕΥΗ...] - Εφαρμογή σάρωσης"
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:343
+#: ../src/simple-scan.c:388
 #, c-format
 msgid ""
 "Help Options:\n"
@@ -440,7 +446,7 @@ msgstr ""
 "  --help-gtk Εμφάνιση επιλογών GTK+"
 
 #. Description on simple-scan command-line GTK+ options displayed on command-line
-#: ../src/simple-scan.c:355
+#: ../src/simple-scan.c:400
 #, c-format
 msgid ""
 "GTK+ Options:\n"
@@ -456,7 +462,7 @@ msgstr ""
 "Επιλογές GTK+:\n"
 "  --class=CLASS                   Κλάση προγράμματος χρησιμοποιούμενη από το "
 "διαχειριστή παραθύρων\n"
-"  --name=NAME                     Όνομα προγράμματος χρησιμοποιούμενη από το "
+"  --name=NAME                     Όνομα προγράμματος χρησιμοποιούμενο από το "
 "διαχειριστή παραθύρων\n"
 "  --screen=SCREEN                 Οθόνη X προς χρήση\n"
 "  --sync                          Να είναι σύγχρονες οι κλήσεις στο X\n"
@@ -464,65 +470,65 @@ msgstr ""
 "  --g-fatal-warnings              Να είναι όλες οι προειδοποιήσεις μοιραίες"
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.c:124
+#: ../src/ui.c:126
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr "Απαιτείται όνομα χρήστη και κωδικός για την πρόσβαση στο '%s'"
 
 #. Warning displayed when no scanners are detected
-#: ../src/ui.c:154
+#: ../src/ui.c:225
 msgid "No scanners detected"
 msgstr "Δεν ανιχνεύθηκαν σαρωτές"
 
 #. Hint to user on why there are no scanners detected
-#: ../src/ui.c:156
+#: ../src/ui.c:227
 msgid "Please check your scanner is connected and powered on"
 msgstr ""
 "Παρακαλούμε βεβαιωθείτε ότι ο σαρωτής σας είναι συνδεδεμένος και σε "
 "λειτουργία"
 
 #. Save dialog: Label for saving in PDF format
-#: ../src/ui.c:668
+#: ../src/ui.c:702
 msgid "PDF (multi-page document)"
 msgstr "PDF (έγγραφο πολλαπλών σελίδων)"
 
 #. Save dialog: Label for saving in JPEG format
-#: ../src/ui.c:670
+#: ../src/ui.c:704
 msgid "JPEG (compressed)"
 msgstr "JPEG (συμπιεσμένο)"
 
 #. Save dialog: Label for saving in PNG format
-#: ../src/ui.c:672
+#: ../src/ui.c:706
 msgid "PNG (lossless)"
 msgstr "PNG (δίχως συμπίεση)"
 
 #. Save dialog: Dialog title
-#: ../src/ui.c:677
+#: ../src/ui.c:718
 msgid "Save As..."
 msgstr "Αποθήκευση ως..."
 
 #. Save dialog: Filter name to show only image files
-#: ../src/ui.c:691
+#: ../src/ui.c:734
 msgid "Image Files"
 msgstr "Αρχεία εικόνων"
 
 #. Save dialog: Filter name to show all files
-#: ../src/ui.c:697
+#: ../src/ui.c:741
 msgid "All Files"
 msgstr "Όλα τα αρχεία"
 
 #. 
-#: ../src/ui.c:702
+#: ../src/ui.c:746
 msgid "Select File _Type"
 msgstr "Επιλογή _τύπου αρχείου"
 
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.c:833
+#: ../src/ui.c:885
 msgid "Unable to open help file"
 msgstr "Αδύνατο το άνοιγμα του αρχείου βοήθειας"
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.c:857
+#: ../src/ui.c:909
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -554,61 +560,62 @@ msgstr ""
 "εδώ: <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: ../src/ui.c:871
+#: ../src/ui.c:923
 msgid "About Simple Scan"
 msgstr "Περί Απλής Σάρωσης"
 
 #. Description of program
-#: ../src/ui.c:874
+#: ../src/ui.c:926
 msgid "Simple document scanning tool"
 msgstr "Απλό εργαλείο σάρωσης εγγράφων"
 
-#: ../src/ui.c:882
+#: ../src/ui.c:934
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Alex Ferguson https://launchpad.net/~thoughtmonster\n"
+"  Jennie Petoumenou https://launchpad.net/~jennie\n"
 "  Thanos Lefteris https://launchpad.net/~alefteris"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.c:1007
+#: ../src/ui.c:1066
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (πρόχειρο)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.c:1009 ../src/ui.c:1010 ../src/ui.c:1011 ../src/ui.c:1014
+#: ../src/ui.c:1068 ../src/ui.c:1069 ../src/ui.c:1070 ../src/ui.c:1073
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.c:1013
+#: ../src/ui.c:1072
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (υψηλή ανάλυση)"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.c:1036
+#: ../src/ui.c:1095
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (προεπιλογή)"
 
 #. Title of dialog when cannot load required files
-#: ../src/ui.c:1066
+#: ../src/ui.c:1125
 msgid "Files missing"
 msgstr "Λείπουν αρχεία"
 
 #. Description in dialog when cannot load required files
-#: ../src/ui.c:1068
+#: ../src/ui.c:1127
 msgid "Please check your installation"
 msgstr "Παρακαλούμε ελέγξτε την εγκατάσταση σας"
 
 #. Button in error dialog to open prefereces dialog and change scanner
-#: ../src/ui.c:1231
+#: ../src/ui.c:1287
 msgid "Change _Scanner"
 msgstr "Αλλαγή _σαρωτή"
 
-#: ../src/ui.c:1355
+#: ../src/ui.c:1411
 msgid "Scanned Document.pdf"
-msgstr "Σαρωμένο έγγραφο.pdf"
+msgstr "Σαρωμένο.pdf"
