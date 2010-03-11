@@ -423,16 +423,18 @@ control_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_I
 }
 
 
-static void
+static gboolean
 set_default_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index)
 {
     SANE_Status status;
-    
+
     status = sane_control_option (handle, option_index, SANE_ACTION_SET_AUTO, NULL, NULL);
     g_debug ("sane_control_option (%d, SANE_ACTION_SET_AUTO) -> %s",
              option_index, get_status_string (status));
     if (status != SANE_STATUS_GOOD)
         g_warning ("Error setting default option %s: %s", option->name, sane_strstatus(status));
+
+    return status == SANE_STATUS_GOOD;
 }
 
 
@@ -929,6 +931,16 @@ do_get_option (Scanner *scanner)
         }
     }
     else if (strcmp (option->name, SANE_NAME_SCAN_SOURCE) == 0) {
+        const char *flatbed_sources[] =
+        {
+            "Flatbed",
+            SANE_I18N ("Flatbed"),
+            "FlatBed",
+            "Normal",
+            SANE_I18N ("Normal"),
+            NULL
+        };
+
         const char *adf_sources[] =
         {
             "Automatic Document Feeder",
@@ -946,7 +958,10 @@ do_get_option (Scanner *scanner)
                  g_warning ("Unable to set ADF source, please file a bug");
         }
         else {
-            set_default_option (scanner->priv->handle, option, option_index);
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, flatbed_sources)) {
+                 if (!set_default_option (scanner->priv->handle, option, option_index))
+                     g_warning ("Unable to set flatbed source, please file a bug");
+            }
         }
     }
     else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
