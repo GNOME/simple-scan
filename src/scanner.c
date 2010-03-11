@@ -936,6 +936,8 @@ do_get_option (Scanner *scanner)
             "ADF",
             SANE_I18N ("ADF Front"),
             "ADF Front",
+            "Automatic Document Feeder(left aligned)", /* Seen in the proprietary brother3 driver */
+            "Automatic Document Feeder(centrally aligned)", /* Seen in the proprietary brother3 driver */
             NULL
         };
 
@@ -957,6 +959,7 @@ do_get_option (Scanner *scanner)
         {
             SANE_VALUE_SCAN_MODE_COLOR,
             "Color",
+            "24bit Color", /* Seen in the proprietary brother3 driver */
             NULL
         };
         const char *gray_scan_modes[] =
