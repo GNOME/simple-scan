@@ -736,7 +736,10 @@ page_view_motion (PageView *view, gint x, gint y)
     }
 
     page_move_crop (view->priv->page, new_x, new_y);
-    page_set_custom_crop (view->priv->page, new_w, new_h);
+
+    /* If reshaped crop, must be a custom crop */
+    if (new_w != cw && new_h != ch)
+        page_set_custom_crop (view->priv->page, new_w, new_h);
 }
 
 
