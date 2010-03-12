@@ -904,7 +904,7 @@ page_view_render (PageView *view, cairo_t *context)
         cairo_new_sub_path (context);
         cairo_rectangle (context, dx, dy, dw, dh);
         cairo_set_fill_rule (context, CAIRO_FILL_RULE_EVEN_ODD);
-        cairo_set_source_rgba (context, 0.5, 0.5, 0.5, 0.5);
+        cairo_set_source_rgba (context, 0.25, 0.25, 0.25, 0.1);
         cairo_fill (context);
         
         /* Show new edge */
