@@ -508,6 +508,7 @@ page_selected_cb (BookView *view, Page *page, SimpleScan *ui)
         name = "no_crop_menuitem";
 
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_builder_get_object (ui->priv->builder, name)), TRUE);
+    gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (gtk_builder_get_object (ui->priv->builder, "crop_toolbutton")), page_has_crop (page));
 
     ui->priv->updating_page_menu = FALSE;
 }
@@ -653,12 +654,18 @@ custom_crop_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
         set_crop (ui, "custom");
 }
 
-void crop_toolbutton_clicked_cb (GtkWidget *widget, SimpleScan *ui);
+void crop_toolbutton_toggled_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
 void
-crop_toolbutton_clicked_cb (GtkWidget *widget, SimpleScan *ui)
+crop_toolbutton_toggled_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_builder_get_object (ui->priv->builder, "custom_crop_menuitem")), TRUE);
+    if (ui->priv->updating_page_menu)
+        return;
+  
+    if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (widget)))
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_builder_get_object (ui->priv->builder, "custom_crop_menuitem")), TRUE);
+    else
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_builder_get_object (ui->priv->builder, "no_crop_menuitem")), TRUE);
 }
 
 
