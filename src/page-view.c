@@ -597,6 +597,9 @@ page_view_motion (PageView *view, gint x, gint y)
     gint new_x, new_y, new_w, new_h;
     CropLocation location;
     gint cursor;
+    gint min_size;
+  
+    min_size = screen_to_page_x (view, 15);
 
     g_return_if_fail (view != NULL);
   
@@ -715,10 +718,10 @@ page_view_motion (PageView *view, gint x, gint y)
         new_h += dy;
     }
 
-    if (new_w < 1)
-        new_w = 1;
-    if (new_h < 1)
-        new_h = 1;
+    if (new_w < min_size)
+        new_w = min_size;
+    if (new_h < min_size)
+        new_h = min_size;
 
     if (new_x > pw - cw)
         new_x = pw - cw;
