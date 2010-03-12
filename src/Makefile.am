@@ -23,6 +23,7 @@ simple_scan_CFLAGS = \
 	-DLOCALE_DIR=\"$(localedir)\" \
 	-DUI_DIR=\"$(datadir)/simple-scan/\" \
 	-DICON_DIR=\"$(datadir)/simple-scan/icons\" \
+	-DGCONF_DIR=\"/apps/simple-scan\" \
 	-DSIMPLE_SCAN_BINARY=\"simple-scan\"
 
 simple_scan_LDADD = \

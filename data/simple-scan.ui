@@ -734,7 +734,7 @@
           <object class="GtkTable" id="table3">
             <property name="visible">True</property>
             <property name="border_width">5</property>
-            <property name="n_rows">3</property>
+            <property name="n_rows">4</property>
             <property name="n_columns">2</property>
             <property name="column_spacing">6</property>
             <property name="row_spacing">6</property>
@@ -817,6 +817,34 @@
                 <property name="right_attach">2</property>
                 <property name="top_attach">2</property>
                 <property name="bottom_attach">3</property>
+                <property name="y_options">GTK_FILL</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="page_side_label">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes" comments="Label beside scan side combo box">Scan Side:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">photo_dpi_combo</property>
+              </object>
+              <packing>
+                <property name="top_attach">3</property>
+                <property name="bottom_attach">4</property>
+                <property name="x_options">GTK_FILL</property>
+                <property name="y_options">GTK_FILL</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="page_side_combo">
+                <property name="visible">True</property>
+                <property name="model">page_side_store</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">3</property>
+                <property name="bottom_attach">4</property>
                 <property name="y_options">GTK_FILL</property>
               </packing>
             </child>
@@ -904,5 +932,27 @@
   <object class="GtkImage" id="email_image">
     <property name="visible">True</property>
     <property name="icon_name">mail-send</property>
+  </object>
+  <object class="GtkListStore" id="page_side_store">
+    <columns>
+      <!-- column-name side -->
+      <column type="gchararray"/>
+      <!-- column-name label -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">both</col>
+        <col id="1" translatable="yes" comments="Combo box label for scanning both sides of a page">Front and Back</col>
+      </row>
+      <row>
+        <col id="0">front</col>
+        <col id="1" translatable="yes" comments="Combo box label for scanning the front side of a page">Front</col>
+      </row>
+      <row>
+        <col id="0">back</col>
+        <col id="1" translatable="yes" comments="Combo box label for scanning the back side of a page">Back</col>
+      </row>
+    </data>
   </object>
 </interface>

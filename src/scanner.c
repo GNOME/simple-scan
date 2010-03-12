@@ -45,7 +45,7 @@ typedef struct
     gint dpi;
     ScanMode scan_mode;
     gint depth;
-    gboolean multi_page;
+    gboolean type;
 } ScanJob;
 
 typedef struct
@@ -946,26 +946,54 @@ do_get_option (Scanner *scanner)
             "Automatic Document Feeder",
             SANE_I18N ("Automatic Document Feeder"),
             "ADF",
-            "ADF Duplex",
-            SANE_I18N ("ADF Duplex"),
-            "ADF Front",
-            SANE_I18N ("ADF Front"),
-            "ADF Back",
-            SANE_I18N ("ADF Back"),
             "Automatic Document Feeder(left aligned)", /* Seen in the proprietary brother3 driver */
             "Automatic Document Feeder(centrally aligned)", /* Seen in the proprietary brother3 driver */
             NULL
         };
 
-        if (job->multi_page) {
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))
-                 g_warning ("Unable to set ADF source, please file a bug");
-        }
-        else {
+        const char *adf_front_sources[] =
+        {
+            "ADF Front",
+            SANE_I18N ("ADF Front"),
+            NULL
+        };
+
+        const char *adf_back_sources[] =
+        {
+            "ADF Back",
+            SANE_I18N ("ADF Back"),
+            NULL
+        };
+
+        const char *adf_duplex_sources[] =
+        {
+            "ADF Duplex",
+            SANE_I18N ("ADF Duplex"),
+            NULL
+        };
+
+        switch (job->type) {
+        case SCAN_SINGLE:
             if (!set_constrained_string_option (scanner->priv->handle, option, option_index, flatbed_sources)) {
                  if (!set_default_option (scanner->priv->handle, option, option_index))
                      g_warning ("Unable to set flatbed source, please file a bug");
             }
+            break;
+        case SCAN_ADF_FRONT:
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_front_sources) ||
+                !set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))                
+                 g_warning ("Unable to set ADF source, please file a bug");
+            break;
+        case SCAN_ADF_BACK:
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_back_sources) ||
+                !set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))                
+                 g_warning ("Unable to set ADF source, please file a bug");
+            break;
+        case SCAN_ADF_BOTH:
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_duplex_sources) ||
+                !set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))
+                 g_warning ("Unable to set ADF source, please file a bug");
+            break;
         }
     }
     else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
@@ -1192,7 +1220,7 @@ do_complete_page (Scanner *scanner)
     }
 
     /* Go back for another page */
-    if (job->multi_page) {
+    if (job->type != SCAN_SINGLE) {
         scanner->priv->page_number++;
         scanner->priv->pass_number = 0;
         emit_signal (scanner, PAGE_DONE, NULL);
@@ -1392,11 +1420,30 @@ scanner_is_scanning (Scanner *scanner)
 
 void
 scanner_scan (Scanner *scanner, const char *device,
-              gint dpi, ScanMode scan_mode, gint depth, gboolean multi_page)
+              gint dpi, ScanMode scan_mode, gint depth, ScanType type)
 {
     ScanRequest *request;
+    const gchar *type_string;
+  
+    switch (type) {
+    case SCAN_SINGLE:
+        type_string = "SCAN_SINGLE";
+        break;
+    case SCAN_ADF_FRONT:
+        type_string = "SCAN_ADF_FRONT";
+        break;
+    case SCAN_ADF_BACK:
+        type_string = "SCAN_ADF_BACK";
+        break;
+    case SCAN_ADF_BOTH:
+        type_string = "SCAN_ADF_BOTH";
+        break;
+    default:
+        g_assert (FALSE);
+        return;
+    }
 
-    g_debug ("scanner_scan (\"%s\", %d, %s)", device ? device : "(null)", dpi, multi_page ? "TRUE" : "FALSE");
+    g_debug ("scanner_scan (\"%s\", %d, %s)", device ? device : "(null)", dpi, type_string);
     request = g_malloc0 (sizeof (ScanRequest));
     request->type = REQUEST_START_SCAN;
     request->job = g_malloc0 (sizeof (ScanJob));
@@ -1404,7 +1451,7 @@ scanner_scan (Scanner *scanner, const char *device,
     request->job->dpi = dpi;
     request->job->scan_mode = scan_mode;
     request->job->depth = depth;
-    request->job->multi_page = multi_page;
+    request->job->type = type;
     g_async_queue_push (scanner->priv->scan_queue, request);
 }
 

@@ -188,7 +188,7 @@ scanner_scanning_changed_cb (Scanner *scanner)
 
 
 static void
-scan_cb (SimpleScan *ui, const gchar *device, gint dpi, const gchar *profile_name, gboolean continuous)
+scan_cb (SimpleScan *ui, const gchar *device, gint dpi, const gchar *profile_name, ScanType type)
 {
     /* Default filename to use when saving document (and extension will be added, e.g. .jpg) */
     const gchar *filename_prefix = _("Scanned Document");
@@ -216,7 +216,7 @@ scan_cb (SimpleScan *ui, const gchar *device, gint dpi, const gchar *profile_nam
     filename = g_strdup_printf ("%s.%s", filename_prefix, profiles[i].extension);
     ui_set_default_file_name (ui, filename);
     g_free (filename);
-    scanner_scan (scanner, device, dpi, profiles[i].mode, 8, continuous);
+    scanner_scan (scanner, device, dpi, profiles[i].mode, 8, type);
 }
 
 

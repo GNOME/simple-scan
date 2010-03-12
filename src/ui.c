@@ -54,8 +54,8 @@ struct SimpleScanPrivate
     GtkWidget *username_entry, *password_entry;
 
     GtkWidget *preferences_dialog;
-    GtkWidget *device_combo, *text_dpi_combo, *photo_dpi_combo;
-    GtkTreeModel *device_model, *text_dpi_model, *photo_dpi_model;
+    GtkWidget *device_combo, *text_dpi_combo, *photo_dpi_combo, *page_side_combo;
+    GtkTreeModel *device_model, *text_dpi_model, *photo_dpi_model, *page_side_model;
     gboolean setting_devices, user_selected_device;
 
     Book *book;
@@ -308,6 +308,29 @@ set_document_hint (SimpleScan *ui, const gchar *document_hint)
 }
 
 
+static void
+set_page_side (SimpleScan *ui, const gchar *document_hint)
+{
+    GtkTreeIter iter;
+
+    if (gtk_tree_model_get_iter_first (ui->priv->page_side_model, &iter)) {
+        do {
+            gchar *d;
+            gboolean have_match;
+
+            gtk_tree_model_get (ui->priv->page_side_model, &iter, 0, &d, -1);
+            have_match = strcmp (d, document_hint) == 0;
+            g_free (d);
+
+            if (have_match) {
+                gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->page_side_combo), &iter);                
+                return;
+            }
+        } while (gtk_tree_model_iter_next (ui->priv->page_side_model, &iter));
+     }
+}
+
+
 static gint
 get_text_dpi (SimpleScan *ui)
 {
@@ -331,6 +354,19 @@ get_photo_dpi (SimpleScan *ui)
         gtk_tree_model_get (ui->priv->photo_dpi_model, &iter, 0, &dpi, -1);
     
     return dpi;
+}
+
+
+static gchar *
+get_page_side (SimpleScan *ui)
+{
+    GtkTreeIter iter;
+    gchar *mode = NULL;
+
+    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->page_side_combo), &iter))
+        gtk_tree_model_get (ui->priv->page_side_model, &iter, 0, &mode, -1);
+    
+    return mode;
 }
 
 
@@ -361,7 +397,7 @@ scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
         dpi = get_text_dpi (ui);
     else
         dpi = get_photo_dpi (ui);
-    g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, dpi, mode, FALSE);
+    g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, dpi, mode, SCAN_SINGLE);
     g_free (device);
     g_free (mode);
 }
@@ -384,18 +420,26 @@ continuous_scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     if (ui->priv->scanning) {
         g_signal_emit (G_OBJECT (ui), signals[STOP_SCAN], 0);
     } else {
-        gchar *device, *mode;
+        gchar *device, *mode, *side;
         gint dpi;
+        ScanType type = SCAN_ADF_BOTH;
 
         device = get_selected_device (ui);
         mode = get_document_hint (ui);
+        side = get_page_side (ui);
         if (strcmp (mode, "text") == 0) 
             dpi = get_text_dpi (ui);
         else
             dpi = get_photo_dpi (ui);
-        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, dpi, mode, TRUE);
+        if (strcmp (side, "front") == 0)
+            type = SCAN_ADF_FRONT;
+        else if (strcmp (side, "back") == 0)
+            type = SCAN_ADF_BACK;
+
+        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, dpi, mode, type);
         g_free (device);
         g_free (mode);
+        g_free (side);
     }
 }
 
@@ -762,7 +806,7 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     };
 
     /* Get directory to save to */
-    directory = gconf_client_get_string (ui->priv->client, "/apps/simple-scan/save_directory", NULL);
+    directory = gconf_client_get_string (ui->priv->client, GCONF_DIR "/save_directory", NULL);
     if (!directory || directory[0] == '\0') {
         g_free (directory);
         directory = g_strdup (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS));
@@ -846,7 +890,7 @@ save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
         g_free (uri);
     }
 
-    gconf_client_set_string (ui->priv->client, "/apps/simple-scan/save_directory",
+    gconf_client_set_string (ui->priv->client, GCONF_DIR "/save_directory",
                              gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dialog)),
                              NULL);
   
@@ -995,26 +1039,27 @@ quit (SimpleScan *ui)
 
     device = get_selected_device (ui);
     if (device) {
-        gconf_client_set_string(ui->priv->client, "/apps/simple-scan/selected_device", device, NULL);
+        gconf_client_set_string(ui->priv->client, GCONF_DIR "/selected_device", device, NULL);
         g_free (device);
     }
 
     document_type = get_document_hint (ui);
-    gconf_client_set_string(ui->priv->client, "/apps/simple-scan/document_type", document_type, NULL);
+    gconf_client_set_string(ui->priv->client, GCONF_DIR "/document_type", document_type, NULL);
     g_free (document_type);
-    gconf_client_set_int (ui->priv->client, "/apps/simple-scan/text_dpi", get_text_dpi (ui), NULL);
-    gconf_client_set_int (ui->priv->client, "/apps/simple-scan/photo_dpi", get_photo_dpi (ui), NULL);
+    gconf_client_set_int (ui->priv->client, GCONF_DIR "/text_dpi", get_text_dpi (ui), NULL);
+    gconf_client_set_int (ui->priv->client, GCONF_DIR "/photo_dpi", get_photo_dpi (ui), NULL);
+    gconf_client_set_string (ui->priv->client, GCONF_DIR "/page_side", get_page_side (ui), NULL);
 
-    gconf_client_set_int(ui->priv->client, "/apps/simple-scan/window_width", ui->priv->window_width, NULL);
-    gconf_client_set_int(ui->priv->client, "/apps/simple-scan/window_height", ui->priv->window_height, NULL);
-    gconf_client_set_bool(ui->priv->client, "/apps/simple-scan/window_is_maximized", ui->priv->window_is_maximized, NULL);
+    gconf_client_set_int(ui->priv->client, GCONF_DIR "/window_width", ui->priv->window_width, NULL);
+    gconf_client_set_int(ui->priv->client, GCONF_DIR "/window_height", ui->priv->window_height, NULL);
+    gconf_client_set_bool(ui->priv->client, GCONF_DIR "/window_is_maximized", ui->priv->window_is_maximized, NULL);
 
     for (i = 0; orientation_keys[i].key != NULL && orientation_keys[i].orientation != ui->priv->default_page_orientation; i++);
     if (orientation_keys[i].key != NULL)
-        gconf_client_set_string(ui->priv->client, "/apps/simple-scan/scan_direction", orientation_keys[i].key, NULL);
-    gconf_client_set_int (ui->priv->client, "/apps/simple-scan/page_width", ui->priv->default_page_width, NULL);
-    gconf_client_set_int (ui->priv->client, "/apps/simple-scan/page_height", ui->priv->default_page_height, NULL);
-    gconf_client_set_int (ui->priv->client, "/apps/simple-scan/page_dpi", ui->priv->default_page_dpi, NULL);
+        gconf_client_set_string(ui->priv->client, GCONF_DIR "/scan_direction", orientation_keys[i].key, NULL);
+    gconf_client_set_int (ui->priv->client, GCONF_DIR "/page_width", ui->priv->default_page_width, NULL);
+    gconf_client_set_int (ui->priv->client, GCONF_DIR "/page_height", ui->priv->default_page_height, NULL);
+    gconf_client_set_int (ui->priv->client, GCONF_DIR "/page_dpi", ui->priv->default_page_dpi, NULL);
    
     g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
 }
@@ -1161,7 +1206,7 @@ ui_load (SimpleScan *ui)
     GtkBuilder *builder;
     GError *error = NULL;
     GtkCellRenderer *renderer;
-    gchar *device, *document_type, *scan_direction;
+    gchar *device, *document_type, *scan_direction, *page_side;
     gint dpi;
 
     gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (), ICON_DIR);
@@ -1208,12 +1253,14 @@ ui_load (SimpleScan *ui)
     ui->priv->text_dpi_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->text_dpi_combo));
     ui->priv->photo_dpi_combo = GTK_WIDGET (gtk_builder_get_object (builder, "photo_dpi_combo"));
     ui->priv->photo_dpi_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->photo_dpi_combo));
+    ui->priv->page_side_combo = GTK_WIDGET (gtk_builder_get_object (builder, "page_side_combo"));
+    ui->priv->page_side_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->page_side_combo));
 
-    dpi = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/text_dpi", NULL);
+    dpi = gconf_client_get_int (ui->priv->client, GCONF_DIR "/text_dpi", NULL);
     if (dpi <= 0)
         dpi = DEFAULT_TEXT_DPI;
     set_dpi_combo (ui->priv->text_dpi_combo, DEFAULT_TEXT_DPI, dpi);
-    dpi = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/photo_dpi", NULL);
+    dpi = gconf_client_get_int (ui->priv->client, GCONF_DIR "/photo_dpi", NULL);
     if (dpi <= 0)
         dpi = DEFAULT_PHOTO_DPI;
     set_dpi_combo (ui->priv->photo_dpi_combo, DEFAULT_PHOTO_DPI, dpi);
@@ -1221,16 +1268,25 @@ ui_load (SimpleScan *ui)
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->device_combo), renderer, TRUE);
     gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->device_combo), renderer, "text", 1);
+    page_side = gconf_client_get_string (ui->priv->client, GCONF_DIR "/page_side", NULL);
+    if (page_side) {
+        set_page_side (ui, page_side);
+        g_free (page_side);
+    }
 
-    device = gconf_client_get_string (ui->priv->client, "/apps/simple-scan/selected_device", NULL);
+    device = gconf_client_get_string (ui->priv->client, GCONF_DIR "/selected_device", NULL);
     if (device) {
         GtkTreeIter iter;
         if (find_scan_device (ui, device, &iter))
             gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
         g_free (device);
     }
-    
-    document_type = gconf_client_get_string (ui->priv->client, "/apps/simple-scan/document_type", NULL);
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->page_side_combo), renderer, TRUE);
+    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->page_side_combo), renderer, "text", 1);
+
+    document_type = gconf_client_get_string (ui->priv->client, GCONF_DIR "/document_type", NULL);
     if (document_type) {
         set_document_hint (ui, document_type);
         g_free (document_type);
@@ -1246,7 +1302,7 @@ ui_load (SimpleScan *ui)
                            GTK_WIDGET (gtk_builder_get_object (builder, "page_menu")));
 
     /* Find default page details */
-    scan_direction = gconf_client_get_string(ui->priv->client, "/apps/simple-scan/scan_direction", NULL);
+    scan_direction = gconf_client_get_string(ui->priv->client, GCONF_DIR "/scan_direction", NULL);
     ui->priv->default_page_orientation = TOP_TO_BOTTOM;
     if (scan_direction) {
         gint i;
@@ -1254,26 +1310,26 @@ ui_load (SimpleScan *ui)
         if (orientation_keys[i].key != NULL)
             ui->priv->default_page_orientation = orientation_keys[i].orientation;
     }
-    ui->priv->default_page_width = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/page_width", NULL);
+    ui->priv->default_page_width = gconf_client_get_int (ui->priv->client, GCONF_DIR "/page_width", NULL);
     if (ui->priv->default_page_width <= 0)
         ui->priv->default_page_width = 595;
-    ui->priv->default_page_height = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/page_height", NULL);
+    ui->priv->default_page_height = gconf_client_get_int (ui->priv->client, GCONF_DIR "/page_height", NULL);
     if (ui->priv->default_page_height <= 0)
         ui->priv->default_page_height = 842;
-    ui->priv->default_page_dpi = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/page_dpi", NULL);
+    ui->priv->default_page_dpi = gconf_client_get_int (ui->priv->client, GCONF_DIR "/page_dpi", NULL);
     if (ui->priv->default_page_dpi <= 0)
         ui->priv->default_page_dpi = 72;
 
     /* Restore window size */
-    ui->priv->window_width = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/window_width", NULL);
+    ui->priv->window_width = gconf_client_get_int (ui->priv->client, GCONF_DIR "/window_width", NULL);
     if (ui->priv->window_width <= 0)
         ui->priv->window_width = 600;
-    ui->priv->window_height = gconf_client_get_int (ui->priv->client, "/apps/simple-scan/window_height", NULL);
+    ui->priv->window_height = gconf_client_get_int (ui->priv->client, GCONF_DIR "/window_height", NULL);
     if (ui->priv->window_height <= 0)
         ui->priv->window_height = 400;
     g_debug ("Restoring window to %dx%d pixels", ui->priv->window_width, ui->priv->window_height);
     gtk_window_set_default_size (GTK_WINDOW (ui->priv->window), ui->priv->window_width, ui->priv->window_height);
-    ui->priv->window_is_maximized = gconf_client_get_bool (ui->priv->client, "/apps/simple-scan/window_is_maximized", NULL);
+    ui->priv->window_is_maximized = gconf_client_get_bool (ui->priv->client, GCONF_DIR "/window_is_maximized", NULL);
     if (ui->priv->window_is_maximized) {
         g_debug ("Restoring window to maximized");
         gtk_window_maximize (GTK_WINDOW (ui->priv->window));
@@ -1360,20 +1416,20 @@ ui_start (SimpleScan *ui)
 
 /* Generated with glib-genmarshal */
 static void
-g_cclosure_user_marshal_VOID__STRING_INT_STRING_BOOLEAN (GClosure     *closure,
-                                                         GValue       *return_value G_GNUC_UNUSED,
-                                                         guint         n_param_values,
-                                                         const GValue *param_values,
-                                                         gpointer      invocation_hint G_GNUC_UNUSED,
-                                                         gpointer      marshal_data)
+g_cclosure_user_marshal_VOID__STRING_INT_STRING_INT (GClosure     *closure,
+                                                     GValue       *return_value G_GNUC_UNUSED,
+                                                     guint         n_param_values,
+                                                     const GValue *param_values,
+                                                     gpointer      invocation_hint G_GNUC_UNUSED,
+                                                     gpointer      marshal_data)
 {
-  typedef void (*GMarshalFunc_VOID__STRING_INT_STRING_BOOLEAN) (gpointer       data1,
-                                                                gconstpointer  arg_1,
-                                                                gint           arg_2,
-                                                                gconstpointer  arg_3,
-                                                                gboolean       arg_4,
-                                                                gpointer       data2);
-  register GMarshalFunc_VOID__STRING_INT_STRING_BOOLEAN callback;
+  typedef void (*GMarshalFunc_VOID__STRING_INT_STRING_INT) (gpointer       data1,
+                                                            gconstpointer  arg_1,
+                                                            gint           arg_2,
+                                                            gconstpointer  arg_3,
+                                                            gint           arg_4,
+                                                            gpointer       data2);
+  register GMarshalFunc_VOID__STRING_INT_STRING_INT callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
 
@@ -1389,13 +1445,13 @@ g_cclosure_user_marshal_VOID__STRING_INT_STRING_BOOLEAN (GClosure     *closure,
       data1 = g_value_peek_pointer (param_values + 0);
       data2 = closure->data;
     }
-  callback = (GMarshalFunc_VOID__STRING_INT_STRING_BOOLEAN) (marshal_data ? marshal_data : cc->callback);
+  callback = (GMarshalFunc_VOID__STRING_INT_STRING_INT) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
             g_value_get_string (param_values + 1),
             g_value_get_int (param_values + 2),
             g_value_get_string (param_values + 3),
-            g_value_get_boolean (param_values + 4),
+            g_value_get_int (param_values + 4),
             data2);
 }
 
@@ -1409,8 +1465,8 @@ ui_class_init (SimpleScanClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (SimpleScanClass, start_scan),
                       NULL, NULL,
-                      g_cclosure_user_marshal_VOID__STRING_INT_STRING_BOOLEAN,
-                      G_TYPE_NONE, 4, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN);
+                      g_cclosure_user_marshal_VOID__STRING_INT_STRING_INT,
+                      G_TYPE_NONE, 4, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_INT);
     signals[STOP_SCAN] =
         g_signal_new ("stop-scan",
                       G_TYPE_FROM_CLASS (klass),
@@ -1458,7 +1514,7 @@ ui_init (SimpleScan *ui)
     g_signal_connect (ui->priv->book, "page-added", G_CALLBACK (page_added_cb), ui);
    
     ui->priv->client = gconf_client_get_default();
-    gconf_client_add_dir(ui->priv->client, "/apps/simple-scan", GCONF_CLIENT_PRELOAD_NONE, NULL);
+    gconf_client_add_dir(ui->priv->client, GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
 
     ui->priv->default_file_name = g_strdup (_("Scanned Document.pdf"));
     ui->priv->scanning = FALSE;
