@@ -34,6 +34,9 @@ struct PagePrivate
     /* Scanned image data */
     GdkPixbuf *image;
   
+    /* Page is ready to get data */
+    gboolean started;
+  
     /* TRUE if have some page data */
     gboolean has_data;
 
@@ -100,8 +103,16 @@ page_start (Page *page)
 {
     g_return_if_fail (page != NULL);
 
-    page->priv->scan_line = 0;
+    page->priv->started = TRUE;
     g_signal_emit (page, signals[SCAN_LINE_CHANGED], 0);
+}
+
+
+gboolean page_is_started (Page *page)
+{
+    g_return_val_if_fail (page != NULL, FALSE);
+  
+    return page->priv->started;
 }
 
 
@@ -330,7 +341,6 @@ page_finish (Page *page)
         page->priv->image = image;
         size_changed = TRUE;
     }
-    page->priv->scan_line = -1;
 
     if (size_changed)
         g_signal_emit (page, signals[SIZE_CHANGED], 0);
@@ -880,6 +890,5 @@ static void
 page_init (Page *page)
 {
     page->priv = G_TYPE_INSTANCE_GET_PRIVATE (page, PAGE_TYPE, PagePrivate);
-    page->priv->scan_line = -1;
     page->priv->orientation = TOP_TO_BOTTOM;
 }

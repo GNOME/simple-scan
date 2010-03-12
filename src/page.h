@@ -71,6 +71,8 @@ gint page_get_scan_height (Page *page);
 
 void page_start (Page *page);
 
+gboolean page_is_started (Page *page);
+
 gboolean page_has_data (Page *page);
 
 gint page_get_scan_line (Page *page);

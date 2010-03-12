@@ -415,10 +415,10 @@ update_preview (GdkPixbuf *image,
 
     /* FIXME: There's an off by one error in there somewhere... */
     if (R >= output_width)
-      R = output_width - 1;
+        R = output_width - 1;
     if (B >= output_height)
-      B = output_height - 1;
-  
+        B = output_height - 1;
+
     g_return_if_fail (L >= 0);
     g_return_if_fail (R < output_width);
     g_return_if_fail (T >= 0);
@@ -453,18 +453,20 @@ static void
 update_page_view (PageView *view)
 {
     GdkPixbuf *image;
-    gint scan_line;
+    gint old_scan_line, scan_line;
 
     if (!view->priv->update_image)
         return;
 
     image = page_get_image (view->priv->page);
+    old_scan_line = view->priv->scan_line;
     scan_line = page_get_scan_line (view->priv->page);
+
     update_preview (image,
                     &view->priv->image,
                     view->priv->width - view->priv->border_width * 2,
                     view->priv->height - view->priv->border_width * 2,
-                    page_get_orientation (view->priv->page), view->priv->scan_line, scan_line);
+                    page_get_orientation (view->priv->page), old_scan_line, scan_line);
     g_object_unref (image);
 
     view->priv->update_image = FALSE;
@@ -767,8 +769,8 @@ static void
 update_animation (PageView *view)
 {
     gboolean animate, is_animating;
-  
-    animate = page_get_scan_line (view->priv->page) == 0;
+
+    animate = page_is_started (view->priv->page) && !page_has_data (view->priv->page);
     is_animating = view->priv->animate_timeout != 0;
     if (animate == is_animating)
         return;
@@ -821,8 +823,7 @@ page_view_render (PageView *view, cairo_t *context)
     cairo_paint (context);
 
     /* Draw throbber */
-    scan_line = page_get_scan_line (view->priv->page);
-    if (scan_line == 0) {
+    if (page_is_started (view->priv->page) && !page_has_data (view->priv->page)) {
         gdouble inner_radius, outer_radius, x, y, arc, offset = 0.0;
         gint i;
 
@@ -853,6 +854,7 @@ page_view_render (PageView *view, cairo_t *context)
     }
 
     /* Draw scan line */
+    scan_line = page_get_scan_line (view->priv->page);
     if (scan_line > 0) {
         double s;
         double x1, y1, x2, y2;
