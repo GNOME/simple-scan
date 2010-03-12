@@ -984,12 +984,12 @@ do_get_option (Scanner *scanner)
                     g_warning ("Unable to set front ADF source, please file a bug");
             break;
         case SCAN_ADF_BACK:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_back_sources)
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_back_sources))
                 if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))
                     g_warning ("Unable to set back ADF source, please file a bug");
             break;
         case SCAN_ADF_BOTH:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_duplex_sources)
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_duplex_sources))
                 if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))
                     g_warning ("Unable to set duplex ADF source, please file a bug");
             break;
