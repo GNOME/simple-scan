@@ -508,8 +508,10 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
     layout (view);
 
     gtk_widget_grab_focus (view->priv->widget);
-  
-    select_page (view, get_page_at (view, event->x + get_x_offset (view), event->y, &x, &y));
+
+    if (event->type == GDK_BUTTON_PRESS)
+        select_page (view, get_page_at (view, event->x + get_x_offset (view), event->y, &x, &y));
+
     if (!view->priv->selected_page)
         return FALSE;
 
