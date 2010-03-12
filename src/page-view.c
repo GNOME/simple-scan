@@ -530,7 +530,11 @@ get_crop_location (PageView *view, gint x, gint y)
         return CROP_MIDDLE;
     }
 
-    // FIXME: Adjust edges when small
+    /* Adjust borders so can select */
+    if (dw < crop_border * 3)
+        crop_border = dw / 3;
+    if (dh < crop_border * 3)
+        crop_border = dh / 3;
 
     /* Top left */
     if (ix < crop_border && iy < crop_border)
