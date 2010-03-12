@@ -974,25 +974,24 @@ do_get_option (Scanner *scanner)
 
         switch (job->type) {
         case SCAN_SINGLE:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, flatbed_sources)) {
-                 if (!set_default_option (scanner->priv->handle, option, option_index))
-                     g_warning ("Unable to set flatbed source, please file a bug");
-            }
+            if (!set_default_option (scanner->priv->handle, option, option_index))
+                if (!set_constrained_string_option (scanner->priv->handle, option, option_index, flatbed_sources))
+                    g_warning ("Unable to set single page source, please file a bug");
             break;
         case SCAN_ADF_FRONT:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_front_sources) ||
-                !set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))                
-                 g_warning ("Unable to set ADF source, please file a bug");
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_front_sources))
+                if (!!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))                
+                    g_warning ("Unable to set front ADF source, please file a bug");
             break;
         case SCAN_ADF_BACK:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_back_sources) ||
-                !set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))                
-                 g_warning ("Unable to set ADF source, please file a bug");
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_back_sources)
+                if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))
+                    g_warning ("Unable to set back ADF source, please file a bug");
             break;
         case SCAN_ADF_BOTH:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_duplex_sources) ||
-                !set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))
-                 g_warning ("Unable to set ADF source, please file a bug");
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_duplex_sources)
+                if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))
+                    g_warning ("Unable to set duplex ADF source, please file a bug");
             break;
         }
     }
