@@ -164,16 +164,16 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
      *      l  L           R   r 
      *   +-----+-----+-----+-----+
      *   |     |     |     |     |
-     * t |  +--|-----|-----|---+ |
-     * T +-----+-----+-----+-----+
+     * t |  +--+-----+-----+---+ |
+     * T +--+--+-----+-----+---+-+
      *   |  |  |     |     |   | |
      *   |  |  |     |     |   | |
-     *   +-----+-----+-----+-----+
+     *   +--+--+-----+-----+---+-+
      *   |  |  |     |     |   | |
      *   |  |  |     |     |   | |
-     * B +-----+-----+-----+-----+
+     * B +--+--+-----+-----+---+-+
      *   |  |  |     |     |   | |
-     * b |  +--|-----|-----|---+ |
+     * b |  +--+-----+-----+---+ |
      *   +-----+-----+-----+-----+
      * 
      * 
@@ -184,10 +184,10 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
      *   |     |     |     |     |
      *   |     |     |     |     |
      *   +-----+-----+-----+-----+
-     * t |     |   +-|--+  |     |
+     * t |     |   +-+--+  |     |
      *   |     |   | |  |  |     |
-     *   +-----+-----+-----+-----+
-     * b |     |   +-|--+  |     |
+     *   +-----+---+-+--+--+-----+
+     * b |     |   +-+--+  |     |
      *   |     |     |     |     |
      *   +-----+-----+-----+-----+
      *   |     |     |     |     |
@@ -197,27 +197,30 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
      * Same again, just no completely covered pixels.
      */
   
-    L = (gint)(l + 1.0);
-    R = (gint)(r);
-    T = (gint)(t + 1.0);
-    B = (gint)(b);
+    L = l;
+    if (L != l)
+        L++;
+    R = r;
+    T = t;
+    if (T != t)
+        T++;
+    B = b;
   
     red = green = blue = 0.0;
 
     /* Target can fit inside one source pixel
      * +-----+
      * |     |
-     * | +--+|      +-----+      +-----+-----+
-     * +-----+  or  | +-+ |  or  |   +-|+    |
-     * | +--+|      | +-+ |      |   +-|+    |
-     * |     |      +-----+      +-----+-----+
+     * | +--+|      +-----+-----+      +-----+      +-----+      +-----+
+     * +-+--++  or  |   +-++    |  or  | +-+ |  or  | +--+|  or  |  +--+
+     * | +--+|      |   +-++    |      | +-+ |      | |  ||      |  |  |
+     * |     |      +-----+-----+      +-----+      +-+--++      +--+--+
      * +-----+
      */
-    /* FIXME: This only handles the square case - pixels could be stretched in the general case */
-    if (r - l < 1.0 || b - t < 1.0) {
+    if ((r - l <= 1.0 && (gint)r == (gint)l) || (b - t <= 1.0 && (gint)b == (gint)t)) {
         /* Inside */
-        if (L > R && T > B) {
-            guchar *p = get_pixel (input, rowstride, n_channels, R, B);
+        if ((gint)l == (gint)r || (gint)t == (gint)b) {
+            guchar *p = get_pixel (input, rowstride, n_channels, (gint)l, (gint)t);
             pixel[0] = p[0];
             pixel[1] = p[1];
             pixel[2] = p[2];
@@ -770,7 +773,7 @@ update_animation (PageView *view)
 {
     gboolean animate, is_animating;
 
-    animate = page_is_started (view->priv->page) && !page_has_data (view->priv->page);
+    animate = page_is_scanning (view->priv->page) && !page_has_data (view->priv->page);
     is_animating = view->priv->animate_timeout != 0;
     if (animate == is_animating)
         return;
@@ -792,7 +795,6 @@ update_animation (PageView *view)
 void
 page_view_render (PageView *view, cairo_t *context)
 {
-    gint scan_line;
     gint width, height;
 
     g_return_if_fail (view != NULL);
@@ -823,7 +825,7 @@ page_view_render (PageView *view, cairo_t *context)
     cairo_paint (context);
 
     /* Draw throbber */
-    if (page_is_started (view->priv->page) && !page_has_data (view->priv->page)) {
+    if (page_is_scanning (view->priv->page) && !page_has_data (view->priv->page)) {
         gdouble inner_radius, outer_radius, x, y, arc, offset = 0.0;
         gint i;
 
@@ -854,10 +856,12 @@ page_view_render (PageView *view, cairo_t *context)
     }
 
     /* Draw scan line */
-    scan_line = page_get_scan_line (view->priv->page);
-    if (scan_line > 0) {
+    if (page_is_scanning (view->priv->page) && page_get_scan_line (view->priv->page) > 0) {
+        gint scan_line;
         double s;
         double x1, y1, x2, y2;
+
+        scan_line = page_get_scan_line (view->priv->page);
         
         switch (page_get_orientation (view->priv->page)) {
         case TOP_TO_BOTTOM:
