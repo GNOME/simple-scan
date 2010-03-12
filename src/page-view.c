@@ -655,19 +655,20 @@ page_view_motion (PageView *view, gint x, gint y)
     new_w = view->priv->selected_crop_w;
     new_h = view->priv->selected_crop_h;
 
+    /* Limit motion to remain within page and minimum crop size */
     if (view->priv->crop_location == CROP_TOP_LEFT ||
         view->priv->crop_location == CROP_LEFT ||
         view->priv->crop_location == CROP_BOTTOM_LEFT) {
-        if (dx > new_w + 1)
-            dx = new_w + 1;
+        if (dx > new_w - min_size)
+            dx = new_w - min_size;
         if (new_x + dx < 0)
             dx = -new_x;
     }
     if (view->priv->crop_location == CROP_TOP_LEFT ||
         view->priv->crop_location == CROP_TOP ||
         view->priv->crop_location == CROP_TOP_RIGHT) {
-        if (dy > new_h + 1)
-            dy = new_h + 1;
+        if (dy > new_h - min_size)
+            dy = new_h - min_size;
         if (new_y + dy < 0)
             dy = -new_y;
     }
@@ -675,20 +676,31 @@ page_view_motion (PageView *view, gint x, gint y)
     if (view->priv->crop_location == CROP_TOP_RIGHT ||
         view->priv->crop_location == CROP_RIGHT ||
         view->priv->crop_location == CROP_BOTTOM_RIGHT) {
-        if (new_w - dx < 1)
-            dx = new_w - 1;
+        if (dx < min_size - new_w)
+            dx = min_size - new_w;
         if (new_x + new_w + dx > pw)
             dx = pw - new_x - new_w;
     }
     if (view->priv->crop_location == CROP_BOTTOM_LEFT ||
         view->priv->crop_location == CROP_BOTTOM ||
         view->priv->crop_location == CROP_BOTTOM_RIGHT) {
-        if (new_h - dy < 1)
-            dy = new_h - 1;
+        if (dy < min_size - new_h)
+            dy = min_size - new_h;
         if (new_y + new_h + dy > ph)
             dy = ph - new_y - new_h;
     }
+    if (view->priv->crop_location == CROP_MIDDLE) {
+        if (new_x + dx + new_w > pw)
+            dx = pw - new_x - new_w;
+        if (new_x + dx < 0)
+            dx = -new_x;
+        if (new_y + dy + new_h > ph)
+            dy = ph - new_y - new_h;
+        if (new_y + dy  < 0)
+            dy = -new_y;
+    }
 
+    /* Move crop */
     if (view->priv->crop_location == CROP_MIDDLE) {
         new_x += dx;
         new_y += dy;          
@@ -718,23 +730,8 @@ page_view_motion (PageView *view, gint x, gint y)
         new_h += dy;
     }
 
-    if (new_w < min_size)
-        new_w = min_size;
-    if (new_h < min_size)
-        new_h = min_size;
-
-    if (new_x > pw - cw)
-        new_x = pw - cw;
-    if (new_x < 0)
-        new_x = 0;
-    if (new_y > ph - ch)
-        new_y = ph - ch;
-    if (new_y < 0)
-        new_y = 0;
-
     page_move_crop (view->priv->page, new_x, new_y);
-    if (new_w != cw || new_h != ch)
-        page_set_custom_crop (view->priv->page, new_w, new_h);
+    page_set_custom_crop (view->priv->page, new_w, new_h);
 }
 
 
