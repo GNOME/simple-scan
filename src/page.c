@@ -825,6 +825,29 @@ page_save_png (Page *page, const gchar *uri, GError **error)
 }
 
 
+gboolean
+page_save_tiff (Page *page, const gchar *uri, GError **error)
+{
+    GdkPixbuf *image;
+    GFileOutputStream *stream;
+    gboolean result;
+  
+    stream = open_file (uri, error);
+    if (!stream)
+        return FALSE;
+
+    image = page_get_cropped_image (page);
+    result = gdk_pixbuf_save_to_callback (image,
+                                          (GdkPixbufSaveFunc) write_pixbuf_data, stream,
+                                          "tiff", error,
+                                          NULL);
+    g_object_unref (image);
+    g_object_unref (stream);
+
+    return result;
+}
+
+
 static void
 page_finalize (GObject *object)
 {

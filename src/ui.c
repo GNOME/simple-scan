@@ -546,14 +546,14 @@ show_page_cb (BookView *view, Page *page, SimpleScan *ui)
     GdkScreen *screen;
     GError *error = NULL;
   
-    path = get_temporary_filename ("scanned-page", "png");
+    path = get_temporary_filename ("scanned-page", "tiff");
     if (!path)
         return;
 
     screen = gtk_widget_get_screen (GTK_WIDGET (ui->priv->window));
 
     uri = g_filename_to_uri (path, NULL, NULL);
-    if (page_save_png (page, uri, &error))
+    if (page_save_tiff (page, uri, &error))
         gtk_show_uri (screen, uri, gtk_get_current_event_time (), &error);
 
     if (error) {

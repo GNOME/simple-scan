@@ -113,4 +113,6 @@ gboolean page_save_jpeg (Page *page, const gchar *uri, GError **error);
 
 gboolean page_save_png (Page *page, const gchar *uri, GError **error);
 
+gboolean page_save_tiff (Page *page, const gchar *uri, GError **error);
+
 #endif /* _PAGE_H_ */
