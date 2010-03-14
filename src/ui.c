@@ -1044,6 +1044,8 @@ quit (SimpleScan *ui)
     char *device, *document_type;
     gint i;
 
+    // FIXME: Warn if document with unsaved changes
+
     device = get_selected_device (ui);
     if (device) {
         gconf_client_set_string(ui->priv->client, GCONF_DIR "/selected_device", device, NULL);
