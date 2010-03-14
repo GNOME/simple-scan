@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-11 09:46+1100\n"
-"PO-Revision-Date: 2010-02-09 12:41+0000\n"
+"PO-Revision-Date: 2010-03-13 14:29+0000\n"
 "Last-Translator: cumulus007 <cumulus0007@gmail.com>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-03-11 05:11+0000\n"
+"X-Launchpad-Export-Date: 2010-03-14 05:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -45,7 +45,7 @@ msgstr "Alle pagina's van in_voer"
 #. Tooltip for preferences button
 #: ../data/simple-scan.ui.h:12
 msgid "Configure application preferences"
-msgstr ""
+msgstr "Toepassingsvoorkeuren instellen"
 
 #: ../data/simple-scan.ui.h:13
 msgid "Crop"
@@ -54,7 +54,7 @@ msgstr "Bijsnijden"
 #. Tooltip for crop button
 #: ../data/simple-scan.ui.h:15
 msgid "Crop the selected page"
-msgstr ""
+msgstr "De geselecteerde pagina bijsnijden"
 
 #. Label on email toolbar item
 #: ../data/simple-scan.ui.h:17
@@ -118,12 +118,12 @@ msgstr "_Rechtsom draaien"
 #. Tooltip for rotate left (counter-clockwise) button
 #: ../data/simple-scan.ui.h:40
 msgid "Rotate the page to the left (counter-clockwise)"
-msgstr ""
+msgstr "De pagina linksom draaien (tegen de klok in)"
 
 #. Tooltip for rotate right (clockwise) button
 #: ../data/simple-scan.ui.h:42
 msgid "Rotate the page to the right (clockwise)"
-msgstr ""
+msgstr "De pagina rechtsom draaien (met de klok mee)"
 
 #. Label on save to file toolbar item
 #: ../data/simple-scan.ui.h:44
@@ -138,7 +138,7 @@ msgstr "Het huidige document in een bestand opslaan"
 #. Scan menu item
 #: ../data/simple-scan.ui.h:48
 msgid "Sc_an"
-msgstr ""
+msgstr "Sc_annen"
 
 #. Label on scan toolbar item
 #: ../data/simple-scan.ui.h:50
@@ -172,12 +172,12 @@ msgstr "Een nieuw document beginnen"
 
 #: ../data/simple-scan.ui.h:61
 msgid "Stop"
-msgstr ""
+msgstr "Stoppen"
 
 #. Tooltip for stop button
 #: ../data/simple-scan.ui.h:63
 msgid "Stop the current scan"
-msgstr ""
+msgstr "De huidige scan stoppen"
 
 #. Combo box label for text scan mode
 #: ../data/simple-scan.ui.h:65
@@ -191,6 +191,9 @@ msgid ""
 "scans of text documents, or \"Photo\" for slower, higher quality scans of "
 "documents with graphics or photographs."
 msgstr ""
+"Het type document dat gescand wordt. Gebruik \"Tekst\"  voor het snel "
+"scannen van tekst in gemiddelde kwaliteit, of \"Foto\" voor het trager "
+"scannen van documenten met illustraties of foto's in hogere kwaliteit."
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:69
@@ -200,7 +203,7 @@ msgstr "Toest_aan"
 #. Help|Contents menu
 #: ../data/simple-scan.ui.h:71
 msgid "_Contents"
-msgstr ""
+msgstr "_Inhoud"
 
 #. Label for page crop submenu
 #: ../data/simple-scan.ui.h:73
@@ -220,7 +223,7 @@ msgstr "_Document"
 #. Label on email menu item
 #: ../data/simple-scan.ui.h:79
 msgid "_Email"
-msgstr ""
+msgstr "_E-mailen"
 
 #. Label on help menu
 #: ../data/simple-scan.ui.h:81
@@ -250,7 +253,7 @@ msgstr "_Wachtwoord:"
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:91
 msgid "_Photo Resolution:"
-msgstr ""
+msgstr "_Fotoresolutie:"
 
 #. Menu item to rotate the crop area
 #: ../data/simple-scan.ui.h:93
@@ -265,7 +268,7 @@ msgstr "Scan _stoppen"
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:97
 msgid "_Text Resolution:"
-msgstr ""
+msgstr "_Tekstresolutie:"
 
 #. Label beside username entry
 #: ../data/simple-scan.ui.h:99
@@ -286,23 +289,23 @@ msgstr "Scanrichting"
 
 #: ../data/simple-scan.schemas.in.h:3
 msgid "Directory to save files to"
-msgstr ""
+msgstr "Map om bestanden in op te slaan"
 
 #: ../data/simple-scan.schemas.in.h:4
 msgid "Height of scanned image in pixels"
-msgstr ""
+msgstr "Hoogte van gescande afbeelding in pixels"
 
 #: ../data/simple-scan.schemas.in.h:5
 msgid "Resolution for photo scans"
-msgstr ""
+msgstr "Resolutie voor gescande foto's"
 
 #: ../data/simple-scan.schemas.in.h:6
 msgid "Resolution for text scans"
-msgstr ""
+msgstr "Resolutie voor gescande tekst"
 
 #: ../data/simple-scan.schemas.in.h:7
 msgid "Resolution of last scanned image"
-msgstr ""
+msgstr "Resolutie van laatste gescande afbeelding"
 
 #: ../data/simple-scan.schemas.in.h:8
 msgid "SANE device to acquire images from."
@@ -325,30 +328,41 @@ msgstr ""
 msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
 msgstr ""
+"De map waarin bestanden worden opgeslagen. Dit is standaard de map "
+"Documenten indien niet ingesteld."
 
 #: ../data/simple-scan.schemas.in.h:12
 msgid ""
 "The height of scanned image in pixels. This value is updated to what the "
 "last scanned page was."
 msgstr ""
+"De hoogte van de gescande afbeelding in pixels. Deze waarde representeert de "
+"laatst gescande pagina."
 
 #: ../data/simple-scan.schemas.in.h:13
 msgid "The resolution in dots-per-inch of the previously scanned image."
 msgstr ""
+"De resolutie in punten-per-inch (dtp) van de vorige gescande afbeelding."
 
 #: ../data/simple-scan.schemas.in.h:14
 msgid "The resolution in dots-per-inch to use when scanning photos."
 msgstr ""
+"De te gebruiken resolutie in punten-per-inch (dtp) tijdens het scannen van "
+"foto's."
 
 #: ../data/simple-scan.schemas.in.h:15
 msgid "The resolution in dots-per-inch to use when scanning text."
 msgstr ""
+"De te gebruiken resolutie in punten-per-inch (dtp) tijdens het scannen van "
+"tekst."
 
 #: ../data/simple-scan.schemas.in.h:16
 msgid ""
 "The width of scanned image in pixels. This value is updated to what the last "
 "scanned page was."
 msgstr ""
+"De breedte van de gescande afbeelding in pixels. Deze waarde representeert "
+"de laatst gescande pagina."
 
 #: ../data/simple-scan.schemas.in.h:17
 msgid "Type of document being scanned"
@@ -365,7 +379,7 @@ msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:19
 msgid "Width of scanned image in pixels"
-msgstr ""
+msgstr "Breedte van gescande afbeelding in pixels"
 
 #: ../data/simple-scan.schemas.in.h:20
 msgid "Window height in pixels"
@@ -379,6 +393,8 @@ msgstr "Vensterbreedte in pixels"
 #: ../src/scanner.c:852
 msgid "No scanners available.  Please connect a scanner."
 msgstr ""
+"Geen scanners beschikbaar. Sluit een scanner aan om dit programma te "
+"gebruiken."
 
 #. Error displayed when cannot connect to scanner
 #: ../src/scanner.c:879
@@ -403,7 +419,7 @@ msgstr "Scannen is mislukt"
 #. Default filename to use when saving document (and extension will be added, e.g. .jpg)
 #: ../src/simple-scan.c:194
 msgid "Scanned Document"
-msgstr ""
+msgstr "Gescand document"
 
 #. Title of error dialog when save failed
 #: ../src/simple-scan.c:263
@@ -481,22 +497,22 @@ msgstr "Controleer of uw scanner is aangesloten en is ingeschakeld"
 #. Error message display when unable to preview image
 #: ../src/ui.c:517
 msgid "Unable to open image preview application"
-msgstr ""
+msgstr "Kan toepassing voor voorvertoning van afbeelding niet openen"
 
 #. Save dialog: Label for saving in PDF format
 #: ../src/ui.c:756
 msgid "PDF (multi-page document)"
-msgstr ""
+msgstr "PDF (document met meerdere pagina's)"
 
 #. Save dialog: Label for saving in JPEG format
 #: ../src/ui.c:758
 msgid "JPEG (compressed)"
-msgstr ""
+msgstr "JPEG (gecomprimeerd)"
 
 #. Save dialog: Label for saving in PNG format
 #: ../src/ui.c:760
 msgid "PNG (lossless)"
-msgstr ""
+msgstr "PNG (lossless)"
 
 #. Save dialog: Dialog title
 #: ../src/ui.c:772
@@ -506,22 +522,22 @@ msgstr "Opslaan als..."
 #. Save dialog: Filter name to show only image files
 #: ../src/ui.c:788
 msgid "Image Files"
-msgstr ""
+msgstr "Afbeeldingsbestanden"
 
 #. Save dialog: Filter name to show all files
 #: ../src/ui.c:795
 msgid "All Files"
-msgstr ""
+msgstr "Alle bestanden"
 
 #. 
 #: ../src/ui.c:800
 msgid "Select File _Type"
-msgstr ""
+msgstr "Bestands_type selecteren"
 
 #. Error message displayed when unable to launch help browser
 #: ../src/ui.c:939
 msgid "Unable to open help file"
-msgstr ""
+msgstr "Kon hulpbestand niet openen"
 
 #. The license this software is under (GPL3+)
 #: ../src/ui.c:955
@@ -582,25 +598,25 @@ msgstr ""
 #: ../src/ui.c:1114
 #, c-format
 msgid "%d dpi (draft)"
-msgstr ""
+msgstr "%d dpi (klad)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
 #: ../src/ui.c:1116 ../src/ui.c:1117 ../src/ui.c:1118 ../src/ui.c:1121
 #, c-format
 msgid "%d dpi"
-msgstr ""
+msgstr "%d dpi"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
 #: ../src/ui.c:1120
 #, c-format
 msgid "%d dpi (high resolution)"
-msgstr ""
+msgstr "%d dpi (hoge resolutie)"
 
 #. Preferences dialog: Label for default resolution in resolution list
 #: ../src/ui.c:1143
 #, c-format
 msgid "%d dpi (default)"
-msgstr ""
+msgstr "%d dpi (standaard)"
 
 #. Title of dialog when cannot load required files
 #: ../src/ui.c:1175

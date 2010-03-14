@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-11 09:46+1100\n"
-"PO-Revision-Date: 2010-02-21 12:55+0000\n"
+"PO-Revision-Date: 2010-03-13 09:07+0000\n"
 "Last-Translator: Pierre Slamich <pierre.slamich@gmail.com>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-03-11 05:11+0000\n"
+"X-Launchpad-Export-Date: 2010-03-14 05:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -139,7 +139,7 @@ msgstr "Sauvegarder le document actuel dans un fichier"
 #. Scan menu item
 #: ../data/simple-scan.ui.h:48
 msgid "Sc_an"
-msgstr ""
+msgstr "Nu_mériser"
 
 #. Label on scan toolbar item
 #: ../data/simple-scan.ui.h:50
@@ -221,7 +221,7 @@ msgstr "_Document"
 #. Label on email menu item
 #: ../data/simple-scan.ui.h:79
 msgid "_Email"
-msgstr ""
+msgstr "_Courriel"
 
 #. Label on help menu
 #: ../data/simple-scan.ui.h:81
@@ -251,7 +251,7 @@ msgstr "_Mot de passe :"
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:91
 msgid "_Photo Resolution:"
-msgstr ""
+msgstr "Résolution de la _Photo :"
 
 #. Menu item to rotate the crop area
 #: ../data/simple-scan.ui.h:93
@@ -261,12 +261,12 @@ msgstr "Pivote_r la selection"
 #. Menu entry to stop current scan
 #: ../data/simple-scan.ui.h:95
 msgid "_Stop Scan"
-msgstr ""
+msgstr "_Arrêter la numérisation"
 
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:97
 msgid "_Text Resolution:"
-msgstr ""
+msgstr "Résolution du _Texte :"
 
 #. Label beside username entry
 #: ../data/simple-scan.ui.h:99
@@ -283,7 +283,7 @@ msgstr "Numériser depuis"
 
 #: ../data/simple-scan.schemas.in.h:2
 msgid "Direction of scan"
-msgstr ""
+msgstr "Sens de numérisation"
 
 #: ../data/simple-scan.schemas.in.h:3
 msgid "Directory to save files to"
@@ -311,7 +311,7 @@ msgstr "Périphérique SANE à utiliser pour l'acquisition des images."
 
 #: ../data/simple-scan.schemas.in.h:9
 msgid "TRUE if the application window is maximized"
-msgstr ""
+msgstr "VRAI si la fenêtre de l'application est maximisée"
 
 #: ../data/simple-scan.schemas.in.h:10
 msgid ""
@@ -329,6 +329,8 @@ msgid ""
 "The height of scanned image in pixels. This value is updated to what the "
 "last scanned page was."
 msgstr ""
+"La hauteur de l'image numérisée en pixels. Cette valeur est mise à jour en "
+"fonction de la dernière page numérisée."
 
 #: ../data/simple-scan.schemas.in.h:13
 msgid "The resolution in dots-per-inch of the previously scanned image."
@@ -347,6 +349,8 @@ msgid ""
 "The width of scanned image in pixels. This value is updated to what the last "
 "scanned page was."
 msgstr ""
+"La largeur de l'image numérisée en pixels. Cette valeur est mise à jour en "
+"fonction de la dernière page numérisée."
 
 #: ../data/simple-scan.schemas.in.h:17
 msgid "Type of document being scanned"
@@ -399,7 +403,7 @@ msgstr "Échec de la numérisation"
 #. Default filename to use when saving document (and extension will be added, e.g. .jpg)
 #: ../src/simple-scan.c:194
 msgid "Scanned Document"
-msgstr ""
+msgstr "Document numérisé"
 
 #. Title of error dialog when save failed
 #: ../src/simple-scan.c:263
@@ -427,6 +431,12 @@ msgid ""
 "  --help-all                      Show all help options\n"
 "  --help-gtk                      Show GTK+ options"
 msgstr ""
+"Options d'aide :\n"
+"  -d, --debug Affiche les messages d'erreur\n"
+"  -v, --version Affiche le numéro de version\n"
+"  -h, --help Affiche les options d'aide\n"
+"  --help-all Affiche toutes les options d'aide\n"
+"  --help-gtk Affiche les options de GTK+"
 
 #. Description on simple-scan command-line GTK+ options displayed on command-line
 #: ../src/simple-scan.c:400
@@ -476,17 +486,17 @@ msgstr ""
 #. Save dialog: Label for saving in PDF format
 #: ../src/ui.c:756
 msgid "PDF (multi-page document)"
-msgstr ""
+msgstr "PDF (document multi-pages)"
 
 #. Save dialog: Label for saving in JPEG format
 #: ../src/ui.c:758
 msgid "JPEG (compressed)"
-msgstr ""
+msgstr "JPEG (compressé)"
 
 #. Save dialog: Label for saving in PNG format
 #: ../src/ui.c:760
 msgid "PNG (lossless)"
-msgstr ""
+msgstr "PNG (sans perte)"
 
 #. Save dialog: Dialog title
 #: ../src/ui.c:772
@@ -496,12 +506,12 @@ msgstr "Enregistrer sous..."
 #. Save dialog: Filter name to show only image files
 #: ../src/ui.c:788
 msgid "Image Files"
-msgstr ""
+msgstr "Fichiers images"
 
 #. Save dialog: Filter name to show all files
 #: ../src/ui.c:795
 msgid "All Files"
-msgstr ""
+msgstr "Tous les fichiers"
 
 #. 
 #: ../src/ui.c:800
@@ -511,7 +521,7 @@ msgstr ""
 #. Error message displayed when unable to launch help browser
 #: ../src/ui.c:939
 msgid "Unable to open help file"
-msgstr ""
+msgstr "Impossible d'ouvrir le fichier d'aide"
 
 #. The license this software is under (GPL3+)
 #: ../src/ui.c:955
@@ -572,25 +582,25 @@ msgstr ""
 #: ../src/ui.c:1114
 #, c-format
 msgid "%d dpi (draft)"
-msgstr ""
+msgstr "%d ppp (brouillon)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
 #: ../src/ui.c:1116 ../src/ui.c:1117 ../src/ui.c:1118 ../src/ui.c:1121
 #, c-format
 msgid "%d dpi"
-msgstr ""
+msgstr "%d ppp"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
 #: ../src/ui.c:1120
 #, c-format
 msgid "%d dpi (high resolution)"
-msgstr ""
+msgstr "%d ppp (haute résolution)"
 
 #. Preferences dialog: Label for default resolution in resolution list
 #: ../src/ui.c:1143
 #, c-format
 msgid "%d dpi (default)"
-msgstr ""
+msgstr "%d ppp (par défaut)"
 
 #. Title of dialog when cannot load required files
 #: ../src/ui.c:1175
@@ -605,7 +615,7 @@ msgstr "Veuillez vérifier votre installation"
 #. Button in error dialog to open prefereces dialog and change scanner
 #: ../src/ui.c:1339
 msgid "Change _Scanner"
-msgstr ""
+msgstr "Changer de _Scanner"
 
 #: ../src/ui.c:1463
 msgid "Scanned Document.pdf"
