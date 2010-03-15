@@ -240,6 +240,8 @@ save_book (const gchar *uri, GError **error)
         result = book_save_ps (book, uri, error);
     else if (g_str_has_suffix (uri_lower, ".png"))
         result = book_save_png (book, uri, error);
+    else if (g_str_has_suffix (uri_lower, ".tif") || g_str_has_suffix (uri_lower, ".tiff"))
+        result = book_save_tiff (book, uri, error);
     else
         result = book_save_jpeg (book, uri, error);
 
