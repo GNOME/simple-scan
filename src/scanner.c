@@ -46,6 +46,7 @@ typedef struct
     ScanMode scan_mode;
     gint depth;
     gboolean type;
+    gint page_width, page_height;
 } ScanJob;
 
 typedef struct
@@ -1080,6 +1081,22 @@ do_get_option (Scanner *scanner)
             break;
         }
     }
+    else if (strcmp (option->name, SANE_NAME_PAGE_WIDTH) == 0) {
+        if (job->page_width > 0.0) {
+            if (option->type == SANE_TYPE_FIXED)
+                set_fixed_option (scanner->priv->handle, option, option_index, job->page_width / 10.0);
+            else
+                set_int_option (scanner->priv->handle, option, option_index, job->page_width / 10);
+        }
+    }
+    else if (strcmp (option->name, SANE_NAME_PAGE_HEIGHT) == 0) {
+        if (job->page_height > 0.0) {
+            if (option->type == SANE_TYPE_FIXED)
+                set_fixed_option (scanner->priv->handle, option, option_index, job->page_height / 10.0);
+            else
+                set_int_option (scanner->priv->handle, option, option_index, job->page_height / 10);
+        }
+    }
 
     /* Test scanner options (hoping will not effect other scanners...) */
     if (strcmp (scanner->priv->current_device, "test") == 0) {
@@ -1418,13 +1435,12 @@ scanner_is_scanning (Scanner *scanner)
 
 
 void
-scanner_scan (Scanner *scanner, const char *device,
-              gint dpi, ScanMode scan_mode, gint depth, ScanType type)
+scanner_scan (Scanner *scanner, const char *device, ScanOptions *options)
 {
     ScanRequest *request;
     const gchar *type_string;
   
-    switch (type) {
+    switch (options->type) {
     case SCAN_SINGLE:
         type_string = "SCAN_SINGLE";
         break;
@@ -1442,15 +1458,17 @@ scanner_scan (Scanner *scanner, const char *device,
         return;
     }
 
-    g_debug ("scanner_scan (\"%s\", %d, %s)", device ? device : "(null)", dpi, type_string);
+    g_debug ("scanner_scan (\"%s\", %d, %s)", device ? device : "(null)", options->dpi, type_string);
     request = g_malloc0 (sizeof (ScanRequest));
     request->type = REQUEST_START_SCAN;
     request->job = g_malloc0 (sizeof (ScanJob));
     request->job->device = g_strdup (device);
-    request->job->dpi = dpi;
-    request->job->scan_mode = scan_mode;
-    request->job->depth = depth;
-    request->job->type = type;
+    request->job->dpi = options->dpi;
+    request->job->scan_mode = options->scan_mode;
+    request->job->depth = options->depth;
+    request->job->type = options->type;
+    request->job->page_width = options->paper_width;
+    request->job->page_height = options->paper_height;
     g_async_queue_push (scanner->priv->scan_queue, request);
 }
 

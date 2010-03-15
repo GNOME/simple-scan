@@ -54,8 +54,8 @@ struct SimpleScanPrivate
     GtkWidget *username_entry, *password_entry;
 
     GtkWidget *preferences_dialog;
-    GtkWidget *device_combo, *text_dpi_combo, *photo_dpi_combo, *page_side_combo;
-    GtkTreeModel *device_model, *text_dpi_model, *photo_dpi_model, *page_side_model;
+    GtkWidget *device_combo, *text_dpi_combo, *photo_dpi_combo, *page_side_combo, *paper_size_combo;
+    GtkTreeModel *device_model, *text_dpi_model, *photo_dpi_model, *page_side_model, *paper_size_model;
     gboolean setting_devices, user_selected_device;
 
     Book *book;
@@ -331,6 +331,29 @@ set_page_side (SimpleScan *ui, const gchar *document_hint)
 }
 
 
+static void
+set_paper_size (SimpleScan *ui, gint width, gint height)
+{
+    GtkTreeIter iter;
+    gboolean have_iter;
+  
+    for (have_iter = gtk_tree_model_get_iter_first (ui->priv->paper_size_model, &iter);
+         have_iter;
+         have_iter = gtk_tree_model_iter_next (ui->priv->paper_size_model, &iter)) {
+        gint w, h;
+
+        gtk_tree_model_get (ui->priv->paper_size_model, &iter, 0, &w, 1, &h, -1);
+        if (w == width && h == height)
+            break;
+    }
+  
+    if (!have_iter)
+        have_iter = gtk_tree_model_get_iter_first (ui->priv->paper_size_model, &iter);
+    if (have_iter)
+        gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->paper_size_combo), &iter);
+}
+
+
 static gint
 get_text_dpi (SimpleScan *ui)
 {
@@ -370,6 +393,20 @@ get_page_side (SimpleScan *ui)
 }
 
 
+static gboolean
+get_paper_size (SimpleScan *ui, gint *width, gint *height)
+{
+    GtkTreeIter iter;
+
+    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->paper_size_combo), &iter)) {
+        gtk_tree_model_get (ui->priv->paper_size_model, &iter, 0, width, 1, height, -1);
+        return TRUE;
+    }
+  
+    return FALSE;
+}
+
+
 static gchar *
 get_document_hint (SimpleScan *ui)
 {
@@ -383,23 +420,57 @@ get_document_hint (SimpleScan *ui)
 }
 
 
+static ScanOptions *
+get_scan_options (SimpleScan *ui)
+{
+    struct {
+        const gchar *name;
+        ScanMode mode;
+    } profiles[] =
+    {
+        { "text",  SCAN_MODE_LINEART },
+        { "photo", SCAN_MODE_COLOR   },
+        { NULL,    SCAN_MODE_COLOR   }
+    };
+    gint i;
+    gchar *profile_name;
+    ScanOptions *options;
+
+    /* Find this profile */
+    // FIXME: Move this into scan-profile.c
+    profile_name = get_document_hint (ui);
+    for (i = 0; profiles[i].name && strcmp (profiles[i].name, profile_name) != 0; i++);
+  
+    options = g_malloc0 (sizeof (ScanOptions));
+    options->scan_mode = profiles[i].mode;
+    options->depth = 8;
+    if (options->scan_mode == SCAN_MODE_COLOR)
+        options->dpi = get_photo_dpi (ui);
+    else
+        options->dpi = get_text_dpi (ui);
+    get_paper_size (ui, &options->paper_width, &options->paper_height);
+  
+    g_free (profile_name);
+
+    return options;
+}
+
+
 void scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
 void
 scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    gchar *device, *mode;
-    gint dpi;
+    gchar *device;
+    ScanOptions *options;
 
     device = get_selected_device (ui);
-    mode = get_document_hint (ui);
-    if (strcmp (mode, "text") == 0) 
-        dpi = get_text_dpi (ui);
-    else
-        dpi = get_photo_dpi (ui);
-    g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, dpi, mode, SCAN_SINGLE);
+
+    options = get_scan_options (ui);
+    options->type = SCAN_SINGLE;
+    g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, options);
     g_free (device);
-    g_free (mode);
+    g_free (options);
 }
 
 
@@ -420,26 +491,23 @@ continuous_scan_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
     if (ui->priv->scanning) {
         g_signal_emit (G_OBJECT (ui), signals[STOP_SCAN], 0);
     } else {
-        gchar *device, *mode, *side;
-        gint dpi;
-        ScanType type = SCAN_ADF_BOTH;
+        gchar *device, *side;
+        ScanOptions *options;
 
         device = get_selected_device (ui);
-        mode = get_document_hint (ui);
+        options = get_scan_options (ui);
         side = get_page_side (ui);
-        if (strcmp (mode, "text") == 0) 
-            dpi = get_text_dpi (ui);
-        else
-            dpi = get_photo_dpi (ui);
         if (strcmp (side, "front") == 0)
-            type = SCAN_ADF_FRONT;
+            options->type = SCAN_ADF_FRONT;
         else if (strcmp (side, "back") == 0)
-            type = SCAN_ADF_BACK;
+            options->type = SCAN_ADF_BACK;
+        else
+            options->type = SCAN_ADF_BOTH;
 
-        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, dpi, mode, type);
+        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, options);
         g_free (device);
-        g_free (mode);
         g_free (side);
+        g_free (options);
     }
 }
 
@@ -1042,6 +1110,7 @@ static void
 quit (SimpleScan *ui)
 {
     char *device, *document_type;
+    gint paper_width = 0, paper_height = 0;
     gint i;
 
     // FIXME: Warn if document with unsaved changes
@@ -1058,6 +1127,9 @@ quit (SimpleScan *ui)
     gconf_client_set_int (ui->priv->client, GCONF_DIR "/text_dpi", get_text_dpi (ui), NULL);
     gconf_client_set_int (ui->priv->client, GCONF_DIR "/photo_dpi", get_photo_dpi (ui), NULL);
     gconf_client_set_string (ui->priv->client, GCONF_DIR "/page_side", get_page_side (ui), NULL);
+    get_paper_size (ui, &paper_width, &paper_height);
+    gconf_client_set_int (ui->priv->client, GCONF_DIR "/paper_width", paper_width, NULL);
+    gconf_client_set_int (ui->priv->client, GCONF_DIR "/paper_height", paper_height, NULL);
 
     gconf_client_set_int(ui->priv->client, GCONF_DIR "/window_width", ui->priv->window_width, NULL);
     gconf_client_set_int(ui->priv->client, GCONF_DIR "/window_height", ui->priv->window_height, NULL);
@@ -1216,7 +1288,7 @@ ui_load (SimpleScan *ui)
     GError *error = NULL;
     GtkCellRenderer *renderer;
     gchar *device, *document_type, *scan_direction, *page_side;
-    gint dpi;
+    gint dpi, paper_width, paper_height;
 
     gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (), ICON_DIR);
 
@@ -1266,6 +1338,24 @@ ui_load (SimpleScan *ui)
     ui->priv->photo_dpi_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->photo_dpi_combo));
     ui->priv->page_side_combo = GTK_WIDGET (gtk_builder_get_object (builder, "page_side_combo"));
     ui->priv->page_side_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->page_side_combo));
+    ui->priv->paper_size_combo = GTK_WIDGET (gtk_builder_get_object (builder, "paper_size_combo"));
+    ui->priv->paper_size_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->paper_size_combo));
+
+    GtkTreeIter iter;
+    gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 0, 1, 0, 2, "Automatic", -1);
+    gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 2050, 1, 1480, 2, "A6", -1);
+    gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 1480, 1, 2100, 2, "A5", -1);
+    gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 2100, 1, 1970, 2, "A4", -1);
+    gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 2159, 1, 2794, 2, "Letter", -1);
+    gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 2159, 1, 3556, 2, "Legal", -1);
+    gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 1016, 1, 1524, 2, "4×6", -1);
 
     dpi = gconf_client_get_int (ui->priv->client, GCONF_DIR "/text_dpi", NULL);
     if (dpi <= 0)
@@ -1279,11 +1369,22 @@ ui_load (SimpleScan *ui)
     renderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->device_combo), renderer, TRUE);
     gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->device_combo), renderer, "text", 1);
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->page_side_combo), renderer, TRUE);
+    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->page_side_combo), renderer, "text", 1);
     page_side = gconf_client_get_string (ui->priv->client, GCONF_DIR "/page_side", NULL);
     if (page_side) {
         set_page_side (ui, page_side);
         g_free (page_side);
     }
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->paper_size_combo), renderer, TRUE);
+    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->paper_size_combo), renderer, "text", 2);
+    paper_width = gconf_client_get_int (ui->priv->client, GCONF_DIR "/paper_width", NULL);
+    paper_height = gconf_client_get_int (ui->priv->client, GCONF_DIR "/paper_height", NULL);
+    set_paper_size (ui, paper_width, paper_height);
 
     device = gconf_client_get_string (ui->priv->client, GCONF_DIR "/selected_device", NULL);
     if (device) {
@@ -1292,10 +1393,6 @@ ui_load (SimpleScan *ui)
             gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
         g_free (device);
     }
-
-    renderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->page_side_combo), renderer, TRUE);
-    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->page_side_combo), renderer, "text", 1);
 
     document_type = gconf_client_get_string (ui->priv->client, GCONF_DIR "/document_type", NULL);
     if (document_type) {
@@ -1427,24 +1524,22 @@ ui_start (SimpleScan *ui)
 
 /* Generated with glib-genmarshal */
 static void
-g_cclosure_user_marshal_VOID__STRING_INT_STRING_INT (GClosure     *closure,
-                                                     GValue       *return_value G_GNUC_UNUSED,
-                                                     guint         n_param_values,
-                                                     const GValue *param_values,
-                                                     gpointer      invocation_hint G_GNUC_UNUSED,
-                                                     gpointer      marshal_data)
+g_cclosure_user_marshal_VOID__STRING_POINTER (GClosure     *closure,
+                                              GValue       *return_value G_GNUC_UNUSED,
+                                              guint         n_param_values,
+                                              const GValue *param_values,
+                                              gpointer      invocation_hint G_GNUC_UNUSED,
+                                              gpointer      marshal_data)
 {
-  typedef void (*GMarshalFunc_VOID__STRING_INT_STRING_INT) (gpointer       data1,
-                                                            gconstpointer  arg_1,
-                                                            gint           arg_2,
-                                                            gconstpointer  arg_3,
-                                                            gint           arg_4,
-                                                            gpointer       data2);
-  register GMarshalFunc_VOID__STRING_INT_STRING_INT callback;
+  typedef void (*GMarshalFunc_VOID__STRING_POINTER) (gpointer       data1,
+                                                     gconstpointer  arg_1,
+                                                     gconstpointer  arg_2,
+                                                     gpointer       data2);
+  register GMarshalFunc_VOID__STRING_POINTER callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
 
-  g_return_if_fail (n_param_values == 5);
+  g_return_if_fail (n_param_values == 3);
 
   if (G_CCLOSURE_SWAP_DATA (closure))
     {
@@ -1456,13 +1551,11 @@ g_cclosure_user_marshal_VOID__STRING_INT_STRING_INT (GClosure     *closure,
       data1 = g_value_peek_pointer (param_values + 0);
       data2 = closure->data;
     }
-  callback = (GMarshalFunc_VOID__STRING_INT_STRING_INT) (marshal_data ? marshal_data : cc->callback);
+  callback = (GMarshalFunc_VOID__STRING_POINTER) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
             g_value_get_string (param_values + 1),
-            g_value_get_int (param_values + 2),
-            g_value_get_string (param_values + 3),
-            g_value_get_int (param_values + 4),
+            g_value_get_pointer (param_values + 2),
             data2);
 }
 
@@ -1476,8 +1569,8 @@ ui_class_init (SimpleScanClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (SimpleScanClass, start_scan),
                       NULL, NULL,
-                      g_cclosure_user_marshal_VOID__STRING_INT_STRING_INT,
-                      G_TYPE_NONE, 4, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_INT);
+                      g_cclosure_user_marshal_VOID__STRING_POINTER,
+                      G_TYPE_NONE, 2, G_TYPE_STRING, G_TYPE_POINTER);
     signals[STOP_SCAN] =
         g_signal_new ("stop-scan",
                       G_TYPE_FROM_CLASS (klass),

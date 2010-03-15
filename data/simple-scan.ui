@@ -661,7 +661,7 @@
           <object class="GtkTable" id="table3">
             <property name="visible">True</property>
             <property name="border_width">5</property>
-            <property name="n_rows">4</property>
+            <property name="n_rows">5</property>
             <property name="n_columns">2</property>
             <property name="column_spacing">6</property>
             <property name="row_spacing">6</property>
@@ -775,6 +775,34 @@
                 <property name="y_options">GTK_FILL</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkLabel" id="paper_size_label">
+                <property name="visible">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes" comments="Label beside page size combo box">Page Size:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">photo_dpi_combo</property>
+              </object>
+              <packing>
+                <property name="top_attach">4</property>
+                <property name="bottom_attach">5</property>
+                <property name="x_options">GTK_FILL</property>
+                <property name="y_options">GTK_FILL</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="paper_size_combo">
+                <property name="visible">True</property>
+                <property name="model">paper_size_store</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">4</property>
+                <property name="bottom_attach">5</property>
+                <property name="y_options">GTK_FILL</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="position">1</property>
@@ -881,5 +909,15 @@
         <col id="1" translatable="yes" comments="Combo box label for scanning the back side of a page">Back</col>
       </row>
     </data>
+  </object>
+  <object class="GtkListStore" id="paper_size_store">
+    <columns>
+      <!-- column-name width -->
+      <column type="gint"/>
+      <!-- column-name height -->
+      <column type="gint"/>
+      <!-- column-name label -->
+      <column type="gchararray"/>
+    </columns>
   </object>
 </interface>
