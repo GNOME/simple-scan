@@ -552,7 +552,7 @@ page_selected_cb (BookView *view, Page *page, SimpleScan *ui)
     if (page_has_crop (page)) {
         char *crop_name;
       
-        // FIXME: Make more generic
+        // FIXME: Make more generic, move into page-size.c and reuse
         crop_name = page_get_named_crop (page);
         if (crop_name) {
             if (strcmp (crop_name, "A4") == 0)
