@@ -840,6 +840,7 @@ page_save_tiff (Page *page, const gchar *uri, GError **error)
     result = gdk_pixbuf_save_to_callback (image,
                                           (GdkPixbufSaveFunc) write_pixbuf_data, stream,
                                           "tiff", error,
+                                          "compression", "8", /* Deflate compression */
                                           NULL);
     g_object_unref (image);
     g_object_unref (stream);

@@ -15,6 +15,7 @@
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <cairo/cairo-pdf.h>
 #include <cairo/cairo-ps.h>
+#include <unistd.h> // TEMP: Needed for close() in get_temporary_filename()
 
 #include "book.h"
 
@@ -172,6 +173,26 @@ book_save_png (Book *book, const gchar *uri, GError **error)
 }
 
 
+gboolean
+book_save_tiff (Book *book, const gchar *uri, GError **error)
+{
+    GList *iter;
+    gboolean result = TRUE;
+    gint i;
+
+    for (iter = book->priv->pages, i = 0; iter && result; iter = iter->next, i++) {
+        Page *page = iter->data;
+        gchar *indexed_uri;
+
+        indexed_uri = make_indexed_uri (uri, i);
+        result = page_save_tiff (page, indexed_uri, error);
+        g_free (indexed_uri);
+    }
+   
+    return result;
+}
+
+
 static void
 save_ps_pdf_surface (cairo_surface_t *surface, GdkPixbuf *image, gdouble dpi)
 {
@@ -243,12 +264,157 @@ book_save_ps (Book *book, const gchar *uri, GError **error)
 }
 
 
+// TEMP: Copied from simple-scan.c
+static GFile *
+get_temporary_file (const gchar *prefix, const gchar *extension)
+{
+    gint fd;
+    GFile *file;
+    gchar *filename, *path;
+    GError *error = NULL;
+
+    /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
+     * use the filename but it appears to work in practise */
+
+    filename = g_strdup_printf ("%s-XXXXXX.%s", prefix, extension);
+    fd = g_file_open_tmp (filename, &path, &error);
+    g_free (filename);
+    if (fd < 0) {
+        g_warning ("Error saving email attachment: %s", error->message);
+        g_clear_error (&error);
+        return NULL;
+    }
+    close (fd);
+  
+    file = g_file_new_for_path (path);
+    g_free (path);
+
+    return file;
+}
+
+
+static goffset
+get_file_size (GFile *file)
+{
+    GFileInfo *info;
+    goffset size = 0;
+  
+    info = g_file_query_info (file,
+                              G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                              G_FILE_QUERY_INFO_NONE,
+                              NULL,
+                              NULL);
+    if (info) {
+        size = g_file_info_get_size (info);
+        g_object_unref (info);
+    }
+
+    return size;
+}
+
+
+static gboolean
+book_save_pdf_with_imagemagick (Book *book, const gchar *uri, GError **error)
+{
+    GList *iter;
+    GString *command_line;
+    gboolean result = TRUE;
+    gint exit_status = 0;
+    GFile *output_file = NULL;
+    GList *link, *temporary_files = NULL;
+
+    /* ImageMagick command to create a PDF */
+    command_line = g_string_new ("convert -adjoin");
+
+    /* Save each page to a file */
+    for (iter = book->priv->pages; iter && result; iter = iter->next) {
+        Page *page = iter->data;
+        GFile *jpeg_file, *tiff_file;
+        gchar *path, *uri;
+        gint jpeg_size, tiff_size;
+
+        jpeg_file = get_temporary_file ("simple-scan", "jpg");
+        uri = g_file_get_uri (jpeg_file);
+        result = page_save_jpeg (page, uri, error);
+        g_free (uri);
+        jpeg_size = get_file_size (jpeg_file);
+        temporary_files = g_list_append (temporary_files, jpeg_file);
+
+        tiff_file = get_temporary_file ("simple-scan", "tiff");
+        uri = g_file_get_uri (tiff_file);
+        result = page_save_tiff (page, uri, error);
+        g_free (uri);
+        tiff_size = get_file_size (tiff_file);
+        temporary_files = g_list_append (temporary_files, tiff_file);
+
+        /* Use the smallest file */
+        if (jpeg_size < tiff_size)
+            path = g_file_get_path (jpeg_file);
+        else
+            path = g_file_get_path (tiff_file);
+        g_string_append_printf (command_line, " %s", path);
+        g_free (path);
+    }
+
+    /* Use ImageMagick command to create a PDF */  
+    if (result) {
+        gchar *path, *stdout_text = NULL, *stderr_text = NULL;
+
+        output_file = get_temporary_file ("simple-scan", "pdf");
+        path = g_file_get_path (output_file);
+        g_string_append_printf (command_line, " %s", path);
+        g_free (path);
+
+        result = g_spawn_command_line_sync (command_line->str, &stdout_text, &stderr_text, &exit_status, error);
+        if (result && exit_status != 0) {
+            g_warning ("ImageMagick returned error code %d, command line was: %s", exit_status, command_line->str);
+            g_warning ("stdout: %s", stdout_text);
+            g_warning ("stderr: %s", stderr_text);
+            result = FALSE;
+        }
+        g_free (stdout_text);
+        g_free (stderr_text);
+    }
+
+    /* Move to target URI */
+    if (result) {
+        GFile *dest;
+        dest = g_file_new_for_uri (uri);
+        result = g_file_move (output_file, dest, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, error);
+        g_object_unref (dest);
+    }
+  
+    /* Delete page files */
+    for (link = temporary_files; link; link = link->next) {
+        GFile *file = link->data;
+
+        g_file_delete (file, NULL, NULL);
+        g_object_unref (file);
+    }
+    g_list_free (temporary_files);
+
+    if (output_file)
+        g_object_unref (output_file);
+    g_string_free (command_line, TRUE);
+
+    return result;
+}
+
+
 gboolean
 book_save_pdf (Book *book, const gchar *uri, GError **error)
 {
     GFileOutputStream *stream;
     GList *iter;
     cairo_surface_t *surface;
+    gchar *imagemagick_executable;
+  
+    /* Use ImageMagick if it is available as then we can compress the images */
+    imagemagick_executable = g_find_program_in_path ("convert");
+    if (imagemagick_executable) {
+        g_free (imagemagick_executable);
+        return book_save_pdf_with_imagemagick (book, uri, error);
+    }
 
     stream = open_file (uri, error);
     if (!stream)

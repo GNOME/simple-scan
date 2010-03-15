@@ -58,6 +58,8 @@ gboolean book_save_jpeg (Book *book, const gchar *uri, GError **error);
 
 gboolean book_save_png (Book *book, const gchar *uri, GError **error);
 
+gboolean book_save_tiff (Book *book, const gchar *uri, GError **error);
+
 gboolean book_save_ps (Book *book, const gchar *uri, GError **error);
 
 gboolean book_save_pdf (Book *book, const gchar *uri, GError **error);
