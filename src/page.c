@@ -364,6 +364,7 @@ page_set_orientation (Page *page, Orientation orientation)
     gint left_steps, t;
     GdkPixbuf *image;
     gboolean size_changed = FALSE;
+    gint width, height;
 
     g_return_if_fail (page != NULL);
 
@@ -375,15 +376,16 @@ page_set_orientation (Page *page, Orientation orientation)
     if (left_steps < 0)
         left_steps += 4;
   
+    width = page_get_width (page);
+    height = page_get_height (page);
+  
     /* Rotate image */
     if (left_steps == 1)
         image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
     else if (left_steps == 2)
         image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_UPSIDEDOWN);
-    else if (left_steps == 3)
-        image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_CLOCKWISE);
     else
-        image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_NONE);
+        image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_CLOCKWISE);
     gdk_pixbuf_unref (page->priv->image);
     page->priv->image = image;
     if (left_steps != 2)
@@ -396,21 +398,21 @@ page_set_orientation (Page *page, Orientation orientation)
         case 1:
             t = page->priv->crop_x;
             page->priv->crop_x = page->priv->crop_y;
-            page->priv->crop_y = page_get_width (page) - (t + page->priv->crop_width);
+            page->priv->crop_y = width - (t + page->priv->crop_width);
             t = page->priv->crop_width;
             page->priv->crop_width = page->priv->crop_height;
             page->priv->crop_height = t;
             break;
         /* 180 degrees */
         case 2:
-            page->priv->crop_x = page_get_width (page) - (page->priv->crop_x + page->priv->crop_width);
-            page->priv->crop_y = page_get_width (page) - (page->priv->crop_y + page->priv->crop_height);
+            page->priv->crop_x = width - (page->priv->crop_x + page->priv->crop_width);
+            page->priv->crop_y = width - (page->priv->crop_y + page->priv->crop_height);
             break;
         /* 90 degrees clockwise */
         case 3:
             t = page->priv->crop_y;
             page->priv->crop_y = page->priv->crop_x;
-            page->priv->crop_x = page_get_height (page) - (t + page->priv->crop_height);
+            page->priv->crop_x = height - (t + page->priv->crop_height);
             t = page->priv->crop_width;
             page->priv->crop_width = page->priv->crop_height;
             page->priv->crop_height = t;
@@ -420,7 +422,7 @@ page_set_orientation (Page *page, Orientation orientation)
 
     page->priv->orientation = orientation;
     if (size_changed)
-        g_signal_emit (page, signals[SIZE_CHANGED], 0);  
+        g_signal_emit (page, signals[SIZE_CHANGED], 0);
     g_signal_emit (page, signals[IMAGE_CHANGED], 0);
     g_signal_emit (page, signals[ORIENTATION_CHANGED], 0);
     g_signal_emit (page, signals[CROP_CHANGED], 0);
