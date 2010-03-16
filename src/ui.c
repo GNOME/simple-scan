@@ -610,19 +610,26 @@ get_temporary_filename (const gchar *prefix, const gchar *extension)
 static void
 show_page_cb (BookView *view, Page *page, SimpleScan *ui)
 {
-    gchar *path, *uri;
+    gchar *path;
+    GFile *file;
     GdkScreen *screen;
     GError *error = NULL;
   
     path = get_temporary_filename ("scanned-page", "tiff");
     if (!path)
         return;
+    file = g_file_new_for_path (path);
+    g_free (path);
 
     screen = gtk_widget_get_screen (GTK_WIDGET (ui->priv->window));
 
-    uri = g_filename_to_uri (path, NULL, NULL);
-    if (page_save_tiff (page, uri, &error))
+    if (page_save (page, "tiff", file, &error)) {
+        gchar *uri = g_file_get_uri (file);
         gtk_show_uri (screen, uri, gtk_get_current_event_time (), &error);
+        g_free (uri);
+    }
+
+    g_object_unref (file);
 
     if (error) {
         ui_show_error (ui,
@@ -632,9 +639,6 @@ show_page_cb (BookView *view, Page *page, SimpleScan *ui)
                        FALSE);
         g_clear_error (&error);
     }
-
-    g_free (uri);
-    g_free (path);
 }
 
 

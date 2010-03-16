@@ -220,23 +220,25 @@ cancel_cb (SimpleScan *ui)
 
 
 static gboolean
-save_book (const gchar *uri, GError **error)
+save_book_by_extension (GFile *file, GError **error)
 {
     gboolean result;
-    gchar *uri_lower;
+    gchar *uri, *uri_lower;
 
+    uri = g_file_get_uri (file);
     uri_lower = g_utf8_strdown (uri, -1);
     if (g_str_has_suffix (uri_lower, ".pdf"))
-        result = book_save_pdf (book, uri, error);
+        result = book_save (book, "pdf", file, error);
     else if (g_str_has_suffix (uri_lower, ".ps"))
-        result = book_save_ps (book, uri, error);
+        result = book_save (book, "ps", file, error);
     else if (g_str_has_suffix (uri_lower, ".png"))
-        result = book_save_png (book, uri, error);
+        result = book_save (book, "png", file, error);
     else if (g_str_has_suffix (uri_lower, ".tif") || g_str_has_suffix (uri_lower, ".tiff"))
-        result = book_save_tiff (book, uri, error);
+        result = book_save (book, "tiff", file, error);
     else
-        result = book_save_jpeg (book, uri, error);
+        result = book_save (book, "jpeg", file, error);
 
+    g_free (uri);
     g_free (uri_lower);
 
     return result;
@@ -247,10 +249,12 @@ static void
 save_cb (SimpleScan *ui, const gchar *uri)
 {
     GError *error = NULL;
+    GFile *file;
 
     g_debug ("Saving to '%s'", uri);
 
-    if (!save_book (uri, &error)) {
+    file = g_file_new_for_uri (uri);
+    if (!save_book_by_extension (file, &error)) {
         g_warning ("Error saving file: %s", error->message);
         ui_show_error (ui,
                        /* Title of error dialog when save failed */
@@ -259,6 +263,7 @@ save_cb (SimpleScan *ui, const gchar *uri)
 		       FALSE);
         g_error_free (error);
     }
+    g_object_unref (file);
 }
 
 
@@ -297,23 +302,26 @@ email_cb (SimpleScan *ui, const gchar *profile)
 
     /* Save text files as PDFs */
     if (strcmp (profile, "text") == 0) {
-        gchar *path, *uri;
+        gchar *path;
 
         /* Open a temporary file */
         path = get_temporary_filename ("scanned-document", "pdf");
         if (path) {
-            uri = g_filename_to_uri (path, NULL, NULL);
-            saved = book_save_pdf (book, uri, &error);
+            GFile *file;
+
+            file = g_file_new_for_path (path);
+            saved = book_save (book, "pdf", file, &error);
             g_string_append_printf (command_line, " --attach %s", path);
             g_free (path);
-            g_free (uri);
+            g_object_unref (file);
         }
     }
     else {
         gint i;
 
         for (i = 0; i < book_get_n_pages (book); i++) {
-            gchar *path, *uri;
+            gchar *path;
+            GFile *file;
 
             path = get_temporary_filename ("scanned-document", "jpg");
             if (!path) {
@@ -321,11 +329,11 @@ email_cb (SimpleScan *ui, const gchar *profile)
                 break;
             }
 
-            uri = g_filename_to_uri (path, NULL, NULL);
-            saved = page_save_jpeg (book_get_page (book, i), uri, &error);
+            file = g_file_new_for_path (path);
+            saved = page_save (book_get_page (book, i), "jpeg", file, &error);
             g_string_append_printf (command_line, " --attach %s", path);
             g_free (path);
-            g_free (uri);
+            g_object_unref (file);
           
             if (!saved)
                 break;

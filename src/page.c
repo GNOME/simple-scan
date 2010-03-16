@@ -760,19 +760,6 @@ page_get_cropped_image (Page *page)
 }
 
 
-static GFileOutputStream *
-open_file (const gchar *uri, GError **error)
-{
-    GFile *file;
-    GFileOutputStream *stream; 
-
-    file = g_file_new_for_uri (uri);
-    stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
-    g_object_unref (file);
-    return stream;
-}
-
-
 static gboolean
 write_pixbuf_data (const gchar *buf, gsize count, GError **error, GFileOutputStream *stream)
 {
@@ -781,69 +768,38 @@ write_pixbuf_data (const gchar *buf, gsize count, GError **error, GFileOutputStr
 
 
 gboolean
-page_save_jpeg (Page *page, const gchar *uri, GError **error)
+page_save (Page *page, const gchar *type, GFile *file, GError **error)
 {
-    GdkPixbuf *image;
     GFileOutputStream *stream;
-    gboolean result;
-  
-    stream = open_file (uri, error);
+    GdkPixbuf *image;
+    gboolean result = FALSE;
+
+    stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
     if (!stream)
         return FALSE;
 
     image = page_get_cropped_image (page);
-    result = gdk_pixbuf_save_to_callback (image,
-                                          (GdkPixbufSaveFunc) write_pixbuf_data, stream,
-                                          "jpeg", error,
-                                          "quality", "90",
-                                          NULL);
-    g_object_unref (image);
-    g_object_unref (stream);
 
-    return result;
-}
+    if (strcmp (type, "jpeg") == 0)
+        result = gdk_pixbuf_save_to_callback (image,
+                                              (GdkPixbufSaveFunc) write_pixbuf_data, stream,
+                                              "jpeg", error,
+                                              "quality", "90",
+                                              NULL);
+    else if (strcmp (type, "png") == 0)
+        result = gdk_pixbuf_save_to_callback (image,
+                                              (GdkPixbufSaveFunc) write_pixbuf_data, stream,
+                                              "png", error,
+                                              NULL);
+    else if (strcmp (type, "tiff") == 0)
+        result = gdk_pixbuf_save_to_callback (image,
+                                              (GdkPixbufSaveFunc) write_pixbuf_data, stream,
+                                              "tiff", error,
+                                              "compression", "8", /* Deflate compression */
+                                              NULL);
+    else
+        result = FALSE; // FIXME: Set GError
 
-
-gboolean
-page_save_png (Page *page, const gchar *uri, GError **error)
-{
-    GdkPixbuf *image;
-    GFileOutputStream *stream;
-    gboolean result;
-  
-    stream = open_file (uri, error);
-    if (!stream)
-        return FALSE;
-
-    image = page_get_cropped_image (page);
-    result = gdk_pixbuf_save_to_callback (image,
-                                          (GdkPixbufSaveFunc) write_pixbuf_data, stream,
-                                          "png", error,
-                                          NULL);
-    g_object_unref (image);
-    g_object_unref (stream);
-
-    return result;
-}
-
-
-gboolean
-page_save_tiff (Page *page, const gchar *uri, GError **error)
-{
-    GdkPixbuf *image;
-    GFileOutputStream *stream;
-    gboolean result;
-  
-    stream = open_file (uri, error);
-    if (!stream)
-        return FALSE;
-
-    image = page_get_cropped_image (page);
-    result = gdk_pixbuf_save_to_callback (image,
-                                          (GdkPixbufSaveFunc) write_pixbuf_data, stream,
-                                          "tiff", error,
-                                          "compression", "8", /* Deflate compression */
-                                          NULL);
     g_object_unref (image);
     g_object_unref (stream);
 

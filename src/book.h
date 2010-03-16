@@ -13,6 +13,7 @@
 #define _BOOK_H_
 
 #include <glib-object.h>
+#include <gio/gio.h>
 #include <cairo.h>
 #include "page.h"
 
@@ -54,14 +55,6 @@ gint book_get_n_pages (Book *book);
 
 Page *book_get_page (Book *book, gint page_number);
 
-gboolean book_save_jpeg (Book *book, const gchar *uri, GError **error);
-
-gboolean book_save_png (Book *book, const gchar *uri, GError **error);
-
-gboolean book_save_tiff (Book *book, const gchar *uri, GError **error);
-
-gboolean book_save_ps (Book *book, const gchar *uri, GError **error);
-
-gboolean book_save_pdf (Book *book, const gchar *uri, GError **error);
+gboolean book_save (Book *book, const gchar *type, GFile *file, GError **error);
 
 #endif /* _BOOK_H_ */

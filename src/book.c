@@ -100,26 +100,14 @@ book_get_page (Book *book, gint page_number)
 }
 
 
-static GFileOutputStream *
-open_file (const gchar *uri, GError **error)
-{
-    GFile *file;
-    GFileOutputStream *stream; 
-
-    file = g_file_new_for_uri (uri);
-    stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
-    g_object_unref (file);
-    return stream;
-}
-
-
-static gchar *
-make_indexed_uri (const gchar *uri, gint i)
+static GFile *
+make_indexed_file (const gchar *uri, gint i)
 {
     gchar *basename, *suffix, *indexed_uri;
+    GFile *file;
 
     if (i == 0)
-        return g_strdup (uri);
+        return g_file_new_for_uri (uri);
 
     basename = g_path_get_basename (uri);
     suffix = g_strrstr (basename, ".");
@@ -129,65 +117,32 @@ make_indexed_uri (const gchar *uri, gint i)
     else
         indexed_uri = g_strdup_printf ("%s-%d", uri, i);
     g_free (basename);
-    return indexed_uri;
+
+    file = g_file_new_for_uri (indexed_uri);
+    g_free (indexed_uri);
+
+    return file;
 }
 
 
-gboolean
-book_save_jpeg (Book *book, const gchar *uri, GError **error)
+static gboolean
+book_save_multi_file (Book *book, const gchar *type, GFile *file, GError **error)
 {
     GList *iter;
     gboolean result = TRUE;
     gint i;
+    gchar *uri;
 
+    uri = g_file_get_uri (file);
     for (iter = book->priv->pages, i = 0; iter && result; iter = iter->next, i++) {
         Page *page = iter->data;
-        gchar *indexed_uri;
+        GFile *file;
 
-        indexed_uri = make_indexed_uri (uri, i);
-        result = page_save_jpeg (page, indexed_uri, error);
-        g_free (indexed_uri);
+        file = make_indexed_file (uri, i);
+        result = page_save (page, type, file, error);
+        g_object_unref (file);
     }
-   
-    return result;
-}
-
-
-gboolean
-book_save_png (Book *book, const gchar *uri, GError **error)
-{
-    GList *iter;
-    gboolean result = TRUE;
-    gint i;
-
-    for (iter = book->priv->pages, i = 0; iter && result; iter = iter->next, i++) {
-        Page *page = iter->data;
-        gchar *indexed_uri;
-
-        indexed_uri = make_indexed_uri (uri, i);
-        result = page_save_png (page, indexed_uri, error);
-        g_free (indexed_uri);
-    }
-   
-    return result;
-}
-
-
-gboolean
-book_save_tiff (Book *book, const gchar *uri, GError **error)
-{
-    GList *iter;
-    gboolean result = TRUE;
-    gint i;
-
-    for (iter = book->priv->pages, i = 0; iter && result; iter = iter->next, i++) {
-        Page *page = iter->data;
-        gchar *indexed_uri;
-
-        indexed_uri = make_indexed_uri (uri, i);
-        result = page_save_tiff (page, indexed_uri, error);
-        g_free (indexed_uri);
-    }
+    g_free (uri);
    
     return result;
 }
@@ -226,14 +181,14 @@ write_cairo_data (GFileOutputStream *stream, unsigned char *data, unsigned int l
 }
 
 
-gboolean
-book_save_ps (Book *book, const gchar *uri, GError **error)
+static gboolean
+book_save_ps (Book *book, GFile *file, GError **error)
 {
     GFileOutputStream *stream;
     GList *iter;
     cairo_surface_t *surface;
 
-    stream = open_file (uri, error);
+    stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
     if (!stream)
         return FALSE;
 
@@ -314,7 +269,7 @@ get_file_size (GFile *file)
 
 
 static gboolean
-book_save_pdf_with_imagemagick (Book *book, const gchar *uri, GError **error)
+book_save_pdf_with_imagemagick (Book *book, GFile *file, GError **error)
 {
     GList *iter;
     GString *command_line;
@@ -330,20 +285,16 @@ book_save_pdf_with_imagemagick (Book *book, const gchar *uri, GError **error)
     for (iter = book->priv->pages; iter && result; iter = iter->next) {
         Page *page = iter->data;
         GFile *jpeg_file, *tiff_file;
-        gchar *path, *uri;
+        gchar *path;
         gint jpeg_size, tiff_size;
 
         jpeg_file = get_temporary_file ("simple-scan", "jpg");
-        uri = g_file_get_uri (jpeg_file);
-        result = page_save_jpeg (page, uri, error);
-        g_free (uri);
+        result = page_save (page, "jpeg", jpeg_file, error);
         jpeg_size = get_file_size (jpeg_file);
         temporary_files = g_list_append (temporary_files, jpeg_file);
 
         tiff_file = get_temporary_file ("simple-scan", "tiff");
-        uri = g_file_get_uri (tiff_file);
-        result = page_save_tiff (page, uri, error);
-        g_free (uri);
+        result = page_save (page, "tiff", tiff_file, error);
         tiff_size = get_file_size (tiff_file);
         temporary_files = g_list_append (temporary_files, tiff_file);
 
@@ -379,17 +330,16 @@ book_save_pdf_with_imagemagick (Book *book, const gchar *uri, GError **error)
     /* Move to target URI */
     if (result) {
         GFile *dest;
-        dest = g_file_new_for_uri (uri);
-        result = g_file_move (output_file, dest, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, error);
+        result = g_file_move (output_file, file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, error);
         g_object_unref (dest);
     }
   
     /* Delete page files */
     for (link = temporary_files; link; link = link->next) {
-        GFile *file = link->data;
+        GFile *f = link->data;
 
-        g_file_delete (file, NULL, NULL);
-        g_object_unref (file);
+        g_file_delete (f, NULL, NULL);
+        g_object_unref (f);
     }
     g_list_free (temporary_files);
 
@@ -401,8 +351,8 @@ book_save_pdf_with_imagemagick (Book *book, const gchar *uri, GError **error)
 }
 
 
-gboolean
-book_save_pdf (Book *book, const gchar *uri, GError **error)
+static gboolean
+book_save_pdf (Book *book, GFile *file, GError **error)
 {
     GFileOutputStream *stream;
     GList *iter;
@@ -413,10 +363,10 @@ book_save_pdf (Book *book, const gchar *uri, GError **error)
     imagemagick_executable = g_find_program_in_path ("convert");
     if (imagemagick_executable) {
         g_free (imagemagick_executable);
-        return book_save_pdf_with_imagemagick (book, uri, error);
+        return book_save_pdf_with_imagemagick (book, file, error);
     }
 
-    stream = open_file (uri, error);
+    stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
     if (!stream)
         return FALSE;
 
@@ -444,6 +394,24 @@ book_save_pdf (Book *book, const gchar *uri, GError **error)
     g_object_unref (stream);
 
     return TRUE;
+}
+
+
+gboolean
+book_save (Book *book, const gchar *type, GFile *file, GError **error)
+{
+    if (strcmp (type, "jpeg") == 0)
+        return book_save_multi_file (book, "jpeg", file, error);
+    else if (strcmp (type, "png") == 0)
+        return book_save_multi_file (book, "png", file, error);
+    else if (strcmp (type, "tiff") == 0)
+        return book_save_multi_file (book, "tiff", file, error);    
+    else if (strcmp (type, "ps") == 0)
+        return book_save_ps (book, file, error);    
+    else if (strcmp (type, "pdf") == 0)
+        return book_save_pdf (book, file, error);
+    else
+        return FALSE;
 }
 
 
