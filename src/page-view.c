@@ -426,6 +426,7 @@ update_preview (GdkPixbuf *image,
     g_return_if_fail (R < output_width);
     g_return_if_fail (T >= 0);
     g_return_if_fail (B < output_height);
+    g_return_if_fail (*output_image != NULL);
 
     output = gdk_pixbuf_get_pixels (*output_image);
     output_rowstride = gdk_pixbuf_get_rowstride (*output_image);
@@ -452,6 +453,20 @@ update_preview (GdkPixbuf *image,
 }
 
 
+static gint
+get_preview_width (PageView *view)
+{
+    return view->priv->width - view->priv->border_width * 2;
+}
+
+
+static gint
+get_preview_height (PageView *view)
+{
+    return view->priv->height - view->priv->border_width * 2;
+}
+
+
 static void
 update_page_view (PageView *view)
 {
@@ -467,8 +482,8 @@ update_page_view (PageView *view)
 
     update_preview (image,
                     &view->priv->image,
-                    view->priv->width - view->priv->border_width * 2,
-                    view->priv->height - view->priv->border_width * 2,
+                    get_preview_width (view),
+                    get_preview_height (view),
                     page_get_orientation (view->priv->page), old_scan_line, scan_line);
     g_object_unref (image);
 
@@ -480,28 +495,28 @@ update_page_view (PageView *view)
 static gint
 page_to_screen_x (PageView *view, gint x)
 {
-    return (double) x * gdk_pixbuf_get_width (view->priv->image) / page_get_width (view->priv->page) + 0.5;
+    return (double) x * get_preview_width (view) / page_get_width (view->priv->page) + 0.5;
 }
 
 
 static gint
 page_to_screen_y (PageView *view, gint y)
 {
-    return (double) y * gdk_pixbuf_get_height (view->priv->image) / page_get_height (view->priv->page) + 0.5;    
+    return (double) y * get_preview_height (view) / page_get_height (view->priv->page) + 0.5;    
 }
 
 
 static gint
 screen_to_page_x (PageView *view, gint x)
 {
-    return (double) x * page_get_width (view->priv->page) / gdk_pixbuf_get_width (view->priv->image) + 0.5;
+    return (double) x * page_get_width (view->priv->page) / get_preview_width (view) + 0.5;
 }
 
 
 static gint
 screen_to_page_y (PageView *view, gint y)
 {
-    return (double) y * page_get_height (view->priv->page) / gdk_pixbuf_get_height (view->priv->image) + 0.5;
+    return (double) y * page_get_height (view->priv->page) / get_preview_height (view) + 0.5;
 }
 
 
@@ -801,13 +816,13 @@ page_view_render (PageView *view, cairo_t *context)
     gint width, height;
 
     g_return_if_fail (view != NULL);
-  
-    update_animation (view);
+    g_return_if_fail (context != NULL);
 
-    /* Regenerate page pixbuf */
+    update_animation (view);
     update_page_view (view);
-    width = gdk_pixbuf_get_width (view->priv->image);
-    height = gdk_pixbuf_get_height (view->priv->image);
+
+    width = get_preview_width (view);
+    height = get_preview_height (view);
 
     cairo_set_line_width (context, 1);
     cairo_translate (context, view->priv->x, view->priv->y);
@@ -824,8 +839,18 @@ page_view_render (PageView *view, cairo_t *context)
 
     /* Draw image */
     cairo_translate (context, view->priv->border_width, view->priv->border_width);
-    gdk_cairo_set_source_pixbuf (context, view->priv->image, 0, 0);
-    cairo_paint (context);
+    if (view->priv->image) {
+        gdk_cairo_set_source_pixbuf (context, view->priv->image, 0, 0);
+        cairo_paint (context);
+    }
+    else {
+        cairo_scale (context,
+                     (double) get_preview_width (view) / page_get_width (view->priv->page),
+                     (double) get_preview_height (view) / page_get_height (view->priv->page));
+        gdk_cairo_set_source_pixbuf (context, page_get_image (view->priv->page), 0, 0);
+
+        cairo_paint (context);
+    }
 
     /* Draw throbber */
     if (page_is_scanning (view->priv->page) && !page_has_data (view->priv->page)) {

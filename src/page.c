@@ -92,6 +92,8 @@ page_set_scan_area (Page *page, gint width, gint rows, gint dpi)
                                         8,
                                         width,
                                         height);
+    g_return_if_fail (page->priv->image != NULL);
+
     gdk_pixbuf_fill (page->priv->image, 0xFFFFFFFF);
     g_signal_emit (page, signals[SIZE_CHANGED], 0);
     g_signal_emit (page, signals[IMAGE_CHANGED], 0);
@@ -226,7 +228,7 @@ parse_line (Page *page, ScanLine *line, gint n, gboolean *size_changed)
                                 8, new_width, new_height);
 
         /* Copy old data */
-        gdk_pixbuf_fill (image, 0xFFFFFFFF);
+        gdk_pixbuf_fill (page->priv->image, 0xFFFFFFFF);
         if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == LEFT_TO_RIGHT)
             gdk_pixbuf_copy_area (page->priv->image, 0, 0, width, height,
                                   image, 0, 0);
