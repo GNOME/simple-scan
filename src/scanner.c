@@ -1225,9 +1225,6 @@ do_complete_page (Scanner *scanner)
   
     job = (ScanJob *) scanner->priv->job_queue->data;
 
-    sane_cancel (scanner->priv->handle);
-    g_debug ("sane_cancel ()");
-
     /* If multi-pass then scan another page */
     if (!scanner->priv->parameters.last_frame) {
         scanner->priv->pass_number++;
@@ -1243,6 +1240,9 @@ do_complete_page (Scanner *scanner)
         scanner->priv->state = STATE_START;
         return;
     }
+
+    sane_cancel (scanner->priv->handle);
+    g_debug ("sane_cancel ()");
 
     do_complete_document (scanner);
 }
