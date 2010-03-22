@@ -100,7 +100,7 @@ struct ScannerPrivate
 
     /* Buffer for received line */
     SANE_Byte *buffer;
-    SANE_Int n_used;
+    SANE_Int buffer_size, n_used;
 
     SANE_Int bytes_remaining, line_count, pass_number, page_number, notified_page;
 
@@ -112,8 +112,6 @@ G_DEFINE_TYPE (Scanner, scanner, G_TYPE_OBJECT);
 
 /* Table of scanner objects for each thread (required for authorization callback) */
 static GHashTable *scanners;
-
-#define MAX_READ 10000
 
 
 static gboolean
@@ -1208,7 +1206,8 @@ do_get_parameters (Scanner *scanner)
     }
 
     /* Prepare for read */
-    scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * MAX_READ);
+    scanner->priv->buffer_size = scanner->priv->parameters.bytes_per_line;
+    scanner->priv->buffer = g_malloc (sizeof(SANE_Byte) * scanner->priv->buffer_size);
     scanner->priv->n_used = 0;
     scanner->priv->line_count = 0;
     scanner->priv->pass_number = 0;
@@ -1253,9 +1252,10 @@ do_read (Scanner *scanner)
 {
     SANE_Status status;
     SANE_Int n_to_read, n_read;
+    gboolean full_read = FALSE;
 
     /* Read as many bytes as we expect */
-    n_to_read = MAX_READ - scanner->priv->n_used;
+    n_to_read = scanner->priv->buffer_size - scanner->priv->n_used;
 
     status = sane_read (scanner->priv->handle,
                         scanner->priv->buffer + scanner->priv->n_used,
@@ -1278,7 +1278,9 @@ do_read (Scanner *scanner)
                    _("Error communicating with scanner"));
         return;
     }
- 
+
+    if (scanner->priv->n_used == 0 && n_read == scanner->priv->buffer_size)
+        full_read = TRUE;
     scanner->priv->n_used += n_read;
   
     /* Feed out lines */
@@ -1321,7 +1323,11 @@ do_read (Scanner *scanner)
         else {
             int i, n_remaining;
 
-            scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * MAX_READ);
+            /* Increate buffer size if did full read */
+            if (full_read)
+                scanner->priv->buffer_size += scanner->priv->parameters.bytes_per_line;
+
+            scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * scanner->priv->buffer_size);
             n_remaining = scanner->priv->n_used - (line->n_lines * line->data_length);
             scanner->priv->n_used = 0;
             for (i = 0; i < n_remaining; i++) {
