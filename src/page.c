@@ -88,6 +88,8 @@ page_set_scan_area (Page *page, gint width, gint rows, gint dpi)
 
     /* Create a white page */
     /* NOTE: Pixbuf only supports 8 bit RGB images */
+    if (page->priv->image)
+        g_object_unref (page->priv->image);
     page->priv->image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
                                         8,
                                         width,
