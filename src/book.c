@@ -63,8 +63,7 @@ book_append_page (Book *book, gint width, gint height, gint dpi, Orientation ori
     Page *page;
 
     page = page_new ();
-    page_set_scan_area (page, width, height, dpi);
-    page_set_orientation (page, orientation);
+    page_setup (page, width, height, dpi, orientation);
 
     book->priv->pages = g_list_append (book->priv->pages, page);
 

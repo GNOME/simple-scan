@@ -266,9 +266,10 @@ static void
 add_default_page (SimpleScan *ui)
 {
     Page *page;
-  
+
     page = book_append_page (ui->priv->book,
-                             ui->priv->default_page_width, ui->priv->default_page_height,
+                             ui->priv->default_page_width,
+                             ui->priv->default_page_height,
                              ui->priv->default_page_dpi,
                              ui->priv->default_page_orientation);
     book_view_select_page (ui->priv->book_view, page);
@@ -1197,8 +1198,8 @@ window_delete_event_cb (GtkWidget *widget, GdkEvent *event, SimpleScan *ui)
 static void
 page_size_changed_cb (Page *page, SimpleScan *ui)
 {
-    ui->priv->default_page_width = page_get_scan_width (page);
-    ui->priv->default_page_height = page_get_scan_height (page);
+    ui->priv->default_page_width = page_get_width (page);
+    ui->priv->default_page_height = page_get_height (page);
     ui->priv->default_page_dpi = page_get_dpi (page);
 }
 
@@ -1213,8 +1214,8 @@ page_orientation_changed_cb (Page *page, SimpleScan *ui)
 static void
 page_added_cb (Book *book, Page *page, SimpleScan *ui)
 {
-    ui->priv->default_page_width = page_get_scan_width (page);
-    ui->priv->default_page_height = page_get_scan_height (page);
+    ui->priv->default_page_width = page_get_width (page);
+    ui->priv->default_page_height = page_get_height (page);
     ui->priv->default_page_dpi = page_get_dpi (page);
     ui->priv->default_page_orientation = page_get_orientation (page);
     g_signal_connect (page, "size-changed", G_CALLBACK (page_size_changed_cb), ui);
@@ -1463,7 +1464,7 @@ ui_new ()
 Book *
 ui_get_book (SimpleScan *ui)
 {
-    return ui->priv->book;
+    return g_object_ref (ui->priv->book);
 }
 
 
@@ -1565,8 +1566,30 @@ g_cclosure_user_marshal_VOID__STRING_POINTER (GClosure     *closure,
 
 
 static void
+ui_finalize (GObject *object)
+{
+    SimpleScan *ui = SIMPLE_SCAN (object);
+
+    g_object_unref (ui->priv->client);
+    ui->priv->client = NULL;
+    g_object_unref (ui->priv->builder);
+    ui->priv->builder = NULL;
+    g_object_unref (ui->priv->book);
+    ui->priv->book = NULL;
+    g_object_unref (ui->priv->book_view);
+    ui->priv->book_view = NULL;    
+  
+    G_OBJECT_CLASS (ui_parent_class)->finalize (object);
+}
+
+
+static void
 ui_class_init (SimpleScanClass *klass)
 {
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+
+    object_class->finalize = ui_finalize;
+
     signals[START_SCAN] =
         g_signal_new ("start-scan",
                       G_TYPE_FROM_CLASS (klass),

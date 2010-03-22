@@ -33,10 +33,10 @@ struct PagePrivate
 
     /* Scanned image data */
     GdkPixbuf *image;
-  
+
     /* Page is getting data */
     gboolean scanning;
-  
+
     /* TRUE if have some page data */
     gboolean has_data;
 
@@ -45,7 +45,7 @@ struct PagePrivate
 
     /* Rotation of scanned data */
     Orientation orientation;
-    
+
     /* Crop */
     gboolean has_crop;
     gchar *crop_name;
@@ -59,6 +59,24 @@ Page *
 page_new ()
 {
     return g_object_new (PAGE_TYPE, NULL);
+}
+
+
+void
+page_setup (Page *page, gint width, gint height, gint dpi, Orientation orientation)
+{ 
+    page->priv->orientation = orientation;
+    page->priv->dpi = dpi;
+    if (orientation == LEFT_TO_RIGHT || orientation == RIGHT_TO_LEFT)
+        page->priv->rows = width;
+    else
+        page->priv->rows = height;
+    page->priv->image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
+                                        8,
+                                        width,
+                                        height);
+    g_return_if_fail (page->priv->image != NULL);
+    gdk_pixbuf_fill (page->priv->image, 0xFFFFFFFF);
 }
 
 
@@ -390,7 +408,7 @@ page_set_orientation (Page *page, Orientation orientation)
         image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_UPSIDEDOWN);
     else
         image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_CLOCKWISE);
-    gdk_pixbuf_unref (page->priv->image);
+    g_object_unref (page->priv->image);
     page->priv->image = image;
     if (left_steps != 2)
         size_changed = TRUE;
@@ -724,43 +742,40 @@ GdkPixbuf *
 page_get_image (Page *page)
 {
     g_return_val_if_fail (page != NULL, NULL);
-    return gdk_pixbuf_copy (page->priv->image);
+    return g_object_ref (page->priv->image);
 }
 
 
 GdkPixbuf *
 page_get_cropped_image (Page *page)
 {
-    GdkPixbuf *image, *cropped_image, *i;
+    GdkPixbuf *image, *cropped_image;
     gint x, y, w, h, pw, ph;
 
     g_return_val_if_fail (page != NULL, NULL);
-    
+
     image = page_get_image (page);
-    
+
     if (!page->priv->has_crop)
         return image;
-    
+
     x = page->priv->crop_x;
     y = page->priv->crop_y;
     w = page->priv->crop_width;
     h = page->priv->crop_height;
     pw = gdk_pixbuf_get_width (image);
     ph = gdk_pixbuf_get_height (image);
-    
+
     /* Trim crop */
     if (x + w >= pw)
         w = pw - x;
     if (y + h >= ph)
         h = ph - y;
-    
+
     cropped_image = gdk_pixbuf_new_subpixbuf (image, x, y, w, h);
     g_object_unref (image);
-    
-    i = gdk_pixbuf_copy (cropped_image);
-    g_object_unref (cropped_image);
 
-    return i;
+    return cropped_image;
 }
 
 
@@ -815,7 +830,8 @@ static void
 page_finalize (GObject *object)
 {
     Page *page = PAGE (object);
-    g_object_unref (page->priv->image);
+    if (page->priv->image)
+        g_object_unref (page->priv->image);
     page->priv->image = NULL;
     G_OBJECT_CLASS (page_parent_class)->finalize (object);
 }

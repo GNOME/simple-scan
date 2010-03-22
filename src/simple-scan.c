@@ -25,6 +25,8 @@
 
 static const char *default_device = NULL;
 
+static GUdevClient *udev_client;
+
 static SimpleScan *ui;
 
 static Scanner *scanner;
@@ -76,16 +78,16 @@ append_page ()
     /* Copy info from previous page */
     if (page) {
         orientation = page_get_orientation (page);
-        width = page_get_scan_width (page);
-        height = page_get_scan_height (page);
+        width = page_get_width (page);
+        height = page_get_height (page);
         dpi = page_get_dpi (page);
-        
+
         do_crop = page_has_crop (page);
         if (do_crop) {
             named_crop = page_get_named_crop (page);
             page_get_crop (page, &cx, &cy, &cw, &ch);
         }
-    }  
+    }
 
     page = book_append_page (book, width, height, dpi, orientation);
     if (do_crop) {
@@ -361,6 +363,9 @@ email_cb (SimpleScan *ui, const gchar *profile)
 static void
 quit_cb (SimpleScan *ui)
 {
+    g_object_unref (book);
+    g_object_unref (ui);
+    g_object_unref (udev_client);
     scanner_free (scanner);
     gtk_main_quit ();
 }
@@ -501,10 +506,10 @@ on_uevent (GUdevClient *client, const gchar *action, GUdevDevice *device)
     scanner_redetect (scanner);
 }
 
+
 int
 main (int argc, char **argv)
 {
-    GUdevClient *udev_client;
     const char *udev_subsystems[] = { "usb", NULL };
     gchar *path;
 
