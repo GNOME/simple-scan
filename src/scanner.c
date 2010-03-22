@@ -42,7 +42,7 @@ typedef struct
 typedef struct
 {
     gchar *device;
-    gint dpi;
+    gdouble dpi;
     ScanMode scan_mode;
     gint depth;
     gboolean type;
@@ -384,36 +384,60 @@ static gboolean
 control_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int index, SANE_Action action, void *value)
 {
     SANE_Status status;
-    
+    gchar *old_value;
+
+    switch (option->type) {
+    case SANE_TYPE_BOOL:
+        old_value = g_strdup_printf (*((SANE_Bool *) value) ? "SANE_TRUE" : "SANE_FALSE");
+        break;
+    case SANE_TYPE_INT:
+        old_value = g_strdup_printf ("%d", *((SANE_Int *) value));
+        break;
+    case SANE_TYPE_FIXED:
+        old_value = g_strdup_printf ("%f", SANE_UNFIX (*((SANE_Fixed *) value)));
+        break;
+    case SANE_TYPE_STRING:
+        old_value = g_strdup_printf ("\"%s\"", (char *) value);
+        break;
+    default:
+        old_value = g_strdup ("?");
+        break;
+    }
+
     status = sane_control_option (handle, index, action, value, NULL);
     switch (option->type) {
     case SANE_TYPE_BOOL:
-        g_debug ("sane_control_option (%d, %s, %s) -> %s",
+        g_debug ("sane_control_option (%d, %s, %s) -> (%s, %s)",
                  index, get_action_string (action),
                  *((SANE_Bool *) value) ? "SANE_TRUE" : "SANE_FALSE",
-                 get_status_string (status));
+                 get_status_string (status),
+                 old_value);
         break;
     case SANE_TYPE_INT:
-        g_debug ("sane_control_option (%d, %s, %d) -> %s",
+        g_debug ("sane_control_option (%d, %s, %d) -> (%s, %s)",
                  index, get_action_string (action),
                  *((SANE_Int *) value),
-                 get_status_string (status));
+                 get_status_string (status),
+                 old_value);
         break;
     case SANE_TYPE_FIXED:
-        g_debug ("sane_control_option (%d, %s, %f) -> %s",
+        g_debug ("sane_control_option (%d, %s, %f) -> (%s, %s)",
                  index, get_action_string (action),
                  SANE_UNFIX (*((SANE_Fixed *) value)),
-                 get_status_string (status));
+                 get_status_string (status),
+                 old_value);
         break;
     case SANE_TYPE_STRING:
-        g_debug ("sane_control_option (%d, %s, \"%s\") -> %s",
+        g_debug ("sane_control_option (%d, %s, \"%s\") -> (%s, %s)",
                  index, get_action_string (action),
                  (char *) value,
-                 get_status_string (status));
+                 get_status_string (status),
+                 old_value);
         break;
     default:
         break;
     }
+    g_free (old_value);
 
     if (status != SANE_STATUS_GOOD)
         g_warning ("Error setting option %s: %s", option->name, sane_strstatus(status));
@@ -923,10 +947,12 @@ do_get_option (Scanner *scanner)
         if (option->type == SANE_TYPE_FIXED) {
             double dpi = job->dpi;
             set_fixed_option (scanner->priv->handle, option, option_index, dpi);
+//            job->dpi = get_fixed_option (scanner->priv->handle, option, option_index);
         }
         else {
             SANE_Int dpi = job->dpi;
             set_int_option (scanner->priv->handle, option, option_index, dpi);
+//            job->dpi = get_int_option (scanner->priv->handle, option, option_index);
         }
     }
     else if (strcmp (option->name, SANE_NAME_SCAN_SOURCE) == 0) {
