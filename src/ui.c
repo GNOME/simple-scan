@@ -1422,6 +1422,7 @@ ui_load (SimpleScan *ui)
         for (i = 0; orientation_keys[i].key != NULL && strcmp (orientation_keys[i].key, scan_direction) != 0; i++);
         if (orientation_keys[i].key != NULL)
             ui->priv->default_page_orientation = orientation_keys[i].orientation;
+        g_free (scan_direction);
     }
     ui->priv->default_page_width = gconf_client_get_int (ui->priv->client, GCONF_DIR "/page_width", NULL);
     if (ui->priv->default_page_width <= 0)
