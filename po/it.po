@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-11 09:46+1100\n"
-"PO-Revision-Date: 2010-03-20 18:30+0000\n"
+"PO-Revision-Date: 2010-03-21 13:09+0000\n"
 "Last-Translator: Paolo Sammicheli <paolo@sammicheli.net>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-03-21 04:48+0000\n"
+"X-Launchpad-Export-Date: 2010-03-22 04:51+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -40,7 +40,7 @@ msgstr "A_6"
 #. Toolbar scan menu item to scan all pages from a document feeder
 #: ../data/simple-scan.ui.h:10
 msgid "All Pages From _Feeder"
-msgstr "_Tutte le pagine"
+msgstr "_Tutte le pagine dal caricatore"
 
 #. Tooltip for preferences button
 #: ../data/simple-scan.ui.h:12
@@ -148,12 +148,12 @@ msgstr "Acquisisci"
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:52
 msgid "Scan S_ource:"
-msgstr "S_orgente di acquisizione"
+msgstr "S_orgente di acquisizione:"
 
 #. Tooltip for scan toolbar button
 #: ../data/simple-scan.ui.h:54
 msgid "Scan a single page from the scanner"
-msgstr "Acquisisci una pagina singola dallo scanner"
+msgstr "Acquisisce una pagina singola dallo scanner"
 
 #. Title of scan window
 #: ../data/simple-scan.ui.h:56 ../data/simple-scan.desktop.in.h:2
@@ -172,12 +172,12 @@ msgstr "Crea un nuovo documento"
 
 #: ../data/simple-scan.ui.h:61
 msgid "Stop"
-msgstr "Interrompi"
+msgstr "Ferma"
 
 #. Tooltip for stop button
 #: ../data/simple-scan.ui.h:63
 msgid "Stop the current scan"
-msgstr "Interrompi l'acquisizione in corso"
+msgstr "Interrompe l'acquisizione in corso"
 
 #. Combo box label for text scan mode
 #: ../data/simple-scan.ui.h:65
@@ -192,8 +192,8 @@ msgid ""
 "documents with graphics or photographs."
 msgstr ""
 "Tipo di documento che sta per essere acquisito. Usare «Testo» per "
-"acquisizioni veloci e di media qualità di documenti di testo o «Fotografia» "
-"per acquisizioni lente e più accurate di documenti che includono grafici o "
+"acquisizioni veloci e di media qualità di documenti di testo o «Foto» per "
+"acquisizioni lente e più accurate di documenti che includono grafici o "
 "fotografie."
 
 #. Button to submit authorization dialog
@@ -239,7 +239,7 @@ msgstr "US _Letter"
 #. Radio button for no crop
 #: ../data/simple-scan.ui.h:85
 msgid "_None"
-msgstr "_Nessuno"
+msgstr "_Niente"
 
 #. Page menu (contains action for each page, e.g. delete, crop)
 #: ../data/simple-scan.ui.h:87
@@ -254,7 +254,7 @@ msgstr "Pass_word:"
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:91
 msgid "_Photo Resolution:"
-msgstr "_Risoluzione fotografie:"
+msgstr "_Risoluzione foto:"
 
 #. Menu item to rotate the crop area
 #: ../data/simple-scan.ui.h:93
@@ -264,7 +264,7 @@ msgstr "_Ruota ritaglio"
 #. Menu entry to stop current scan
 #: ../data/simple-scan.ui.h:95
 msgid "_Stop Scan"
-msgstr "Interrompi l'acqui_sizione"
+msgstr "Ferma l'acqui_sizione"
 
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:97
@@ -282,11 +282,11 @@ msgstr "Acquisisci documenti"
 
 #: ../data/simple-scan.schemas.in.h:1
 msgid "Device to scan from"
-msgstr "Dispositivo da cui acquisire"
+msgstr "Dispositivo di acquisizione"
 
 #: ../data/simple-scan.schemas.in.h:2
 msgid "Direction of scan"
-msgstr "Orientamento dell'acquisizione"
+msgstr "Direzione dell'acquisizione"
 
 #: ../data/simple-scan.schemas.in.h:3
 msgid "Directory to save files to"
@@ -310,21 +310,20 @@ msgstr "Risoluzione dell'ultima immagine acquisita"
 
 #: ../data/simple-scan.schemas.in.h:8
 msgid "SANE device to acquire images from."
-msgstr "Dispositivo SANE da cui acquisire le immagini"
+msgstr "Dispositivo SANE da cui acquisire le immagini."
 
 #: ../data/simple-scan.schemas.in.h:9
 msgid "TRUE if the application window is maximized"
-msgstr "TRUE se la finestra dell'applicazione è massimizzata"
+msgstr "VERO se la finestra dell'applicazione è massimizzata"
 
 #: ../data/simple-scan.schemas.in.h:10
 msgid ""
 "The direction of the scanner across the scanned page. It can be one of the "
 "following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
 msgstr ""
-"La direzione di movimento dello scanner attraverso la pagina acquisita. Può "
-"essere uno dei seguenti valori: \"top-to-bottom\" (dall'alto in basso), "
-"\"bottom-to-top\" (dal basso in alto), \"left-to-right\" (da sinistra a "
-"destra), \"right-to-left\" (da destra a sinistra)"
+"La direzione di acquisizione. Può essere uno dei seguenti valori: \"top-to-"
+"bottom\" (dall'alto in basso), \"bottom-to-top\" (dal basso in alto), \"left-"
+"to-right\" (da sinistra a destra), \"right-to-left\" (da destra a sinistra)"
 
 #: ../data/simple-scan.schemas.in.h:11
 msgid ""
@@ -349,8 +348,7 @@ msgstr ""
 #: ../data/simple-scan.schemas.in.h:14
 msgid "The resolution in dots-per-inch to use when scanning photos."
 msgstr ""
-"La risoluzione in punti per pollice da usare per l'acquisizione di "
-"fotografie."
+"La risoluzione in punti per pollice da usare per l'acquisizione di foto."
 
 #: ../data/simple-scan.schemas.in.h:15
 msgid "The resolution in dots-per-inch to use when scanning text."
@@ -375,7 +373,7 @@ msgid ""
 "photos. This setting decides on the scan resolution, colors and post-"
 "processing."
 msgstr ""
-"Tipo del documento da acquisire. «testo» per documenti di testo, «foto» per "
+"Tipo documento da acquisire. \"text\" per documenti di testo, \"photo\" per "
 "fotografie. Questa impostazione influenza la risoluzione dell'acquisizione, "
 "le impostazioni di colore e la post-produzione."
 
@@ -414,7 +412,7 @@ msgstr "Errore di comunicazione con lo scanner"
 #. Title of error dialog when scan failed
 #: ../src/simple-scan.c:176
 msgid "Failed to scan"
-msgstr "Acquisizione fallita"
+msgstr "Acquisizione non riuscita"
 
 #. Default filename to use when saving document (and extension will be added, e.g. .jpg)
 #: ../src/simple-scan.c:194
@@ -434,7 +432,7 @@ msgid ""
 "  %s [DEVICE...] - Scanning utility"
 msgstr ""
 "Uso:\n"
-"  %s [DISPOSITIVO...] - strumento di acquisizione"
+"  %s [DISPOSITIVO...] - Strumento di acquisizione"
 
 #. Description on how to use simple-scan displayed on command-line
 #: ../src/simple-scan.c:388
@@ -452,7 +450,7 @@ msgstr ""
 "  -v, --version Mostra la versione in uso\n"
 "  -h, --help Mostra il menù di aiuto\n"
 "  --help-all Mostra il menù di aiuto completo\n"
-"  --help-gtk Mostra le opzioni del GTK+"
+"  --help-gtk Mostra le opzioni di GTK+"
 
 #. Description on simple-scan command-line GTK+ options displayed on command-line
 #: ../src/simple-scan.c:400
@@ -473,8 +471,8 @@ msgstr ""
 "gestore di finestre\n"
 "  --name=NAME                     Nome del programma utilizzato dal gestore "
 "di finestre\n"
-"  --screen=SCREEN                 X Screen da utilizzare\n"
-"  --sync                          Rende sincrone le chiamate a X\n"
+"  --screen=SCREEN                 Screen X da utilizzare\n"
+"  --sync                          Rende le chiamate a X sincrone\n"
 "  --gtk-module=MODULES            Carica moduli GTK+ aggiuntivi\n"
 "  --g-fatal-warnings              Rende fatali tutti gli avvertimenti"
 
@@ -482,12 +480,12 @@ msgstr ""
 #: ../src/ui.c:127
 #, c-format
 msgid "Username and password required to access '%s'"
-msgstr "Sono richiesti nome utente e password per accedere a '%s'"
+msgstr "Sono richiesti nome utente e password per accedere a «%s»"
 
 #. Warning displayed when no scanners are detected
 #: ../src/ui.c:226
 msgid "No scanners detected"
-msgstr "Non é stato rilevato alcuno scanner"
+msgstr "Non sono stati rilevati scanner"
 
 #. Hint to user on why there are no scanners detected
 #: ../src/ui.c:228
@@ -518,7 +516,7 @@ msgstr "PNG (senza perdita di qualità)"
 #. Save dialog: Dialog title
 #: ../src/ui.c:772
 msgid "Save As..."
-msgstr "Salva con nome..."
+msgstr "Salva come..."
 
 #. Save dialog: Filter name to show only image files
 #: ../src/ui.c:788
@@ -556,7 +554,7 @@ msgid ""
 "You should have received a copy of the GNU General Public License\n"
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 msgstr ""
-"Questo programma è software libero: è possibile ridistribuirlo e/o "
+"Questo programma è software libero: è possibile ridistribuirlo o "
 "modificarlo\n"
 "secondo i termini della licenza GNU General Public License così come "
 "pubblicata dalla\n"
@@ -580,7 +578,7 @@ msgstr "Informazioni su Simple Scan"
 #. Description of program
 #: ../src/ui.c:972
 msgid "Simple document scanning tool"
-msgstr "Strumento per l'acquisizione semplice di documenti"
+msgstr "Semplice strumento per la scansione di documenti"
 
 #: ../src/ui.c:981
 msgid "translator-credits"
@@ -621,7 +619,7 @@ msgstr "%d dpi (alta risoluzione)"
 #: ../src/ui.c:1143
 #, c-format
 msgid "%d dpi (default)"
-msgstr "%d dpi (predefinito)"
+msgstr "%d dpi (predefinita)"
 
 #. Title of dialog when cannot load required files
 #: ../src/ui.c:1175
@@ -631,13 +629,13 @@ msgstr "File mancanti"
 #. Description in dialog when cannot load required files
 #: ../src/ui.c:1177
 msgid "Please check your installation"
-msgstr "Verificare l' installazione"
+msgstr "Verificare l'installazione"
 
 #. Button in error dialog to open prefereces dialog and change scanner
 #: ../src/ui.c:1339
 msgid "Change _Scanner"
-msgstr "Cambio _Scanner"
+msgstr "Cambia _scanner"
 
 #: ../src/ui.c:1463
 msgid "Scanned Document.pdf"
-msgstr "Documento acquisito.pdf"
+msgstr "Documento-acquisito.pdf"
