@@ -1198,7 +1198,7 @@ do_get_parameters (Scanner *scanner)
     info->width = scanner->priv->parameters.pixels_per_line;
     info->height = scanner->priv->parameters.lines;
     info->depth = scanner->priv->parameters.depth;
-    info->dpi = job->dpi;
+    info->dpi = job->dpi; // FIXME: This is the requested DPI, not the actual DPI
 
     if (scanner->priv->page_number != scanner->priv->notified_page) {
         emit_signal (scanner, GOT_PAGE_INFO, info);
@@ -1206,7 +1206,7 @@ do_get_parameters (Scanner *scanner)
     }
 
     /* Prepare for read */
-    scanner->priv->buffer_size = scanner->priv->parameters.bytes_per_line;
+    scanner->priv->buffer_size = scanner->priv->parameters.bytes_per_line + 1; /* Use +1 so buffer is not resized if driver returns one line per read */
     scanner->priv->buffer = g_malloc (sizeof(SANE_Byte) * scanner->priv->buffer_size);
     scanner->priv->n_used = 0;
     scanner->priv->line_count = 0;
