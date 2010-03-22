@@ -462,16 +462,18 @@ set_default_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SA
 
 
 static void
-set_bool_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, SANE_Bool value)
+set_bool_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, SANE_Bool value, SANE_Bool *result)
 {
     SANE_Bool v = value;
     g_return_if_fail (option->type == SANE_TYPE_BOOL);
     control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, &v);
+    if (result)
+        *result = v;
 }
 
 
 static void
-set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, SANE_Int value)
+set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, SANE_Int value, SANE_Int *result)
 {
     SANE_Int v = value;
 
@@ -506,13 +508,16 @@ set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_I
     }
 
     control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, &v);
+    if (result)
+        *result = v;
 }
 
 
 static void
-set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, double value)
+set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, gdouble value, gdouble *result)
 {
-    SANE_Fixed v;
+    gdouble v = value;
+    SANE_Fixed v_fixed;
 
     g_return_if_fail (option->type == SANE_TYPE_FIXED);
 
@@ -520,10 +525,10 @@ set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE
         double min = SANE_UNFIX (option->constraint.range->min);
         double max = SANE_UNFIX (option->constraint.range->max);
 
-        if (value < min)
-            value = min;
-        if (value > max)
-            value = max;
+        if (v < min)
+            v = min;
+        if (v > max)
+            v = max;
     }
     else if (option->constraint_type == SANE_CONSTRAINT_WORD_LIST) {
         int i;
@@ -532,30 +537,32 @@ set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE
         /* Find nearest value above and below requested */
         for (i = 0; i < option->constraint.word_list[0]; i++) {
             double x = SANE_UNFIX (option->constraint.word_list[i+1]);
-            if (x <= value && x > min)
+            if (x <= v && x > min)
                 min = x;
-            if (x >= value && x < max)
+            if (x >= v && x < max)
                 max = x;
         }
       
         /* Pick nearest */
-        if (max - value < value - min)
-            value = max;
+        if (max - v < v - min)
+            v = max;
         else
-            value = min;
+            v = min;
     }
 
-    v = SANE_FIX (value);
-    control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, &v);
+    v_fixed = SANE_FIX (v);
+    control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, &v_fixed);
+    if (result)
+        *result = SANE_UNFIX (v_fixed);
 }
 
 
 static gboolean
-set_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, const char *value)
+set_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, const char *value, char **result)
 {
     char *string;
     gsize value_size, size;
-    gboolean result;
+    gboolean error;
 
     g_return_val_if_fail (option->type == SANE_TYPE_STRING, FALSE);
     
@@ -563,15 +570,18 @@ set_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SAN
     size = option->size > value_size ? option->size : value_size;
     string = g_malloc(sizeof(char) * size);
     strcpy (string, value);
-    result = control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, string);
-    g_free (string);
+    error = control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, string);
+    if (result)
+        *result = string;
+    else
+        g_free (string);
    
-    return result;
+    return error;
 }
 
 
 static gboolean
-set_constrained_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, const char *values[])
+set_constrained_string_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_Int option_index, const char *values[], char **result)
 {
     gint i, j;
 
@@ -585,7 +595,7 @@ set_constrained_string_option (SANE_Handle handle, const SANE_Option_Descriptor 
         }
 
         if (option->constraint.string_list[j] != NULL)
-            return set_string_option (handle, option, option_index, values[i]);
+            return set_string_option (handle, option, option_index, values[i], result);
     }
   
     return FALSE;
@@ -945,14 +955,12 @@ do_get_option (Scanner *scanner)
 
     if (strcmp (option->name, SANE_NAME_SCAN_RESOLUTION) == 0) {
         if (option->type == SANE_TYPE_FIXED) {
-            double dpi = job->dpi;
-            set_fixed_option (scanner->priv->handle, option, option_index, dpi);
-//            job->dpi = get_fixed_option (scanner->priv->handle, option, option_index);
+            set_fixed_option (scanner->priv->handle, option, option_index, job->dpi, &job->dpi);
         }
         else {
-            SANE_Int dpi = job->dpi;
-            set_int_option (scanner->priv->handle, option, option_index, dpi);
-//            job->dpi = get_int_option (scanner->priv->handle, option, option_index);
+            SANE_Int dpi;
+            set_int_option (scanner->priv->handle, option, option_index, job->dpi, &dpi);
+            job->dpi = dpi;
         }
     }
     else if (strcmp (option->name, SANE_NAME_SCAN_SOURCE) == 0) {
@@ -1000,29 +1008,29 @@ do_get_option (Scanner *scanner)
         switch (job->type) {
         case SCAN_SINGLE:
             if (!set_default_option (scanner->priv->handle, option, option_index))
-                if (!set_constrained_string_option (scanner->priv->handle, option, option_index, flatbed_sources))
+                if (!set_constrained_string_option (scanner->priv->handle, option, option_index, flatbed_sources, NULL))
                     g_warning ("Unable to set single page source, please file a bug");
             break;
         case SCAN_ADF_FRONT:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_front_sources))
-                if (!!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))                
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_front_sources, NULL))
+                if (!!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources, NULL))                
                     g_warning ("Unable to set front ADF source, please file a bug");
             break;
         case SCAN_ADF_BACK:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_back_sources))
-                if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_back_sources, NULL))
+                if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources, NULL))
                     g_warning ("Unable to set back ADF source, please file a bug");
             break;
         case SCAN_ADF_BOTH:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_duplex_sources))
-                if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources))
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_duplex_sources, NULL))
+                if (!set_constrained_string_option (scanner->priv->handle, option, option_index, adf_sources, NULL))
                     g_warning ("Unable to set duplex ADF source, please file a bug");
             break;
         }
     }
     else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
         if (job->depth > 0)
-            set_int_option (scanner->priv->handle, option, option_index, job->depth);
+            set_int_option (scanner->priv->handle, option, option_index, job->depth, NULL);
     }
     else if (strcmp (option->name, SANE_NAME_SCAN_MODE) == 0) {
         /* The names of scan modes often used in drivers, as taken from the sane-backends source */
@@ -1061,15 +1069,15 @@ do_get_option (Scanner *scanner)
             
         switch (job->scan_mode) {
         case SCAN_MODE_COLOR:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, color_scan_modes))
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, color_scan_modes, NULL))
                 g_warning ("Unable to set Color mode, please file a bug");
             break;
         case SCAN_MODE_GRAY:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, gray_scan_modes))
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, gray_scan_modes, NULL))
                 g_warning ("Unable to set Gray mode, please file a bug");
             break;
         case SCAN_MODE_LINEART:
-            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, lineart_scan_modes))
+            if (!set_constrained_string_option (scanner->priv->handle, option, option_index, lineart_scan_modes, NULL))
                 g_warning ("Unable to set Lineart mode, please file a bug");
             break;
         default:
@@ -1087,7 +1095,7 @@ do_get_option (Scanner *scanner)
             NULL
         };
             
-        if (!set_constrained_string_option (scanner->priv->handle, option, option_index, disable_compression_names))
+        if (!set_constrained_string_option (scanner->priv->handle, option, option_index, disable_compression_names, NULL))
             g_warning ("Unable to disable compression, please file a bug");
     }
     /* Always use maximum scan area - some scanners default to using partial areas.  This should be patched in sane-backends */
@@ -1097,9 +1105,9 @@ do_get_option (Scanner *scanner)
         {
         case SANE_CONSTRAINT_RANGE:
             if (option->type == SANE_TYPE_FIXED)
-                set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX (option->constraint.range->max));
+                set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX (option->constraint.range->max), NULL);
             else
-                set_int_option (scanner->priv->handle, option, option_index, option->constraint.range->max);
+                set_int_option (scanner->priv->handle, option, option_index, option->constraint.range->max, NULL);
             break;
         default:
             break;
@@ -1108,36 +1116,36 @@ do_get_option (Scanner *scanner)
     else if (strcmp (option->name, SANE_NAME_PAGE_WIDTH) == 0) {
         if (job->page_width > 0.0) {
             if (option->type == SANE_TYPE_FIXED)
-                set_fixed_option (scanner->priv->handle, option, option_index, job->page_width / 10.0);
+                set_fixed_option (scanner->priv->handle, option, option_index, job->page_width / 10.0, NULL);
             else
-                set_int_option (scanner->priv->handle, option, option_index, job->page_width / 10);
+                set_int_option (scanner->priv->handle, option, option_index, job->page_width / 10, NULL);
         }
     }
     else if (strcmp (option->name, SANE_NAME_PAGE_HEIGHT) == 0) {
         if (job->page_height > 0.0) {
             if (option->type == SANE_TYPE_FIXED)
-                set_fixed_option (scanner->priv->handle, option, option_index, job->page_height / 10.0);
-            else
-                set_int_option (scanner->priv->handle, option, option_index, job->page_height / 10);
+                set_fixed_option (scanner->priv->handle, option, option_index, job->page_height / 10.0, NULL);
+            else 
+                set_int_option (scanner->priv->handle, option, option_index, job->page_height / 10, NULL);
         }
     }
 
     /* Test scanner options (hoping will not effect other scanners...) */
     if (strcmp (scanner->priv->current_device, "test") == 0) {
         if (strcmp (option->name, "hand-scanner") == 0) {
-            set_bool_option (scanner->priv->handle, option, option_index, FALSE);
+            set_bool_option (scanner->priv->handle, option, option_index, FALSE, NULL);
         }
         else if (strcmp (option->name, "three-pass") == 0) {
-            set_bool_option (scanner->priv->handle, option, option_index, FALSE);
+            set_bool_option (scanner->priv->handle, option, option_index, FALSE, NULL);
         }                    
         else if (strcmp (option->name, "test-picture") == 0) {
-            set_string_option (scanner->priv->handle, option, option_index, "Color pattern");
+            set_string_option (scanner->priv->handle, option, option_index, "Color pattern", NULL);
         }
         else if (strcmp (option->name, "read-delay") == 0) {
-            set_bool_option (scanner->priv->handle, option, option_index, TRUE);
+            set_bool_option (scanner->priv->handle, option, option_index, TRUE, NULL);
         }
         else if (strcmp (option->name, "read-delay-duration") == 0) {
-            set_int_option (scanner->priv->handle, option, option_index, 200000);
+            set_int_option (scanner->priv->handle, option, option_index, 200000, NULL);
         }
     }
 }
