@@ -332,14 +332,15 @@ layout_into (BookView *view, gint width, gint height, gint *book_width, gint *bo
         Page *p = page_view_get_page (page);
         gint h;
 
+        /* NOTE: Using double to avoid overflow for large images */
         if (max_aspect > aspect) {
             /* Set width scaled on DPI and maximum width */
-            gint w = page_get_width (p) * max_dpi * width / (page_get_dpi (p) * max_width);
+            gint w = (double)page_get_width (p) * max_dpi * width / (page_get_dpi (p) * max_width);
             page_view_set_width (page, w);
         }
         else {
             /* Set height scaled on DPI and maximum height */
-            gint h = page_get_height (p) * max_dpi * height / (page_get_dpi (p) * max_height);
+            gint h = (double)page_get_height (p) * max_dpi * height / (page_get_dpi (p) * max_height);
             page_view_set_height (page, h);
         }
 
