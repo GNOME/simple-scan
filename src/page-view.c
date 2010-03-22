@@ -20,6 +20,11 @@ enum {
 };
 static guint signals[LAST_SIGNAL] = { 0, };
 
+enum {
+    PROP_0,
+    PROP_PAGE
+};
+
 typedef enum
 {
     CROP_NONE = 0,
@@ -74,9 +79,9 @@ G_DEFINE_TYPE (PageView, page_view, G_TYPE_OBJECT);
 
 
 PageView *
-page_view_new (void)
+page_view_new (Page *page)
 {
-    return g_object_new (PAGE_VIEW_TYPE, NULL);
+    return g_object_new (PAGE_VIEW_TYPE, "page", page, NULL);
 }
 
 
@@ -1044,7 +1049,7 @@ page_overlay_changed_cb (Page *p, PageView *view)
 }
 
 
-void
+static void
 page_view_set_page (PageView *view, Page *page)
 {
     g_return_if_fail (view != NULL);
@@ -1055,6 +1060,48 @@ page_view_set_page (PageView *view, Page *page)
     g_signal_connect (view->priv->page, "size-changed", G_CALLBACK (page_size_changed_cb), view);
     g_signal_connect (view->priv->page, "crop-changed", G_CALLBACK (page_overlay_changed_cb), view);
     g_signal_connect (view->priv->page, "scan-line-changed", G_CALLBACK (page_overlay_changed_cb), view);
+}
+
+
+static void
+page_view_set_property (GObject      *object,
+                        guint         prop_id,
+                        const GValue *value,
+                        GParamSpec   *pspec)
+{
+    PageView *self;
+
+    self = PAGE_VIEW (object);
+
+    switch (prop_id) {
+    case PROP_PAGE:
+        page_view_set_page (self, g_value_get_object (value));
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+        break;
+    }
+}
+
+
+static void
+page_view_get_property (GObject    *object,
+                        guint       prop_id,
+                        GValue     *value,
+                        GParamSpec *pspec)
+{
+    PageView *self;
+
+    self = PAGE_VIEW (object);
+
+    switch (prop_id) {
+    case PROP_PAGE:
+        g_value_set_object (value, self->priv->page);
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+        break;
+    }
 }
 
 
@@ -1079,6 +1126,8 @@ page_view_class_init (PageViewClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+    object_class->get_property = page_view_get_property;
+    object_class->set_property = page_view_set_property;
     object_class->finalize = page_view_finalize;
 
     signals[CHANGED] =
@@ -1099,6 +1148,14 @@ page_view_class_init (PageViewClass *klass)
                       G_TYPE_NONE, 0);
 
     g_type_class_add_private (klass, sizeof (PageViewPrivate));
+
+    g_object_class_install_property (object_class,
+                                     PROP_PAGE,
+                                     g_param_spec_object ("page",
+                                                          "page",
+                                                          "Page being rendered",
+                                                          PAGE_TYPE,
+                                                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 }
 
 

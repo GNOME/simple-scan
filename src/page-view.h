@@ -42,10 +42,7 @@ typedef struct
 
 GType page_view_get_type (void);
 
-PageView *page_view_new (void);
-
-//FIXME 
-void page_view_set_page (PageView *view, Page *page);
+PageView *page_view_new (Page *page);
 
 Page *page_view_get_page (PageView *view);
 

@@ -127,8 +127,7 @@ static void
 add_cb (Book *book, Page *page, BookView *view)
 {
     PageView *page_view;
-    page_view = page_view_new ();
-    page_view_set_page (page_view, page);
+    page_view = page_view_new (page);
     g_signal_connect (page_view, "changed", G_CALLBACK (page_view_changed_cb), view);
     g_signal_connect (page_view, "size-changed", G_CALLBACK (page_view_size_changed_cb), view);  
     g_hash_table_insert (view->priv->page_data, page, page_view);
