@@ -92,7 +92,7 @@ struct ScannerPrivate
     /* Handle to SANE device */
     SANE_Handle handle;
     gchar *current_device;
-
+  
     SANE_Parameters parameters;
 
     /* Last option read */
@@ -1233,6 +1233,7 @@ do_get_parameters (Scanner *scanner)
     info->height = scanner->priv->parameters.lines;
     info->depth = scanner->priv->parameters.depth;
     info->dpi = job->dpi; // FIXME: This is the requested DPI, not the actual DPI
+    info->device = g_strdup (scanner->priv->current_device);
 
     if (scanner->priv->page_number != scanner->priv->notified_page) {
         emit_signal (scanner, GOT_PAGE_INFO, info);

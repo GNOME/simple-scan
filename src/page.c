@@ -31,6 +31,9 @@ struct PagePrivate
     /* Number of rows in this page or -1 if currently unknown */
     gint rows;
 
+    /* Color profile */
+    gchar *color_profile;
+
     /* Scanned image data */
     GdkPixbuf *image;
 
@@ -534,7 +537,19 @@ page_get_scan_height (Page *page)
         return gdk_pixbuf_get_height (page->priv->image);
     else
         return gdk_pixbuf_get_width (page->priv->image);  
+}
 
+
+void page_set_color_profile (Page *page, const gchar *color_profile)
+{
+     g_free (page->priv->color_profile);
+     page->priv->color_profile = g_strdup (color_profile);
+}
+
+
+const gchar *page_get_color_profile (Page *page)
+{
+     return page->priv->color_profile;
 }
 
 
@@ -786,12 +801,38 @@ write_pixbuf_data (const gchar *buf, gsize count, GError **error, GFileOutputStr
 }
 
 
+static gchar *
+get_icc_data_encoded (const gchar *icc_profile_filename)
+{
+    gchar *contents = NULL;
+    gchar *contents_encode = NULL;
+    gsize length;
+    gboolean ret;
+    GError *error = NULL;
+
+    /* Get binary data */
+    ret = g_file_get_contents (icc_profile_filename, &contents, &length, &error);
+    if (!ret) {
+        g_warning ("failed to get icc profile data: %s", error->message);
+        g_error_free (error);
+    }
+    else {
+        /* Encode into base64 */
+        contents_encode = g_base64_encode ((const guchar *) contents, length);
+    }
+  
+    g_free (contents);
+    return contents_encode;
+}
+
+
 gboolean
 page_save (Page *page, const gchar *type, GFile *file, GError **error)
 {
     GFileOutputStream *stream;
     GdkPixbuf *image;
     gboolean result = FALSE;
+    gchar *icc_profile_data = NULL;
 
     stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
     if (!stream)
@@ -799,26 +840,39 @@ page_save (Page *page, const gchar *type, GFile *file, GError **error)
 
     image = page_get_cropped_image (page);
 
-    if (strcmp (type, "jpeg") == 0)
-        result = gdk_pixbuf_save_to_callback (image,
-                                              (GdkPixbufSaveFunc) write_pixbuf_data, stream,
-                                              "jpeg", error,
-                                              "quality", "90",
-                                              NULL);
-    else if (strcmp (type, "png") == 0)
-        result = gdk_pixbuf_save_to_callback (image,
-                                              (GdkPixbufSaveFunc) write_pixbuf_data, stream,
-                                              "png", error,
-                                              NULL);
-    else if (strcmp (type, "tiff") == 0)
-        result = gdk_pixbuf_save_to_callback (image,
-                                              (GdkPixbufSaveFunc) write_pixbuf_data, stream,
-                                              "tiff", error,
-                                              "compression", "8", /* Deflate compression */
-                                              NULL);
+    if (page->priv->color_profile != NULL)
+        icc_profile_data = get_icc_data_encoded (page->priv->color_profile);
+
+    if (strcmp (type, "jpeg") == 0) {
+        /* ICC profile is awaiting review in gtk2+ bugzilla */
+        gchar *keys[] = { "quality", /* "icc-profile", */ NULL };
+        gchar *values[] = { "90", /* icc_profile_data, */ NULL };
+        result = gdk_pixbuf_save_to_callbackv (image,
+                                               (GdkPixbufSaveFunc) write_pixbuf_data, stream,
+                                               "jpeg", keys, values, error);
+    }
+    else if (strcmp (type, "png") == 0) {
+        gchar *keys[] = { "icc-profile", NULL };
+        gchar *values[] = { icc_profile_data, NULL };
+        if (icc_profile_data == NULL)
+            keys[0] = NULL;
+        result = gdk_pixbuf_save_to_callbackv (image,
+                                               (GdkPixbufSaveFunc) write_pixbuf_data, stream,
+                                               "png", keys, values, error);
+    }
+    else if (strcmp (type, "tiff") == 0) {
+        gchar *keys[] = { "compression", "icc-profile", NULL };
+        gchar *values[] = { "8" /* Deflate compression */, icc_profile_data, NULL };
+        if (icc_profile_data == NULL)
+            keys[1] = NULL;
+        result = gdk_pixbuf_save_to_callbackv (image,
+                                               (GdkPixbufSaveFunc) write_pixbuf_data, stream,
+                                               "tiff", keys, values, error);
+    }
     else
         result = FALSE; // FIXME: Set GError
 
+    g_free (icc_profile_data);
     g_object_unref (image);
     g_object_unref (stream);
 

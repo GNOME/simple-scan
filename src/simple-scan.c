@@ -15,6 +15,7 @@
 #include <gtk/gtk.h>
 #include <unistd.h>
 #include <gudev/gudev.h>
+#include <dbus/dbus-glib.h>
 
 #include <sane/sane.h> // For SANE_STATUS_CANCELLED
 
@@ -113,6 +114,64 @@ scanner_new_page_cb (Scanner *scanner)
 }
 
 
+static gchar *
+get_profile_for_device (const gchar *current_device)
+{
+    gboolean ret;
+    DBusGConnection *connection;
+    DBusGProxy *proxy;
+    GError *error = NULL;
+    GType custom_g_type_string_string;
+    GPtrArray *profile_data_array = NULL;
+    gchar *device_id = NULL;
+    gchar *icc_profile = NULL;
+
+    /* Connect to the color manager on the session bus */
+    connection = dbus_g_bus_get (DBUS_BUS_SESSION, NULL);
+    proxy = dbus_g_proxy_new_for_name (connection,
+                                       "org.gnome.ColorManager",
+                                       "/org/gnome/ColorManager",
+                                       "org.gnome.ColorManager");
+
+    /* Get color profile */
+    device_id = g_strdup_printf ("sane:%s", current_device);
+    custom_g_type_string_string = dbus_g_type_get_collection ("GPtrArray",
+                                                              dbus_g_type_get_struct("GValueArray",
+                                                                                     G_TYPE_STRING,
+                                                                                     G_TYPE_STRING,
+                                                                                     G_TYPE_INVALID));
+    ret = dbus_g_proxy_call (proxy, "GetProfilesForDevice", &error,
+                             G_TYPE_STRING, device_id,
+                             G_TYPE_STRING, "",
+                             G_TYPE_INVALID,
+                             custom_g_type_string_string, &profile_data_array,
+                             G_TYPE_INVALID);
+    g_object_unref (proxy);
+    g_free (device_id);
+    if (!ret) {
+        g_debug ("The request failed: %s", error->message);
+        g_error_free (error);
+        return NULL;
+    }
+
+    if (profile_data_array->len > 0) {
+        GValueArray *gva;
+        GValue *gv = NULL;
+
+        /* Just use the preferred profile filename */
+        gva = (GValueArray *) g_ptr_array_index (profile_data_array, 0);
+        gv = g_value_array_get_nth (gva, 1);
+        icc_profile = g_value_dup_string (gv);
+        g_value_unset (gv);
+    }
+    else
+        g_debug ("There are no ICC profiles for the device sane:%s", current_device);
+    g_ptr_array_free (profile_data_array, TRUE);
+
+    return icc_profile;
+}
+
+
 static void
 scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 {
@@ -124,6 +183,11 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
     /* Add a new page */
     page = append_page ();
     page_set_scan_area (page, info->width, info->height, info->dpi);
+
+    /* Get ICC color profile */
+    /* FIXME: The ICC profile could change */
+    /* FIXME: Don't do a D-bus call for each page, cache color profiles */
+    page_set_color_profile (page, get_profile_for_device (info->device));
 }
 
 
@@ -262,7 +326,7 @@ save_cb (SimpleScan *ui, const gchar *uri)
                        /* Title of error dialog when save failed */
                        _("Failed to save file"),
                        error->message,
-		       FALSE);
+               FALSE);
         g_error_free (error);
     }
     g_object_unref (file);
@@ -393,7 +457,7 @@ usage(int show_gtk)
     fprintf(stderr,
             /* Description on how to use simple-scan displayed on command-line */    
             _("Help Options:\n"
-              "  -d, --debug                     Print debugging messages\n"	      
+              "  -d, --debug                     Print debugging messages\n"
               "  -v, --version                   Show release version\n"
               "  -h, --help                      Show help options\n"
               "  --help-all                      Show all help options\n"

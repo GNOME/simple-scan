@@ -27,8 +27,17 @@ typedef struct
 
 typedef struct
 {
-    gint width, height, depth;
+    /* Width, height in pixels */
+    gint width, height;
+
+    /* Bit depth */
+    gint depth;
+
+    /* Resolution */
     gdouble dpi;
+
+    /* The device this page came from */
+    gchar *device;
 } ScanPageInfo;
 
 typedef struct

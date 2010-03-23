@@ -31,6 +31,7 @@ PKG_CHECK_MODULES(SIMPLE_SCAN, [
     cairo
     gdk-pixbuf-2.0
     cairo-pdf
+    dbus-glib-1
     gudev-1.0
 ])
 

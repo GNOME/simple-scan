@@ -72,6 +72,10 @@ gint page_get_scan_width (Page *page);
 
 gint page_get_scan_height (Page *page);
 
+void page_set_color_profile (Page *page, const gchar *color_profile);
+
+const gchar *page_get_color_profile (Page *page);
+
 void page_start (Page *page);
 
 gboolean page_is_scanning (Page *page);
