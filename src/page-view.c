@@ -538,8 +538,8 @@ get_crop_location (PageView *view, gint x, gint y)
         return 0;
 
     page_get_crop (view->priv->page, &cx, &cy, &cw, &ch);
-    dx = page_to_screen_x (view, cx) + view->priv->x;
-    dy = page_to_screen_y (view, cy) + view->priv->y;
+    dx = page_to_screen_x (view, cx);
+    dy = page_to_screen_y (view, cy);
     dw = page_to_screen_x (view, cw);
     dh = page_to_screen_y (view, ch);
     ix = x - dx;
