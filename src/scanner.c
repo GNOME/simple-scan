@@ -9,7 +9,9 @@
  * license.
  */
 
+#include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <sane/sane.h>
 #include <sane/saneopts.h>
 #include <glib/gi18n.h>
@@ -489,22 +491,17 @@ set_int_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE_I
     }
     else if (option->constraint_type == SANE_CONSTRAINT_WORD_LIST) {
         int i;
-        SANE_Int min = INT_MIN, max = INT_MAX;
-      
-        /* Find nearest value above and below requested */
+        SANE_Int distance = INT_MAX, nearest = 0;
+
+        /* Find nearest value to requested */
         for (i = 0; i < option->constraint.word_list[0]; i++) {
             SANE_Int x = option->constraint.word_list[i+1];
-            if (x <= v && x > min)
-                min = x;
-            if (x >= v && x < max)
-                max = x;
+            if (abs (x - v) < distance) {
+                distance = abs (x - v);
+                nearest = x;
+            }
         }
-      
-        /* Pick nearest */
-        if (max - v < v - min)
-            v = max;
-        else
-            v = min;
+        v = nearest;
     }
 
     control_option (handle, option, option_index, SANE_ACTION_SET_VALUE, &v);
@@ -532,22 +529,17 @@ set_fixed_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SANE
     }
     else if (option->constraint_type == SANE_CONSTRAINT_WORD_LIST) {
         int i;
-        double min = DBL_MIN, max = DBL_MAX;
-      
-        /* Find nearest value above and below requested */
+        double distance = DBL_MAX, nearest = 0.0;
+
+        /* Find nearest value to requested */
         for (i = 0; i < option->constraint.word_list[0]; i++) {
             double x = SANE_UNFIX (option->constraint.word_list[i+1]);
-            if (x <= v && x > min)
-                min = x;
-            if (x >= v && x < max)
-                max = x;
+            if (fabs (x - v) < distance) {
+                distance = fabs (x - v);
+                nearest = x;
+            }
         }
-      
-        /* Pick nearest */
-        if (max - v < v - min)
-            v = max;
-        else
-            v = min;
+        v = nearest;
     }
 
     v_fixed = SANE_FIX (v);
