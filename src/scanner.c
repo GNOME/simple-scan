@@ -1358,7 +1358,7 @@ do_read (Scanner *scanner)
         else {
             int i, n_remaining;
 
-            /* Increate buffer size if did full read */
+            /* Increase buffer size if did full read */
             if (full_read)
                 scanner->priv->buffer_size += scanner->priv->parameters.bytes_per_line;
 
