@@ -39,15 +39,16 @@ static guint signals[LAST_SIGNAL] = { 0, };
 struct SimpleScanPrivate
 {
     GConfClient *client;
-    
+
     GtkBuilder *builder;
 
     GtkWidget *window;
-    GtkWidget *mode_combo;
-    GtkTreeModel *mode_model;
     GtkWidget *preview_box, *preview_area, *preview_scroll;
     GtkWidget *page_delete_menuitem, *crop_rotate_menuitem;
     GtkWidget *stop_menuitem, *stop_toolbutton;
+
+    GtkWidget *text_toolbar_menuitem, *text_menu_menuitem;
+    GtkWidget *photo_toolbar_menuitem, *photo_menu_menuitem;
 
     GtkWidget *authorize_dialog;
     GtkWidget *authorize_label;
@@ -65,6 +66,8 @@ struct SimpleScanPrivate
     Orientation default_page_orientation;
   
     gboolean have_device_list;
+
+    gchar *document_hint;
 
     gchar *default_file_name;
     gboolean scanning;
@@ -289,23 +292,37 @@ new_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 static void
 set_document_hint (SimpleScan *ui, const gchar *document_hint)
 {
-    GtkTreeIter iter;
+    g_free (ui->priv->document_hint);
+    ui->priv->document_hint = g_strdup (document_hint);
 
-    if (gtk_tree_model_get_iter_first (ui->priv->mode_model, &iter)) {
-        do {
-            gchar *d;
-            gboolean have_match;
+    if (strcmp (document_hint, "text") == 0) {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (ui->priv->text_toolbar_menuitem), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (ui->priv->text_menu_menuitem), TRUE);
+    }
+    else if (strcmp (document_hint, "photo") == 0) {
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (ui->priv->photo_toolbar_menuitem), TRUE);
+        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (ui->priv->photo_menu_menuitem), TRUE);
+    }
+}
 
-            gtk_tree_model_get (ui->priv->mode_model, &iter, 0, &d, -1);
-            have_match = strcmp (d, document_hint) == 0;
-            g_free (d);
 
-            if (have_match) {
-                gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->mode_combo), &iter);                
-                return;
-            }
-        } while (gtk_tree_model_iter_next (ui->priv->mode_model, &iter));
-     }
+void text_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+text_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        set_document_hint (ui, "text");
+}
+
+
+void photo_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+photo_menuitem_toggled_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        set_document_hint (ui, "photo");
 }
 
 
@@ -408,19 +425,6 @@ get_paper_size (SimpleScan *ui, gint *width, gint *height)
 }
 
 
-static gchar *
-get_document_hint (SimpleScan *ui)
-{
-    GtkTreeIter iter;
-    gchar *mode = NULL;
-
-    if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (ui->priv->mode_combo), &iter))
-        gtk_tree_model_get (ui->priv->mode_model, &iter, 0, &mode, -1);
-    
-    return mode;
-}
-
-
 static ScanOptions *
 get_scan_options (SimpleScan *ui)
 {
@@ -434,13 +438,11 @@ get_scan_options (SimpleScan *ui)
         { NULL,    SCAN_MODE_COLOR   }
     };
     gint i;
-    gchar *profile_name;
     ScanOptions *options;
 
     /* Find this profile */
     // FIXME: Move this into scan-profile.c
-    profile_name = get_document_hint (ui);
-    for (i = 0; profiles[i].name && strcmp (profiles[i].name, profile_name) != 0; i++);
+    for (i = 0; profiles[i].name && strcmp (profiles[i].name, ui->priv->document_hint) != 0; i++);
   
     options = g_malloc0 (sizeof (ScanOptions));
     options->scan_mode = profiles[i].mode;
@@ -451,8 +453,6 @@ get_scan_options (SimpleScan *ui)
         options->dpi = get_text_dpi (ui);
     get_paper_size (ui, &options->paper_width, &options->paper_height);
   
-    g_free (profile_name);
-
     return options;
 }
 
@@ -1018,10 +1018,7 @@ G_MODULE_EXPORT
 void
 email_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    gchar *mode;
-    mode = get_document_hint (ui);
-    g_signal_emit (G_OBJECT (ui), signals[EMAIL], 0, mode);
-    g_free (mode);
+    g_signal_emit (G_OBJECT (ui), signals[EMAIL], 0, ui->priv->document_hint);
 }
 
 
@@ -1114,7 +1111,7 @@ about_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
 static void
 quit (SimpleScan *ui)
 {
-    char *device, *document_type;
+    char *device;
     gint paper_width = 0, paper_height = 0;
     gint i;
 
@@ -1126,9 +1123,7 @@ quit (SimpleScan *ui)
         g_free (device);
     }
 
-    document_type = get_document_hint (ui);
-    gconf_client_set_string(ui->priv->client, GCONF_DIR "/document_type", document_type, NULL);
-    g_free (document_type);
+    gconf_client_set_string (ui->priv->client, GCONF_DIR "/document_type", ui->priv->document_hint, NULL);
     gconf_client_set_int (ui->priv->client, GCONF_DIR "/text_dpi", get_text_dpi (ui), NULL);
     gconf_client_set_int (ui->priv->client, GCONF_DIR "/photo_dpi", get_photo_dpi (ui), NULL);
     gconf_client_set_string (ui->priv->client, GCONF_DIR "/page_side", get_page_side (ui), NULL);
@@ -1314,8 +1309,6 @@ ui_load (SimpleScan *ui)
     gtk_builder_connect_signals (builder, ui);
 
     ui->priv->window = GTK_WIDGET (gtk_builder_get_object (builder, "simple_scan_window"));
-    ui->priv->mode_combo = GTK_WIDGET (gtk_builder_get_object (builder, "mode_combo"));
-    ui->priv->mode_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->mode_combo));
     ui->priv->preview_box = GTK_WIDGET (gtk_builder_get_object (builder, "preview_vbox"));
     ui->priv->preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
     ui->priv->preview_scroll = GTK_WIDGET (gtk_builder_get_object (builder, "preview_scrollbar"));
@@ -1324,10 +1317,10 @@ ui_load (SimpleScan *ui)
     ui->priv->stop_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "stop_scan_menuitem"));
     ui->priv->stop_toolbutton = GTK_WIDGET (gtk_builder_get_object (builder, "stop_toolbutton"));
 
-    renderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (ui->priv->mode_combo), renderer, TRUE);
-    gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (ui->priv->mode_combo), renderer, "text", 1);
-    gtk_combo_box_set_active (GTK_COMBO_BOX (ui->priv->mode_combo), 0);
+    ui->priv->text_toolbar_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "text_toolbutton_menuitem"));
+    ui->priv->text_menu_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "text_menuitem"));
+    ui->priv->photo_toolbar_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "photo_toolbutton_menuitem"));
+    ui->priv->photo_menu_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "photo_menuitem"));
 
     ui->priv->authorize_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "authorize_dialog"));
     ui->priv->authorize_label = GTK_WIDGET (gtk_builder_get_object (builder, "authorize_label"));
@@ -1648,6 +1641,7 @@ ui_init (SimpleScan *ui)
     ui->priv->client = gconf_client_get_default();
     gconf_client_add_dir(ui->priv->client, GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, NULL);
 
+    ui->priv->document_hint = g_strdup ("photo");
     ui->priv->default_file_name = g_strdup (_("Scanned Document.pdf"));
     ui->priv->scanning = FALSE;
     ui_load (ui);   

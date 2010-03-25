@@ -70,6 +70,31 @@
                                 <signal name="activate" handler="stop_scan_button_clicked_cb"/>
                               </object>
                             </child>
+                            <child>
+                              <object class="GtkSeparatorMenuItem" id="menuitem2">
+                                <property name="visible">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkRadioMenuItem" id="text_menuitem">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Text</property>
+                                <property name="use_underline">True</property>
+                                <property name="draw_as_radio">True</property>
+                                <signal name="toggled" handler="text_menuitem_toggled_cb"/>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkRadioMenuItem" id="photo_menuitem">
+                                <property name="visible">True</property>
+                                <property name="label" translatable="yes">Photo</property>
+                                <property name="use_underline">True</property>
+                                <property name="active">True</property>
+                                <property name="draw_as_radio">True</property>
+                                <property name="group">text_menuitem</property>
+                                <signal name="toggled" handler="photo_menuitem_toggled_cb"/>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
@@ -349,22 +374,6 @@
                 <property name="icon_name">scanner</property>
                 <property name="menu">scan_toolbutton_menu</property>
                 <signal name="clicked" handler="scan_button_clicked_cb"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolItem" id="toolbutton1">
-                <property name="visible">True</property>
-                <child>
-                  <object class="GtkComboBox" id="mode_combo">
-                    <property name="visible">True</property>
-                    <property name="tooltip_text" translatable="yes" comments="Tooltip for the toolbar document type combo box">The type of document being scanned. Use "Text" for quick, medium quality scans of text documents, or "Photo" for slower, higher quality scans of documents with graphics or photographs.</property>
-                    <property name="model">mode_store</property>
-                    <property name="button_sensitivity">on</property>
-                  </object>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -870,6 +879,31 @@
         <property name="label" translatable="yes" comments="Toolbar scan menu item to scan all pages from a document feeder">All Pages From _Feeder</property>
         <property name="use_underline">True</property>
         <signal name="activate" handler="continuous_scan_button_clicked_cb"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="menuitem1">
+        <property name="visible">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="text_toolbutton_menuitem">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Text</property>
+        <property name="use_underline">True</property>
+        <property name="draw_as_radio">True</property>
+        <signal name="toggled" handler="text_menuitem_toggled_cb"/>        
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="photo_toolbutton_menuitem">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Photo</property>
+        <property name="use_underline">True</property>
+        <property name="active">True</property>
+        <property name="draw_as_radio">True</property>
+        <property name="group">text_toolbutton_menuitem</property>
+        <signal name="toggled" handler="photo_menuitem_toggled_cb"/>
       </object>
     </child>
   </object>
