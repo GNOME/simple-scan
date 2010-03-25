@@ -371,6 +371,20 @@
               </packing>
             </child>
             <child>
+              <object class="GtkToolButton" id="save_toolbutton">
+                <property name="visible">True</property>
+                <property name="is_important">True</property>
+                <property name="label" translatable="yes">Save</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-save</property>
+                <signal name="clicked" handler="save_file_button_clicked_cb"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkToolButton" id="stop_toolbutton">
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
@@ -426,6 +440,7 @@
               <object class="GtkToggleToolButton" id="crop_toolbutton">
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes">Crop the selected page</property>
+                <property name="is_important">True</property>
                 <property name="label" translatable="yes">Crop</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">object-crop</property>
@@ -644,8 +659,8 @@
   </object>
   <object class="GtkDialog" id="preferences_dialog">
     <property name="border_width">7</property>
-    <property name="resizable">False</property>
     <property name="title" translatable="yes" comments="Title of preferences dialog">Preferences</property>
+    <property name="resizable">False</property>
     <property name="icon_name">scanner</property>
     <property name="type_hint">normal</property>
     <property name="transient_for">simple_scan_window</property>
