@@ -197,7 +197,8 @@ set_scanning (Scanner *scanner, gboolean is_scanning)
 }
 
 
-static gint get_device_weight (const gchar *device)
+static gint
+get_device_weight (const gchar *device)
 {
     /* NOTE: This is using trends in the naming of SANE devices, SANE should be able to provide this information better */
   
