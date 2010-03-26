@@ -343,7 +343,7 @@ get_temporary_filename (const gchar *prefix, const gchar *extension)
     /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
      * use the filename but it appears to work in practise */
 
-    filename = g_strdup_printf ("%s-XXXXXX.%s", prefix, extension);
+    filename = g_strdup_printf ("%sXXXXXX.%s", prefix, extension);
     fd = g_file_open_tmp (filename, &path, &error);
     g_free (filename);
     if (fd < 0) {
@@ -371,7 +371,7 @@ email_cb (SimpleScan *ui, const gchar *profile)
         gchar *path;
 
         /* Open a temporary file */
-        path = get_temporary_filename ("scanned-document", "pdf");
+        path = get_temporary_filename ("scan", "pdf");
         if (path) {
             GFile *file;
 
@@ -389,7 +389,7 @@ email_cb (SimpleScan *ui, const gchar *profile)
             gchar *path;
             GFile *file;
 
-            path = get_temporary_filename ("scanned-document", "jpg");
+            path = get_temporary_filename ("scan", "jpg");
             if (!path) {
                 saved = FALSE;
                 break;
