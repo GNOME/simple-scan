@@ -2,6 +2,7 @@ icons = \
 	hicolor_actions_16x16_object-crop.png \
 	hicolor_actions_22x22_object-crop.png \
 	hicolor_actions_24x24_object-crop.png \
+	hicolor_actions_32x32_object-crop.png \
 	hicolor_actions_48x48_object-crop.png \
 	hicolor_actions_scalable_object-crop.svg
 
