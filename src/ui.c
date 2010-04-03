@@ -198,6 +198,9 @@ ui_set_scan_devices (SimpleScan *ui, GList *devices)
         if (n_delete >= 0) {
             gint i;
 
+            /* Update label */
+            gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 1, device->label, -1);
+
             for (i = 0; i < n_delete; i++) {
                 gtk_tree_model_iter_nth_child (ui->priv->device_model, &iter, NULL, index);
                 gtk_list_store_remove (GTK_LIST_STORE (ui->priv->device_model), &iter);
@@ -255,13 +258,11 @@ ui_set_selected_device (SimpleScan *ui, const gchar *device)
 {
     GtkTreeIter iter;
 
-    /* If doesn't exist add with label set to device name */
-    if (!find_scan_device (ui, device, &iter)) {
-        gtk_list_store_append (GTK_LIST_STORE (ui->priv->device_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (ui->priv->device_model), &iter, 0, device, 1, device, -1);
-    }
+    if (!find_scan_device (ui, device, &iter))
+        return;
 
     gtk_combo_box_set_active_iter (GTK_COMBO_BOX (ui->priv->device_combo), &iter);
+    ui->priv->user_selected_device = TRUE;
 }
 
 

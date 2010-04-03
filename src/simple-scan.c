@@ -24,7 +24,7 @@
 #include "book.h"
 
 
-static const char *default_device = NULL;
+static ScanDevice *default_device = NULL;
 
 static GUdevClient *udev_client;
 
@@ -44,7 +44,27 @@ static gboolean debug = FALSE;
 static void
 update_scan_devices_cb (Scanner *scanner, GList *devices)
 {
-    ui_set_scan_devices (ui, devices);
+    GList *devices_copy;
+  
+    devices_copy = g_list_copy (devices);
+  
+    /* If the default device is not detected add it to the list */
+    if (default_device) {
+        GList *i;
+
+        for (i = devices_copy; i; i = i->next) {
+            ScanDevice *device = i->data;
+            if (strcmp (device->name, default_device->name) == 0)
+                break;
+        }
+
+        if (!i)
+            devices_copy = g_list_prepend (devices_copy, default_device);
+    }
+
+    ui_set_scan_devices (ui, devices_copy);
+  
+    g_list_free (devices_copy);
 }
 
 
@@ -558,7 +578,9 @@ get_options (int argc, char **argv)
                 fprintf (stderr, "Unknown argument: '%s'\n", arg);
                 exit (1);
             }
-            default_device = arg;
+            default_device = g_malloc0 (sizeof (ScanDevice));
+            default_device->name = g_strdup (arg);
+            default_device->label = g_strdup (arg);
         }
     }   
 }
@@ -621,8 +643,15 @@ main (int argc, char **argv)
     udev_client = g_udev_client_new (udev_subsystems);
     g_signal_connect (udev_client, "uevent", G_CALLBACK (on_uevent), NULL);
 
-    if (default_device)
-        ui_set_selected_device (ui, default_device);
+    if (default_device) {
+        GList device_list;
+
+        device_list.data = default_device;
+        device_list.next = NULL;
+        device_list.prev = NULL;
+        ui_set_scan_devices (ui, &device_list);
+        ui_set_selected_device (ui, default_device->name);
+    }
 
     ui_start (ui);
     scanner_start (scanner);
