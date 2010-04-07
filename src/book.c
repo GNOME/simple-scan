@@ -321,6 +321,7 @@ book_save_pdf_with_imagemagick (Book *book, GFile *file, GError **error)
             g_warning ("stdout: %s", stdout_text);
             g_warning ("stderr: %s", stderr_text);
             result = FALSE;
+            g_set_error (error, BOOK_TYPE, 0, "ImageMagick returned error code %d, command line was: %s", exit_status, command_line->str);
         }
         g_free (stdout_text);
         g_free (stderr_text);
