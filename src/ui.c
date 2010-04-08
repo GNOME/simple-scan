@@ -1344,11 +1344,11 @@ ui_load (SimpleScan *ui)
     gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
     gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 0, 1, 0, 2, "Automatic", -1);
     gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
-    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 2050, 1, 1480, 2, "A6", -1);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 1050, 1, 1480, 2, "A6", -1);
     gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
     gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 1480, 1, 2100, 2, "A5", -1);
     gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
-    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 2100, 1, 1970, 2, "A4", -1);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 2100, 1, 2970, 2, "A4", -1);
     gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
     gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 2159, 1, 2794, 2, "Letter", -1);
     gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
