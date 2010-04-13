@@ -99,6 +99,9 @@ struct ScannerPrivate
 
     /* Last option read */
     SANE_Int option_index;
+  
+    /* Option index for scan area */
+    SANE_Int br_x_option_index, br_y_option_index;
 
     /* Buffer for received line */
     SANE_Byte *buffer;
@@ -928,6 +931,26 @@ do_get_option (Scanner *scanner)
     scanner->priv->option_index++;
 
     if (!option) {
+        /* Always use maximum scan area - some scanners default to using partial areas.  This should be patched in sane-backends */
+        if (scanner->priv->br_x_option_index) {
+            option = sane_get_option_descriptor (scanner->priv->handle, scanner->priv->option_index);
+            if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
+                if (option->type == SANE_TYPE_FIXED)
+                    set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX (option->constraint.range->max), NULL);
+                else
+                    set_int_option (scanner->priv->handle, option, option_index, option->constraint.range->max, NULL);
+            }
+        }
+        if (scanner->priv->br_y_option_index) {
+            option = sane_get_option_descriptor (scanner->priv->handle, scanner->priv->option_index);
+            if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
+                if (option->type == SANE_TYPE_FIXED)
+                    set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX (option->constraint.range->max), NULL);
+                else
+                    set_int_option (scanner->priv->handle, option, option_index, option->constraint.range->max, NULL);
+            }
+        }
+
         scanner->priv->state = STATE_START;
         return;
     }
@@ -1091,21 +1114,10 @@ do_get_option (Scanner *scanner)
         if (!set_constrained_string_option (scanner->priv->handle, option, option_index, disable_compression_names, NULL))
             g_warning ("Unable to disable compression, please file a bug");
     }
-    /* Always use maximum scan area - some scanners default to using partial areas.  This should be patched in sane-backends */
-    else if (strcmp (option->name, SANE_NAME_SCAN_BR_X) == 0 ||
-             strcmp (option->name, SANE_NAME_SCAN_BR_Y) == 0) {
-        switch (option->constraint_type)
-        {
-        case SANE_CONSTRAINT_RANGE:
-            if (option->type == SANE_TYPE_FIXED)
-                set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX (option->constraint.range->max), NULL);
-            else
-                set_int_option (scanner->priv->handle, option, option_index, option->constraint.range->max, NULL);
-            break;
-        default:
-            break;
-        }
-    }
+    else if (strcmp (option->name, SANE_NAME_SCAN_BR_X) == 0)
+        scanner->priv->br_x_option_index = option_index;
+    else if (strcmp (option->name, SANE_NAME_SCAN_BR_Y) == 0)
+        scanner->priv->br_y_option_index = option_index;
     else if (strcmp (option->name, SANE_NAME_PAGE_WIDTH) == 0) {
         if (job->page_width > 0.0) {
             if (option->type == SANE_TYPE_FIXED)
