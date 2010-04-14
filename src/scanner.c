@@ -872,6 +872,8 @@ do_open (Scanner *scanner)
     scanner->priv->page_number = 0;
     scanner->priv->notified_page = -1;
     scanner->priv->option_index = 0;
+    scanner->priv->br_x_option_index = 0;
+    scanner->priv->br_y_option_index = 0;
 
     if (!job->device && scanner->priv->default_device)
         job->device = g_strdup (scanner->priv->default_device);
@@ -922,7 +924,7 @@ do_get_option (Scanner *scanner)
     const SANE_Option_Descriptor *option;
     SANE_Int option_index;
     ScanJob *job;
-  
+
     job = (ScanJob *) scanner->priv->job_queue->data;  
 
     option = sane_get_option_descriptor (scanner->priv->handle, scanner->priv->option_index);
@@ -933,21 +935,23 @@ do_get_option (Scanner *scanner)
     if (!option) {
         /* Always use maximum scan area - some scanners default to using partial areas.  This should be patched in sane-backends */
         if (scanner->priv->br_x_option_index) {
-            option = sane_get_option_descriptor (scanner->priv->handle, scanner->priv->option_index);
+            option = sane_get_option_descriptor (scanner->priv->handle, scanner->priv->br_x_option_index);
+            g_debug ("sane_get_option_descriptor (%d)", scanner->priv->br_x_option_index);
             if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
                 if (option->type == SANE_TYPE_FIXED)
-                    set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX (option->constraint.range->max), NULL);
+                    set_fixed_option (scanner->priv->handle, option, scanner->priv->br_x_option_index, SANE_UNFIX (option->constraint.range->max), NULL);
                 else
-                    set_int_option (scanner->priv->handle, option, option_index, option->constraint.range->max, NULL);
+                    set_int_option (scanner->priv->handle, option, scanner->priv->br_x_option_index, option->constraint.range->max, NULL);
             }
         }
         if (scanner->priv->br_y_option_index) {
-            option = sane_get_option_descriptor (scanner->priv->handle, scanner->priv->option_index);
+            option = sane_get_option_descriptor (scanner->priv->handle, scanner->priv->br_y_option_index);
+            g_debug ("sane_get_option_descriptor (%d)", scanner->priv->br_y_option_index);
             if (option->constraint_type == SANE_CONSTRAINT_RANGE) {
                 if (option->type == SANE_TYPE_FIXED)
-                    set_fixed_option (scanner->priv->handle, option, option_index, SANE_UNFIX (option->constraint.range->max), NULL);
+                    set_fixed_option (scanner->priv->handle, option, scanner->priv->br_y_option_index, SANE_UNFIX (option->constraint.range->max), NULL);
                 else
-                    set_int_option (scanner->priv->handle, option, option_index, option->constraint.range->max, NULL);
+                    set_int_option (scanner->priv->handle, option, scanner->priv->br_y_option_index, option->constraint.range->max, NULL);
             }
         }
 
