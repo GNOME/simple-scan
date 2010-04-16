@@ -990,6 +990,8 @@ do_get_option (Scanner *scanner)
     else if (strcmp (option->name, SANE_NAME_SCAN_SOURCE) == 0) {
         const char *flatbed_sources[] =
         {
+            "Auto",
+            SANE_I18N ("Auto"),
             "Flatbed",
             SANE_I18N ("Flatbed"),
             "FlatBed",
