@@ -434,16 +434,16 @@ book_class_init (BookClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (BookClass, page_added),
                       NULL, NULL,
-                      g_cclosure_marshal_VOID__POINTER,
-                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+                      g_cclosure_marshal_VOID__OBJECT,
+                      G_TYPE_NONE, 1, page_get_type ());
     signals[PAGE_REMOVED] =
         g_signal_new ("page-removed",
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (BookClass, page_removed),
                       NULL, NULL,
-                      g_cclosure_marshal_VOID__POINTER,
-                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+                      g_cclosure_marshal_VOID__OBJECT,
+                      G_TYPE_NONE, 1, page_get_type ());
     signals[CLEARED] =
         g_signal_new ("cleared",
                       G_TYPE_FROM_CLASS (klass),

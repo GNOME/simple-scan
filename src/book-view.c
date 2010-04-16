@@ -734,7 +734,7 @@ book_view_class_init (BookViewClass *klass)
                       G_STRUCT_OFFSET (BookViewClass, page_selected),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__OBJECT,
-                      G_TYPE_NONE, 1, page_get_type());
+                      G_TYPE_NONE, 1, page_get_type ());
     signals[SHOW_PAGE] =
         g_signal_new ("show-page",
                       G_TYPE_FROM_CLASS (klass),
@@ -742,7 +742,7 @@ book_view_class_init (BookViewClass *klass)
                       G_STRUCT_OFFSET (BookViewClass, show_page),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__OBJECT,
-                      G_TYPE_NONE, 1, page_get_type());
+                      G_TYPE_NONE, 1, page_get_type ());
     signals[SHOW_MENU] =
         g_signal_new ("show-menu",
                       G_TYPE_FROM_CLASS (klass),

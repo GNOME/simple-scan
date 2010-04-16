@@ -1610,8 +1610,8 @@ ui_class_init (SimpleScanClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (SimpleScanClass, save),
                       NULL, NULL,
-                      g_cclosure_marshal_VOID__POINTER,
-                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+                      g_cclosure_marshal_VOID__STRING,
+                      G_TYPE_NONE, 1, G_TYPE_STRING);
     signals[EMAIL] =
         g_signal_new ("email",
                       G_TYPE_FROM_CLASS (klass),
