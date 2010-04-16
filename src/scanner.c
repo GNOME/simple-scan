@@ -457,6 +457,10 @@ set_default_option (SANE_Handle handle, const SANE_Option_Descriptor *option, SA
 {
     SANE_Status status;
 
+    /* Check if supports automatic option */
+    if ((option->cap & SANE_CAP_AUTOMATIC) == 0)
+        return FALSE;
+
     status = sane_control_option (handle, option_index, SANE_ACTION_SET_AUTO, NULL, NULL);
     g_debug ("sane_control_option (%d, SANE_ACTION_SET_AUTO) -> %s",
              option_index, get_status_string (status));
