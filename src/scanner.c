@@ -880,7 +880,7 @@ do_open (Scanner *scanner)
 
     if (!job->device) {
         g_warning ("No scan device available");
-        fail_scan (scanner, status,
+        fail_scan (scanner, 0,
                    /* Error displayed when no scanners to scan with */
                    _("No scanners available.  Please connect a scanner."));
         return;
