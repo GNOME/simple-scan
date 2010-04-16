@@ -42,8 +42,7 @@ struct SimpleScanPrivate
 
     GtkBuilder *builder;
 
-    GtkWidget *window;
-    GtkWidget *preview_box, *preview_area, *preview_scroll;
+    GtkWidget *window, *main_vbox;
     GtkWidget *page_delete_menuitem, *crop_rotate_menuitem;
     GtkWidget *stop_menuitem, *stop_toolbutton;
 
@@ -641,6 +640,14 @@ show_page_cb (BookView *view, Page *page, SimpleScan *ui)
                        FALSE);
         g_clear_error (&error);
     }
+}
+
+
+static void
+show_page_menu_cb (BookView *view, SimpleScan *ui)
+{
+    gtk_menu_popup (GTK_MENU (gtk_builder_get_object (ui->priv->builder, "page_menu")), NULL, NULL, NULL, NULL,
+                    3, gtk_get_current_event_time());
 }
 
 
@@ -1310,9 +1317,7 @@ ui_load (SimpleScan *ui)
     gtk_builder_connect_signals (builder, ui);
 
     ui->priv->window = GTK_WIDGET (gtk_builder_get_object (builder, "simple_scan_window"));
-    ui->priv->preview_box = GTK_WIDGET (gtk_builder_get_object (builder, "preview_vbox"));
-    ui->priv->preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
-    ui->priv->preview_scroll = GTK_WIDGET (gtk_builder_get_object (builder, "preview_scrollbar"));
+    ui->priv->main_vbox = GTK_WIDGET (gtk_builder_get_object (builder, "main_vbox"));
     ui->priv->page_delete_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_delete_menuitem"));
     ui->priv->crop_rotate_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "crop_rotate_menuitem"));
     ui->priv->stop_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "stop_scan_menuitem"));
@@ -1399,14 +1404,13 @@ ui_load (SimpleScan *ui)
         g_free (document_type);
     }
 
-    ui->priv->book_view = book_view_new ();
+    ui->priv->book_view = book_view_new (ui->priv->book);
+    gtk_container_set_border_width (GTK_CONTAINER (ui->priv->book_view), 18);
+    gtk_box_pack_end (GTK_BOX (ui->priv->main_vbox), GTK_WIDGET (ui->priv->book_view), TRUE, TRUE, 0);
     g_signal_connect (ui->priv->book_view, "page-selected", G_CALLBACK (page_selected_cb), ui);
     g_signal_connect (ui->priv->book_view, "show-page", G_CALLBACK (show_page_cb), ui);
-    book_view_set_widgets (ui->priv->book_view,
-                           ui->priv->preview_box,
-                           ui->priv->preview_area,
-                           ui->priv->preview_scroll,
-                           GTK_WIDGET (gtk_builder_get_object (builder, "page_menu")));
+    g_signal_connect (ui->priv->book_view, "show-menu", G_CALLBACK (show_page_menu_cb), ui);
+    gtk_widget_show (GTK_WIDGET (ui->priv->book_view));
 
     /* Find default page details */
     scan_direction = gconf_client_get_string(ui->priv->client, GCONF_DIR "/scan_direction", NULL);
@@ -1445,7 +1449,6 @@ ui_load (SimpleScan *ui)
 
     if (book_get_n_pages (ui->priv->book) == 0)
         add_default_page (ui);
-    book_view_set_book (ui->priv->book_view, ui->priv->book);
 }
 
 
@@ -1571,9 +1574,9 @@ ui_finalize (GObject *object)
     ui->priv->builder = NULL;
     g_object_unref (ui->priv->book);
     ui->priv->book = NULL;
-    g_object_unref (ui->priv->book_view);
-    ui->priv->book_view = NULL;    
-  
+    gtk_widget_destroy (GTK_WIDGET (ui->priv->book_view));
+    ui->priv->book_view = NULL;
+
     G_OBJECT_CLASS (ui_parent_class)->finalize (object);
 }
 

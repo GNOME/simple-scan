@@ -9,9 +9,8 @@
     <signal name="delete_event" handler="window_delete_event_cb"/>
     <signal name="window_state_event" handler="simple_scan_window_window_state_event_cb"/>
     <child>
-      <object class="GtkVBox" id="vbox1">
+      <object class="GtkVBox" id="main_vbox">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <child>
           <object class="GtkMenuBar" id="menubar">
             <property name="visible">True</property>
@@ -468,45 +467,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkVBox" id="vbox4">
-            <property name="visible">True</property>
-            <property name="border_width">18</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkVBox" id="preview_vbox">
-                <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkDrawingArea" id="preview_area">
-                    <property name="width_request">200</property>
-                    <property name="height_request">100</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_FOCUS_CHANGE_MASK | GDK_STRUCTURE_MASK | GDK_SCROLL_MASK</property>
-                  </object>
-                  <packing>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkHScrollbar" id="preview_scrollbar">
-                    <property name="adjustment">preview_adjustment</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="position">2</property>
-          </packing>
+          <placeholder/>
         </child>
       </object>
     </child>
@@ -548,13 +509,11 @@
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox1">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">12</property>
         <child>
           <object class="GtkVBox" id="vbox5">
             <property name="visible">True</property>
             <property name="border_width">5</property>
-            <property name="orientation">vertical</property>
             <property name="spacing">12</property>
             <child>
               <object class="GtkLabel" id="authorize_label">
@@ -680,7 +639,6 @@
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkTable" id="table3">
@@ -893,7 +851,7 @@
         <property name="label" translatable="yes">Text</property>
         <property name="use_underline">True</property>
         <property name="draw_as_radio">True</property>
-        <signal name="toggled" handler="text_menuitem_toggled_cb"/>        
+        <signal name="toggled" handler="text_menuitem_toggled_cb"/>
       </object>
     </child>
     <child>
@@ -907,12 +865,6 @@
         <signal name="toggled" handler="photo_menuitem_toggled_cb"/>
       </object>
     </child>
-  </object>
-  <object class="GtkAdjustment" id="preview_adjustment">
-    <property name="upper">100</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-    <property name="page_size">10</property>
   </object>
   <object class="GtkListStore" id="photo_dpi_store">
     <columns>

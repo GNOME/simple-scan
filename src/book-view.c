@@ -18,8 +18,14 @@
 // FIXME: Only render pages that change and only the part that changed
 
 enum {
+    PROP_0,
+    PROP_BOOK
+};
+
+enum {
     PAGE_SELECTED,
     SHOW_PAGE,
+    SHOW_MENU,
     LAST_SIGNAL
 };
 static guint signals[LAST_SIGNAL] = { 0, };
@@ -37,25 +43,22 @@ struct BookViewPrivate
     PageView *selected_page;
   
     /* Widget being rendered to */
-    GtkWidget *widget;
+    GtkWidget *drawing_area;
 
-    /* Horizontal adjustment */
+    /* Horizontal scrollbar */
+    GtkWidget *scroll;
     GtkAdjustment *adjustment;
-
-    GtkWidget *box, *scroll;
-  
-    GtkWidget *page_menu;
 
     gint cursor;
 };
 
-G_DEFINE_TYPE (BookView, book_view, G_TYPE_OBJECT);
+G_DEFINE_TYPE (BookView, book_view, GTK_TYPE_VBOX);
 
 
 BookView *
-book_view_new ()
+book_view_new (Book *book)
 {
-    return g_object_new (BOOK_VIEW_TYPE, NULL);
+    return g_object_new (BOOK_VIEW_TYPE, "book", book, NULL);
 }
 
 
@@ -148,7 +151,7 @@ set_selected_page (BookView *view, PageView *page)
         return;
 
     /* Select new page if widget has focus */
-    if (!gtk_widget_has_focus (view->priv->widget))
+    if (!gtk_widget_has_focus (view->priv->drawing_area))
         page_view_set_selected (view->priv->selected_page, FALSE);
     else
         page_view_set_selected (view->priv->selected_page, TRUE);
@@ -178,7 +181,7 @@ show_page (BookView *view, PageView *page)
     if (!page || !gtk_widget_get_visible (view->priv->scroll))
         return;
 
-    gtk_widget_get_allocation(view->priv->widget, &allocation);
+    gtk_widget_get_allocation(view->priv->drawing_area, &allocation);
     left_edge = page_view_get_x_offset (page);
     right_edge = page_view_get_x_offset (page) + page_view_get_width (page);
 
@@ -240,32 +243,6 @@ clear_cb (Book *book, BookView *view)
     g_signal_emit (view, signals[PAGE_SELECTED], 0, NULL);
     view->priv->need_layout = TRUE;
     book_view_redraw (view);
-}
-
-
-void
-book_view_set_book (BookView *view, Book *book)
-{
-    gint i, n_pages;
-
-    g_return_if_fail (view != NULL);
-    g_return_if_fail (book != NULL);
-
-    view->priv->book = g_object_ref (book);
-
-    /* Load existing pages */
-    n_pages = book_get_n_pages (view->priv->book);
-    for (i = 0; i < n_pages; i++) {
-        Page *page = book_get_page (book, i);
-        add_cb (book, page, view);
-    }
-
-    book_view_select_page (view, book_get_page (book, 0));
-
-    /* Watch for new pages */
-    g_signal_connect (book, "page-added", G_CALLBACK (add_cb), view);
-    g_signal_connect (book, "page-removed", G_CALLBACK (remove_cb), view);
-    g_signal_connect (book, "cleared", G_CALLBACK (clear_cb), view);
 }
 
 
@@ -379,8 +356,8 @@ layout (BookView *view)
 
     view->priv->laying_out = TRUE;
 
-    gtk_widget_get_allocation(view->priv->widget, &allocation);
-    gtk_widget_get_allocation(view->priv->box, &box_allocation);
+    gtk_widget_get_allocation(view->priv->drawing_area, &allocation);
+    gtk_widget_get_allocation(GTK_WIDGET(view), &box_allocation);
 
     /* If scroll is right aligned then keep that after layout */
     if (gtk_adjustment_get_value (view->priv->adjustment) < gtk_adjustment_get_upper (view->priv->adjustment) - gtk_adjustment_get_page_size (view->priv->adjustment))
@@ -388,7 +365,7 @@ layout (BookView *view)
 
     /* Try and fit without scrollbar */
     width = allocation.width;
-    height = box_allocation.height;
+    height = box_allocation.height - gtk_container_get_border_width (GTK_CONTAINER (view)) * 2;
     layout_into (view, width, height, &book_width, &book_height);
 
     /* Relayout with scrollbar */
@@ -461,8 +438,8 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
         cairo_restore (context);
 
         if (page_view_get_selected (page))
-            gtk_paint_focus (gtk_widget_get_style (view->priv->widget),
-                             gtk_widget_get_window (view->priv->widget),
+            gtk_paint_focus (gtk_widget_get_style (view->priv->drawing_area),
+                             gtk_widget_get_window (view->priv->drawing_area),
                              GTK_STATE_SELECTED,
                              &event->area,
                              NULL,
@@ -513,7 +490,7 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
 
     layout (view);
 
-    gtk_widget_grab_focus (view->priv->widget);
+    gtk_widget_grab_focus (view->priv->drawing_area);
 
     if (event->type == GDK_BUTTON_PRESS)
         select_page (view, get_page_at (view, event->x + get_x_offset (view), event->y, &x, &y));
@@ -532,10 +509,8 @@ button_cb (GtkWidget *widget, GdkEventButton *event, BookView *view)
     }
 
     /* Show pop-up menu on right click */
-    if (event->button == 3) {
-        gtk_menu_popup (GTK_MENU (view->priv->page_menu), NULL, NULL, NULL, NULL,
-                        event->button, event->time);
-    }
+    if (event->button == 3)
+        g_signal_emit (view, signals[SHOW_MENU], 0);
 
     return FALSE;
 }
@@ -551,7 +526,7 @@ set_cursor (BookView *view, gint cursor)
     view->priv->cursor = cursor;
 
     c = gdk_cursor_new (cursor);
-    gdk_window_set_cursor (gtk_widget_get_window (view->priv->widget), c);
+    gdk_window_set_cursor (gtk_widget_get_window (view->priv->drawing_area), c);
     gdk_cursor_destroy (c);
 }
 
@@ -624,34 +599,10 @@ scroll_cb (GtkAdjustment *adjustment, BookView *view)
 
 
 void
-book_view_set_widgets (BookView *view, GtkWidget *box, GtkWidget *area, GtkWidget *scroll, GtkWidget *page_menu)
-{
-    g_return_if_fail (view != NULL);
-    g_return_if_fail (view->priv->widget == NULL);
-
-    view->priv->widget = area;
-    view->priv->box = box;
-    view->priv->scroll = scroll;
-    view->priv->adjustment = gtk_range_get_adjustment (GTK_RANGE (scroll));
-    view->priv->page_menu = page_menu;
-
-    g_signal_connect (area, "configure-event", G_CALLBACK (configure_cb), view);
-    g_signal_connect (area, "expose-event", G_CALLBACK (expose_cb), view);
-    g_signal_connect (area, "motion-notify-event", G_CALLBACK (motion_cb), view);
-    g_signal_connect (area, "key-press-event", G_CALLBACK (key_cb), view);
-    g_signal_connect (area, "button-press-event", G_CALLBACK (button_cb), view);
-    g_signal_connect (area, "button-release-event", G_CALLBACK (button_cb), view);
-    g_signal_connect_after (area, "focus-in-event", G_CALLBACK (focus_cb), view);
-    g_signal_connect_after (area, "focus-out-event", G_CALLBACK (focus_cb), view);
-    g_signal_connect (view->priv->adjustment, "value-changed", G_CALLBACK (scroll_cb), view);
-}
-
-
-void
 book_view_redraw (BookView *view)
 {
     g_return_if_fail (view != NULL);
-    gtk_widget_queue_draw (view->priv->widget);  
+    gtk_widget_queue_draw (view->priv->drawing_area);  
 }
 
 
@@ -699,6 +650,63 @@ book_view_get_selected (BookView *view)
 
 
 static void
+book_view_set_property(GObject      *object,
+                       guint         prop_id,
+                       const GValue *value,
+                       GParamSpec   *pspec)
+{
+    BookView *self;
+    gint i, n_pages;
+
+    self = BOOK_VIEW (object);
+
+    switch (prop_id) {
+    case PROP_BOOK:
+        self->priv->book = g_object_ref (g_value_get_object (value));
+
+        /* Load existing pages */
+        n_pages = book_get_n_pages (self->priv->book);
+        for (i = 0; i < n_pages; i++) {
+            Page *page = book_get_page (self->priv->book, i);
+            add_cb (self->priv->book, page, self);
+        }
+
+        book_view_select_page (self, book_get_page (self->priv->book, 0));
+
+        /* Watch for new pages */
+        g_signal_connect (self->priv->book, "page-added", G_CALLBACK (add_cb), self);
+        g_signal_connect (self->priv->book, "page-removed", G_CALLBACK (remove_cb), self);
+        g_signal_connect (self->priv->book, "cleared", G_CALLBACK (clear_cb), self);
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+        break;
+    }
+}
+
+
+static void
+book_view_get_property(GObject    *object,
+                       guint       prop_id,
+                       GValue     *value,
+                       GParamSpec *pspec)
+{
+    BookView *self;
+
+    self = BOOK_VIEW (object);
+
+    switch (prop_id) {
+    case PROP_BOOK:
+        g_value_set_object (value, self->priv->book);
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+        break;
+    }
+}
+
+
+static void
 book_view_finalize (GObject *object)
 {
     BookView *view = BOOK_VIEW (object);
@@ -716,6 +724,8 @@ book_view_class_init (BookViewClass *klass)
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->finalize = book_view_finalize;
+    object_class->set_property = book_view_set_property;
+    object_class->get_property = book_view_get_property;
 
     signals[PAGE_SELECTED] =
         g_signal_new ("page-selected",
@@ -723,16 +733,32 @@ book_view_class_init (BookViewClass *klass)
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (BookViewClass, page_selected),
                       NULL, NULL,
-                      g_cclosure_marshal_VOID__POINTER,
-                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+                      g_cclosure_marshal_VOID__OBJECT,
+                      G_TYPE_NONE, 1, page_get_type());
     signals[SHOW_PAGE] =
         g_signal_new ("show-page",
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
                       G_STRUCT_OFFSET (BookViewClass, show_page),
                       NULL, NULL,
-                      g_cclosure_marshal_VOID__POINTER,
-                      G_TYPE_NONE, 1, G_TYPE_POINTER);
+                      g_cclosure_marshal_VOID__OBJECT,
+                      G_TYPE_NONE, 1, page_get_type());
+    signals[SHOW_MENU] =
+        g_signal_new ("show-menu",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (BookViewClass, show_page),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+
+    g_object_class_install_property(object_class,
+                                    PROP_BOOK,
+                                    g_param_spec_object("book",
+                                                        "book",
+                                                        "Book being shown",
+                                                        book_get_type(),
+                                                        G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
     g_type_class_add_private (klass, sizeof (BookViewPrivate));
 }
@@ -746,4 +772,26 @@ book_view_init (BookView *view)
     view->priv->page_data = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                    NULL, (GDestroyNotify) g_object_unref);
     view->priv->cursor = GDK_ARROW;
+  
+    view->priv->drawing_area = gtk_drawing_area_new ();
+    gtk_widget_set_size_request (view->priv->drawing_area, 200, 100);
+    gtk_widget_set_can_focus (view->priv->drawing_area, TRUE);
+    gtk_widget_set_events (view->priv->drawing_area, GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_FOCUS_CHANGE_MASK | GDK_STRUCTURE_MASK | GDK_SCROLL_MASK);
+    gtk_box_pack_start (GTK_BOX (view), view->priv->drawing_area, TRUE, TRUE, 0);
+
+    view->priv->scroll = gtk_hscrollbar_new (NULL);
+    view->priv->adjustment = gtk_range_get_adjustment (GTK_RANGE (view->priv->scroll));
+    gtk_box_pack_start (GTK_BOX (view), view->priv->scroll, FALSE, TRUE, 0);
+
+    g_signal_connect (view->priv->drawing_area, "configure-event", G_CALLBACK (configure_cb), view);
+    g_signal_connect (view->priv->drawing_area, "expose-event", G_CALLBACK (expose_cb), view);
+    g_signal_connect (view->priv->drawing_area, "motion-notify-event", G_CALLBACK (motion_cb), view);
+    g_signal_connect (view->priv->drawing_area, "key-press-event", G_CALLBACK (key_cb), view);
+    g_signal_connect (view->priv->drawing_area, "button-press-event", G_CALLBACK (button_cb), view);
+    g_signal_connect (view->priv->drawing_area, "button-release-event", G_CALLBACK (button_cb), view);
+    g_signal_connect_after (view->priv->drawing_area, "focus-in-event", G_CALLBACK (focus_cb), view);
+    g_signal_connect_after (view->priv->drawing_area, "focus-out-event", G_CALLBACK (focus_cb), view);
+    g_signal_connect (view->priv->adjustment, "value-changed", G_CALLBACK (scroll_cb), view);
+
+    gtk_widget_show (view->priv->drawing_area);
 }

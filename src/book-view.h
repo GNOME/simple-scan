@@ -12,7 +12,6 @@
 #ifndef _BOOK_VIEW_H_
 #define _BOOK_VIEW_H_
 
-#include <glib-object.h>
 #include <gtk/gtk.h>
 #include <cairo.h>
 #include "book.h"
@@ -27,28 +26,23 @@ typedef struct BookViewPrivate BookViewPrivate;
 
 typedef struct
 {
-    GObject          parent_instance;
+    GtkVBox parent_instance;
     BookViewPrivate *priv;
 } BookView;
 
 typedef struct
 {
-    GObjectClass parent_class;
-    
+    GtkVBoxClass parent_class;
+
     void (*page_selected) (BookView *view, Page *page);
     void (*show_page) (BookView *view, Page *page);
+    void (*show_menu) (BookView *view, Page *page);
 } BookViewClass;
 
 
 GType book_view_get_type (void);
 
-BookView *book_view_new (void);
-
-// FIXME: Book view should extend GtkVBox
-void book_view_set_widgets (BookView *view, GtkWidget *box, GtkWidget *area, GtkWidget *scroll, GtkWidget *page_menu);
-
-// FIXME: Should be part of book_view_new
-void book_view_set_book (BookView *view, Book *book);
+BookView *book_view_new (Book *book);
 
 void book_view_redraw (BookView *view);
 
