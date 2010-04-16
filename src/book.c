@@ -328,11 +328,8 @@ book_save_pdf_with_imagemagick (Book *book, GFile *file, GError **error)
     }
 
     /* Move to target URI */
-    if (result) {
-        GFile *dest;
+    if (result)
         result = g_file_move (output_file, file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, error);
-        g_object_unref (dest);
-    }
   
     /* Delete page files */
     for (link = temporary_files; link; link = link->next) {
