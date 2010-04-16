@@ -173,17 +173,19 @@ static void
 show_page (BookView *view, PageView *page)
 {
     gint left_edge, right_edge;
+    GtkAllocation allocation;
 
     if (!page || !gtk_widget_get_visible (view->priv->scroll))
         return;
 
+    gtk_widget_get_allocation(view->priv->widget, &allocation);
     left_edge = page_view_get_x_offset (page);
     right_edge = page_view_get_x_offset (page) + page_view_get_width (page);
 
     if (left_edge - get_x_offset (view) < 0)
         set_x_offset(view, left_edge);
-    else if (right_edge - get_x_offset (view) > view->priv->widget->allocation.width)
-       set_x_offset(view, right_edge - view->priv->widget->allocation.width);
+    else if (right_edge - get_x_offset (view) > allocation.width)
+        set_x_offset(view, right_edge - allocation.width);
 }
 
 
@@ -370,36 +372,40 @@ layout (BookView *view)
 {
     gint width, height, book_width, book_height;
     gboolean right_aligned = TRUE;
+    GtkAllocation allocation, box_allocation;
 
     if (!view->priv->need_layout)
         return;
-  
+
     view->priv->laying_out = TRUE;
+
+    gtk_widget_get_allocation(view->priv->widget, &allocation);
+    gtk_widget_get_allocation(view->priv->box, &box_allocation);
 
     /* If scroll is right aligned then keep that after layout */
     if (gtk_adjustment_get_value (view->priv->adjustment) < gtk_adjustment_get_upper (view->priv->adjustment) - gtk_adjustment_get_page_size (view->priv->adjustment))
         right_aligned = FALSE;
-  
+
     /* Try and fit without scrollbar */
-    width = view->priv->widget->allocation.width;
-    height = view->priv->box->allocation.height;
+    width = allocation.width;
+    height = box_allocation.height;
     layout_into (view, width, height, &book_width, &book_height);
 
     /* Relayout with scrollbar */
-    if (book_width > view->priv->widget->allocation.width) {
+    if (book_width > allocation.width) {
         gint max_offset;
       
         /* Re-layout leaving space for scrollbar */
-        height = view->priv->widget->allocation.height;
+        height = allocation.height;
         layout_into (view, width, height, &book_width, &book_height);
 
         /* Set scrollbar limits */
         gtk_adjustment_set_lower (view->priv->adjustment, 0);
         gtk_adjustment_set_upper (view->priv->adjustment, book_width);
-        gtk_adjustment_set_page_size (view->priv->adjustment, view->priv->widget->allocation.width);
+        gtk_adjustment_set_page_size (view->priv->adjustment, allocation.width);
 
         /* Keep right-aligned */
-        max_offset = book_width - view->priv->widget->allocation.width;
+        max_offset = book_width - allocation.width;
         if (right_aligned || get_x_offset (view) > max_offset)
             set_x_offset(view, max_offset);
 
@@ -407,7 +413,7 @@ layout (BookView *view)
     } else {
         gint offset;
         gtk_widget_hide (view->priv->scroll);
-        offset = (book_width - view->priv->widget->allocation.width) / 2;
+        offset = (book_width - allocation.width) / 2;
         gtk_adjustment_set_lower (view->priv->adjustment, offset);
         gtk_adjustment_set_upper (view->priv->adjustment, offset);
         gtk_adjustment_set_page_size (view->priv->adjustment, 0);
@@ -435,7 +441,7 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, BookView *view)
 
     layout (view);
 
-    context = gdk_cairo_create (widget->window);
+    context = gdk_cairo_create (gtk_widget_get_window(widget));
 
     /* Render each page */
     for (i = 0; i < n_pages; i++) {
