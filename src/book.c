@@ -284,7 +284,7 @@ book_save_pdf_with_imagemagick (Book *book, GFile *file, GError **error)
     for (iter = book->priv->pages; iter && result; iter = iter->next) {
         Page *page = iter->data;
         GFile *jpeg_file, *tiff_file;
-        gchar *path;
+        gchar *path, *resolution_command, *stdout_text = NULL, *stderr_text = NULL;
         gint jpeg_size, tiff_size;
 
         jpeg_file = get_temporary_file ("simple-scan", "jpg");
@@ -302,6 +302,25 @@ book_save_pdf_with_imagemagick (Book *book, GFile *file, GError **error)
             path = g_file_get_path (jpeg_file);
         else
             path = g_file_get_path (tiff_file);
+
+        resolution_command = g_strdup_printf ("convert %s -density %d %s", path, page_get_dpi (page), path);
+        result = g_spawn_command_line_sync (resolution_command, &stdout_text, &stderr_text, &exit_status, error);
+        if (result && exit_status != 0) {
+            g_warning ("ImageMagick returned error code %d, command line was: %s", exit_status, resolution_command);
+            g_warning ("stdout: %s", stdout_text);
+            g_warning ("stderr: %s", stderr_text);
+            result = FALSE;
+            g_set_error (error, BOOK_TYPE, 0,
+                         "ImageMagick returned error code %d\n"
+                         "\n"
+                         "Command line: %s\n"
+                         "Stdout: %s\n"
+                         "Stderr: %s",
+                         exit_status, resolution_command, stdout_text, stderr_text);
+        }
+        if (!result)
+            break;
+      
         g_string_append_printf (command_line, " %s", path);
         g_free (path);
     }
@@ -321,7 +340,13 @@ book_save_pdf_with_imagemagick (Book *book, GFile *file, GError **error)
             g_warning ("stdout: %s", stdout_text);
             g_warning ("stderr: %s", stderr_text);
             result = FALSE;
-            g_set_error (error, BOOK_TYPE, 0, "ImageMagick returned error code %d, command line was: %s", exit_status, command_line->str);
+            g_set_error (error, BOOK_TYPE, 0,
+                         "ImageMagick returned error code %d\n"
+                         "\n"
+                         "Command line: %s\n"
+                         "Stdout: %s\n"
+                         "Stderr: %s",
+                         exit_status, command_line->str, stdout_text, stderr_text);
         }
         g_free (stdout_text);
         g_free (stderr_text);
