@@ -1054,6 +1054,14 @@ do_get_option (Scanner *scanner)
             break;
         }
     }
+    else if (strcmp (option->name, "duplex") == 0) {
+        if (option->type == SANE_TYPE_BOOL)
+            set_bool_option (scanner->priv->handle, option, option_index, job->type == SCAN_ADF_BOTH, NULL);
+    }
+    else if (strcmp (option->name, "batch-scan") == 0) {
+        if (option->type == SANE_TYPE_BOOL)
+            set_bool_option (scanner->priv->handle, option, option_index, job->type != SCAN_SINGLE, NULL);
+    }
     else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
         if (job->depth > 0)
             set_int_option (scanner->priv->handle, option, option_index, job->depth, NULL);
