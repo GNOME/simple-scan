@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-11 09:46+1100\n"
-"PO-Revision-Date: 2010-02-13 16:22+0000\n"
+"PO-Revision-Date: 2010-04-19 09:51+0000\n"
 "Last-Translator: Khaled Hosny <khaledhosny@eglug.org>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-03-11 05:11+0000\n"
+"X-Launchpad-Export-Date: 2010-04-20 03:39+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -45,7 +45,7 @@ msgstr "كل الصفحات من  _المغذّي"
 #. Tooltip for preferences button
 #: ../data/simple-scan.ui.h:12
 msgid "Configure application preferences"
-msgstr ""
+msgstr "اضبط تفضيلات البرنامج"
 
 #: ../data/simple-scan.ui.h:13
 msgid "Crop"
@@ -54,7 +54,7 @@ msgstr "قص"
 #. Tooltip for crop button
 #: ../data/simple-scan.ui.h:15
 msgid "Crop the selected page"
-msgstr ""
+msgstr "اقتطع الصفحة المحددة"
 
 #. Label on email toolbar item
 #: ../data/simple-scan.ui.h:17
@@ -118,12 +118,12 @@ msgstr "أدر ي_مينًا"
 #. Tooltip for rotate left (counter-clockwise) button
 #: ../data/simple-scan.ui.h:40
 msgid "Rotate the page to the left (counter-clockwise)"
-msgstr ""
+msgstr "أدر الصفحة لليسار(عكس عقارب الساعة)"
 
 #. Tooltip for rotate right (clockwise) button
 #: ../data/simple-scan.ui.h:42
 msgid "Rotate the page to the right (clockwise)"
-msgstr ""
+msgstr "أدر الصفحة لليمين (مع عقارب الساعة)"
 
 #. Label on save to file toolbar item
 #: ../data/simple-scan.ui.h:44
@@ -138,7 +138,7 @@ msgstr "احفظ المستند الحالي في ملف"
 #. Scan menu item
 #: ../data/simple-scan.ui.h:48
 msgid "Sc_an"
-msgstr ""
+msgstr "امسح"
 
 #. Label on scan toolbar item
 #: ../data/simple-scan.ui.h:50
@@ -172,12 +172,12 @@ msgstr "ابدأ مستندا جديدا"
 
 #: ../data/simple-scan.ui.h:61
 msgid "Stop"
-msgstr ""
+msgstr "أوقف"
 
 #. Tooltip for stop button
 #: ../data/simple-scan.ui.h:63
 msgid "Stop the current scan"
-msgstr ""
+msgstr "أوقف المسح الحالي"
 
 #. Combo box label for text scan mode
 #: ../data/simple-scan.ui.h:65
@@ -191,6 +191,8 @@ msgid ""
 "scans of text documents, or \"Photo\" for slower, higher quality scans of "
 "documents with graphics or photographs."
 msgstr ""
+"نوع المستند الممسوح. استخدم \"نص\" لمسح سريع متوسط الجودة للمستندات النصية، "
+"أو \"صورة\" لمسح أبطأ أعلى دقة للمستندات ذات الرسوم أو الصور."
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:69
@@ -200,7 +202,7 @@ msgstr "_خوّل"
 #. Help|Contents menu
 #: ../data/simple-scan.ui.h:71
 msgid "_Contents"
-msgstr ""
+msgstr "ال_محتويات"
 
 #. Label for page crop submenu
 #: ../data/simple-scan.ui.h:73
@@ -220,7 +222,7 @@ msgstr "م_ستند"
 #. Label on email menu item
 #: ../data/simple-scan.ui.h:79
 msgid "_Email"
-msgstr ""
+msgstr "_بريد إلكتروني"
 
 #. Label on help menu
 #: ../data/simple-scan.ui.h:81
@@ -250,7 +252,7 @@ msgstr "_كلمة السر:"
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:91
 msgid "_Photo Resolution:"
-msgstr ""
+msgstr "ميز ال_ صورة:"
 
 #. Menu item to rotate the crop area
 #: ../data/simple-scan.ui.h:93
@@ -265,7 +267,7 @@ msgstr "أو_قف المسح"
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:97
 msgid "_Text Resolution:"
-msgstr ""
+msgstr "ميز ال_نص"
 
 #. Label beside username entry
 #: ../data/simple-scan.ui.h:99
@@ -286,7 +288,7 @@ msgstr "اتجاه المسح"
 
 #: ../data/simple-scan.schemas.in.h:3
 msgid "Directory to save files to"
-msgstr ""
+msgstr "دليل حفظ الملفات"
 
 #: ../data/simple-scan.schemas.in.h:4
 msgid "Height of scanned image in pixels"
@@ -294,15 +296,15 @@ msgstr "ارتفاع الصورة الممسوحة بالبكسل"
 
 #: ../data/simple-scan.schemas.in.h:5
 msgid "Resolution for photo scans"
-msgstr ""
+msgstr "ميز مسح الصور"
 
 #: ../data/simple-scan.schemas.in.h:6
 msgid "Resolution for text scans"
-msgstr ""
+msgstr "ميز مسح النصوص"
 
 #: ../data/simple-scan.schemas.in.h:7
 msgid "Resolution of last scanned image"
-msgstr ""
+msgstr "ميز آخر صورةممسوحة"
 
 #: ../data/simple-scan.schemas.in.h:8
 msgid "SANE device to acquire images from."
@@ -323,7 +325,7 @@ msgstr ""
 #: ../data/simple-scan.schemas.in.h:11
 msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
-msgstr ""
+msgstr "الدليل الذي ستحفظ به الملفات. يستخدم دليل المستندات إذا لم يحدد هنا."
 
 #: ../data/simple-scan.schemas.in.h:12
 msgid ""
@@ -335,15 +337,15 @@ msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:13
 msgid "The resolution in dots-per-inch of the previously scanned image."
-msgstr ""
+msgstr "الميز بالنقطة في البوصة للصورة الممسوحة سابقا."
 
 #: ../data/simple-scan.schemas.in.h:14
 msgid "The resolution in dots-per-inch to use when scanning photos."
-msgstr ""
+msgstr "الميز بالنقطة في البوصة الذي سيستخدم عند مسح الصور."
 
 #: ../data/simple-scan.schemas.in.h:15
 msgid "The resolution in dots-per-inch to use when scanning text."
-msgstr ""
+msgstr "الميز بالنقطة في البوصة الذي سيستخدم عند مسح النصوص."
 
 #: ../data/simple-scan.schemas.in.h:16
 msgid ""
@@ -405,7 +407,7 @@ msgstr "فشل المسح"
 #. Default filename to use when saving document (and extension will be added, e.g. .jpg)
 #: ../src/simple-scan.c:194
 msgid "Scanned Document"
-msgstr ""
+msgstr "مستند ممسوح"
 
 #. Title of error dialog when save failed
 #: ../src/simple-scan.c:263
@@ -466,22 +468,22 @@ msgstr "يرجى التحقق من أنّ الماسحة متصلة و تعمل"
 #. Error message display when unable to preview image
 #: ../src/ui.c:517
 msgid "Unable to open image preview application"
-msgstr ""
+msgstr "تعذر فتح معاين الصور"
 
 #. Save dialog: Label for saving in PDF format
 #: ../src/ui.c:756
 msgid "PDF (multi-page document)"
-msgstr ""
+msgstr "PDF‏ (مستند متعدد الصفحات)"
 
 #. Save dialog: Label for saving in JPEG format
 #: ../src/ui.c:758
 msgid "JPEG (compressed)"
-msgstr ""
+msgstr "‏JPEG (مضغوط)"
 
 #. Save dialog: Label for saving in PNG format
 #: ../src/ui.c:760
 msgid "PNG (lossless)"
-msgstr ""
+msgstr "‏PNG (غير فقود)"
 
 #. Save dialog: Dialog title
 #: ../src/ui.c:772
@@ -491,22 +493,22 @@ msgstr "احفظ كـ..."
 #. Save dialog: Filter name to show only image files
 #: ../src/ui.c:788
 msgid "Image Files"
-msgstr ""
+msgstr "ملفات الصور"
 
 #. Save dialog: Filter name to show all files
 #: ../src/ui.c:795
 msgid "All Files"
-msgstr ""
+msgstr "كل الملفات"
 
 #. 
 #: ../src/ui.c:800
 msgid "Select File _Type"
-msgstr ""
+msgstr "اختر _نوع الملف"
 
 #. Error message displayed when unable to launch help browser
 #: ../src/ui.c:939
 msgid "Unable to open help file"
-msgstr ""
+msgstr "تعذّر فتح ملف المساعدة"
 
 #. The license this software is under (GPL3+)
 #: ../src/ui.c:955
@@ -557,25 +559,25 @@ msgstr ""
 #: ../src/ui.c:1114
 #, c-format
 msgid "%d dpi (draft)"
-msgstr ""
+msgstr "%d نقطة\\بوصة (مسودة)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
 #: ../src/ui.c:1116 ../src/ui.c:1117 ../src/ui.c:1118 ../src/ui.c:1121
 #, c-format
 msgid "%d dpi"
-msgstr ""
+msgstr "%d نقطة\\بوصة"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
 #: ../src/ui.c:1120
 #, c-format
 msgid "%d dpi (high resolution)"
-msgstr ""
+msgstr "%d نقطة\\بوصة (دقة عالية)"
 
 #. Preferences dialog: Label for default resolution in resolution list
 #: ../src/ui.c:1143
 #, c-format
 msgid "%d dpi (default)"
-msgstr ""
+msgstr "%d نقطة\\بوصة (مبدئي)"
 
 #. Title of dialog when cannot load required files
 #: ../src/ui.c:1175
