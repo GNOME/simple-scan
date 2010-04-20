@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-11 09:46+1100\n"
-"PO-Revision-Date: 2010-02-28 10:59+0000\n"
+"PO-Revision-Date: 2010-04-19 07:56+0000\n"
 "Last-Translator: Xhacker Liu <liu.dongyuan@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-03-11 05:12+0000\n"
+"X-Launchpad-Export-Date: 2010-04-20 03:39+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -54,7 +54,7 @@ msgstr "剪裁"
 #. Tooltip for crop button
 #: ../data/simple-scan.ui.h:15
 msgid "Crop the selected page"
-msgstr ""
+msgstr "裁剪选中的页面"
 
 #. Label on email toolbar item
 #: ../data/simple-scan.ui.h:17
@@ -83,7 +83,7 @@ msgstr "照片"
 #. Title of preferences dialog
 #: ../data/simple-scan.ui.h:26
 msgid "Preferences"
-msgstr "设置"
+msgstr "首选项"
 
 #. Label on print toolbar item
 #: ../data/simple-scan.ui.h:28
@@ -118,12 +118,12 @@ msgstr "向右旋转(_R)"
 #. Tooltip for rotate left (counter-clockwise) button
 #: ../data/simple-scan.ui.h:40
 msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "左旋页面（逆时针）"
+msgstr "左旋页面 (逆时针)"
 
 #. Tooltip for rotate right (clockwise) button
 #: ../data/simple-scan.ui.h:42
 msgid "Rotate the page to the right (clockwise)"
-msgstr "右旋页面（顺时针）"
+msgstr "右旋页面 (顺时针)"
 
 #. Label on save to file toolbar item
 #: ../data/simple-scan.ui.h:44
@@ -138,7 +138,7 @@ msgstr "将文档保存到文件"
 #. Scan menu item
 #: ../data/simple-scan.ui.h:48
 msgid "Sc_an"
-msgstr ""
+msgstr "扫描(_A)"
 
 #. Label on scan toolbar item
 #: ../data/simple-scan.ui.h:50
@@ -190,12 +190,12 @@ msgid ""
 "The type of document being scanned. Use \"Text\" for quick, medium quality "
 "scans of text documents, or \"Photo\" for slower, higher quality scans of "
 "documents with graphics or photographs."
-msgstr ""
+msgstr "扫描文档的类型。“文本”适用于快速扫描文本文当，质量中等；“照片”适用于附带图片或者照片的文档，扫描速度更慢，但是质量更好。"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:69
 msgid "_Authorize"
-msgstr "批准(_A)"
+msgstr "认证(_A)"
 
 #. Help|Contents menu
 #: ../data/simple-scan.ui.h:71
@@ -215,7 +215,7 @@ msgstr "自定义(_C)"
 #. Label on document menu (contains actions for this document, e.g. save, print)
 #: ../data/simple-scan.ui.h:77
 msgid "_Document"
-msgstr "文档 (_D)"
+msgstr "文档(_D)"
 
 #. Label on email menu item
 #: ../data/simple-scan.ui.h:79
@@ -225,7 +225,7 @@ msgstr "电子邮件(_E)"
 #. Label on help menu
 #: ../data/simple-scan.ui.h:81
 msgid "_Help"
-msgstr "帮助 (_H)"
+msgstr "帮助(_H)"
 
 #. Radio button for cropping page to US letter size
 #: ../data/simple-scan.ui.h:83
@@ -250,7 +250,7 @@ msgstr "密码(_P)："
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:91
 msgid "_Photo Resolution:"
-msgstr "图像分辨率(_P)"
+msgstr "图像分辨率(_P)："
 
 #. Menu item to rotate the crop area
 #: ../data/simple-scan.ui.h:93
@@ -265,7 +265,7 @@ msgstr "停止扫描(_S)"
 #. Label beside scan source combo box
 #: ../data/simple-scan.ui.h:97
 msgid "_Text Resolution:"
-msgstr ""
+msgstr "文字分辨率(_T)："
 
 #. Label beside username entry
 #: ../data/simple-scan.ui.h:99
@@ -286,27 +286,27 @@ msgstr "扫描方向"
 
 #: ../data/simple-scan.schemas.in.h:3
 msgid "Directory to save files to"
-msgstr ""
+msgstr "保存文件的文件夹："
 
 #: ../data/simple-scan.schemas.in.h:4
 msgid "Height of scanned image in pixels"
-msgstr "所扫描图像的以像素计的高度"
+msgstr "所扫描图像的的高度 (以像素计)"
 
 #: ../data/simple-scan.schemas.in.h:5
 msgid "Resolution for photo scans"
-msgstr ""
+msgstr "照片扫描分辨率"
 
 #: ../data/simple-scan.schemas.in.h:6
 msgid "Resolution for text scans"
-msgstr ""
+msgstr "文本扫描分辨率"
 
 #: ../data/simple-scan.schemas.in.h:7
 msgid "Resolution of last scanned image"
-msgstr ""
+msgstr "上次扫描的图片分辨率"
 
 #: ../data/simple-scan.schemas.in.h:8
 msgid "SANE device to acquire images from."
-msgstr "从 SANE 设备来获取图像。"
+msgstr "从 SANE 设备获取图像。"
 
 #: ../data/simple-scan.schemas.in.h:9
 msgid "TRUE if the application window is maximized"
@@ -321,31 +321,31 @@ msgstr "扫描仪扫描页面的方式。可以是如下几种：顶部到底部
 #: ../data/simple-scan.schemas.in.h:11
 msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
-msgstr ""
+msgstr "用于保存文件的文件夹。如果不设置，默认使用 文档 文件夹。"
 
 #: ../data/simple-scan.schemas.in.h:12
 msgid ""
 "The height of scanned image in pixels. This value is updated to what the "
 "last scanned page was."
-msgstr "所扫描图像的以像素计的高度。这是最后一次扫描的页面的值。"
+msgstr "所扫描图像的高度 (以像素计)。这是上次扫描的页面的值。"
 
 #: ../data/simple-scan.schemas.in.h:13
 msgid "The resolution in dots-per-inch of the previously scanned image."
-msgstr ""
+msgstr "上次扫描图片的分辨率 (点/英寸)。"
 
 #: ../data/simple-scan.schemas.in.h:14
 msgid "The resolution in dots-per-inch to use when scanning photos."
-msgstr ""
+msgstr "扫描照片时使用的分辨率 (点/英寸)。"
 
 #: ../data/simple-scan.schemas.in.h:15
 msgid "The resolution in dots-per-inch to use when scanning text."
-msgstr ""
+msgstr "上次扫描文档的分辨率 (点/英寸)。"
 
 #: ../data/simple-scan.schemas.in.h:16
 msgid ""
 "The width of scanned image in pixels. This value is updated to what the last "
 "scanned page was."
-msgstr "所扫描图像的以像素计的宽度。这是最后一次扫描的页面的值。"
+msgstr "所扫描图像的宽度 (以像素计)。这是上次扫描的页面的值。"
 
 #: ../data/simple-scan.schemas.in.h:17
 msgid "Type of document being scanned"
@@ -360,15 +360,15 @@ msgstr "扫描文档的类型。“文本”适用于文本文档，“照片”
 
 #: ../data/simple-scan.schemas.in.h:19
 msgid "Width of scanned image in pixels"
-msgstr "所扫描图像的以像素计的宽度。"
+msgstr "所扫描图像的宽度 (以像素计)。"
 
 #: ../data/simple-scan.schemas.in.h:20
 msgid "Window height in pixels"
-msgstr "窗口高度(像素)"
+msgstr "窗口高度 (像素)"
 
 #: ../data/simple-scan.schemas.in.h:21
 msgid "Window width in pixels"
-msgstr "窗口宽度(像素)"
+msgstr "窗口宽度 (像素)"
 
 #. Error displayed when no scanners to scan with
 #: ../src/scanner.c:852
@@ -378,12 +378,12 @@ msgstr "没有可用的扫描仪。请连接一个扫描仪。"
 #. Error displayed when cannot connect to scanner
 #: ../src/scanner.c:879
 msgid "Unable to connect to scanner"
-msgstr "不能连接到扫描仪"
+msgstr "无法连接到扫描仪"
 
 #. Error display when unable to start scan
 #: ../src/scanner.c:1101
 msgid "Unable to start scan"
-msgstr "不能开始扫描"
+msgstr "无法开始扫描"
 
 #. Error displayed when communication with scanner broken
 #: ../src/scanner.c:1119 ../src/scanner.c:1212
@@ -398,7 +398,7 @@ msgstr "扫描失败"
 #. Default filename to use when saving document (and extension will be added, e.g. .jpg)
 #: ../src/simple-scan.c:194
 msgid "Scanned Document"
-msgstr ""
+msgstr "扫描的文档"
 
 #. Title of error dialog when save failed
 #: ../src/simple-scan.c:263
@@ -459,12 +459,12 @@ msgstr ""
 #: ../src/ui.c:127
 #, c-format
 msgid "Username and password required to access '%s'"
-msgstr "使用 '%s' 需要用户名和密码"
+msgstr "使用“%s”需要用户名和密码"
 
 #. Warning displayed when no scanners are detected
 #: ../src/ui.c:226
 msgid "No scanners detected"
-msgstr "没有发现扫描器"
+msgstr "没有发现扫描仪"
 
 #. Hint to user on why there are no scanners detected
 #: ../src/ui.c:228
@@ -474,47 +474,47 @@ msgstr "请检查您的扫描仪已经连接并且打开"
 #. Error message display when unable to preview image
 #: ../src/ui.c:517
 msgid "Unable to open image preview application"
-msgstr ""
+msgstr "无法打开图像预览软件"
 
 #. Save dialog: Label for saving in PDF format
 #: ../src/ui.c:756
 msgid "PDF (multi-page document)"
-msgstr ""
+msgstr "PDF (多页文档)"
 
 #. Save dialog: Label for saving in JPEG format
 #: ../src/ui.c:758
 msgid "JPEG (compressed)"
-msgstr ""
+msgstr "JPEG (压缩)"
 
 #. Save dialog: Label for saving in PNG format
 #: ../src/ui.c:760
 msgid "PNG (lossless)"
-msgstr ""
+msgstr "PNG (无损)"
 
 #. Save dialog: Dialog title
 #: ../src/ui.c:772
 msgid "Save As..."
-msgstr "另存为..."
+msgstr "保存为..."
 
 #. Save dialog: Filter name to show only image files
 #: ../src/ui.c:788
 msgid "Image Files"
-msgstr ""
+msgstr "图像文件"
 
 #. Save dialog: Filter name to show all files
 #: ../src/ui.c:795
 msgid "All Files"
-msgstr ""
+msgstr "所有文件"
 
 #. 
 #: ../src/ui.c:800
 msgid "Select File _Type"
-msgstr ""
+msgstr "选择文件类型(_T)"
 
 #. Error message displayed when unable to launch help browser
 #: ../src/ui.c:939
 msgid "Unable to open help file"
-msgstr ""
+msgstr "无法打开帮助文件"
 
 #. The license this software is under (GPL3+)
 #: ../src/ui.c:955
@@ -568,25 +568,25 @@ msgstr ""
 #: ../src/ui.c:1114
 #, c-format
 msgid "%d dpi (draft)"
-msgstr ""
+msgstr "%d dpi (草稿)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
 #: ../src/ui.c:1116 ../src/ui.c:1117 ../src/ui.c:1118 ../src/ui.c:1121
 #, c-format
 msgid "%d dpi"
-msgstr ""
+msgstr "%d dpi"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
 #: ../src/ui.c:1120
 #, c-format
 msgid "%d dpi (high resolution)"
-msgstr ""
+msgstr "%d dpi (高分辨率)"
 
 #. Preferences dialog: Label for default resolution in resolution list
 #: ../src/ui.c:1143
 #, c-format
 msgid "%d dpi (default)"
-msgstr ""
+msgstr "%d dpi (默认)"
 
 #. Title of dialog when cannot load required files
 #: ../src/ui.c:1175
