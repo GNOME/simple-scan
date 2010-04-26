@@ -1347,7 +1347,9 @@ ui_load (SimpleScan *ui)
 
     GtkTreeIter iter;
     gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
-    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 0, 1, 0, 2, "Automatic", -1);
+    gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 0, 1, 0, 2,
+                        /* Combo box value for automatic paper size */
+                        _("Automatic"), -1);
     gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
     gtk_list_store_set (GTK_LIST_STORE (ui->priv->paper_size_model), &iter, 0, 1050, 1, 1480, 2, "A6", -1);
     gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
