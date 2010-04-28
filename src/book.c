@@ -304,6 +304,7 @@ book_save_pdf_with_imagemagick (Book *book, GFile *file, GError **error)
             path = g_file_get_path (tiff_file);
 
         resolution_command = g_strdup_printf ("convert %s -density %d %s", path, page_get_dpi (page), path);
+        g_debug ("Executing ImageMagick command: %s", resolution_command);
         result = g_spawn_command_line_sync (resolution_command, &stdout_text, &stderr_text, &exit_status, error);
         if (result && exit_status != 0) {
             g_warning ("ImageMagick returned error code %d, command line was: %s", exit_status, resolution_command);
@@ -334,6 +335,7 @@ book_save_pdf_with_imagemagick (Book *book, GFile *file, GError **error)
         g_string_append_printf (command_line, " %s", path);
         g_free (path);
 
+        g_debug ("Executing ImageMagick command: %s", command_line->str);
         result = g_spawn_command_line_sync (command_line->str, &stdout_text, &stderr_text, &exit_status, error);
         if (result && exit_status != 0) {
             g_warning ("ImageMagick returned error code %d, command line was: %s", exit_status, command_line->str);
