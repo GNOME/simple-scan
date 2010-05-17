@@ -26,6 +26,8 @@
 
 static ScanDevice *default_device = NULL;
 
+static gboolean have_devices = FALSE;
+
 static GUdevClient *udev_client;
 
 static SimpleScan *ui;
@@ -62,6 +64,7 @@ update_scan_devices_cb (Scanner *scanner, GList *devices)
             devices_copy = g_list_prepend (devices_copy, default_device);
     }
 
+    have_devices = devices_copy != NULL;
     ui_set_scan_devices (ui, devices_copy);
   
     g_list_free (devices_copy);
@@ -261,7 +264,7 @@ scanner_failed_cb (Scanner *scanner, GError *error)
                        /* Title of error dialog when scan failed */
                        _("Failed to scan"),
                        error->message,
-                       TRUE);
+                       have_devices);
     }
 }
 
