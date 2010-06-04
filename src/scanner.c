@@ -792,7 +792,7 @@ close_device (Scanner *scanner)
         g_debug ("sane_close ()");
         scanner->priv->handle = NULL;
     }
-  
+
     g_free (scanner->priv->buffer);
     scanner->priv->buffer = NULL;
 
@@ -1320,10 +1320,12 @@ do_read (Scanner *scanner)
                         n_to_read, &n_read);
     g_debug ("sane_read (%d) -> (%s, %d)", n_to_read, get_status_string (status), n_read);
 
-    /* End of variable length frame */
-    if (status == SANE_STATUS_EOF &&
-        scanner->priv->parameters.lines == -1 &&
-        scanner->priv->bytes_remaining == scanner->priv->parameters.bytes_per_line) {
+    /* Completed read */
+    if (status == SANE_STATUS_EOF) {
+        if (scanner->priv->parameters.lines > 0 && scanner->priv->line_count != scanner->priv->parameters.lines)
+            g_warning ("Scan completed with %d lines, expected %d lines", scanner->priv->parameters.lines, scanner->priv->parameters.lines);
+        if (scanner->priv->n_used > 0)
+            g_warning ("Scan complete with %d bytes of unused data", scanner->priv->n_used);
         do_complete_page (scanner);
         return;
     }
@@ -1344,6 +1346,7 @@ do_read (Scanner *scanner)
     /* Feed out lines */
     if (scanner->priv->n_used >= scanner->priv->parameters.bytes_per_line) {
         ScanLine *line;
+        int i, n_remaining;
 
         line = g_malloc(sizeof(ScanLine));
         switch (scanner->priv->parameters.format) {
@@ -1373,27 +1376,18 @@ do_read (Scanner *scanner)
         scanner->priv->buffer = NULL;
         scanner->priv->line_count += line->n_lines;
 
-        /* On last line */
-        if (scanner->priv->parameters.lines > 0 && scanner->priv->line_count >= scanner->priv->parameters.lines) {
-            emit_signal (scanner, GOT_LINE, line);
-            do_complete_page (scanner);
-        }
-        else {
-            int i, n_remaining;
+        /* Increase buffer size if did full read */
+        if (full_read)
+            scanner->priv->buffer_size += scanner->priv->parameters.bytes_per_line;
 
-            /* Increase buffer size if did full read */
-            if (full_read)
-                scanner->priv->buffer_size += scanner->priv->parameters.bytes_per_line;
-
-            scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * scanner->priv->buffer_size);
-            n_remaining = scanner->priv->n_used - (line->n_lines * line->data_length);
-            scanner->priv->n_used = 0;
-            for (i = 0; i < n_remaining; i++) {
-                scanner->priv->buffer[i] = line->data[i + (line->n_lines * line->data_length)];
-                scanner->priv->n_used++;                
-            }
-            emit_signal (scanner, GOT_LINE, line);
+        scanner->priv->buffer = g_malloc(sizeof(SANE_Byte) * scanner->priv->buffer_size);
+        n_remaining = scanner->priv->n_used - (line->n_lines * line->data_length);
+        scanner->priv->n_used = 0;
+        for (i = 0; i < n_remaining; i++) {
+            scanner->priv->buffer[i] = line->data[i + (line->n_lines * line->data_length)];
+            scanner->priv->n_used++;
         }
+        emit_signal (scanner, GOT_LINE, line);
     }
 }
 
