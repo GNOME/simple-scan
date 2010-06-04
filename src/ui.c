@@ -43,6 +43,8 @@ struct SimpleScanPrivate
     GtkBuilder *builder;
 
     GtkWidget *window, *main_vbox;
+    GtkWidget *info_bar, *info_bar_image, *info_bar_label;
+    GtkWidget *info_bar_close_button, *info_bar_change_scanner_button;
     GtkWidget *page_delete_menuitem, *crop_rotate_menuitem;
     GtkWidget *stop_menuitem, *stop_toolbutton;
 
@@ -58,14 +60,16 @@ struct SimpleScanPrivate
     GtkTreeModel *device_model, *text_dpi_model, *photo_dpi_model, *page_side_model, *paper_size_model;
     gboolean setting_devices, user_selected_device;
 
+    gboolean have_error;
+    gchar *error_title, *error_text;
+    gboolean error_change_scanner_hint;
+
     Book *book;
     BookView *book_view;
     gboolean updating_page_menu;
     gint default_page_width, default_page_height, default_page_dpi;
     Orientation default_page_orientation;
   
-    gboolean have_device_list;
-
     gchar *document_hint;
 
     gchar *default_file_name;
@@ -110,6 +114,22 @@ find_scan_device (SimpleScan *ui, const char *device, GtkTreeIter *iter)
 }
 
 
+static void
+show_error_dialog (SimpleScan *ui, const char *error_title, const char *error_text)
+{
+    GtkWidget *dialog;
+
+    dialog = gtk_message_dialog_new (GTK_WINDOW (ui->priv->window),
+                                     GTK_DIALOG_MODAL,
+                                     GTK_MESSAGE_WARNING,
+                                     GTK_BUTTONS_NONE,
+                                     "%s", error_title);
+   gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE, 0);
+   gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s", error_text);
+   gtk_widget_destroy (dialog);
+}
+
+
 void
 ui_set_default_file_name (SimpleScan *ui, const gchar *default_file_name)
 {
@@ -151,6 +171,47 @@ device_combo_changed_cb (GtkWidget *widget, SimpleScan *ui)
     if (ui->priv->setting_devices)
         return;
     ui->priv->user_selected_device = TRUE;
+}
+
+
+static void
+update_info_bar (SimpleScan *ui)
+{
+    GtkMessageType type;
+    const gchar *title, *text, *image_id;
+    gchar *message;
+    gboolean show_close_button = FALSE;
+    gboolean show_change_scanner_button = FALSE;
+  
+    if (ui->priv->have_error)  {
+        type = GTK_MESSAGE_ERROR;
+        image_id = GTK_STOCK_DIALOG_ERROR;
+        title = ui->priv->error_title;
+        text = ui->priv->error_text;
+        show_close_button = TRUE;
+        show_change_scanner_button = ui->priv->error_change_scanner_hint;
+    }
+    else if (gtk_tree_model_iter_n_children (ui->priv->device_model, NULL) == 0) {
+        type = GTK_MESSAGE_WARNING;
+        image_id = GTK_STOCK_DIALOG_WARNING;
+        /* Warning displayed when no scanners are detected */
+        title = _("No scanners detected");
+        /* Hint to user on why there are no scanners detected */
+        text = _("Please check your scanner is connected and powered on");
+    }
+    else {
+        gtk_widget_hide (ui->priv->info_bar);
+        return;
+    }
+
+    gtk_info_bar_set_message_type (GTK_INFO_BAR (ui->priv->info_bar), type);
+    gtk_image_set_from_stock (GTK_IMAGE (ui->priv->info_bar_image), image_id, GTK_ICON_SIZE_DIALOG);
+    message = g_strdup_printf ("<big><b>%s</b></big>\n\n%s", title, text);
+    gtk_label_set_markup (GTK_LABEL (ui->priv->info_bar_label), message);
+    g_free (message);
+    gtk_widget_set_visible (ui->priv->info_bar_close_button, show_close_button);  
+    gtk_widget_set_visible (ui->priv->info_bar_change_scanner_button, show_change_scanner_button);
+    gtk_widget_show (ui->priv->info_bar);
 }
 
 
@@ -222,18 +283,7 @@ ui_set_scan_devices (SimpleScan *ui, GList *devices)
 
     ui->priv->setting_devices = FALSE;
 
-    if (!ui->priv->have_device_list) {
-        ui->priv->have_device_list = TRUE;
-
-        if (!devices) {
-            ui_show_error (ui,
-                           /* Warning displayed when no scanners are detected */
-                           _("No scanners detected"),
-                           /* Hint to user on why there are no scanners detected */
-                           _("Please check your scanner is connected and powered on"),
-                           FALSE);
-        }
-    }
+    update_info_bar (ui);
 }
 
 
@@ -633,11 +683,10 @@ show_page_cb (BookView *view, Page *page, SimpleScan *ui)
     g_object_unref (file);
 
     if (error) {
-        ui_show_error (ui,
-                       /* Error message display when unable to preview image */
-                       _("Unable to open image preview application"),
-                       error->message,
-                       FALSE);
+        show_error_dialog (ui,
+                           /* Error message display when unable to preview image */
+                           _("Unable to open image preview application"),
+                           error->message);
         g_clear_error (&error);
     }
 }
@@ -1063,11 +1112,10 @@ help_contents_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
 
     if (error)
     {
-        ui_show_error (ui,
-                       /* Error message displayed when unable to launch help browser */
-                       _("Unable to open help file"),
-                       error->message,
-                      FALSE);
+        show_error_dialog (ui,
+                           /* Error message displayed when unable to launch help browser */
+                           _("Unable to open help file"),
+                           error->message);
         g_clear_error (&error);
     }
 }
@@ -1174,6 +1222,24 @@ simple_scan_window_configure_event_cb (GtkWidget *widget, GdkEventConfigure *eve
     }
 
     return FALSE;
+}
+
+
+static void
+info_bar_response_cb (GtkWidget *widget, gint response_id, SimpleScan *ui)
+{
+    if (response_id == 1) {
+        gtk_widget_grab_focus (ui->priv->device_combo);
+        gtk_window_present (GTK_WINDOW (ui->priv->preferences_dialog));
+    }
+    else {
+        ui->priv->have_error = FALSE;
+        g_free (ui->priv->error_title);
+        ui->priv->error_title = NULL;
+        g_free (ui->priv->error_text);
+        ui->priv->error_text = NULL;
+        update_info_bar (ui);      
+    }
 }
 
 
@@ -1294,6 +1360,7 @@ ui_load (SimpleScan *ui)
 {
     GtkBuilder *builder;
     GError *error = NULL;
+    GtkWidget *hbox;
     GtkCellRenderer *renderer;
     gchar *device, *document_type, *scan_direction, *page_side;
     gint dpi, paper_width, paper_height;
@@ -1306,12 +1373,11 @@ ui_load (SimpleScan *ui)
     gtk_builder_add_from_file (builder, UI_DIR "simple-scan.ui", &error);
     if (error) {
         g_critical ("Unable to load UI: %s\n", error->message);
-        ui_show_error (ui,
-                       /* Title of dialog when cannot load required files */
-                       _("Files missing"),
-                       /* Description in dialog when cannot load required files */
-                       _("Please check your installation"),
-                       FALSE);
+        show_error_dialog (ui,
+                           /* Title of dialog when cannot load required files */
+                           _("Files missing"),
+                           /* Description in dialog when cannot load required files */
+                           _("Please check your installation"));
         exit (1);
     }
     gtk_builder_connect_signals (builder, ui);
@@ -1344,6 +1410,28 @@ ui_load (SimpleScan *ui)
     ui->priv->page_side_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->page_side_combo));
     ui->priv->paper_size_combo = GTK_WIDGET (gtk_builder_get_object (builder, "paper_size_combo"));
     ui->priv->paper_size_model = gtk_combo_box_get_model (GTK_COMBO_BOX (ui->priv->paper_size_combo));
+
+    /* Add InfoBar (not supported in Glade) */
+    ui->priv->info_bar = gtk_info_bar_new ();
+    g_signal_connect (ui->priv->info_bar, "response", G_CALLBACK (info_bar_response_cb), ui);  
+    gtk_box_pack_start (GTK_BOX(ui->priv->main_vbox), ui->priv->info_bar, FALSE, TRUE, 0);
+    hbox = gtk_hbox_new (FALSE, 12);
+    gtk_container_add (GTK_CONTAINER (gtk_info_bar_get_content_area (GTK_INFO_BAR (ui->priv->info_bar))), hbox);
+    gtk_widget_show (hbox);
+
+    ui->priv->info_bar_image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_DIALOG);
+    gtk_box_pack_start (GTK_BOX(hbox), ui->priv->info_bar_image, FALSE, TRUE, 0);
+    gtk_widget_show (ui->priv->info_bar_image);
+
+    ui->priv->info_bar_label = gtk_label_new (NULL);
+    gtk_misc_set_alignment (GTK_MISC (ui->priv->info_bar_label), 0.0, 0.5);
+    gtk_box_pack_start (GTK_BOX(hbox), ui->priv->info_bar_label, TRUE, TRUE, 0);
+    gtk_widget_show (ui->priv->info_bar_label);
+
+    ui->priv->info_bar_close_button = gtk_info_bar_add_button (GTK_INFO_BAR (ui->priv->info_bar), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
+    ui->priv->info_bar_change_scanner_button = gtk_info_bar_add_button (GTK_INFO_BAR (ui->priv->info_bar),
+                                                                        /* Button in error infobar to open preferences dialog and change scanner */
+                                                                        _("Change _Scanner"), 1);
 
     GtkTreeIter iter;
     gtk_list_store_append (GTK_LIST_STORE (ui->priv->paper_size_model), &iter);
@@ -1495,28 +1583,13 @@ ui_set_scanning (SimpleScan *ui, gboolean scanning)
 void
 ui_show_error (SimpleScan *ui, const gchar *error_title, const gchar *error_text, gboolean change_scanner_hint)
 {
-    GtkWidget *dialog;
-
-    dialog = gtk_message_dialog_new (GTK_WINDOW (ui->priv->window),
-                                     GTK_DIALOG_MODAL,
-                                     GTK_MESSAGE_WARNING,
-                                     GTK_BUTTONS_NONE,
-                                     "%s", error_title);
-    if (change_scanner_hint)
-        gtk_dialog_add_button (GTK_DIALOG (dialog),
-                               /* Button in error dialog to open prefereces dialog and change scanner */
-                               _("Change _Scanner"),
-                               1);
-    gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE, 0);
-    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-                                              "%s", error_text);
-
-    if (gtk_dialog_run (GTK_DIALOG (dialog)) == 1) {
-        gtk_widget_grab_focus (ui->priv->device_combo);
-        gtk_window_present (GTK_WINDOW (ui->priv->preferences_dialog));        
-    }
-
-    gtk_widget_destroy (dialog);
+    ui->priv->have_error = TRUE;
+    g_free (ui->priv->error_title);
+    ui->priv->error_title = g_strdup (error_title);
+    g_free (ui->priv->error_text);
+    ui->priv->error_text = g_strdup (error_text);
+    ui->priv->error_change_scanner_hint = change_scanner_hint;
+    update_info_bar (ui);
 }
 
 
