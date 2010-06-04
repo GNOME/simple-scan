@@ -23,8 +23,10 @@ dnl Run-time dependencies:
 dnl * gnome-icon-theme
 dnl * xdg-utils (for xdg-email)
 
+GTK_REQUIRED=2.18.0
+
 PKG_CHECK_MODULES(SIMPLE_SCAN, [
-    gtk+-2.0
+    gtk+-2.0 >= $GTK_REQUIRED
     gconf-2.0
     gmodule-export-2.0
     gthread-2.0

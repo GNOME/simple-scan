@@ -349,7 +349,7 @@ save_cb (SimpleScan *ui, const gchar *uri)
                        /* Title of error dialog when save failed */
                        _("Failed to save file"),
                        error->message,
-               FALSE);
+                       FALSE);
         g_error_free (error);
     }
     g_object_unref (file);
