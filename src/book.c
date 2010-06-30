@@ -9,13 +9,15 @@
  * license.
  */
 
+#include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <zlib.h>
+#include <jpeglib.h>
 #include <gdk/gdk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 #include <cairo/cairo-pdf.h>
 #include <cairo/cairo-ps.h>
-#include <unistd.h> // TEMP: Needed for close() in get_temporary_filename()
 
 #include "book.h"
 
@@ -218,160 +220,148 @@ book_save_ps (Book *book, GFile *file, GError **error)
 }
 
 
-// TEMP: Copied from simple-scan.c
-static GFile *
-get_temporary_file (const gchar *prefix, const gchar *extension)
+typedef struct
 {
-    gint fd;
-    GFile *file;
-    gchar *filename, *path;
-    GError *error = NULL;
+    int offset;
+    int n_objects;
+    GList *object_offsets;
+    GFileOutputStream *stream;
+} PDFWriter;
 
-    /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
-     * use the filename but it appears to work in practise */
 
-    filename = g_strdup_printf ("%s-XXXXXX.%s", prefix, extension);
-    fd = g_file_open_tmp (filename, &path, &error);
-    g_free (filename);
-    if (fd < 0) {
-        g_warning ("Error saving email attachment: %s", error->message);
-        g_clear_error (&error);
+static PDFWriter *
+pdf_writer_new (GFileOutputStream *stream)
+{
+    PDFWriter *writer;
+    writer = g_malloc0 (sizeof (PDFWriter));
+    writer->stream = g_object_ref (stream);
+    return writer;
+}
+
+
+static void
+pdf_writer_free (PDFWriter *writer)
+{
+    g_object_unref (writer->stream);
+    g_list_free (writer->object_offsets);
+    g_free (writer);
+}
+
+
+static void
+pdf_write (PDFWriter *writer, const unsigned char *data, size_t length)
+{
+    g_output_stream_write_all (G_OUTPUT_STREAM (writer->stream), data, length, NULL, NULL, NULL);
+    writer->offset += length;
+}
+
+
+static void
+pdf_printf (PDFWriter *writer, const char *format, ...)
+{
+    va_list args;
+    gchar *string;
+
+    va_start (args, format);
+    string = g_strdup_vprintf (format, args);
+    va_end (args);
+    pdf_write (writer, (unsigned char *)string, strlen (string));
+
+    g_free (string);
+}
+
+
+static int
+pdf_start_object (PDFWriter *writer)
+{
+    writer->n_objects++;
+    writer->object_offsets = g_list_append (writer->object_offsets, GINT_TO_POINTER (writer->offset));
+    return writer->n_objects;
+}
+
+
+static guchar *
+compress_zlib (guchar *data, size_t length, size_t *n_written)
+{
+    z_stream stream;
+    guchar *out_data;
+
+    out_data = g_malloc (sizeof (guchar) * length);
+
+    stream.zalloc = Z_NULL;
+    stream.zfree = Z_NULL;
+    stream.opaque = Z_NULL;
+    if (deflateInit (&stream, Z_BEST_COMPRESSION) != Z_OK)
+        return NULL;
+
+    stream.next_in = data;
+    stream.avail_in = length;
+    stream.next_out = out_data;
+    stream.avail_out = length;
+    while (stream.avail_in > 0) {
+        if (deflate (&stream, Z_FINISH) == Z_STREAM_ERROR)
+            break;
+    }
+
+    deflateEnd (&stream);
+
+    if (stream.avail_in > 0) {
+        g_free (out_data);
         return NULL;
     }
-    close (fd);
-  
-    file = g_file_new_for_path (path);
-    g_free (path);
 
-    return file;
+    *n_written = length - stream.avail_out;
+
+    return out_data;
 }
 
 
-static goffset
-get_file_size (GFile *file)
+static void jpeg_init_cb (struct jpeg_compress_struct *info) {}
+static boolean jpeg_empty_cb (struct jpeg_compress_struct *info) { return TRUE; }
+static void jpeg_term_cb (struct jpeg_compress_struct *info) {}
+
+static guchar *
+compress_jpeg (GdkPixbuf *image, size_t *n_written)
 {
-    GFileInfo *info;
-    goffset size = 0;
-  
-    info = g_file_query_info (file,
-                              G_FILE_ATTRIBUTE_STANDARD_SIZE,
-                              G_FILE_QUERY_INFO_NONE,
-                              NULL,
-                              NULL);
-    if (info) {
-        size = g_file_info_get_size (info);
-        g_object_unref (info);
+    struct jpeg_compress_struct info;
+    struct jpeg_error_mgr jerr;
+    struct jpeg_destination_mgr dest_mgr;
+    int r;
+    guchar *pixels;
+    guchar *data;
+    size_t max_length;
+
+    info.err = jpeg_std_error (&jerr);
+    jpeg_create_compress (&info);
+
+    pixels = gdk_pixbuf_get_pixels (image);
+    info.image_width = gdk_pixbuf_get_width (image);
+    info.image_height = gdk_pixbuf_get_height (image);
+    info.input_components = 3;
+    info.in_color_space = JCS_RGB; /* TODO: JCS_GRAYSCALE? */
+    jpeg_set_defaults (&info);
+
+    max_length = info.image_width * info.image_height * info.input_components;
+    data = g_malloc (sizeof (guchar) * max_length);
+    dest_mgr.next_output_byte = data;
+    dest_mgr.free_in_buffer = max_length;
+    dest_mgr.init_destination = jpeg_init_cb;
+    dest_mgr.empty_output_buffer = jpeg_empty_cb;
+    dest_mgr.term_destination = jpeg_term_cb;
+    info.dest = &dest_mgr;
+
+    jpeg_start_compress (&info, TRUE);
+    for (r = 0; r < info.image_height; r++) {
+        JSAMPROW row[1];
+        row[0] = pixels + r * gdk_pixbuf_get_rowstride (image);
+        jpeg_write_scanlines (&info, row, 1);
     }
+    jpeg_finish_compress (&info);
+    *n_written = max_length - dest_mgr.free_in_buffer;
 
-    return size;
-}
+    jpeg_destroy_compress (&info);
 
-
-static gboolean
-book_save_pdf_with_imagemagick (Book *book, GFile *file, GError **error)
-{
-    GList *iter;
-    GString *command_line;
-    gboolean result = TRUE;
-    gint exit_status = 0;
-    GFile *output_file = NULL;
-    GList *link, *temporary_files = NULL;
-
-    /* ImageMagick command to create a PDF */
-    command_line = g_string_new ("convert -adjoin");
-
-    /* Save each page to a file */
-    for (iter = book->priv->pages; iter && result; iter = iter->next) {
-        Page *page = iter->data;
-        GFile *jpeg_file, *tiff_file;
-        gchar *path, *resolution_command, *stdout_text = NULL, *stderr_text = NULL;
-        gint jpeg_size, tiff_size;
-
-        jpeg_file = get_temporary_file ("simple-scan", "jpg");
-        result = page_save (page, "jpeg", jpeg_file, error);
-        jpeg_size = get_file_size (jpeg_file);
-        temporary_files = g_list_append (temporary_files, jpeg_file);
-
-        tiff_file = get_temporary_file ("simple-scan", "tiff");
-        result = page_save (page, "tiff", tiff_file, error);
-        tiff_size = get_file_size (tiff_file);
-        temporary_files = g_list_append (temporary_files, tiff_file);
-
-        /* Use the smallest file */
-        if (jpeg_size < tiff_size)
-            path = g_file_get_path (jpeg_file);
-        else
-            path = g_file_get_path (tiff_file);
-
-        resolution_command = g_strdup_printf ("convert %s -density %d %s", path, page_get_dpi (page), path);
-        g_debug ("Executing ImageMagick command: %s", resolution_command);
-        result = g_spawn_command_line_sync (resolution_command, &stdout_text, &stderr_text, &exit_status, error);
-        if (result && exit_status != 0) {
-            g_warning ("ImageMagick returned error code %d, command line was: %s", exit_status, resolution_command);
-            g_warning ("stdout: %s", stdout_text);
-            g_warning ("stderr: %s", stderr_text);
-            result = FALSE;
-            g_set_error (error, BOOK_TYPE, 0,
-                         "ImageMagick returned error code %d\n"
-                         "\n"
-                         "Command line: %s\n"
-                         "Stdout: %s\n"
-                         "Stderr: %s",
-                         exit_status, resolution_command, stdout_text, stderr_text);
-        }
-        if (!result)
-            break;
-      
-        g_string_append_printf (command_line, " %s", path);
-        g_free (path);
-    }
-
-    /* Use ImageMagick command to create a PDF */  
-    if (result) {
-        gchar *path, *stdout_text = NULL, *stderr_text = NULL;
-
-        output_file = get_temporary_file ("simple-scan", "pdf");
-        path = g_file_get_path (output_file);
-        g_string_append_printf (command_line, " %s", path);
-        g_free (path);
-
-        g_debug ("Executing ImageMagick command: %s", command_line->str);
-        result = g_spawn_command_line_sync (command_line->str, &stdout_text, &stderr_text, &exit_status, error);
-        if (result && exit_status != 0) {
-            g_warning ("ImageMagick returned error code %d, command line was: %s", exit_status, command_line->str);
-            g_warning ("stdout: %s", stdout_text);
-            g_warning ("stderr: %s", stderr_text);
-            result = FALSE;
-            g_set_error (error, BOOK_TYPE, 0,
-                         "ImageMagick returned error code %d\n"
-                         "\n"
-                         "Command line: %s\n"
-                         "Stdout: %s\n"
-                         "Stderr: %s",
-                         exit_status, command_line->str, stdout_text, stderr_text);
-        }
-        g_free (stdout_text);
-        g_free (stderr_text);
-    }
-
-    /* Move to target URI */
-    if (result)
-        result = g_file_move (output_file, file, G_FILE_COPY_OVERWRITE, NULL, NULL, NULL, error);
-  
-    /* Delete page files */
-    for (link = temporary_files; link; link = link->next) {
-        GFile *f = link->data;
-
-        g_file_delete (f, NULL, NULL);
-        g_object_unref (f);
-    }
-    g_list_free (temporary_files);
-
-    if (output_file)
-        g_object_unref (output_file);
-    g_string_free (command_line, TRUE);
-
-    return result;
+    return data;
 }
 
 
@@ -379,43 +369,249 @@ static gboolean
 book_save_pdf (Book *book, GFile *file, GError **error)
 {
     GFileOutputStream *stream;
-    GList *iter;
-    cairo_surface_t *surface;
-    gchar *imagemagick_executable;
-  
-    /* Use ImageMagick if it is available as then we can compress the images */
-    imagemagick_executable = g_find_program_in_path ("convert");
-    if (imagemagick_executable) {
-        g_free (imagemagick_executable);
-        return book_save_pdf_with_imagemagick (book, file, error);
-    }
+    PDFWriter *writer;
+    int catalog_number, pages_number, info_number;
+    int xref_offset;
+    int i;
 
     stream = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE, NULL, error);
     if (!stream)
         return FALSE;
 
-    surface = cairo_pdf_surface_create_for_stream ((cairo_write_func_t) write_cairo_data,
-                                                   stream, 0, 0);
+    writer = pdf_writer_new (stream);
+    g_object_unref (stream);
 
-    for (iter = book->priv->pages; iter; iter = iter->next) {
-        Page *page = iter->data;
-        double width, height;
+    /* Header */
+    pdf_printf (writer, "%%PDF-1.3\n");
+  
+    /* Catalog */
+    catalog_number = pdf_start_object (writer);
+    pdf_printf (writer, "%d 0 obj\n", catalog_number);
+    pdf_printf (writer, "<<\n");
+    pdf_printf (writer, "/Type /Catalog\n");
+    pdf_printf (writer, "/Pages %d 0 R\n", catalog_number + 1);
+    pdf_printf (writer, ">>\n");
+    pdf_printf (writer, "endobj\n");
+
+    /* Pages */
+    pdf_printf (writer, "\n");
+    pages_number = pdf_start_object (writer);
+    pdf_printf (writer, "%d 0 obj\n", pages_number);
+    pdf_printf (writer, "<<\n");
+    pdf_printf (writer, "/Type /Pages\n");
+    pdf_printf (writer, "/Kids [");
+    for (i = 0; i < book_get_n_pages (book); i++) {
+        pdf_printf (writer, " %d 0 R", pages_number + 1 + (i*3));
+    }
+    pdf_printf (writer, " ]\n");
+    pdf_printf (writer, "/Count %d\n", book_get_n_pages (book));
+    pdf_printf (writer, ">>\n");
+    pdf_printf (writer, "endobj\n");
+
+    for (i = 0; i < book_get_n_pages (book); i++) {
+        int number, width, height, depth;
+        size_t data_length, compressed_length;
+        Page *page;
         GdkPixbuf *image;
+        guchar *pixels, *data, *compressed_data;
+        gchar *command;
+        const gchar *color_space, *filter = NULL;
+        float page_width, page_height;
 
+        page = book_get_page (book, i);
+        width = page_get_width (page);
+        height = page_get_height (page);
+        page_width = width * 72. / page_get_dpi (page);
+        page_height = height * 72. / page_get_dpi (page);
         image = page_get_cropped_image (page);
+        pixels = gdk_pixbuf_get_pixels (image);
 
-        width = gdk_pixbuf_get_width (image) * 72.0 / page_get_dpi (page);
-        height = gdk_pixbuf_get_height (image) * 72.0 / page_get_dpi (page);
-        cairo_pdf_surface_set_size (surface, width, height);
-        save_ps_pdf_surface (surface, image, page_get_dpi (page));
-        cairo_surface_show_page (surface);
-        
+        if (page_is_color (page)) {
+            int row;
+
+            depth = 8;
+            color_space = "DeviceRGB";
+            data_length = height * width * 3 + 1;
+            data = g_malloc (sizeof (guchar) * data_length);
+            for (row = 0; row < height; row++) {
+                int x;
+                guchar *in_line, *out_line;
+
+                in_line = pixels + row * gdk_pixbuf_get_rowstride (image);
+                out_line = data + row * width * 3;
+                for (x = 0; x < width; x++) {
+                    guchar *in_p = in_line + x*3;
+                    guchar *out_p = out_line + x*3;
+
+                    out_p[0] = in_p[0];
+                    out_p[1] = in_p[1];
+                    out_p[2] = in_p[2];
+                }
+            }
+        }
+        else if (page_get_depth (page) == 1) {
+            int row, offset = 7;
+            guchar *write_ptr;
+
+            depth = 1;
+            color_space = "DeviceGray";
+            data_length = (height * width + 7) / 8;
+            data = g_malloc (sizeof (guchar) * data_length);
+            write_ptr = data;
+            write_ptr[0] = 0;
+            for (row = 0; row < height; row++) {
+                int x;
+                guchar *in_line;
+
+                in_line = pixels + row * gdk_pixbuf_get_rowstride (image);
+                for (x = 0; x < width; x++) {
+                    guchar *in_p = in_line + x*3;
+                    if (in_p[0])
+                        write_ptr[0] |= 1 << offset;
+                    offset--;
+                    if (offset < 0) {
+                        write_ptr++;
+                        write_ptr[0] = 0;
+                        offset = 7;
+                    }
+                }
+            }
+        }
+        else {
+            int row;
+
+            depth = 8;
+            color_space = "DeviceGray";
+            data_length = height * width + 1;
+            data = g_malloc (sizeof (guchar) * data_length);
+            for (row = 0; row < height; row++) {
+                int x;
+                guchar *in_line, *out_line;
+
+                in_line = pixels + row * gdk_pixbuf_get_rowstride (image);
+                out_line = data + row * width;
+                for (x = 0; x < width; x++) {
+                    guchar *in_p = in_line + x*3;
+                    guchar *out_p = out_line + x;
+
+                    out_p[0] = in_p[0];
+                }
+            }
+        }
+
+        /* Compress data */
+        compressed_data = compress_zlib (data, data_length, &compressed_length);
+        if (compressed_data) {
+            /* Try if JPEG compression is better */
+            if (depth > 1) {
+                guchar *jpeg_data;
+                size_t jpeg_length;
+
+                jpeg_data = compress_jpeg (image, &jpeg_length);
+                if (jpeg_length < compressed_length) {
+                    filter = "DCTDecode";
+                    g_free (data);
+                    g_free (compressed_data);
+                    data = jpeg_data;
+                    data_length = jpeg_length;
+                }
+            }
+
+            if (!filter) {
+                filter = "FlateDecode";
+                g_free (data);
+                data = compressed_data;
+                data_length = compressed_length;
+            }
+        }
+
+        /* Page */
+        pdf_printf (writer, "\n");
+        number = pdf_start_object (writer);
+        pdf_printf (writer, "%d 0 obj\n", number);
+        pdf_printf (writer, "<<\n");
+        pdf_printf (writer, "/Type /Page\n");
+        pdf_printf (writer, "/Parent %d 0 R\n", pages_number);
+        pdf_printf (writer, "/Resources << /XObject << /Im%d %d 0 R >> >>\n", i, number+1);
+        pdf_printf (writer, "/MediaBox [ 0 0 %.2f %.2f ]\n", page_width, page_height);
+        pdf_printf (writer, "/Contents %d 0 R\n", number+2);
+        pdf_printf (writer, ">>\n");
+        pdf_printf (writer, "endobj\n");
+
+        /* Page image */
+        pdf_printf (writer, "\n");
+        number = pdf_start_object (writer);
+        pdf_printf (writer, "%d 0 obj\n", number);
+        pdf_printf (writer, "<<\n");
+        pdf_printf (writer, "/Type /XObject\n");
+        pdf_printf (writer, "/Subtype /Image\n");
+        pdf_printf (writer, "/Width %d\n", width);
+        pdf_printf (writer, "/Height %d\n", height);
+        pdf_printf (writer, "/ColorSpace /%s\n", color_space);
+        pdf_printf (writer, "/BitsPerComponent %d\n", depth);
+        pdf_printf (writer, "/Length %d\n", data_length);
+        if (filter)
+          pdf_printf (writer, "/Filter /%s\n", filter);
+        pdf_printf (writer, ">>\n");
+        pdf_printf (writer, "stream\n");
+        pdf_write (writer, data, data_length);
+        g_free (data);
+        pdf_printf (writer, "\n");
+        pdf_printf (writer, "endstream\n");
+        pdf_printf (writer, "endobj\n");      
+
+        /* Page contents */
+        command = g_strdup_printf ("q\n"
+                                   "%d 0 0 %d 0 0 cm\n"
+                                   "/Im%d Do\n"
+                                   "Q", width, height, i);
+        pdf_printf (writer, "\n");
+        number = pdf_start_object (writer);
+        pdf_printf (writer, "%d 0 obj\n", number);
+        pdf_printf (writer, "<<\n");
+        pdf_printf (writer, "/Length %d\n", strlen (command) + 1);
+        pdf_printf (writer, ">>\n");
+        pdf_printf (writer, "stream\n");
+        pdf_write (writer, (unsigned char *)command, strlen (command));
+        pdf_printf (writer, "\n");
+        pdf_printf (writer, "endstream\n");
+        pdf_printf (writer, "endobj\n");
+        g_free (command);
+                  
         g_object_unref (image);
     }
+  
+    /* Info */
+    pdf_printf (writer, "\n");
+    info_number = pdf_start_object (writer);
+    pdf_printf (writer, "%d 0 obj\n", info_number);
+    pdf_printf (writer, "<<\n");
+    pdf_printf (writer, "/Creator (Simple Scan " VERSION ")\n");
+    pdf_printf (writer, ">>\n");
+    pdf_printf (writer, "endobj\n");
 
-    cairo_surface_destroy (surface);
+    /* Cross-reference table */
+    xref_offset = writer->offset;
+    pdf_printf (writer, "xref\n");
+    pdf_printf (writer, "1 %d\n", writer->n_objects);
+    GList *link;
+    for (link = writer->object_offsets; link != NULL; link = link->next) {
+        int offset = GPOINTER_TO_INT (link->data);
+        pdf_printf (writer, "%010d 0000 n\n", offset);
+    }
 
-    g_object_unref (stream);
+    /* Trailer */
+    pdf_printf (writer, "trailer\n");
+    pdf_printf (writer, "<<\n");
+    pdf_printf (writer, "/Size %d\n", writer->n_objects);
+    pdf_printf (writer, "/Info %d 0 R\n", info_number);
+    pdf_printf (writer, "/Root %d 0 R\n", catalog_number);
+    pdf_printf (writer, ">>\n");
+    pdf_printf (writer, "startxref\n");
+    pdf_printf (writer, "%d\n", xref_offset);
+    pdf_printf (writer, "%%%%EOF\n");
+  
+    pdf_writer_free (writer);
 
     return TRUE;
 }

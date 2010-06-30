@@ -31,6 +31,9 @@ struct PagePrivate
     /* Number of rows in this page or -1 if currently unknown */
     gint rows;
 
+    /* Bit depth */
+    gint depth;
+
     /* Color profile */
     gchar *color_profile;
 
@@ -42,6 +45,9 @@ struct PagePrivate
 
     /* TRUE if have some page data */
     gboolean has_data;
+
+    /* TRUE if have color data */
+    gboolean is_color;
 
     /* Expected next scan row */
     gint scan_line;
@@ -179,6 +185,21 @@ gboolean page_has_data (Page *page)
 }
 
 
+gboolean page_is_color (Page *page)
+{
+    g_return_val_if_fail (page != NULL, FALSE);
+    return page->priv->is_color;
+}
+
+
+gint
+page_get_depth (Page *page)
+{
+    g_return_val_if_fail (page != NULL, 0);
+    return page->priv->depth;
+}
+
+
 gint page_get_scan_line (Page *page)
 {
     g_return_val_if_fail (page != NULL, -1);
@@ -191,7 +212,7 @@ set_pixel (ScanLine *line, gint n, gint x, guchar *pixel)
 {
     gint sample;
     guchar *data;
-  
+
     data = line->data + line->data_length * n;
 
     switch (line->format) {
@@ -230,6 +251,11 @@ parse_line (Page *page, ScanLine *line, gint n, gboolean *size_changed)
     gint rowstride, n_channels;
 
     line_number = line->number + n;
+
+    if (line->format != LINE_GRAY)
+        page->priv->is_color = TRUE;
+    if (line->depth > page->priv->depth)
+        page->priv->depth = line->depth;
 
     /* Extend image if necessary */
     while (line_number >= page_get_scan_height (page)) {

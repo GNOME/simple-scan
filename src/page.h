@@ -82,6 +82,10 @@ gboolean page_is_scanning (Page *page);
 
 gboolean page_has_data (Page *page);
 
+gboolean page_is_color (Page *page);
+
+gint page_get_depth (Page *page);
+
 gint page_get_scan_line (Page *page);
 
 void page_parse_scan_line (Page *page, ScanLine *line);

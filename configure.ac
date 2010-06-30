@@ -30,6 +30,7 @@ PKG_CHECK_MODULES(SIMPLE_SCAN, [
     gconf-2.0
     gmodule-export-2.0
     gthread-2.0
+    zlib,
     cairo
     gdk-pixbuf-2.0
     cairo-pdf
@@ -39,6 +40,7 @@ PKG_CHECK_MODULES(SIMPLE_SCAN, [
 
 AC_CHECK_HEADERS([sane/sane.h],[],[AC_MSG_ERROR([SANE not found])])
 AC_CHECK_HEADERS([sane/saneopts.h],[],[AC_MSG_ERROR([SANE not found])])
+AC_CHECK_HEADERS([jpeglib.h],[],[AC_MSG_ERROR([libjpeg not found])])
 
 dnl ###########################################################################
 dnl Documentation
