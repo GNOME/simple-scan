@@ -30,7 +30,7 @@ PKG_CHECK_MODULES(SIMPLE_SCAN, [
     gconf-2.0
     gmodule-export-2.0
     gthread-2.0
-    zlib,
+    zlib
     cairo
     gdk-pixbuf-2.0
     cairo-pdf
