@@ -13,7 +13,7 @@ AC_HEADER_STDC
 
 AM_GCONF_SOURCE_2
 
-GNOME_COMPILE_WARNINGS(yes)
+GNOME_COMPILE_WARNINGS(maximum)
 
 dnl ###########################################################################
 dnl Dependencies
