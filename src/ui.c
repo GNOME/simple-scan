@@ -28,7 +28,6 @@
 enum {
     START_SCAN,
     STOP_SCAN,
-    SAVE,
     EMAIL,
     QUIT,
     LAST_SIGNAL
@@ -46,6 +45,7 @@ struct SimpleScanPrivate
     GtkWidget *info_bar, *info_bar_image, *info_bar_label;
     GtkWidget *info_bar_close_button, *info_bar_change_scanner_button;
     GtkWidget *page_delete_menuitem, *crop_rotate_menuitem;
+    GtkWidget *save_menuitem, *save_as_menuitem, *save_toolbutton;
     GtkWidget *stop_menuitem, *stop_toolbutton;
 
     GtkWidget *text_toolbar_menuitem, *text_menu_menuitem;
@@ -65,6 +65,8 @@ struct SimpleScanPrivate
     gboolean error_change_scanner_hint;
 
     Book *book;
+    gchar *book_uri;
+  
     BookView *book_view;
     gboolean updating_page_menu;
     gint default_page_width, default_page_height, default_page_dpi;
@@ -124,9 +126,9 @@ show_error_dialog (SimpleScan *ui, const char *error_title, const char *error_te
                                      GTK_MESSAGE_WARNING,
                                      GTK_BUTTONS_NONE,
                                      "%s", error_title);
-   gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE, 0);
-   gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s", error_text);
-   gtk_widget_destroy (dialog);
+    gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE, 0);
+    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s", error_text);
+    gtk_widget_destroy (dialog);
 }
 
 
@@ -329,13 +331,272 @@ add_default_page (SimpleScan *ui)
 }
 
 
+static void
+on_file_type_changed (GtkTreeSelection *selection, GtkWidget *dialog)
+{
+    GtkTreeModel *model;
+    GtkTreeIter iter;
+    gchar *path, *filename, *extension, *new_filename;
+
+    if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+        return;
+
+    gtk_tree_model_get (model, &iter, 1, &extension, -1);
+    path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+    filename = g_path_get_basename (path);
+
+    /* Replace extension */
+    if (g_strrstr (filename, "."))
+        new_filename = g_strdup_printf ("%.*s%s", (int)(g_strrstr (filename, ".") - filename), filename, extension);
+    else
+        new_filename = g_strdup_printf ("%s%s", filename, extension);
+    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), new_filename);
+
+    g_free (path);
+    g_free (filename);
+    g_free (new_filename);
+    g_free (extension);
+}
+
+
+static gchar *
+choose_file_location (SimpleScan *ui)
+{
+    GtkWidget *dialog;
+    gint response;
+    GtkFileFilter *filter;
+    GtkWidget *expander, *file_type_view;
+    GtkListStore *file_type_store;
+    GtkTreeIter iter;
+    GtkTreeViewColumn *column;
+    const gchar *extension;
+    gchar *directory, *uri = NULL;
+    gint i;
+
+    struct
+    {
+        gchar *label, *extension;
+    } file_types[] =
+    {
+        /* Save dialog: Label for saving in PDF format */
+        { _("PDF (multi-page document)"), ".pdf" },
+        /* Save dialog: Label for saving in JPEG format */
+        { _("JPEG (compressed)"), ".jpg" },
+        /* Save dialog: Label for saving in PNG format */
+        { _("PNG (lossless)"), ".png" },
+        { NULL, NULL }
+    };
+
+    /* Get directory to save to */
+    directory = gconf_client_get_string (ui->priv->client, GCONF_DIR "/save_directory", NULL);
+    if (!directory || directory[0] == '\0') {
+        g_free (directory);
+        directory = g_strdup (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS));
+    }
+
+    dialog = gtk_file_chooser_dialog_new (/* Save dialog: Dialog title */
+                                          _("Save As..."),
+                                          GTK_WINDOW (ui->priv->window),
+                                          GTK_FILE_CHOOSER_ACTION_SAVE,
+                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                          GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+                                          NULL);
+    gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), TRUE);
+    gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);
+    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), directory);
+    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), ui->priv->default_file_name);
+    g_free (directory);
+
+    /* Filter to only show images by default */
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter,
+                              /* Save dialog: Filter name to show only image files */
+                              _("Image Files"));
+    gtk_file_filter_add_pixbuf_formats (filter);
+    gtk_file_filter_add_mime_type (filter, "application/pdf");
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
+    filter = gtk_file_filter_new ();
+    gtk_file_filter_set_name (filter,
+                              /* Save dialog: Filter name to show all files */
+                              _("All Files"));
+    gtk_file_filter_add_pattern (filter, "*");
+    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
+
+    expander = gtk_expander_new_with_mnemonic (/* */
+                                 _("Select File _Type"));
+    gtk_expander_set_spacing (GTK_EXPANDER (expander), 5);
+    gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (dialog), expander);
+  
+    extension = strstr (ui->priv->default_file_name, ".");
+    if (!extension)
+        extension = "";
+
+    file_type_store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
+    for (i = 0; file_types[i].label; i++) {
+        gtk_list_store_append (file_type_store, &iter);
+        gtk_list_store_set (file_type_store, &iter, 0, file_types[i].label, 1, file_types[i].extension, -1);
+    }
+
+    file_type_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (file_type_store));
+    gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (file_type_view), FALSE);
+    gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (file_type_view), TRUE);
+    column = gtk_tree_view_column_new_with_attributes ("",
+                                                       gtk_cell_renderer_text_new (),
+                                                       "text", 0, NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (file_type_view), column);
+    gtk_container_add (GTK_CONTAINER (expander), file_type_view);
+
+    if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (file_type_store), &iter)) {
+        do {
+            gchar *e;
+            gtk_tree_model_get (GTK_TREE_MODEL (file_type_store), &iter, 1, &e, -1);
+            if (strcmp (extension, e) == 0)
+                gtk_tree_selection_select_iter (gtk_tree_view_get_selection (GTK_TREE_VIEW (file_type_view)), &iter);
+            g_free (e);
+        } while (gtk_tree_model_iter_next (GTK_TREE_MODEL (file_type_store), &iter));
+    }
+    g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (file_type_view)),
+                      "changed",
+                      G_CALLBACK (on_file_type_changed),
+                      dialog);
+
+    gtk_widget_show_all (expander);
+
+    response = gtk_dialog_run (GTK_DIALOG (dialog));
+
+    if (response == GTK_RESPONSE_ACCEPT)
+        uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog));
+
+    gconf_client_set_string (ui->priv->client, GCONF_DIR "/save_directory",
+                             gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dialog)),
+                             NULL);
+
+    gtk_widget_destroy (dialog);
+
+    return uri;
+}
+
+
+static gboolean
+save_document (SimpleScan *ui, gboolean force_choose_location)
+{
+    gboolean result;
+    gchar *uri, *uri_lower;
+    GError *error = NULL;
+    GFile *file;
+  
+    if (ui->priv->book_uri && !force_choose_location)
+        uri = g_strdup (ui->priv->book_uri);
+    else
+        uri = choose_file_location (ui);
+    if (!uri)
+        return FALSE;
+
+    file = g_file_new_for_uri (uri);
+
+    g_debug ("Saving to '%s'", uri);
+
+    uri_lower = g_utf8_strdown (uri, -1);
+    if (g_str_has_suffix (uri_lower, ".pdf"))
+        result = book_save (ui->priv->book, "pdf", file, &error);
+    else if (g_str_has_suffix (uri_lower, ".ps"))
+        result = book_save (ui->priv->book, "ps", file, &error);
+    else if (g_str_has_suffix (uri_lower, ".png"))
+        result = book_save (ui->priv->book, "png", file, &error);
+    else if (g_str_has_suffix (uri_lower, ".tif") || g_str_has_suffix (uri_lower, ".tiff"))
+        result = book_save (ui->priv->book, "tiff", file, &error);
+    else
+        result = book_save (ui->priv->book, "jpeg", file, &error);
+
+    g_free (uri_lower);
+
+    if (result) {
+        g_free (ui->priv->book_uri);
+        ui->priv->book_uri = uri;
+        book_set_needs_saving (ui->priv->book, FALSE);
+    }
+    else {
+        g_free (uri);
+
+        g_warning ("Error saving file: %s", error->message);
+        ui_show_error (ui,
+                       /* Title of error dialog when save failed */
+                       _("Failed to save file"),
+                       error->message,
+                       FALSE);
+        g_clear_error (&error);
+    }
+
+    g_object_unref (file);
+
+    return result;
+}
+
+
+static gboolean
+prompt_to_save (SimpleScan *ui, const gchar *title, const gchar *discard_label)
+{
+    GtkWidget *dialog;
+    gint response;
+
+    if (!book_get_needs_saving (ui->priv->book))
+        return TRUE;
+
+    dialog = gtk_message_dialog_new (GTK_WINDOW (ui->priv->window),
+                                     GTK_DIALOG_MODAL,
+                                     GTK_MESSAGE_WARNING,
+                                     GTK_BUTTONS_NONE,
+                                     "%s", title);
+    gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s",
+                                              /* Text in dialog warning when a document is about to be lost*/
+                                              _("If you don't save, changes will be permanently lost."));
+    gtk_dialog_add_button (GTK_DIALOG (dialog), discard_label, GTK_RESPONSE_NO);
+    gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
+    gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_SAVE, GTK_RESPONSE_YES);
+
+    response = gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+  
+    switch (response) {
+    case GTK_RESPONSE_YES:
+        if (save_document (ui, FALSE))
+            return TRUE;
+        else
+            return FALSE;
+    case GTK_RESPONSE_CANCEL:
+        return FALSE;
+    case GTK_RESPONSE_NO:      
+    default:
+        return TRUE;
+    }
+}
+
+
+static void
+clear_document (SimpleScan *ui)
+{
+    book_clear (ui->priv->book);
+    add_default_page (ui);
+    g_free (ui->priv->book_uri);
+    ui->priv->book_uri = NULL;
+    book_set_needs_saving (ui->priv->book, FALSE);
+    gtk_widget_set_sensitive (ui->priv->save_as_menuitem, FALSE);
+}
+
+
 void new_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
 void
 new_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    book_clear (ui->priv->book);
-    add_default_page (ui);
+    if (!prompt_to_save (ui,
+                         /* Text in dialog warning when a document is about to be lost */
+                         _("Save current document?"),
+                         /* Button in dialog to create new document and discard unsaved document */
+                         _("Discard Changes")))
+        return;
+
+    clear_document (ui);
 }
 
 
@@ -884,154 +1145,21 @@ page_delete_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
 }
 
 
-static void
-on_file_type_changed (GtkTreeSelection *selection, GtkWidget *dialog)
-{
-    GtkTreeModel *model;
-    GtkTreeIter iter;
-    gchar *path, *filename, *extension, *new_filename;
-
-    if (!gtk_tree_selection_get_selected (selection, &model, &iter))
-        return;
-
-    gtk_tree_model_get (model, &iter, 1, &extension, -1);
-    path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
-    filename = g_path_get_basename (path);
-
-    /* Replace extension */
-    if (g_strrstr (filename, "."))
-        new_filename = g_strdup_printf ("%.*s%s", (int)(g_strrstr (filename, ".") - filename), filename, extension);
-    else
-        new_filename = g_strdup_printf ("%s%s", filename, extension);
-    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), new_filename);
-
-    g_free (path);
-    g_free (filename);
-    g_free (new_filename);
-    g_free (extension);
-}
-
-
 void save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
 G_MODULE_EXPORT
 void
 save_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
 {
-    GtkWidget *dialog;
-    gint response;
-    GtkFileFilter *filter;
-    GtkWidget *expander, *file_type_view;
-    GtkListStore *file_type_store;
-    GtkTreeIter iter;
-    GtkTreeViewColumn *column;
-    const gchar *extension;
-    gchar *directory;
-    gint i;
+    save_document (ui, FALSE);
+}
 
-    struct
-    {
-        gchar *label, *extension;
-    } file_types[] =
-    {
-        /* Save dialog: Label for saving in PDF format */
-        { _("PDF (multi-page document)"), ".pdf" },
-        /* Save dialog: Label for saving in JPEG format */
-        { _("JPEG (compressed)"), ".jpg" },
-        /* Save dialog: Label for saving in PNG format */
-        { _("PNG (lossless)"), ".png" },
-        { NULL, NULL }
-    };
 
-    /* Get directory to save to */
-    directory = gconf_client_get_string (ui->priv->client, GCONF_DIR "/save_directory", NULL);
-    if (!directory || directory[0] == '\0') {
-        g_free (directory);
-        directory = g_strdup (g_get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS));
-    }
-
-    dialog = gtk_file_chooser_dialog_new (/* Save dialog: Dialog title */
-                                          _("Save As..."),
-                                          GTK_WINDOW (ui->priv->window),
-                                          GTK_FILE_CHOOSER_ACTION_SAVE,
-                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                          GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
-                                          NULL);
-    gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), TRUE);
-    gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);
-    gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), directory);
-    gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), ui->priv->default_file_name);
-    g_free (directory);
-
-    /* Filter to only show images by default */
-    filter = gtk_file_filter_new ();
-    gtk_file_filter_set_name (filter,
-                              /* Save dialog: Filter name to show only image files */
-                              _("Image Files"));
-    gtk_file_filter_add_pixbuf_formats (filter);
-    gtk_file_filter_add_mime_type (filter, "application/pdf");
-    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
-    filter = gtk_file_filter_new ();
-    gtk_file_filter_set_name (filter,
-                              /* Save dialog: Filter name to show all files */
-                              _("All Files"));
-    gtk_file_filter_add_pattern (filter, "*");
-    gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
-
-    expander = gtk_expander_new_with_mnemonic (/* */
-                                 _("Select File _Type"));
-    gtk_expander_set_spacing (GTK_EXPANDER (expander), 5);
-    gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (dialog), expander);
-  
-    extension = strstr (ui->priv->default_file_name, ".");
-    if (!extension)
-        extension = "";
-
-    file_type_store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
-    for (i = 0; file_types[i].label; i++) {
-        gtk_list_store_append (file_type_store, &iter);
-        gtk_list_store_set (file_type_store, &iter, 0, file_types[i].label, 1, file_types[i].extension, -1);
-    }
-
-    file_type_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (file_type_store));
-    gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (file_type_view), FALSE);
-    gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (file_type_view), TRUE);
-    column = gtk_tree_view_column_new_with_attributes ("",
-                                                       gtk_cell_renderer_text_new (),
-                                                       "text", 0, NULL);
-    gtk_tree_view_append_column (GTK_TREE_VIEW (file_type_view), column);
-    gtk_container_add (GTK_CONTAINER (expander), file_type_view);
-
-    if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (file_type_store), &iter)) {
-        do {
-            gchar *e;
-            gtk_tree_model_get (GTK_TREE_MODEL (file_type_store), &iter, 1, &e, -1);
-            if (strcmp (extension, e) == 0)
-                gtk_tree_selection_select_iter (gtk_tree_view_get_selection (GTK_TREE_VIEW (file_type_view)), &iter);
-            g_free (e);
-        } while (gtk_tree_model_iter_next (GTK_TREE_MODEL (file_type_store), &iter));
-    }
-    g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (file_type_view)),
-                      "changed",
-                      G_CALLBACK (on_file_type_changed),
-                      dialog);
-
-    gtk_widget_show_all (expander);
-
-    response = gtk_dialog_run (GTK_DIALOG (dialog));
-    if (response == GTK_RESPONSE_ACCEPT) {
-        gchar *uri;
-
-        uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog));
-        g_signal_emit (G_OBJECT (ui), signals[SAVE], 0, uri);
-
-        g_free (uri);
-    }
-
-    gconf_client_set_string (ui->priv->client, GCONF_DIR "/save_directory",
-                             gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dialog)),
-                             NULL);
-  
-    gtk_widget_destroy (dialog);
+void save_as_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+save_as_file_button_clicked_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    save_document (ui, TRUE);
 }
 
 
@@ -1164,14 +1292,19 @@ about_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
 }
 
 
-static void
+static gboolean
 quit (SimpleScan *ui)
 {
     char *device;
     gint paper_width = 0, paper_height = 0;
     gint i;
 
-    // FIXME: Warn if document with unsaved changes
+    if (!prompt_to_save (ui,
+                         /* Text in dialog warning when a document is about to be lost */
+                         _("Save document before quitting?"),
+                         /* Button in dialog to quit and discard unsaved document */
+                         _("Quit without Saving")))
+        return FALSE;
 
     device = get_selected_device (ui);
     if (device) {
@@ -1199,6 +1332,8 @@ quit (SimpleScan *ui)
     gconf_client_set_int (ui->priv->client, GCONF_DIR "/page_dpi", ui->priv->default_page_dpi, NULL);
    
     g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
+
+    return TRUE;
 }
 
 
@@ -1259,8 +1394,7 @@ G_MODULE_EXPORT
 gboolean
 window_delete_event_cb (GtkWidget *widget, GdkEvent *event, SimpleScan *ui)
 {
-    quit (ui);
-    return TRUE;
+    return !quit (ui);
 }
 
 
@@ -1356,6 +1490,16 @@ set_dpi_combo (GtkWidget *combo, gint default_dpi, gint current_dpi)
 
 
 static void
+needs_saving_cb (Book *book, GParamSpec *param, SimpleScan *ui)
+{
+    gtk_widget_set_sensitive (ui->priv->save_menuitem, book_get_needs_saving (book));
+    gtk_widget_set_sensitive (ui->priv->save_toolbutton, book_get_needs_saving (book));
+    if (book_get_needs_saving (book))
+        gtk_widget_set_sensitive (ui->priv->save_as_menuitem, TRUE);
+}
+
+
+static void
 ui_load (SimpleScan *ui)
 {
     GtkBuilder *builder;
@@ -1386,6 +1530,9 @@ ui_load (SimpleScan *ui)
     ui->priv->main_vbox = GTK_WIDGET (gtk_builder_get_object (builder, "main_vbox"));
     ui->priv->page_delete_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_delete_menuitem"));
     ui->priv->crop_rotate_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "crop_rotate_menuitem"));
+    ui->priv->save_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "save_menuitem"));
+    ui->priv->save_as_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "save_as_menuitem"));
+    ui->priv->save_toolbutton = GTK_WIDGET (gtk_builder_get_object (builder, "save_toolbutton"));
     ui->priv->stop_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "stop_scan_menuitem"));
     ui->priv->stop_toolbutton = GTK_WIDGET (gtk_builder_get_object (builder, "stop_toolbutton"));
 
@@ -1539,6 +1686,8 @@ ui_load (SimpleScan *ui)
 
     if (book_get_n_pages (ui->priv->book) == 0)
         add_default_page (ui);
+    book_set_needs_saving (ui->priv->book, FALSE);
+    g_signal_connect (ui->priv->book, "notify::needs-saving", G_CALLBACK (needs_saving_cb), ui);
 }
 
 
@@ -1679,14 +1828,6 @@ ui_class_init (SimpleScanClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
-    signals[SAVE] =
-        g_signal_new ("save",
-                      G_TYPE_FROM_CLASS (klass),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (SimpleScanClass, save),
-                      NULL, NULL,
-                      g_cclosure_marshal_VOID__STRING,
-                      G_TYPE_NONE, 1, G_TYPE_STRING);
     signals[EMAIL] =
         g_signal_new ("email",
                       G_TYPE_FROM_CLASS (klass),
@@ -1723,5 +1864,5 @@ ui_init (SimpleScan *ui)
     ui->priv->document_hint = g_strdup ("photo");
     ui->priv->default_file_name = g_strdup (_("Scanned Document.pdf"));
     ui->priv->scanning = FALSE;
-    ui_load (ui);   
+    ui_load (ui);
 }

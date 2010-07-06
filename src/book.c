@@ -21,6 +21,10 @@
 
 #include "book.h"
 
+enum {
+    PROP_0,
+    PROP_NEEDS_SAVING
+};
 
 enum {
     PAGE_ADDED,
@@ -33,6 +37,8 @@ static guint signals[LAST_SIGNAL] = { 0, };
 struct BookPrivate
 {
     GList *pages;
+  
+    gboolean needs_saving;
 };
 
 G_DEFINE_TYPE (Book, book, G_TYPE_OBJECT);
@@ -59,17 +65,28 @@ book_clear (Book *book)
 }
 
 
+static void
+page_changed_cb (Page *page, Book *book)
+{
+    book_set_needs_saving (book, TRUE);
+}
+
+
 Page *
 book_append_page (Book *book, gint width, gint height, gint dpi, Orientation orientation)
 {
     Page *page;
 
     page = page_new ();
+    g_signal_connect (page, "image-changed", G_CALLBACK (page_changed_cb), book);
+    g_signal_connect (page, "crop-changed", G_CALLBACK (page_changed_cb), book);
     page_setup (page, width, height, dpi, orientation);
 
     book->priv->pages = g_list_append (book->priv->pages, page);
 
     g_signal_emit (book, signals[PAGE_ADDED], 0, page);
+  
+    book_set_needs_saving (book, TRUE);
 
     return page;
 }
@@ -78,10 +95,14 @@ book_append_page (Book *book, gint width, gint height, gint dpi, Orientation ori
 void
 book_delete_page (Book *book, Page *page)
 {
+    g_signal_handlers_disconnect_by_func (page, page_changed_cb, book);
+
     g_signal_emit (book, signals[PAGE_REMOVED], 0, page);
 
     book->priv->pages = g_list_remove (book->priv->pages, page);
     g_object_unref (page);
+
+    book_set_needs_saving (book, TRUE);
 }
 
 
@@ -620,18 +641,79 @@ book_save_pdf (Book *book, GFile *file, GError **error)
 gboolean
 book_save (Book *book, const gchar *type, GFile *file, GError **error)
 {
+    gboolean result = FALSE;
+
     if (strcmp (type, "jpeg") == 0)
-        return book_save_multi_file (book, "jpeg", file, error);
+        result = book_save_multi_file (book, "jpeg", file, error);
     else if (strcmp (type, "png") == 0)
-        return book_save_multi_file (book, "png", file, error);
+        result = book_save_multi_file (book, "png", file, error);
     else if (strcmp (type, "tiff") == 0)
-        return book_save_multi_file (book, "tiff", file, error);    
+        result = book_save_multi_file (book, "tiff", file, error);    
     else if (strcmp (type, "ps") == 0)
-        return book_save_ps (book, file, error);    
+        result = book_save_ps (book, file, error);    
     else if (strcmp (type, "pdf") == 0)
-        return book_save_pdf (book, file, error);
-    else
-        return FALSE;
+        result = book_save_pdf (book, file, error);
+
+    return result;
+}
+
+
+void
+book_set_needs_saving (Book *book, gboolean needs_saving)
+{
+    gboolean needed_saving = book->priv->needs_saving;
+    book->priv->needs_saving = needs_saving;
+    if (needed_saving != needs_saving)
+        g_object_notify (G_OBJECT (book), "needs-saving");
+}
+
+
+gboolean
+book_get_needs_saving (Book *book)
+{
+    return book->priv->needs_saving;
+}
+
+
+static void
+book_set_property (GObject      *object,
+                   guint         prop_id,
+                   const GValue *value,
+                   GParamSpec   *pspec)
+{
+    Book *self;
+
+    self = BOOK (object);
+
+    switch (prop_id) {
+    case PROP_NEEDS_SAVING:
+        book_set_needs_saving (self, g_value_get_boolean (value));
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+        break;
+    }
+}
+
+
+static void
+book_get_property (GObject    *object,
+                   guint       prop_id,
+                   GValue     *value,
+                   GParamSpec *pspec)
+{
+    Book *self;
+
+    self = BOOK (object);
+
+    switch (prop_id) {
+    case PROP_NEEDS_SAVING:
+        g_value_set_boolean (value, book_get_needs_saving (self));
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+        break;
+    }
 }
 
 
@@ -649,7 +731,17 @@ book_class_init (BookClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+    object_class->get_property = book_get_property;
+    object_class->set_property = book_set_property;
     object_class->finalize = book_finalize;
+
+    g_object_class_install_property (object_class,
+                                     PROP_NEEDS_SAVING,
+                                     g_param_spec_boolean ("needs-saving",
+                                                           "needs-saving",
+                                                           "TRUE if this book needs saving",
+                                                           FALSE,
+                                                           G_PARAM_READWRITE));
 
     signals[PAGE_ADDED] =
         g_signal_new ("page-added",

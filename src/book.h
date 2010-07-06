@@ -57,4 +57,8 @@ Page *book_get_page (Book *book, gint page_number);
 
 gboolean book_save (Book *book, const gchar *type, GFile *file, GError **error);
 
+void book_set_needs_saving (Book *book, gboolean needs_saving);
+
+gboolean book_get_needs_saving (Book *book);
+
 #endif /* _BOOK_H_ */
