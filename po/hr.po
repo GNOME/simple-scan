@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-06-28 04:19+0000\n"
+"POT-Creation-Date: 2010-07-06 22:07+0000\n"
 "PO-Revision-Date: 2010-01-26 22:27+0000\n"
 "Last-Translator: Launchpad Translations Administrators "
 "<rosetta@launchpad.net>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-02 03:40+0000\n"
+"X-Launchpad-Export-Date: 2010-07-07 03:46+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -420,13 +420,8 @@ msgstr ""
 msgid "Scanned Document"
 msgstr ""
 
-#. Title of error dialog when save failed
-#: ../src/simple-scan.c:350
-msgid "Failed to save file"
-msgstr ""
-
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:474
+#: ../src/simple-scan.c:426
 #, c-format
 msgid ""
 "Usage:\n"
@@ -434,7 +429,7 @@ msgid ""
 msgstr ""
 
 #. Description on how to use simple-scan displayed on command-line
-#: ../src/simple-scan.c:482
+#: ../src/simple-scan.c:434
 #, c-format
 msgid ""
 "Help Options:\n"
@@ -446,7 +441,7 @@ msgid ""
 msgstr ""
 
 #. Description on simple-scan command-line GTK+ options displayed on command-line
-#: ../src/simple-scan.c:494
+#: ../src/simple-scan.c:446
 #, c-format
 msgid ""
 "GTK+ Options:\n"
@@ -461,68 +456,88 @@ msgid ""
 msgstr ""
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.c:149
+#: ../src/ui.c:151
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr ""
 
 #. Warning displayed when no scanners are detected
-#: ../src/ui.c:198
+#: ../src/ui.c:200
 msgid "No scanners detected"
 msgstr ""
 
 #. Hint to user on why there are no scanners detected
-#: ../src/ui.c:200
+#: ../src/ui.c:202
 msgid "Please check your scanner is connected and powered on"
 msgstr ""
 
-#. Error message display when unable to preview image
-#: ../src/ui.c:688
-msgid "Unable to open image preview application"
-msgstr ""
-
 #. Save dialog: Label for saving in PDF format
-#: ../src/ui.c:937
+#: ../src/ui.c:382
 msgid "PDF (multi-page document)"
 msgstr ""
 
 #. Save dialog: Label for saving in JPEG format
-#: ../src/ui.c:939
+#: ../src/ui.c:384
 msgid "JPEG (compressed)"
 msgstr ""
 
 #. Save dialog: Label for saving in PNG format
-#: ../src/ui.c:941
+#: ../src/ui.c:386
 msgid "PNG (lossless)"
 msgstr ""
 
 #. Save dialog: Dialog title
-#: ../src/ui.c:953
+#: ../src/ui.c:398
 msgid "Save As..."
 msgstr "Spremi kao..."
 
 #. Save dialog: Filter name to show only image files
-#: ../src/ui.c:969
+#: ../src/ui.c:414
 msgid "Image Files"
 msgstr ""
 
 #. Save dialog: Filter name to show all files
-#: ../src/ui.c:976
+#: ../src/ui.c:421
 msgid "All Files"
 msgstr ""
 
 #. 
-#: ../src/ui.c:981
+#: ../src/ui.c:426
 msgid "Select File _Type"
 msgstr ""
 
+#. Title of error dialog when save failed
+#: ../src/ui.c:524
+msgid "Failed to save file"
+msgstr ""
+
+#. Text in dialog warning when a document is about to be lost
+#: ../src/ui.c:552
+msgid "If you don't save, changes will be permanently lost."
+msgstr ""
+
+#. Text in dialog warning when a document is about to be lost
+#: ../src/ui.c:594
+msgid "Save current document?"
+msgstr ""
+
+#. Button in dialog to create new document and discard unsaved document
+#: ../src/ui.c:596
+msgid "Discard Changes"
+msgstr ""
+
+#. Error message display when unable to preview image
+#: ../src/ui.c:949
+msgid "Unable to open image preview application"
+msgstr ""
+
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.c:1117
+#: ../src/ui.c:1245
 msgid "Unable to open help file"
 msgstr ""
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.c:1132
+#: ../src/ui.c:1260
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -539,65 +554,75 @@ msgid ""
 msgstr ""
 
 #. Title of about dialog
-#: ../src/ui.c:1146
+#: ../src/ui.c:1274
 msgid "About Simple Scan"
 msgstr ""
 
 #. Description of program
-#: ../src/ui.c:1149
+#: ../src/ui.c:1277
 msgid "Simple document scanning tool"
 msgstr ""
 
-#: ../src/ui.c:1158
+#: ../src/ui.c:1286
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Ante Karamatić https://launchpad.net/~ivoks"
 
+#. Text in dialog warning when a document is about to be lost
+#: ../src/ui.c:1304
+msgid "Save document before quitting?"
+msgstr ""
+
+#. Button in dialog to quit and discard unsaved document
+#: ../src/ui.c:1306
+msgid "Quit without Saving"
+msgstr ""
+
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.c:1314
+#: ../src/ui.c:1448
 #, c-format
 msgid "%d dpi (draft)"
 msgstr ""
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.c:1316 ../src/ui.c:1317 ../src/ui.c:1318 ../src/ui.c:1321
+#: ../src/ui.c:1450 ../src/ui.c:1451 ../src/ui.c:1452 ../src/ui.c:1455
 #, c-format
 msgid "%d dpi"
 msgstr ""
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.c:1320
+#: ../src/ui.c:1454
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr ""
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.c:1343
+#: ../src/ui.c:1477
 #, c-format
 msgid "%d dpi (default)"
 msgstr ""
 
 #. Title of dialog when cannot load required files
-#: ../src/ui.c:1378
+#: ../src/ui.c:1522
 msgid "Files missing"
 msgstr ""
 
 #. Description in dialog when cannot load required files
-#: ../src/ui.c:1380
+#: ../src/ui.c:1524
 msgid "Please check your installation"
 msgstr ""
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.c:1434
+#: ../src/ui.c:1581
 msgid "Change _Scanner"
 msgstr ""
 
 #. Combo box value for automatic paper size
-#: ../src/ui.c:1440
+#: ../src/ui.c:1587
 msgid "Automatic"
 msgstr ""
 
-#: ../src/ui.c:1724
+#: ../src/ui.c:1865
 msgid "Scanned Document.pdf"
 msgstr ""
