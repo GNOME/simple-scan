@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT(configure.ac)
-AM_INIT_AUTOMAKE(simple-scan, 2.31.90)
+AM_INIT_AUTOMAKE(simple-scan, 2.31.90.1)
 AM_MAINTAINER_MODE
 GNOME_MAINTAINER_MODE_DEFINES
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
