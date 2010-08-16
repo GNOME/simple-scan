@@ -28,7 +28,7 @@ typedef enum
     LEFT_TO_RIGHT,
     BOTTOM_TO_TOP,
     RIGHT_TO_LEFT
-} Orientation;
+} ScanDirection;
 
 
 typedef struct PagePrivate PagePrivate;
@@ -43,30 +43,37 @@ typedef struct
 {
     GObjectClass parent_class;
 
-    void (*image_changed) (Page *page);
+    void (*pixels_changed) (Page *page);
     void (*size_changed) (Page *page);
     void (*scan_line_changed) (Page *page);
-    void (*orientation_changed) (Page *page);
+    void (*scan_direction_changed) (Page *page);
     void (*crop_changed) (Page *page);
 } PageClass;
 
 
 GType page_get_type (void);
 
-Page *page_new (void);
+Page *page_new (gint width, gint height, gint dpi, ScanDirection scan_direction);
 
-// FIXME: Should be part of page_new
-void page_setup (Page *page, gint width, gint height, gint dpi, Orientation orientation);
-
-void page_set_scan_area (Page *page, gint width, gint rows, gint dpi);
+void page_set_page_info (Page *page, ScanPageInfo *info);
 
 gint page_get_dpi (Page *page);
-
-gboolean page_is_landscape (Page *page);
 
 gint page_get_width (Page *page);
 
 gint page_get_height (Page *page);
+
+gint page_get_depth (Page *page);
+
+gint page_get_n_channels (Page *page);
+
+gint page_get_rowstride (Page *page);
+
+guchar *page_get_pixels (Page *page);
+
+guchar *page_get_pixel (Page *page, gint x, gint y);
+
+gboolean page_is_landscape (Page *page);
 
 gint page_get_scan_width (Page *page);
 
@@ -84,17 +91,13 @@ gboolean page_has_data (Page *page);
 
 gboolean page_is_color (Page *page);
 
-gint page_get_depth (Page *page);
-
 gint page_get_scan_line (Page *page);
 
 void page_parse_scan_line (Page *page, ScanLine *line);
 
 void page_finish (Page *page);
 
-Orientation page_get_orientation (Page *page);
-
-void page_set_orientation (Page *page, Orientation orientation);
+ScanDirection page_get_scan_direction (Page *page);
 
 void page_rotate_left (Page *page);
 
@@ -116,9 +119,7 @@ void page_get_crop (Page *page, gint *x, gint *y, gint *width, gint *height);
 
 gchar *page_get_named_crop (Page *page);
 
-GdkPixbuf *page_get_image (Page *page);
-
-GdkPixbuf *page_get_cropped_image (Page *page);
+GdkPixbuf *page_get_image (Page *page, gboolean apply_crop);
 
 gboolean page_save (Page *page, const gchar *type, GFile *file, GError **error);
 

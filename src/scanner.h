@@ -33,6 +33,9 @@ typedef struct
     /* Bit depth */
     gint depth;
 
+    /* Number of colour channels */
+    gint n_channels;
+
     /* Resolution */
     gdouble dpi;
 
@@ -50,14 +53,9 @@ typedef struct
 
     /* Width in pixels and format */
     gint width, depth;
-    enum
-    {
-        LINE_GRAY,
-        LINE_RGB,
-        LINE_RED,
-        LINE_GREEN,
-        LINE_BLUE
-    } format;
+
+    /* Channel for this line or -1 for all channels */
+    gint channel;
     
     /* Raw line data */
     guchar *data;

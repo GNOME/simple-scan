@@ -43,7 +43,7 @@ struct PageViewPrivate
 {
     /* Page being rendered */
     Page *page;
-
+  
     /* Image to render at current resolution */
     GdkPixbuf *image;
   
@@ -53,6 +53,9 @@ struct PageViewPrivate
 
     /* True if image needs to be regenerated */
     gboolean update_image;
+
+    /* Direction of currently scanned image */
+    ScanDirection scan_direction;
   
     /* Next scan line to render */
     gint scan_line;
@@ -104,7 +107,8 @@ page_view_set_selected (PageView *view, gboolean selected)
 }
 
 
-gboolean page_view_get_selected (PageView *view)
+gboolean
+page_view_get_selected (PageView *view)
 {
     g_return_val_if_fail (view != NULL, FALSE);
     return view->priv->selected;
@@ -143,19 +147,79 @@ page_view_get_y_offset (PageView *view)
 }
 
 
-static guchar *
-get_pixel (guchar *input, gint rowstride, gint n_channels, gint x, gint y)
+static guchar
+get_sample (guchar *line, gint x, gint depth, gint n_channels, gint channel)
 {
-    return input + rowstride * y + x * n_channels;
+    // FIXME
+    return 0xFF;
 }
 
 
 static void
-set_pixel (guchar *input, gint rowstride, gint n_channels,
+get_pixel (Page *page, gint x, gint y, guchar *pixel)
+{
+    gint t, depth, n_channels;
+    guchar *p, *line;
+
+    switch (page_get_scan_direction (page))
+    {
+    case TOP_TO_BOTTOM:
+        break;
+    case BOTTOM_TO_TOP:
+        x = page_get_scan_width (page) - x;
+        y = page_get_scan_height (page) - y;
+        break;
+    case LEFT_TO_RIGHT:
+        t = x;
+        x = page_get_scan_width (page) - y;
+        y = t;
+        break;
+    case RIGHT_TO_LEFT:
+        t = x;
+        x = y;
+        y = page_get_scan_height (page) - t;
+        break;
+    }
+
+    depth = page_get_depth (page);
+    n_channels = page_get_n_channels (page);
+    line = page_get_pixels (page) + page_get_rowstride (page) * y;
+
+    /* Optimise for 8 bit images */
+    if (depth == 8 && n_channels == 3) {
+        p = line + x * n_channels;
+        pixel[0] = p[0];
+        pixel[1] = p[1];
+        pixel[2] = p[2];
+        return;
+    }
+    else if (depth == 8 && n_channels == 1) {
+        p = line + x;
+        pixel[0] = pixel[1] = pixel[2] = p[0];
+        return;
+    }
+
+    /* Optimise for bitmaps */
+    else if (depth == 1 && n_channels == 1) {
+        p = line + (x / 8);
+        pixel[0] = pixel[1] = pixel[2] = p[0] & (0x80 >> (x % 8)) ? 0x00 : 0xFF;
+        return;
+    }
+
+    /* Use slow method */
+    pixel[0] = get_sample (line, x, depth, n_channels, 0);
+    pixel[0] = get_sample (line, x, depth, n_channels, 1);
+    pixel[0] = get_sample (line, x, depth, n_channels, 2);
+}
+
+
+static void
+set_pixel (Page *page,
            double l, double r, double t, double b, guchar *pixel)
 {
     gint x, y;
     gint L, R, T, B;
+    guchar p[3];
     double scale, red, green, blue;
   
     /* Decimation:
@@ -225,7 +289,7 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
     if ((r - l <= 1.0 && (gint)r == (gint)l) || (b - t <= 1.0 && (gint)b == (gint)t)) {
         /* Inside */
         if ((gint)l == (gint)r || (gint)t == (gint)b) {
-            guchar *p = get_pixel (input, rowstride, n_channels, (gint)l, (gint)t);
+            get_pixel (page, (gint)l, (gint)t, p);
             pixel[0] = p[0];
             pixel[1] = p[1];
             pixel[2] = p[2];
@@ -234,34 +298,34 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
 
         /* Stradling horizontal edge */
         if (L > R) {
-            guchar *p = get_pixel (input, rowstride, n_channels, R, T-1);
+            get_pixel (page, R, T-1, p);
             red   += p[0] * (r-l)*(T-t);
             green += p[1] * (r-l)*(T-t);
             blue  += p[2] * (r-l)*(T-t);
             for (y = T; y < B; y++) {
-                guchar *p = get_pixel (input, rowstride, n_channels, R, y);
+                get_pixel (page, R, y, p);
                 red   += p[0] * (r-l);
                 green += p[1] * (r-l);
                 blue  += p[2] * (r-l);
             }
-            p = get_pixel (input, rowstride, n_channels, R, B);
+            get_pixel (page, R, B, p);
             red   += p[0] * (r-l)*(b-B);
             green += p[1] * (r-l)*(b-B);
             blue  += p[2] * (r-l)*(b-B);
         }
         /* Stradling vertical edge */
         else {
-            guchar *p = get_pixel (input, rowstride, n_channels, L - 1, B);
+            get_pixel (page, L - 1, B, p);
             red   += p[0] * (b-t)*(L-l);
             green += p[1] * (b-t)*(L-l);
             blue  += p[2] * (b-t)*(L-l);
             for (x = L; x < R; x++) {
-                guchar *p = get_pixel (input, rowstride, n_channels, x, B);
+                get_pixel (page, x, B, p);
                 red   += p[0] * (b-t);
                 green += p[1] * (b-t);
                 blue  += p[2] * (b-t);
             }
-            p = get_pixel (input, rowstride, n_channels, R, B);
+            get_pixel (page, R, B, p);
             red   += p[0] * (b-t)*(r-R);
             green += p[1] * (b-t)*(r-R);
             blue  += p[2] * (b-t)*(r-R);
@@ -277,7 +341,7 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
     /* Add the middle pixels */
     for (x = L; x < R; x++) {
         for (y = T; y < B; y++) {
-            guchar *p = get_pixel (input, rowstride, n_channels, x, y);
+            get_pixel (page, x, y, p);
             red   += p[0];
             green += p[1];
             blue  += p[2];
@@ -287,14 +351,14 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
     /* Add the weighted top and bottom pixels */
     for (x = L; x < R; x++) {
         if (t != T) {
-            guchar *p = get_pixel (input, rowstride, n_channels, x, T - 1);
+            get_pixel (page, x, T - 1, p);
             red   += p[0] * (T - t);
             green += p[1] * (T - t);
             blue  += p[2] * (T - t);
         }
 
         if (b != B) {     
-            guchar *p = get_pixel (input, rowstride, n_channels, x, B);
+            get_pixel (page, x, B, p);
             red   += p[0] * (b - B);
             green += p[1] * (b - B);
             blue  += p[2] * (b - B);
@@ -304,14 +368,14 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
     /* Add the left and right pixels */
     for (y = T; y < B; y++) {
         if (l != L) {
-            guchar *p = get_pixel (input, rowstride, n_channels, L - 1, y);
+            get_pixel (page, L - 1, y, p);
             red   += p[0] * (L - l);
             green += p[1] * (L - l);
             blue  += p[2] * (L - l);
         }
 
         if (r != R) {     
-            guchar *p = get_pixel (input, rowstride, n_channels, R, y);
+            get_pixel (page, R, y, p);
             red   += p[0] * (r - R);
             green += p[1] * (r - R);
             blue  += p[2] * (r - R);
@@ -320,25 +384,25 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
   
     /* Add the corner pixels */
     if (l != L && t != T) {
-        guchar *p = get_pixel (input, rowstride, n_channels, L - 1, T - 1);
+        get_pixel (page, L - 1, T - 1, p);
         red   += p[0] * (L - l)*(T - t);
         green += p[1] * (L - l)*(T - t);
         blue  += p[2] * (L - l)*(T - t);
     }
     if (r != R && t != T) {
-        guchar *p = get_pixel (input, rowstride, n_channels, R, T - 1);
+        get_pixel (page, R, T - 1, p);
         red   += p[0] * (r - R)*(T - t);
         green += p[1] * (r - R)*(T - t);
         blue  += p[2] * (r - R)*(T - t);
     }
     if (r != R && b != B) {
-        guchar *p = get_pixel (input, rowstride, n_channels, R, B);
+        get_pixel (page, R, B, p);
         red   += p[0] * (r - R)*(b - B);
         green += p[1] * (r - R)*(b - B);
         blue  += p[2] * (r - R)*(b - B);
     }
     if (l != L && b != B) {
-        guchar *p = get_pixel (input, rowstride, n_channels, L - 1, B);
+        get_pixel (page, L - 1, B, p);
         red   += p[0] * (L - l)*(b - B);
         green += p[1] * (L - l)*(b - B);
         blue  += p[2] * (L - l)*(b - B);
@@ -353,23 +417,19 @@ set_pixel (guchar *input, gint rowstride, gint n_channels,
 
 
 static void
-update_preview (GdkPixbuf *image,
+update_preview (Page *page,
                 GdkPixbuf **output_image, gint output_width, gint output_height,
-                Orientation orientation, gint old_scan_line, gint scan_line)
+                ScanDirection scan_direction, gint old_scan_line, gint scan_line)
 {
-    guchar *input, *output;
+    guchar *output;
     gint input_width, input_height;
-    gint input_rowstride, input_n_channels;
     gint output_rowstride, output_n_channels;
     gint x, y;
     gint L, R, T, B;
 
-    input = gdk_pixbuf_get_pixels (image);
-    input_width = gdk_pixbuf_get_width (image);
-    input_height = gdk_pixbuf_get_height (image);
-    input_rowstride = gdk_pixbuf_get_rowstride (image);
-    input_n_channels = gdk_pixbuf_get_n_channels (image);
-
+    input_width = page_get_width (page);
+    input_height = page_get_height (page);
+  
     /* Create new image if one does not exist or has changed size */
     if (!*output_image ||
         gdk_pixbuf_get_width (*output_image) != output_width ||
@@ -381,7 +441,7 @@ update_preview (GdkPixbuf *image,
                                         8,
                                         output_width,
                                         output_height);
-      
+
         /* Update entire image */
         L = 0;
         R = output_width - 1;
@@ -390,7 +450,7 @@ update_preview (GdkPixbuf *image,
     }
     /* Otherwise only update changed area */
     else {
-        switch (orientation) {
+        switch (scan_direction) {
         case TOP_TO_BOTTOM:
             L = 0;
             R = output_width - 1;
@@ -432,15 +492,25 @@ update_preview (GdkPixbuf *image,
     g_return_if_fail (T >= 0);
     g_return_if_fail (B < output_height);
     g_return_if_fail (*output_image != NULL);
-
+  
     output = gdk_pixbuf_get_pixels (*output_image);
     output_rowstride = gdk_pixbuf_get_rowstride (*output_image);
     output_n_channels = gdk_pixbuf_get_n_channels (*output_image);
+  
+    if (!page_has_data (page)) {
+        for (x = L; x <= R; x++)
+            for (y = T; y <= B; y++) {
+                guchar *pixel;
+                pixel = output + output_rowstride * y + x * output_n_channels;
+                pixel[0] = pixel[1] = pixel[2] = 0xFF;
+            }
+        return; 
+    }
 
     /* Update changed area */
     for (x = L; x <= R; x++) {
         double l, r;
-      
+
         l = (double)x * input_width / output_width;
         r = (double)(x + 1) * input_width / output_width;
 
@@ -450,9 +520,9 @@ update_preview (GdkPixbuf *image,
             t = (double)y * input_height / output_height;
             b = (double)(y + 1) * input_height / output_height;
 
-            set_pixel (input, input_rowstride, input_n_channels,
+            set_pixel (page,
                        l, r, t, b,
-                       get_pixel (output, output_rowstride, output_n_channels, x, y));
+                       output + output_rowstride * y + x * output_n_channels);
         }
     }
 }
@@ -475,22 +545,27 @@ get_preview_height (PageView *view)
 static void
 update_page_view (PageView *view)
 {
-    GdkPixbuf *image;
-    gint old_scan_line, scan_line;
+    gint old_scan_line, scan_line, left_steps;
 
     if (!view->priv->update_image)
         return;
 
-    image = page_get_image (view->priv->page);
     old_scan_line = view->priv->scan_line;
     scan_line = page_get_scan_line (view->priv->page);
 
-    update_preview (image,
+    /* Delete old image if scan direction changed */
+    left_steps = view->priv->scan_direction - page_get_scan_direction (view->priv->page);
+    if (left_steps && view->priv->image) {
+        g_object_unref (view->priv->image);
+        view->priv->image = NULL;
+    }
+    view->priv->scan_direction = page_get_scan_direction (view->priv->page);
+
+    update_preview (view->priv->page,
                     &view->priv->image,
                     get_preview_width (view),
                     get_preview_height (view),
-                    page_get_orientation (view->priv->page), old_scan_line, scan_line);
-    g_object_unref (image);
+                    page_get_scan_direction (view->priv->page), old_scan_line, scan_line);
 
     view->priv->update_image = FALSE;
     view->priv->scan_line = scan_line;
@@ -844,18 +919,8 @@ page_view_render (PageView *view, cairo_t *context)
 
     /* Draw image */
     cairo_translate (context, view->priv->border_width, view->priv->border_width);
-    if (view->priv->image) {
-        gdk_cairo_set_source_pixbuf (context, view->priv->image, 0, 0);
-        cairo_paint (context);
-    }
-    else {
-        cairo_scale (context,
-                     (double) get_preview_width (view) / page_get_width (view->priv->page),
-                     (double) get_preview_height (view) / page_get_height (view->priv->page));
-        gdk_cairo_set_source_pixbuf (context, page_get_image (view->priv->page), 0, 0);
-
-        cairo_paint (context);
-    }
+    gdk_cairo_set_source_pixbuf (context, view->priv->image, 0, 0);
+    cairo_paint (context);
 
     /* Draw throbber */
     if (page_is_scanning (view->priv->page) && !page_has_data (view->priv->page)) {
@@ -895,8 +960,8 @@ page_view_render (PageView *view, cairo_t *context)
         double x1, y1, x2, y2;
 
         scan_line = page_get_scan_line (view->priv->page);
-        
-        switch (page_get_orientation (view->priv->page)) {
+
+        switch (page_get_scan_direction (view->priv->page)) {
         case TOP_TO_BOTTOM:
             s = page_to_screen_y (view, scan_line);
             x1 = 0; y1 = s + 0.5;
@@ -1024,7 +1089,7 @@ page_view_get_height (PageView *view)
 
 
 static void
-page_image_changed_cb (Page *p, PageView *view)
+page_pixels_changed_cb (Page *p, PageView *view)
 {
     /* Regenerate image */
     view->priv->update_image = TRUE;
@@ -1050,16 +1115,27 @@ page_overlay_changed_cb (Page *p, PageView *view)
 
 
 static void
+scan_direction_changed_cb (Page *p, PageView *view)
+{
+    /* Regenerate image */
+    view->priv->update_image = TRUE;
+    g_signal_emit (view, signals[SIZE_CHANGED], 0);
+    g_signal_emit (view, signals[CHANGED], 0);
+}
+
+
+static void
 page_view_set_page (PageView *view, Page *page)
 {
     g_return_if_fail (view != NULL);
     g_return_if_fail (view->priv->page == NULL);
 
     view->priv->page = g_object_ref (page);
-    g_signal_connect (view->priv->page, "image-changed", G_CALLBACK (page_image_changed_cb), view);
+    g_signal_connect (view->priv->page, "pixels-changed", G_CALLBACK (page_pixels_changed_cb), view);
     g_signal_connect (view->priv->page, "size-changed", G_CALLBACK (page_size_changed_cb), view);
     g_signal_connect (view->priv->page, "crop-changed", G_CALLBACK (page_overlay_changed_cb), view);
     g_signal_connect (view->priv->page, "scan-line-changed", G_CALLBACK (page_overlay_changed_cb), view);
+    g_signal_connect (view->priv->page, "scan-direction-changed", G_CALLBACK (scan_direction_changed_cb), view);
 }
 
 

@@ -1064,7 +1064,7 @@ do_get_option (Scanner *scanner)
     }
     else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
         if (job->depth > 0)
-            set_int_option (scanner->priv->handle, option, option_index, job->depth, NULL);
+            set_int_option (scanner->priv->handle, option, option_index, 1/*job->depth*/, NULL);
     }
     else if (strcmp (option->name, SANE_NAME_SCAN_MODE) == 0) {
         /* The names of scan modes often used in drivers, as taken from the sane-backends source */
@@ -1160,7 +1160,7 @@ do_get_option (Scanner *scanner)
         }
         else if (strcmp (option->name, "three-pass") == 0) {
             set_bool_option (scanner->priv->handle, option, option_index, FALSE, NULL);
-        }                    
+        }
         else if (strcmp (option->name, "test-picture") == 0) {
             set_string_option (scanner->priv->handle, option, option_index, "Color pattern", NULL);
         }
@@ -1255,6 +1255,7 @@ do_get_parameters (Scanner *scanner)
     info->width = scanner->priv->parameters.pixels_per_line;
     info->height = scanner->priv->parameters.lines;
     info->depth = scanner->priv->parameters.depth;
+    info->n_channels = scanner->priv->parameters.format == SANE_FRAME_GRAY ? 1 : 3;
     info->dpi = job->dpi; // FIXME: This is the requested DPI, not the actual DPI
     info->device = g_strdup (scanner->priv->current_device);
 
@@ -1351,19 +1352,19 @@ do_read (Scanner *scanner)
         line = g_malloc(sizeof(ScanLine));
         switch (scanner->priv->parameters.format) {
         case SANE_FRAME_GRAY:
-            line->format = LINE_GRAY;
+            line->channel = 0;
             break;
         case SANE_FRAME_RGB:
-            line->format = LINE_RGB;
+            line->channel = -1;
             break;
         case SANE_FRAME_RED:
-            line->format = LINE_RED;
+            line->channel = 0;
             break;
         case SANE_FRAME_GREEN:
-            line->format = LINE_GREEN;
+            line->channel = 1;
             break;
         case SANE_FRAME_BLUE:
-            line->format = LINE_BLUE;
+            line->channel = 2;
             break;
         }
         line->width = scanner->priv->parameters.pixels_per_line;

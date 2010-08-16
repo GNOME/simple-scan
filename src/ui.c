@@ -70,7 +70,7 @@ struct SimpleScanPrivate
     BookView *book_view;
     gboolean updating_page_menu;
     gint default_page_width, default_page_height, default_page_dpi;
-    Orientation default_page_orientation;
+    ScanDirection default_page_scan_direction;
   
     gchar *document_hint;
 
@@ -86,8 +86,8 @@ G_DEFINE_TYPE (SimpleScan, ui, G_TYPE_OBJECT);
 static struct
 {
    const gchar *key;
-   Orientation orientation;
-} orientation_keys[] = 
+   ScanDirection scan_direction;
+} scan_direction_keys[] = 
 {
   { "top-to-bottom", TOP_TO_BOTTOM },
   { "bottom-to-top", BOTTOM_TO_TOP },
@@ -326,7 +326,7 @@ add_default_page (SimpleScan *ui)
                              ui->priv->default_page_width,
                              ui->priv->default_page_height,
                              ui->priv->default_page_dpi,
-                             ui->priv->default_page_orientation);
+                             ui->priv->default_page_scan_direction);
     book_view_select_page (ui->priv->book_view, page);
 }
 
@@ -1190,7 +1190,7 @@ draw_page (GtkPrintOperation *operation,
                  gtk_print_context_get_dpi_x (print_context) / page_get_dpi (page),
                  gtk_print_context_get_dpi_y (print_context) / page_get_dpi (page));
 
-    image = page_get_cropped_image (page);
+    image = page_get_image (page, TRUE);
     gdk_cairo_set_source_pixbuf (context, image, 0, 0);
     cairo_paint (context);
 
@@ -1324,9 +1324,9 @@ quit (SimpleScan *ui)
     gconf_client_set_int(ui->priv->client, GCONF_DIR "/window_height", ui->priv->window_height, NULL);
     gconf_client_set_bool(ui->priv->client, GCONF_DIR "/window_is_maximized", ui->priv->window_is_maximized, NULL);
 
-    for (i = 0; orientation_keys[i].key != NULL && orientation_keys[i].orientation != ui->priv->default_page_orientation; i++);
-    if (orientation_keys[i].key != NULL)
-        gconf_client_set_string(ui->priv->client, GCONF_DIR "/scan_direction", orientation_keys[i].key, NULL);
+    for (i = 0; scan_direction_keys[i].key != NULL && scan_direction_keys[i].scan_direction != ui->priv->default_page_scan_direction; i++);
+    if (scan_direction_keys[i].key != NULL)
+        gconf_client_set_string(ui->priv->client, GCONF_DIR "/scan_direction", scan_direction_keys[i].key, NULL);
     gconf_client_set_int (ui->priv->client, GCONF_DIR "/page_width", ui->priv->default_page_width, NULL);
     gconf_client_set_int (ui->priv->client, GCONF_DIR "/page_height", ui->priv->default_page_height, NULL);
     gconf_client_set_int (ui->priv->client, GCONF_DIR "/page_dpi", ui->priv->default_page_dpi, NULL);
@@ -1408,9 +1408,9 @@ page_size_changed_cb (Page *page, SimpleScan *ui)
 
 
 static void
-page_orientation_changed_cb (Page *page, SimpleScan *ui)
+page_scan_direction_changed_cb (Page *page, SimpleScan *ui)
 {
-    ui->priv->default_page_orientation = page_get_orientation (page);
+    ui->priv->default_page_scan_direction = page_get_scan_direction (page);
 }
 
 
@@ -1420,9 +1420,9 @@ page_added_cb (Book *book, Page *page, SimpleScan *ui)
     ui->priv->default_page_width = page_get_width (page);
     ui->priv->default_page_height = page_get_height (page);
     ui->priv->default_page_dpi = page_get_dpi (page);
-    ui->priv->default_page_orientation = page_get_orientation (page);
+    ui->priv->default_page_scan_direction = page_get_scan_direction (page);
     g_signal_connect (page, "size-changed", G_CALLBACK (page_size_changed_cb), ui);
-    g_signal_connect (page, "orientation-changed", G_CALLBACK (page_orientation_changed_cb), ui);
+    g_signal_connect (page, "scan-direction-changed", G_CALLBACK (page_scan_direction_changed_cb), ui);
 }
 
 
@@ -1651,12 +1651,12 @@ ui_load (SimpleScan *ui)
 
     /* Find default page details */
     scan_direction = gconf_client_get_string(ui->priv->client, GCONF_DIR "/scan_direction", NULL);
-    ui->priv->default_page_orientation = TOP_TO_BOTTOM;
+    ui->priv->default_page_scan_direction = TOP_TO_BOTTOM;
     if (scan_direction) {
         gint i;
-        for (i = 0; orientation_keys[i].key != NULL && strcmp (orientation_keys[i].key, scan_direction) != 0; i++);
-        if (orientation_keys[i].key != NULL)
-            ui->priv->default_page_orientation = orientation_keys[i].orientation;
+        for (i = 0; scan_direction_keys[i].key != NULL && strcmp (scan_direction_keys[i].key, scan_direction) != 0; i++);
+        if (scan_direction_keys[i].key != NULL)
+            ui->priv->default_page_scan_direction = scan_direction_keys[i].scan_direction;
         g_free (scan_direction);
     }
     ui->priv->default_page_width = gconf_client_get_int (ui->priv->client, GCONF_DIR "/page_width", NULL);

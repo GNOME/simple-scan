@@ -86,7 +86,7 @@ static Page *
 append_page ()
 {
     Page *page;
-    Orientation orientation = TOP_TO_BOTTOM;
+    ScanDirection scan_direction = TOP_TO_BOTTOM;
     gboolean do_crop = FALSE;
     gchar *named_crop = NULL;
     gint width = 100, height = 100, dpi = 100, cx, cy, cw, ch;
@@ -101,7 +101,7 @@ append_page ()
   
     /* Copy info from previous page */
     if (page) {
-        orientation = page_get_orientation (page);
+        scan_direction = page_get_scan_direction (page);
         width = page_get_width (page);
         height = page_get_height (page);
         dpi = page_get_dpi (page);
@@ -113,7 +113,7 @@ append_page ()
         }
     }
 
-    page = book_append_page (book, width, height, dpi, orientation);
+    page = book_append_page (book, width, height, dpi, scan_direction);
     if (do_crop) {
         if (named_crop)  {
             page_set_named_crop (page, named_crop);
@@ -205,7 +205,7 @@ scanner_page_info_cb (Scanner *scanner, ScanPageInfo *info)
 
     /* Add a new page */
     page = append_page ();
-    page_set_scan_area (page, info->width, info->height, info->dpi);
+    page_set_page_info (page, info);
 
     /* Get ICC color profile */
     /* FIXME: The ICC profile could change */

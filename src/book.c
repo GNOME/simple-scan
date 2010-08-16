@@ -73,14 +73,13 @@ page_changed_cb (Page *page, Book *book)
 
 
 Page *
-book_append_page (Book *book, gint width, gint height, gint dpi, Orientation orientation)
+book_append_page (Book *book, gint width, gint height, gint dpi, ScanDirection scan_direction)
 {
     Page *page;
 
-    page = page_new ();
-    g_signal_connect (page, "image-changed", G_CALLBACK (page_changed_cb), book);
+    page = page_new (width, height, dpi, scan_direction);
+    g_signal_connect (page, "pixels-changed", G_CALLBACK (page_changed_cb), book);
     g_signal_connect (page, "crop-changed", G_CALLBACK (page_changed_cb), book);
-    page_setup (page, width, height, dpi, orientation);
 
     book->priv->pages = g_list_append (book->priv->pages, page);
 
@@ -222,7 +221,7 @@ book_save_ps (Book *book, GFile *file, GError **error)
         double width, height;
         GdkPixbuf *image;
 
-        image = page_get_cropped_image (page);
+        image = page_get_image (page, TRUE);
 
         width = gdk_pixbuf_get_width (image) * 72.0 / page_get_dpi (page);
         height = gdk_pixbuf_get_height (image) * 72.0 / page_get_dpi (page);
@@ -444,7 +443,7 @@ book_save_pdf (Book *book, GFile *file, GError **error)
         height = page_get_height (page);
         page_width = width * 72. / page_get_dpi (page);
         page_height = height * 72. / page_get_dpi (page);
-        image = page_get_cropped_image (page);
+        image = page_get_image (page, TRUE);
         pixels = gdk_pixbuf_get_pixels (image);
 
         if (page_is_color (page)) {

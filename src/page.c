@@ -12,12 +12,11 @@
 #include <string.h>
 #include "page.h"
 
-
 enum {
-    IMAGE_CHANGED,
+    PIXELS_CHANGED,
     SIZE_CHANGED,
     SCAN_LINE_CHANGED,
-    ORIENTATION_CHANGED,
+    SCAN_DIRECTION_CHANGED,
     CROP_CHANGED,
     LAST_SIGNAL
 };
@@ -29,7 +28,7 @@ struct PagePrivate
     gint dpi;
 
     /* Number of rows in this page or -1 if currently unknown */
-    gint rows;
+    gint expected_rows;
 
     /* Bit depth */
     gint depth;
@@ -38,7 +37,8 @@ struct PagePrivate
     gchar *color_profile;
 
     /* Scanned image data */
-    GdkPixbuf *image;
+    gint width, n_rows, rowstride, n_channels;
+    guchar *pixels;
 
     /* Page is getting data */
     gboolean scanning;
@@ -46,14 +46,11 @@ struct PagePrivate
     /* TRUE if have some page data */
     gboolean has_data;
 
-    /* TRUE if have color data */
-    gboolean is_color;
-
     /* Expected next scan row */
     gint scan_line;
 
     /* Rotation of scanned data */
-    Orientation orientation;
+    ScanDirection scan_direction;
 
     /* Crop */
     gboolean has_crop;
@@ -65,67 +62,54 @@ G_DEFINE_TYPE (Page, page, G_TYPE_OBJECT);
 
 
 Page *
-page_new ()
+page_new (gint width, gint height, gint dpi, ScanDirection scan_direction)
 {
-    return g_object_new (PAGE_TYPE, NULL);
-}
-
-
-void
-page_setup (Page *page, gint width, gint height, gint dpi, Orientation orientation)
-{ 
-    page->priv->orientation = orientation;
+    Page *page;
+  
+    page = g_object_new (PAGE_TYPE, NULL);
+    if (scan_direction == TOP_TO_BOTTOM || scan_direction == BOTTOM_TO_TOP) {
+        page->priv->width = width;
+        page->priv->n_rows = height;
+    }
+    else {
+        page->priv->width = height;
+        page->priv->n_rows = width;
+    }
     page->priv->dpi = dpi;
-    if (orientation == LEFT_TO_RIGHT || orientation == RIGHT_TO_LEFT)
-        page->priv->rows = width;
-    else
-        page->priv->rows = height;
-    page->priv->image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
-                                        8,
-                                        width,
-                                        height);
-    g_return_if_fail (page->priv->image != NULL);
-    gdk_pixbuf_fill (page->priv->image, 0xFFFFFFFF);
+    page->priv->scan_direction = scan_direction;
+
+    return page;
 }
 
 
 void
-page_set_scan_area (Page *page, gint width, gint rows, gint dpi)
+page_set_page_info (Page *page, ScanPageInfo *info)
 {
-    gint height;
-
     g_return_if_fail (page != NULL);
 
-    /* Variable height, try 50% of the width for now */
-    if (rows < 0)
-        height = width / 2;
-    else
-        height = rows;
-
-    /* Rotate page */
-    if (page->priv->orientation == LEFT_TO_RIGHT || page->priv->orientation == RIGHT_TO_LEFT) {
-        gint t;
-        t = width;
-        width = height;
-        height = t;
-    }
-
-    page->priv->rows = rows;
-    page->priv->dpi = dpi;
+    page->priv->expected_rows = info->height;
+    page->priv->dpi = info->dpi;
 
     /* Create a white page */
-    /* NOTE: Pixbuf only supports 8 bit RGB images */
-    if (page->priv->image)
-        g_object_unref (page->priv->image);
-    page->priv->image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
-                                        8,
-                                        width,
-                                        height);
-    g_return_if_fail (page->priv->image != NULL);
+    page->priv->width = info->width;
+    page->priv->n_rows = info->height;
+    /* Variable height, try 50% of the width for now */
+    if (page->priv->n_rows < 0)
+        page->priv->n_rows = page->priv->width / 2;
+    page->priv->depth = info->depth;
+    page->priv->n_channels = info->n_channels;
+    page->priv->rowstride = (page->priv->width * page->priv->depth * page->priv->n_channels + 7) / 8;
+    page->priv->pixels = g_realloc (page->priv->pixels, page->priv->n_rows * page->priv->rowstride);
+    g_return_if_fail (page->priv->pixels != NULL);
 
-    gdk_pixbuf_fill (page->priv->image, 0xFFFFFFFF);
+    /* Fill with white */
+    if (page->priv->depth == 1)
+        memset (page->priv->pixels, 0x00, page->priv->n_rows * page->priv->rowstride);
+    else
+        memset (page->priv->pixels, 0xFF, page->priv->n_rows * page->priv->rowstride);
+
     g_signal_emit (page, signals[SIZE_CHANGED], 0);
-    g_signal_emit (page, signals[IMAGE_CHANGED], 0);
+    g_signal_emit (page, signals[PIXELS_CHANGED], 0);
 }
 
 
@@ -139,7 +123,8 @@ page_start (Page *page)
 }
 
 
-gboolean page_is_scanning (Page *page)
+gboolean
+page_is_scanning (Page *page)
 {
     g_return_val_if_fail (page != NULL, FALSE);
   
@@ -147,60 +132,24 @@ gboolean page_is_scanning (Page *page)
 }
 
 
-static gint
-get_sample (guchar *data, gint depth, gint index)
-{
-    gint i, offset, value, n_bits;
-
-    /* Optimise if using 8 bit samples */
-    if (depth == 8)
-        return data[index];
-
-    /* Bit offset for this sample */
-    offset = depth * index;
-
-    /* Get the remaining bits in the octet this sample starts in */
-    i = offset / 8;
-    n_bits = 8 - offset % 8;
-    value = data[i] & (0xFF >> (8 - n_bits));
-    
-    /* Add additional octets until get enough bits */
-    while (n_bits < depth) {
-        value = value << 8 | data[i++];
-        n_bits += 8;
-    }
-
-    /* Trim remaining bits off */
-    if (n_bits > depth)
-        value >>= n_bits - depth;
-
-    return value;
-}
-
-
-gboolean page_has_data (Page *page)
+gboolean
+page_has_data (Page *page)
 {
     g_return_val_if_fail (page != NULL, FALSE);
     return page->priv->has_data;
 }
 
 
-gboolean page_is_color (Page *page)
+gboolean
+page_is_color (Page *page)
 {
     g_return_val_if_fail (page != NULL, FALSE);
-    return page->priv->is_color;
+    return page->priv->n_channels > 1;
 }
 
 
 gint
-page_get_depth (Page *page)
-{
-    g_return_val_if_fail (page != NULL, 0);
-    return page->priv->depth;
-}
-
-
-gint page_get_scan_line (Page *page)
+page_get_scan_line (Page *page)
 {
     g_return_val_if_fail (page != NULL, -1);
     return page->priv->scan_line;
@@ -208,126 +157,27 @@ gint page_get_scan_line (Page *page)
 
 
 static void
-set_pixel (ScanLine *line, gint n, gint x, guchar *pixel)
-{
-    gint sample;
-    guchar *data;
-
-    data = line->data + line->data_length * n;
-
-    switch (line->format) {
-    case LINE_RGB:
-        pixel[0] = get_sample (data, line->depth, x*3) * 0xFF / ((1 << line->depth) - 1);
-        pixel[1] = get_sample (data, line->depth, x*3+1) * 0xFF / ((1 << line->depth) - 1);
-        pixel[2] = get_sample (data, line->depth, x*3+2) * 0xFF / ((1 << line->depth) - 1);
-        break;
-    case LINE_GRAY:
-        /* Bitmap, 0 = white, 1 = black */
-        sample = get_sample (data, line->depth, x) * 0xFF / ((1 << line->depth) - 1);
-        if (line->depth == 1)
-            sample = sample ? 0x00 : 0xFF;
-
-        pixel[0] = pixel[1] = pixel[2] = sample;
-        break;
-    case LINE_RED:
-        pixel[0] = get_sample (data, line->depth, x) * 0xFF / ((1 << line->depth) - 1);
-        break;
-    case LINE_GREEN:
-        pixel[1] = get_sample (data, line->depth, x) * 0xFF / ((1 << line->depth) - 1);
-        break;
-    case LINE_BLUE:
-        pixel[2] = get_sample (data, line->depth, x) * 0xFF / ((1 << line->depth) - 1);
-        break;
-    }
-}
-
-
-static void
 parse_line (Page *page, ScanLine *line, gint n, gboolean *size_changed)
 {
-    guchar *pixels;
     gint line_number;
-    gint i, x = 0, y = 0, x_step = 0, y_step = 0;
-    gint rowstride, n_channels;
 
     line_number = line->number + n;
 
-    if (line->format != LINE_GRAY)
-        page->priv->is_color = TRUE;
-    if (line->depth > page->priv->depth)
-        page->priv->depth = line->depth;
-
     /* Extend image if necessary */
     while (line_number >= page_get_scan_height (page)) {
-        GdkPixbuf *image;
-        gint height, width, new_width, new_height;
+        gint rows;
 
         /* Extend image */
-        new_width = width = gdk_pixbuf_get_width (page->priv->image);
-        new_height = height = gdk_pixbuf_get_height (page->priv->image);
-        if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == BOTTOM_TO_TOP) {
-            new_height = height + width / 2;
-            g_debug("Extending image height from %d pixels to %d pixels", height, new_height);
-        }
-        else {
-            new_width = width + height / 2;
-            g_debug("Extending image width from %d pixels to %d pixels", width, new_width);
-        }
-        image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
-                                8, new_width, new_height);
-
-        /* Copy old data */
-        gdk_pixbuf_fill (page->priv->image, 0xFFFFFFFF);
-        if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == LEFT_TO_RIGHT)
-            gdk_pixbuf_copy_area (page->priv->image, 0, 0, width, height,
-                                  image, 0, 0);
-        else
-            gdk_pixbuf_copy_area (page->priv->image, 0, 0, width, height,
-                                  image, new_width - width, new_height - height);
-
-        g_object_unref (page->priv->image);
-        page->priv->image = image;
+        rows = page->priv->n_rows;
+        page->priv->n_rows = rows + page->priv->width / 2;
+        g_debug("Extending image from %d lines to %d lines", rows, page->priv->n_rows);
+        page->priv->pixels = g_realloc (page->priv->pixels, page->priv->n_rows * page->priv->rowstride);
 
         *size_changed = TRUE;
     }
-  
-    switch (page->priv->orientation) {
-    case TOP_TO_BOTTOM:
-        x = 0;
-        y = line_number;
-        x_step = 1;
-        y_step = 0;
-        break;
-    case BOTTOM_TO_TOP:
-        x = page_get_width (page) - 1;
-        y = page_get_height (page) - line_number - 1;
-        x_step = -1;
-        y_step = 0;
-        break;
-    case LEFT_TO_RIGHT:
-        x = line_number;
-        y = page_get_height (page) - 1;
-        x_step = 0;
-        y_step = -1;
-        break;
-    case RIGHT_TO_LEFT:
-        x = page_get_width (page) - line_number - 1;
-        y = 0;
-        x_step = 0;
-        y_step = 1;
-        break;
-    }
-    pixels = gdk_pixbuf_get_pixels (page->priv->image);
-    rowstride = gdk_pixbuf_get_rowstride (page->priv->image);
-    n_channels = gdk_pixbuf_get_n_channels (page->priv->image);
-    for (i = 0; i < line->width; i++) {
-        guchar *pixel;
 
-        pixel = pixels + y * rowstride + x * n_channels;
-        set_pixel (line, n, i, pixel);
-        x += x_step;
-        y += y_step;
-    }
+    /* Copy in new row */
+    memcpy (page->priv->pixels + line_number * page->priv->rowstride, line->data + n * line->data_length, line->data_length);
 
     page->priv->scan_line = line_number;
 }
@@ -349,7 +199,7 @@ page_parse_scan_line (Page *page, ScanLine *line)
     if (size_changed)
         g_signal_emit (page, signals[SIZE_CHANGED], 0);
     g_signal_emit (page, signals[SCAN_LINE_CHANGED], 0);
-    g_signal_emit (page, signals[IMAGE_CHANGED], 0);
+    g_signal_emit (page, signals[PIXELS_CHANGED], 0);
 }
 
 
@@ -361,35 +211,15 @@ page_finish (Page *page)
     g_return_if_fail (page != NULL);
 
     /* Trim page */
-    if (page->priv->rows < 0 &&
-        page->priv->scan_line != gdk_pixbuf_get_height (page->priv->image)) {
-        GdkPixbuf *image;
-        gint width, height, new_width, new_height;
+    if (page->priv->expected_rows < 0 &&
+        page->priv->scan_line != page_get_scan_height (page)) {
+        gint rows;
 
-        new_width = width = gdk_pixbuf_get_width (page->priv->image);
-        new_height = height = gdk_pixbuf_get_height (page->priv->image);
-        if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == BOTTOM_TO_TOP) {
-            new_height = page->priv->scan_line;
-            g_debug("Trimming image height from %d pixels to %d pixels", height, new_height);
-        }
-        else {
-            new_width = page->priv->scan_line;
-            g_debug("Trimming image width from %d pixels to %d pixels", width, new_width);          
-        }
-        image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE,
-                                8,
-                                new_width, new_height);
+        rows = page->priv->n_rows;
+        page->priv->n_rows = page->priv->scan_line;
+        page->priv->pixels = g_realloc (page->priv->pixels, page->priv->n_rows * page->priv->rowstride);
+        g_debug("Trimming page from %d lines to %d lines", rows, page->priv->n_rows);
 
-        /* Copy old data */
-        if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == LEFT_TO_RIGHT)
-            gdk_pixbuf_copy_area (page->priv->image, 0, 0, width, height,
-                                  image, 0, 0);
-        else
-            gdk_pixbuf_copy_area (page->priv->image, width - new_width, height - new_height, width, height,
-                                  image, 0, 0);
-
-        g_object_unref (page->priv->image);
-        page->priv->image = image;
         size_changed = TRUE;
     }
     page->priv->scanning = FALSE;
@@ -400,47 +230,36 @@ page_finish (Page *page)
 }
 
 
-Orientation
-page_get_orientation (Page *page)
+ScanDirection
+page_get_scan_direction (Page *page)
 {
     g_return_val_if_fail (page != NULL, TOP_TO_BOTTOM);
 
-    return page->priv->orientation;
+    return page->priv->scan_direction;
 }
 
 
-void
-page_set_orientation (Page *page, Orientation orientation)
+static void
+page_set_scan_direction (Page *page, ScanDirection scan_direction)
 {
     gint left_steps, t;
-    GdkPixbuf *image;
     gboolean size_changed = FALSE;
     gint width, height;
 
     g_return_if_fail (page != NULL);
 
-    if (page->priv->orientation == orientation)
+    if (page->priv->scan_direction == scan_direction)
         return;
 
     /* Work out how many times it has been rotated to the left */
-    left_steps = orientation - page->priv->orientation;
+    left_steps = scan_direction - page->priv->scan_direction;
     if (left_steps < 0)
         left_steps += 4;
+    if (left_steps != 2)
+        size_changed = TRUE;
   
     width = page_get_width (page);
     height = page_get_height (page);
-  
-    /* Rotate image */
-    if (left_steps == 1)
-        image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE);
-    else if (left_steps == 2)
-        image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_UPSIDEDOWN);
-    else
-        image = gdk_pixbuf_rotate_simple (page->priv->image, GDK_PIXBUF_ROTATE_CLOCKWISE);
-    g_object_unref (page->priv->image);
-    page->priv->image = image;
-    if (left_steps != 2)
-        size_changed = TRUE;
 
     /* Rotate crop */
     if (page->priv->has_crop) {
@@ -471,42 +290,42 @@ page_set_orientation (Page *page, Orientation orientation)
         }
     }
 
-    page->priv->orientation = orientation;
+    page->priv->scan_direction = scan_direction;
     if (size_changed)
         g_signal_emit (page, signals[SIZE_CHANGED], 0);
-    g_signal_emit (page, signals[IMAGE_CHANGED], 0);
-    g_signal_emit (page, signals[ORIENTATION_CHANGED], 0);
-    g_signal_emit (page, signals[CROP_CHANGED], 0);
+    g_signal_emit (page, signals[SCAN_DIRECTION_CHANGED], 0);
+    if (page->priv->has_crop)
+        g_signal_emit (page, signals[CROP_CHANGED], 0);
 }
 
 
 void
 page_rotate_left (Page *page)
 {
-    Orientation orientation;
+    ScanDirection scan_direction;
 
     g_return_if_fail (page != NULL);
 
-    orientation = page_get_orientation (page);
-    if (orientation == RIGHT_TO_LEFT)
-        orientation = TOP_TO_BOTTOM;
+    scan_direction = page_get_scan_direction (page);
+    if (scan_direction == RIGHT_TO_LEFT)
+        scan_direction = TOP_TO_BOTTOM;
     else
-        orientation++;
-    page_set_orientation (page, orientation);
+        scan_direction++;
+    page_set_scan_direction (page, scan_direction);
 }
 
 
 void
 page_rotate_right (Page *page)
 {
-    Orientation orientation;
+    ScanDirection scan_direction;
 
-    orientation = page_get_orientation (page);
-    if (orientation == TOP_TO_BOTTOM)
-        orientation = RIGHT_TO_LEFT;
+    scan_direction = page_get_scan_direction (page);
+    if (scan_direction == TOP_TO_BOTTOM)
+        scan_direction = RIGHT_TO_LEFT;
     else
-        orientation--;
-    page_set_orientation (page, orientation);
+        scan_direction--;
+    page_set_scan_direction (page, scan_direction);
 }
 
 
@@ -530,7 +349,11 @@ gint
 page_get_width (Page *page)
 {
     g_return_val_if_fail (page != NULL, 0);
-    return gdk_pixbuf_get_width (page->priv->image);
+
+    if (page->priv->scan_direction == TOP_TO_BOTTOM || page->priv->scan_direction == BOTTOM_TO_TOP)
+        return page->priv->width;
+    else
+        return page->priv->n_rows;
 }
 
 
@@ -538,7 +361,33 @@ gint
 page_get_height (Page *page)
 {
     g_return_val_if_fail (page != NULL, 0);
-    return gdk_pixbuf_get_height (page->priv->image);
+
+    if (page->priv->scan_direction == TOP_TO_BOTTOM || page->priv->scan_direction == BOTTOM_TO_TOP)
+        return page->priv->n_rows;
+    else
+        return page->priv->width;
+}
+
+
+gint
+page_get_depth (Page *page)
+{
+    g_return_val_if_fail (page != NULL, 0);
+    return page->priv->depth;
+}
+
+
+gint page_get_n_channels (Page *page)
+{
+    g_return_val_if_fail (page != NULL, 0);
+    return page->priv->n_channels;
+}
+
+
+gint page_get_rowstride (Page *page)
+{
+    g_return_val_if_fail (page != NULL, 0);
+    return page->priv->rowstride;
 }
 
 
@@ -547,10 +396,7 @@ page_get_scan_width (Page *page)
 {
     g_return_val_if_fail (page != NULL, 0);
 
-    if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == BOTTOM_TO_TOP)
-        return gdk_pixbuf_get_width (page->priv->image);
-    else
-        return gdk_pixbuf_get_height (page->priv->image);
+    return page->priv->width;
 }
 
 
@@ -559,10 +405,7 @@ page_get_scan_height (Page *page)
 {
     g_return_val_if_fail (page != NULL, 0);
 
-    if (page->priv->orientation == TOP_TO_BOTTOM || page->priv->orientation == BOTTOM_TO_TOP)
-        return gdk_pixbuf_get_height (page->priv->image);
-    else
-        return gdk_pixbuf_get_width (page->priv->image);  
+    return page->priv->n_rows;
 }
 
 
@@ -779,44 +622,123 @@ page_get_named_crop (Page *page)
 }
 
 
-GdkPixbuf *
-page_get_image (Page *page)
+guchar *
+page_get_pixels (Page *page)
 {
     g_return_val_if_fail (page != NULL, NULL);
-    return g_object_ref (page->priv->image);
+    return page->priv->pixels;
+}
+
+
+// FIXME: Copied from page-view, should be shared code
+static guchar
+get_sample (guchar *line, gint x, gint depth, gint n_channels, gint channel)
+{
+    // FIXME
+    return 0xFF;
+}
+
+
+// FIXME: Copied from page-view, should be shared code
+static void
+get_pixel (Page *page, gint x, gint y, guchar *pixel)
+{
+    gint t, depth, n_channels;
+    guchar *p, *line;
+
+    switch (page_get_scan_direction (page))
+    {
+    case TOP_TO_BOTTOM:
+        break;
+    case BOTTOM_TO_TOP:
+        x = page_get_scan_width (page) - x;
+        y = page_get_scan_height (page) - y;
+        break;
+    case LEFT_TO_RIGHT:
+        t = x;
+        x = page_get_scan_width (page) - y;
+        y = t;
+        break;
+    case RIGHT_TO_LEFT:
+        t = x;
+        x = y;
+        y = page_get_scan_height (page) - t;
+        break;
+    }
+
+    depth = page_get_depth (page);
+    n_channels = page_get_n_channels (page);
+    line = page_get_pixels (page) + page_get_rowstride (page) * y;
+
+    /* Optimise for 8 bit images */
+    if (depth == 8 && n_channels == 3) {
+        p = line + x * n_channels;
+        pixel[0] = p[0];
+        pixel[1] = p[1];
+        pixel[2] = p[2];
+        return;
+    }
+    else if (depth == 8 && n_channels == 1) {
+        p = line + x;
+        pixel[0] = pixel[1] = pixel[2] = p[0];
+        return;
+    }
+
+    /* Optimise for bitmaps */
+    else if (depth == 1 && n_channels == 1) {
+        p = line + (x / 8);
+        pixel[0] = pixel[1] = pixel[2] = p[0] & (0x80 >> (x % 8)) ? 0x00 : 0xFF;
+        return;
+    }
+
+    /* Use slow method */
+    pixel[0] = get_sample (line, x, depth, n_channels, 0);
+    pixel[0] = get_sample (line, x, depth, n_channels, 1);
+    pixel[0] = get_sample (line, x, depth, n_channels, 2);
 }
 
 
 GdkPixbuf *
-page_get_cropped_image (Page *page)
+page_get_image (Page *page, gboolean apply_crop)
 {
-    GdkPixbuf *image, *cropped_image;
-    gint x, y, w, h, pw, ph;
+    GdkPixbuf *image;
+    gint x, y, l, r, t, b;
 
-    g_return_val_if_fail (page != NULL, NULL);
+    if (apply_crop && page->priv->has_crop) {
+        l = page->priv->crop_x;
+        r = l + page->priv->crop_width;
+        t = page->priv->crop_y;
+        b = l + page->priv->crop_height;
+      
+        if (l < 0)
+            l = 0;
+        if (r > page_get_width (page))
+            r = page_get_width (page);
+        if (t < 0)
+            t = 0;
+        if (b > page_get_height (page))
+            b = page_get_height (page);
+    }
+    else {
+        l = 0;
+        r = page_get_width (page);
+        t = 0;
+        b = page_get_height (page);
+    }
 
-    image = page_get_image (page);
+    image = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, r - l, b - t);
 
-    if (!page->priv->has_crop)
-        return image;
+    for (y = t; y < b; y++) {
+        guchar *line = gdk_pixbuf_get_pixels (image) + gdk_pixbuf_get_rowstride (image) * (y - t);
+        for (x = l; x < r; x++) {
+            guchar *pixel;
 
-    x = page->priv->crop_x;
-    y = page->priv->crop_y;
-    w = page->priv->crop_width;
-    h = page->priv->crop_height;
-    pw = gdk_pixbuf_get_width (image);
-    ph = gdk_pixbuf_get_height (image);
+            pixel = line + (x - l) * 3;
+            get_pixel (page, x, y, pixel);
+        }
+    }
 
-    /* Trim crop */
-    if (x + w >= pw)
-        w = pw - x;
-    if (y + h >= ph)
-        h = ph - y;
-
-    cropped_image = gdk_pixbuf_new_subpixbuf (image, x, y, w, h);
-    g_object_unref (image);
-
-    return cropped_image;
+    return image;
 }
 
 
@@ -864,7 +786,7 @@ page_save (Page *page, const gchar *type, GFile *file, GError **error)
     if (!stream)
         return FALSE;
 
-    image = page_get_cropped_image (page);
+    image = page_get_image (page, TRUE);
 
     if (page->priv->color_profile != NULL)
         icc_profile_data = get_icc_data_encoded (page->priv->color_profile);
@@ -910,9 +832,7 @@ static void
 page_finalize (GObject *object)
 {
     Page *page = PAGE (object);
-    if (page->priv->image)
-        g_object_unref (page->priv->image);
-    page->priv->image = NULL;
+    g_free (page->priv->pixels);
     G_OBJECT_CLASS (page_parent_class)->finalize (object);
 }
 
@@ -924,11 +844,11 @@ page_class_init (PageClass *klass)
 
     object_class->finalize = page_finalize;
 
-    signals[IMAGE_CHANGED] =
-        g_signal_new ("image-changed",
+    signals[PIXELS_CHANGED] =
+        g_signal_new ("pixels-changed",
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (PageClass, image_changed),
+                      G_STRUCT_OFFSET (PageClass, pixels_changed),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
@@ -948,11 +868,11 @@ page_class_init (PageClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
-    signals[ORIENTATION_CHANGED] =
-        g_signal_new ("orientation-changed",
+    signals[SCAN_DIRECTION_CHANGED] =
+        g_signal_new ("scan-direction-changed",
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (PageClass, orientation_changed),
+                      G_STRUCT_OFFSET (PageClass, scan_direction_changed),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE, 0);
@@ -973,5 +893,5 @@ static void
 page_init (Page *page)
 {
     page->priv = G_TYPE_INSTANCE_GET_PRIVATE (page, PAGE_TYPE, PagePrivate);
-    page->priv->orientation = TOP_TO_BOTTOM;
+    page->priv->scan_direction = TOP_TO_BOTTOM;
 }
