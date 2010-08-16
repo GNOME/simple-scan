@@ -469,6 +469,46 @@ book_save_pdf (Book *book, GFile *file, GError **error)
                 }
             }
         }
+        else if (page_get_depth (page) == 2) {
+            int row, shift_count = 6;
+            guchar *write_ptr;
+
+            depth = 2;
+            color_space = "DeviceGray";
+            data_length = height * ((width * 2 + 7) / 8);
+            data = g_malloc (sizeof (guchar) * data_length);
+            write_ptr = data;
+            write_ptr[0] = 0;
+            for (row = 0; row < height; row++) {
+                int x;
+                guchar *in_line;
+
+                /* Pad to the next line */
+                if (shift_count != 6) {
+                    write_ptr++;
+                    write_ptr[0] = 0;                   
+                    shift_count = 6;
+                }
+
+                in_line = pixels + row * gdk_pixbuf_get_rowstride (image);
+                for (x = 0; x < width; x++) {
+                    guchar *in_p = in_line + x*3;
+                    if (in_p[0] >= 192)
+                        write_ptr[0] |= 3 << shift_count;
+                    else if (in_p[0] >= 128)
+                        write_ptr[0] |= 2 << shift_count;
+                    else if (in_p[0] >= 64)
+                        write_ptr[0] |= 1 << shift_count;
+                    if (shift_count == 0) {
+                        write_ptr++;
+                        write_ptr[0] = 0;
+                        shift_count = 6;
+                    }
+                    else
+                        shift_count -= 2;
+                }
+            }
+        }
         else if (page_get_depth (page) == 1) {
             int row, mask = 0x80;
             guchar *write_ptr;
@@ -486,7 +526,7 @@ book_save_pdf (Book *book, GFile *file, GError **error)
                 /* Pad to the next line */
                 if (mask != 0x80) {
                     write_ptr++;
-                    write_ptr[0] = 0;                   
+                    write_ptr[0] = 0;
                     mask = 0x80;
                 }
 

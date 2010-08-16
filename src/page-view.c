@@ -148,7 +148,7 @@ page_view_get_y_offset (PageView *view)
 
 
 static guchar
-get_sample (guchar *line, gint x, gint depth, gint n_channels, gint channel)
+get_sample (const guchar *line, gint x, gint depth, gint sample)
 {
     // FIXME
     return 0xFF;
@@ -159,7 +159,7 @@ static void
 get_pixel (Page *page, gint x, gint y, guchar *pixel)
 {
     gint t, depth, n_channels;
-    guchar *p, *line;
+    const guchar *p, *line;
 
     switch (page_get_scan_direction (page))
     {
@@ -206,10 +206,23 @@ get_pixel (Page *page, gint x, gint y, guchar *pixel)
         return;
     }
 
+    /* Optimise for 2 bit images */
+    else if (depth == 2 && n_channels == 1) {
+        gint sample;
+        gint block_shift[4] = { 6, 4, 2, 0 };
+
+        p = line + (x / 4);
+        sample = (p[0] >> block_shift[x % 4]) & 0x3;
+        sample = sample * 255 / 3;
+
+        pixel[0] = pixel[1] = pixel[2] = sample;
+        return;
+    }
+
     /* Use slow method */
-    pixel[0] = get_sample (line, x, depth, n_channels, 0);
-    pixel[0] = get_sample (line, x, depth, n_channels, 1);
-    pixel[0] = get_sample (line, x, depth, n_channels, 2);
+    pixel[0] = get_sample (line, x, depth, x * n_channels);
+    pixel[0] = get_sample (line, x, depth, x * n_channels + 1);
+    pixel[0] = get_sample (line, x, depth, x * n_channels + 2);
 }
 
 

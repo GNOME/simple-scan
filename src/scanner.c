@@ -1064,7 +1064,7 @@ do_get_option (Scanner *scanner)
     }
     else if (strcmp (option->name, SANE_NAME_BIT_DEPTH) == 0) {
         if (job->depth > 0)
-            set_int_option (scanner->priv->handle, option, option_index, 1/*job->depth*/, NULL);
+            set_int_option (scanner->priv->handle, option, option_index, job->depth, NULL);
     }
     else if (strcmp (option->name, SANE_NAME_SCAN_MODE) == 0) {
         /* The names of scan modes often used in drivers, as taken from the sane-backends source */
@@ -1255,6 +1255,10 @@ do_get_parameters (Scanner *scanner)
     info->width = scanner->priv->parameters.pixels_per_line;
     info->height = scanner->priv->parameters.lines;
     info->depth = scanner->priv->parameters.depth;
+    /* Reduce bit depth if requested lower than received */
+    // FIXME: This a hack and only works on 8 bit gray to 2 bit gray
+    if (scanner->priv->parameters.depth == 8 && scanner->priv->parameters.format == SANE_FRAME_GRAY && job->depth == 2 && job->scan_mode == SCAN_MODE_GRAY)
+        info->depth = job->depth;
     info->n_channels = scanner->priv->parameters.format == SANE_FRAME_GRAY ? 1 : 3;
     info->dpi = job->dpi; // FIXME: This is the requested DPI, not the actual DPI
     info->device = g_strdup (scanner->priv->current_device);
@@ -1309,9 +1313,12 @@ do_complete_page (Scanner *scanner)
 static void
 do_read (Scanner *scanner)
 {
+    ScanJob *job;
     SANE_Status status;
     SANE_Int n_to_read, n_read;
     gboolean full_read = FALSE;
+
+    job = (ScanJob *) scanner->priv->job_queue->data;
 
     /* Read as many bytes as we expect */
     n_to_read = scanner->priv->buffer_size - scanner->priv->n_used;
@@ -1388,6 +1395,56 @@ do_read (Scanner *scanner)
             scanner->priv->buffer[i] = line->data[i + (line->n_lines * line->data_length)];
             scanner->priv->n_used++;
         }
+
+        /* Reduce bit depth if requested lower than received */
+        // FIXME: This a hack and only works on 8 bit gray to 2 bit gray
+        if (scanner->priv->parameters.depth == 8 && scanner->priv->parameters.format == SANE_FRAME_GRAY &&
+            job->depth == 2 && job->scan_mode == SCAN_MODE_GRAY) {
+            gint block_shift = 6;
+            guchar block = 0;
+            guchar *write_ptr = line->data;
+
+            for (i = 0; i < line->n_lines; i++) {
+                guchar *in_line = line->data + i * line->data_length;
+                gint x;
+
+                for (x = 0; x < line->width; x++) {
+                     guchar *p = in_line + x;
+                     guchar sample;
+
+                     if (p[0] >= 192)
+                         sample = 3;
+                     else if (p[0] >= 128)
+                         sample = 2;
+                     else if (p[0] >= 64)
+                         sample = 1;
+                     else
+                         sample = 0;
+
+                     block |= sample << block_shift;
+                     if (block_shift == 0) {
+                         *write_ptr = block;
+                         write_ptr++;
+                         block = 0;
+                         block_shift = 6;
+                     }
+                     else {
+                         block_shift -= 2;
+                     }
+                }
+
+                /* Finish each line on a byte boundary */
+                if (block_shift != 6)  {
+                    *write_ptr = block;
+                    write_ptr++;
+                    block = 0;
+                    block_shift = 6;
+                }
+            }
+
+            line->data_length = (line->width * 2 + 7) / 8;
+        }
+
         emit_signal (scanner, GOT_LINE, line);
     }
 }

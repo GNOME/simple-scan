@@ -69,7 +69,7 @@ gint page_get_n_channels (Page *page);
 
 gint page_get_rowstride (Page *page);
 
-guchar *page_get_pixels (Page *page);
+const guchar *page_get_pixels (Page *page);
 
 guchar *page_get_pixel (Page *page, gint x, gint y);
 

@@ -742,11 +742,12 @@ get_scan_options (SimpleScan *ui)
     struct {
         const gchar *name;
         ScanMode mode;
+        gint depth;
     } profiles[] =
     {
-        { "text",  SCAN_MODE_LINEART },
-        { "photo", SCAN_MODE_COLOR   },
-        { NULL,    SCAN_MODE_COLOR   }
+        { "text",  SCAN_MODE_GRAY,  2 },
+        { "photo", SCAN_MODE_COLOR, 8 },
+        { NULL,    SCAN_MODE_COLOR, 8 }
     };
     gint i;
     ScanOptions *options;
@@ -757,7 +758,7 @@ get_scan_options (SimpleScan *ui)
   
     options = g_malloc0 (sizeof (ScanOptions));
     options->scan_mode = profiles[i].mode;
-    options->depth = 8;
+    options->depth = profiles[i].depth;
     if (options->scan_mode == SCAN_MODE_COLOR)
         options->dpi = get_photo_dpi (ui);
     else
