@@ -470,12 +470,12 @@ book_save_pdf (Book *book, GFile *file, GError **error)
             }
         }
         else if (page_get_depth (page) == 1) {
-            int row, offset = 7;
+            int row, mask = 0x80;
             guchar *write_ptr;
 
             depth = 1;
             color_space = "DeviceGray";
-            data_length = (height * width + 7) / 8;
+            data_length = height * ((width + 7) / 8);
             data = g_malloc (sizeof (guchar) * data_length);
             write_ptr = data;
             write_ptr[0] = 0;
@@ -483,16 +483,23 @@ book_save_pdf (Book *book, GFile *file, GError **error)
                 int x;
                 guchar *in_line;
 
+                /* Pad to the next line */
+                if (mask != 0x80) {
+                    write_ptr++;
+                    write_ptr[0] = 0;                   
+                    mask = 0x80;
+                }
+
                 in_line = pixels + row * gdk_pixbuf_get_rowstride (image);
                 for (x = 0; x < width; x++) {
                     guchar *in_p = in_line + x*3;
-                    if (in_p[0])
-                        write_ptr[0] |= 1 << offset;
-                    offset--;
-                    if (offset < 0) {
+                    if (in_p[0] != 0)
+                        write_ptr[0] |= mask;
+                    mask >>= 1;
+                    if (mask == 0) {
                         write_ptr++;
                         write_ptr[0] = 0;
-                        offset = 7;
+                        mask = 0x80;
                     }
                 }
             }
@@ -582,9 +589,9 @@ book_save_pdf (Book *book, GFile *file, GError **error)
 
         /* Page contents */
         command = g_strdup_printf ("q\n"
-                                   "%d 0 0 %d 0 0 cm\n"
+                                   "%f 0 0 %f 0 0 cm\n"
                                    "/Im%d Do\n"
-                                   "Q", width, height, i);
+                                   "Q", page_width, page_height, i);
         pdf_printf (writer, "\n");
         number = pdf_start_object (writer);
         pdf_printf (writer, "%d 0 obj\n", number);
