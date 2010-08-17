@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-07-11 04:04+0000\n"
-"PO-Revision-Date: 2010-06-06 16:11+0000\n"
+"POT-Creation-Date: 2010-08-17 01:59+0000\n"
+"PO-Revision-Date: 2010-08-17 05:15+0000\n"
 "Last-Translator: Cheng-Chia Tseng <Unknown>\n"
 "Language-Team: Chinese (Traditional) <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-14 03:44+0000\n"
+"X-Launchpad-Export-Date: 2010-08-17 07:10+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -280,7 +280,7 @@ msgstr "儲存檔案的目錄"
 
 #: ../data/simple-scan.schemas.in.h:4
 msgid "Height of paper in tenths of a mm"
-msgstr ""
+msgstr "以 10 mm 為單位的紙張高度"
 
 #: ../data/simple-scan.schemas.in.h:5
 msgid "Height of scanned image in pixels"
@@ -333,7 +333,7 @@ msgstr "掃描影像的高度，單位為像素。此數值會根據最近一次
 msgid ""
 "The height of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
-msgstr ""
+msgstr "以 10 mm 為單位的紙張高度 (或 0 以作為自動紙張偵測)。"
 
 #: ../data/simple-scan.schemas.in.h:16
 msgid ""
@@ -362,7 +362,7 @@ msgstr "掃描影像的寬度，單位為像素。此值會根據最近一次掃
 msgid ""
 "The width of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
-msgstr ""
+msgstr "以 10 mm 為單位的紙張寬度 (或 0 以作為自動紙張偵測)。"
 
 #: ../data/simple-scan.schemas.in.h:22
 msgid "Type of document being scanned"
@@ -377,7 +377,7 @@ msgstr "掃描中文件的類型。「文字」表示文字型文件，「相片
 
 #: ../data/simple-scan.schemas.in.h:24
 msgid "Width of paper in tenths of a mm"
-msgstr ""
+msgstr "以 10 mm 為單位的紙張寬度"
 
 #: ../data/simple-scan.schemas.in.h:25
 msgid "Width of scanned image in pixels"
@@ -407,7 +407,7 @@ msgid "Unable to start scan"
 msgstr "無法起始掃描"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.c:1240 ../src/scanner.c:1338
+#: ../src/scanner.c:1240 ../src/scanner.c:1346
 msgid "Error communicating with scanner"
 msgstr "與掃描器溝通時發生錯誤"
 
@@ -530,30 +530,30 @@ msgstr "儲存檔案失敗"
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.c:552
 msgid "If you don't save, changes will be permanently lost."
-msgstr ""
+msgstr "如果您不儲存，變更將會永久消失。"
 
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.c:594
 msgid "Save current document?"
-msgstr ""
+msgstr "儲存至目前文件？"
 
 #. Button in dialog to create new document and discard unsaved document
 #: ../src/ui.c:596
 msgid "Discard Changes"
-msgstr ""
+msgstr "放棄變更"
 
 #. Error message display when unable to preview image
-#: ../src/ui.c:949
+#: ../src/ui.c:950
 msgid "Unable to open image preview application"
 msgstr "無法開啟影像預覽應用程式"
 
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.c:1245
+#: ../src/ui.c:1246
 msgid "Unable to open help file"
 msgstr "無法開啟幫助文件檔案"
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.c:1260
+#: ../src/ui.c:1261
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -576,75 +576,75 @@ msgstr ""
 "您應已收到附隨於本程式的 GNU 通用公眾授權的副本；如果沒有，請參照 <http://www.gnu.org/licenses/>。"
 
 #. Title of about dialog
-#: ../src/ui.c:1274
+#: ../src/ui.c:1275
 msgid "About Simple Scan"
 msgstr "關於「簡易掃描」"
 
 #. Description of program
-#: ../src/ui.c:1277
+#: ../src/ui.c:1278
 msgid "Simple document scanning tool"
 msgstr "簡易文件掃描工具"
 
-#: ../src/ui.c:1286
+#: ../src/ui.c:1287
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Cheng-Chia Tseng https://launchpad.net/~zerng07"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.c:1304
+#: ../src/ui.c:1305
 msgid "Save document before quitting?"
-msgstr ""
+msgstr "在退出前要儲存文件嗎？"
 
 #. Button in dialog to quit and discard unsaved document
-#: ../src/ui.c:1306
+#: ../src/ui.c:1307
 msgid "Quit without Saving"
-msgstr ""
+msgstr "直接退出而不儲存"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.c:1448
+#: ../src/ui.c:1449
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (草稿)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.c:1450 ../src/ui.c:1451 ../src/ui.c:1452 ../src/ui.c:1455
+#: ../src/ui.c:1451 ../src/ui.c:1452 ../src/ui.c:1453 ../src/ui.c:1456
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.c:1454
+#: ../src/ui.c:1455
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (高解析度)"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.c:1477
+#: ../src/ui.c:1478
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (預設)"
 
 #. Title of dialog when cannot load required files
-#: ../src/ui.c:1522
+#: ../src/ui.c:1523
 msgid "Files missing"
 msgstr "檔案遺失"
 
 #. Description in dialog when cannot load required files
-#: ../src/ui.c:1524
+#: ../src/ui.c:1525
 msgid "Please check your installation"
 msgstr "請檢查您的安裝是否完整"
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.c:1581
+#: ../src/ui.c:1582
 msgid "Change _Scanner"
 msgstr "變更掃描器(_S)"
 
 #. Combo box value for automatic paper size
-#: ../src/ui.c:1587
+#: ../src/ui.c:1588
 msgid "Automatic"
 msgstr "自動"
 
-#: ../src/ui.c:1865
+#: ../src/ui.c:1866
 msgid "Scanned Document.pdf"
 msgstr "掃描的文件.pdf"
