@@ -439,12 +439,12 @@ book_save_pdf (Book *book, GFile *file, GError **error)
         float page_width, page_height;
 
         page = book_get_page (book, i);
-        width = page_get_width (page);
-        height = page_get_height (page);
+        image = page_get_image (page, TRUE);
+        width = gdk_pixbuf_get_width (image);
+        height = gdk_pixbuf_get_height (image);
+        pixels = gdk_pixbuf_get_pixels (image);
         page_width = width * 72. / page_get_dpi (page);
         page_height = height * 72. / page_get_dpi (page);
-        image = page_get_image (page, TRUE);
-        pixels = gdk_pixbuf_get_pixels (image);
 
         if (page_is_color (page)) {
             int row;
