@@ -53,9 +53,7 @@ dnl Internationalization
 dnl ###########################################################################
 
 IT_PROG_INTLTOOL([0.35.0])
-GETTEXT_PACKAGE=simple-scan
-AC_SUBST(GETTEXT_PACKAGE)
-AM_GLIB_GNU_GETTEXT
+AC_SUBST(GETTEXT_PACKAGE, simple-scan)
 
 dnl ###########################################################################
 dnl Files to generate
