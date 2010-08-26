@@ -37,6 +37,7 @@ typedef struct
 
     void (*page_added) (Book *book, Page *page);
     void (*page_removed) (Book *book, Page *page);
+    void (*reordered) (Book *book);
     void (*cleared) (Book *book);
 } BookClass;
 
@@ -49,11 +50,15 @@ void book_clear (Book *book);
 
 Page *book_append_page (Book *book, gint width, gint height, gint dpi, ScanDirection orientation);
 
+void book_move_page (Book *book, Page *page, gint location);
+
 void book_delete_page (Book *book, Page *page);
 
 gint book_get_n_pages (Book *book);
 
 Page *book_get_page (Book *book, gint page_number);
+
+gint book_get_page_index (Book *book, Page *page);
 
 gboolean book_save (Book *book, const gchar *type, GFile *file, GError **error);
 

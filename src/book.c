@@ -29,6 +29,7 @@ enum {
 enum {
     PAGE_ADDED,
     PAGE_REMOVED,
+    REORDERED,
     CLEARED,
     LAST_SIGNAL
 };
@@ -92,6 +93,18 @@ book_append_page (Book *book, gint width, gint height, gint dpi, ScanDirection s
 
 
 void
+book_move_page (Book *book, Page *page, gint location)
+{
+    book->priv->pages = g_list_remove (book->priv->pages, page);
+    book->priv->pages = g_list_insert (book->priv->pages, page, location);
+
+    g_signal_emit (book, signals[REORDERED], 0, page);
+
+    book_set_needs_saving (book, TRUE);
+}
+
+
+void
 book_delete_page (Book *book, Page *page)
 {
     g_signal_handlers_disconnect_by_func (page, page_changed_cb, book);
@@ -118,6 +131,13 @@ book_get_page (Book *book, gint page_number)
     if (page_number < 0)
         page_number = g_list_length (book->priv->pages) + page_number;
     return g_list_nth_data (book->priv->pages, page_number);
+}
+
+
+gint
+book_get_page_index (Book *book, Page *page)
+{
+     return g_list_index (book->priv->pages, page);
 }
 
 
@@ -805,6 +825,14 @@ book_class_init (BookClass *klass)
                       NULL, NULL,
                       g_cclosure_marshal_VOID__OBJECT,
                       G_TYPE_NONE, 1, page_get_type ());
+    signals[REORDERED] =
+        g_signal_new ("reordered",
+                      G_TYPE_FROM_CLASS (klass),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (BookClass, reordered),
+                      NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
     signals[CLEARED] =
         g_signal_new ("cleared",
                       G_TYPE_FROM_CLASS (klass),

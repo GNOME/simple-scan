@@ -236,6 +236,14 @@ remove_cb (Book *book, Page *page, BookView *view)
 
 
 static void
+reorder_cb (Book *book, BookView *view)
+{
+    view->priv->need_layout = TRUE;
+    book_view_redraw (view);
+}
+
+
+static void
 clear_cb (Book *book, BookView *view)
 {
     g_hash_table_remove_all (view->priv->page_data);
@@ -676,6 +684,7 @@ book_view_set_property(GObject      *object,
         /* Watch for new pages */
         g_signal_connect (self->priv->book, "page-added", G_CALLBACK (add_cb), self);
         g_signal_connect (self->priv->book, "page-removed", G_CALLBACK (remove_cb), self);
+        g_signal_connect (self->priv->book, "reordered", G_CALLBACK (reorder_cb), self);
         g_signal_connect (self->priv->book, "cleared", G_CALLBACK (clear_cb), self);
         break;
     default:

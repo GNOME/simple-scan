@@ -44,6 +44,7 @@ struct SimpleScanPrivate
     GtkWidget *window, *main_vbox;
     GtkWidget *info_bar, *info_bar_image, *info_bar_label;
     GtkWidget *info_bar_close_button, *info_bar_change_scanner_button;
+    GtkWidget *page_move_left_menuitem, *page_move_right_menuitem;
     GtkWidget *page_delete_menuitem, *crop_rotate_menuitem;
     GtkWidget *save_menuitem, *save_as_menuitem, *save_toolbutton;
     GtkWidget *stop_menuitem, *stop_toolbutton;
@@ -853,6 +854,19 @@ preferences_dialog_response_cb (GtkWidget *widget, gint response_id, SimpleScan 
 
 
 static void
+update_page_menu (SimpleScan *ui)
+{
+    Book *book;
+    gint index;
+
+    book = book_view_get_book (ui->priv->book_view);
+    index = book_get_page_index (book, book_view_get_selected (ui->priv->book_view));
+    gtk_widget_set_sensitive (ui->priv->page_move_left_menuitem, index > 0);
+    gtk_widget_set_sensitive (ui->priv->page_move_right_menuitem, index < book_get_n_pages (book) - 1);
+}
+
+
+static void
 page_selected_cb (BookView *view, Page *page, SimpleScan *ui)
 {
     char *name = NULL;
@@ -861,7 +875,9 @@ page_selected_cb (BookView *view, Page *page, SimpleScan *ui)
         return;
 
     ui->priv->updating_page_menu = TRUE;
-    
+  
+    update_page_menu (ui);
+
     if (page_has_crop (page)) {
         char *crop_name;
       
@@ -1133,6 +1149,40 @@ crop_rotate_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
         return;
     
     page_rotate_crop (page);
+}
+
+
+void page_move_left_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+page_move_left_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    Book *book = book_view_get_book (ui->priv->book_view);
+    Page *page = book_view_get_selected (ui->priv->book_view);
+    gint index;
+
+    index = book_get_page_index (book, page);
+    if (index > 0)
+        book_move_page (book, page, index - 1);
+
+    update_page_menu (ui);
+}
+
+
+void page_move_right_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui);
+G_MODULE_EXPORT
+void
+page_move_right_menuitem_activate_cb (GtkWidget *widget, SimpleScan *ui)
+{
+    Book *book = book_view_get_book (ui->priv->book_view);
+    Page *page = book_view_get_selected (ui->priv->book_view);
+    gint index;
+
+    index = book_get_page_index (book, page);
+    if (index < book_get_n_pages (book) - 1)
+        book_move_page (book, page, book_get_page_index (book, page) + 1);
+
+    update_page_menu (ui);
 }
 
 
@@ -1424,6 +1474,8 @@ page_added_cb (Book *book, Page *page, SimpleScan *ui)
     ui->priv->default_page_scan_direction = page_get_scan_direction (page);
     g_signal_connect (page, "size-changed", G_CALLBACK (page_size_changed_cb), ui);
     g_signal_connect (page, "scan-direction-changed", G_CALLBACK (page_scan_direction_changed_cb), ui);
+
+    update_page_menu (ui);
 }
 
 
@@ -1433,6 +1485,8 @@ page_removed_cb (Book *book, Page *page, SimpleScan *ui)
     /* If this is the last page add a new blank one */
     if (book_get_n_pages (ui->priv->book) == 1)
         add_default_page (ui);
+
+    update_page_menu (ui);
 }
 
 
@@ -1529,6 +1583,8 @@ ui_load (SimpleScan *ui)
 
     ui->priv->window = GTK_WIDGET (gtk_builder_get_object (builder, "simple_scan_window"));
     ui->priv->main_vbox = GTK_WIDGET (gtk_builder_get_object (builder, "main_vbox"));
+    ui->priv->page_move_left_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_move_left_menuitem"));
+    ui->priv->page_move_right_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_move_right_menuitem"));
     ui->priv->page_delete_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_delete_menuitem"));
     ui->priv->crop_rotate_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "crop_rotate_menuitem"));
     ui->priv->save_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "save_menuitem"));
