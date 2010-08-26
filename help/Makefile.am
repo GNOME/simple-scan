@@ -9,9 +9,9 @@ DOC_PAGES = index.page \
             adf.page \
             crop.page \
             dpi.page \
-            edit.page \
             email.page \
             print.page \
+            reorder.page \
             rotate.page \
             save.page \
             scanner.page \
