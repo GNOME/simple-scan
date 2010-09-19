@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-08-20 05:36+0000\n"
-"PO-Revision-Date: 2010-04-22 12:35+0000\n"
-"Last-Translator: Manuel Xosé Lemos <Unknown>\n"
+"PO-Revision-Date: 2010-09-18 12:41+0000\n"
+"Last-Translator: Francisco Diéguez <Unknown>\n"
 "Language-Team: Galician <gl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-30 04:09+0000\n"
+"X-Launchpad-Export-Date: 2010-09-19 05:37+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -45,7 +45,7 @@ msgstr "Todas as páxinas do _alimentador"
 #. Combo box label for scanning the back side of a page
 #: ../data/simple-scan.ui.h:12
 msgid "Back"
-msgstr ""
+msgstr "Atrás"
 
 #: ../data/simple-scan.ui.h:13
 msgid "Crop"
@@ -58,12 +58,12 @@ msgstr "Recortar a páxina seleccionada"
 #. Combo box label for scanning the front side of a page
 #: ../data/simple-scan.ui.h:16
 msgid "Front"
-msgstr ""
+msgstr "Anverso"
 
 #. Combo box label for scanning both sides of a page
 #: ../data/simple-scan.ui.h:18
 msgid "Front and Back"
-msgstr ""
+msgstr "Anverso e reverso"
 
 #. Radio button for cropping to page to US legal size
 #: ../data/simple-scan.ui.h:20
@@ -77,7 +77,7 @@ msgstr "Novo"
 #. Label beside page size combo box
 #: ../data/simple-scan.ui.h:23
 msgid "Page Size:"
-msgstr ""
+msgstr "Tamaño da páxina:"
 
 #. Combo box label for photo scan mode
 #: ../data/simple-scan.ui.h:25
@@ -126,12 +126,12 @@ msgstr "Gardar"
 #. Tooltip for save toolbar button
 #: ../data/simple-scan.ui.h:42
 msgid "Save document to a file"
-msgstr ""
+msgstr "Gardar o documento nun ficheiro"
 
 #. Scan menu item
 #: ../data/simple-scan.ui.h:44
 msgid "Sc_an"
-msgstr ""
+msgstr "Esc_anear"
 
 #. Label on scan toolbar item
 #: ../data/simple-scan.ui.h:46
@@ -146,7 +146,7 @@ msgstr "Escanear _orixe"
 #. Label beside scan side combo box
 #: ../data/simple-scan.ui.h:50
 msgid "Scan Side:"
-msgstr ""
+msgstr "Cara a escanear:"
 
 #. Tooltip for scan toolbar button
 #: ../data/simple-scan.ui.h:52
@@ -190,7 +190,7 @@ msgstr "_Autorizar"
 #. Help|Contents menu
 #: ../data/simple-scan.ui.h:67
 msgid "_Contents"
-msgstr ""
+msgstr "_Contidos"
 
 #. Label for page crop submenu
 #: ../data/simple-scan.ui.h:69
@@ -280,7 +280,7 @@ msgstr "Directorio no que gardar os ficheiros"
 
 #: ../data/simple-scan.schemas.in.h:4
 msgid "Height of paper in tenths of a mm"
-msgstr ""
+msgstr "Altura do papel en décimas de mm"
 
 #: ../data/simple-scan.schemas.in.h:5
 msgid "Height of scanned image in pixels"
@@ -288,7 +288,7 @@ msgstr "Altura da imaxe escaneada en píxeles"
 
 #: ../data/simple-scan.schemas.in.h:6
 msgid "Page side to scan"
-msgstr ""
+msgstr "Cara da páxina a escanear"
 
 #: ../data/simple-scan.schemas.in.h:7
 msgid "Resolution for photo scans"
@@ -338,11 +338,15 @@ msgid ""
 "The height of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
+"A altura do papel en décimas de mm (ou 0 para a detección automática do "
+"papel)."
 
 #: ../data/simple-scan.schemas.in.h:16
 msgid ""
 "The page side to scan. It can be one of the following: 'both' 'front' 'back'"
 msgstr ""
+"A cara da páxina que desexe escanear. Pode ser un dos seguintes: «ambos», "
+"«anverso» e «recverso»"
 
 #: ../data/simple-scan.schemas.in.h:17
 msgid "The resolution in dots-per-inch of the previously scanned image."
@@ -369,6 +373,8 @@ msgid ""
 "The width of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
+"A largura do papel en décimas de mm (ou 0 para a detección automática do "
+"papel)."
 
 #: ../data/simple-scan.schemas.in.h:22
 msgid "Type of document being scanned"
@@ -386,7 +392,7 @@ msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:24
 msgid "Width of paper in tenths of a mm"
-msgstr ""
+msgstr "Largura do papel en décimas de mm"
 
 #: ../data/simple-scan.schemas.in.h:25
 msgid "Width of scanned image in pixels"
@@ -541,17 +547,17 @@ msgstr "Produciuse un fallo ao gardar o ficheiro"
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.c:552
 msgid "If you don't save, changes will be permanently lost."
-msgstr ""
+msgstr "Se non garda o ficheiro, os seus cambios perderanse permanentemente."
 
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.c:594
 msgid "Save current document?"
-msgstr ""
+msgstr "Gardar o documento actual?"
 
 #. Button in dialog to create new document and discard unsaved document
 #: ../src/ui.c:596
 msgid "Discard Changes"
-msgstr ""
+msgstr "Rexeitar os cambios"
 
 #. Error message display when unable to preview image
 #: ../src/ui.c:950
@@ -612,12 +618,12 @@ msgstr ""
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.c:1305
 msgid "Save document before quitting?"
-msgstr ""
+msgstr "Gardar o documento antes de saír?"
 
 #. Button in dialog to quit and discard unsaved document
 #: ../src/ui.c:1307
 msgid "Quit without Saving"
-msgstr ""
+msgstr "Saír sen gardar"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
 #: ../src/ui.c:1449
@@ -661,7 +667,7 @@ msgstr "Cambiar o _escáner"
 #. Combo box value for automatic paper size
 #: ../src/ui.c:1588
 msgid "Automatic"
-msgstr ""
+msgstr "Automático"
 
 #: ../src/ui.c:1866
 msgid "Scanned Document.pdf"
