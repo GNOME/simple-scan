@@ -166,18 +166,18 @@ get_pixel (Page *page, gint x, gint y, guchar *pixel)
     case TOP_TO_BOTTOM:
         break;
     case BOTTOM_TO_TOP:
-        x = page_get_scan_width (page) - x;
-        y = page_get_scan_height (page) - y;
+        x = page_get_scan_width (page) - x - 1;
+        y = page_get_scan_height (page) - y - 1;
         break;
     case LEFT_TO_RIGHT:
         t = x;
-        x = page_get_scan_width (page) - y;
+        x = page_get_scan_width (page) - y - 1;
         y = t;
         break;
     case RIGHT_TO_LEFT:
         t = x;
         x = y;
-        y = page_get_scan_height (page) - t;
+        y = page_get_scan_height (page) - t - 1;
         break;
     }
 
@@ -370,7 +370,7 @@ set_pixel (Page *page,
             blue  += p[2] * (T - t);
         }
 
-        if (b != B) {     
+        if (b != B) {
             get_pixel (page, x, B, p);
             red   += p[0] * (b - B);
             green += p[1] * (b - B);
@@ -387,7 +387,7 @@ set_pixel (Page *page,
             blue  += p[2] * (L - l);
         }
 
-        if (r != R) {     
+        if (r != R) {
             get_pixel (page, R, y, p);
             red   += p[0] * (r - R);
             green += p[1] * (r - R);
