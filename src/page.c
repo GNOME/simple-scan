@@ -651,18 +651,18 @@ get_pixel (Page *page, gint x, gint y, guchar *pixel)
     case TOP_TO_BOTTOM:
         break;
     case BOTTOM_TO_TOP:
-        x = page_get_scan_width (page) - x;
-        y = page_get_scan_height (page) - y;
+        x = page_get_scan_width (page) - x - 1;
+        y = page_get_scan_height (page) - y - 1;
         break;
     case LEFT_TO_RIGHT:
         t = x;
-        x = page_get_scan_width (page) - y;
+        x = page_get_scan_width (page) - y - 1;
         y = t;
         break;
     case RIGHT_TO_LEFT:
         t = x;
         x = y;
-        y = page_get_scan_height (page) - t;
+        y = page_get_scan_height (page) - t - 1;
         break;
     }
 
