@@ -454,7 +454,7 @@ book_save_pdf (Book *book, GFile *file, GError **error)
         Page *page;
         GdkPixbuf *image;
         guchar *pixels, *data, *compressed_data;
-        gchar *command;
+        gchar *command, width_buffer[G_ASCII_DTOSTR_BUF_SIZE], height_buffer[G_ASCII_DTOSTR_BUF_SIZE];
         const gchar *color_space, *filter = NULL;
         float page_width, page_height;
 
@@ -649,9 +649,12 @@ book_save_pdf (Book *book, GFile *file, GError **error)
 
         /* Page contents */
         command = g_strdup_printf ("q\n"
-                                   "%f 0 0 %f 0 0 cm\n"
+                                   "%s 0 0 %s 0 0 cm\n"
                                    "/Im%d Do\n"
-                                   "Q", page_width, page_height, i);
+                                   "Q",
+                                   g_ascii_dtostr (width_buffer, sizeof (width_buffer), page_width),
+                                   g_ascii_dtostr (height_buffer, sizeof (height_buffer), page_height),
+                                   i);
         pdf_printf (writer, "\n");
         number = pdf_start_object (writer);
         pdf_printf (writer, "%d 0 obj\n", number);
