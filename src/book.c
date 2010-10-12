@@ -622,7 +622,7 @@ book_save_pdf (Book *book, GFile *file, GError **error)
         pdf_printf (writer, "/Resources << /XObject << /Im%d %d 0 R >> >>\n", i, number+1);
         pdf_printf (writer, "/MediaBox [ 0 0 %s %s ]\n",
                     g_ascii_formatd (width_buffer, sizeof (width_buffer), "%.2f", page_width),
-                    g_ascii_formatd (width_buffer, sizeof (width_buffer), "%.2f", page_height));
+                    g_ascii_formatd (height_buffer, sizeof (height_buffer), "%.2f", page_height));
         pdf_printf (writer, "/Contents %d 0 R\n", number+2);
         pdf_printf (writer, ">>\n");
         pdf_printf (writer, "endobj\n");
