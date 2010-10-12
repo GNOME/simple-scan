@@ -620,7 +620,9 @@ book_save_pdf (Book *book, GFile *file, GError **error)
         pdf_printf (writer, "/Type /Page\n");
         pdf_printf (writer, "/Parent %d 0 R\n", pages_number);
         pdf_printf (writer, "/Resources << /XObject << /Im%d %d 0 R >> >>\n", i, number+1);
-        pdf_printf (writer, "/MediaBox [ 0 0 %.2f %.2f ]\n", page_width, page_height);
+        pdf_printf (writer, "/MediaBox [ 0 0 %s %s ]\n",
+                    g_ascii_formatd (width_buffer, sizeof (width_buffer), "%.2f", page_width),
+                    g_ascii_formatd (width_buffer, sizeof (width_buffer), "%.2f", page_height));
         pdf_printf (writer, "/Contents %d 0 R\n", number+2);
         pdf_printf (writer, ">>\n");
         pdf_printf (writer, "endobj\n");
@@ -652,8 +654,8 @@ book_save_pdf (Book *book, GFile *file, GError **error)
                                    "%s 0 0 %s 0 0 cm\n"
                                    "/Im%d Do\n"
                                    "Q",
-                                   g_ascii_dtostr (width_buffer, sizeof (width_buffer), page_width),
-                                   g_ascii_dtostr (height_buffer, sizeof (height_buffer), page_height),
+                                   g_ascii_formatd (width_buffer, sizeof (width_buffer), "%f", page_width),
+                                   g_ascii_formatd (height_buffer, sizeof (height_buffer), "%f", page_height),
                                    i);
         pdf_printf (writer, "\n");
         number = pdf_start_object (writer);
