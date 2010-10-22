@@ -721,7 +721,7 @@ page_get_image (Page *page, gboolean apply_crop)
         l = page->priv->crop_x;
         r = l + page->priv->crop_width;
         t = page->priv->crop_y;
-        b = l + page->priv->crop_height;
+        b = t + page->priv->crop_height;
       
         if (l < 0)
             l = 0;
