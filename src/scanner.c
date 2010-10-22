@@ -1081,6 +1081,7 @@ do_get_option (Scanner *scanner)
             "Gray",
             "Grayscale",
             SANE_I18N ("Grayscale"),
+            "True Gray", /* Seen in the proprietary brother3 driver */
             NULL
         };
         const char *lineart_scan_modes[] =
@@ -1096,8 +1097,9 @@ do_get_option (Scanner *scanner)
             "Thresholded",
             SANE_VALUE_SCAN_MODE_GRAY,
             "Gray",
-             "Grayscale",
+            "Grayscale",
             SANE_I18N ("Grayscale"),
+            "True Gray", /* Seen in the proprietary brother3 driver */
             NULL
         };
             
