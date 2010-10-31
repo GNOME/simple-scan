@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-08-20 05:36+0000\n"
-"PO-Revision-Date: 2010-02-28 21:55+0000\n"
+"PO-Revision-Date: 2010-10-31 02:55+0000\n"
 "Last-Translator: André Gondim <andregondim@ubuntu.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-22 04:48+0000\n"
+"X-Launchpad-Export-Date: 2010-10-31 05:12+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Radio button for cropping page to 4x6 inch
@@ -45,7 +45,7 @@ msgstr "Todas as páginas do ali_mentador"
 #. Combo box label for scanning the back side of a page
 #: ../data/simple-scan.ui.h:12
 msgid "Back"
-msgstr ""
+msgstr "Verso"
 
 #: ../data/simple-scan.ui.h:13
 msgid "Crop"
@@ -58,17 +58,17 @@ msgstr "Recortar a página selecionada"
 #. Combo box label for scanning the front side of a page
 #: ../data/simple-scan.ui.h:16
 msgid "Front"
-msgstr ""
+msgstr "Frente"
 
 #. Combo box label for scanning both sides of a page
 #: ../data/simple-scan.ui.h:18
 msgid "Front and Back"
-msgstr ""
+msgstr "Frente e Verso"
 
 #. Radio button for cropping to page to US legal size
 #: ../data/simple-scan.ui.h:20
 msgid "Le_gal"
-msgstr "Le_gal"
+msgstr "Ofício"
 
 #: ../data/simple-scan.ui.h:21
 msgid "New"
@@ -77,7 +77,7 @@ msgstr "Novo"
 #. Label beside page size combo box
 #: ../data/simple-scan.ui.h:23
 msgid "Page Size:"
-msgstr ""
+msgstr "Tamanho da página:"
 
 #. Combo box label for photo scan mode
 #: ../data/simple-scan.ui.h:25
@@ -126,12 +126,12 @@ msgstr "Salvar"
 #. Tooltip for save toolbar button
 #: ../data/simple-scan.ui.h:42
 msgid "Save document to a file"
-msgstr ""
+msgstr "Salvar documento em arquivo"
 
 #. Scan menu item
 #: ../data/simple-scan.ui.h:44
 msgid "Sc_an"
-msgstr ""
+msgstr "Digit_alizar"
 
 #. Label on scan toolbar item
 #: ../data/simple-scan.ui.h:46
@@ -146,7 +146,7 @@ msgstr "Origem do digitalizad_or:"
 #. Label beside scan side combo box
 #: ../data/simple-scan.ui.h:50
 msgid "Scan Side:"
-msgstr ""
+msgstr "Digitalizar lado:"
 
 #. Tooltip for scan toolbar button
 #: ../data/simple-scan.ui.h:52
@@ -276,11 +276,11 @@ msgstr "Direção da digitalização"
 
 #: ../data/simple-scan.schemas.in.h:3
 msgid "Directory to save files to"
-msgstr ""
+msgstr "Diretório no qual salvar arquivos"
 
 #: ../data/simple-scan.schemas.in.h:4
 msgid "Height of paper in tenths of a mm"
-msgstr ""
+msgstr "Altura do papel em décimos de milímetro"
 
 #: ../data/simple-scan.schemas.in.h:5
 msgid "Height of scanned image in pixels"
@@ -288,7 +288,7 @@ msgstr "Altura da imagem digitalizada em pixels"
 
 #: ../data/simple-scan.schemas.in.h:6
 msgid "Page side to scan"
-msgstr ""
+msgstr "Lado da página para digitalizar"
 
 #: ../data/simple-scan.schemas.in.h:7
 msgid "Resolution for photo scans"
@@ -323,6 +323,8 @@ msgstr ""
 msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
 msgstr ""
+"O diretório no qual salvar os arquivos. Usa o diretório de documentos como "
+"padrão se não for configurado."
 
 #: ../data/simple-scan.schemas.in.h:14
 msgid ""
@@ -337,11 +339,15 @@ msgid ""
 "The height of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
+"A altura do papel em décimos de milímetro (ou 0 para detecção automática de "
+"papel)."
 
 #: ../data/simple-scan.schemas.in.h:16
 msgid ""
 "The page side to scan. It can be one of the following: 'both' 'front' 'back'"
 msgstr ""
+"O lado da página para digitalizar. Pode ser uma das seguintes: 'ambas' "
+"'frente' 'verso'"
 
 #: ../data/simple-scan.schemas.in.h:17
 msgid "The resolution in dots-per-inch of the previously scanned image."
@@ -371,6 +377,7 @@ msgid ""
 "The width of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
+"A largura do papel em décimos de mm (ou 0 para detecção automática de papel)."
 
 #: ../data/simple-scan.schemas.in.h:22
 msgid "Type of document being scanned"
@@ -388,7 +395,7 @@ msgstr ""
 
 #: ../data/simple-scan.schemas.in.h:24
 msgid "Width of paper in tenths of a mm"
-msgstr ""
+msgstr "Largura do papel em décimos de milímetro"
 
 #: ../data/simple-scan.schemas.in.h:25
 msgid "Width of scanned image in pixels"
@@ -543,22 +550,22 @@ msgstr "Falha ao salvar o arquivo"
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.c:552
 msgid "If you don't save, changes will be permanently lost."
-msgstr ""
+msgstr "Se você não salvar, alteração serão permanentemente perdidas."
 
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.c:594
 msgid "Save current document?"
-msgstr ""
+msgstr "Salvar documento atual?"
 
 #. Button in dialog to create new document and discard unsaved document
 #: ../src/ui.c:596
 msgid "Discard Changes"
-msgstr ""
+msgstr "Descartar alterações"
 
 #. Error message display when unable to preview image
 #: ../src/ui.c:950
 msgid "Unable to open image preview application"
-msgstr ""
+msgstr "Não foi possível abrir o aplicativo de visualização de imagem"
 
 #. Error message displayed when unable to launch help browser
 #: ../src/ui.c:1246
@@ -621,12 +628,12 @@ msgstr ""
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.c:1305
 msgid "Save document before quitting?"
-msgstr ""
+msgstr "Salvar documento antes de sair?"
 
 #. Button in dialog to quit and discard unsaved document
 #: ../src/ui.c:1307
 msgid "Quit without Saving"
-msgstr ""
+msgstr "Sair sem salvar"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
 #: ../src/ui.c:1449
@@ -670,7 +677,7 @@ msgstr "Alterar _digitalizador"
 #. Combo box value for automatic paper size
 #: ../src/ui.c:1588
 msgid "Automatic"
-msgstr ""
+msgstr "Automático"
 
 #: ../src/ui.c:1866
 msgid "Scanned Document.pdf"
