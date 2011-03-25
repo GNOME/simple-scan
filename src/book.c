@@ -423,15 +423,34 @@ book_save_pdf (Book *book, GFile *file, GError **error)
 
     /* Header */
     pdf_printf (writer, "%%PDF-1.3\n");
+
+    /* Comment with binary as recommended so file is treated as binary */
+    pdf_printf (writer, "%%\xe2\xe3\xcf\xd3\n");
   
     /* Catalog */
     catalog_number = pdf_start_object (writer);
     pdf_printf (writer, "%d 0 obj\n", catalog_number);
     pdf_printf (writer, "<<\n");
     pdf_printf (writer, "/Type /Catalog\n");
-    pdf_printf (writer, "/Pages %d 0 R\n", catalog_number + 1);
+    //FIXMEpdf_printf (writer, "/Metadata %d 0 R\n", catalog_number + 1);  
+    pdf_printf (writer, "/Pages %d 0 R\n", catalog_number + 1); //+2
     pdf_printf (writer, ">>\n");
     pdf_printf (writer, "endobj\n");
+
+    /* Metadata */
+    /* FIXME pdf_printf (writer, "\n");
+    number = pdf_start_object (writer);
+    pdf_printf (writer, "%d 0 obj\n", number);
+    pdf_printf (writer, "<<\n");
+    pdf_printf (writer, "/Type /Metadata\n");
+    pdf_printf (writer, "/Subtype /XML\n");
+    pdf_printf (writer, "/Length %d\n", ...);
+    pdf_printf (writer, ">>\n");
+    pdf_printf (writer, "stream\n");
+    // ...
+    pdf_printf (writer, "\n");
+    pdf_printf (writer, "endstream\n");
+    pdf_printf (writer, "endobj\n");*/
 
     /* Pages */
     pdf_printf (writer, "\n");
@@ -698,6 +717,7 @@ book_save_pdf (Book *book, GFile *file, GError **error)
     pdf_printf (writer, "/Size %d\n", writer->n_objects);
     pdf_printf (writer, "/Info %d 0 R\n", info_number);
     pdf_printf (writer, "/Root %d 0 R\n", catalog_number);
+    //FIXME: pdf_printf (writer, "/ID [<...> <...>]\n");
     pdf_printf (writer, ">>\n");
     pdf_printf (writer, "startxref\n");
     pdf_printf (writer, "%d\n", xref_offset);
