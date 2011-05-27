@@ -9,7 +9,7 @@ simple_scan_SOURCES = \
 	simple-scan.vala \
 	simple-scan.vapi \
 	scanner.c \
-	ui.c
+	ui.vala
 
 simple_scan_VALAFLAGS = \
 	--pkg=gudev-1.0 \
