@@ -1,19 +1,20 @@
 bin_PROGRAMS = simple-scan
 
 simple_scan_SOURCES = \
+	config.vapi \
 	book.c \
-	book.h \
 	book-view.c \
-	book-view.h \
 	page.c \
-	page.h \
 	page-view.c \
-	page-view.h \
-	simple-scan.c \
+	simple-scan.vala \
+	simple-scan.vapi \
 	scanner.c \
-	scanner.h \
-	ui.c \
-	ui.h
+	ui.c
+
+simple_scan_VALAFLAGS = \
+	--pkg=gudev-1.0 \
+	--pkg=gio-2.0 \
+	--pkg=gtk+-2.0 
 
 simple_scan_CFLAGS = \
 	$(SIMPLE_SCAN_CFLAGS) \

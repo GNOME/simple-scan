@@ -2,13 +2,14 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT(configure.ac)
 AM_INIT_AUTOMAKE(simple-scan, 2.32.0.2)
+AM_CONFIG_HEADER(config.h)
 AM_MAINTAINER_MODE
 GNOME_MAINTAINER_MODE_DEFINES
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
 AC_ISC_POSIX
-AC_PROG_CC_C_O
-AM_PROG_CC_STDC
+AM_PROG_VALAC([0.11.6])
+AM_PROG_CC_C_O
 AC_HEADER_STDC
 
 AM_GCONF_SOURCE_2

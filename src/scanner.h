@@ -100,7 +100,7 @@ typedef struct
     GObjectClass parent_class;
 
     void (*update_devices) (Scanner *scanner, GList *devices);
-    void (*authorize) (Scanner *scanner, const gchar *resource);
+    void (*request_authorization) (Scanner *scanner, const gchar *resource);
     void (*expect_page) (Scanner *scanner);
     void (*got_page_info) (Scanner *scanner, ScanPageInfo *info);
     void (*got_line) (Scanner *scanner, ScanLine *line);

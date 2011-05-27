@@ -22,7 +22,7 @@
 
 enum {
     UPDATE_DEVICES,
-    AUTHORIZE,
+    REQUEST_AUTHORIZATION,
     EXPECT_PAGE,
     GOT_PAGE_INFO,
     GOT_LINE,
@@ -137,7 +137,7 @@ send_signal (SignalInfo *info)
             g_list_free (devices);
         }
         break;
-    case AUTHORIZE:
+    case REQUEST_AUTHORIZATION:
         {
             gchar *resource = info->data;
             g_free (resource);
@@ -758,7 +758,7 @@ authorization_cb (SANE_String_Const resource, SANE_Char username[SANE_MAX_USERNA
    
     scanner = g_hash_table_lookup (scanners, g_thread_self ());
 
-    emit_signal (scanner, AUTHORIZE, g_strdup (resource));
+    emit_signal (scanner, REQUEST_AUTHORIZATION, g_strdup (resource));
 
     credentials = g_async_queue_pop (scanner->priv->authorize_queue);
     strncpy (username, credentials->username, SANE_MAX_USERNAME_LEN);
@@ -1626,11 +1626,11 @@ void scanner_free (Scanner *scanner)
 static void
 scanner_class_init (ScannerClass *klass)
 {
-    signals[AUTHORIZE] =
-        g_signal_new ("authorize",
+    signals[REQUEST_AUTHORIZATION] =
+        g_signal_new ("request-authorization",
                       G_TYPE_FROM_CLASS (klass),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (ScannerClass, authorize),
+                      G_STRUCT_OFFSET (ScannerClass, request_authorization),
                       NULL, NULL,
                       g_cclosure_marshal_VOID__STRING,
                       G_TYPE_NONE, 1, G_TYPE_STRING);
