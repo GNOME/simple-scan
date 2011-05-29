@@ -113,6 +113,8 @@ struct ScannerPrivate
 };
 
 G_DEFINE_TYPE (Scanner, scanner, G_TYPE_OBJECT);
+G_DEFINE_TYPE (ScanDevice, scan_device, G_TYPE_OBJECT);
+G_DEFINE_TYPE (ScanOptions, scan_options, G_TYPE_OBJECT);
 
 
 /* Table of scanner objects for each thread (required for authorization callback) */
@@ -348,7 +350,7 @@ do_redetect (Scanner *scanner)
         g_debug ("Device: name=\"%s\" vendor=\"%s\" model=\"%s\" type=\"%s\"",
                  device->name, device->vendor, device->model, device->type);
         
-        scan_device = g_malloc0 (sizeof (ScanDevice));
+        scan_device = scan_device_new ();
 
         scan_device->name = g_strdup (device->name);
 
@@ -1712,3 +1714,12 @@ scanner_init (Scanner *scanner)
     scanner->priv->scan_queue = g_async_queue_new ();
     scanner->priv->authorize_queue = g_async_queue_new ();
 }
+
+
+ScanDevice *scan_device_new (void) { return g_object_new (TYPE_SCAN_DEVICE, NULL); }
+static void scan_device_class_init (ScanDeviceClass *klass) {}
+static void scan_device_init (ScanDevice *device) {}
+
+ScanOptions *scan_options_new (void) { return g_object_new (TYPE_SCAN_OPTIONS, NULL); }
+static void scan_options_class_init (ScanOptionsClass *klass) {}
+static void scan_options_init (ScanOptions *options) {}

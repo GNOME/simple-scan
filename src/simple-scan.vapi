@@ -1,4 +1,5 @@
-public class ScanDevice
+[CCode (cheader_filename = "scanner.h")]
+public class ScanDevice : GLib.Object
 {
     public ScanDevice ();
     public string name;
@@ -8,16 +9,28 @@ public class ScanDevice
 [CCode (cheader_filename = "book.h")]
 public class Book : GLib.Object
 {
+    public signal void page_added (Page page);
+    public signal void page_removed (Page page);
+    public signal void cleared ();
+    public signal void reordered ();
+    public Book ();
     public int get_n_pages ();
     public Page get_page (int page_num);
     public Page append_page (int width, int height, int dpi, ScanDirection direction);
     public void delete_page (Page page);
     public void save (string format, GLib.File file) throws GLib.Error;
+    public int get_page_index (Page page);
+    public bool get_needs_saving ();
+    public void move_page (Page page, int index);
+    public void set_needs_saving (bool needs_saving);
+    public void clear ();
 }
 
 [CCode (cheader_filename = "page.h")]
 public class Page : GLib.Object
 {
+    public signal void size_changed ();
+    public signal void scan_direction_changed ();
     public bool has_data ();
     public void start ();
     public ScanDirection get_scan_direction ();
@@ -34,7 +47,13 @@ public class Page : GLib.Object
     public void set_color_profile (string profile);
     public void parse_scan_line (ScanLine line);
     public void finish ();
+    public void rotate_crop ();
+    public bool is_landscape ();
+    public Gdk.Pixbuf get_image (bool apply_crop);
     public void save (string format, GLib.File file) throws GLib.Error;
+    public void set_no_crop ();
+    public void rotate_left ();
+    public void rotate_right ();
 }
 
 [CCode (cheader_filename = "scanner.h")]
@@ -60,6 +79,7 @@ public class Scanner : GLib.Object
     public void free ();
 }
 
+[CCode (cheader_filename = "scanner.h")]
 public enum ScanMode
 {
     DEFAULT,
@@ -68,16 +88,33 @@ public enum ScanMode
     LINEART
 }
 
-public class ScanOptions
+[CCode (cprefix = "SCAN_", cheader_filename = "scanner.h")]
+public enum ScanType
 {
-   public ScanMode scan_mode;
-   public int dpi;
+    SINGLE,
+    ADF_FRONT,
+    ADF_BACK,
+    ADF_BOTH
 }
 
+[CCode (cheader_filename = "scanner.h")]
+public class ScanOptions : GLib.Object
+{
+   public ScanOptions();
+   public int dpi;
+   public ScanMode scan_mode;
+   public int depth;
+   public ScanType type;
+   public int paper_width;
+   public int paper_height;
+}
+
+[CCode (cheader_filename = "scanner.h")]
 public class ScanLine
 {
 }
 
+[CCode (cheader_filename = "scanner.h")]
 public class ScanPageInfo
 {
     public string device;
@@ -89,5 +126,32 @@ public class ScanPageInfo
 [CCode (cprefix = "", cheader_filename = "page.h")]
 public enum ScanDirection
 {
-    TOP_TO_BOTTOM
+    TOP_TO_BOTTOM,
+    BOTTOM_TO_TOP,
+    LEFT_TO_RIGHT,
+    RIGHT_TO_LEFT
+}
+
+[CCode (cheader_filename = "page-view.h")]
+public class PageView : GLib.Object
+{
+    public signal void changed ();
+    public signal void size_changed ();
+    public PageView (Page page);
+    public Page get_page ();
+    public void set_selected (bool is_selected);
+    public bool get_selected ();
+    public int get_x_offset ();
+    public int get_y_offset ();
+    public int get_width ();
+    public int get_height ();
+    public void set_width (int width);
+    public void set_height (int height);
+    public void set_x_offset (int x_offset);
+    public void set_y_offset (int y_offset);
+    public void button_press (int x, int y);
+    public void button_release (int x, int y);
+    public void motion (int x, int y);
+    public Gdk.CursorType get_cursor ();
+    public void render (Cairo.Context context);
 }

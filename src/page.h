@@ -19,8 +19,8 @@
 
 G_BEGIN_DECLS
 
-#define PAGE_TYPE  (page_get_type ())
-#define PAGE(obj)  (G_TYPE_CHECK_INSTANCE_CAST ((obj), PAGE_TYPE, Page))
+#define TYPE_PAGE  (page_get_type ())
+#define PAGE(obj)  (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_PAGE, Page))
     
 typedef enum
 {

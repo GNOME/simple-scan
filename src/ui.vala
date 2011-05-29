@@ -9,70 +9,57 @@
  * license.
  */
 
-#if 0
-define DEFAULT_TEXT_DPI 150
-define DEFAULT_PHOTO_DPI 300
-
-static struct
-{
-   string key;
-   ScanDirection scan_direction;
-} scan_direction_keys[] =
-{
-  { "top-to-bottom", TOP_TO_BOTTOM },
-  { "bottom-to-top", BOTTOM_TO_TOP },
-  { "left-to-right", LEFT_TO_RIGHT },
-  { "right-to-left", RIGHT_TO_LEFT },
-  { NULL, 0 }
-};
-#endif
-
 public class SimpleScan
 {
-    private GConfClient client;
+    private const int DEFAULT_TEXT_DPI = 150;
+    private const int DEFAULT_PHOTO_DPI = 300;
+
+    private GConf.Client client;
 
     private Gtk.Builder builder;
 
-    private Gtk.Widget window;
-    private Gtk.Widget main_vbox;
-    private Gtk.Widget info_bar;
-    private Gtk.Widget info_bar_image;
-    private Gtk.Widget info_bar_label;
-    private Gtk.Widget info_bar_close_button;
-    private Gtk.Widget info_bar_change_scanner_button;
-    private Gtk.Widget page_move_left_menuitem;
-    private Gtk.Widget page_move_right_menuitem;
-    private Gtk.Widget page_delete_menuitem;
-    private Gtk.Widget crop_rotate_menuitem;
-    private Gtk.Widget save_menuitem;
-    private Gtk.Widget save_as_menuitem;
-    private Gtk.Widget save_toolbutton;
-    private Gtk.Widget stop_menuitem;
-    private Gtk.Widget stop_toolbutton;
+    private Gtk.Window window;
+    private Gtk.VBox main_vbox;
+    private Gtk.InfoBar info_bar;
+    private Gtk.Image info_bar_image;
+    private Gtk.Label info_bar_label;
+    private Gtk.Button info_bar_close_button;
+    private Gtk.Button info_bar_change_scanner_button;
+    private Gtk.MenuItem page_move_left_menuitem;
+    private Gtk.MenuItem page_move_right_menuitem;
+    private Gtk.MenuItem page_delete_menuitem;
+    private Gtk.MenuItem crop_rotate_menuitem;
+    private Gtk.MenuItem save_menuitem;
+    private Gtk.MenuItem save_as_menuitem;
+    private Gtk.ToolButton save_toolbutton;
+    private Gtk.MenuItem stop_menuitem;
+    private Gtk.ToolButton stop_toolbutton;
 
-    private Gtk.Widget text_toolbar_menuitem;
-    private Gtk.Widget text_menu_menuitem;
-    private Gtk.Widget photo_toolbar_menuitem;
-    private Gtk.Widget photo_menu_menuitem;
+    private Gtk.RadioMenuItem text_toolbar_menuitem;
+    private Gtk.RadioMenuItem text_menu_menuitem;
+    private Gtk.RadioMenuItem photo_toolbar_menuitem;
+    private Gtk.RadioMenuItem photo_menu_menuitem;
 
-    private Gtk.Widget authorize_dialog;
-    private Gtk.Widget authorize_label;
-    private Gtk.Widget username_entry;
-    private Gtk.Widget password_entry;
+    private Gtk.Dialog authorize_dialog;
+    private Gtk.Label authorize_label;
+    private Gtk.Entry username_entry;
+    private Gtk.Entry password_entry;
 
-    private Gtk.Widget preferences_dialog;
-    private Gtk.Widget device_combo;
-    private Gtk.Widget text_dpi_combo;
-    private Gtk.Widget photo_dpi_combo;
-    private Gtk.Widget page_side_combo;
-    private Gtk.Widget paper_size_combo;
-    private Gtk.TreeModel device_model;
-    private Gtk.TreeModel text_dpi_model;
-    private Gtk.TreeModel photo_dpi_model;
-    private Gtk.TreeModel page_side_model;
-    private Gtk.TreeModel paper_size_model;
+    private Gtk.Dialog preferences_dialog;
+    private Gtk.ComboBox device_combo;
+    private Gtk.ComboBox text_dpi_combo;
+    private Gtk.ComboBox photo_dpi_combo;
+    private Gtk.ComboBox page_side_combo;
+    private Gtk.ComboBox paper_size_combo;
+    private Gtk.ListStore device_model;
+    private Gtk.ListStore text_dpi_model;
+    private Gtk.ListStore photo_dpi_model;
+    private Gtk.ListStore page_side_model;
+    private Gtk.ListStore paper_size_model;
     private bool setting_devices;
     private bool user_selected_device;
+
+    private Gtk.FileChooserDialog? save_dialog;
 
     private bool have_error;
     private string error_title;
@@ -80,7 +67,7 @@ public class SimpleScan
     private bool error_change_scanner_hint;
 
     private Book book;
-    private string book_uri;
+    private string? book_uri;
 
     private BookView book_view;
     private bool updating_page_menu;
@@ -97,6 +84,11 @@ public class SimpleScan
     private int window_width;
     private int window_height;
     private bool window_is_maximized;
+    
+    public signal void start_scan (string device, ScanOptions options);
+    public signal void stop_scan ();
+    public signal void email (string profile);
+    public signal void quit ();
 
     public SimpleScan ()
     {
@@ -104,23 +96,30 @@ public class SimpleScan
         book.page_removed.connect (page_removed_cb);
         book.page_added.connect (page_added_cb);
 
-        client = gconf_client_get_default ();
-        client.add_dir (GCONF_DIR, GCONF_CLIENT_PRELOAD_NONE, null);
+        client = GConf.Client.get_default ();
+        try
+        {
+            client.add_dir (Config.GCONF_DIR, GConf.ClientPreloadType.NONE);
+        }
+        catch (Error e)
+        {
+            warning ("Unable to preload GConf dir: %s", e.message);
+        }
 
         load ();
     }
 
-    private bool find_scan_device (string device, Gtk.TreeIter iter)
+    private bool find_scan_device (string device, out Gtk.TreeIter iter)
     {
         bool have_iter = false;
 
-        if (gtk_tree_model_get_iter_first (device_model, iter)) {
+        if (device_model.get_iter_first (out iter)) {
             do {
                 string d;
-                gtk_tree_model_get (device_model, iter, 0, &d, -1);
+                device_model.get (iter, 0, out d, -1);
                 if (d == device)
                     have_iter = true;
-            } while (!have_iter && gtk_tree_model_iter_next (device_model, iter));
+            } while (!have_iter && device_model.iter_next (ref iter));
         }
 
         return have_iter;
@@ -128,16 +127,14 @@ public class SimpleScan
 
     private void show_error_dialog (string error_title, string error_text)
     {
-        Gtk.Widget dialog;
-
-        dialog = gtk_message_dialog_new (GTK_WINDOW (window),
-                                         GTK_DIALOG_MODAL,
-                                         GTK_MESSAGE_WARNING,
-                                         GTK_BUTTONS_NONE,
-                                         "%s", error_title);
-        gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE, 0);
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s", error_text);
-        gtk_widget_destroy (dialog);
+        var dialog = new Gtk.MessageDialog (window,
+                                            Gtk.DialogFlags.MODAL,
+                                            Gtk.MessageType.WARNING,
+                                            Gtk.ButtonsType.NONE,
+                                            "%s", error_title);
+        dialog.add_button (Gtk.Stock.CLOSE, 0);
+        dialog.format_secondary_text ("%s", error_text);
+        dialog.destroy ();
     }
 
     public void set_default_file_name (string default_file_name)
@@ -150,7 +147,7 @@ public class SimpleScan
         /* Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization */
         var description = _("Username and password required to access '%s'").printf (resource);
 
-        username_entry.set_text (*username ? *username : "");
+        username_entry.set_text ("");
         password_entry.set_text ("");
         authorize_label.set_text (description);
 
@@ -174,38 +171,37 @@ public class SimpleScan
     {
         Gtk.MessageType type;
         string title, text, image_id;
-        string message;
         bool show_close_button = false;
         bool show_change_scanner_button = false;
 
         if (have_error)  {
-            type = GTK_MESSAGE_ERROR;
-            image_id = GTK_STOCK_DIALOG_ERROR;
+            type = Gtk.MessageType.ERROR;
+            image_id = Gtk.Stock.DIALOG_ERROR;
             title = error_title;
             text = error_text;
             show_close_button = true;
             show_change_scanner_button = error_change_scanner_hint;
         }
-        else if (gtk_tree_model_iter_n_children (device_model, null) == 0) {
-            type = GTK_MESSAGE_WARNING;
-            image_id = GTK_STOCK_DIALOG_WARNING;
+        else if (device_model.iter_n_children (null) == 0) {
+            type = Gtk.MessageType.WARNING;
+            image_id = Gtk.Stock.DIALOG_WARNING;
             /* Warning displayed when no scanners are detected */
             title = _("No scanners detected");
             /* Hint to user on why there are no scanners detected */
             text = _("Please check your scanner is connected and powered on");
         }
         else {
-            gtk_widget_hide (info_bar);
+            info_bar.hide ();
             return;
         }
 
-        gtk_info_bar_set_message_type (GTK_INFO_BAR (info_bar), type);
-        gtk_image_set_from_stock (GTK_IMAGE (info_bar_image), image_id, GTK_ICON_SIZE_DIALOG);
-        message = "<big><b>%s</b></big>\n\n%s".printf (title, text);
-        gtk_label_set_markup (GTK_LABEL (info_bar_label), message);
-        gtk_widget_set_visible (info_bar_close_button, show_close_button);
-        gtk_widget_set_visible (info_bar_change_scanner_button, show_change_scanner_button);
-        gtk_widget_show (info_bar);
+        info_bar.set_message_type (type);
+        info_bar_image.set_from_stock (image_id, Gtk.IconSize.DIALOG);
+        var message = "<big><b>%s</b></big>\n\n%s".printf (title, text);
+        info_bar_label.set_markup (message);
+        info_bar_close_button.set_visible (show_close_button);
+        info_bar_change_scanner_button.set_visible (show_change_scanner_button);
+        info_bar.show ();
     }
 
     public void set_scan_devices (List<ScanDevice> devices)
@@ -218,7 +214,7 @@ public class SimpleScan
 
         /* If the user hasn't chosen a scanner choose the best available one */
         if (user_selected_device)
-            have_selection = gtk_combo_box_get_active (GTK_COMBO_BOX (device_combo)) >= 0;
+            have_selection = device_combo.get_active () >= 0;
 
         /* Add new devices */
         index = 0;
@@ -227,21 +223,21 @@ public class SimpleScan
             int n_delete = -1;
 
             /* Find if already exists */
-            if (gtk_tree_model_iter_nth_child (device_model, &iter, null, index)) {
+            if (device_model.iter_nth_child (out iter, null, index)) {
                 int i = 0;
                 do {
                     string name;
                     bool matched;
 
-                    gtk_tree_model_get (device_model, &iter, 0, &name, -1);
-                    matched = name == device->name;
+                    device_model.get (iter, 0, out name, -1);
+                    matched = name == device.name;
 
                     if (matched) {
                         n_delete = i;
                         break;
                     }
                     i++;
-                } while (gtk_tree_model_iter_next (device_model, &iter));
+                } while (device_model.iter_next (ref iter));
             }
 
             /* If exists, remove elements up to this one */
@@ -249,40 +245,40 @@ public class SimpleScan
                 int i;
 
                 /* Update label */
-                gtk_list_store_set (GTK_LIST_STORE (device_model), &iter, 1, device->label, -1);
+                device_model.set (iter, 1, device.label, -1);
 
                 for (i = 0; i < n_delete; i++) {
-                    gtk_tree_model_iter_nth_child (device_model, &iter, null, index);
-                    gtk_list_store_remove (GTK_LIST_STORE (device_model), &iter);
+                    device_model.iter_nth_child (out iter, null, index);
+                    device_model.remove (iter);
                 }
             }
             else {
-                gtk_list_store_insert (GTK_LIST_STORE (device_model), &iter, index);
-                gtk_list_store_set (GTK_LIST_STORE (device_model), &iter, 0, device->name, 1, device->label, -1);
+                device_model.insert (out iter, index);
+                device_model.set (iter, 0, device.name, 1, device.label, -1);
             }
             index++;
         }
 
         /* Remove any remaining devices */
-        while (gtk_tree_model_iter_nth_child (device_model, &iter, null, index))
-            gtk_list_store_remove (GTK_LIST_STORE (device_model), &iter);
+        while (device_model.iter_nth_child (out iter, null, index))
+            device_model.remove (iter);
 
         /* Select the first available device */
         if (!have_selection && devices != null)
-            gtk_combo_box_set_active (GTK_COMBO_BOX (device_combo), 0);
+            device_combo.set_active (0);
 
         setting_devices = false;
 
         update_info_bar ();
     }
 
-    private string get_selected_device ()
+    private string? get_selected_device ()
     {
         Gtk.TreeIter iter;
 
-        if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (device_combo), &iter)) {
+        if (device_combo.get_active_iter (out iter)) {
             string device;
-            gtk_tree_model_get (device_model, &iter, 0, &device, -1);
+            device_model.get (iter, 0, out device, -1);
             return device;
         }
 
@@ -292,7 +288,6 @@ public class SimpleScan
     public void set_selected_device (string device)
     {
         Gtk.TreeIter iter;
-
         if (!find_scan_device (device, out iter))
             return;
 
@@ -309,222 +304,214 @@ public class SimpleScan
         book_view.select_page (page);
     }
 
-    private void on_file_type_changed (Gtk.TreeSelection selection, Gtk.Widget dialog)
+    private void on_file_type_changed (Gtk.TreeSelection selection)
     {
         Gtk.TreeModel model;
         Gtk.TreeIter iter;
-        string path, filename, extension, new_filename;
-
-        if (!gtk_tree_selection_get_selected (selection, &model, &iter))
+        if (!selection.get_selected (out model, out iter))
             return;
 
-        gtk_tree_model_get (model, &iter, 1, &extension, -1);
-        path = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
-        filename = g_path_get_basename (path);
+        string extension;
+        model.get (iter, 1, out extension, -1);
+        var path = save_dialog.get_filename ();
+        var filename = Path.get_basename (path);
 
         /* Replace extension */
-        if (g_strrstr (filename, "."))
-            new_filename = "%.*s%s".printf ((int)(g_strrstr (filename, ".") - filename), filename, extension);
-        else
-            new_filename = "%s%s".printf (filename, extension);
-        gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), new_filename);
-
+        var extension_index = filename.last_index_of_char ('.');
+        if (extension_index >= 0)
+            filename = filename.slice (0, extension_index);
+        filename = filename + extension;
+        save_dialog.set_current_name (filename);
     }
 
     private string choose_file_location ()
     {
-        Gtk.Widget dialog;
-        int response;
-        Gtk.FileFilter filter;
-        Gtk.Widget expander, file_type_view;
-        Gtk.ListStore file_type_store;
-        Gtk.TreeIter iter;
-        Gtk.TreeViewColumn column;
-        string extension;
-        string directory, uri = null;
-        int i;
-
         /* Get directory to save to */
-        directory = gconf_client_get_string (client, GCONF_DIR + "/save_directory", null);
-        if (!directory || directory[0] == '\0') {
-            directory = Environment.get_user_special_dir (G_USER_DIRECTORY_DOCUMENTS);
+        string? directory = null;
+        try
+        {
+            directory = client.get_string (Config.GCONF_DIR + "/save_directory");
+        }
+        catch (Error e)
+        {
+            warning ("Error reading configuration: %s", e.message);
+        }
+            
+        if (directory == null || directory == "") {
+            directory = Environment.get_user_special_dir (UserDirectory.DOCUMENTS);
         }
 
-        dialog = gtk_file_chooser_dialog_new (/* Save dialog: Dialog title */
-                                              _("Save As..."),
-                                              GTK_WINDOW (window),
-                                              GTK_FILE_CHOOSER_ACTION_SAVE,
-                                              GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-                                              GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
-                                              null);
-        gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (dialog), true);
-        gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), false);
-        gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog), directory);
-        gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (dialog), default_file_name);
+        save_dialog = new Gtk.FileChooserDialog (/* Save dialog: Dialog title */
+                                                 _("Save As..."),
+                                                 window,
+                                                 Gtk.FileChooserAction.SAVE,
+                                                 Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL,
+                                                 Gtk.Stock.SAVE, Gtk.ResponseType.ACCEPT,
+                                                 null);
+        save_dialog.set_do_overwrite_confirmation (true);
+        save_dialog.set_local_only (false);
+        save_dialog.set_current_folder (directory);
+        save_dialog.set_current_name (default_file_name);
 
         /* Filter to only show images by default */
-        filter = gtk_file_filter_new ();
-        gtk_file_filter_set_name (filter,
-                                  /* Save dialog: Filter name to show only image files */
-                                  _("Image Files"));
-        gtk_file_filter_add_pixbuf_formats (filter);
-        gtk_file_filter_add_mime_type (filter, "application/pdf");
-        gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
-        filter = gtk_file_filter_new ();
-        gtk_file_filter_set_name (filter,
-                                  /* Save dialog: Filter name to show all files */
-                                  _("All Files"));
-        gtk_file_filter_add_pattern (filter, "*");
-        gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filter);
+        var filter = new Gtk.FileFilter ();
+        filter.set_name (/* Save dialog: Filter name to show only image files */
+                         _("Image Files"));
+        filter.add_pixbuf_formats ();
+        filter.add_mime_type ("application/pdf");
+        save_dialog.add_filter (filter);
+        filter = new Gtk.FileFilter ();
+        filter.set_name (/* Save dialog: Filter name to show all files */
+                         _("All Files"));
+        filter.add_pattern ("*");
+        save_dialog.add_filter (filter);
 
-        expander = gtk_expander_new_with_mnemonic (/* */
-                                     _("Select File _Type"));
-        gtk_expander_set_spacing (GTK_EXPANDER (expander), 5);
-        gtk_file_chooser_set_extra_widget (GTK_FILE_CHOOSER (dialog), expander);
+        var expander = new Gtk.Expander.with_mnemonic (/* */
+                                                       _("Select File _Type"));
+        expander.set_spacing (5);
+        save_dialog.set_extra_widget (expander);
 
-        extension = strstr (default_file_name, ".");
-        if (!extension)
-            extension = "";
+        string extension = "";
+        var index = default_file_name.last_index_of_char ('.');
+        if (index >= 0)
+            extension = default_file_name.slice (0, index);
 
-        file_type_store = gtk_list_store_new (2, G_TYPE_STRING, G_TYPE_STRING);
-        gtk_list_store_append (file_type_store, &iter);
-        gtk_list_store_set (file_type_store, &iter,
-                            /* Save dialog: Label for saving in PDF format */
-                            0, _("PDF (multi-page document)"),
-                            1, ".pdf",
-                            -1);
-        gtk_list_store_append (file_type_store, &iter);
-        gtk_list_store_set (file_type_store, &iter,
-                            /* Save dialog: Label for saving in JPEG format */
-                            0, _("JPEG (compressed)"),
-                            1, ".jpg",
-                            -1);
-        gtk_list_store_append (file_type_store, &iter);
-        gtk_list_store_set (file_type_store, &iter,
-                            /* Save dialog: Label for saving in PNG format */
-                            0, _("PNG (lossless)"),
-                            1, ".png",
-                            -1);
+        var file_type_store = new Gtk.ListStore (2, typeof (string), typeof (string));
+        Gtk.TreeIter iter;
+        file_type_store.append (out iter);
+        file_type_store.set (iter,
+                             /* Save dialog: Label for saving in PDF format */
+                             0, _("PDF (multi-page document)"),
+                             1, ".pdf",
+                             -1);
+        file_type_store.append (out iter);
+        file_type_store.set (iter,
+                             /* Save dialog: Label for saving in JPEG format */
+                             0, _("JPEG (compressed)"),
+                             1, ".jpg",
+                             -1);
+        file_type_store.append (out iter);
+        file_type_store.set (iter,
+                             /* Save dialog: Label for saving in PNG format */
+                             0, _("PNG (lossless)"),
+                             1, ".png",
+                             -1);
 
-        file_type_view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (file_type_store));
-        gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (file_type_view), false);
-        gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (file_type_view), true);
-        column = gtk_tree_view_column_new_with_attributes ("",
-                                                           gtk_cell_renderer_text_new (),
-                                                           "text", 0, null);
-        gtk_tree_view_append_column (GTK_TREE_VIEW (file_type_view), column);
-        gtk_container_add (GTK_CONTAINER (expander), file_type_view);
+        var file_type_view = new Gtk.TreeView.with_model (file_type_store);
+        file_type_view.set_headers_visible (false);
+        file_type_view.set_rules_hint (true);
+        var column = new Gtk.TreeViewColumn.with_attributes ("",
+                                                             new Gtk.CellRendererText (),
+                                                             "text", 0, null);
+        file_type_view.append_column (column);
+        expander.add (file_type_view);
 
-        if (gtk_tree_model_get_iter_first (GTK_TREE_MODEL (file_type_store), &iter)) {
+        if (file_type_store.get_iter_first (out iter)) {
             do {
                 string e;
-                gtk_tree_model_get (GTK_TREE_MODEL (file_type_store), &iter, 1, &e, -1);
+                file_type_store.get (iter, 1, out e, -1);
                 if (extension == e)
-                    gtk_tree_selection_select_iter (gtk_tree_view_get_selection (GTK_TREE_VIEW (file_type_view)), &iter);
-            } while (gtk_tree_model_iter_next (GTK_TREE_MODEL (file_type_store), &iter));
+                    file_type_view.get_selection ().select_iter (iter);
+            } while (file_type_store.iter_next (ref iter));
         }
-        g_signal_connect (gtk_tree_view_get_selection (GTK_TREE_VIEW (file_type_view)),
-                          "changed",
-                          G_CALLBACK (on_file_type_changed),
-                          dialog);
+        file_type_view.get_selection ().changed.connect (on_file_type_changed);
 
-        gtk_widget_show_all (expander);
+        expander.show_all ();
 
-        response = gtk_dialog_run (GTK_DIALOG (dialog));
+        var response = save_dialog.run ();
 
-        if (response == GTK_RESPONSE_ACCEPT)
-            uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog));
+        string? uri = null;
+        if (response == Gtk.ResponseType.ACCEPT)
+            uri = save_dialog.get_uri ();
 
-        gconf_client_set_string (client, GCONF_DIR + "/save_directory",
-                                 gtk_file_chooser_get_current_folder (GTK_FILE_CHOOSER (dialog)),
-                                 null);
+        try
+        {
+            client.set_string (Config.GCONF_DIR + "/save_directory", save_dialog.get_current_folder ());
+        }
+        catch (Error e)
+        {
+            warning ("Error writing configuration: %s", e.message);
+        }
 
-        gtk_widget_destroy (dialog);
+        save_dialog.destroy ();
+        save_dialog = null;
 
         return uri;
     }
 
     private bool save_document (bool force_choose_location)
     {
-        bool result;
-        string uri, uri_lower;
-        GError error = null;
-        GFile file;
-
-        if (book_uri && !force_choose_location)
+        string? uri;
+        if (book_uri != null && !force_choose_location)
             uri = book_uri;
         else
             uri = choose_file_location ();
-        if (!uri)
+        if (uri == null)
             return false;
 
-        file = g_file_new_for_uri (uri);
+        var file = File.new_for_uri (uri);
 
-        g_debug ("Saving to '%s'", uri);
+        debug ("Saving to '%s'", uri);
 
-        uri_lower = g_utf8_strdown (uri, -1);
-        if (g_str_has_suffix (uri_lower, ".pdf"))
-            result = book.save ("pdf", file, &error);
-        else if (g_str_has_suffix (uri_lower, ".ps"))
-            result = book.save ("ps", file, &error);
-        else if (g_str_has_suffix (uri_lower, ".png"))
-            result = book.save ("png", file, &error);
-        else if (g_str_has_suffix (uri_lower, ".tif") || g_str_has_suffix (uri_lower, ".tiff"))
-            result = book.save ("tiff", file, &error);
-        else
-            result = book.save ("jpeg", file, &error);
+        var uri_lower = uri.down ();
+        string format = "jpeg";
+        if (uri_lower.has_suffix (".pdf"))
+            format = "pdf";
+        else if (uri_lower.has_suffix (".ps"))
+            format = "ps";
+        else if (uri_lower.has_suffix (".png"))
+            format = "png";
+        else if (uri_lower.has_suffix (".tif") || uri_lower.has_suffix (".tiff"))
+            format = "tiff";
 
-        if (result) {
-            book_uri = uri;
-            book.set_needs_saving (false);
+        try
+        {
+            book.save (format, file);
         }
-        else {
-            g_warning ("Error saving file: %s", error->message);
-            show_error (ui,
-                           /* Title of error dialog when save failed */
-                           _("Failed to save file"),
-                           error->message,
-                           false);
-            g_clear_error (&error);
+        catch (Error e)
+        {
+            warning ("Error saving file: %s", e.message);
+            show_error (/* Title of error dialog when save failed */
+                        _("Failed to save file"),
+                        e.message,
+                        false);
+            return false;
         }
 
-        g_object_unref (file);
-
-        return result;
+        book_uri = uri;
+        book.set_needs_saving (false);
+        return true;
     }
 
     private bool prompt_to_save (string title, string discard_label)
     {
-        Gtk.Widget dialog;
-        int response;
-
         if (!book.get_needs_saving ())
             return true;
 
-        dialog = gtk_message_dialog_new (GTK_WINDOW (window),
-                                         GTK_DIALOG_MODAL,
-                                         GTK_MESSAGE_WARNING,
-                                         GTK_BUTTONS_NONE,
-                                         "%s", title);
-        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog), "%s",
-                                                  /* Text in dialog warning when a document is about to be lost*/
-                                                  _("If you don't save, changes will be permanently lost."));
-        gtk_dialog_add_button (GTK_DIALOG (dialog), discard_label, GTK_RESPONSE_NO);
-        gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
-        gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_SAVE, GTK_RESPONSE_YES);
+        var dialog = new Gtk.MessageDialog (window,
+                                            Gtk.DialogFlags.MODAL,
+                                            Gtk.MessageType.WARNING,
+                                            Gtk.ButtonsType.NONE,
+                                            "%s", title);
+        dialog.format_secondary_text ("%s",
+                                      /* Text in dialog warning when a document is about to be lost*/
+                                      _("If you don't save, changes will be permanently lost."));
+        dialog.add_button (discard_label, Gtk.ResponseType.NO);
+        dialog.add_button (Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
+        dialog.add_button (Gtk.Stock.SAVE, Gtk.ResponseType.YES);
 
-        response = gtk_dialog_run (GTK_DIALOG (dialog));
-        gtk_widget_destroy (dialog);
+        var response = dialog.run ();
+        dialog.destroy ();
 
         switch (response) {
-        case GTK_RESPONSE_YES:
+        case Gtk.ResponseType.YES:
             if (save_document (false))
                 return true;
             else
                 return false;
-        case GTK_RESPONSE_CANCEL:
+        case Gtk.ResponseType.CANCEL:
             return false;
-        case GTK_RESPONSE_NO:
+        case Gtk.ResponseType.NO:
         default:
             return true;
         }
@@ -536,14 +523,13 @@ public class SimpleScan
         add_default_page ();
         book_uri = null;
         book.set_needs_saving (false);
-        gtk_widget_set_sensitive (save_as_menuitem, false);
+        save_as_menuitem.set_sensitive (false);
     }
 
     [CCode (cname = "G_MODULE_EXPORT new_button_clicked_cb", instance_pos = -1)]
     public void new_button_clicked_cb (Gtk.Widget widget)
     {
-        if (!prompt_to_save (ui,
-                             /* Text in dialog warning when a document is about to be lost */
+        if (!prompt_to_save (/* Text in dialog warning when a document is about to be lost */
                              _("Save current document?"),
                              /* Button in dialog to create new document and discard unsaved document */
                              _("Discard Changes")))
@@ -557,26 +543,26 @@ public class SimpleScan
         this.document_hint = document_hint;
 
         if (document_hint == "text") {
-            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (text_toolbar_menuitem), true);
-            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (text_menu_menuitem), true);
+            text_toolbar_menuitem.set_active (true);
+            text_menu_menuitem.set_active (true);
         }
         else if (document_hint == "photo") {
-            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (photo_toolbar_menuitem), true);
-            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (photo_menu_menuitem), true);
+            photo_toolbar_menuitem.set_active (true);
+            photo_menu_menuitem.set_active (true);
         }
     }
 
     [CCode (cname = "G_MODULE_EXPORT text_menuitem_toggled_cb", instance_pos = -1)]
-    public void text_menuitem_toggled_cb (Gtk.Widget widget)
+    public void text_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
-        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        if (widget.get_active ())
             set_document_hint ("text");
     }
 
     [CCode (cname = "G_MODULE_EXPORT photo_menuitem_toggled_cb", instance_pos = -1)]
-    public void photo_menuitem_toggled_cb (Gtk.Widget widget)
+    public void photo_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
-        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        if (widget.get_active ())
             set_document_hint ("photo");
     }
 
@@ -584,19 +570,17 @@ public class SimpleScan
     {
         Gtk.TreeIter iter;
 
-        if (gtk_tree_model_get_iter_first (page_side_model, &iter)) {
+        if (page_side_model.get_iter_first (out iter)) {
             do {
                 string d;
-                bool have_match;
-
-                gtk_tree_model_get (page_side_model, &iter, 0, &d, -1);
-                have_match = d == document_hint;
+                page_side_model.get (iter, 0, out d, -1);
+                var have_match = d == document_hint;
 
                 if (have_match) {
-                    gtk_combo_box_set_active_iter (GTK_COMBO_BOX (page_side_combo), &iter);
+                    page_side_combo.set_active_iter (iter);
                     return;
                 }
-            } while (gtk_tree_model_iter_next (page_side_model, &iter));
+            } while (page_side_model.iter_next (ref iter));
          }
     }
 
@@ -605,20 +589,19 @@ public class SimpleScan
         Gtk.TreeIter iter;
         bool have_iter;
 
-        for (have_iter = gtk_tree_model_get_iter_first (paper_size_model, &iter);
+        for (have_iter = paper_size_model.get_iter_first (out iter);
              have_iter;
-             have_iter = gtk_tree_model_iter_next (paper_size_model, &iter)) {
+             have_iter = paper_size_model.iter_next (ref iter)) {
             int w, h;
-
-            gtk_tree_model_get (paper_size_model, &iter, 0, &w, 1, &h, -1);
+            paper_size_model.get (iter, 0, out w, 1, out h, -1);
             if (w == width && h == height)
                 break;
         }
 
         if (!have_iter)
-            have_iter = gtk_tree_model_get_iter_first (paper_size_model, &iter);
+            have_iter = paper_size_model.get_iter_first (out iter);
         if (have_iter)
-            gtk_combo_box_set_active_iter (GTK_COMBO_BOX (paper_size_combo), &iter);
+            paper_size_combo.set_active_iter (iter);
     }
 
     private int get_text_dpi ()
@@ -626,8 +609,8 @@ public class SimpleScan
         Gtk.TreeIter iter;
         int dpi = DEFAULT_TEXT_DPI;
 
-        if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (text_dpi_combo), &iter))
-            gtk_tree_model_get (text_dpi_model, &iter, 0, &dpi, -1);
+        if (text_dpi_combo.get_active_iter (out iter))
+            text_dpi_model.get (iter, 0, out dpi, -1);
 
         return dpi;
     }
@@ -637,8 +620,8 @@ public class SimpleScan
         Gtk.TreeIter iter;
         int dpi = DEFAULT_PHOTO_DPI;
 
-        if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (photo_dpi_combo), &iter))
-            gtk_tree_model_get (photo_dpi_model, &iter, 0, &dpi, -1);
+        if (photo_dpi_combo.get_active_iter (out iter))
+            photo_dpi_model.get (iter, 0, out dpi, -1);
 
         return dpi;
     }
@@ -648,8 +631,8 @@ public class SimpleScan
         Gtk.TreeIter iter;
         string mode = null;
 
-        if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (page_side_combo), &iter))
-            gtk_tree_model_get (page_side_model, &iter, 0, &mode, -1);
+        if (page_side_combo.get_active_iter (out iter))
+            page_side_model.get (iter, 0, out mode, -1);
 
         return mode;
     }
@@ -658,8 +641,8 @@ public class SimpleScan
     {
         Gtk.TreeIter iter;
 
-        if (gtk_combo_box_get_active_iter (GTK_COMBO_BOX (paper_size_combo), &iter)) {
-            gtk_tree_model_get (paper_size_model, &iter, 0, width, 1, height, -1);
+        if (paper_size_combo.get_active_iter (out iter)) {
+            paper_size_model.get (iter, 0, width, 1, height, -1);
             return true;
         }
 
@@ -668,31 +651,19 @@ public class SimpleScan
 
     private ScanOptions get_scan_options ()
     {
-        struct {
-            string name;
-            ScanMode mode;
-            int depth;
-        } profiles[] =
+        var options = new ScanOptions ();
+        if (document_hint == "text")
         {
-            { "text",  SCAN_MODE_GRAY,  2 },
-            { "photo", SCAN_MODE_COLOR, 8 },
-            { null,    SCAN_MODE_COLOR, 8 }
-        };
-        int i;
-        ScanOptions options;
-
-        /* Find this profile */
-        // FIXME: Move this into scan-profile.c
-        for (i = 0; profiles[i].name && profiles[i].name != document_hint; i++);
-
-        options = g_malloc0 (sizeof (ScanOptions));
-        options->scan_mode = profiles[i].mode;
-        options->depth = profiles[i].depth;
-        if (options->scan_mode == SCAN_MODE_COLOR)
-            options->dpi = get_photo_dpi ();
+            options.scan_mode = ScanMode.GRAY;
+            options.dpi = get_text_dpi ();
+        }
         else
-            options->dpi = get_text_dpi ();
-        get_paper_size (&options->paper_width, &options->paper_height);
+        {
+            options.scan_mode = ScanMode.COLOR;
+            options.dpi = get_photo_dpi ();
+        }
+        options.depth = 8;
+        get_paper_size (out options.paper_width, out options.paper_height);
 
         return options;
     }
@@ -706,21 +677,21 @@ public class SimpleScan
         device = get_selected_device ();
 
         options = get_scan_options ();
-        options->type = SCAN_SINGLE;
-        g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, options);
+        options.type = ScanType.SINGLE;
+        start_scan (device, options);
     }
 
     [CCode (cname = "G_MODULE_EXPORT stop_scan_button_clicked_cb", instance_pos = -1)]
     public void stop_scan_button_clicked_cb (Gtk.Widget widget)
     {
-        g_signal_emit (G_OBJECT (ui), signals[STOP_SCAN], 0);
+        stop_scan ();
     }
 
     [CCode (cname = "G_MODULE_EXPORT continuous_scan_button_clicked_cb", instance_pos = -1)]
     public void continuous_scan_button_clicked_cb (Gtk.Widget widget)
     {
         if (scanning) {
-            g_signal_emit (G_OBJECT (ui), signals[STOP_SCAN], 0);
+            stop_scan ();
         } else {
             string device, side;
             ScanOptions options;
@@ -729,20 +700,20 @@ public class SimpleScan
             options = get_scan_options ();
             side = get_page_side ();
             if (side == "front")
-                options->type = SCAN_ADF_FRONT;
+                options.type = ScanType.ADF_FRONT;
             else if (side == "back")
-                options->type = SCAN_ADF_BACK;
+                options.type = ScanType.ADF_BACK;
             else
-                options->type = SCAN_ADF_BOTH;
+                options.type = ScanType.ADF_BOTH;
 
-            g_signal_emit (G_OBJECT (ui), signals[START_SCAN], 0, device, options);
+            start_scan (device, options);
         }
     }
 
     [CCode (cname = "G_MODULE_EXPORT preferences_button_clicked_cb", instance_pos = -1)]
     public void preferences_button_clicked_cb (Gtk.Widget widget)
     {
-        gtk_window_present (GTK_WINDOW (preferences_dialog));
+        preferences_dialog.present ();
     }
 
     [CCode (cname = "G_MODULE_EXPORT preferences_dialog_delete_event_cb", instance_pos = -1)]
@@ -754,21 +725,18 @@ public class SimpleScan
     [CCode (cname = "G_MODULE_EXPORT preferences_dialog_response_cb", instance_pos = -1)]
     public void preferences_dialog_response_cb (Gtk.Widget widget, int response_id)
     {
-        gtk_widget_hide (preferences_dialog);
+        preferences_dialog.hide ();
     }
 
     private void update_page_menu ()
     {
-        var book = book_view.get_book ();
         var index = book.get_page_index (book_view.get_selected ());
-        gtk_widget_set_sensitive (page_move_left_menuitem, index > 0);
-        gtk_widget_set_sensitive (page_move_right_menuitem, index < book.get_n_pages () - 1);
+        page_move_left_menuitem.set_sensitive (index > 0);
+        page_move_right_menuitem.set_sensitive (index < book.get_n_pages () - 1);
     }
 
-    private void page_selected_cb (BookView view, Page page)
+    private void page_selected_cb (BookView view, Page? page)
     {
-        string name = null;
-
         if (page == null)
             return;
 
@@ -776,12 +744,11 @@ public class SimpleScan
 
         update_page_menu ();
 
-        if (page_has_crop (page)) {
-            string crop_name;
-
+        string name = null;
+        if (page.has_crop ()) {
             // FIXME: Make more generic, move into page-size.c and reuse
-            crop_name = page_get_named_crop (page);
-            if (crop_name) {
+            var crop_name = page.get_named_crop ();
+            if (crop_name != null) {
                 if (crop_name == "A4")
                     name = "a4_menuitem";
                 else if (crop_name == "A5")
@@ -801,68 +768,71 @@ public class SimpleScan
         else
             name = "no_crop_menuitem";
 
-        gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_builder_get_object (builder, name)), true);
-        gtk_toggle_tool_button_set_active (GTK_TOGGLE_TOOL_BUTTON (gtk_builder_get_object (builder, "crop_toolbutton")), page_has_crop (page));
+        var menuitem = (Gtk.RadioMenuItem) builder.get_object (name);
+        menuitem.set_active (true);
+        var toolbutton = (Gtk.ToggleToolButton) builder.get_object ("crop_toolbutton");
+        toolbutton.set_active (page.has_crop ());
 
         updating_page_menu = false;
     }
 
-    // FIXME: Duplicated from simple-scan.c
-    private string get_temporary_filename (string prefix, string extension)
+    // FIXME: Duplicated from simple-scan.vala
+    private string? get_temporary_filename (string prefix, string extension)
     {
-        int fd;
-        string filename, path;
-        GError error = null;
-
         /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
          * use the filename but it appears to work in practise */
 
-        filename = "%s-XXXXXX.%s".printf (prefix, extension);
-        fd = g_file_open_tmp (filename, &path, &error);
-        if (fd < 0) {
-            g_warning ("Error saving page for viewing: %s", error->message);
-            g_clear_error (&error);
+        var filename = "%sXXXXXX.%s".printf (prefix, extension);
+        string path;
+        try
+        {
+            var fd = FileUtils.open_tmp (filename, out path);
+            Posix.close (fd);
+        }
+        catch (Error e)
+        {
+            warning ("Error saving email attachment: %s", e.message);
             return null;
         }
-        close (fd);
 
         return path;
     }
 
     private void show_page_cb (BookView view, Page page)
     {
-        string path;
-        GFile file;
-        GdkScreen screen;
-        GError error = null;
-
-        path = get_temporary_filename ("scanned-page", "tiff");
-        if (!path)
+        var path = get_temporary_filename ("scanned-page", "tiff");
+        if (path == null)
             return;
-        file = g_file_new_for_path (path);
+        var file = File.new_for_path (path);
 
-        screen = gtk_widget_get_screen (GTK_WIDGET (window));
-
-        if (page_save (page, "tiff", file, &error)) {
-            string uri = g_file_get_uri (file);
-            gtk_show_uri (screen, uri, gtk_get_current_event_time (), &error);
+        try
+        {
+            page.save ("tiff", file);
         }
-
-        g_object_unref (file);
-
-        if (error) {
-            show_error_dialog (ui,
-                               /* Error message display when unable to preview image */
+        catch (Error e)
+        {
+            show_error_dialog (/* Error message display when unable to save image for preview */
+                               _("Unable to save image for preview"),
+                               e.message);
+            return;
+        }
+        
+        try
+        {
+            Gtk.show_uri (window.get_screen (), file.get_uri (), Gtk.get_current_event_time ());
+        }
+        catch (Error e)
+        {
+            show_error_dialog (/* Error message display when unable to preview image */
                                _("Unable to open image preview application"),
-                               error->message);
-            g_clear_error (&error);
+                               e.message);
         }
     }
 
     private void show_page_menu_cb (BookView view)
     {
-        gtk_menu_popup (GTK_MENU (gtk_builder_get_object (builder, "page_menu")), null, null, null, null,
-                        3, gtk_get_current_event_time());
+        var menu = (Gtk.Menu) builder.get_object ("page_menu");
+        menu.popup (null, null, null, 3, Gtk.get_current_event_time());
     }
 
     [CCode (cname = "G_MODULE_EXPORT rotate_left_button_clicked_cb", instance_pos = -1)]
@@ -883,13 +853,13 @@ public class SimpleScan
 
     private void set_crop (string? crop_name)
     {
-        gtk_widget_set_sensitive (crop_rotate_menuitem, crop_name != null);
+        crop_rotate_menuitem.set_sensitive (crop_name != null);
 
         if (updating_page_menu)
             return;
 
         var page = book_view.get_selected ();
-        if (!page)
+        if (page == null)
             return;
 
         if (crop_name == null) {
@@ -909,88 +879,87 @@ public class SimpleScan
     }
 
     [CCode (cname = "G_MODULE_EXPORT no_crop_menuitem_toggled_cb", instance_pos = -1)]
-    public void no_crop_menuitem_toggled_cb (Gtk.Widget widget)
+    public void no_crop_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
-        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        if (widget.get_active ())
             set_crop (null);
     }
 
     [CCode (cname = "G_MODULE_EXPORT custom_crop_menuitem_toggled_cb", instance_pos = -1)]
-    public void custom_crop_menuitem_toggled_cb (Gtk.Widget widget)
+    public void custom_crop_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
-        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        if (widget.get_active ())
             set_crop ("custom");
     }
+
     [CCode (cname = "G_MODULE_EXPORT crop_toolbutton_toggled_cb", instance_pos = -1)]
-    public void crop_toolbutton_toggled_cb (Gtk.Widget widget)
+    public void crop_toolbutton_toggled_cb (Gtk.ToggleToolButton widget)
     {
         if (updating_page_menu)
             return;
 
-        if (gtk_toggle_tool_button_get_active (GTK_TOGGLE_TOOL_BUTTON (widget)))
-            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_builder_get_object (builder, "custom_crop_menuitem")), true);
+        Gtk.RadioMenuItem menuitem;
+        if (widget.get_active ())
+            menuitem = (Gtk.RadioMenuItem) builder.get_object ("custom_crop_menuitem");
         else
-            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (gtk_builder_get_object (builder, "no_crop_menuitem")), true);
+            menuitem = (Gtk.RadioMenuItem) builder.get_object ("no_crop_menuitem");
+        menuitem.set_active (true);
     }
 
     [CCode (cname = "G_MODULE_EXPORT four_by_six_menuitem_toggled_cb", instance_pos = -1)]
-    public void four_by_six_menuitem_toggled_cb (Gtk.Widget widget)
+    public void four_by_six_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
-        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        if (widget.get_active ())
             set_crop ("4x6");
     }
 
     [CCode (cname = "G_MODULE_EXPORT legal_menuitem_toggled_cb", instance_pos = -1)]
-    public void legal_menuitem_toggled_cb (Gtk.Widget widget)
+    public void legal_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
-        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        if (widget.get_active ())
             set_crop ("legal");
     }
 
     [CCode (cname = "G_MODULE_EXPORT letter_menuitem_toggled_cb", instance_pos = -1)]
-    public void letter_menuitem_toggled_cb (Gtk.Widget widget)
+    public void letter_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
-        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        if (widget.get_active ())
             set_crop ("letter");
     }
 
     [CCode (cname = "G_MODULE_EXPORT a6_menuitem_toggled_cb", instance_pos = -1)]
-    public void a6_menuitem_toggled_cb (Gtk.Widget widget)
+    public void a6_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
-        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        if (widget.get_active ())
             set_crop ("A6");
     }
 
     [CCode (cname = "G_MODULE_EXPORT a5_menuitem_toggled_cb", instance_pos = -1)]
-    public void a5_menuitem_toggled_cb (Gtk.Widget widget)
+    public void a5_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
-        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        if (widget.get_active ())
             set_crop ("A5");
     }
 
     [CCode (cname = "G_MODULE_EXPORT a4_menuitem_toggled_cb", instance_pos = -1)]
-    public void a4_menuitem_toggled_cb (Gtk.Widget widget)
+    public void a4_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
-        if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget)))
+        if (widget.get_active ())
             set_crop ("A4");
     }
 
     [CCode (cname = "G_MODULE_EXPORT crop_rotate_menuitem_activate_cb", instance_pos = -1)]
     public void crop_rotate_menuitem_activate_cb (Gtk.Widget widget)
     {
-        Page page;
-
-        page = book_view_get_selected (book_view);
-        if (!page)
+        var page = book_view.get_selected ();
+        if (page == null)
             return;
-
-        page_rotate_crop (page);
+        page.rotate_crop ();
     }
 
     [CCode (cname = "G_MODULE_EXPORT page_move_left_menuitem_activate_cb", instance_pos = -1)]
     public void page_move_left_menuitem_activate_cb (Gtk.Widget widget)
     {
-        var book = book_view.get_book ();
         var page = book_view.get_selected ();
         var index = book.get_page_index (page);
         if (index > 0)
@@ -1002,7 +971,6 @@ public class SimpleScan
     [CCode (cname = "G_MODULE_EXPORT page_move_right_menuitem_activate_cb", instance_pos = -1)]
     public void page_move_right_menuitem_activate_cb (Gtk.Widget widget)
     {
-        var book = book_view.get_book ();
         var page = book_view.get_selected ();
         var index = book.get_page_index (page);
         if (index < book.get_n_pages () - 1)
@@ -1014,8 +982,7 @@ public class SimpleScan
     [CCode (cname = "G_MODULE_EXPORT page_delete_menuitem_activate_cb", instance_pos = -1)]
     public void page_delete_menuitem_activate_cb (Gtk.Widget widget)
     {
-        book_delete_page (book_view_get_book (book_view),
-                          book_view_get_selected (book_view));
+        book_view.get_book ().delete_page (book_view.get_selected ());
     }
 
     [CCode (cname = "G_MODULE_EXPORT save_file_button_clicked_cb", instance_pos = -1)]
@@ -1032,83 +999,70 @@ public class SimpleScan
 
     private void draw_page (Gtk.PrintOperation operation,
                             Gtk.PrintContext   print_context,
-                            int               page_number,
-                            SimpleScan        ui)
+                            int                page_number)
     {
-        cairo_t context;
-        Page page;
-        GdkPixbuf image;
-        bool is_landscape = false;
-
-        context = gtk_print_context_get_cairo_context (print_context);
-
-        page = book.get_page (page_number);
+        var context = print_context.get_cairo_context ();
+        var page = book.get_page (page_number);
 
         /* Rotate to same aspect */
-        if (gtk_print_context_get_width (print_context) > gtk_print_context_get_height (print_context))
+        bool is_landscape = false;
+        if (print_context.get_width () > print_context.get_height ())
             is_landscape = true;
-        if (page_is_landscape (page) != is_landscape) {
-            cairo_translate (context, gtk_print_context_get_width (print_context), 0);
-            cairo_rotate (context, M_PI_2);
+        if (page.is_landscape () != is_landscape) {
+            context.translate (print_context.get_width (), 0);
+            context.rotate (Math.PI_2);
         }
 
-        cairo_scale (context,
-                     gtk_print_context_get_dpi_x (print_context) / page.get_dpi (),
-                     gtk_print_context_get_dpi_y (print_context) / page.get_dpi ());
+        context.scale (print_context.get_dpi_x () / page.get_dpi (),
+                       print_context.get_dpi_y () / page.get_dpi ());
 
-        image = page_get_image (page, true);
-        gdk_cairo_set_source_pixbuf (context, image, 0, 0);
-        cairo_paint (context);
-
-        g_object_unref (image);
+        var image = page.get_image (true);
+        Gdk.cairo_set_source_pixbuf (context, image, 0, 0);
+        context.paint ();
     }
 
     [CCode (cname = "G_MODULE_EXPORT email_button_clicked_cb", instance_pos = -1)]
     public void email_button_clicked_cb (Gtk.Widget widget)
     {
-        g_signal_emit (G_OBJECT (ui), signals[EMAIL], 0, document_hint);
+        email (document_hint);
     }
 
     [CCode (cname = "G_MODULE_EXPORT print_button_clicked_cb", instance_pos = -1)]
     public void print_button_clicked_cb (Gtk.Widget widget)
     {
-        Gtk.PrintOperation print;
-        Gtk.PrintOperationResult result;
-        GError error = null;
+        var print = new Gtk.PrintOperation ();
+        print.set_n_pages (book.get_n_pages ());
+        print.draw_page.connect (draw_page);
 
-        print = gtk_print_operation_new ();
-        gtk_print_operation_set_n_pages (print, book.get_n_pages ());
-        g_signal_connect (print, "draw-page", G_CALLBACK (draw_page), ui);
-
-        result = gtk_print_operation_run (print, GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
-                                          GTK_WINDOW (window), &error);
-
-        g_object_unref (print);
+        try
+        {
+            print.run (Gtk.PrintOperationAction.PRINT_DIALOG, window);
+        }
+        catch (Error e)
+        {
+            warning ("Error printing: %s", e.message);
+        }
     }
 
     [CCode (cname = "G_MODULE_EXPORT help_contents_menuitem_activate_cb", instance_pos = -1)]
     public void help_contents_menuitem_activate_cb (Gtk.Widget widget)
     {
-        GdkScreen screen;
-        GError error = null;
-
-        screen = gtk_widget_get_screen (GTK_WIDGET (window));
-        gtk_show_uri (screen, "ghelp:simple-scan", gtk_get_current_event_time (), &error);
-
-        if (error)
+        try
         {
-            show_error_dialog (ui,
-                               /* Error message displayed when unable to launch help browser */
+            Gtk.show_uri (window.get_screen (), "ghelp:simple-scan", Gtk.get_current_event_time ());
+        }
+        catch (Error e)
+        {
+            show_error_dialog (/* Error message displayed when unable to launch help browser */
                                _("Unable to open help file"),
-                               error->message);
-            g_clear_error (&error);
+                               e.message);
         }
     }
 
     [CCode (cname = "G_MODULE_EXPORT about_menuitem_activate_cb", instance_pos = -1)]
     public void about_menuitem_activate_cb (Gtk.Widget widget)
     {
-        string authors[] = { "Robert Ancell <robert.ancell@canonical.com>", null };
+        string[] authors = { "Robert Ancell <robert.ancell@canonical.com>" };
 
         /* The license this software is under (GPL3+) */
         string license = _("This program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.");
@@ -1119,59 +1073,71 @@ public class SimpleScan
         /* Description of program */
         string description = _("Simple document scanning tool");
 
-        gtk_show_about_dialog (GTK_WINDOW (window),
+        Gtk.show_about_dialog (window,
                                "title", title,
                                "program-name", "Simple Scan",
-                               "version", VERSION,
+                               "version", Config.VERSION,
                                "comments", description,
                                "logo-icon-name", "scanner",
                                "authors", authors,
                                "translator-credits", _("translator-credits"),
                                "website", "https://launchpad.net/simple-scan",
-                               "copyright", "Copyright © 2009 Canonical Ltd.",
+                               "copyright", "Copyright © 2009-2011 Canonical Ltd.",
                                "license", license,
                                "wrap-license", true,
                                null);
     }
 
-    private bool quit ()
+    private bool on_quit ()
     {
-        string device;
-        int paper_width = 0, paper_height = 0;
-        int i;
-
-        if (!prompt_to_save (ui,
-                             /* Text in dialog warning when a document is about to be lost */
+        if (!prompt_to_save (/* Text in dialog warning when a document is about to be lost */
                              _("Save document before quitting?"),
                              /* Button in dialog to quit and discard unsaved document */
                              _("Quit without Saving")))
             return false;
 
-        device = get_selected_device ();
-        if (device) {
-            gconf_client_set_string(client, GCONF_DIR + "/selected_device", device, null);
+        var device = get_selected_device ();
+        int paper_width = 0, paper_height = 0;
+        get_paper_size (out paper_width, out paper_height);
+
+        try
+        {
+            if (device != null)
+                client.set_string (Config.GCONF_DIR + "/selected_device", device);
+            client.set_string (Config.GCONF_DIR + "/document_type", document_hint);
+            client.set_int (Config.GCONF_DIR + "/text_dpi", get_text_dpi ());
+            client.set_int (Config.GCONF_DIR + "/photo_dpi", get_photo_dpi ());
+            client.set_string (Config.GCONF_DIR + "/page_side", get_page_side ());
+            client.set_int (Config.GCONF_DIR + "/paper_width", paper_width);
+            client.set_int (Config.GCONF_DIR + "/paper_height", paper_height);
+            client.set_int (Config.GCONF_DIR + "/window_width", window_width);
+            client.set_int (Config.GCONF_DIR + "/window_height", window_height);
+            client.set_bool (Config.GCONF_DIR + "/window_is_maximized", window_is_maximized);
+            switch (default_page_scan_direction)
+            {
+            case ScanDirection.TOP_TO_BOTTOM:
+                client.set_string (Config.GCONF_DIR + "/scan_direction", "top-to-bottom");
+                break;
+            case ScanDirection.BOTTOM_TO_TOP:
+                client.set_string (Config.GCONF_DIR + "/scan_direction", "bottom-to-top");
+                break;
+            case ScanDirection.LEFT_TO_RIGHT:
+                client.set_string (Config.GCONF_DIR + "/scan_direction", "left-to-right");
+                break;
+            case ScanDirection.RIGHT_TO_LEFT:
+                client.set_string (Config.GCONF_DIR + "/scan_direction", "right-to-left");
+                break;
+            }
+            client.set_int (Config.GCONF_DIR + "/page_width", default_page_width);
+            client.set_int (Config.GCONF_DIR + "/page_height", default_page_height);
+            client.set_int (Config.GCONF_DIR + "/page_dpi", default_page_dpi);
+        }
+        catch (Error e)
+        {
+            warning ("Error writing configuration: %s", e.message);
         }
 
-        gconf_client_set_string (client, GCONF_DIR + "/document_type", document_hint, null);
-        gconf_client_set_int (client, GCONF_DIR + "/text_dpi", get_text_dpi (), null);
-        gconf_client_set_int (client, GCONF_DIR + "/photo_dpi", get_photo_dpi (), null);
-        gconf_client_set_string (client, GCONF_DIR + "/page_side", get_page_side (), null);
-        get_paper_size (&paper_width, &paper_height);
-        gconf_client_set_int (client, GCONF_DIR + "/paper_width", paper_width, null);
-        gconf_client_set_int (client, GCONF_DIR + "/paper_height", paper_height, null);
-
-        gconf_client_set_int(client, GCONF_DIR + "/window_width", window_width, null);
-        gconf_client_set_int(client, GCONF_DIR + "/window_height", window_height, null);
-        gconf_client_set_bool(client, GCONF_DIR + "/window_is_maximized", window_is_maximized, null);
-
-        for (i = 0; scan_direction_keys[i].key != null && scan_direction_keys[i].scan_direction != default_page_scan_direction; i++);
-        if (scan_direction_keys[i].key != null)
-            gconf_client_set_string(client, GCONF_DIR + "/scan_direction", scan_direction_keys[i].key, null);
-        gconf_client_set_int (client, GCONF_DIR + "/page_width", default_page_width, null);
-        gconf_client_set_int (client, GCONF_DIR + "/page_height", default_page_height, null);
-        gconf_client_set_int (client, GCONF_DIR + "/page_dpi", default_page_dpi, null);
-
-        g_signal_emit (G_OBJECT (ui), signals[QUIT], 0);
+        quit ();
 
         return true;
     }
@@ -1179,25 +1145,25 @@ public class SimpleScan
     [CCode (cname = "G_MODULE_EXPORT quit_menuitem_activate_cb", instance_pos = -1)]
     public void quit_menuitem_activate_cb (Gtk.Widget widget)
     {
-        quit ();
+        on_quit ();
     }
 
     [CCode (cname = "G_MODULE_EXPORT simple_scan_window_configure_event_cb", instance_pos = -1)]
-    public bool simple_scan_window_configure_event_cb (Gtk.Widget widget, GdkEventConfigure event)
+    public bool simple_scan_window_configure_event_cb (Gtk.Widget widget, Gdk.EventConfigure event)
     {
         if (!window_is_maximized) {
-            window_width = event->width;
-            window_height = event->height;
+            window_width = event.width;
+            window_height = event.height;
         }
 
         return false;
     }
 
-    private void info_bar_response_cb (Gtk.Widget widget, int response_id)
+    private void info_bar_response_cb (Gtk.InfoBar widget, int response_id)
     {
         if (response_id == 1) {
-            gtk_widget_grab_focus (device_combo);
-            gtk_window_present (GTK_WINDOW (preferences_dialog));
+            device_combo.grab_focus ();
+            preferences_dialog.present ();
         }
         else {
             have_error = false;
@@ -1208,17 +1174,17 @@ public class SimpleScan
     }
 
     [CCode (cname = "G_MODULE_EXPORT simple_scan_window_window_state_event_cb", instance_pos = -1)]
-    public bool simple_scan_window_window_state_event_cb (Gtk.Widget widget, GdkEventWindowState event)
+    public bool simple_scan_window_window_state_event_cb (Gtk.Widget widget, Gdk.EventWindowState event)
     {
-        if (event->changed_mask & GDK_WINDOW_STATE_MAXIMIZED)
-            window_is_maximized = (event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) != 0;
+        if ((event.changed_mask & Gdk.WindowState.MAXIMIZED) != 0)
+            window_is_maximized = (event.new_window_state & Gdk.WindowState.MAXIMIZED) != 0;
         return false;
     }
 
     [CCode (cname = "G_MODULE_EXPORT window_delete_event_cb", instance_pos = -1)]
-    public bool window_delete_event_cb (Gtk.Widget widget, GdkEvent event)
+    public bool window_delete_event_cb (Gtk.Widget widget, Gdk.Event event)
     {
-        return !quit ();
+        return !on_quit ();
     }
 
     private void page_size_changed_cb (Page page)
@@ -1239,8 +1205,8 @@ public class SimpleScan
         default_page_height = page.get_height ();
         default_page_dpi = page.get_dpi ();
         default_page_scan_direction = page.get_scan_direction ();
-        g_signal_connect (page, "size-changed", G_CALLBACK (page_size_changed_cb), ui);
-        g_signal_connect (page, "scan-direction-changed", G_CALLBACK (page_scan_direction_changed_cb), ui);
+        page.size_changed.connect (page_size_changed_cb);
+        page.scan_direction_changed.connect (page_scan_direction_changed_cb);
 
         update_page_menu ();
     }
@@ -1254,253 +1220,242 @@ public class SimpleScan
         update_page_menu ();
     }
 
-    private void set_dpi_combo (Gtk.Widget combo, int default_dpi, int current_dpi)
+    private void set_dpi_combo (Gtk.ComboBox combo, int default_dpi, int current_dpi)
     {
-        struct
-        {
-           int dpi;
-           string label;
-        } scan_resolutions[] =
-        {
-          /* Preferences dialog: Label for minimum resolution in resolution list */
-          { 75,  _("%d dpi (draft)") },
-          /* Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch) */
-          { 150, _("%d dpi") },
-          { 300, _("%d dpi") },
-          { 600, _("%d dpi") },
-          /* Preferences dialog: Label for maximum resolution in resolution list */
-          { 1200, _("%d dpi (high resolution)") },
-          { 2400, _("%d dpi") },
-          { -1, null }
-        };
-        Gtk.CellRenderer renderer;
-        Gtk.TreeModel model;
-        int i;
+        var renderer = new Gtk.CellRendererText ();
+        combo.pack_start (renderer, true);
+        combo.add_attribute (renderer, "text", 1);
 
-        renderer = gtk_cell_renderer_text_new();
-        gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (combo), renderer, true);
-        gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (combo), renderer, "text", 1);
-
-        model = gtk_combo_box_get_model (GTK_COMBO_BOX (combo));
-        for (i = 0; scan_resolutions[i].dpi > 0; i++)
+        var model = (Gtk.ListStore) combo.get_model ();
+        int[] scan_resolutions = {75, 150, 300, 600, 1200, 2400};
+        foreach (var dpi in scan_resolutions)
         {
-            Gtk.TreeIter iter;
             string label;
-            int dpi;
-
-            dpi = scan_resolutions[i].dpi;
-
             if (dpi == default_dpi)
-                label = /* Preferences dialog: Label for default resolution in resolution list */
-                        _("%d dpi (default)").printf (dpi);
+                /* Preferences dialog: Label for default resolution in resolution list */
+                label = _("%d dpi (default)").printf (dpi);
+            else if (dpi == 75)
+                /* Preferences dialog: Label for minimum resolution in resolution list */
+                label = _("%d dpi (draft)").printf (dpi);
+            else if (dpi == 1200)
+                /* Preferences dialog: Label for maximum resolution in resolution list */
+                label = _("%d dpi (high resolution)").printf (dpi);
             else
-                label = scan_resolutions[i].label.printf (dpi);
+                /* Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch) */
+                label = _("%d dpi").printf (dpi);
 
-            gtk_list_store_append (GTK_LIST_STORE (model), &iter);
-            gtk_list_store_set (GTK_LIST_STORE (model), &iter, 0, dpi, 1, label, -1);
+            Gtk.TreeIter iter;
+            model.append (out iter);
+            model.set (iter, 0, dpi, 1, label, -1);
 
             if (dpi == current_dpi)
-                gtk_combo_box_set_active_iter (GTK_COMBO_BOX (combo), &iter);
+                combo.set_active_iter (iter);
         }
     }
 
-    private void needs_saving_cb (Book book, GParamSpec param)
+    private void needs_saving_cb (ParamSpec pspec)
     {
-        gtk_widget_set_sensitive (save_menuitem, book.get_needs_saving ());
-        gtk_widget_set_sensitive (save_toolbutton, book.get_needs_saving ());
+        save_menuitem.set_sensitive (book.get_needs_saving ());
+        save_toolbutton.set_sensitive (book.get_needs_saving ());
         if (book.get_needs_saving ())
-            gtk_widget_set_sensitive (save_as_menuitem, true);
+            save_as_menuitem.set_sensitive (true);
     }
 
     private void load ()
     {
-        Gtk.Builder builder;
-        GError error = null;
-        Gtk.Widget hbox;
-        Gtk.CellRenderer renderer;
-        string device, document_type, scan_direction, page_side;
-        int dpi, paper_width, paper_height;
+        Gtk.IconTheme.get_default ().append_search_path (Config.ICON_DIR);
 
-        gtk_icon_theme_append_search_path (gtk_icon_theme_get_default (), ICON_DIR);
+        Gtk.Window.set_default_icon_name ("scanner");
 
-        gtk_window_set_default_icon_name ("scanner");
-
-        builder = builder = gtk_builder_new ();
-        gtk_builder_add_from_file (builder, UI_DIR + "simple-scan.ui", &error);
-        if (error) {
-            g_critical ("Unable to load UI: %s\n", error->message);
-            show_error_dialog (ui,
-                               /* Title of dialog when cannot load required files */
+        builder = new Gtk.Builder ();
+        try
+        {
+            builder.add_from_file (Config.UI_DIR + "simple-scan.ui");
+        }
+        catch (Error e)
+        {
+            critical ("Unable to load UI: %s\n", e.message);
+            show_error_dialog (/* Title of dialog when cannot load required files */
                                _("Files missing"),
                                /* Description in dialog when cannot load required files */
                                _("Please check your installation"));
-            exit (1);
+            Posix.exit (Posix.EXIT_FAILURE);
         }
-        gtk_builder_connect_signals (builder, ui);
+        builder.connect_signals (this);
 
-        window = GTK_WIDGET (gtk_builder_get_object (builder, "simple_scan_window"));
-        main_vbox = GTK_WIDGET (gtk_builder_get_object (builder, "main_vbox"));
-        page_move_left_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_move_left_menuitem"));
-        page_move_right_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_move_right_menuitem"));
-        page_delete_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "page_delete_menuitem"));
-        crop_rotate_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "crop_rotate_menuitem"));
-        save_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "save_menuitem"));
-        save_as_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "save_as_menuitem"));
-        save_toolbutton = GTK_WIDGET (gtk_builder_get_object (builder, "save_toolbutton"));
-        stop_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "stop_scan_menuitem"));
-        stop_toolbutton = GTK_WIDGET (gtk_builder_get_object (builder, "stop_toolbutton"));
+        window = (Gtk.Window) builder.get_object ("simple_scan_window");
+        main_vbox = (Gtk.VBox) builder.get_object ("main_vbox");
+        page_move_left_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_left_menuitem");
+        page_move_right_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_right_menuitem");
+        page_delete_menuitem = (Gtk.MenuItem) builder.get_object ("page_delete_menuitem");
+        crop_rotate_menuitem = (Gtk.MenuItem) builder.get_object ("crop_rotate_menuitem");
+        save_menuitem = (Gtk.MenuItem) builder.get_object ("save_menuitem");
+        save_as_menuitem = (Gtk.MenuItem) builder.get_object ("save_as_menuitem");
+        save_toolbutton = (Gtk.ToolButton) builder.get_object ("save_toolbutton");
+        stop_menuitem = (Gtk.MenuItem) builder.get_object ("stop_scan_menuitem");
+        stop_toolbutton = (Gtk.ToolButton) builder.get_object ("stop_toolbutton");
 
-        text_toolbar_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "text_toolbutton_menuitem"));
-        text_menu_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "text_menuitem"));
-        photo_toolbar_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "photo_toolbutton_menuitem"));
-        photo_menu_menuitem = GTK_WIDGET (gtk_builder_get_object (builder, "photo_menuitem"));
+        text_toolbar_menuitem = (Gtk.RadioMenuItem) builder.get_object ("text_toolbutton_menuitem");
+        text_menu_menuitem = (Gtk.RadioMenuItem) builder.get_object ("text_menuitem");
+        photo_toolbar_menuitem = (Gtk.RadioMenuItem) builder.get_object ("photo_toolbutton_menuitem");
+        photo_menu_menuitem = (Gtk.RadioMenuItem) builder.get_object ("photo_menuitem");
 
-        authorize_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "authorize_dialog"));
-        authorize_label = GTK_WIDGET (gtk_builder_get_object (builder, "authorize_label"));
-        username_entry = GTK_WIDGET (gtk_builder_get_object (builder, "username_entry"));
-        password_entry = GTK_WIDGET (gtk_builder_get_object (builder, "password_entry"));
+        authorize_dialog = (Gtk.Dialog) builder.get_object ("authorize_dialog");
+        authorize_label = (Gtk.Label) builder.get_object ("authorize_label");
+        username_entry = (Gtk.Entry) builder.get_object ("username_entry");
+        password_entry = (Gtk.Entry) builder.get_object ("password_entry");
 
-        preferences_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "preferences_dialog"));
-        device_combo = GTK_WIDGET (gtk_builder_get_object (builder, "device_combo"));
-        device_model = gtk_combo_box_get_model (GTK_COMBO_BOX (device_combo));
-        text_dpi_combo = GTK_WIDGET (gtk_builder_get_object (builder, "text_dpi_combo"));
-        text_dpi_model = gtk_combo_box_get_model (GTK_COMBO_BOX (text_dpi_combo));
-        photo_dpi_combo = GTK_WIDGET (gtk_builder_get_object (builder, "photo_dpi_combo"));
-        photo_dpi_model = gtk_combo_box_get_model (GTK_COMBO_BOX (photo_dpi_combo));
-        page_side_combo = GTK_WIDGET (gtk_builder_get_object (builder, "page_side_combo"));
-        page_side_model = gtk_combo_box_get_model (GTK_COMBO_BOX (page_side_combo));
-        paper_size_combo = GTK_WIDGET (gtk_builder_get_object (builder, "paper_size_combo"));
-        paper_size_model = gtk_combo_box_get_model (GTK_COMBO_BOX (paper_size_combo));
+        preferences_dialog = (Gtk.Dialog) builder.get_object ("preferences_dialog");
+        device_combo = (Gtk.ComboBox) builder.get_object ("device_combo");
+        device_model = (Gtk.ListStore) device_combo.get_model ();
+        text_dpi_combo = (Gtk.ComboBox) builder.get_object ("text_dpi_combo");
+        text_dpi_model = (Gtk.ListStore) text_dpi_combo.get_model ();
+        photo_dpi_combo = (Gtk.ComboBox) builder.get_object ("photo_dpi_combo");
+        photo_dpi_model = (Gtk.ListStore) photo_dpi_combo.get_model ();
+        page_side_combo = (Gtk.ComboBox) builder.get_object ("page_side_combo");
+        page_side_model = (Gtk.ListStore) page_side_combo.get_model ();
+        paper_size_combo = (Gtk.ComboBox) builder.get_object ("paper_size_combo");
+        paper_size_model = (Gtk.ListStore) paper_size_combo.get_model ();
 
         /* Add InfoBar (not supported in Glade) */
-        info_bar = gtk_info_bar_new ();
-        g_signal_connect (info_bar, "response", G_CALLBACK (info_bar_response_cb), ui);
-        gtk_box_pack_start (GTK_BOX(main_vbox), info_bar, false, true, 0);
-        hbox = gtk_hbox_new (false, 12);
-        gtk_container_add (GTK_CONTAINER (gtk_info_bar_get_content_area (GTK_INFO_BAR (info_bar))), hbox);
-        gtk_widget_show (hbox);
+        info_bar = new Gtk.InfoBar ();
+        info_bar.response.connect (info_bar_response_cb);
+        main_vbox.pack_start (info_bar, false, true, 0);
+        var hbox = new Gtk.HBox (false, 12);
+        var content_area = (Gtk.Container) info_bar.get_content_area ();
+        content_area.add (hbox);
+        hbox.show ();
 
-        info_bar_image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_DIALOG);
-        gtk_box_pack_start (GTK_BOX(hbox), info_bar_image, false, true, 0);
-        gtk_widget_show (info_bar_image);
+        info_bar_image = new Gtk.Image.from_stock (Gtk.Stock.DIALOG_WARNING, Gtk.IconSize.DIALOG);
+        hbox.pack_start (info_bar_image, false, true, 0);
+        info_bar_image.show ();
 
-        info_bar_label = gtk_label_new (null);
-        gtk_misc_set_alignment (GTK_MISC (info_bar_label), 0.0, 0.5);
-        gtk_box_pack_start (GTK_BOX(hbox), info_bar_label, true, true, 0);
-        gtk_widget_show (info_bar_label);
+        info_bar_label = new Gtk.Label (null);
+        info_bar_label.set_alignment (0.0f, 0.5f);
+        hbox.pack_start (info_bar_label, true, true, 0);
+        info_bar_label.show ();
 
-        info_bar_close_button = gtk_info_bar_add_button (GTK_INFO_BAR (info_bar), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
-        info_bar_change_scanner_button = gtk_info_bar_add_button (GTK_INFO_BAR (info_bar),
-                                                                            /* Button in error infobar to open preferences dialog and change scanner */
-                                                                            _("Change _Scanner"), 1);
+        info_bar_close_button = (Gtk.Button) info_bar.add_button (Gtk.Stock.CLOSE, Gtk.ResponseType.CLOSE);
+        info_bar_change_scanner_button = (Gtk.Button) info_bar.add_button (/* Button in error infobar to open preferences dialog and change scanner */
+                                                                           _("Change _Scanner"), 1);
 
         Gtk.TreeIter iter;
-        gtk_list_store_append (GTK_LIST_STORE (paper_size_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (paper_size_model), &iter, 0, 0, 1, 0, 2,
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 0, 1, 0, 2,
                             /* Combo box value for automatic paper size */
                             _("Automatic"), -1);
-        gtk_list_store_append (GTK_LIST_STORE (paper_size_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (paper_size_model), &iter, 0, 1050, 1, 1480, 2, "A6", -1);
-        gtk_list_store_append (GTK_LIST_STORE (paper_size_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (paper_size_model), &iter, 0, 1480, 1, 2100, 2, "A5", -1);
-        gtk_list_store_append (GTK_LIST_STORE (paper_size_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (paper_size_model), &iter, 0, 2100, 1, 2970, 2, "A4", -1);
-        gtk_list_store_append (GTK_LIST_STORE (paper_size_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (paper_size_model), &iter, 0, 2159, 1, 2794, 2, "Letter", -1);
-        gtk_list_store_append (GTK_LIST_STORE (paper_size_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (paper_size_model), &iter, 0, 2159, 1, 3556, 2, "Legal", -1);
-        gtk_list_store_append (GTK_LIST_STORE (paper_size_model), &iter);
-        gtk_list_store_set (GTK_LIST_STORE (paper_size_model), &iter, 0, 1016, 1, 1524, 2, "4×6", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 1050, 1, 1480, 2, "A6", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 1480, 1, 2100, 2, "A5", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 2100, 1, 2970, 2, "A4", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 2159, 1, 2794, 2, "Letter", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 2159, 1, 3556, 2, "Legal", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 1016, 1, 1524, 2, "4×6", -1);
 
-        dpi = gconf_client_get_int (client, GCONF_DIR + "/text_dpi", null);
+        var dpi = client.get_int (Config.GCONF_DIR + "/text_dpi");
         if (dpi <= 0)
             dpi = DEFAULT_TEXT_DPI;
         set_dpi_combo (text_dpi_combo, DEFAULT_TEXT_DPI, dpi);
-        dpi = gconf_client_get_int (client, GCONF_DIR + "/photo_dpi", null);
+        dpi = client.get_int (Config.GCONF_DIR + "/photo_dpi");
         if (dpi <= 0)
             dpi = DEFAULT_PHOTO_DPI;
         set_dpi_combo (photo_dpi_combo, DEFAULT_PHOTO_DPI, dpi);
 
-        renderer = gtk_cell_renderer_text_new();
-        gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (device_combo), renderer, true);
-        gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (device_combo), renderer, "text", 1);
+        var renderer = new Gtk.CellRendererText ();
+        device_combo.pack_start (renderer, true);
+        device_combo.add_attribute (renderer, "text", 1);
 
-        renderer = gtk_cell_renderer_text_new();
-        gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (page_side_combo), renderer, true);
-        gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (page_side_combo), renderer, "text", 1);
-        page_side = gconf_client_get_string (client, GCONF_DIR + "/page_side", null);
-        if (page_side) {
+        renderer = new Gtk.CellRendererText ();
+        page_side_combo.pack_start (renderer, true);
+        page_side_combo.add_attribute (renderer, "text", 1);
+        var page_side = client.get_string (Config.GCONF_DIR + "/page_side");
+        if (page_side != null) {
             set_page_side (page_side);
         }
 
-        renderer = gtk_cell_renderer_text_new();
-        gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (paper_size_combo), renderer, true);
-        gtk_cell_layout_add_attribute (GTK_CELL_LAYOUT (paper_size_combo), renderer, "text", 2);
-        paper_width = gconf_client_get_int (client, GCONF_DIR + "/paper_width", null);
-        paper_height = gconf_client_get_int (client, GCONF_DIR + "/paper_height", null);
+        renderer = new Gtk.CellRendererText ();
+        paper_size_combo.pack_start (renderer, true);
+        paper_size_combo.add_attribute (renderer, "text", 2);
+        var paper_width = client.get_int (Config.GCONF_DIR + "/paper_width");
+        var paper_height = client.get_int (Config.GCONF_DIR + "/paper_height");
         set_paper_size (paper_width, paper_height);
 
-        device = gconf_client_get_string (client, GCONF_DIR + "/selected_device", null);
-        if (device) {
-            Gtk.TreeIter iter;
-            if (find_scan_device (device, &iter))
-                gtk_combo_box_set_active_iter (GTK_COMBO_BOX (device_combo), &iter);
+        var device = client.get_string (Config.GCONF_DIR + "/selected_device");
+        if (device != null) {
+            if (find_scan_device (device, out iter))
+                device_combo.set_active_iter (iter);
         }
 
-        document_type = gconf_client_get_string (client, GCONF_DIR + "/document_type", null);
-        if (document_type) {
+        var document_type = client.get_string (Config.GCONF_DIR + "/document_type");
+        if (document_type != null) {
             set_document_hint (document_type);
         }
 
-        book_view = new BookView ();
-        gtk_container_set_border_width (GTK_CONTAINER (book_view), 18);
-        gtk_box_pack_end (GTK_BOX (main_vbox), GTK_WIDGET (book_view), true, true, 0);
-        g_signal_connect (book_view, "page-selected", G_CALLBACK (page_selected_cb), ui);
-        g_signal_connect (book_view, "show-page", G_CALLBACK (show_page_cb), ui);
-        g_signal_connect (book_view, "show-menu", G_CALLBACK (show_page_menu_cb), ui);
-        gtk_widget_show (GTK_WIDGET (book_view));
+        book_view = new BookView (book);
+        book_view.set_border_width (18);
+        main_vbox.pack_end (book_view, true, true, 0);
+        book_view.page_selected.connect (page_selected_cb);
+        book_view.show_page.connect (show_page_cb);
+        book_view.show_menu.connect (show_page_menu_cb);
+        book_view.show ();
 
         /* Find default page details */
-        scan_direction = gconf_client_get_string(client, GCONF_DIR + "/scan_direction", null);
-        default_page_scan_direction = TOP_TO_BOTTOM;
-        if (scan_direction) {
-            int i;
-            for (i = 0; scan_direction_keys[i].key != null && scan_direction_keys[i].key != scan_direction; i++);
-            if (scan_direction_keys[i].key != null)
-                default_page_scan_direction = scan_direction_keys[i].scan_direction;
+        var scan_direction = client.get_string (Config.GCONF_DIR + "/scan_direction");
+        default_page_scan_direction = ScanDirection.TOP_TO_BOTTOM;
+        if (scan_direction != null) {
+            switch (scan_direction)
+            {
+            case "top-to-bottom":
+                default_page_scan_direction = ScanDirection.TOP_TO_BOTTOM;
+                break;
+            case "bottom-to-top":
+                default_page_scan_direction = ScanDirection.BOTTOM_TO_TOP;
+                break;
+            case "left-to-right":
+                default_page_scan_direction = ScanDirection.LEFT_TO_RIGHT;
+                break;
+            case "right-to-left":
+                default_page_scan_direction = ScanDirection.RIGHT_TO_LEFT;
+                break;
+            }
         }
-        default_page_width = gconf_client_get_int (client, GCONF_DIR + "/page_width", null);
+        default_page_width = client.get_int (Config.GCONF_DIR + "/page_width");
         if (default_page_width <= 0)
             default_page_width = 595;
-        default_page_height = gconf_client_get_int (client, GCONF_DIR + "/page_height", null);
+        default_page_height = client.get_int (Config.GCONF_DIR + "/page_height");
         if (default_page_height <= 0)
             default_page_height = 842;
-        default_page_dpi = gconf_client_get_int (client, GCONF_DIR + "/page_dpi", null);
+        default_page_dpi = client.get_int (Config.GCONF_DIR + "/page_dpi");
         if (default_page_dpi <= 0)
             default_page_dpi = 72;
 
         /* Restore window size */
-        window_width = gconf_client_get_int (client, GCONF_DIR + "/window_width", null);
+        window_width = client.get_int (Config.GCONF_DIR + "/window_width");
         if (window_width <= 0)
             window_width = 600;
-        window_height = gconf_client_get_int (client, GCONF_DIR + "/window_height", null);
+        window_height = client.get_int (Config.GCONF_DIR + "/window_height");
         if (window_height <= 0)
             window_height = 400;
-        g_debug ("Restoring window to %dx%d pixels", window_width, window_height);
-        gtk_window_set_default_size (GTK_WINDOW (window), window_width, window_height);
-        window_is_maximized = gconf_client_get_bool (client, GCONF_DIR + "/window_is_maximized", null);
+        debug ("Restoring window to %dx%d pixels", window_width, window_height);
+        window.set_default_size (window_width, window_height);
+        window_is_maximized = client.get_bool (Config.GCONF_DIR + "/window_is_maximized");
         if (window_is_maximized) {
-            g_debug ("Restoring window to maximized");
-            gtk_window_maximize (GTK_WINDOW (window));
+            debug ("Restoring window to maximized");
+            window.maximize ();
         }
 
         if (book.get_n_pages () == 0)
             add_default_page ();
         book.set_needs_saving (false);
-        g_signal_connect (book, "notify::needs-saving", G_CALLBACK (needs_saving_cb), ui);
+        book.notify["needs-saving"].connect (needs_saving_cb);
     }
 
-    Book get_book ()
+    public Book get_book ()
     {
         return book;
     }
@@ -1517,10 +1472,10 @@ public class SimpleScan
 
     public void set_scanning (bool scanning)
     {
-        scanning = scanning;
-        gtk_widget_set_sensitive (page_delete_menuitem, !scanning);
-        gtk_widget_set_sensitive (stop_menuitem, scanning);
-        gtk_widget_set_sensitive (stop_toolbutton, scanning);
+        this.scanning = scanning;
+        page_delete_menuitem.set_sensitive (!scanning);
+        stop_menuitem.set_sensitive (scanning);
+        stop_toolbutton.set_sensitive (scanning);
     }
 
     public void show_error (string error_title, string error_text, bool change_scanner_hint)

@@ -19,11 +19,21 @@ G_BEGIN_DECLS
 #define SCANNER_TYPE  (scanner_get_type ())
 #define SCANNER(obj)  (G_TYPE_CHECK_INSTANCE_CAST ((obj), SCANNER_TYPE, Scanner))
 
+#define TYPE_SCAN_DEVICE  (scan_device_get_type ())
+#define SCAN_DEVICE(obj)  (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_SCAN_DEVICE, ScanDevice))
+
+#define TYPE_SCAN_OPTIONS  (scan_options_get_type ())
+#define SCAN_OPTIONS(obj)  (G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_SCAN_OPTIONS, ScanOptions))
+
 
 typedef struct
 {
     gchar *name, *label;
 } ScanDevice;
+typedef struct
+{
+    GObjectClass parent_class;
+} ScanDeviceClass;
 
 typedef struct
 {
@@ -86,6 +96,10 @@ typedef struct
     ScanType type;
     gint paper_width, paper_height;
 } ScanOptions;
+typedef struct
+{
+    GObjectClass parent_class;
+} ScanOptionsClass;
 
 typedef struct ScannerPrivate ScannerPrivate;
 
@@ -128,5 +142,10 @@ void scanner_scan (Scanner *scanner, const char *device, ScanOptions *options);
 void scanner_cancel (Scanner *scanner);
 
 void scanner_free (Scanner *scanner);
+
+ScanDevice *scan_device_new (void);
+GType scan_device_get_type (void);
+ScanOptions *scan_options_new (void);
+GType scan_options_get_type (void);
 
 #endif /* _SCANNER_H_ */

@@ -1243,7 +1243,7 @@ page_view_class_init (PageViewClass *klass)
                                      g_param_spec_object ("page",
                                                           "page",
                                                           "Page being rendered",
-                                                          PAGE_TYPE,
+                                                          TYPE_PAGE,
                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 }
 

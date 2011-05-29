@@ -66,7 +66,7 @@ page_new (gint width, gint height, gint dpi, ScanDirection scan_direction)
 {
     Page *page;
   
-    page = g_object_new (PAGE_TYPE, NULL);
+    page = g_object_new (TYPE_PAGE, NULL);
     if (scan_direction == TOP_TO_BOTTOM || scan_direction == BOTTOM_TO_TOP) {
         page->priv->width = width;
         page->priv->n_rows = height;
@@ -905,6 +905,6 @@ page_class_init (PageClass *klass)
 static void
 page_init (Page *page)
 {
-    page->priv = G_TYPE_INSTANCE_GET_PRIVATE (page, PAGE_TYPE, PagePrivate);
+    page->priv = G_TYPE_INSTANCE_GET_PRIVATE (page, TYPE_PAGE, PagePrivate);
     page->priv->scan_direction = TOP_TO_BOTTOM;
 }

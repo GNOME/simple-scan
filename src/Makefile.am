@@ -3,7 +3,7 @@ bin_PROGRAMS = simple-scan
 simple_scan_SOURCES = \
 	config.vapi \
 	book.c \
-	book-view.c \
+	book-view.vala \
 	page.c \
 	page-view.c \
 	simple-scan.vala \
@@ -14,6 +14,7 @@ simple_scan_SOURCES = \
 simple_scan_VALAFLAGS = \
 	--pkg=gudev-1.0 \
 	--pkg=gio-2.0 \
+	--pkg=gconf-2.0 \
 	--pkg=gtk+-2.0 
 
 simple_scan_CFLAGS = \
