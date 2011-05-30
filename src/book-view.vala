@@ -24,7 +24,7 @@ public class BookView : Gtk.VBox
     private bool show_selected_page;
 
     /* Currently selected page */
-    private PageView? selected_page;
+    private PageView? selected_page = null;
 
     /* Widget being rendered to */
     private Gtk.Widget drawing_area;
@@ -44,8 +44,8 @@ public class BookView : Gtk.VBox
         this.book = book;
 
         /* Load existing pages */
-        var n_pages = book.get_n_pages ();
-        for (var i = 0; i < n_pages; i++) {
+        for (var i = 0; i < book.get_n_pages (); i++)
+        {
             Page page = book.get_page (i);
             add_cb (book, page);
         }
@@ -93,11 +93,13 @@ public class BookView : Gtk.VBox
 
     private PageView get_next_page (PageView page)
     {
-        for (var i = 0; ; i++) {
+        for (var i = 0; ; i++)
+        {
             var p = book.get_page (i);
             if (p == null)
                 break;
-            if (p == page.get_page ()) {
+            if (p == page.get_page ())
+            {
                 p = book.get_page (i + 1);
                 if (p != null)
                     return page_data.lookup (p);
@@ -110,7 +112,8 @@ public class BookView : Gtk.VBox
     private PageView get_prev_page (PageView page)
     {
         var prev_page = page;
-        for (var i = 0; ; i++) {
+        for (var i = 0; ; i++)
+        {
             var p = book.get_page (i);
             if (p == null)
                 break;
@@ -210,7 +213,8 @@ public class BookView : Gtk.VBox
         PageView new_selection = selected_page;
 
         /* Select previous page or next if removing the selected page */
-        if (page == get_selected ()) {
+        if (page == get_selected ())
+        {
             new_selection = get_prev_page (selected_page);
             if (new_selection == selected_page)
                 new_selection = get_next_page (selected_page);
@@ -253,11 +257,10 @@ public class BookView : Gtk.VBox
 
     private void layout_into (int width, int height, out int book_width, out int book_height)
     {
-        var n_pages = book.get_n_pages ();
-
         /* Get maximum page resolution */
         int max_dpi = 0;
-        for (var i = 0; i < n_pages; i++) {
+        for (var i = 0; i < book.get_n_pages (); i++)
+        {
             var page = book.get_page (i);
             if (page.get_dpi () > max_dpi)
                 max_dpi = page.get_dpi ();
@@ -265,7 +268,8 @@ public class BookView : Gtk.VBox
 
         /* Get area required to fit all pages */
         int max_width = 0, max_height = 0;
-        for (var i = 0; i < n_pages; i++) {
+        for (var i = 0; i < book.get_n_pages (); i++)
+        {
             var page = book.get_page (i);
             var w = page.get_width ();
             var h = page.get_height ();
@@ -287,17 +291,20 @@ public class BookView : Gtk.VBox
         int spacing = 12;
         book_width = 0;
         book_height = 0;
-        for (var i = 0; i < n_pages; i++) {
+        for (var i = 0; i < book.get_n_pages (); i++)
+        {
             var page = get_nth_page (i);
             var p = page.get_page ();
 
             /* NOTE: Using double to avoid overflow for large images */
-            if (max_aspect > aspect) {
+            if (max_aspect > aspect)
+            {
                 /* Set width scaled on DPI and maximum width */
                 int w = (int) ((double)p.get_width () * max_dpi * width / (p.get_dpi () * max_width));
                 page.set_width (w);
             }
-            else {
+            else
+            {
                 /* Set height scaled on DPI and maximum height */
                 int h = (int) ((double)p.get_height () * max_dpi * height / (p.get_dpi () * max_height));
                 page.set_height (h);
@@ -312,7 +319,8 @@ public class BookView : Gtk.VBox
         }
 
         int x_offset = 0;
-        for (var i = 0; i < n_pages; i++) {
+        for (var i = 0; i < book.get_n_pages (); i++)
+        {
             var page = get_nth_page (i);
 
             /* Layout pages left to right */
@@ -348,7 +356,8 @@ public class BookView : Gtk.VBox
         layout_into (width, height, out book_width, out book_height);
 
         /* Relayout with scrollbar */
-        if (book_width > allocation.width) {
+        if (book_width > allocation.width)
+        {
             /* Re-layout leaving space for scrollbar */
             height = allocation.height;
             layout_into (width, height, out book_width, out book_height);
@@ -364,7 +373,9 @@ public class BookView : Gtk.VBox
                 set_x_offset(max_offset);
 
             scroll.show ();
-        } else {
+        }
+        else
+        {
             scroll.hide ();
             var offset = (book_width - allocation.width) / 2;
             adjustment.set_lower (offset);
@@ -383,8 +394,7 @@ public class BookView : Gtk.VBox
 
     private bool expose_cb (Gtk.Widget widget, Gdk.EventExpose event)
     {
-        var n_pages = book.get_n_pages ();
-        if (n_pages == 0)
+        if (book.get_n_pages () == 0)
             return false;
 
         layout ();
@@ -392,7 +402,8 @@ public class BookView : Gtk.VBox
         var context = Gdk.cairo_create (widget.get_window ());
 
         /* Render each page */
-        for (var i = 0; i < n_pages; i++) {
+        for (var i = 0; i < book.get_n_pages (); i++)
+        {
             var page = get_nth_page (i);
             var left_edge = page.get_x_offset () - get_x_offset ();
             var right_edge = page.get_x_offset () + page.get_width () - get_x_offset ();
@@ -424,8 +435,8 @@ public class BookView : Gtk.VBox
 
     private PageView? get_page_at (int x, int y, out int x_, out int y_)
     {
-        var n_pages = book.get_n_pages ();
-        for (var i = 0; i < n_pages; i++) {
+        for (var i = 0; i < book.get_n_pages (); i++)
+        {
             var page = get_nth_page (i);
             var left = page.get_x_offset ();
             var right = left + page.get_width ();
@@ -456,7 +467,8 @@ public class BookView : Gtk.VBox
             return false;
 
         /* Modify page */
-        if (event.button == 1) {
+        if (event.button == 1)
+        {
             if (event.type == Gdk.EventType.BUTTON_PRESS)
                 selected_page.button_press (x, y);
             else if (event.type == Gdk.EventType.BUTTON_RELEASE)
@@ -489,16 +501,19 @@ public class BookView : Gtk.VBox
         Gdk.CursorType cursor = Gdk.CursorType.ARROW;
 
         /* Dragging */
-        if (selected_page != null && (event.state & Gdk.ModifierType.BUTTON1_MASK) != 0) {
+        if (selected_page != null && (event.state & Gdk.ModifierType.BUTTON1_MASK) != 0)
+        {
             var x = (int) (event.x + get_x_offset () - selected_page.get_x_offset ());
             var y = (int) (event.y - selected_page.get_y_offset ());
             selected_page.motion (x, y);
             cursor = selected_page.get_cursor ();
         }
-        else {
+        else
+        {
             int x, y;
             var over_page = get_page_at ((int) (event.x + get_x_offset ()), (int) event.y, out x, out y);
-            if (over_page != null) {
+            if (over_page != null)
+            {
                 over_page.motion (x, y);
                 cursor = over_page.get_cursor ();
             }
@@ -511,7 +526,8 @@ public class BookView : Gtk.VBox
 
     private bool key_cb (Gtk.Widget widget, Gdk.EventKey event)
     {
-        switch (event.keyval) {
+        switch (event.keyval)
+        {
         case 0xff50: /* FIXME: GDK_Home */
             select_page (book.get_page (0));
             return true;

@@ -29,7 +29,7 @@ public class PageView
     private Page page;
 
     /* Image to render at current resolution */
-    private Gdk.Pixbuf image;
+    private Gdk.Pixbuf? image = null;
 
     /* Border around image */
     private bool selected;
@@ -73,6 +73,11 @@ public class PageView
     public PageView (Page page)
     {
         this.page = page;
+        page.pixels_changed.connect (page_pixels_changed_cb);
+        page.size_changed.connect (page_size_changed_cb);
+        page.crop_changed.connect (page_overlay_changed_cb);
+        page.scan_line_changed.connect (page_overlay_changed_cb);
+        page.scan_direction_changed.connect (scan_direction_changed_cb);
     }
 
     public Page get_page ()
@@ -805,8 +810,8 @@ public class PageView
         update_animation ();
         update_page_view ();
 
-        var width = get_preview_width ();
-        var height = get_preview_height ();
+        var w = get_preview_width ();
+        var h = get_preview_height ();
 
         context.set_line_width (1);
         context.translate (x, y);
@@ -828,10 +833,10 @@ public class PageView
         /* Draw throbber */
         if (page.is_scanning () && !page.has_data ()) {
             double outer_radius;
-            if (width > height)
-                outer_radius = 0.15 * width;
+            if (w > h)
+                outer_radius = 0.15 * w;
             else
-                outer_radius = 0.15 * height;
+                outer_radius = 0.15 * h;
             var arc = Math.PI / animate_n_segments;
 
             /* Space circles */
@@ -841,8 +846,8 @@ public class PageView
 
             double offset = 0.0;          
             for (var i = 0; i < animate_n_segments; i++, offset += arc * 2) {
-                x = width / 2 + outer_radius * Math.sin (offset);
-                y = height / 2 - outer_radius * Math.cos (offset);
+                x = w / 2 + outer_radius * Math.sin (offset);
+                y = h / 2 - outer_radius * Math.cos (offset);
                 context.arc (x, y, inner_radius, 0, 2 * Math.PI);
 
                 if (i == animate_segment) {
@@ -865,22 +870,22 @@ public class PageView
             case ScanDirection.TOP_TO_BOTTOM:
                 s = page_to_screen_y (scan_line);
                 x1 = 0; y1 = s + 0.5;
-                x2 = width; y2 = s + 0.5;
+                x2 = w; y2 = s + 0.5;
                 break;
             case ScanDirection.BOTTOM_TO_TOP:
                 s = page_to_screen_y (scan_line);
-                x1 = 0; y1 = height - s + 0.5;
-                x2 = width; y2 = height - s + 0.5;
+                x1 = 0; y1 = h - s + 0.5;
+                x2 = w; y2 = h - s + 0.5;
                 break;
             case ScanDirection.LEFT_TO_RIGHT:
                 s = page_to_screen_x (scan_line);
                 x1 = s + 0.5; y1 = 0;
-                x2 = s + 0.5; y2 = height;
+                x2 = s + 0.5; y2 = h;
                 break;
             case ScanDirection.RIGHT_TO_LEFT:
                 s = page_to_screen_x (scan_line);
-                x1 = width - s + 0.5; y1 = 0;
-                x2 = width - s + 0.5; y2 = height;
+                x1 = w - s + 0.5; y1 = 0;
+                x2 = w - s + 0.5; y2 = h;
                 break;
             default:
                 x1 = y1 = x2 = y2 = 0;
@@ -904,8 +909,7 @@ public class PageView
             var dh = page_to_screen_y (crop_height);
 
             /* Shade out cropped area */
-            context.rectangle (0, 0,
-                               width, height);
+            context.rectangle (0, 0, w, h);
             context.new_sub_path ();
             context.rectangle (dx, dy, dw, dh);
             context.set_fill_rule (Cairo.FillRule.EVEN_ODD);
@@ -926,7 +930,7 @@ public class PageView
     {
         // FIXME: Automatically update when get updated image
         var height = (int) ((double)width * page.get_height () / page.get_width ());
-        if (width == width && height == height)
+        if (this.width == width && this.height == height)
             return;
 
         this.width = width;
@@ -943,7 +947,7 @@ public class PageView
     {
         // FIXME: Automatically update when get updated image
         var width = (int) ((double)height * page.get_width () / page.get_height ());
-        if (width == width && height == height)
+        if (this.width == width && this.height == height)
             return;
 
         this.width = width;
@@ -992,15 +996,5 @@ public class PageView
         update_image = true;
         size_changed ();
         changed ();
-    }
-
-    private void set_page (Page page)
-    {
-        this.page = page;
-        page.pixels_changed.connect (page_pixels_changed_cb);
-        page.size_changed.connect (page_size_changed_cb);
-        page.crop_changed.connect (page_overlay_changed_cb);
-        page.scan_line_changed.connect (page_overlay_changed_cb);
-        page.scan_direction_changed.connect (scan_direction_changed_cb);
     }
 }

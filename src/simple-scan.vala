@@ -184,7 +184,6 @@ public class Application
                                      G_TYPE_INVALID,
                                      custom_g_type_string_string, &profile_data_array,
                                      G_TYPE_INVALID);
-        g_object_unref (proxy);
         if (!ret) {
             debug ("The request failed: %s", error.message);
             g_error_free (error);
@@ -378,9 +377,9 @@ public class Application
 
     private void quit_cb (SimpleScan ui)
     {
-        g_object_unref (book);
-        g_object_unref (ui);
-        g_object_unref (udev_client);
+        book = null;
+        ui = null;
+        udev_client = null;
         scanner.free ();
         Gtk.main_quit ();
     }
