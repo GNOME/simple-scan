@@ -31,11 +31,21 @@ public class Page : GLib.Object
 {
     public signal void size_changed ();
     public signal void scan_direction_changed ();
+    public signal void crop_changed ();
+    public signal void pixels_changed ();
+    public signal void scan_line_changed ();
     public bool has_data ();
     public void start ();
     public ScanDirection get_scan_direction ();
     public int get_width ();
     public int get_height ();
+    public int get_scan_width ();
+    public int get_scan_height ();
+    public int get_depth ();
+    public int get_n_channels ();
+    [CCode (array_length = false)]
+    public uchar[] get_pixels ();
+    public int get_rowstride ();
     public int get_dpi ();
     public bool has_crop ();
     public string? get_named_crop ();
@@ -54,6 +64,8 @@ public class Page : GLib.Object
     public void set_no_crop ();
     public void rotate_left ();
     public void rotate_right ();
+    public bool is_scanning ();
+    public int get_scan_line ();
 }
 
 [CCode (cheader_filename = "scanner.h")]
@@ -130,28 +142,4 @@ public enum ScanDirection
     BOTTOM_TO_TOP,
     LEFT_TO_RIGHT,
     RIGHT_TO_LEFT
-}
-
-[CCode (cheader_filename = "page-view.h")]
-public class PageView : GLib.Object
-{
-    public signal void changed ();
-    public signal void size_changed ();
-    public PageView (Page page);
-    public Page get_page ();
-    public void set_selected (bool is_selected);
-    public bool get_selected ();
-    public int get_x_offset ();
-    public int get_y_offset ();
-    public int get_width ();
-    public int get_height ();
-    public void set_width (int width);
-    public void set_height (int height);
-    public void set_x_offset (int x_offset);
-    public void set_y_offset (int y_offset);
-    public void button_press (int x, int y);
-    public void button_release (int x, int y);
-    public void motion (int x, int y);
-    public Gdk.CursorType get_cursor ();
-    public void render (Cairo.Context context);
 }

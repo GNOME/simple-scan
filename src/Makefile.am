@@ -5,7 +5,7 @@ simple_scan_SOURCES = \
 	book.c \
 	book-view.vala \
 	page.c \
-	page-view.c \
+	page-view.vala \
 	simple-scan.vala \
 	simple-scan.vapi \
 	scanner.c \
