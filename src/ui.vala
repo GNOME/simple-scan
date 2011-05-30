@@ -67,7 +67,7 @@ public class SimpleScan
     private bool error_change_scanner_hint;
 
     private Book book;
-    private string? book_uri;
+    private string? book_uri = null;
 
     private BookView book_view;
     private bool updating_page_menu;
