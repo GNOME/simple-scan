@@ -189,8 +189,8 @@ public class PageView
 
         /* Use slow method */
         pixel[0] = get_sample (pixels, offset, x, depth, x * n_channels);
-        pixel[0] = get_sample (pixels, offset, x, depth, x * n_channels + 1);
-        pixel[0] = get_sample (pixels, offset, x, depth, x * n_channels + 2);
+        pixel[1] = get_sample (pixels, offset, x, depth, x * n_channels + 1);
+        pixel[2] = get_sample (pixels, offset, x, depth, x * n_channels + 2);
     }
 
     private void set_pixel (Page page, double l, double r, double t, double b, uchar[] output, int offset)

@@ -4,7 +4,7 @@ simple_scan_SOURCES = \
 	config.vapi \
 	book.vala \
 	book-view.vala \
-	page.c \
+	page.vala \
 	page-view.vala \
 	simple-scan.vala \
 	simple-scan.vapi \
@@ -34,6 +34,10 @@ simple_scan_LDADD = \
 	-lsane \
 	-ljpeg \
 	-lm
+
+CLEANFILES = \
+	$(patsubst %.vala,%.c,$(filter %.vala, $(SOURCES))) \
+	*_vala.stamp
 
 DISTCLEANFILES = \
 	Makefile.in

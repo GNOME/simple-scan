@@ -18,8 +18,6 @@ public class Book
 
     private bool needs_saving;
     
-    private FileOutputStream? ps_stream = null;
-
     public signal void page_added (Page page);
     public signal void page_removed (Page page);
     public signal void reordered ();
@@ -125,26 +123,11 @@ public class Book
         context.paint ();
     }
 
-    private Cairo.Status write_cairo_data (uchar[] data)
-    {
-        try
-        {
-            ps_stream.write_all (data, null, null);
-        }
-        catch (Error e)
-        {
-            warning ("Error writing data: %s", e.message);
-            return Cairo.Status.WRITE_ERROR;
-        }
-
-        return Cairo.Status.SUCCESS;
-    }
-
     private void save_ps (File file) throws Error
     {
-        ps_stream = file.replace (null, false, FileCreateFlags.NONE, null);
-        var surface = new Cairo.PsSurface.for_stream (write_cairo_data, 0, 0);
-        ps_stream = null;
+        var stream = file.replace (null, false, FileCreateFlags.NONE, null);
+        var writer = new PsWriter (stream);
+        var surface = writer.surface;
 
         foreach (var page in pages)
         {
@@ -565,7 +548,7 @@ private class PDFWriter
 
     public void write_string (string text)
     {
-        write ((uchar[]) text);
+        write ((uchar[]) text.to_utf8 ());
     }
 
     public uint start_object ()
@@ -573,4 +556,31 @@ private class PDFWriter
         object_offsets.append ((uint)offset);
         return object_offsets.length ();
     }
+}
+
+public class PsWriter
+{
+    public Cairo.PsSurface surface;
+    public FileOutputStream stream;
+
+    public PsWriter (FileOutputStream steam)
+    {
+        this.stream = stream;
+        surface = new Cairo.PsSurface.for_stream (write_cairo_data, 0, 0);
+    }
+
+    private Cairo.Status write_cairo_data (uchar[] data)
+    {
+        try
+        {
+            stream.write_all (data, null, null);
+        }
+        catch (Error e)
+        {
+            warning ("Error writing data: %s", e.message);
+            return Cairo.Status.WRITE_ERROR;
+        }
+
+        return Cairo.Status.SUCCESS;
+    }   
 }
