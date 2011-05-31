@@ -152,27 +152,31 @@ public class PageView
         var offset = page.get_rowstride () * y;
 
         /* Optimise for 8 bit images */
-        if (depth == 8 && n_channels == 3) {
+        if (depth == 8 && n_channels == 3)
+        {
             var o = offset + x * n_channels;
             pixel[0] = pixels[o];
             pixel[1] = pixels[o+1];
             pixel[2] = pixels[o+2];
             return;
         }
-        else if (depth == 8 && n_channels == 1) {
+        else if (depth == 8 && n_channels == 1)
+        {
             pixel[0] = pixel[1] = pixel[2] = pixels[offset + x];
             return;
         }
 
         /* Optimise for bitmaps */
-        else if (depth == 1 && n_channels == 1) {
+        else if (depth == 1 && n_channels == 1)
+        {
             var o = offset + (x / 8);
             pixel[0] = pixel[1] = pixel[2] = (pixels[o] & (0x80 >> (x % 8))) != 0 ? 0x00 : 0xFF;
             return;
         }
 
         /* Optimise for 2 bit images */
-        else if (depth == 2 && n_channels == 1) {
+        else if (depth == 2 && n_channels == 1)
+        {
             int block_shift[4] = { 6, 4, 2, 0 };
 
             var o = offset + (x / 4);
@@ -257,9 +261,11 @@ public class PageView
          * |     |      +-----+-----+      +-----+      +-+--++      +--+--+
          * +-----+
          */
-        if ((r - l <= 1.0 && (int)r == (int)l) || (b - t <= 1.0 && (int)b == (int)t)) {
+        if ((r - l <= 1.0 && (int)r == (int)l) || (b - t <= 1.0 && (int)b == (int)t))
+        {
             /* Inside */
-            if ((int)l == (int)r || (int)t == (int)b) {
+            if ((int)l == (int)r || (int)t == (int)b)
+            {
                 uchar p[3];
                 get_pixel (page, (int)l, (int)t, p);
                 output[offset] = p[0];
@@ -269,13 +275,15 @@ public class PageView
             }
 
             /* Stradling horizontal edge */
-            if (L > R) {
+            if (L > R)
+            {
                 uchar p[3];
                 get_pixel (page, R, T-1, p);
                 red   += p[0] * (r-l)*(T-t);
                 green += p[1] * (r-l)*(T-t);
                 blue  += p[2] * (r-l)*(T-t);
-                for (y = T; y < B; y++) {
+                for (y = T; y < B; y++)
+                {
                     get_pixel (page, R, y, p);
                     red   += p[0] * (r-l);
                     green += p[1] * (r-l);
@@ -287,7 +295,8 @@ public class PageView
                 blue  += p[2] * (r-l)*(b-B);
             }
             /* Stradling vertical edge */
-            else {
+            else
+            {
                 uchar p[3];
                 get_pixel (page, L - 1, B, p);
                 red   += p[0] * (b-t)*(L-l);
@@ -313,8 +322,10 @@ public class PageView
         }
 
         /* Add the middle pixels */
-        for (x = L; x < R; x++) {
-            for (y = T; y < B; y++) {
+        for (x = L; x < R; x++)
+        {
+            for (y = T; y < B; y++)
+            {
                 uchar p[3];
                 get_pixel (page, x, y, p);
                 red   += p[0];
@@ -324,8 +335,10 @@ public class PageView
         }
 
         /* Add the weighted top and bottom pixels */
-        for (x = L; x < R; x++) {
-            if (t != T) {
+        for (x = L; x < R; x++)
+        {
+            if (t != T)
+            {
                 uchar p[3];
                 get_pixel (page, x, T - 1, p);
                 red   += p[0] * (T - t);
@@ -333,7 +346,8 @@ public class PageView
                 blue  += p[2] * (T - t);
             }
 
-            if (b != B) {
+            if (b != B)
+            {
                 uchar p[3];
                 get_pixel (page, x, B, p);
                 red   += p[0] * (b - B);
@@ -343,8 +357,10 @@ public class PageView
         }
 
         /* Add the left and right pixels */
-        for (y = T; y < B; y++) {
-            if (l != L) {
+        for (y = T; y < B; y++)
+        {
+            if (l != L)
+            {
                 uchar p[3];
                 get_pixel (page, L - 1, y, p);
                 red   += p[0] * (L - l);
@@ -352,7 +368,8 @@ public class PageView
                 blue  += p[2] * (L - l);
             }
 
-            if (r != R) {
+            if (r != R)
+            {
                 uchar p[3];
                 get_pixel (page, R, y, p);
                 red   += p[0] * (r - R);
@@ -362,28 +379,32 @@ public class PageView
         }
 
         /* Add the corner pixels */
-        if (l != L && t != T) {
+        if (l != L && t != T)
+        {
             uchar p[3];
             get_pixel (page, L - 1, T - 1, p);
             red   += p[0] * (L - l)*(T - t);
             green += p[1] * (L - l)*(T - t);
             blue  += p[2] * (L - l)*(T - t);
         }
-        if (r != R && t != T) {
+        if (r != R && t != T)
+        {
             uchar p[3];
             get_pixel (page, R, T - 1, p);
             red   += p[0] * (r - R)*(T - t);
             green += p[1] * (r - R)*(T - t);
             blue  += p[2] * (r - R)*(T - t);
         }
-        if (r != R && b != B) {
+        if (r != R && b != B)
+        {
             uchar p[3];
             get_pixel (page, R, B, p);
             red   += p[0] * (r - R)*(b - B);
             green += p[1] * (r - R)*(b - B);
             blue  += p[2] * (r - R)*(b - B);
         }
-        if (l != L && b != B) {
+        if (l != L && b != B)
+        {
             uchar p[3];
             get_pixel (page, L - 1, B, p);
             red   += p[0] * (L - l)*(b - B);
@@ -408,7 +429,8 @@ public class PageView
         int L, R, T, B;
         if (output_image == null ||
             output_image.get_width () != output_width ||
-            output_image.get_height () != output_height) {
+            output_image.get_height () != output_height)
+        {
             output_image = new Gdk.Pixbuf (Gdk.Colorspace.RGB,
                                            false,
                                            8,
@@ -422,8 +444,10 @@ public class PageView
             B = output_height - 1;
         }
         /* Otherwise only update changed area */
-        else {
-            switch (scan_direction) {
+        else
+        {
+            switch (scan_direction)
+            {
             case ScanDirection.TOP_TO_BOTTOM:
                 L = 0;
                 R = output_width - 1;
@@ -470,9 +494,11 @@ public class PageView
         var output_rowstride = output_image.get_rowstride ();
         var output_n_channels = output_image.get_n_channels ();
 
-        if (!page.has_data ()) {
+        if (!page.has_data ())
+        {
             for (var x = L; x <= R; x++)
-                for (var y = T; y <= B; y++) {
+                for (var y = T; y <= B; y++)
+                {
                     var o = output_rowstride * y + x * output_n_channels;
                     output[o] = output[o+1] = output[o+2] = 0xFF;
                 }
@@ -480,11 +506,13 @@ public class PageView
         }
 
         /* Update changed area */
-        for (var x = L; x <= R; x++) {
+        for (var x = L; x <= R; x++)
+        {
             var l = (double)x * input_width / output_width;
             var r = (double)(x + 1) * input_width / output_width;
 
-            for (var y = T; y <= B; y++) {
+            for (var y = T; y <= B; y++)
+            {
                 var t = (double)y * input_height / output_height;
                 var b = (double)(y + 1) * input_height / output_height;
 
@@ -614,7 +642,8 @@ public class PageView
 
         /* See if selecting crop */
         location = get_crop_location (x, y);;
-        if (location != CropLocation.NONE) {
+        if (location != CropLocation.NONE)
+        {
             crop_location = location;
             selected_crop_px = x;
             selected_crop_py = y;
@@ -629,7 +658,8 @@ public class PageView
     {
         var location = get_crop_location (x, y);
         Gdk.CursorType cursor;
-        switch (location) {
+        switch (location)
+        {
         case CropLocation.MIDDLE:
             cursor = Gdk.CursorType.HAND1;
             break;
@@ -662,7 +692,8 @@ public class PageView
             break;
         }
 
-        if (crop_location == CropLocation.NONE) {
+        if (crop_location == CropLocation.NONE)
+        {
             this.cursor = cursor;
             return;
         }
@@ -685,7 +716,8 @@ public class PageView
         var min_size = screen_to_page_x (15);
         if (crop_location == CropLocation.TOP_LEFT ||
             crop_location == CropLocation.LEFT ||
-            crop_location == CropLocation.BOTTOM_LEFT) {
+            crop_location == CropLocation.BOTTOM_LEFT)
+        {
             if (dx > new_w - min_size)
                 dx = new_w - min_size;
             if (new_x + dx < 0)
@@ -693,7 +725,8 @@ public class PageView
         }
         if (crop_location == CropLocation.TOP_LEFT ||
             crop_location == CropLocation.TOP ||
-            crop_location == CropLocation.TOP_RIGHT) {
+            crop_location == CropLocation.TOP_RIGHT)
+        {
             if (dy > new_h - min_size)
                 dy = new_h - min_size;
             if (new_y + dy < 0)
@@ -702,7 +735,8 @@ public class PageView
 
         if (crop_location == CropLocation.TOP_RIGHT ||
             crop_location == CropLocation.RIGHT ||
-            crop_location == CropLocation.BOTTOM_RIGHT) {
+            crop_location == CropLocation.BOTTOM_RIGHT)
+        {
             if (dx < min_size - new_w)
                 dx = min_size - new_w;
             if (new_x + new_w + dx > pw)
@@ -710,13 +744,15 @@ public class PageView
         }
         if (crop_location == CropLocation.BOTTOM_LEFT ||
             crop_location == CropLocation.BOTTOM ||
-            crop_location == CropLocation.BOTTOM_RIGHT) {
+            crop_location == CropLocation.BOTTOM_RIGHT)
+        {
             if (dy < min_size - new_h)
                 dy = min_size - new_h;
             if (new_y + new_h + dy > ph)
                 dy = ph - new_y - new_h;
         }
-        if (crop_location == CropLocation.MIDDLE) {
+        if (crop_location == CropLocation.MIDDLE)
+        {
             if (new_x + dx + new_w > pw)
                 dx = pw - new_x - new_w;
             if (new_x + dx < 0)
@@ -728,7 +764,8 @@ public class PageView
         }
 
         /* Move crop */
-        if (crop_location == CropLocation.MIDDLE) {
+        if (crop_location == CropLocation.MIDDLE)
+        {
             new_x += dx;
             new_y += dy;
         }
@@ -741,21 +778,20 @@ public class PageView
         }
         if (crop_location == CropLocation.TOP_LEFT ||
             crop_location == CropLocation.TOP ||
-            crop_location == CropLocation.TOP_RIGHT) {
+            crop_location == CropLocation.TOP_RIGHT)
+        {
             new_y += dy;
             new_h -= dy;
         }
 
         if (crop_location == CropLocation.TOP_RIGHT ||
             crop_location == CropLocation.RIGHT ||
-            crop_location == CropLocation.BOTTOM_RIGHT) {
+            crop_location == CropLocation.BOTTOM_RIGHT)
             new_w += dx;
-        }
         if (crop_location == CropLocation.BOTTOM_LEFT ||
             crop_location == CropLocation.BOTTOM ||
-            crop_location == CropLocation.BOTTOM_RIGHT) {
+            crop_location == CropLocation.BOTTOM_RIGHT)
             new_h += dy;
-        }
 
         page.move_crop (new_x, new_y);
 
@@ -792,7 +828,8 @@ public class PageView
         if (animate == is_animating)
             return;
 
-        if (animate) {
+        if (animate)
+        {
             animate_segment = 0;
             if (animate_timeout == 0)
                 animate_timeout = Timeout.add (150, animation_cb);
@@ -831,7 +868,8 @@ public class PageView
         context.paint ();
 
         /* Draw throbber */
-        if (page.is_scanning () && !page.has_data ()) {
+        if (page.is_scanning () && !page.has_data ())
+        {
             double outer_radius;
             if (w > h)
                 outer_radius = 0.15 * w;
@@ -845,12 +883,14 @@ public class PageView
             var inner_radius = 0.6 * Math.sqrt (x*x + y*y);
 
             double offset = 0.0;          
-            for (var i = 0; i < animate_n_segments; i++, offset += arc * 2) {
+            for (var i = 0; i < animate_n_segments; i++, offset += arc * 2)
+            {
                 x = w / 2 + outer_radius * Math.sin (offset);
                 y = h / 2 - outer_radius * Math.cos (offset);
                 context.arc (x, y, inner_radius, 0, 2 * Math.PI);
 
-                if (i == animate_segment) {
+                if (i == animate_segment)
+                {
                     context.set_source_rgb (0.75, 0.75, 0.75);
                     context.fill_preserve ();
                 }
@@ -861,12 +901,14 @@ public class PageView
         }
 
         /* Draw scan line */
-        if (page.is_scanning () && page.get_scan_line () > 0) {
+        if (page.is_scanning () && page.get_scan_line () > 0)
+        {
             var scan_line = page.get_scan_line ();
 
             double s;
             double x1, y1, x2, y2;
-            switch (page.get_scan_direction ()) {
+            switch (page.get_scan_direction ())
+            {
             case ScanDirection.TOP_TO_BOTTOM:
                 s = page_to_screen_y (scan_line);
                 x1 = 0; y1 = s + 0.5;
@@ -899,7 +941,8 @@ public class PageView
         }
 
         /* Draw crop */
-        if (page.has_crop ()) {
+        if (page.has_crop ())
+        {
             int x, y, crop_width, crop_height;
             page.get_crop (out x, out y, out crop_width, out crop_height);
 

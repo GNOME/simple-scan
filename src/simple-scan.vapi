@@ -6,26 +6,6 @@ public class ScanDevice : GLib.Object
     public string label;
 }
 
-[CCode (cheader_filename = "book.h")]
-public class Book : GLib.Object
-{
-    public signal void page_added (Page page);
-    public signal void page_removed (Page page);
-    public signal void cleared ();
-    public signal void reordered ();
-    public Book ();
-    public int get_n_pages ();
-    public Page get_page (int page_num);
-    public Page append_page (int width, int height, int dpi, ScanDirection direction);
-    public void delete_page (Page page);
-    public void save (string format, GLib.File file) throws GLib.Error;
-    public int get_page_index (Page page);
-    public bool get_needs_saving ();
-    public void move_page (Page page, int index);
-    public void set_needs_saving (bool needs_saving);
-    public void clear ();
-}
-
 [CCode (cheader_filename = "page.h")]
 public class Page : GLib.Object
 {
@@ -34,6 +14,7 @@ public class Page : GLib.Object
     public signal void crop_changed ();
     public signal void pixels_changed ();
     public signal void scan_line_changed ();
+    public Page (int width, int height, int dpi, ScanDirection scan_direction);
     public bool has_data ();
     public void start ();
     public ScanDirection get_scan_direction ();
@@ -66,6 +47,7 @@ public class Page : GLib.Object
     public void rotate_right ();
     public bool is_scanning ();
     public int get_scan_line ();
+    public bool is_color ();
 }
 
 [CCode (cheader_filename = "scanner.h")]

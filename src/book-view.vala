@@ -538,7 +538,7 @@ public class BookView : Gtk.VBox
             select_page_view (get_next_page (selected_page));
             return true;
         case 0xFF57: /* FIXME: GDK_End */
-            select_page (book.get_page (book.get_n_pages () - 1));
+            select_page (book.get_page ((int) book.get_n_pages () - 1));
             return true;
 
         default:

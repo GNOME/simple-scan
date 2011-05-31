@@ -64,7 +64,8 @@ public class Application
         udev_client.uevent.connect (on_uevent);
 
 #if 0
-        if (default_device != null) {
+        if (default_device != null)
+        {
             List<ScanDevice> device_list = null;
 
             device_list.append (default_device);
@@ -86,7 +87,8 @@ public class Application
 
         /* If the default device is not detected add it to the list */
 #if 0
-        if (default_device != null) {
+        if (default_device != null)
+        {
             var default_in_list = false;
             foreach (var device in devices_copy)
             {
@@ -117,7 +119,8 @@ public class Application
     {
         /* Use current page if not used */
         var page = book.get_page (-1);
-        if (page != null && !page.has_data ()) {
+        if (page != null && !page.has_data ())
+        {
             ui.set_selected_page (page);
             page.start ();
             return page;
@@ -128,22 +131,26 @@ public class Application
         bool do_crop = false;
         string named_crop = null;
         var width = 100, height = 100, dpi = 100, cx = 0, cy = 0, cw = 0, ch = 0;
-        if (page != null) {
+        if (page != null)
+        {
             scan_direction = page.get_scan_direction ();
             width = page.get_width ();
             height = page.get_height ();
             dpi = page.get_dpi ();
 
             do_crop = page.has_crop ();
-            if (do_crop) {
+            if (do_crop)
+            {
                 named_crop = page.get_named_crop ();
                 page.get_crop (out cx, out cy, out cw, out ch);
             }
         }
 
         page = book.append_page (width, height, dpi, scan_direction);
-        if (do_crop) {
-            if (named_crop != null)  {
+        if (do_crop)
+        {
+            if (named_crop != null)
+            {
                 page.set_named_crop (named_crop);
             }
             else
@@ -184,13 +191,15 @@ public class Application
                                      G_TYPE_INVALID,
                                      custom_g_type_string_string, &profile_data_array,
                                      G_TYPE_INVALID);
-        if (!ret) {
+        if (!ret)
+        {
             debug ("The request failed: %s", error.message);
             g_error_free (error);
             return null;
         }
 
-        if (profile_data_array.len > 0) {
+        if (profile_data_array.len > 0)
+        {
             GValueArray *gva;
             GValue *gv = null;
 
@@ -226,19 +235,19 @@ public class Application
 
     private void scanner_line_cb (Scanner scanner, ScanLine line)
     {
-        var page = book.get_page (book.get_n_pages () - 1);
+        var page = book.get_page ((int) book.get_n_pages () - 1);
         page.parse_scan_line (line);
     }
 
     private void scanner_page_done_cb (Scanner scanner)
     {
-        var page = book.get_page (book.get_n_pages () - 1);
+        var page = book.get_page ((int) book.get_n_pages () - 1);
         page.finish ();
     }
 
     private void remove_empty_page ()
     {
-        var page = book.get_page (book.get_n_pages () - 1);
+        var page = book.get_page ((int) book.get_n_pages () - 1);
 
         /* Remove a failed page */
         if (page.has_data ())
@@ -256,7 +265,8 @@ public class Application
     {
         remove_empty_page ();
 #if 0
-        if (!error.matches (SCANNER_TYPE, SANE_STATUS_CANCELLED)) {
+        if (!error.matches (SCANNER_TYPE, SANE_STATUS_CANCELLED))
+        {
             ui.show_error (/* Title of error dialog when scan failed */
                            _("Failed to scan"),
                            error.message,
@@ -322,10 +332,12 @@ public class Application
         var command_line = "xdg-email";
 
         /* Save text files as PDFs */
-        if (profile == "text") {
+        if (profile == "text")
+        {
             /* Open a temporary file */
             var path = get_temporary_filename ("scan", "pdf");
-            if (path != null) {
+            if (path != null)
+            {
                 var file = File.new_for_path (path);
                 try
                 {
@@ -339,10 +351,13 @@ public class Application
                 command_line += " --attach %s".printf (path);
             }
         }
-        else {
-            for (var i = 0; i < book.get_n_pages (); i++) {
+        else
+        {
+            for (var i = 0; i < book.get_n_pages (); i++)
+            {
                 var path = get_temporary_filename ("scan", "jpg");
-                if (path == null) {
+                if (path == null)
+                {
                     saved = false;
                     break;
                 }
@@ -387,10 +402,12 @@ public class Application
     private static void log_cb (string? log_domain, LogLevelFlags log_level, string message)
     {
         /* Log everything to a file */
-        if (log_file != null) {
+        if (log_file != null) 
+        {
             string prefix;
 
-            switch (log_level & LogLevelFlags.LEVEL_MASK) {
+            switch (log_level & LogLevelFlags.LEVEL_MASK)
+            {
             case LogLevelFlags.LEVEL_ERROR:
                 prefix = "ERROR:";
                 break;
@@ -418,7 +435,8 @@ public class Application
         }
 
         /* Only show debug if requested */
-        if ((log_level & LogLevelFlags.LEVEL_DEBUG) != 0) {
+        if ((log_level & LogLevelFlags.LEVEL_DEBUG) != 0)
+        {
             if (debug_enabled)
                 Log.default_handler (log_domain, log_level, message);
         }

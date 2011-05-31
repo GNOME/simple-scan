@@ -113,8 +113,10 @@ public class SimpleScan
     {
         bool have_iter = false;
 
-        if (device_model.get_iter_first (out iter)) {
-            do {
+        if (device_model.get_iter_first (out iter))
+        {
+            do
+            {
                 string d;
                 device_model.get (iter, 0, out d, -1);
                 if (d == device)
@@ -174,7 +176,8 @@ public class SimpleScan
         bool show_close_button = false;
         bool show_change_scanner_button = false;
 
-        if (have_error)  {
+        if (have_error)
+        {
             type = Gtk.MessageType.ERROR;
             image_id = Gtk.Stock.DIALOG_ERROR;
             title = error_title;
@@ -182,7 +185,8 @@ public class SimpleScan
             show_close_button = true;
             show_change_scanner_button = error_change_scanner_hint;
         }
-        else if (device_model.iter_n_children (null) == 0) {
+        else if (device_model.iter_n_children (null) == 0)
+        {
             type = Gtk.MessageType.WARNING;
             image_id = Gtk.Stock.DIALOG_WARNING;
             /* Warning displayed when no scanners are detected */
@@ -190,7 +194,8 @@ public class SimpleScan
             /* Hint to user on why there are no scanners detected */
             text = _("Please check your scanner is connected and powered on");
         }
-        else {
+        else
+        {
             info_bar.hide ();
             return;
         }
@@ -223,16 +228,19 @@ public class SimpleScan
             int n_delete = -1;
 
             /* Find if already exists */
-            if (device_model.iter_nth_child (out iter, null, index)) {
+            if (device_model.iter_nth_child (out iter, null, index))
+            {
                 int i = 0;
-                do {
+                do
+                {
                     string name;
                     bool matched;
 
                     device_model.get (iter, 0, out name, -1);
                     matched = name == device.name;
 
-                    if (matched) {
+                    if (matched)
+                    {
                         n_delete = i;
                         break;
                     }
@@ -241,18 +249,21 @@ public class SimpleScan
             }
 
             /* If exists, remove elements up to this one */
-            if (n_delete >= 0) {
+            if (n_delete >= 0)
+            {
                 int i;
 
                 /* Update label */
                 device_model.set (iter, 1, device.label, -1);
 
-                for (i = 0; i < n_delete; i++) {
+                for (i = 0; i < n_delete; i++)
+                {
                     device_model.iter_nth_child (out iter, null, index);
                     device_model.remove (iter);
                 }
             }
-            else {
+            else
+            {
                 device_model.insert (out iter, index);
                 device_model.set (iter, 0, device.name, 1, device.label, -1);
             }
@@ -276,7 +287,8 @@ public class SimpleScan
     {
         Gtk.TreeIter iter;
 
-        if (device_combo.get_active_iter (out iter)) {
+        if (device_combo.get_active_iter (out iter))
+        {
             string device;
             device_model.get (iter, 0, out device, -1);
             return device;
@@ -337,9 +349,8 @@ public class SimpleScan
             warning ("Error reading configuration: %s", e.message);
         }
             
-        if (directory == null || directory == "") {
+        if (directory == null || directory == "")
             directory = Environment.get_user_special_dir (UserDirectory.DOCUMENTS);
-        }
 
         save_dialog = new Gtk.FileChooserDialog (/* Save dialog: Dialog title */
                                                  _("Save As..."),
@@ -406,8 +417,10 @@ public class SimpleScan
         file_type_view.append_column (column);
         expander.add (file_type_view);
 
-        if (file_type_store.get_iter_first (out iter)) {
-            do {
+        if (file_type_store.get_iter_first (out iter))
+        {
+            do
+            {
                 string e;
                 file_type_store.get (iter, 1, out e, -1);
                 if (extension == e)
@@ -503,7 +516,8 @@ public class SimpleScan
         var response = dialog.run ();
         dialog.destroy ();
 
-        switch (response) {
+        switch (response)
+        {
         case Gtk.ResponseType.YES:
             if (save_document (false))
                 return true;
@@ -542,11 +556,13 @@ public class SimpleScan
     {
         this.document_hint = document_hint;
 
-        if (document_hint == "text") {
+        if (document_hint == "text")
+        {
             text_toolbar_menuitem.set_active (true);
             text_menu_menuitem.set_active (true);
         }
-        else if (document_hint == "photo") {
+        else if (document_hint == "photo")
+        {
             photo_toolbar_menuitem.set_active (true);
             photo_menu_menuitem.set_active (true);
         }
@@ -570,13 +586,16 @@ public class SimpleScan
     {
         Gtk.TreeIter iter;
 
-        if (page_side_model.get_iter_first (out iter)) {
-            do {
+        if (page_side_model.get_iter_first (out iter))
+        {
+            do
+            {
                 string d;
                 page_side_model.get (iter, 0, out d, -1);
                 var have_match = d == document_hint;
 
-                if (have_match) {
+                if (have_match)
+                {
                     page_side_combo.set_active_iter (iter);
                     return;
                 }
@@ -591,11 +610,12 @@ public class SimpleScan
 
         for (have_iter = paper_size_model.get_iter_first (out iter);
              have_iter;
-             have_iter = paper_size_model.iter_next (ref iter)) {
+             have_iter = paper_size_model.iter_next (ref iter))
+        {
             int w, h;
             paper_size_model.get (iter, 0, out w, 1, out h, -1);
             if (w == width && h == height)
-                break;
+               break;
         }
 
         if (!have_iter)
@@ -641,7 +661,8 @@ public class SimpleScan
     {
         Gtk.TreeIter iter;
 
-        if (paper_size_combo.get_active_iter (out iter)) {
+        if (paper_size_combo.get_active_iter (out iter))
+        {
             paper_size_model.get (iter, 0, width, 1, height, -1);
             return true;
         }
@@ -690,9 +711,12 @@ public class SimpleScan
     [CCode (cname = "G_MODULE_EXPORT continuous_scan_button_clicked_cb", instance_pos = -1)]
     public void continuous_scan_button_clicked_cb (Gtk.Widget widget)
     {
-        if (scanning) {
+        if (scanning)
+        {
             stop_scan ();
-        } else {
+        }
+        else
+        {
             string device, side;
             ScanOptions options;
 
@@ -745,10 +769,12 @@ public class SimpleScan
         update_page_menu ();
 
         string name = null;
-        if (page.has_crop ()) {
+        if (page.has_crop ())
+        {
             // FIXME: Make more generic, move into page-size.c and reuse
             var crop_name = page.get_named_crop ();
-            if (crop_name != null) {
+            if (crop_name != null)
+            {
                 if (crop_name == "A4")
                     name = "a4_menuitem";
                 else if (crop_name == "A5")
@@ -862,11 +888,13 @@ public class SimpleScan
         if (page == null)
             return;
 
-        if (crop_name == null) {
+        if (crop_name == null)
+        {
             page.set_no_crop ();
             return;
         }
-        else if (crop_name == "custom") {
+        else if (crop_name == "custom")
+        {
             var width = page.get_width ();
             var height = page.get_height ();
             var crop_width = (int) (width * 0.8 + 0.5);
@@ -1008,7 +1036,8 @@ public class SimpleScan
         bool is_landscape = false;
         if (print_context.get_width () > print_context.get_height ())
             is_landscape = true;
-        if (page.is_landscape () != is_landscape) {
+        if (page.is_landscape () != is_landscape)
+        {
             context.translate (print_context.get_width (), 0);
             context.rotate (Math.PI_2);
         }
@@ -1031,7 +1060,7 @@ public class SimpleScan
     public void print_button_clicked_cb (Gtk.Widget widget)
     {
         var print = new Gtk.PrintOperation ();
-        print.set_n_pages (book.get_n_pages ());
+        print.set_n_pages ((int) book.get_n_pages ());
         print.draw_page.connect (draw_page);
 
         try
@@ -1151,7 +1180,8 @@ public class SimpleScan
     [CCode (cname = "G_MODULE_EXPORT simple_scan_window_configure_event_cb", instance_pos = -1)]
     public bool simple_scan_window_configure_event_cb (Gtk.Widget widget, Gdk.EventConfigure event)
     {
-        if (!window_is_maximized) {
+        if (!window_is_maximized)
+        {
             window_width = event.width;
             window_height = event.height;
         }
@@ -1161,11 +1191,13 @@ public class SimpleScan
 
     private void info_bar_response_cb (Gtk.InfoBar widget, int response_id)
     {
-        if (response_id == 1) {
+        if (response_id == 1)
+        {
             device_combo.grab_focus ();
             preferences_dialog.present ();
         }
-        else {
+        else
+        {
             have_error = false;
             error_title = null;
             error_text = null;
@@ -1253,7 +1285,7 @@ public class SimpleScan
         }
     }
 
-    private void needs_saving_cb (ParamSpec pspec)
+    private void needs_saving_cb (Book book)
     {
         save_menuitem.set_sensitive (book.get_needs_saving ());
         save_toolbutton.set_sensitive (book.get_needs_saving ());
@@ -1374,9 +1406,8 @@ public class SimpleScan
         page_side_combo.pack_start (renderer, true);
         page_side_combo.add_attribute (renderer, "text", 1);
         var page_side = client.get_string (Config.GCONF_DIR + "/page_side");
-        if (page_side != null) {
+        if (page_side != null)
             set_page_side (page_side);
-        }
 
         renderer = new Gtk.CellRendererText ();
         paper_size_combo.pack_start (renderer, true);
@@ -1386,15 +1417,15 @@ public class SimpleScan
         set_paper_size (paper_width, paper_height);
 
         var device = client.get_string (Config.GCONF_DIR + "/selected_device");
-        if (device != null) {
+        if (device != null)
+        {
             if (find_scan_device (device, out iter))
                 device_combo.set_active_iter (iter);
         }
 
         var document_type = client.get_string (Config.GCONF_DIR + "/document_type");
-        if (document_type != null) {
+        if (document_type != null)
             set_document_hint (document_type);
-        }
 
         book_view = new BookView (book);
         book_view.set_border_width (18);
@@ -1407,7 +1438,8 @@ public class SimpleScan
         /* Find default page details */
         var scan_direction = client.get_string (Config.GCONF_DIR + "/scan_direction");
         default_page_scan_direction = ScanDirection.TOP_TO_BOTTOM;
-        if (scan_direction != null) {
+        if (scan_direction != null)
+        {
             switch (scan_direction)
             {
             case "top-to-bottom":
@@ -1444,7 +1476,8 @@ public class SimpleScan
         debug ("Restoring window to %dx%d pixels", window_width, window_height);
         window.set_default_size (window_width, window_height);
         window_is_maximized = client.get_bool (Config.GCONF_DIR + "/window_is_maximized");
-        if (window_is_maximized) {
+        if (window_is_maximized)
+        {
             debug ("Restoring window to maximized");
             window.maximize ();
         }
@@ -1452,7 +1485,7 @@ public class SimpleScan
         if (book.get_n_pages () == 0)
             add_default_page ();
         book.set_needs_saving (false);
-        book.notify["needs-saving"].connect (needs_saving_cb);
+        book.needs_saving_changed.connect (needs_saving_cb);
     }
 
     public Book get_book ()

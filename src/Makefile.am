@@ -2,7 +2,7 @@ bin_PROGRAMS = simple-scan
 
 simple_scan_SOURCES = \
 	config.vapi \
-	book.c \
+	book.vala \
 	book-view.vala \
 	page.c \
 	page-view.vala \
@@ -12,6 +12,7 @@ simple_scan_SOURCES = \
 	ui.vala
 
 simple_scan_VALAFLAGS = \
+	--pkg=zlib \
 	--pkg=gudev-1.0 \
 	--pkg=gio-2.0 \
 	--pkg=gconf-2.0 \
