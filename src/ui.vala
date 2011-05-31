@@ -754,9 +754,18 @@ public class SimpleScan
 
     private void update_page_menu ()
     {
-        var index = book.get_page_index (book_view.get_selected ());
-        page_move_left_menuitem.set_sensitive (index > 0);
-        page_move_right_menuitem.set_sensitive (index < book.get_n_pages () - 1);
+        var page = book_view.get_selected ();
+        if (page == null)
+        {
+            page_move_left_menuitem.set_sensitive (false);
+            page_move_right_menuitem.set_sensitive (false);
+        }
+        else
+        {
+            var index = book.get_page_index (page);
+            page_move_left_menuitem.set_sensitive (index > 0);
+            page_move_right_menuitem.set_sensitive (index < book.get_n_pages () - 1);
+        }
     }
 
     private void page_selected_cb (BookView view, Page? page)
