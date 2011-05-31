@@ -724,17 +724,17 @@ public class PixbufWriter
     {
         this.stream = stream;
     }
-    
+
     public void save (Gdk.Pixbuf image, string type, string[] option_keys, string[] option_values) throws Error
     {
-        image.save_to_callbackv (write_pixbuf_data, type, option_keys, option_values);
+        gdk_pixbuf_save_to_callbackv (image, write_pixbuf_data, type, option_keys, option_values);
     }
 
-    private bool write_pixbuf_data (string buf, size_t count, out Error error)
+    private bool write_pixbuf_data (uint8[] buf, out Error error)
     {
         try
         {
-            stream.write_all ((uint8[]) buf, null, null);
+            stream.write_all (buf, null, null);
         }
         catch (Error e)
         {
