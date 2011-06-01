@@ -206,17 +206,17 @@ public class Page
         return scan_direction;
     }
 
-    private void set_scan_direction (ScanDirection scan_direction)
+    private void set_scan_direction (ScanDirection direction)
     {
         int left_steps, t;
         bool size_has_changed = false;
         int width, height;
 
-        if (scan_direction == scan_direction)
+        if (scan_direction == direction)
             return;
 
         /* Work out how many times it has been rotated to the left */
-        left_steps = scan_direction - scan_direction;
+        left_steps = direction - scan_direction;
         if (left_steps < 0)
             left_steps += 4;
         if (left_steps != 2)
@@ -256,7 +256,7 @@ public class Page
             }
         }
 
-        this.scan_direction = scan_direction;
+        scan_direction = direction;
         if (size_has_changed)
             size_changed ();
         scan_direction_changed ();

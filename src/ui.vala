@@ -869,7 +869,9 @@ public class SimpleScan
     {
         if (updating_page_menu)
             return;
-        book_view.get_selected ().rotate_left ();
+        var page = book_view.get_selected ();
+        if (page != null)
+            page.rotate_left ();
     }
 
     [CCode (cname = "G_MODULE_EXPORT rotate_right_button_clicked_cb", instance_pos = -1)]
@@ -877,7 +879,9 @@ public class SimpleScan
     {
         if (updating_page_menu)
             return;
-        book_view.get_selected ().rotate_right ();
+        var page = book_view.get_selected ();
+        if (page != null)
+            page.rotate_right ();
     }
 
     private void set_crop (string? crop_name)
