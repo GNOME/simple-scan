@@ -280,7 +280,7 @@ public class Application
         ui.set_scanning (scanner.is_scanning ());
     }
 
-    private void scan_cb (SimpleScan ui, string device, ScanOptions options)
+    private void scan_cb (SimpleScan ui, string? device, ScanOptions options)
     {
         string extension;
         if (options.scan_mode == ScanMode.COLOR)

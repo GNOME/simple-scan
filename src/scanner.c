@@ -1717,9 +1717,26 @@ scanner_init (Scanner *scanner)
 
 
 ScanDevice *scan_device_new (void) { return g_object_new (TYPE_SCAN_DEVICE, NULL); }
-static void scan_device_class_init (ScanDeviceClass *klass) {}
-static void scan_device_init (ScanDevice *device) {}
+static void scan_device_finalize (GObject *object)
+{
+    ScanDevice *device = SCAN_DEVICE (object);
+    g_free (device->name);
+    g_free (device->label);
+    G_OBJECT_CLASS (scan_device_parent_class)->finalize (object);
+}
+static void scan_device_class_init (ScanDeviceClass *klass)
+{
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    object_class->finalize = scan_device_finalize;
+}
+static void scan_device_init (ScanDevice *device)
+{
+    memset (device, 0, sizeof (ScanDevice));
+}
 
 ScanOptions *scan_options_new (void) { return g_object_new (TYPE_SCAN_OPTIONS, NULL); }
 static void scan_options_class_init (ScanOptionsClass *klass) {}
-static void scan_options_init (ScanOptions *options) {}
+static void scan_options_init (ScanOptions *options)
+{
+    memset (options, 0, sizeof (ScanOptions));
+}
