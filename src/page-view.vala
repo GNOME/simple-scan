@@ -148,7 +148,7 @@ public class PageView
 
         var depth = page.get_depth ();
         var n_channels = page.get_n_channels ();
-        var pixels = page.get_pixels ();
+        unowned uchar[] pixels = page.get_pixels ();
         var offset = page.get_rowstride () * y;
 
         /* Optimise for 8 bit images */
@@ -490,7 +490,7 @@ public class PageView
         return_if_fail (B < output_height);
         return_if_fail (output_image != null);
 
-        var output = output_image.get_pixels ();
+        unowned uchar[] output = output_image.get_pixels ();
         var output_rowstride = output_image.get_rowstride ();
         var output_n_channels = output_image.get_n_channels ();
 

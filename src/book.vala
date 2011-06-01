@@ -174,23 +174,19 @@ public class Book
         struct jpeg_compress_struct info;
         struct jpeg_error_mgr jerr;
         struct jpeg_destination_mgr dest_mgr;
-        int r;
-        uchar *pixels;
-        uchar *data;
-        size_t max_length;
 
         info.err = jpeg_std_error (&jerr);
         jpeg_create_compress (&info);
 
-        pixels = image.get_pixels ();
+        unowned uchar[] pixels = image.get_pixels ();
         info.image_width = image.get_width ();
         info.image_height = image.get_height ();
         info.input_components = 3;
         info.in_color_space = JCS_RGB; /* TODO: JCS_GRAYSCALE? */
         jpeg_set_defaults (&info);
 
-        max_length = info.image_width * info.image_height * info.input_components;
-        data = new uchar[max_length];
+        var max_length = info.image_width * info.image_height * info.input_components;
+        var data = new uchar[max_length];
         dest_mgr.next_output_byte = data;
         dest_mgr.free_in_buffer = max_length;
         dest_mgr.init_destination = jpeg_init_cb;
@@ -199,7 +195,7 @@ public class Book
         info.dest = &dest_mgr;
 
         jpeg_start_compress (&info, true);
-        for (r = 0; r < info.image_height; r++)
+        for (var r = 0; r < info.image_height; r++)
         {
             JSAMPROW row[1];
             row[0] = pixels + r * image.get_rowstride ();
@@ -270,7 +266,7 @@ public class Book
             var image = page.get_image (true);
             var width = image.get_width ();
             var height = image.get_height ();
-            var pixels = image.get_pixels ();
+            unowned uchar[] pixels = image.get_pixels ();
             var page_width = width * 72.0 / page.get_dpi ();
             var page_height = height * 72.0 / page.get_dpi ();
 

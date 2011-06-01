@@ -536,8 +536,7 @@ public class Page
         return crop_name;
     }
 
-    // FIXME: Check not copied
-    public uchar[] get_pixels ()
+    public unowned uchar[] get_pixels ()
     {
         return pixels;
     }
@@ -550,8 +549,7 @@ public class Page
     }
 
     // FIXME: Copied from page-view, should be shared code
-    private void
-    get_pixel (int x, int y, uchar[] pixel, int offset)
+    private void get_pixel (int x, int y, uchar[] pixel, int offset)
     {
         switch (get_scan_direction ())
         {
