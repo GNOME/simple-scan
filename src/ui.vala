@@ -692,10 +692,9 @@ public class SimpleScan
     [CCode (cname = "G_MODULE_EXPORT scan_button_clicked_cb", instance_pos = -1)]
     public void scan_button_clicked_cb (Gtk.Widget widget)
     {
-        var device = get_selected_device ();
         var options = get_scan_options ();
         options.type = ScanType.SINGLE;
-        start_scan (device, options);
+        start_scan (get_selected_device (), options);
     }
 
     [CCode (cname = "G_MODULE_EXPORT stop_scan_button_clicked_cb", instance_pos = -1)]
@@ -711,20 +710,21 @@ public class SimpleScan
             stop_scan ();
         else
         {
-            string device, side;
-            ScanOptions options;
-
-            device = get_selected_device ();
-            options = get_scan_options ();
-            side = get_page_side ();
-            if (side == "front")
+            var options = get_scan_options ();
+            switch (get_page_side ())
+            {
+            case "front":
                 options.type = ScanType.ADF_FRONT;
-            else if (side == "back")
+                break;
+            case "back":
                 options.type = ScanType.ADF_BACK;
-            else
+                break;
+            default:
                 options.type = ScanType.ADF_BOTH;
+                break;
+            }
 
-            start_scan (device, options);
+            start_scan (get_selected_device (), options);
         }
     }
 
