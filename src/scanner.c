@@ -1731,12 +1731,12 @@ static void scan_device_class_init (ScanDeviceClass *klass)
 }
 static void scan_device_init (ScanDevice *device)
 {
-    memset (device, 0, sizeof (ScanDevice));
+    memset (device, 0, sizeof (*device));
 }
 
 ScanOptions *scan_options_new (void) { return g_object_new (TYPE_SCAN_OPTIONS, NULL); }
 static void scan_options_class_init (ScanOptionsClass *klass) {}
 static void scan_options_init (ScanOptions *options)
 {
-    memset (options, 0, sizeof (ScanOptions));
+    memset (options, 0, sizeof (*options));
 }
