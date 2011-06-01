@@ -84,8 +84,8 @@ public class SimpleScan
     private int window_width;
     private int window_height;
     private bool window_is_maximized;
-    
-    public signal void start_scan (string device, ScanOptions options);
+
+    public signal void start_scan (string? device, ScanOptions options);
     public signal void stop_scan ();
     public signal void email (string profile);
     public signal void quit ();
@@ -663,7 +663,7 @@ public class SimpleScan
 
         if (paper_size_combo.get_active_iter (out iter))
         {
-            paper_size_model.get (iter, 0, width, 1, height, -1);
+            paper_size_model.get (iter, 0, ref width, 1, ref height, -1);
             return true;
         }
 
@@ -692,12 +692,8 @@ public class SimpleScan
     [CCode (cname = "G_MODULE_EXPORT scan_button_clicked_cb", instance_pos = -1)]
     public void scan_button_clicked_cb (Gtk.Widget widget)
     {
-        string device;
-        ScanOptions options;
-
-        device = get_selected_device ();
-
-        options = get_scan_options ();
+        var device = get_selected_device ();
+        var options = get_scan_options ();
         options.type = ScanType.SINGLE;
         start_scan (device, options);
     }
@@ -712,9 +708,7 @@ public class SimpleScan
     public void continuous_scan_button_clicked_cb (Gtk.Widget widget)
     {
         if (scanning)
-        {
             stop_scan ();
-        }
         else
         {
             string device, side;
@@ -777,7 +771,7 @@ public class SimpleScan
 
         update_page_menu ();
 
-        string name = null;
+        string? name = null;
         if (page.has_crop ())
         {
             // FIXME: Make more generic, move into page-size.c and reuse
@@ -1383,8 +1377,8 @@ public class SimpleScan
         Gtk.TreeIter iter;
         paper_size_model.append (out iter);
         paper_size_model.set (iter, 0, 0, 1, 0, 2,
-                            /* Combo box value for automatic paper size */
-                            _("Automatic"), -1);
+                              /* Combo box value for automatic paper size */
+                              _("Automatic"), -1);
         paper_size_model.append (out iter);
         paper_size_model.set (iter, 0, 1050, 1, 1480, 2, "A6", -1);
         paper_size_model.append (out iter);
