@@ -94,7 +94,7 @@ public class Page
         depth = info.depth;
         n_channels = info.n_channels;
         rowstride = (width * depth * n_channels + 7) / 8;
-        pixels = (uchar[]) realloc (pixels, n_rows * rowstride);
+        pixels.resize (n_rows * rowstride);
         return_if_fail (pixels != null);
 
         /* Fill with white */
@@ -149,7 +149,7 @@ public class Page
             rows = n_rows;
             n_rows = rows + width / 2;
             debug ("Extending image from %d lines to %d lines", rows, n_rows);
-            pixels = (uchar[]) realloc (pixels, n_rows * rowstride);
+            pixels.resize (n_rows * rowstride);
 
             size_changed = true;
         }
@@ -189,7 +189,7 @@ public class Page
 
             rows = n_rows;
             n_rows = scan_line;
-            pixels = (uchar[]) realloc (pixels, n_rows * rowstride);
+            pixels.resize (n_rows * rowstride);
             debug ("Trimming page from %d lines to %d lines", rows, n_rows);
 
             size_has_changed = true;
@@ -575,7 +575,6 @@ public class Page
 
         var depth = get_depth ();
         var n_channels = get_n_channels ();
-        var pixels = get_pixels ();
         var line_offset = get_rowstride () * y;
 
         /* Optimise for 8 bit images */
@@ -649,12 +648,12 @@ public class Page
         }
 
         var image = new Gdk.Pixbuf (Gdk.Colorspace.RGB, false, 8, r - l, b - t);
-        var pixels = image.get_pixels ();
+        var image_pixels = image.get_pixels ();
         for (var y = t; y < b; y++)
         {
             var offset = image.get_rowstride () * (y - t);
             for (var x = l; x < r; x++)
-                get_pixel (x, y, pixels, offset + (x - l) * 3);
+                get_pixel (x, y, image_pixels, offset + (x - l) * 3);
         }
 
         return image;

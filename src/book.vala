@@ -190,7 +190,7 @@ public class Book
         jpeg_set_defaults (&info);
 
         max_length = info.image_width * info.image_height * info.input_components;
-        data = g_malloc (sizeof (uchar) * max_length);
+        data = new uchar[max_length];
         dest_mgr.next_output_byte = data;
         dest_mgr.free_in_buffer = max_length;
         dest_mgr.init_destination = jpeg_init_cb;
