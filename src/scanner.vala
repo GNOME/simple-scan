@@ -312,7 +312,7 @@ public class Scanner
 
             scan_device.label = "%s %s".printf (vendor, device_list[i].model);
             /* Replace underscores in name */
-            label.replace ("_", " ");
+            scan_device.label.replace ("_", " ");
 
             devices.append (scan_device);
         }
