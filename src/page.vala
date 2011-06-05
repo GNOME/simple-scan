@@ -83,7 +83,7 @@ public class Page
     public void set_page_info (ScanPageInfo info)
     {
         expected_rows = info.height;
-        dpi = info.dpi;
+        dpi = (int) info.dpi;
 
         /* Create a white page */
         width = info.width;

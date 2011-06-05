@@ -261,18 +261,16 @@ public class Application
         remove_empty_page ();
     }
 
-    private void scanner_failed_cb (Scanner scanner, Error error)
+    private void scanner_failed_cb (Scanner scanner, int error_code, string error_string)
     {
         remove_empty_page ();
-#if 0
-        if (!error.matches (SCANNER_TYPE, SANE_STATUS_CANCELLED))
+        if (error_code == Sane.Status.CANCELLED)
         {
             ui.show_error (/* Title of error dialog when scan failed */
                            _("Failed to scan"),
-                           error.message,
+                           error_string,
                            have_devices);
         }
-#endif
     }
 
     private void scanner_scanning_changed_cb (Scanner scanner)

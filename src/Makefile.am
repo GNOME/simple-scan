@@ -6,9 +6,10 @@ simple_scan_SOURCES = \
 	book-view.vala \
 	page.vala \
 	page-view.vala \
+	sane.vapi \
 	simple-scan.vala \
 	simple-scan.vapi \
-	scanner.c \
+	scanner.vala \
 	ui.vala
 
 simple_scan_VALAFLAGS = \
