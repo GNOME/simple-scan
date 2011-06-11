@@ -1257,8 +1257,8 @@ public class Scanner
         var n_to_read = buffer.length - n_used;
 
         Sane.Int n_read;
-        // FIXME: Can't write into buffer offset
-        var status = Sane.read (handle, buffer/* + n_used, n_to_read*/, out n_read);
+        var b = (uchar *) buffer;
+        var status = Sane.read (handle, (uint8[]) (b + n_used), (Sane.Int) n_to_read, out n_read);
         debug ("sane_read (%d) -> (%s, %d)", n_to_read, get_status_string (status), n_read);
 
         /* Completed read */

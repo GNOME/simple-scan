@@ -191,7 +191,7 @@ namespace Sane {
     public Status control_option (Handle handle, Int option, Action action, void *value, out Info? info = null);
     public Status get_parameters (Handle handle, out Parameters params);
     public Status start (Handle handle);
-    public Status read (Handle handle, uint8[] data, out Int length);
+    public Status read (Handle handle, uint8* data, Int max_length, out Int length);
     public void cancel (Handle handle);
     public Status set_io_mode (Handle handle, bool non_blocking);
     public Status get_select_fd (Handle handle, out int fd);
