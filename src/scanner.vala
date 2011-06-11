@@ -82,15 +82,6 @@ public class ScanOptions
     public int paper_height;
 }
 
-#if 0
-private class SignalInfo
-{
-    Scanner instance;
-    uint sig;
-    void *data;
-}
-#endif
-
 private class ScanJob
 {
     public string device;
@@ -102,19 +93,18 @@ private class ScanJob
     public int page_height;
 }
 
-private enum ScanRequestType
+private class Request {}
+
+private class RequestRedetect : Request {}
+
+private class RequestCancel : Request {}
+
+private class RequestStartScan : Request
 {
-    CANCEL,
-    REDETECT,
-    START_SCAN,
-    QUIT
+    public ScanJob job;   
 }
 
-private class ScanRequest
-{
-    public ScanRequestType type;
-    public ScanJob job;
-}
+private class RequestQuit : Request {}
 
 private class Credentials 
 {
@@ -133,11 +123,107 @@ private enum ScanState
     READ
 }
 
+private class Notify
+{
+    public virtual void run (Scanner scanner) {}
+}
+
+private class NotifyScanningChanged : Notify
+{
+    public override void run (Scanner scanner)
+    {
+        scanner.scanning_changed ();
+    }
+}
+
+private class NotifyUpdateDevices : Notify
+{
+    public NotifyUpdateDevices (owned List<ScanDevice> devices) { this.devices = (owned) devices; }
+    private List<ScanDevice> devices;
+    public override void run (Scanner scanner)
+    {
+        scanner.update_devices (devices);
+    }
+}
+
+private class NotifyRequestAuthorization : Notify
+{
+    public NotifyRequestAuthorization (string resource) { this.resource = resource; }
+    private string resource;
+    public override void run (Scanner scanner)
+    {
+        scanner.request_authorization (resource);
+    }
+}
+
+private class NotifyScanFailed : Notify
+{
+    public NotifyScanFailed (int error_code, string error_string) { this.error_code = error_code; this.error_string = error_string; }
+    private int error_code;
+    private string error_string;
+    public override void run (Scanner scanner)
+    {
+        scanner.scan_failed (error_code, error_string);    
+    }
+}
+
+private class NotifyDocumentDone : Notify
+{
+    public override void run (Scanner scanner)
+    {
+        scanner.document_done ();
+    }
+}
+
+private class NotifyExpectPage : Notify
+{
+    public override void run (Scanner scanner)
+    {
+        scanner.expect_page ();
+    }
+}
+
+private class NotifyGotPageInfo : Notify
+{
+    public NotifyGotPageInfo (ScanPageInfo info) { this.info = info; }
+    private ScanPageInfo info;
+    public override void run (Scanner scanner)
+    {
+        scanner.got_page_info (info);
+    }
+}
+
+private class NotifyPageDone : Notify
+{
+    public override void run (Scanner scanner)
+    {
+        scanner.page_done ();
+    }
+}
+
+private class NotifyGotLine : Notify
+{
+    public NotifyGotLine (ScanLine line) { this.line = line; }
+    private ScanLine line;
+    public override void run (Scanner scanner)
+    {
+        scanner.got_line (line);
+    }
+}
+
 public class Scanner
 {
-    private AsyncQueue<ScanRequest> scan_queue;
-    private AsyncQueue<Credentials> authorize_queue;
+    /* Thread communicating with SANE */
     private unowned Thread<bool> thread;
+
+    /* Queue of requests from main thread */
+    private AsyncQueue<Request> request_queue;
+
+    /* Queue of events to notify in main queue */
+    private AsyncQueue<Notify> notify_queue;
+
+    //
+    private AsyncQueue<Credentials> authorize_queue;
 
     private string? default_device;
 
@@ -172,12 +258,6 @@ public class Scanner
 
     private bool scanning;
 
-    /* Table of scanner objects for each thread (required for authorization callback) */
-#if 0
-    //static HashTable<Thread<void>, Scanner> scanners;
-    //scanners = new HashTable (direct_hash, direct_equal);
-#endif
-
     public signal void update_devices (List<ScanDevice> devices);
     public signal void request_authorization (string resource);
     public signal void expect_page ();
@@ -190,8 +270,22 @@ public class Scanner
 
     public Scanner ()
     {
-        scan_queue = new AsyncQueue<ScanRequest> ();
+        request_queue = new AsyncQueue<Request> ();
+        notify_queue = new AsyncQueue<Notify> ();
         authorize_queue = new AsyncQueue<Credentials> ();
+    }
+    
+    private bool notify_idle_cb ()
+    {
+        var notification = notify_queue.pop ();
+        notification.run (this);
+        return false;
+    }
+
+    private void notify (Notify notification)
+    {
+        notify_queue.push (notification);
+        Idle.add (notify_idle_cb);
     }
 
     private void set_scanning (bool is_scanning)
@@ -200,7 +294,7 @@ public class Scanner
         {
             scanning = is_scanning;
             scanning_changed ();
-            Idle.add (() => { scanning_changed () ; return false; });
+            notify (new NotifyScanningChanged ());
         }
     }
 
@@ -285,13 +379,13 @@ public class Scanner
 
     private void do_redetect ()
     {
-#if 0
-        unowned Sane.Device[] device_list;
-        var status = Sane.get_devices (out device_list, false);
+        unowned Sane.Device[] device_list = null;
+        var status = Sane.Status.IO_ERROR; //Sane.get_devices (out device_list, false);
         debug ("sane_get_devices () -> %s", get_status_string (status));
         if (status != Sane.Status.GOOD)
         {
             warning ("Unable to get SANE devices: %s", Sane.strstatus(status));
+            need_redetect = false;
             state = ScanState.IDLE;
             return;
         }
@@ -331,8 +425,7 @@ public class Scanner
         else
             default_device = null;
 
-        Idle.add (() => { update_devices (devices) ; return false; });
-#endif
+        notify (new NotifyUpdateDevices ((owned) devices));
     }
 
     private bool set_default_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index)
@@ -440,17 +533,15 @@ public class Scanner
     private bool set_string_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, string value, out string result)
     {
         return_val_if_fail (option.type == Sane.ValueType.STRING, false);
-
-#if 0
-        var value_size = value.length + 1;
-        var size = option.size > value_size ? option.size : value_size;
-        var s = new char[size];
-        strcpy (s, value);
-        var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &v, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\") -> (%s, \"%s\")", option_index, value, get_status_string (status), v);
-        result = s;
-#endif
-        var status = Sane.Status.GOOD;
+        
+        var s = new char[option.size];
+        var i = 0;
+        for (; i < (option.size - 1) && value[i] != '\0'; i++)
+            s[i] = value[i];
+        s[i] = '\0';
+        var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, s, null);
+        result = (string) s;
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\") -> (%s, \"%s\")", option_index, value, get_status_string (status), result);
 
         return status == Sane.Status.GOOD;
     }
@@ -646,9 +737,7 @@ public class Scanner
     private static void authorization_cb (string resource, char[] username, char[] password)
     {
 #if 0
-        var scanner = scanners.lookup (Thread.self ());
-
-        Idle.add (() => { request_authorization (resource) ; return false; });
+        notify (new NotifyRequestAuthorization (resource));
 
         var credentials = authorize_queue.pop ();
         for (var i = 0; credentials.username[i] != '\0' && i < Sane.MAX_USERNAME_LEN; i++)
@@ -688,7 +777,7 @@ public class Scanner
     {
         close_device ();
         state = ScanState.IDLE;
-        Idle.add (() => { scan_failed (error_code, error_string) ; return false; });
+        notify (new NotifyScanFailed (error_code, error_string));
     }
 
     private bool handle_requests ()
@@ -701,33 +790,30 @@ public class Scanner
         int request_count = 0;
         while (true)
         {
-            ScanRequest request;
+            Request request;
             if ((state == ScanState.IDLE && request_count == 0) ||
-                scan_queue.length () > 0)
-                request = scan_queue.pop ();
+                request_queue.length () > 0)
+                request = request_queue.pop ();
             else
                 return true;
 
-             debug ("Processing request");
-             request_count++;
+            debug ("Processing request");
+            request_count++;
 
-             switch (request.type)
-             {
-             case ScanRequestType.REDETECT:
-                 break;
-
-             case ScanRequestType.START_SCAN:
-                 job_queue.append (request.job);
-                 break;
-
-             case ScanRequestType.CANCEL:
-                 fail_scan (Sane.Status.CANCELLED, "Scan cancelled - do not report this error");
-                 break;
-
-             case ScanRequestType.QUIT:
-                 close_device ();
-                 return false;
-             }
+            if (request is RequestStartScan)
+            {
+                var r = (RequestStartScan) request;
+                job_queue.append (r.job);
+            }
+            else if (request is RequestCancel)
+            {
+                fail_scan (Sane.Status.CANCELLED, "Scan cancelled - do not report this error");
+            }
+            else if (request is RequestQuit)
+            {
+                close_device ();
+                return false;
+            }
         }
     }
 
@@ -1058,7 +1144,7 @@ public class Scanner
         /* Trigger timeout to close */
         // TODO
 
-        Idle.add (() => { document_done () ; return false; });
+        notify (new NotifyDocumentDone ());
         set_scanning (false);
     }
 
@@ -1066,7 +1152,7 @@ public class Scanner
     {
         Sane.Status status;
 
-        Idle.add (() => { expect_page () ; return false; });
+        notify (new NotifyExpectPage ());
 
         status = Sane.start (handle);
         debug ("sane_start (page=%d, pass=%d) -> %s", page_number, pass_number, get_status_string (status));
@@ -1120,7 +1206,7 @@ public class Scanner
 
         if (page_number != notified_page)
         {
-            Idle.add (() => { got_page_info (info) ; return false; });
+            notify (new NotifyGotPageInfo (info));
             notified_page = page_number;
         }
 
@@ -1135,7 +1221,7 @@ public class Scanner
 
     private void do_complete_page ()
     {
-        Idle.add (() => { page_done () ; return false; });
+        notify (new NotifyPageDone ());
 
         var job = (ScanJob) job_queue.data;
 
@@ -1152,7 +1238,7 @@ public class Scanner
         {
             page_number++;
             pass_number = 0;
-            Idle.add (() => { page_done () ; return false; });
+            notify (new NotifyPageDone ());
             state = ScanState.START;
             return;
         }
@@ -1171,7 +1257,7 @@ public class Scanner
         var n_to_read = buffer.length - n_used;
 
         Sane.Int n_read;
-        // FIXME: Can't write into buffer offset\
+        // FIXME: Can't write into buffer offset
         var status = Sane.read (handle, buffer/* + n_used, n_to_read*/, out n_read);
         debug ("sane_read (%d) -> (%s, %d)", n_to_read, get_status_string (status), n_read);
 
@@ -1225,12 +1311,11 @@ public class Scanner
             }
             line.width = parameters.pixels_per_line;
             line.depth = parameters.depth;
-            line.data = buffer;
+            line.data = (owned) buffer;
             line.data_length = parameters.bytes_per_line;
             line.number = line_count;
             line.n_lines = n_used / line.data_length;
 
-            buffer = null;
             line_count += line.n_lines;
 
             /* Increase buffer size if did full read */
@@ -1297,16 +1382,12 @@ public class Scanner
                 line.data_length = (line.width * 2 + 7) / 8;
             }
 
-            Idle.add (() => { got_line (line) ; return false; });
+            notify (new NotifyGotLine (line));
         }
     }
 
     private bool scan_thread ()
     {
-#if 0
-        scanners.insert (Thread<void>.self (), this);
-#endif
-
         state = ScanState.IDLE;
 
         Sane.Int version_code;
@@ -1380,9 +1461,7 @@ public class Scanner
 
         debug ("Requesting redetection of scan devices");
 
-        var request = new ScanRequest ();
-        request.type = ScanRequestType.REDETECT;
-        scan_queue.push (request);
+        request_queue.push (new RequestRedetect ());
     }
 
     public bool is_scanning ()
@@ -1413,8 +1492,7 @@ public class Scanner
         }
 
         debug ("Scanner.scan (\"%s\", %d, %s)", device != null ? device : "(null)", options.dpi, type_string);
-        var request = new ScanRequest ();
-        request.type = ScanRequestType.START_SCAN;
+        var request = new RequestStartScan ();
         request.job = new ScanJob ();
         request.job.device = device;
         request.job.dpi = options.dpi;
@@ -1423,23 +1501,19 @@ public class Scanner
         request.job.type = options.type;
         request.job.page_width = options.paper_width;
         request.job.page_height = options.paper_height;
-        scan_queue.push (request);
+        request_queue.push (request);
     }
 
     public void cancel ()
     {
-        var request = new ScanRequest ();
-        request.type = ScanRequestType.CANCEL;
-        scan_queue.push (request);
+        request_queue.push (new RequestCancel ());
     }
 
     public void free ()
     {
         debug ("Stopping scan thread");
 
-        var request = new ScanRequest ();
-        request.type = ScanRequestType.QUIT;
-        scan_queue.push (request);
+        request_queue.push (new RequestQuit ());
 
         if (thread != null)
             thread.join ();

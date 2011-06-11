@@ -26,20 +26,16 @@ public class Application
     private static Timer log_timer;
     private static FileStream? log_file;
 
-#if 0
     private ScanDevice? default_device = null;
-#endif
     private bool have_devices = false;
     private GUdev.Client udev_client;
     private SimpleScan ui;
     private Scanner scanner;
     private Book book;
 
-    public Application (/*ScanDevice? device = null*/)
+    public Application (ScanDevice? device = null)
     {
-#if 0
         default_device = device;
-#endif
 
         ui = new SimpleScan ();
         book = ui.get_book ();
@@ -63,7 +59,6 @@ public class Application
         udev_client = new GUdev.Client (subsystems);
         udev_client.uevent.connect (on_uevent);
 
-#if 0
         if (default_device != null)
         {
             List<ScanDevice> device_list = null;
@@ -72,7 +67,6 @@ public class Application
             ui.set_scan_devices (device_list);
             ui.set_selected_device (default_device.name);
         }
-#endif        
     }
     
     public void start ()
@@ -86,7 +80,6 @@ public class Application
         var devices_copy = devices.copy ();
 
         /* If the default device is not detected add it to the list */
-#if 0
         if (default_device != null)
         {
             var default_in_list = false;
@@ -102,7 +95,6 @@ public class Application
             if (!default_in_list)
                 devices_copy.prepend (default_device);
         }
-#endif
 
         have_devices = devices_copy.length () > 0;
         ui.set_scan_devices (devices_copy);
@@ -478,7 +470,6 @@ public class Application
             return Posix.EXIT_SUCCESS;
         }
 
-#if 0
         ScanDevice? device = null;
         if (args.length > 1)
         {
@@ -486,7 +477,6 @@ public class Application
             device.name = args[1];
             device.label = args[1];
         }
-#endif
 
         /* Log to a file */
         log_timer = new Timer ();
@@ -498,7 +488,7 @@ public class Application
 
         debug ("Starting Simple Scan %s, PID=%i", Config.VERSION, Posix.getpid ());
 
-        Application app = new Application (/*device*/);
+        Application app = new Application (device);
         app.start ();
 
         Gtk.main ();

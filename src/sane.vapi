@@ -179,7 +179,7 @@ namespace Sane {
     public double UNFIX (Fixed w);
 
     [CCode (cname = "SANE_I18N")]
-    public string I18N (string value);
+    public unowned string I18N (string value);
 
     public Status init (out Int version_code, AuthCallback callback);
     public void exit ();
