@@ -142,13 +142,12 @@ public class Book
 
     private uint8[]? compress_zlib (uint8[] data)
     {
-        var stream = ZLib.DeflateStream (ZLib.Level.BEST_COMPRESSION);
+        // TEMP: Workaround for https://bugzilla.gnome.org/show_bug.cgi?id=652344
+        var stream = ZLib2.DeflateStream (ZLib.Level.BEST_COMPRESSION);
         var out_data = new uint8[data.length];
 
         stream.next_in = data;
-        stream.avail_in = data.length;
         stream.next_out = out_data;
-        stream.avail_out = data.length;
         while (stream.avail_in > 0)
         {
             if (stream.deflate (ZLib.Flush.FINISH) == ZLib.Status.STREAM_ERROR)
@@ -158,8 +157,8 @@ public class Book
         if (stream.avail_in > 0)
             return null;
 
-        // FIXME: Reallocate
         var n_written = data.length - stream.avail_out;
+        out_data.resize ((int) n_written);
 
         return out_data;
     }
@@ -392,9 +391,9 @@ public class Book
             if (compressed_data != null)
             {
                 /* Try if JPEG compression is better */
+#if 0
                 if (depth > 1)
                 {
-#if 0
                     size_t jpeg_length;
                     var jpeg_data = compress_jpeg (image, out jpeg_length);
                     if (jpeg_length < compressed_data.length)
@@ -402,8 +401,8 @@ public class Book
                         filter = "DCTDecode";
                         data = jpeg_data;
                     }
-#endif
                 }
+#endif
 
                 if (filter == null)
                 {
