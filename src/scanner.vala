@@ -40,7 +40,7 @@ public class ScanLine
 {
     /* Line number */
     public int number;
-  
+
     /* Number of lines in this packet */
     public int n_lines;
 
@@ -50,7 +50,7 @@ public class ScanLine
 
     /* Channel for this line or -1 for all channels */
     public int channel;
-    
+
     /* Raw line data */
     public uchar[] data;
     public int data_length;
@@ -58,7 +58,7 @@ public class ScanLine
 
 public enum ScanMode
 {
-    DEFAULT,    
+    DEFAULT,
     COLOR,
     GRAY,
     LINEART
@@ -101,12 +101,12 @@ private class RequestCancel : Request {}
 
 private class RequestStartScan : Request
 {
-    public ScanJob job;   
+    public ScanJob job;
 }
 
 private class RequestQuit : Request {}
 
-private class Credentials 
+private class Credentials
 {
     public string username;
     public string password;
@@ -163,7 +163,7 @@ private class NotifyScanFailed : Notify
     private string error_string;
     public override void run (Scanner scanner)
     {
-        scanner.scan_failed (error_code, error_string);    
+        scanner.scan_failed (error_code, error_string);
     }
 }
 
@@ -274,7 +274,7 @@ public class Scanner
         notify_queue = new AsyncQueue<Notify> ();
         authorize_queue = new AsyncQueue<Credentials> ();
     }
-    
+
     private bool notify_idle_cb ()
     {
         var notification = notify_queue.pop ();
@@ -330,29 +330,29 @@ public class Scanner
         switch (status)
         {
         case Sane.Status.GOOD:
-            return "SANE_STATUS_GOOD";        
+            return "SANE_STATUS_GOOD";
         case Sane.Status.UNSUPPORTED:
-            return "SANE_STATUS_UNSUPPORTED";        
+            return "SANE_STATUS_UNSUPPORTED";
         case Sane.Status.CANCELLED:
-            return "SANE_STATUS_CANCELLED";        
+            return "SANE_STATUS_CANCELLED";
         case Sane.Status.DEVICE_BUSY:
-            return "SANE_STATUS_DEVICE_BUSY";        
+            return "SANE_STATUS_DEVICE_BUSY";
         case Sane.Status.INVAL:
-            return "SANE_STATUS_INVAL";        
+            return "SANE_STATUS_INVAL";
         case Sane.Status.EOF:
-            return "SANE_STATUS_EOF";        
+            return "SANE_STATUS_EOF";
         case Sane.Status.JAMMED:
-            return "SANE_STATUS_JAMMED";        
+            return "SANE_STATUS_JAMMED";
         case Sane.Status.NO_DOCS:
-            return "SANE_STATUS_NO_DOCS";        
+            return "SANE_STATUS_NO_DOCS";
         case Sane.Status.COVER_OPEN:
-            return "SANE_STATUS_COVER_OPEN";        
+            return "SANE_STATUS_COVER_OPEN";
         case Sane.Status.IO_ERROR:
-            return "SANE_STATUS_IO_ERROR";        
+            return "SANE_STATUS_IO_ERROR";
         case Sane.Status.NO_MEM:
-            return "SANE_STATUS_NO_MEM";        
+            return "SANE_STATUS_NO_MEM";
         case Sane.Status.ACCESS_DENIED:
-            return "SANE_STATUS_ACCESS_DENIED";        
+            return "SANE_STATUS_ACCESS_DENIED";
         default:
             return "SANE_STATUS(%d)".printf (status);
         }
@@ -533,7 +533,7 @@ public class Scanner
     private bool set_string_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, string value, out string result)
     {
         return_val_if_fail (option.type == Sane.ValueType.STRING, false);
-        
+
         var s = new char[option.size];
         var i = 0;
         for (; i < (option.size - 1) && value[i] != '\0'; i++)

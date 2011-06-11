@@ -29,7 +29,7 @@ public class Page
     private int depth;
 
     /* Color profile */
-    private string color_profile;
+    private string? color_profile;
 
     /* Scanned image data */
     private int width;
@@ -84,7 +84,7 @@ public class Page
     {
         expected_rows = info.height;
         dpi = (int) info.dpi;
-
+        
         /* Create a white page */
         width = info.width;
         n_rows = info.height;
@@ -357,7 +357,7 @@ public class Page
         return n_rows;
     }
 
-    public void set_color_profile (string color_profile)
+    public void set_color_profile (string? color_profile)
     {
          this.color_profile = color_profile;
     }
