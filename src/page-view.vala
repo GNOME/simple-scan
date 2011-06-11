@@ -49,8 +49,8 @@ public class PageView
     private int height;
 
     /* Location to place this page */
-    private int x;
-    private int y;
+    private int x_offset;
+    private int y_offset;
 
     private CropLocation crop_location;
     private double selected_crop_px;
@@ -100,22 +100,22 @@ public class PageView
 
     public void set_x_offset (int offset)
     {
-        x = offset;
+        x_offset = offset;
     }
 
     public void set_y_offset (int offset)
     {
-        y = offset;
+        y_offset = offset;
     }
 
     public int get_x_offset ()
     {
-        return x;
+        return x_offset;
     }
 
     public int get_y_offset ()
     {
-        return y;
+        return y_offset;
     }
 
     private uchar get_sample (uchar[] pixels, int offset, int x, int depth, int sample)
@@ -282,7 +282,7 @@ public class PageView
                 red   += p[0] * (r-l)*(T-t);
                 green += p[1] * (r-l)*(T-t);
                 blue  += p[2] * (r-l)*(T-t);
-                for (y = T; y < B; y++)
+                for (var y = T; y < B; y++)
                 {
                     get_pixel (page, R, y, p);
                     red   += p[0] * (r-l);
@@ -302,7 +302,7 @@ public class PageView
                 red   += p[0] * (b-t)*(L-l);
                 green += p[1] * (b-t)*(L-l);
                 blue  += p[2] * (b-t)*(L-l);
-                for (x = L; x < R; x++) {
+                for (var x = L; x < R; x++) {
                     get_pixel (page, x, B, p);
                     red   += p[0] * (b-t);
                     green += p[1] * (b-t);
@@ -322,9 +322,9 @@ public class PageView
         }
 
         /* Add the middle pixels */
-        for (x = L; x < R; x++)
+        for (var x = L; x < R; x++)
         {
-            for (y = T; y < B; y++)
+            for (var y = T; y < B; y++)
             {
                 uchar p[3];
                 get_pixel (page, x, y, p);
@@ -335,7 +335,7 @@ public class PageView
         }
 
         /* Add the weighted top and bottom pixels */
-        for (x = L; x < R; x++)
+        for (var x = L; x < R; x++)
         {
             if (t != T)
             {
@@ -357,7 +357,7 @@ public class PageView
         }
 
         /* Add the left and right pixels */
-        for (y = T; y < B; y++)
+        for (var y = T; y < B; y++)
         {
             if (l != L)
             {
@@ -851,7 +851,7 @@ public class PageView
         var h = get_preview_height ();
 
         context.set_line_width (1);
-        context.translate (x, y);
+        context.translate (x_offset, y_offset);
 
         /* Draw page border */
         context.set_source_rgb (0, 0, 0);
