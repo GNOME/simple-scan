@@ -1469,29 +1469,45 @@ public class Scanner
         return scanning;
     }
 
-    public void scan (string? device, ScanOptions options)
+    private string get_scan_mode_string (ScanMode mode)
     {
-        string type_string;
+        switch (mode)
+        {
+        case ScanMode.DEFAULT:
+            return "ScanMode.DEFAULT";
+        case ScanMode.COLOR:
+            return "ScanMode.COLOR";
+        case ScanMode.GRAY:
+            return "ScanMode.GRAY";
+        case ScanMode.LINEART:
+            return "ScanMode.LINEART";
+        default:
+            return "%d".printf (mode);
+        }
+    }
 
-        switch (options.type)
+    private string get_scan_type_string (ScanType type)
+    {
+        switch (type)
         {
         case ScanType.SINGLE:
-            type_string = "ScanType.SINGLE";
-            break;
+            return "ScanType.SINGLE";
         case ScanType.ADF_FRONT:
-            type_string = "ScanType.ADF_FRONT";
-            break;
+            return "ScanType.ADF_FRONT";
         case ScanType.ADF_BACK:
-            type_string = "ScanType.ADF_BACK";
-            break;
+            return "ScanType.ADF_BACK";
         case ScanType.ADF_BOTH:
-            type_string = "ScanType.ADF_BOTH";
-            break;
+            return "ScanType.ADF_BOTH";
         default:
-            return;
+            return "%d".printf (type);
         }
+    }
 
-        debug ("Scanner.scan (\"%s\", %d, %s)", device != null ? device : "(null)", options.dpi, type_string);
+    public void scan (string? device, ScanOptions options)
+    {
+        debug ("Scanner.scan (\"%s\", dpi=%d, scan_mode=%s, depth=%d, type=%s, paper_width=%d, paper_height=%d)",
+               device != null ? device : "(null)", options.dpi, get_scan_mode_string (options.scan_mode), options.depth,
+               get_scan_type_string (options.type), options.paper_width, options.paper_height);
         var request = new RequestStartScan ();
         request.job = new ScanJob ();
         request.job.device = device;
