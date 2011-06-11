@@ -140,10 +140,10 @@ public class Book
         }
     }
 
-    private uchar[]? compress_zlib (uchar[] data)
+    private uint8[]? compress_zlib (uint8[] data)
     {
         var stream = ZLib.DeflateStream (ZLib.Level.BEST_COMPRESSION);
-        var out_data = new uchar[data.length];
+        var out_data = new uint8[data.length];
 
         stream.next_in = data;
         stream.avail_in = data.length;
@@ -169,7 +169,7 @@ public class Book
     private boolean jpeg_empty_cb (struct jpeg_compress_struct info) { return true; }
     private void jpeg_term_cb (struct jpeg_compress_struct info) {}
 
-    private uchar[] compress_jpeg (Gdk.Pixbuf image, out size_t n_written)
+    private uint8[] compress_jpeg (Gdk.Pixbuf image, out size_t n_written)
     {
         struct jpeg_compress_struct info;
         struct jpeg_error_mgr jerr;
@@ -178,7 +178,7 @@ public class Book
         info.err = jpeg_std_error (&jerr);
         jpeg_create_compress (&info);
 
-        unowned uchar[] pixels = image.get_pixels ();
+        unowned uint8[] pixels = image.get_pixels ();
         info.image_width = image.get_width ();
         info.image_height = image.get_height ();
         info.input_components = 3;
@@ -186,7 +186,7 @@ public class Book
         jpeg_set_defaults (&info);
 
         var max_length = info.image_width * info.image_height * info.input_components;
-        var data = new uchar[max_length];
+        var data = new uint8[max_length];
         dest_mgr.next_output_byte = data;
         dest_mgr.free_in_buffer = max_length;
         dest_mgr.init_destination = jpeg_init_cb;
@@ -266,7 +266,7 @@ public class Book
             var image = page.get_image (true);
             var width = image.get_width ();
             var height = image.get_height ();
-            unowned uchar[] pixels = image.get_pixels ();
+            unowned uint8[] pixels = image.get_pixels ();
             var page_width = width * 72.0 / page.get_dpi ();
             var page_height = height * 72.0 / page.get_dpi ();
 
@@ -275,13 +275,13 @@ public class Book
             string? filter = null;
             char[] width_buffer = new char[double.DTOSTR_BUF_SIZE];
             char[] height_buffer = new char[double.DTOSTR_BUF_SIZE];
-            uchar[] data;
+            uint8[] data;
             if (page.is_color ())
             {
                 depth = 8;
                 color_space = "DeviceRGB";
                 var data_length = height * width * 3 + 1;
-                data = new uchar[data_length];
+                data = new uint8[data_length];
                 for (var row = 0; row < height; row++)
                 {
                     var in_offset = row * image.get_rowstride ();
@@ -303,7 +303,7 @@ public class Book
                 depth = 2;
                 color_space = "DeviceGray";
                 var data_length = height * ((width * 2 + 7) / 8);
-                data = new uchar[data_length];
+                data = new uint8[data_length];
                 var offset = 0;
                 data[offset] = 0;
                 for (var row = 0; row < height; row++)
@@ -344,7 +344,7 @@ public class Book
                 depth = 1;
                 color_space = "DeviceGray";
                 var data_length = height * ((width + 7) / 8);
-                data = new uchar[data_length];
+                data = new uint8[data_length];
                 var offset = 0;
                 data[offset] = 0;
                 for (var row = 0; row < height; row++)
@@ -361,7 +361,7 @@ public class Book
                     for (var x = 0; x < width; x++)
                     {
                         if (pixels[in_offset+x*3] != 0)
-                            data[offset] |= (uchar) mask;
+                            data[offset] |= (uint8) mask;
                         mask >>= 1;
                         if (mask == 0)
                         {
@@ -377,7 +377,7 @@ public class Book
                 depth = 8;
                 color_space = "DeviceGray";
                 var data_length = height * width + 1;
-                data = new uchar [data_length];
+                data = new uint8 [data_length];
                 for (var row = 0; row < height; row++)
                 {
                     var in_offset = row * image.get_rowstride ();
@@ -529,7 +529,7 @@ private class PDFWriter
         this.stream = stream;
     }
 
-    public void write (uchar[] data)
+    public void write (uint8[] data)
     {
         try
         {
@@ -544,7 +544,7 @@ private class PDFWriter
 
     public void write_string (string text)
     {
-        write ((uchar[]) text.to_utf8 ());
+        write ((uint8[]) text.to_utf8 ());
     }
 
     public uint start_object ()
@@ -565,7 +565,7 @@ public class PsWriter
         surface = new Cairo.PsSurface.for_stream (write_cairo_data, 0, 0);
     }
 
-    private Cairo.Status write_cairo_data (uchar[] data)
+    private Cairo.Status write_cairo_data (uint8[] data)
     {
         try
         {
