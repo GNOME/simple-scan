@@ -646,7 +646,7 @@ public class Page
         }
 
         var image = new Gdk.Pixbuf (Gdk.Colorspace.RGB, false, 8, r - l, b - t);
-        var image_pixels = image.get_pixels ();
+        unowned uint8[] image_pixels = image.get_pixels ();
         for (var y = t; y < b; y++)
         {
             var offset = image.get_rowstride () * (y - t);
