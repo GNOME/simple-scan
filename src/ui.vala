@@ -677,13 +677,14 @@ public class SimpleScan
         {
             options.scan_mode = ScanMode.GRAY;
             options.dpi = get_text_dpi ();
+            options.depth = 2;
         }
         else
         {
             options.scan_mode = ScanMode.COLOR;
             options.dpi = get_photo_dpi ();
+            options.depth = 8;
         }
-        options.depth = 8;
         get_paper_size (out options.paper_width, out options.paper_height);
 
         return options;
