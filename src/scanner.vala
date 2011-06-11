@@ -1185,12 +1185,12 @@ public class Scanner
         var job = (ScanJob) job_queue.data;
 
         debug ("Parameters: format=%s last_frame=%s bytes_per_line=%d pixels_per_line=%d lines=%d depth=%d",
-                 get_frame_string (parameters.format),
-                 parameters.last_frame ? "SANE_TRUE" : "SANE_FALSE",
-                 parameters.bytes_per_line,
-                 parameters.pixels_per_line,
-                 parameters.lines,
-                 parameters.depth);
+               get_frame_string (parameters.format),
+               parameters.last_frame ? "SANE_TRUE" : "SANE_FALSE",
+               parameters.bytes_per_line,
+               parameters.pixels_per_line,
+               parameters.lines,
+               parameters.depth);
 
         var info = new ScanPageInfo ();
         info.width = parameters.pixels_per_line;
