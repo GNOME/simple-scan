@@ -12,7 +12,7 @@ AM_PROG_VALAC([0.11.6])
 AM_PROG_CC_C_O
 AC_HEADER_STDC
 
-AM_GCONF_SOURCE_2
+GLIB_GSETTINGS
 
 GNOME_COMPILE_WARNINGS(maximum)
 
@@ -28,7 +28,6 @@ GTK_REQUIRED=2.18.0
 
 PKG_CHECK_MODULES(SIMPLE_SCAN, [
     gtk+-2.0 >= $GTK_REQUIRED
-    gconf-2.0
     gmodule-export-2.0
     gthread-2.0
     zlib

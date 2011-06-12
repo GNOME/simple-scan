@@ -14,7 +14,7 @@ public class SimpleScan
     private const int DEFAULT_TEXT_DPI = 150;
     private const int DEFAULT_PHOTO_DPI = 300;
 
-    private GConf.Client client;
+    private Settings settings;
 
     private Gtk.Builder builder;
 
@@ -96,15 +96,7 @@ public class SimpleScan
         book.page_removed.connect (page_removed_cb);
         book.page_added.connect (page_added_cb);
 
-        client = GConf.Client.get_default ();
-        try
-        {
-            client.add_dir (Config.GCONF_DIR, GConf.ClientPreloadType.NONE);
-        }
-        catch (Error e)
-        {
-            warning ("Unable to preload GConf dir: %s", e.message);
-        }
+        settings = new Settings ("org.gnome.SimpleScan");
 
         load ();
     }
@@ -340,14 +332,7 @@ public class SimpleScan
     {
         /* Get directory to save to */
         string? directory = null;
-        try
-        {
-            directory = client.get_string (Config.GCONF_DIR + "/save_directory");
-        }
-        catch (Error e)
-        {
-            warning ("Error reading configuration: %s", e.message);
-        }
+        directory = settings.get_string ("save-directory");
             
         if (directory == null || directory == "")
             directory = Environment.get_user_special_dir (UserDirectory.DOCUMENTS);
@@ -437,14 +422,7 @@ public class SimpleScan
         if (response == Gtk.ResponseType.ACCEPT)
             uri = save_dialog.get_uri ();
 
-        try
-        {
-            client.set_string (Config.GCONF_DIR + "/save_directory", save_dialog.get_current_folder ());
-        }
-        catch (Error e)
-        {
-            warning ("Error writing configuration: %s", e.message);
-        }
+        settings.set_string ("save-directory", save_dialog.get_current_folder ());
 
         save_dialog.destroy ();
         save_dialog = null;
@@ -582,7 +560,7 @@ public class SimpleScan
             set_document_hint ("photo");
     }
 
-    private void set_page_side (string document_hint)
+    private void set_page_side (ScanType page_side)
     {
         Gtk.TreeIter iter;
 
@@ -590,11 +568,9 @@ public class SimpleScan
         {
             do
             {
-                string d;
-                page_side_model.get (iter, 0, out d, -1);
-                var have_match = d == document_hint;
-
-                if (have_match)
+                int s;
+                page_side_model.get (iter, 0, out s, -1);
+                if (s == page_side)
                 {
                     page_side_combo.set_active_iter (iter);
                     return;
@@ -646,15 +622,15 @@ public class SimpleScan
         return dpi;
     }
 
-    private string get_page_side ()
+    private ScanType get_page_side ()
     {
         Gtk.TreeIter iter;
-        string mode = null;
+        int page_side = ScanType.ADF_BOTH;
 
         if (page_side_combo.get_active_iter (out iter))
-            page_side_model.get (iter, 0, out mode, -1);
+            page_side_model.get (iter, 0, out page_side, -1);
 
-        return mode;
+        return (ScanType) page_side;
     }
 
     private bool get_paper_size (out int width, out int height)
@@ -712,19 +688,7 @@ public class SimpleScan
         else
         {
             var options = get_scan_options ();
-            switch (get_page_side ())
-            {
-            case "front":
-                options.type = ScanType.ADF_FRONT;
-                break;
-            case "back":
-                options.type = ScanType.ADF_BACK;
-                break;
-            default:
-                options.type = ScanType.ADF_BOTH;
-                break;
-            }
-
+            options.type = get_page_side ();
             start_scan (get_selected_device (), options);
         }
     }
@@ -1137,42 +1101,21 @@ public class SimpleScan
         int paper_width = 0, paper_height = 0;
         get_paper_size (out paper_width, out paper_height);
 
-        try
-        {
-            if (device != null)
-                client.set_string (Config.GCONF_DIR + "/selected_device", device);
-            client.set_string (Config.GCONF_DIR + "/document_type", document_hint);
-            client.set_int (Config.GCONF_DIR + "/text_dpi", get_text_dpi ());
-            client.set_int (Config.GCONF_DIR + "/photo_dpi", get_photo_dpi ());
-            client.set_string (Config.GCONF_DIR + "/page_side", get_page_side ());
-            client.set_int (Config.GCONF_DIR + "/paper_width", paper_width);
-            client.set_int (Config.GCONF_DIR + "/paper_height", paper_height);
-            client.set_int (Config.GCONF_DIR + "/window_width", window_width);
-            client.set_int (Config.GCONF_DIR + "/window_height", window_height);
-            client.set_bool (Config.GCONF_DIR + "/window_is_maximized", window_is_maximized);
-            switch (default_page_scan_direction)
-            {
-            case ScanDirection.TOP_TO_BOTTOM:
-                client.set_string (Config.GCONF_DIR + "/scan_direction", "top-to-bottom");
-                break;
-            case ScanDirection.BOTTOM_TO_TOP:
-                client.set_string (Config.GCONF_DIR + "/scan_direction", "bottom-to-top");
-                break;
-            case ScanDirection.LEFT_TO_RIGHT:
-                client.set_string (Config.GCONF_DIR + "/scan_direction", "left-to-right");
-                break;
-            case ScanDirection.RIGHT_TO_LEFT:
-                client.set_string (Config.GCONF_DIR + "/scan_direction", "right-to-left");
-                break;
-            }
-            client.set_int (Config.GCONF_DIR + "/page_width", default_page_width);
-            client.set_int (Config.GCONF_DIR + "/page_height", default_page_height);
-            client.set_int (Config.GCONF_DIR + "/page_dpi", default_page_dpi);
-        }
-        catch (Error e)
-        {
-            warning ("Error writing configuration: %s", e.message);
-        }
+        if (device != null)
+            settings.set_string ("selected-device", device);
+        settings.set_string ("document-type", document_hint);
+        settings.set_int ("text-dpi", get_text_dpi ());
+        settings.set_int ("photo-dpi", get_photo_dpi ());
+        settings.set_enum ("page-side", get_page_side ());
+        settings.set_int ("paper-width", paper_width);
+        settings.set_int ("paper-height", paper_height);
+        settings.set_int ("window-width", window_width);
+        settings.set_int ("window-height", window_height);
+        settings.set_boolean ("window-is-maximized", window_is_maximized);
+        settings.set_enum ("scan-direction", default_page_scan_direction);
+        settings.set_int ("page-width", default_page_width);
+        settings.set_int ("page-height", default_page_height);
+        settings.set_int ("page-dpi", default_page_dpi);
 
         quit ();
 
@@ -1308,13 +1251,14 @@ public class SimpleScan
         Gtk.Window.set_default_icon_name ("scanner");
 
         builder = new Gtk.Builder ();
+        var filename = Path.build_filename (Config.UI_DIR, "simple-scan.ui", null);
         try
         {
-            builder.add_from_file (Config.UI_DIR + "simple-scan.ui");
+            builder.add_from_file (filename);
         }
         catch (Error e)
         {
-            critical ("Unable to load UI: %s\n", e.message);
+            critical ("Unable to load UI %s: %s\n", filename, e.message);
             show_error_dialog (/* Title of dialog when cannot load required files */
                                _("Files missing"),
                                /* Description in dialog when cannot load required files */
@@ -1397,11 +1341,11 @@ public class SimpleScan
         paper_size_model.append (out iter);
         paper_size_model.set (iter, 0, 1016, 1, 1524, 2, "4×6", -1);
 
-        var dpi = client.get_int (Config.GCONF_DIR + "/text_dpi");
+        var dpi = settings.get_int ("text-dpi");
         if (dpi <= 0)
             dpi = DEFAULT_TEXT_DPI;
         set_dpi_combo (text_dpi_combo, DEFAULT_TEXT_DPI, dpi);
-        dpi = client.get_int (Config.GCONF_DIR + "/photo_dpi");
+        dpi = settings.get_int ("photo-dpi");
         if (dpi <= 0)
             dpi = DEFAULT_PHOTO_DPI;
         set_dpi_combo (photo_dpi_combo, DEFAULT_PHOTO_DPI, dpi);
@@ -1413,25 +1357,23 @@ public class SimpleScan
         renderer = new Gtk.CellRendererText ();
         page_side_combo.pack_start (renderer, true);
         page_side_combo.add_attribute (renderer, "text", 1);
-        var page_side = client.get_string (Config.GCONF_DIR + "/page_side");
-        if (page_side != null)
-            set_page_side (page_side);
+        set_page_side ((ScanType) settings.get_enum ("page-side"));
 
         renderer = new Gtk.CellRendererText ();
         paper_size_combo.pack_start (renderer, true);
         paper_size_combo.add_attribute (renderer, "text", 2);
-        var paper_width = client.get_int (Config.GCONF_DIR + "/paper_width");
-        var paper_height = client.get_int (Config.GCONF_DIR + "/paper_height");
+        var paper_width = settings.get_int ("paper-width");
+        var paper_height = settings.get_int ("paper-height");
         set_paper_size (paper_width, paper_height);
 
-        var device = client.get_string (Config.GCONF_DIR + "/selected_device");
+        var device = settings.get_string ("selected-device");
         if (device != null)
         {
             if (find_scan_device (device, out iter))
                 device_combo.set_active_iter (iter);
         }
 
-        var document_type = client.get_string (Config.GCONF_DIR + "/document_type");
+        var document_type = settings.get_string ("document-type");
         if (document_type != null)
             set_document_hint (document_type);
 
@@ -1444,46 +1386,27 @@ public class SimpleScan
         book_view.show ();
 
         /* Find default page details */
-        var scan_direction = client.get_string (Config.GCONF_DIR + "/scan_direction");
-        default_page_scan_direction = ScanDirection.TOP_TO_BOTTOM;
-        if (scan_direction != null)
-        {
-            switch (scan_direction)
-            {
-            case "top-to-bottom":
-                default_page_scan_direction = ScanDirection.TOP_TO_BOTTOM;
-                break;
-            case "bottom-to-top":
-                default_page_scan_direction = ScanDirection.BOTTOM_TO_TOP;
-                break;
-            case "left-to-right":
-                default_page_scan_direction = ScanDirection.LEFT_TO_RIGHT;
-                break;
-            case "right-to-left":
-                default_page_scan_direction = ScanDirection.RIGHT_TO_LEFT;
-                break;
-            }
-        }
-        default_page_width = client.get_int (Config.GCONF_DIR + "/page_width");
+        default_page_scan_direction = (ScanDirection) settings.get_enum ("scan-direction");
+        default_page_width = settings.get_int ("page-width");
         if (default_page_width <= 0)
             default_page_width = 595;
-        default_page_height = client.get_int (Config.GCONF_DIR + "/page_height");
+        default_page_height = settings.get_int ("page-height");
         if (default_page_height <= 0)
             default_page_height = 842;
-        default_page_dpi = client.get_int (Config.GCONF_DIR + "/page_dpi");
+        default_page_dpi = settings.get_int ("page-dpi");
         if (default_page_dpi <= 0)
             default_page_dpi = 72;
 
         /* Restore window size */
-        window_width = client.get_int (Config.GCONF_DIR + "/window_width");
+        window_width = settings.get_int ("window-width");
         if (window_width <= 0)
             window_width = 600;
-        window_height = client.get_int (Config.GCONF_DIR + "/window_height");
+        window_height = settings.get_int ("window-height");
         if (window_height <= 0)
             window_height = 400;
         debug ("Restoring window to %dx%d pixels", window_width, window_height);
         window.set_default_size (window_width, window_height);
-        window_is_maximized = client.get_bool (Config.GCONF_DIR + "/window_is_maximized");
+        window_is_maximized = settings.get_boolean ("window-is-maximized");
         if (window_is_maximized)
         {
             debug ("Restoring window to maximized");
