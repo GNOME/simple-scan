@@ -213,6 +213,9 @@ private class NotifyGotLine : Notify
 
 public class Scanner
 {
+    /* Singleton object */
+    private static Scanner scanner_object = null;
+
     /* Thread communicating with SANE */
     private unowned Thread<bool> thread;
 
@@ -268,11 +271,18 @@ public class Scanner
     public signal void document_done ();
     public signal void scanning_changed ();
 
-    public Scanner ()
+    private Scanner ()
     {
         request_queue = new AsyncQueue<Request> ();
         notify_queue = new AsyncQueue<Notify> ();
         authorize_queue = new AsyncQueue<Credentials> ();
+    }
+
+    public static Scanner get_instance ()
+    {
+        if (scanner_object == null)
+            scanner_object = new Scanner ();
+        return scanner_object;
     }
 
     private bool notify_idle_cb ()
@@ -736,15 +746,13 @@ public class Scanner
 
     private static void authorization_cb (string resource, char[] username, char[] password)
     {
-#if 0
-        notify (new NotifyRequestAuthorization (resource));
+        scanner_object.notify (new NotifyRequestAuthorization (resource));
 
-        var credentials = authorize_queue.pop ();
+        var credentials = scanner_object.authorize_queue.pop ();
         for (var i = 0; credentials.username[i] != '\0' && i < Sane.MAX_USERNAME_LEN; i++)
             username[i] = credentials.username[i];
         for (var i = 0; credentials.password[i] != '\0' && i < Sane.MAX_PASSWORD_LEN; i++)
             password[i] = credentials.password[i];
-#endif
     }
 
     public void authorize (string username, string password)

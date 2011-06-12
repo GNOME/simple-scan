@@ -75,7 +75,10 @@ namespace Sane {
         int depth;
     }
 
+    [CCode (cname = "SANE_MAX_USERNAME_LEN")]
     public int MAX_USERNAME_LEN;
+
+    [CCode (cname = "SANE_MAX_USERNAME_LEN")]
     public int MAX_PASSWORD_LEN;
 
     [CCode (cname = "SANE_Value_Type", cprefix = "SANE_TYPE_")]

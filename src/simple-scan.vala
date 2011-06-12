@@ -44,7 +44,7 @@ public class Application
         ui.email.connect (email_cb);
         ui.quit.connect (quit_cb);
 
-        scanner = new Scanner ();
+        scanner = Scanner.get_instance ();
         scanner.update_devices.connect (update_scan_devices_cb);
         scanner.request_authorization.connect (authorize_cb);
         scanner.expect_page.connect (scanner_new_page_cb);
