@@ -130,30 +130,21 @@ private class Notify
 
 private class NotifyScanningChanged : Notify
 {
-    public override void run (Scanner scanner)
-    {
-        scanner.scanning_changed ();
-    }
+    public override void run (Scanner scanner) { scanner.scanning_changed (); }
 }
 
 private class NotifyUpdateDevices : Notify
 {
     public NotifyUpdateDevices (owned List<ScanDevice> devices) { this.devices = (owned) devices; }
     private List<ScanDevice> devices;
-    public override void run (Scanner scanner)
-    {
-        scanner.update_devices (devices);
-    }
+    public override void run (Scanner scanner) { scanner.update_devices (devices); }
 }
 
 private class NotifyRequestAuthorization : Notify
 {
     public NotifyRequestAuthorization (string resource) { this.resource = resource; }
     private string resource;
-    public override void run (Scanner scanner)
-    {
-        scanner.request_authorization (resource);
-    }
+    public override void run (Scanner scanner) { scanner.request_authorization (resource); }
 }
 
 private class NotifyScanFailed : Notify
@@ -161,44 +152,29 @@ private class NotifyScanFailed : Notify
     public NotifyScanFailed (int error_code, string error_string) { this.error_code = error_code; this.error_string = error_string; }
     private int error_code;
     private string error_string;
-    public override void run (Scanner scanner)
-    {
-        scanner.scan_failed (error_code, error_string);
-    }
+    public override void run (Scanner scanner) { scanner.scan_failed (error_code, error_string); }
 }
 
 private class NotifyDocumentDone : Notify
 {
-    public override void run (Scanner scanner)
-    {
-        scanner.document_done ();
-    }
+    public override void run (Scanner scanner) { scanner.document_done (); }
 }
 
 private class NotifyExpectPage : Notify
 {
-    public override void run (Scanner scanner)
-    {
-        scanner.expect_page ();
-    }
+    public override void run (Scanner scanner) { scanner.expect_page (); }
 }
 
 private class NotifyGotPageInfo : Notify
 {
     public NotifyGotPageInfo (ScanPageInfo info) { this.info = info; }
     private ScanPageInfo info;
-    public override void run (Scanner scanner)
-    {
-        scanner.got_page_info (info);
-    }
+    public override void run (Scanner scanner) { scanner.got_page_info (info); }
 }
 
 private class NotifyPageDone : Notify
 {
-    public override void run (Scanner scanner)
-    {
-        scanner.page_done ();
-    }
+    public override void run (Scanner scanner) { scanner.page_done (); }
 }
 
 private class NotifyGotLine : Notify
@@ -225,7 +201,7 @@ public class Scanner
     /* Queue of events to notify in main queue */
     private AsyncQueue<Notify> notify_queue;
 
-    //
+    /* Queue of responses to authorization requests */
     private AsyncQueue<Credentials> authorize_queue;
 
     private string? default_device;
