@@ -314,7 +314,11 @@ public class Scanner
     private void do_redetect ()
     {
         unowned Sane.Device[] device_list = null;
-        var status = Sane.Status.IO_ERROR; //Sane.get_devices (out device_list, false);
+#if 0        
+        var status = Sane.get_devices (out device_list, false);
+#else
+        var status = Sane.Status.IO_ERROR;
+#endif
         debug ("sane_get_devices () -> %s", Sane.status_to_string (status));
         if (status != Sane.Status.GOOD)
         {
