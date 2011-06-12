@@ -163,26 +163,24 @@ public class Book
         return out_data;
     }
 
-#if 0  
-    private void jpeg_init_cb (struct jpeg_compress_struct info) {}
-    private boolean jpeg_empty_cb (struct jpeg_compress_struct info) { return true; }
-    private void jpeg_term_cb (struct jpeg_compress_struct info) {}
+    private static void jpeg_init_cb (JPEG.Compress info) {}
+    private static bool jpeg_empty_cb (JPEG.Compress info) { return true; }
+    private static void jpeg_term_cb (JPEG.Compress info) {}
 
     private uint8[] compress_jpeg (Gdk.Pixbuf image, out size_t n_written)
     {
-        struct jpeg_compress_struct info;
-        struct jpeg_error_mgr jerr;
-        struct jpeg_destination_mgr dest_mgr;
+        var info = JPEG.Compress ();
+        var jerr = JPEG.ErrorManager ();
+        var dest_mgr = JPEG.DestinationManager ();
 
-        info.err = jpeg_std_error (&jerr);
-        jpeg_create_compress (&info);
+        info.err = jerr.std_error ();
+        info.create_compress ();
 
-        unowned uint8[] pixels = image.get_pixels ();
         info.image_width = image.get_width ();
         info.image_height = image.get_height ();
         info.input_components = 3;
-        info.in_color_space = JCS_RGB; /* TODO: JCS_GRAYSCALE? */
-        jpeg_set_defaults (&info);
+        info.in_color_space = JPEG.ColorSpace.RGB; /* TODO: JCS_GRAYSCALE? */
+        info.set_defaults ();
 
         var max_length = info.image_width * info.image_height * info.input_components;
         var data = new uint8[max_length];
@@ -193,21 +191,19 @@ public class Book
         dest_mgr.term_destination = jpeg_term_cb;
         info.dest = &dest_mgr;
 
-        jpeg_start_compress (&info, true);
+        info.start_compress (true);
+        unowned uint8[] pixels = image.get_pixels ();
         for (var r = 0; r < info.image_height; r++)
         {
-            JSAMPROW row[1];
-            row[0] = pixels + r * image.get_rowstride ();
-            jpeg_write_scanlines (&info, row, 1);
+            uint8* row[1];
+            row[0] = (uint8*) pixels + r * image.get_rowstride ();
+            info.write_scanlines (row, 1);
         }
-        jpeg_finish_compress (&info);
-        *n_written = max_length - dest_mgr.free_in_buffer;
-
-        jpeg_destroy_compress (&info);
+        info.finish_compress ();
+        n_written = max_length - dest_mgr.free_in_buffer;
 
         return data;
     }
-#endif
 
     private void save_pdf (File file) throws Error
     {
@@ -391,7 +387,6 @@ public class Book
             if (compressed_data != null)
             {
                 /* Try if JPEG compression is better */
-#if 0
                 if (depth > 1)
                 {
                     size_t jpeg_length;
@@ -402,7 +397,6 @@ public class Book
                         data = jpeg_data;
                     }
                 }
-#endif
 
                 if (filter == null)
                 {
