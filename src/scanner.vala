@@ -311,63 +311,11 @@ public class Scanner
         return strcmp (device1.label, device2.label);
     }
 
-    private static string get_status_string (Sane.Status status)
-    {
-        switch (status)
-        {
-        case Sane.Status.GOOD:
-            return "SANE_STATUS_GOOD";
-        case Sane.Status.UNSUPPORTED:
-            return "SANE_STATUS_UNSUPPORTED";
-        case Sane.Status.CANCELLED:
-            return "SANE_STATUS_CANCELLED";
-        case Sane.Status.DEVICE_BUSY:
-            return "SANE_STATUS_DEVICE_BUSY";
-        case Sane.Status.INVAL:
-            return "SANE_STATUS_INVAL";
-        case Sane.Status.EOF:
-            return "SANE_STATUS_EOF";
-        case Sane.Status.JAMMED:
-            return "SANE_STATUS_JAMMED";
-        case Sane.Status.NO_DOCS:
-            return "SANE_STATUS_NO_DOCS";
-        case Sane.Status.COVER_OPEN:
-            return "SANE_STATUS_COVER_OPEN";
-        case Sane.Status.IO_ERROR:
-            return "SANE_STATUS_IO_ERROR";
-        case Sane.Status.NO_MEM:
-            return "SANE_STATUS_NO_MEM";
-        case Sane.Status.ACCESS_DENIED:
-            return "SANE_STATUS_ACCESS_DENIED";
-        default:
-            return "SANE_STATUS(%d)".printf (status);
-        }
-    }
-
-    private static string get_frame_string (Sane.Frame frame)
-    {
-        switch (frame)
-        {
-        case Sane.Frame.GRAY:
-            return "SANE_FRAME_GRAY";
-        case Sane.Frame.RGB:
-            return "SANE_FRAME_RGB";
-        case Sane.Frame.RED:
-            return "SANE_FRAME_RED";
-        case Sane.Frame.GREEN:
-            return "SANE_FRAME_GREEN";
-        case Sane.Frame.BLUE:
-            return "SANE_FRAME_BLUE";
-        default:
-            return "SANE_FRAME(%d)".printf (frame);
-        }
-    }
-
     private void do_redetect ()
     {
         unowned Sane.Device[] device_list = null;
         var status = Sane.Status.IO_ERROR; //Sane.get_devices (out device_list, false);
-        debug ("sane_get_devices () -> %s", get_status_string (status));
+        debug ("sane_get_devices () -> %s", Sane.status_to_string (status));
         if (status != Sane.Status.GOOD)
         {
             warning ("Unable to get SANE devices: %s", Sane.strstatus(status));
@@ -421,7 +369,7 @@ public class Scanner
             return false;
 
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_AUTO, null, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_AUTO) -> %s", option_index, get_status_string (status));
+        debug ("sane_control_option (%d, SANE_ACTION_SET_AUTO) -> %s", option_index, Sane.status_to_string (status));
         if (status != Sane.Status.GOOD)
             warning ("Error setting default option %s: %s", option.name, Sane.strstatus(status));
 
@@ -435,7 +383,7 @@ public class Scanner
         Sane.Bool v = (Sane.Bool) value;
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &v, null);
         result = (bool) v;
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s) -> (%s, %s)", option_index, value ? "SANE_TRUE" : "SANE_FALSE", get_status_string (status), result ? "SANE_TRUE" : "SANE_FALSE");
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s) -> (%s, %s)", option_index, value ? "SANE_TRUE" : "SANE_FALSE", Sane.status_to_string (status), result ? "SANE_TRUE" : "SANE_FALSE");
     }
 
     private void set_int_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, int value, out int result)
@@ -471,7 +419,7 @@ public class Scanner
         }
 
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &v, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %d) -> (%s, %d)", option_index, value, get_status_string (status), v);
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %d) -> (%s, %d)", option_index, value, Sane.status_to_string (status), v);
         result = v;
     }
 
@@ -511,7 +459,7 @@ public class Scanner
 
         v_fixed = Sane.FIX (v);
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &v_fixed, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %f) -> (%s, %f)", option_index, value, get_status_string (status), Sane.UNFIX (v_fixed));
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %f) -> (%s, %f)", option_index, value, Sane.status_to_string (status), Sane.UNFIX (v_fixed));
 
         result = Sane.UNFIX (v_fixed);
     }
@@ -527,7 +475,7 @@ public class Scanner
         s[i] = '\0';
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, s, null);
         result = (string) s;
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\") -> (%s, \"%s\")", option_index, value, get_status_string (status), result);
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\") -> (%s, \"%s\")", option_index, value, Sane.status_to_string (status), result);
 
         return status == Sane.Status.GOOD;
     }
@@ -843,7 +791,7 @@ public class Scanner
 
         have_handle = false;
         var status = Sane.open (job.device, out handle);
-        debug ("sane_open (\"%s\") -> %s", job.device, get_status_string (status));
+        debug ("sane_open (\"%s\") -> %s", job.device, Sane.status_to_string (status));
 
         if (status != Sane.Status.GOOD)
         {
@@ -1139,7 +1087,7 @@ public class Scanner
         notify (new NotifyExpectPage ());
 
         status = Sane.start (handle);
-        debug ("sane_start (page=%d, pass=%d) -> %s", page_number, pass_number, get_status_string (status));
+        debug ("sane_start (page=%d, pass=%d) -> %s", page_number, pass_number, Sane.status_to_string (status));
         if (status == Sane.Status.GOOD)
             state = ScanState.GET_PARAMETERS;
         else if (status == Sane.Status.NO_DOCS)
@@ -1156,7 +1104,7 @@ public class Scanner
     private void do_get_parameters ()
     {
         var status = Sane.get_parameters (handle, out parameters);
-        debug ("sane_get_parameters () -> %s", get_status_string (status));
+        debug ("sane_get_parameters () -> %s", Sane.status_to_string (status));
         if (status != Sane.Status.GOOD)
         {
             warning ("Unable to get device parameters: %s", Sane.strstatus (status));
@@ -1169,7 +1117,7 @@ public class Scanner
         var job = (ScanJob) job_queue.data;
 
         debug ("Parameters: format=%s last_frame=%s bytes_per_line=%d pixels_per_line=%d lines=%d depth=%d",
-               get_frame_string (parameters.format),
+               Sane.frame_to_string (parameters.format),
                parameters.last_frame ? "SANE_TRUE" : "SANE_FALSE",
                parameters.bytes_per_line,
                parameters.pixels_per_line,
@@ -1243,7 +1191,7 @@ public class Scanner
         Sane.Int n_read;
         var b = (uchar *) buffer;
         var status = Sane.read (handle, (uint8[]) (b + n_used), (Sane.Int) n_to_read, out n_read);
-        debug ("sane_read (%d) -> (%s, %d)", n_to_read, get_status_string (status), n_read);
+        debug ("sane_read (%d) -> (%s, %d)", n_to_read, Sane.status_to_string (status), n_read);
 
         /* Completed read */
         if (status == Sane.Status.EOF)
@@ -1376,16 +1324,16 @@ public class Scanner
 
         Sane.Int version_code;
         var status = Sane.init (out version_code, authorization_cb);
-        debug ("sane_init () -> %s", get_status_string (status));
+        debug ("sane_init () -> %s", Sane.status_to_string (status));
         if (status != Sane.Status.GOOD)
         {
             warning ("Unable to initialize SANE backend: %s", Sane.strstatus(status));
             return false;
         }
         debug ("SANE version %d.%d.%d",
-                 Sane.VERSION_MAJOR(version_code),
-                 Sane.VERSION_MINOR(version_code),
-                 Sane.VERSION_BUILD(version_code));
+               Sane.VERSION_MAJOR(version_code),
+               Sane.VERSION_MINOR(version_code),
+               Sane.VERSION_BUILD(version_code));
 
         /* Scan for devices on first start */
         redetect ();

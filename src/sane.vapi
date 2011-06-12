@@ -48,6 +48,39 @@ namespace Sane {
         NO_MEM,
         ACCESS_DENIED
     }
+     
+    public static string status_to_string (Status status)
+    {
+        switch (status)
+        {
+        case Status.GOOD:
+            return "SANE_STATUS_GOOD";
+        case Status.UNSUPPORTED:
+            return "SANE_STATUS_UNSUPPORTED";
+        case Status.CANCELLED:
+            return "SANE_STATUS_CANCELLED";
+        case Status.DEVICE_BUSY:
+            return "SANE_STATUS_DEVICE_BUSY";
+        case Status.INVAL:
+            return "SANE_STATUS_INVAL";
+        case Status.EOF:
+            return "SANE_STATUS_EOF";
+        case Status.JAMMED:
+            return "SANE_STATUS_JAMMED";
+        case Status.NO_DOCS:
+            return "SANE_STATUS_NO_DOCS";
+        case Status.COVER_OPEN:
+            return "SANE_STATUS_COVER_OPEN";
+        case Status.IO_ERROR:
+            return "SANE_STATUS_IO_ERROR";
+        case Status.NO_MEM:
+            return "SANE_STATUS_NO_MEM";
+        case Status.ACCESS_DENIED:
+            return "SANE_STATUS_ACCESS_DENIED";
+        default:
+            return "SANE_STATUS(%d)".printf (status);
+        }
+    }
 
     public enum Action
     {
@@ -63,6 +96,25 @@ namespace Sane {
         RED,
         GREEN,
         BLUE
+    }
+
+    public static string frame_to_string (Frame frame)
+    {
+        switch (frame)
+        {
+        case Frame.GRAY:
+            return "SANE_FRAME_GRAY";
+        case Frame.RGB:
+            return "SANE_FRAME_RGB";
+        case Frame.RED:
+            return "SANE_FRAME_RED";
+        case Frame.GREEN:
+            return "SANE_FRAME_GREEN";
+        case Frame.BLUE:
+            return "SANE_FRAME_BLUE";
+        default:
+            return "SANE_FRAME(%d)".printf (frame);
+        }
     }
 
     public struct Parameters
