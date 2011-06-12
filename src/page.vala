@@ -724,7 +724,7 @@ public class PixbufWriter
 
     public void save (Gdk.Pixbuf image, string type, string[] option_keys, string[] option_values) throws Error
     {
-        gdk_pixbuf_save_to_callbackv (image, write_pixbuf_data, type, option_keys, option_values);
+        GdkFixes.pixbuf_save_to_callbackv (image, write_pixbuf_data, type, option_keys, option_values);
     }
 
     private bool write_pixbuf_data (uint8[] buf, out Error error)

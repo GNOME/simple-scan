@@ -4,12 +4,12 @@ simple_scan_SOURCES = \
 	config.vapi \
 	book.vala \
 	book-view.vala \
+	fixes.vapi \
 	jpeglib.vapi \
 	page.vala \
 	page-view.vala \
 	sane.vapi \
 	simple-scan.vala \
-	simple-scan.vapi \
 	scanner.vala \
 	ui.vala
 
