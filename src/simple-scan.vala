@@ -160,54 +160,50 @@ public class Application
         append_page ();
     }
 
-    private string? get_profile_for_device (string current_device)
+    private string? get_profile_for_device (string device)
     {
-#if 0    
-        /* Connect to the color manager on the session bus */
-        var connection = dbus_g_bus_get (DBUS_BUS_SESSION, null);
-        var proxy = dbus_g_proxy_new_for_name (connection,
-                                               "org.gnome.ColorManager",
-                                               "/org/gnome/ColorManager",
-                                               "org.gnome.ColorManager");
+        var device_id = "sane:%s".printf (device);
 
-        /* Get color profile */
-        var device_id = "sane:%s".printf (current_device);
-        custom_g_type_string_string = dbus_g_type_get_collection ("GPtrArray",
-                                                                  dbus_g_type_get_struct("GValueArray",
-                                                                                         G_TYPE_STRING,
-                                                                                         G_TYPE_STRING,
-                                                                                         G_TYPE_INVALID));
-        var ret = dbus_g_proxy_call (proxy, "GetProfilesForDevice", &error,
-                                     G_TYPE_STRING, device_id,
-                                     G_TYPE_STRING, "",
-                                     G_TYPE_INVALID,
-                                     custom_g_type_string_string, &profile_data_array,
-                                     G_TYPE_INVALID);
-        if (!ret)
+        debug ("Getting color profile for device %s", device_id);
+
+        Variant ret;
+        try
         {
-            debug ("The request failed: %s", error.message);
-            g_error_free (error);
+            var proxy = new DBusProxy.for_bus_sync (BusType.SESSION, DBusProxyFlags.NONE, null,
+                                                    "org.gnome.ColorManager",
+                                                    "/org/gnome/ColorManager",
+                                                    "org.gnome.ColorManager");
+            ret = proxy.call_sync ("GetProfilesForDevice",
+                                   new Variant ("(ss)", device_id, ""),
+                                   DBusCallFlags.NONE,
+                                   -1);
+        }
+        catch (Error e)
+        {
+            debug ("Error getting color profile: %s", e.message);
+            return null;
+        }
+        
+        if (!ret.is_of_type (new VariantType ("(a(ss))")))
+        {
+            warning ("Color manager returns unknown type");
             return null;
         }
 
-        if (profile_data_array.len > 0)
+        Variant profiles;
+        ret.get ("(a(ss))", out profiles);
+        if (profiles.n_children () == 0)
         {
-            GValueArray *gva;
-            GValue *gv = null;
-
-            /* Just use the preferred profile filename */
-            gva = (GValueArray *) g_ptr_array_index (profile_data_array, 0);
-            gv = g_value_array_get_nth (gva, 1);
-            icc_profile = g_value_dup_string (gv);
-            g_value_unset (gv);
+            debug ("There are no ICC profiles for the device %s", device_id);
+            return null;
         }
         else
-            debug ("There are no ICC profiles for the device sane:%s", current_device);
-        g_ptr_array_free (profile_data_array, true);
-
-        return icc_profile;
-#endif
-        return null;
+        {
+            string name, filename;
+            profiles.get_child (0, "(ss)", out name, out filename);
+            debug ("Using color profile %s (%s) for device %s", name, filename, device_id);
+            return filename;
+        }
     }
 
     private void scanner_page_info_cb (Scanner scanner, ScanPageInfo info)
