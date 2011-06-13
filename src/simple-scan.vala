@@ -252,7 +252,7 @@ public class Application
     private void scanner_failed_cb (Scanner scanner, int error_code, string error_string)
     {
         remove_empty_page ();
-        if (error_code == Sane.Status.CANCELLED)
+        if (error_code != Sane.Status.CANCELLED)
         {
             ui.show_error (/* Title of error dialog when scan failed */
                            _("Failed to scan"),
