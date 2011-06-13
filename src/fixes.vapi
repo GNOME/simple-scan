@@ -1,7 +1,7 @@
 // FIXME: Buf reference
 [CCode (cheader_filename = "gdk/gdk.h")]
 namespace GdkFixes {
-    public delegate bool PixbufSaveFunc (uint8[] buf, out GLib.Error error);
+    public delegate bool PixbufSaveFunc ([CCode (array_length_type = "gsize")] uint8[] buf, out GLib.Error error);
     [CCode (cname = "gdk_pixbuf_save_to_callbackv")]
     bool pixbuf_save_to_callbackv (Gdk.Pixbuf pixbuf, PixbufSaveFunc save_func, string type, [CCode (array_length = false)] string[] option_keys, [CCode (array_length = false)] string[] option_values) throws GLib.Error;
 }
