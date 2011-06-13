@@ -73,7 +73,7 @@ public class BookView : Gtk.VBox
         pack_start (scroll, false, true, 0);
 
         drawing_area.configure_event.connect (configure_cb);
-        drawing_area.expose_event.connect (expose_cb);
+        drawing_area.draw.connect (draw_cb);
         drawing_area.motion_notify_event.connect (motion_cb);
         drawing_area.key_press_event.connect (key_cb);
         drawing_area.button_press_event.connect (button_cb);
@@ -392,14 +392,15 @@ public class BookView : Gtk.VBox
         laying_out = false;
     }
 
-    private bool expose_cb (Gtk.Widget widget, Gdk.EventExpose event)
+    private bool draw_cb (Gtk.Widget widget, Cairo.Context context)
     {
         if (book.get_n_pages () == 0)
             return false;
 
         layout ();
 
-        var context = Gdk.cairo_create (widget.get_window ());
+        double left, top, right, bottom;
+        context.clip_extents (out left, out top, out right, out bottom);
 
         /* Render each page */
         for (var i = 0; i < book.get_n_pages (); i++)
@@ -409,7 +410,7 @@ public class BookView : Gtk.VBox
             var right_edge = page.get_x_offset () + page.get_width () - get_x_offset ();
 
             /* Page not visible, don't render */
-            if (right_edge < event.area.x || left_edge > event.area.x + event.area.width)
+            if (right_edge < left || left_edge > right)
                 continue;
 
             context.save ();
@@ -419,9 +420,8 @@ public class BookView : Gtk.VBox
 
             if (page.get_selected ())
                 Gtk.paint_focus (drawing_area.get_style (),
-                                 drawing_area.get_window (),
+                                 context,
                                  Gtk.StateType.SELECTED,
-                                 event.area,
                                  null,
                                  null,
                                  page.get_x_offset () - get_x_offset (),

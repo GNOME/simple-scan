@@ -8,7 +8,8 @@ GNOME_MAINTAINER_MODE_DEFINES
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
 AC_ISC_POSIX
-AM_PROG_VALAC([0.12.1])
+dnl should be 0.12.1
+AM_PROG_VALAC([0.12.0])
 AM_PROG_CC_C_O
 AC_HEADER_STDC
 
@@ -24,10 +25,8 @@ dnl Run-time dependencies:
 dnl * gnome-icon-theme
 dnl * xdg-utils (for xdg-email)
 
-GTK_REQUIRED=2.18.0
-
 PKG_CHECK_MODULES(SIMPLE_SCAN, [
-    gtk+-2.0 >= $GTK_REQUIRED
+    gtk+-3.0
     gmodule-export-2.0
     gthread-2.0
     zlib
