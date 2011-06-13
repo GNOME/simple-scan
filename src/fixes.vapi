@@ -1,4 +1,4 @@
-// FIXME: Buf reference
+// Workaround for https://bugzilla.gnome.org/show_bug.cgi?id=652441
 [CCode (cheader_filename = "gdk/gdk.h")]
 namespace GdkFixes {
     public delegate bool PixbufSaveFunc ([CCode (array_length_type = "gsize")] uint8[] buf, out GLib.Error error);
@@ -7,6 +7,7 @@ namespace GdkFixes {
 }
 
 // Workaround for https://bugzilla.gnome.org/show_bug.cgi?id=652344
+// Fixed in 0.12.1
 [CCode (lower_case_cprefix = "", cheader_filename = "zlib.h")]
 namespace ZLibFixes {
     [CCode (cname = "z_stream", destroy_function = "deflateEnd")]
