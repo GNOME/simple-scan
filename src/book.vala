@@ -9,9 +9,6 @@
  * license.
  */
 
-/* Workaround for https://bugzilla.gnome.org/show_bug.cgi?id=651507 */
-extern void cairo_surface_show_page (Cairo.Surface surface);
-
 public class Book
 {
     private List<Page> pages;
@@ -136,7 +133,7 @@ public class Book
             var height = image.get_height () * 72.0 / page.get_dpi ();
             surface.set_size (width, height);
             save_ps_pdf_surface (surface, image, page.get_dpi ());
-            cairo_surface_show_page (surface);
+            surface.show_page ();
         }
     }
 
