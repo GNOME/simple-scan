@@ -142,8 +142,7 @@ public class Book
 
     private uint8[]? compress_zlib (uint8[] data)
     {
-        // TEMP: Workaround for https://bugzilla.gnome.org/show_bug.cgi?id=652344
-        var stream = ZLibFixes.DeflateStream (ZLib.Level.BEST_COMPRESSION);
+        var stream = ZLib.DeflateStream (ZLib.Level.BEST_COMPRESSION);
         var out_data = new uint8[data.length];
 
         stream.next_in = data;
