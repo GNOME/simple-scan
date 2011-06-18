@@ -724,20 +724,12 @@ public class PixbufWriter
 
     public void save (Gdk.Pixbuf image, string type, string[] option_keys, string[] option_values) throws Error
     {
-        GdkFixes.pixbuf_save_to_callbackv (image, write_pixbuf_data, type, option_keys, option_values);
+        image.save_to_callbackv (write_pixbuf_data, type, option_keys, option_values);
     }
 
-    private bool write_pixbuf_data (uint8[] buf, out Error error)
+    private bool write_pixbuf_data (uint8[] buf) throws Error
     {
-        try
-        {
-            stream.write_all (buf, null, null);
-        }
-        catch (Error e)
-        {
-            error = e;
-            return false;
-        }
+        stream.write_all (buf, null, null);
         return true;
     }
 }
