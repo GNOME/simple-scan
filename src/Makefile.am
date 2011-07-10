@@ -4,6 +4,7 @@ simple_scan_SOURCES = \
 	config.vapi \
 	book.vala \
 	book-view.vala \
+	colord.vapi \
 	jpeglib.vapi \
 	page.vala \
 	page-view.vala \
@@ -18,8 +19,13 @@ simple_scan_VALAFLAGS = \
 	--pkg=gio-2.0 \
 	--pkg=gtk+-3.0
 
+if HAVE_COLORD
+simple_scan_VALAFLAGS += -D HAVE_COLORD
+endif
+
 simple_scan_CFLAGS = \
 	$(SIMPLE_SCAN_CFLAGS) \
+	$(COLORD_CFLAGS) \
 	$(WARN_CFLAGS) \
 	-DVERSION=\"$(VERSION)\" \
 	-DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\" \
@@ -31,6 +37,7 @@ simple_scan_CFLAGS = \
 
 simple_scan_LDADD = \
 	$(SIMPLE_SCAN_LIBS) \
+	$(COLORD_LIBS) \
 	-lsane \
 	-ljpeg \
 	-lm

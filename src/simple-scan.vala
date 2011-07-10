@@ -160,50 +160,72 @@ public class Application
         append_page ();
     }
 
-    private string? get_profile_for_device (string device)
+    private string? get_profile_for_device (string device_name)
     {
-        var device_id = "sane:%s".printf (device);
+#if HAVE_COLORD
+        var device_id = "sane:%s".printf (device_name);
+        debug ("Getting color profile for device %s", device_name);
 
-        debug ("Getting color profile for device %s", device_id);
-
-        Variant ret;
+        var client = new Colord.Client ();
         try
         {
-            var proxy = new DBusProxy.for_bus_sync (BusType.SESSION, DBusProxyFlags.NONE, null,
-                                                    "org.gnome.ColorManager",
-                                                    "/org/gnome/ColorManager",
-                                                    "org.gnome.ColorManager");
-            ret = proxy.call_sync ("GetProfilesForDevice",
-                                   new Variant ("(ss)", device_id, ""),
-                                   DBusCallFlags.NONE,
-                                   -1);
+            client.connect_sync ();
         }
         catch (Error e)
         {
-            debug ("Error getting color profile: %s", e.message);
-            return null;
-        }
-        
-        if (!ret.is_of_type (new VariantType ("(a(ss))")))
-        {
-            warning ("Color manager returns unknown type");
+            debug ("Failed to connect to colord: %s", e.message);
             return null;
         }
 
-        Variant profiles;
-        ret.get ("(a(ss))", out profiles);
-        if (profiles.n_children () == 0)
+        Colord.Device device;
+        try
         {
-            debug ("There are no ICC profiles for the device %s", device_id);
+            device = client.find_device_by_property_sync (Colord.DEVICE_PROPERTY_SERIAL, device_id);
+        }
+        catch (Error e)
+        {
+            debug ("Unable to find colord device %s: %s", device_name, e.message);
             return null;
         }
-        else
+
+        try
         {
-            string name, filename;
-            profiles.get_child (0, "(ss)", out name, out filename);
-            debug ("Using color profile %s (%s) for device %s", name, filename, device_id);
-            return filename;
+            device.connect_sync ();
         }
+        catch (Error e)
+        {
+            debug ("Failed to get properties from the device %s: %s", device_name, e.message);
+            return null;
+        }
+
+        var profile = device.get_default_profile ();
+        if (profile == null)
+        {
+            debug ("No default color profile for device: %s", device_name);
+            return null;
+        }
+
+        try
+        {
+            profile.connect_sync ();
+        }
+        catch (Error e)
+        {
+            debug ("Failed to get properties from the profile %s: %s", device_name, e.message);
+            return null;
+        }
+
+        if (profile.filename == null)
+        {
+            debug ("No icc color profile for the device %s", device_name);
+            return null;
+        }
+
+        debug ("Using color profile %s for device %s", profile.filename, device_name);
+        return profile.filename;
+#else
+        return null;
+#endif        
     }
 
     private void scanner_page_info_cb (Scanner scanner, ScanPageInfo info)

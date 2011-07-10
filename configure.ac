@@ -34,6 +34,11 @@ PKG_CHECK_MODULES(SIMPLE_SCAN, [
     gudev-1.0
 ])
 
+PKG_CHECK_MODULES(COLORD, [
+    colord
+], have_colord=yes, have_colord=no)
+AM_CONDITIONAL(HAVE_COLORD, test $have_colord = yes)
+
 AC_CHECK_HEADERS([sane/sane.h],[],[AC_MSG_ERROR([SANE not found])])
 AC_CHECK_HEADERS([sane/saneopts.h],[],[AC_MSG_ERROR([SANE not found])])
 AC_CHECK_HEADERS([jpeglib.h],[],[AC_MSG_ERROR([libjpeg not found])])
