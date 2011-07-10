@@ -14,9 +14,10 @@ gsettings_SCHEMAS = org.gnome.SimpleScan.gschema.xml
 
 man1_MANS = simple-scan.1
 
-EXTRA_DIST = $(ui_DATA) $(utilities_in_files) $(gsettings_SCHEMAS) $(man1_MANS)
+EXTRA_DIST = $(ui_DATA) $(utilities_in_files) org.gnome.SimpleScan.gschema.xml.in $(man1_MANS)
 
 DISTCLEANFILES = \
 	Makefile.in \
 	$(schema_DATA) \
-	$(utilities_DATA)
+	$(utilities_DATA) \
+	$(gsettings_SCHEMAS)
