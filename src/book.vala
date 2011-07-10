@@ -548,7 +548,7 @@ public class PsWriter
     public Cairo.PsSurface surface;
     public FileOutputStream stream;
 
-    public PsWriter (FileOutputStream steam)
+    public PsWriter (FileOutputStream stream)
     {
         this.stream = stream;
         surface = new Cairo.PsSurface.for_stream (write_cairo_data, 0, 0);
