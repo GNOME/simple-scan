@@ -193,7 +193,7 @@ public class Scanner
     private static Scanner scanner_object = null;
 
     /* Thread communicating with SANE */
-    private unowned Thread<bool> thread;
+    private unowned Thread<void*> thread;
 
     /* Queue of requests from main thread */
     private AsyncQueue<Request> request_queue;
@@ -1318,7 +1318,7 @@ public class Scanner
         }
     }
 
-    private bool scan_thread ()
+    private void* scan_thread ()
     {
         state = ScanState.IDLE;
 
@@ -1328,7 +1328,7 @@ public class Scanner
         if (status != Sane.Status.GOOD)
         {
             warning ("Unable to initialize SANE backend: %s", Sane.strstatus(status));
-            return false;
+            return null;
         }
         debug ("SANE version %d.%d.%d",
                Sane.VERSION_MAJOR(version_code),
@@ -1370,14 +1370,14 @@ public class Scanner
             }
         }
 
-        return true;
+        return null;
     }
 
     public void start ()
     {
         try
         {
-            thread = Thread.create<bool> (scan_thread, true);
+            thread = Thread.create<void*> (scan_thread, true);
         }
         catch (Error e)
         {
