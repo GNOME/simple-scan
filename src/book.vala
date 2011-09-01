@@ -207,10 +207,10 @@ public class Book
         var writer = new PDFWriter (stream);
 
         /* Header */
-        writer.write_string ("%%PDF-1.3\n");
+        writer.write_string ("%PDF-1.3\n");
 
         /* Comment with binary as recommended so file is treated as binary */
-        writer.write_string ("%%\xe2\xe3\xcf\xd3\n");
+        writer.write_string ("%\xe2\xe3\xcf\xd3\n");
 
         /* Catalog */
         var catalog_number = writer.start_object ();
@@ -464,7 +464,7 @@ public class Book
         writer.write_string ("xref\n");
         writer.write_string ("1 %zu\n".printf (writer.object_offsets.length ()));
         foreach (var offset in writer.object_offsets)
-            writer.write_string ("%010zu 0000 n\n".printf (offset));
+            writer.write_string ("%010zu 00000 n \n".printf (offset));
 
         /* Trailer */
         writer.write_string ("trailer\n");
@@ -476,7 +476,7 @@ public class Book
         writer.write_string (">>\n");
         writer.write_string ("startxref\n");
         writer.write_string ("%zu\n".printf (xref_offset));
-        writer.write_string ("%%%%EOF\n");
+        writer.write_string ("%%EOF\n");
     }
 
     public void save (string type, File file) throws Error

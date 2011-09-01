@@ -13,6 +13,7 @@ public class Application
 {
     static bool show_version;
     static bool debug_enabled;
+    static string? fix_pdf_filename = null;
     public static const OptionEntry[] options =
     {
         { "version", 'v', 0, OptionArg.NONE, ref show_version,
@@ -21,6 +22,8 @@ public class Application
         { "debug", 'd', 0, OptionArg.NONE, ref debug_enabled,
           /* Help string for command line --debug flag */
           N_("Print debugging messages"), null},
+        { "fix-pdf", 0, 0, OptionArg.STRING, ref fix_pdf_filename,
+          N_("Fix PDF files generated with older versions of Simple Scan"), "FILENAME..."},
         { null }
     };
     private static Timer log_timer;
@@ -455,6 +458,67 @@ public class Application
     {
         scanner.redetect ();
     }
+    
+    private static void fix_pdf (string filename) throws Error
+    {
+        uint8[] data;
+        FileUtils.get_data (filename, out data);
+
+        var fixed_file = FileStream.open (filename + ".fixed", "w");
+
+        var offset = 0;
+        var line_number = 0;
+        var xref_offset = 0;
+        var xref_line = -1;
+        var xref_regex = new Regex ("^\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d 0000 n$");
+        MatchInfo xref_match;
+        var line = new StringBuilder ();
+        while (offset < data.length)
+        {
+            var end_offset = offset;
+            line.assign ("");
+            while (end_offset < data.length)
+            {
+                var c = data[end_offset];
+                line.append_c ((char) c);
+                end_offset++;
+                if (c == '\n')
+                    break;
+            }
+
+            if (line.str == "startxref\n")
+                xref_line = line_number;
+
+            /* Fix PDF header and binary comment */
+            if (line_number < 2 && line.str.has_prefix ("%%"))
+            {
+                xref_offset--;
+                fixed_file.printf ("%s", line.str.substring (1));
+            }
+
+            /* Fix xref format */
+            else if (xref_regex.match (line.str, 0, out xref_match))
+                fixed_file.printf ("%010d 00000 n \n", int.parse (xref_match.get_string ()) + xref_offset);
+
+            /* Fix xref offset */
+            else if (xref_line > 0 && line_number == xref_line + 1)
+                fixed_file.printf ("%d\n".printf (int.parse (line.str) + xref_offset));
+
+            /* Fix EOF marker */
+            else if (line_number == xref_line + 2 && line.str.has_prefix ("%%%%"))
+                fixed_file.printf ("%s", line.str.substring (2));
+
+            else
+                for (var i = offset; i < end_offset; i++)
+                    fixed_file.putc ((char) data[i]);
+
+            line_number++;
+            offset = end_offset;
+        }
+        
+        if (FileUtils.rename (filename, filename + "~") >= 0)
+            FileUtils.rename (filename + ".fixed", filename);
+    }
 
     public static int main (string[] args)
     {
@@ -485,6 +549,21 @@ public class Application
         {
             /* Note, not translated so can be easily parsed */
             stderr.printf ("simple-scan %s\n", Config.VERSION);
+            return Posix.EXIT_SUCCESS;
+        }
+        if (fix_pdf_filename != null)
+        {
+            try
+            {
+                fix_pdf (fix_pdf_filename);
+                for (var i = 1; i < args.length; i++)
+                    fix_pdf (args[i]);
+            }
+            catch (Error e)
+            {
+                stderr.printf ("Error fixing PDF file: %s", e.message);
+                return Posix.EXIT_FAILURE;                
+            }
             return Posix.EXIT_SUCCESS;
         }
 
