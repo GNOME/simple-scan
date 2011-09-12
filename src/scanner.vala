@@ -369,7 +369,7 @@ public class Scanner
             return false;
 
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_AUTO, null, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_AUTO) -> %s", option_index, Sane.status_to_string (status));
+        debug ("sane_control_option (%d, SANE_ACTION_SET_AUTO) -> %s", (int) option_index, Sane.status_to_string (status));
         if (status != Sane.Status.GOOD)
             warning ("Error setting default option %s: %s", option.name, Sane.strstatus(status));
 
@@ -383,7 +383,7 @@ public class Scanner
         Sane.Bool v = (Sane.Bool) value;
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &v, null);
         result = (bool) v;
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s) -> (%s, %s)", option_index, value ? "SANE_TRUE" : "SANE_FALSE", Sane.status_to_string (status), result ? "SANE_TRUE" : "SANE_FALSE");
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s) -> (%s, %s)", (int) option_index, value ? "SANE_TRUE" : "SANE_FALSE", Sane.status_to_string (status), result ? "SANE_TRUE" : "SANE_FALSE");
     }
 
     private void set_int_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, int value, out int result)
@@ -393,22 +393,23 @@ public class Scanner
         Sane.Int v = (Sane.Int) value;
         if (option.constraint_type == Sane.ConstraintType.RANGE)
         {
-            if (option.constraint.range.quant != 0)
-                v *= option.constraint.range.quant;
-            if (v < option.constraint.range.min)
-                v = option.constraint.range.min;
-            if (v > option.constraint.range.max)
-                v = option.constraint.range.max;
+            if (option.range.quant != 0)
+                v *= option.range.quant;
+            if (v < option.range.min)
+                v = option.range.min;
+            if (v > option.range.max)
+                v = option.range.max;
         }
         else if (option.constraint_type == Sane.ConstraintType.WORD_LIST)
         {
             int distance = int.MAX, nearest = 0;
 
             /* Find nearest value to requested */
-            for (var i = 0; i < option.constraint.word_list[0]; i++)
+            for (var i = 0; i < option.word_list[0]; i++)
             {
-                var x = (int) option.constraint.word_list[i+1];
-                var d = (x - v).abs ();
+                var x = (int) option.word_list[i+1];
+                var d = (int) (x - v);
+                d = d.abs ();
                 if (d < distance)
                 {
                     distance = d;
@@ -419,8 +420,8 @@ public class Scanner
         }
 
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &v, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %d) -> (%s, %d)", option_index, value, Sane.status_to_string (status), v);
-        result = v;
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %d) -> (%s, %d)", (int) option_index, value, Sane.status_to_string (status), (int) v);
+        result = (int) v;
     }
 
     private void set_fixed_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, double value, out double result)
@@ -432,8 +433,8 @@ public class Scanner
 
         if (option.constraint_type == Sane.ConstraintType.RANGE)
         {
-            double min = Sane.UNFIX (option.constraint.range.min);
-            double max = Sane.UNFIX (option.constraint.range.max);
+            double min = Sane.UNFIX (option.range.min);
+            double max = Sane.UNFIX (option.range.max);
 
             if (v < min)
                 v = min;
@@ -445,9 +446,9 @@ public class Scanner
             double distance = double.MAX, nearest = 0.0;
 
             /* Find nearest value to requested */
-            for (var i = 0; i < option.constraint.word_list[0]; i++)
+            for (var i = 0; i < option.word_list[0]; i++)
             {
-                double x = Sane.UNFIX (option.constraint.word_list[i+1]);
+                double x = Sane.UNFIX (option.word_list[i+1]);
                 if (Math.fabs (x - v) < distance)
                 {
                     distance = Math.fabs (x - v);
@@ -459,7 +460,7 @@ public class Scanner
 
         v_fixed = Sane.FIX (v);
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &v_fixed, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %f) -> (%s, %f)", option_index, value, Sane.status_to_string (status), Sane.UNFIX (v_fixed));
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %f) -> (%s, %f)", (int) option_index, value, Sane.status_to_string (status), Sane.UNFIX (v_fixed));
 
         result = Sane.UNFIX (v_fixed);
     }
@@ -475,7 +476,7 @@ public class Scanner
         s[i] = '\0';
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, s, null);
         result = (string) s;
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\") -> (%s, \"%s\")", option_index, value, Sane.status_to_string (status), result);
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\") -> (%s, \"%s\")", (int) option_index, value, Sane.status_to_string (status), result);
 
         return status == Sane.Status.GOOD;
     }
@@ -488,13 +489,13 @@ public class Scanner
         for (var i = 0; values[i] != null; i++)
         {
             var j = 0;
-            for (; option.constraint.string_list[j] != null; j++)
+            for (; option.string_list[j] != null; j++)
             {
-                if (values[i] == option.constraint.string_list[j])
+                if (values[i] == option.string_list[j])
                    break;
             }
 
-            if (option.constraint.string_list[j] != null)
+            if (option.string_list[j] != null)
                 return set_string_option (handle, option, option_index, values[i], out result);
         }
 
@@ -503,7 +504,7 @@ public class Scanner
 
     private void log_option (Sane.Int index, Sane.OptionDescriptor option)
     {
-        var s = "Option %d:".printf (index);
+        var s = "Option %d:".printf ((int) index);
 
         if (option.name != "")
             s += " name='%s'".printf (option.name);
@@ -536,7 +537,7 @@ public class Scanner
             break;
         }
 
-        s += " size=%d".printf (option.size);
+        s += " size=%d".printf ((int) option.size);
 
         switch (option.unit)
         {
@@ -569,30 +570,30 @@ public class Scanner
         {
         case Sane.ConstraintType.RANGE:
             if (option.type == Sane.ValueType.FIXED)
-                s += " min=%f, max=%f, quant=%d".printf (Sane.UNFIX (option.constraint.range.min), Sane.UNFIX (option.constraint.range.max), option.constraint.range.quant);
+                s += " min=%f, max=%f, quant=%d".printf (Sane.UNFIX (option.range.min), Sane.UNFIX (option.range.max), (int) option.range.quant);
             else
-                s += " min=%d, max=%d, quant=%d".printf (option.constraint.range.min, option.constraint.range.max, option.constraint.range.quant);
+                s += " min=%d, max=%d, quant=%d".printf ((int) option.range.min, (int) option.range.max, (int) option.range.quant);
             break;
         case Sane.ConstraintType.WORD_LIST:
             s += " values=[";
-            for (var i = 0; i < option.constraint.word_list[0]; i++)
+            for (var i = 0; i < option.word_list[0]; i++)
             {
                 if (i != 0)
                     s += ", ";
                 if (option.type == Sane.ValueType.INT)
-                    s += "%d".printf (option.constraint.word_list[i+1]);
+                    s += "%d".printf ((int) option.word_list[i+1]);
                 else
-                    s += "%f".printf (Sane.UNFIX (option.constraint.word_list[i+1]));
+                    s += "%f".printf (Sane.UNFIX (option.word_list[i+1]));
             }
             s += "]";
             break;
         case Sane.ConstraintType.STRING_LIST:
             s += " values=[";
-            for (var i = 0; option.constraint.string_list[i] != null; i++)
+            for (var i = 0; option.string_list[i] != null; i++)
             {
                 if (i != 0)
                     s += ", ";
-                s += "\"%s\"".printf (option.constraint.string_list[i]);
+                s += "\"%s\"".printf (option.string_list[i]);
             }
             s += "]";
             break;
@@ -658,7 +659,7 @@ public class Scanner
             {
                 if (s != "")
                     s += ",";
-                s += "%x".printf (cap);
+                s += "%x".printf ((int) cap);
             }
         }
 
@@ -812,7 +813,7 @@ public class Scanner
         var job = (ScanJob) job_queue.data;
 
         var option = Sane.get_option_descriptor (handle, option_index);
-        debug ("sane_get_option_descriptor (%d)", option_index);
+        debug ("sane_get_option_descriptor (%d)", (int) option_index);
         var index = option_index;
         option_index++;
 
@@ -822,25 +823,25 @@ public class Scanner
             if (br_x_option_index != 0)
             {
                 option = Sane.get_option_descriptor (handle, br_x_option_index);
-                debug ("sane_get_option_descriptor (%d)", br_x_option_index);
+                debug ("sane_get_option_descriptor (%d)", (int) br_x_option_index);
                 if (option.constraint_type == Sane.ConstraintType.RANGE)
                 {
                     if (option.type == Sane.ValueType.FIXED)
-                        set_fixed_option (handle, option, br_x_option_index, Sane.UNFIX (option.constraint.range.max), null);
+                        set_fixed_option (handle, option, br_x_option_index, Sane.UNFIX (option.range.max), null);
                     else
-                        set_int_option (handle, option, br_x_option_index, option.constraint.range.max, null);
+                        set_int_option (handle, option, br_x_option_index, (int) option.range.max, null);
                 }
             }
             if (br_y_option_index != 0)
             {
                 option = Sane.get_option_descriptor (handle, br_y_option_index);
-                debug ("sane_get_option_descriptor (%d)", br_y_option_index);
+                debug ("sane_get_option_descriptor (%d)", (int) br_y_option_index);
                 if (option.constraint_type == Sane.ConstraintType.RANGE)
                 {
                     if (option.type == Sane.ValueType.FIXED)
-                        set_fixed_option (handle, option, br_y_option_index, Sane.UNFIX (option.constraint.range.max), null);
+                        set_fixed_option (handle, option, br_y_option_index, Sane.UNFIX (option.range.max), null);
                     else
-                        set_int_option (handle, option, br_y_option_index, option.constraint.range.max, null);
+                        set_int_option (handle, option, br_y_option_index, (int) option.range.max, null);
                 }
             }
 
@@ -1191,7 +1192,7 @@ public class Scanner
         Sane.Int n_read;
         var b = (uchar *) buffer;
         var status = Sane.read (handle, (uint8[]) (b + n_used), (Sane.Int) n_to_read, out n_read);
-        debug ("sane_read (%d) -> (%s, %d)", n_to_read, Sane.status_to_string (status), n_read);
+        debug ("sane_read (%d) -> (%s, %d)", n_to_read, Sane.status_to_string (status), (int) n_read);
 
         /* Completed read */
         if (status == Sane.Status.EOF)
@@ -1217,7 +1218,7 @@ public class Scanner
         bool full_read = false;
         if (n_used == 0 && n_read == buffer.length)
             full_read = true;
-        n_used += n_read;
+        n_used += (int) n_read;
 
         /* Feed out lines */
         if (n_used >= parameters.bytes_per_line)

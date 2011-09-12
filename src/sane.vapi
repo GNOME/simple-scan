@@ -7,19 +7,19 @@ namespace Sane {
     }
 
     [SimpleType]
-    [IntegerType]
+    [IntegerType (rank = 9)]
     public struct Int
     {
     }
 
     [SimpleType]
-    [IntegerType]
+    [IntegerType (rank = 9)]
     public struct Fixed
     {
     }
 
     [SimpleType]
-    [IntegerType]
+    [IntegerType (rank = 9)]
     public struct Word
     {
     }
@@ -155,7 +155,7 @@ namespace Sane {
         MICROSECOND
     }
     
-    [CCode (cname = "const SANE_Constraint_Type", cprefix = "SANE_CONSTRAINT_")]
+    [CCode (cname = "SANE_Constraint_Type", cprefix = "SANE_CONSTRAINT_")]
     public enum ConstraintType
     {
         NONE,
@@ -183,26 +183,24 @@ namespace Sane {
         ADVANCED
     }
 
-    [CCode (cname = "const SANE_Option_Descriptor", ref_function = "", unref_function = "")]
+    [CCode (cname = "SANE_Option_Descriptor", ref_function = "", unref_function = "")]
     public class OptionDescriptor
     {
-        public string name;
-        public string title;
-        public string desc;
+        public unowned string name;
+        public unowned string title;
+        public unowned string desc;
         public ValueType type;
         public Unit unit;
         public Int size;
         public Int cap;
 
         public ConstraintType constraint_type;
-        public struct _Constraint
-        {
-            [CCode (array_length = false, null_terminated = true)]
-            public string[] string_list;
-            public Word[] word_list;
-            public Range range;
-        }
-        public _Constraint constraint;
+        [CCode (cname = "constraint.string_list", array_length = false, null_terminated = true)]
+        public string[] string_list;
+        [CCode (cname = "constraint.word_list", array_length = false)]
+        public Word[] word_list;
+        [CCode (cname = "constraint.range")]
+        public Range range;
     }
 
     [CCode (type = "Int", cprefix = "SANE_INFO_")]
@@ -754,4 +752,3 @@ namespace Sane {
     [CCode (cname = "SANE_VALUE_SCAN_MODE_LINEART", cheader_filename = "sane/saneopts.h")]
     public static string VALUE_SCAN_MODE_LINEART;
 }
-
