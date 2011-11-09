@@ -197,6 +197,7 @@ public class Book
         }
         info.finish_compress ();
         n_written = max_length - dest_mgr.free_in_buffer;
+        data.resize ((int) n_written);
 
         return data;
     }
