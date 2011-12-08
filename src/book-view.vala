@@ -435,6 +435,7 @@ public class BookView : Gtk.VBox
 
     private PageView? get_page_at (int x, int y, out int x_, out int y_)
     {
+        x_ = y_ = 0;
         for (var i = 0; i < book.get_n_pages (); i++)
         {
             var page = get_nth_page (i);

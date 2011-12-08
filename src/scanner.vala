@@ -467,6 +467,8 @@ public class Scanner
 
     private bool set_string_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, string value, out string result)
     {
+        result = "";
+
         return_val_if_fail (option.type == Sane.ValueType.STRING, false);
 
         var s = new char[option.size];
@@ -499,6 +501,7 @@ public class Scanner
                 return set_string_option (handle, option, option_index, values[i], out result);
         }
 
+        result = "";
         return false;
     }
 

@@ -637,6 +637,7 @@ public class SimpleScan
     {
         Gtk.TreeIter iter;
 
+        width = height = 0;
         if (paper_size_combo.get_active_iter (out iter))
         {
             paper_size_model.get (iter, 0, ref width, 1, ref height, -1);
