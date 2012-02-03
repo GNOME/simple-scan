@@ -541,6 +541,12 @@ public class Page
         return pixels;
     }
 
+    public void set_pixels (uchar[] new_pixels)
+    {
+        pixels = new_pixels;
+        pixels_changed ();
+    }
+
     // FIXME: Copied from page-view, should be shared code
     private uchar get_sample (uchar[] pixels, int offset, int x, int depth, int n_channels, int channel)
     {

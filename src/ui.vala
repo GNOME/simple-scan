@@ -103,6 +103,7 @@ public class SimpleScan
         load ();
 
         autosave_manager = AutosaveManager.create (ref book);
+        book_view.redraw ();
 
     }
 

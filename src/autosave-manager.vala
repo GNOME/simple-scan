@@ -71,11 +71,6 @@ public class AutosaveManager
             _book.page_removed.connect (on_page_removed);
             _book.reordered.connect (on_reordered);
             _book.cleared.connect (on_cleared);
-            for (var i = 0; i < _book.get_n_pages (); i++)
-            {
-                var page = _book.get_page (i);
-                on_page_added (page);
-            }
         }
     }
 
@@ -196,6 +191,7 @@ public class AutosaveManager
         }
         warn_if_fail (Sqlite.OK == connection.exec (@"
             CREATE TABLE IF NOT EXISTS pages (
+                id integer PRIMARY KEY,
                 process_id integer,
                 page_hash integer,
                 book_hash integer,
@@ -376,7 +372,8 @@ public class AutosaveManager
                 crop_width,
                 crop_height,
                 scan_direction,
-                pixels
+                pixels,
+                id
             FROM pages
             WHERE process_id = $PID
               AND book_revision = (
@@ -392,8 +389,6 @@ public class AutosaveManager
                 book.clear ();
                 first = false;
             }
-            var page_hash = stmt.column_int (1);
-            var book_hash = stmt.column_int (2);
             var dpi = stmt.column_int (5);
             var width = stmt.column_int (6);
             var height = stmt.column_int (7);
@@ -405,7 +400,7 @@ public class AutosaveManager
             {
                 continue;
             }
-
+            
             var new_page = book.append_page (width, height, dpi, scan_direction);
 
             if (depth > 0 && n_channels > 0) 
@@ -431,21 +426,17 @@ public class AutosaveManager
                 new_page.move_crop (crop_x, crop_y);
             }
 
-            new_page.get_pixels ().resize (stmt.column_bytes (17));
-            Memory.copy (new_page.get_pixels (), stmt.column_blob (17), stmt.column_bytes (17));
-            new_page.pixels_changed ();
-        
+            uchar[] new_pixels = new uchar[stmt.column_bytes (17)];
+            Memory.copy (new_pixels, stmt.column_blob (17), stmt.column_bytes (17));
+            new_page.set_pixels (new_pixels);
+
+            var id = stmt.column_int (18);
             warn_if_fail (Sqlite.OK == database_connection.exec (@"
                 UPDATE pages
                    SET page_hash=$(direct_hash (new_page)),
                        book_hash=$(direct_hash (book)),
                        book_revision=$cur_book_revision
-                WHERE process_id = $PID
-                  AND page_hash = $page_hash
-                  AND book_hash = $book_hash
-                  AND book_revision = (
-                      SELECT MAX(book_revision) WHERE process_id = $PID
-                  )
+                WHERE id = $id
             "));
         }
     }
