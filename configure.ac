@@ -30,6 +30,7 @@ PKG_CHECK_MODULES(SIMPLE_SCAN, [
     cairo
     gdk-pixbuf-2.0
     gudev-1.0
+    sqlite3
 ])
 
 PKG_CHECK_MODULES(COLORD, [
