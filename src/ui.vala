@@ -1306,7 +1306,7 @@ public class SimpleScan
         info_bar = new Gtk.InfoBar ();
         info_bar.response.connect (info_bar_response_cb);
         main_vbox.pack_start (info_bar, false, true, 0);
-        var hbox = new Gtk.HBox (false, 12);
+        var hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
         var content_area = (Gtk.Container) info_bar.get_content_area ();
         content_area.add (hbox);
         hbox.show ();
