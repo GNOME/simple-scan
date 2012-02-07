@@ -30,7 +30,7 @@ public class BookView : Gtk.VBox
     private Gtk.Widget drawing_area;
 
     /* Horizontal scrollbar */
-    private Gtk.HScrollbar scroll;
+    private Gtk.Scrollbar scroll;
     private Gtk.Adjustment adjustment;
 
     private Gdk.CursorType cursor;
@@ -68,7 +68,7 @@ public class BookView : Gtk.VBox
         drawing_area.set_events (Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK | Gdk.EventMask.FOCUS_CHANGE_MASK | Gdk.EventMask.STRUCTURE_MASK | Gdk.EventMask.SCROLL_MASK);
         pack_start (drawing_area, true, true, 0);
 
-        scroll = new Gtk.HScrollbar (null);
+        scroll = new Gtk.Scrollbar (Gtk.Orientation.HORIZONTAL, null);
         adjustment = scroll.get_adjustment ();
         pack_start (scroll, false, true, 0);
 
