@@ -419,15 +419,11 @@ public class BookView : Gtk.VBox
             context.restore ();
 
             if (page.get_selected ())
-                Gtk.paint_focus (drawing_area.get_style (),
-                                 context,
-                                 Gtk.StateType.SELECTED,
-                                 null,
-                                 null,
-                                 page.get_x_offset () - get_x_offset (),
-                                 page.get_y_offset (),
-                                 page.get_width (),
-                                 page.get_height ());
+                drawing_area.get_style_context ().render_focus (context,
+                                                  page.get_x_offset () - get_x_offset (),
+                                                  page.get_y_offset (),
+                                                  page.get_width (),
+                                                  page.get_height ());
         }
 
         return false;
