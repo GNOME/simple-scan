@@ -1201,7 +1201,7 @@ public class Scanner
         if (status == Sane.Status.EOF)
         {
             if (parameters.lines > 0 && line_count != parameters.lines)
-                warning ("Scan completed with %d lines, expected %d lines", parameters.lines, parameters.lines);
+                warning ("Scan completed with %d lines, expected %d lines", line_count, parameters.lines);
             if (n_used > 0)
                 warning ("Scan complete with %d bytes of unused data", n_used);
             do_complete_page ();
