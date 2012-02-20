@@ -544,6 +544,7 @@ public class Page
     public void set_pixels (uchar[] new_pixels)
     {
         pixels = new_pixels;
+        has_data_ = new_pixels != null;
         pixels_changed ();
     }
 
