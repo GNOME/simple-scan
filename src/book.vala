@@ -272,7 +272,7 @@ public class Book
             {
                 depth = 8;
                 color_space = "DeviceRGB";
-                var data_length = height * width * 3 + 1;
+                var data_length = height * width * 3;
                 data = new uint8[data_length];
                 for (var row = 0; row < height; row++)
                 {
@@ -297,20 +297,23 @@ public class Book
                 var data_length = height * ((width * 2 + 7) / 8);
                 data = new uint8[data_length];
                 var offset = 0;
-                data[offset] = 0;
                 for (var row = 0; row < height; row++)
                 {
                     /* Pad to the next line */
                     if (shift_count != 6)
                     {
                         offset++;
-                        data[offset] = 0;
                         shift_count = 6;
                     }
 
                     var in_offset = row * image.get_rowstride ();
                     for (var x = 0; x < width; x++)
                     {
+                        /* Clear byte */
+                        if (shift_count == 6)
+                            data[offset] = 0;
+
+                        /* Set bits */
                         var p = pixels[in_offset + x*3];
                         if (p >= 192)
                             data[offset] |= 3 << shift_count;
@@ -318,10 +321,11 @@ public class Book
                             data[offset] |= 2 << shift_count;
                         else if (p >= 64)
                             data[offset] |= 1 << shift_count;
+
+                        /* Move to the next position */
                         if (shift_count == 0)
                         {
                             offset++;
-                            data[offset] = 0;
                             shift_count = 6;
                         }
                         else
@@ -338,27 +342,31 @@ public class Book
                 var data_length = height * ((width + 7) / 8);
                 data = new uint8[data_length];
                 var offset = 0;
-                data[offset] = 0;
                 for (var row = 0; row < height; row++)
                 {
                     /* Pad to the next line */
                     if (mask != 0x80)
                     {
                         offset++;
-                        data[offset] = 0;
                         mask = 0x80;
                     }
 
                     var in_offset = row * image.get_rowstride ();
                     for (var x = 0; x < width; x++)
                     {
+                        /* Clear byte */
+                        if (mask == 0x80)
+                            data[offset] = 0;
+
+                        /* Set bit */
                         if (pixels[in_offset+x*3] != 0)
                             data[offset] |= (uint8) mask;
+
+                        /* Move to the next bit */
                         mask >>= 1;
                         if (mask == 0)
                         {
                             offset++;
-                            data[offset] = 0;
                             mask = 0x80;
                         }
                     }
@@ -368,7 +376,7 @@ public class Book
             {
                 depth = 8;
                 color_space = "DeviceGray";
-                var data_length = height * width + 1;
+                var data_length = height * width;
                 data = new uint8 [data_length];
                 for (var row = 0; row < height; row++)
                 {
