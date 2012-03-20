@@ -103,9 +103,10 @@ public class Book
 		if (get_n_pages() == 1)
 		{
 			page.save (type, File.new_for_uri (file.get_uri ()));
+			return;
 		}
 		
-        int i = 0;
+        int i = 1;
         foreach (var page in pages)
         {
             page.save (type, make_indexed_file (file.get_uri (), i));
