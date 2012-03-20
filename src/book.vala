@@ -100,12 +100,12 @@ public class Book
 
     private void save_multi_file (string type, File file) throws Error
     {
-		if (get_n_pages() == 1)
-		{
-			page.save (type, File.new_for_uri (file.get_uri ()));
-			return;
-		}
-		
+	    if (get_n_pages() == 1)
+	    {
+	        page.save (type, File.new_for_uri (file.get_uri ()));
+	        return;
+	    }
+	    
         int i = 1;
         foreach (var page in pages)
         {
