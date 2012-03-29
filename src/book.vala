@@ -102,8 +102,11 @@ public class Book
     {
         if (get_n_pages() == 1)
         {
-            page.save (type, File.new_for_uri (file.get_uri ()));
-            return;
+            for (var page in pages)
+            {
+                page.save (type, File.new_for_uri (file.get_uri ()));
+                return;
+            }
         }
         
         int i = 1;
