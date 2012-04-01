@@ -6,6 +6,7 @@ HELP_FILES = index.page \
              crop.page \
              dpi.page \
              email.page \
+             legal.xml \
              print.page \
              reorder.page \
              rotate.page \
