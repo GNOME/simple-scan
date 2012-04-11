@@ -1051,7 +1051,7 @@ public class SimpleScan
     {
         try
         {
-            Gtk.show_uri (window.get_screen (), "ghelp:simple-scan", Gtk.get_current_event_time ());
+            Gtk.show_uri (window.get_screen (), "help:simple-scan", Gtk.get_current_event_time ());
         }
         catch (Error e)
         {
