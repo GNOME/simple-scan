@@ -85,6 +85,11 @@ public class Book
 
     private File make_indexed_file (string uri, int i)
     {
+        if (get_n_pages() == 1)
+        {
+            return File.new_for_uri (file.get_uri ())
+        }
+
         /* Insert index before extension */
         var basename = Path.get_basename (uri);
         string prefix = uri, suffix = "";
@@ -95,21 +100,12 @@ public class Book
             prefix = uri.slice (0, uri.length - suffix.length);
         }
 
-        return File.new_for_uri ("%s-%d%s".printf (prefix, i, suffix));
+        return File.new_for_uri ("%s-%d%s".printf (prefix, i+1, suffix));
     }
 
     private void save_multi_file (string type, File file) throws Error
     {
-        if (get_n_pages() == 1)
-        {
-            for (var page in pages)
-            {
-                page.save (type, File.new_for_uri (file.get_uri ()));
-                return;
-            }
-        }
-        
-        int i = 1;
+        int i = 0;
         foreach (var page in pages)
         {
             page.save (type, make_indexed_file (file.get_uri (), i));
