@@ -86,9 +86,7 @@ public class Book
     private File make_indexed_file (string uri, int i)
     {
         if (get_n_pages () == 1)
-        {
-            return File.new_for_uri (file.get_uri ())
-        }
+            return File.new_for_uri (uri);
 
         /* Insert index before extension */
         var basename = Path.get_basename (uri);
