@@ -792,7 +792,7 @@ public class Scanner
         current_device = null;
 
         have_handle = false;
-        options = new HashTable <string, int> (int_hash, str_equal);
+        options = new HashTable <string, int> (str_hash, str_equal);
         var status = Sane.open (job.device, out handle);
         debug ("sane_open (\"%s\") -> %s", job.device, Sane.status_to_string (status));
 
