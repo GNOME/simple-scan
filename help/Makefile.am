@@ -1,6 +1,7 @@
 @YELP_HELP_RULES@
 
 HELP_ID = simple-scan
+HELP_POT = simple-scan-help.pot
 HELP_FILES = index.page \
              adf.page \
              crop.page \
