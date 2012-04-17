@@ -221,9 +221,8 @@ public class Scanner
     /* Last option read */
     private Sane.Int option_index;
 
-    /* Option index for scan area */
-    private Sane.Int br_x_option_index;
-    private Sane.Int br_y_option_index;
+    /* Table of options */
+    private HashTable<string, int> options;
 
     /* Buffer for received line */
     private uchar[] buffer;
@@ -701,6 +700,7 @@ public class Scanner
             Sane.close (handle);
             debug ("sane_close ()");
             have_handle = false;
+            options = null;
         }
 
         buffer = null;
@@ -762,8 +762,6 @@ public class Scanner
         page_number = 0;
         notified_page = -1;
         option_index = 0;
-        br_x_option_index = 0;
-        br_y_option_index = 0;
 
         if (job.device == null && default_device != null)
             job.device = default_device;
@@ -794,6 +792,7 @@ public class Scanner
         current_device = null;
 
         have_handle = false;
+        options = new HashTable <string, int> (int_hash, str_equal);
         var status = Sane.open (job.device, out handle);
         debug ("sane_open (\"%s\") -> %s", job.device, Sane.status_to_string (status));
 
@@ -820,32 +819,249 @@ public class Scanner
         var index = option_index;
         option_index++;
 
+        /* Options complete, apply settings */
         if (option == null)
         {
-            /* Always use maximum scan area - some scanners default to using partial areas.  This should be patched in sane-backends */
-            if (br_x_option_index != 0)
+            /* Pick source */
+            option = get_option_by_name (handle, Sane.NAME_SCAN_SOURCE, out index);
+            if (option != null)
             {
-                option = Sane.get_option_descriptor (handle, br_x_option_index);
-                debug ("sane_get_option_descriptor (%d)", (int) br_x_option_index);
-                if (option.constraint_type == Sane.ConstraintType.RANGE)
+                string[] flatbed_sources =
                 {
-                    if (option.type == Sane.ValueType.FIXED)
-                        set_fixed_option (handle, option, br_x_option_index, Sane.UNFIX (option.range.max), null);
-                    else
-                        set_int_option (handle, option, br_x_option_index, (int) option.range.max, null);
+                    "Auto",
+                    Sane.I18N ("Auto"),
+                    "Flatbed",
+                    Sane.I18N ("Flatbed"),
+                    "FlatBed",
+                    "Normal",
+                    Sane.I18N ("Normal")
+                };
+
+                string[] adf_sources =
+                {
+                    "Automatic Document Feeder",
+                    Sane.I18N ("Automatic Document Feeder"),
+                    "ADF",
+                    "Automatic Document Feeder(left aligned)", /* Seen in the proprietary brother3 driver */
+                    "Automatic Document Feeder(centrally aligned)" /* Seen in the proprietary brother3 driver */
+                };
+
+                string[] adf_front_sources =
+                {
+                    "ADF Front",
+                    Sane.I18N ("ADF Front")
+                };
+
+                string[] adf_back_sources =
+                {
+                    "ADF Back",
+                    Sane.I18N ("ADF Back")
+                };
+
+                string[] adf_duplex_sources =
+                {
+                    "ADF Duplex",
+                    Sane.I18N ("ADF Duplex")
+                };
+
+                switch (job.type)
+                {
+                case ScanType.SINGLE:
+                    if (!set_default_option (handle, option, index))
+                        if (!set_constrained_string_option (handle, option, index, flatbed_sources, null))
+                            warning ("Unable to set single page source, please file a bug");
+                    break;
+                case ScanType.ADF_FRONT:
+                    if (!set_constrained_string_option (handle, option, index, adf_front_sources, null))
+                        if (!!set_constrained_string_option (handle, option, index, adf_sources, null))
+                            warning ("Unable to set front ADF source, please file a bug");
+                    break;
+                case ScanType.ADF_BACK:
+                    if (!set_constrained_string_option (handle, option, index, adf_back_sources, null))
+                        if (!set_constrained_string_option (handle, option, index, adf_sources, null))
+                            warning ("Unable to set back ADF source, please file a bug");
+                    break;
+                case ScanType.ADF_BOTH:
+                    if (!set_constrained_string_option (handle, option, index, adf_duplex_sources, null))
+                        if (!set_constrained_string_option (handle, option, index, adf_sources, null))
+                            warning ("Unable to set duplex ADF source, please file a bug");
+                    break;
                 }
             }
-            if (br_y_option_index != 0)
+
+            /* Scan mode (before resolution as it tends to affect that */
+            option = get_option_by_name (handle, Sane.NAME_SCAN_MODE, out index);
+            if (option != null)
             {
-                option = Sane.get_option_descriptor (handle, br_y_option_index);
-                debug ("sane_get_option_descriptor (%d)", (int) br_y_option_index);
+                /* The names of scan modes often used in drivers, as taken from the sane-backends source */
+                string[] color_scan_modes =
+                {
+                    Sane.VALUE_SCAN_MODE_COLOR,
+                    "Color",
+                    "24bit Color" /* Seen in the proprietary brother3 driver */
+                };
+                string[] gray_scan_modes =
+                {
+                    Sane.VALUE_SCAN_MODE_GRAY,
+                    "Gray",
+                    "Grayscale",
+                    Sane.I18N ("Grayscale"),
+                    "True Gray" /* Seen in the proprietary brother3 driver */
+                };
+                string[] lineart_scan_modes =
+                {
+                    Sane.VALUE_SCAN_MODE_LINEART,
+                    "Lineart",
+                    "LineArt",
+                    Sane.I18N ("LineArt"),
+                    "Black & White",
+                    Sane.I18N ("Black & White"),
+                    "Binary",
+                    Sane.I18N ("Binary"),
+                    "Thresholded",
+                    Sane.VALUE_SCAN_MODE_GRAY,
+                    "Gray",
+                    "Grayscale",
+                    Sane.I18N ("Grayscale"),
+                    "True Gray" /* Seen in the proprietary brother3 driver */
+                };
+
+                switch (job.scan_mode)
+                {
+                case ScanMode.COLOR:
+                    if (!set_constrained_string_option (handle, option, index, color_scan_modes, null))
+                        warning ("Unable to set Color mode, please file a bug");
+                    break;
+                case ScanMode.GRAY:
+                    if (!set_constrained_string_option (handle, option, index, gray_scan_modes, null))
+                        warning ("Unable to set Gray mode, please file a bug");
+                    break;
+                case ScanMode.LINEART:
+                    if (!set_constrained_string_option (handle, option, index, lineart_scan_modes, null))
+                        warning ("Unable to set Lineart mode, please file a bug");
+                    break;
+                default:
+                    break;
+                }
+            }
+
+            /* Duplex */
+            option = get_option_by_name (handle, "duplex", out index);
+            if (option != null)
+            {
+                if (option.type == Sane.ValueType.BOOL)
+                    set_bool_option (handle, option, index, job.type == ScanType.ADF_BOTH, null);
+            }
+
+            /* Multi-page options */
+            option = get_option_by_name (handle, "batch-scan", out index);
+            if (option != null)
+            {
+                if (option.type == Sane.ValueType.BOOL)
+                    set_bool_option (handle, option, index, job.type != ScanType.SINGLE, null);
+            }
+
+            /* Disable compression, we will compress after scanning */
+            option = get_option_by_name (handle, "compression", out index);
+            if (option != null)
+            {
+                string[] disable_compression_names =
+                {
+                    Sane.I18N ("None"),
+                    Sane.I18N ("none"),
+                    "None",
+                    "none"
+                };
+
+                if (!set_constrained_string_option (handle, option, index, disable_compression_names, null))
+                    warning ("Unable to disable compression, please file a bug");
+            }
+
+            /* Set resolution and bit depth */
+            option = get_option_by_name (handle, Sane.NAME_SCAN_RESOLUTION, out index);
+            if (option != null)
+            {
+                if (option.type == Sane.ValueType.FIXED)
+                    set_fixed_option (handle, option, index, job.dpi, out job.dpi);
+                else
+                {
+                    int dpi;
+                    set_int_option (handle, option, index, (int) job.dpi, out dpi);
+                    job.dpi = dpi;
+                }
+                option = get_option_by_name (handle, Sane.NAME_BIT_DEPTH, out index);
+                if (option != null)
+                {
+                    if (job.depth > 0)
+                        set_int_option (handle, option, index, job.depth, null);
+                }
+            }
+
+            /* Always use maximum scan area - some scanners default to using partial areas.  This should be patched in sane-backends */
+            option = get_option_by_name (handle, Sane.NAME_SCAN_BR_X, out index);
+            if (option != null)
+            {
                 if (option.constraint_type == Sane.ConstraintType.RANGE)
                 {
                     if (option.type == Sane.ValueType.FIXED)
-                        set_fixed_option (handle, option, br_y_option_index, Sane.UNFIX (option.range.max), null);
+                        set_fixed_option (handle, option, index, Sane.UNFIX (option.range.max), null);
                     else
-                        set_int_option (handle, option, br_y_option_index, (int) option.range.max, null);
+                        set_int_option (handle, option, index, (int) option.range.max, null);
                 }
+            }
+            option = get_option_by_name (handle, Sane.NAME_SCAN_BR_Y, out index);
+            if (option != null)
+            {
+                if (option.constraint_type == Sane.ConstraintType.RANGE)
+                {
+                    if (option.type == Sane.ValueType.FIXED)
+                        set_fixed_option (handle, option, index, Sane.UNFIX (option.range.max), null);
+                    else
+                        set_int_option (handle, option, index, (int) option.range.max, null);
+                }
+            }
+
+            option = get_option_by_name (handle, Sane.NAME_PAGE_WIDTH, out index);
+            if (option != null)
+            {
+                if (job.page_width > 0.0)
+                {
+                    if (option.type == Sane.ValueType.FIXED)
+                        set_fixed_option (handle, option, index, job.page_width / 10.0, null);
+                    else
+                        set_int_option (handle, option, index, job.page_width / 10, null);
+                }
+            }
+            option = get_option_by_name (handle, Sane.NAME_PAGE_HEIGHT, out index);
+            if (option != null)
+            {
+                if (job.page_height > 0.0)
+                {
+                    if (option.type == Sane.ValueType.FIXED)
+                        set_fixed_option (handle, option, index, job.page_height / 10.0, null);
+                    else
+                        set_int_option (handle, option, index, job.page_height / 10, null);
+                }
+            }
+
+            /* Test scanner options (hoping will not effect other scanners...) */
+            if (current_device == "test")
+            {
+                option = get_option_by_name (handle, "hand-scanner", out index);
+                if (option != null)
+                    set_bool_option (handle, option, index, false, null);
+                option = get_option_by_name (handle, "three-pass", out index);
+                if (option != null)
+                    set_bool_option (handle, option, index, false, null);
+                option = get_option_by_name (handle, "test-picture", out index);
+                if (option != null)
+                    set_string_option (handle, option, index, "Color pattern", null);
+                option = get_option_by_name (handle, "read-delay", out index);
+                if (option != null)
+                    set_bool_option (handle, option, index, true, null);
+                option = get_option_by_name (handle, "read-delay-duration", out index);
+                if (option != null)
+                    set_int_option (handle, option, index, 200000, null);
             }
 
             state = ScanState.START;
@@ -866,202 +1082,16 @@ public class Scanner
         if (option.name == null)
             return;
 
-        if (option.name == Sane.NAME_SCAN_RESOLUTION)
-        {
-            if (option.type == Sane.ValueType.FIXED)
-                set_fixed_option (handle, option, index, job.dpi, out job.dpi);
-            else
-            {
-                int dpi;
-                set_int_option (handle, option, index, (int) job.dpi, out dpi);
-                job.dpi = dpi;
-            }
-        }
-        else if (option.name == Sane.NAME_SCAN_SOURCE)
-        {
-            string[] flatbed_sources =
-            {
-                "Auto",
-                Sane.I18N ("Auto"),
-                "Flatbed",
-                Sane.I18N ("Flatbed"),
-                "FlatBed",
-                "Normal",
-                Sane.I18N ("Normal")
-            };
+        options.insert (option.name, (int) index);
+    }
 
-            string[] adf_sources =
-            {
-                "Automatic Document Feeder",
-                Sane.I18N ("Automatic Document Feeder"),
-                "ADF",
-                "Automatic Document Feeder(left aligned)", /* Seen in the proprietary brother3 driver */
-                "Automatic Document Feeder(centrally aligned)" /* Seen in the proprietary brother3 driver */
-            };
+    private Sane.OptionDescriptor? get_option_by_name (Sane.Handle handle, string name, out int index)
+    {
+        index = options.lookup (name);
+        if (index == 0)
+            return null;
 
-            string[] adf_front_sources =
-            {
-                "ADF Front",
-                Sane.I18N ("ADF Front")
-            };
-
-            string[] adf_back_sources =
-            {
-                "ADF Back",
-                Sane.I18N ("ADF Back")
-            };
-
-            string[] adf_duplex_sources =
-            {
-                "ADF Duplex",
-                Sane.I18N ("ADF Duplex")
-            };
-
-            switch (job.type)
-            {
-            case ScanType.SINGLE:
-                if (!set_default_option (handle, option, index))
-                    if (!set_constrained_string_option (handle, option, index, flatbed_sources, null))
-                        warning ("Unable to set single page source, please file a bug");
-                break;
-            case ScanType.ADF_FRONT:
-                if (!set_constrained_string_option (handle, option, index, adf_front_sources, null))
-                    if (!!set_constrained_string_option (handle, option, index, adf_sources, null))
-                        warning ("Unable to set front ADF source, please file a bug");
-                break;
-            case ScanType.ADF_BACK:
-                if (!set_constrained_string_option (handle, option, index, adf_back_sources, null))
-                    if (!set_constrained_string_option (handle, option, index, adf_sources, null))
-                        warning ("Unable to set back ADF source, please file a bug");
-                break;
-            case ScanType.ADF_BOTH:
-                if (!set_constrained_string_option (handle, option, index, adf_duplex_sources, null))
-                    if (!set_constrained_string_option (handle, option, index, adf_sources, null))
-                        warning ("Unable to set duplex ADF source, please file a bug");
-                break;
-            }
-        }
-        else if (option.name == "duplex")
-        {
-            if (option.type == Sane.ValueType.BOOL)
-                set_bool_option (handle, option, index, job.type == ScanType.ADF_BOTH, null);
-        }
-        else if (option.name == "batch-scan")
-        {
-            if (option.type == Sane.ValueType.BOOL)
-                set_bool_option (handle, option, index, job.type != ScanType.SINGLE, null);
-        }
-        else if (option.name == Sane.NAME_BIT_DEPTH)
-        {
-            if (job.depth > 0)
-                set_int_option (handle, option, index, job.depth, null);
-        }
-        else if (option.name == Sane.NAME_SCAN_MODE)
-        {
-            /* The names of scan modes often used in drivers, as taken from the sane-backends source */
-            string[] color_scan_modes =
-            {
-                Sane.VALUE_SCAN_MODE_COLOR,
-                "Color",
-                "24bit Color" /* Seen in the proprietary brother3 driver */
-            };
-            string[] gray_scan_modes =
-            {
-                Sane.VALUE_SCAN_MODE_GRAY,
-                "Gray",
-                "Grayscale",
-                Sane.I18N ("Grayscale"),
-                "True Gray" /* Seen in the proprietary brother3 driver */
-            };
-            string[] lineart_scan_modes =
-            {
-                Sane.VALUE_SCAN_MODE_LINEART,
-                "Lineart",
-                "LineArt",
-                Sane.I18N ("LineArt"),
-                "Black & White",
-                Sane.I18N ("Black & White"),
-                "Binary",
-                Sane.I18N ("Binary"),
-                "Thresholded",
-                Sane.VALUE_SCAN_MODE_GRAY,
-                "Gray",
-                "Grayscale",
-                Sane.I18N ("Grayscale"),
-                "True Gray" /* Seen in the proprietary brother3 driver */
-            };
-
-            switch (job.scan_mode)
-            {
-            case ScanMode.COLOR:
-                if (!set_constrained_string_option (handle, option, index, color_scan_modes, null))
-                    warning ("Unable to set Color mode, please file a bug");
-                break;
-            case ScanMode.GRAY:
-                if (!set_constrained_string_option (handle, option, index, gray_scan_modes, null))
-                    warning ("Unable to set Gray mode, please file a bug");
-                break;
-            case ScanMode.LINEART:
-                if (!set_constrained_string_option (handle, option, index, lineart_scan_modes, null))
-                    warning ("Unable to set Lineart mode, please file a bug");
-                break;
-            default:
-                break;
-            }
-        }
-        /* Disable compression, we will compress after scanning */
-        else if (option.name == "compression")
-        {
-            string[] disable_compression_names =
-            {
-                Sane.I18N ("None"),
-                Sane.I18N ("none"),
-                "None",
-                "none"
-            };
-
-            if (!set_constrained_string_option (handle, option, index, disable_compression_names, null))
-                warning ("Unable to disable compression, please file a bug");
-        }
-        else if (option.name == Sane.NAME_SCAN_BR_X)
-            br_x_option_index = index;
-        else if (option.name == Sane.NAME_SCAN_BR_Y)
-            br_y_option_index = index;
-        else if (option.name == Sane.NAME_PAGE_WIDTH)
-        {
-            if (job.page_width > 0.0)
-            {
-                if (option.type == Sane.ValueType.FIXED)
-                    set_fixed_option (handle, option, index, job.page_width / 10.0, null);
-                else
-                    set_int_option (handle, option, index, job.page_width / 10, null);
-            }
-        }
-        else if (option.name == Sane.NAME_PAGE_HEIGHT)
-        {
-            if (job.page_height > 0.0)
-            {
-                if (option.type == Sane.ValueType.FIXED)
-                    set_fixed_option (handle, option, index, job.page_height / 10.0, null);
-                else
-                    set_int_option (handle, option, index, job.page_height / 10, null);
-            }
-        }
-
-        /* Test scanner options (hoping will not effect other scanners...) */
-        if (current_device == "test")
-        {
-            if (option.name == "hand-scanner")
-                set_bool_option (handle, option, index, false, null);
-            else if (option.name == "three-pass")
-                set_bool_option (handle, option, index, false, null);
-            else if (option.name == "test-picture")
-                set_string_option (handle, option, index, "Color pattern", null);
-            else if (option.name == "read-delay")
-                set_bool_option (handle, option, index, true, null);
-            else if (option.name == "read-delay-duration")
-                set_int_option (handle, option, index, 200000, null);
-        }
+        return Sane.get_option_descriptor (handle, index);
     }
 
     private void do_complete_document ()
