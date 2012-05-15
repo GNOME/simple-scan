@@ -349,12 +349,14 @@ public class Application
             if (path != null)
             {
                 var file = File.new_for_path (path);
+                ui.show_progress_dialog();
                 try
                 {
                     book.save ("pdf", file);
                 }
                 catch (Error e)
                 {
+                    ui.hide_progress_dialog();
                     warning ("Unable to save email file: %s", e.message);
                     return;
                 }
