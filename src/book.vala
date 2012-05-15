@@ -20,6 +20,7 @@ public class Book
     public signal void reordered ();
     public signal void cleared ();
     public signal void needs_saving_changed ();
+    public signal void saving (int i);
 
     public Book ()
     {
@@ -103,11 +104,11 @@ public class Book
 
     private void save_multi_file (string type, File file) throws Error
     {
-        int i = 0;
-        foreach (var page in pages)
+        for (var i = 0; i < get_n_pages (); i++)
         {
+            var page = get_page (i);
             page.save (type, make_indexed_file (file.get_uri (), i));
-            i++;
+            saving (i);
         }
     }
 
@@ -126,14 +127,16 @@ public class Book
         var writer = new PsWriter (stream);
         var surface = writer.surface;
 
-        foreach (var page in pages)
+        for (var i = 0; i < get_n_pages (); i++)
         {
+            var page = get_page (i);
             var image = page.get_image (true);
             var width = image.get_width () * 72.0 / page.get_dpi ();
             var height = image.get_height () * 72.0 / page.get_dpi ();
             surface.set_size (width, height);
             save_ps_pdf_surface (surface, image, page.get_dpi ());
             surface.show_page ();
+            saving (i);
         }
     }
 
@@ -457,6 +460,8 @@ public class Book
             writer.write_string ("\n");
             writer.write_string ("endstream\n");
             writer.write_string ("endobj\n");
+            
+            saving (i);
         }
 
         /* Info */
@@ -490,16 +495,20 @@ public class Book
 
     public void save (string type, File file) throws Error
     {
-        if (strcmp (type, "jpeg") == 0)
-            save_multi_file ("jpeg", file);
-        else if (strcmp (type, "png") == 0)
-            save_multi_file ("png", file);
-        else if (strcmp (type, "tiff") == 0)
-            save_multi_file ("tiff", file);
-        else if (strcmp (type, "ps") == 0)
+        switch (type)
+        {
+        case "jpeg":
+        case "png":
+        case "tiff":
+            save_multi_file (type, file);
+            break;
+        case "ps":
             save_ps (file);
-        else if (strcmp (type, "pdf") == 0)
+            break;
+        case "pdf":
             save_pdf (file);
+            break;
+        }
     }
 
     public void set_needs_saving (bool needs_saving)

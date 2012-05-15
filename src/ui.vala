@@ -60,6 +60,7 @@ public class SimpleScan
     private bool user_selected_device;
 
     private Gtk.FileChooserDialog? save_dialog;
+    private ProgressBarDialog progress_dialog;
 
     private bool have_error;
     private string error_title;
@@ -455,12 +456,14 @@ public class SimpleScan
         else if (uri_lower.has_suffix (".tif") || uri_lower.has_suffix (".tiff"))
             format = "tiff";
 
+        show_progress_dialog ();
         try
         {
             book.save (format, file);
         }
         catch (Error e)
         {
+            hide_progress_dialog ();
             warning ("Error saving file: %s", e.message);
             show_error (/* Title of error dialog when save failed */
                         _("Failed to save file"),
@@ -1418,6 +1421,39 @@ public class SimpleScan
             add_default_page ();
         book.set_needs_saving (false);
         book.needs_saving_changed.connect (needs_saving_cb);
+        
+        progress_dialog = new ProgressBarDialog (window, _("Saving document..."));
+        book.saving.connect (book_saving_cb);
+    }
+    
+    private void book_saving_cb (int page_number)
+    {
+        /* Prevent GUI from freezing */
+        while (Gtk.events_pending ())
+          Gtk.main_iteration ();
+
+        var total = (int) book.get_n_pages ();
+        var fraction = (page_number + 1.0) / total;
+        var complete = fraction == 1.0;
+        if (complete) 
+            Timeout.add(500, () => {
+                progress_dialog.hide();
+                return false;
+            });
+        var message = _("Saving page %d out of %d").printf (page_number + 1, total);
+
+        progress_dialog.set_fraction (fraction);
+        progress_dialog.set_message (message);
+    }
+    
+    public void show_progress_dialog ()
+    {
+        progress_dialog.show ();
+    }
+    
+    public void hide_progress_dialog ()
+    {
+        progress_dialog.hide ();
     }
 
     public Book get_book ()
@@ -1455,5 +1491,47 @@ public class SimpleScan
     public void start ()
     {
         window.show ();
+    }
+}
+
+class ProgressBarDialog : Gtk.Window
+{
+    Gtk.ProgressBar bar;
+
+    public ProgressBarDialog (Gtk.Window parent, string title)
+    {
+        bar = new Gtk.ProgressBar ();
+        var hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 5);
+        var vbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 5);
+        hbox.set_hexpand (true);
+
+        bar.set_text ("");
+        bar.set_show_text (true);
+        bar.set_size_request (225, 25);
+        set_size_request (250, 50);
+
+        vbox.pack_start (bar, true, false, 0);
+        hbox.pack_start (vbox, true, false, 0);
+        add (hbox);
+        set_title (title);
+
+        set_transient_for (parent);
+        set_position (Gtk.WindowPosition.CENTER_ON_PARENT);
+        set_modal (true);
+        set_resizable (false);
+
+        hbox.show ();
+        vbox.show ();
+        bar.show ();
+    }
+
+    public void set_fraction (double percent)
+    {
+        bar.set_fraction (percent);
+    }
+    
+    public void set_message (string message)
+    {
+        bar.set_text (message);
     }
 }
