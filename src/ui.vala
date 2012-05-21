@@ -351,14 +351,14 @@ public class SimpleScan
 
         /* Filter to only show images by default */
         var filter = new Gtk.FileFilter ();
-        filter.set_name (/* Save dialog: Filter name to show only image files */
-                         _("Image Files"));
+        filter.set_filter_name (/* Save dialog: Filter name to show only image files */
+                                _("Image Files"));
         filter.add_pixbuf_formats ();
         filter.add_mime_type ("application/pdf");
         save_dialog.add_filter (filter);
         filter = new Gtk.FileFilter ();
-        filter.set_name (/* Save dialog: Filter name to show all files */
-                         _("All Files"));
+        filter.set_filter_name (/* Save dialog: Filter name to show all files */
+                                _("All Files"));
         filter.add_pattern ("*");
         save_dialog.add_filter (filter);
 
