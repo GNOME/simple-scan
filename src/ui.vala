@@ -61,6 +61,7 @@ public class SimpleScan
 
     private Gtk.FileChooserDialog? save_dialog;
     private ProgressBarDialog progress_dialog;
+    private DragAndDropHandler dnd_handler = null;
 
     private bool have_error;
     private string error_title;
@@ -1424,6 +1425,8 @@ public class SimpleScan
         
         progress_dialog = new ProgressBarDialog (window, _("Saving document..."));
         book.saving.connect (book_saving_cb);
+        
+        dnd_handler = new DragAndDropHandler(book_view);
     }
     
     private void book_saving_cb (int page_number)
@@ -1534,4 +1537,134 @@ class ProgressBarDialog : Gtk.Window
     {
         bar.set_text (message);
     }
+}
+
+class DragAndDropHandler
+{
+    private enum TargetType {
+        XDS
+    }
+    
+    private static const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
+        {"XdndDirectSave0", Gtk.TargetFlags.OTHER_APP, TargetType.XDS}
+    };
+    
+    private static Gdk.Atom XDS_ATOM = Gdk.Atom.intern_static_string ("XdndDirectSave0");
+    private static Gdk.Atom TEXT_ATOM = Gdk.Atom.intern_static_string ("text/plain");
+    private static int ATOM_FORMAT_STRING = 8;
+    
+    private static const uchar[] XDS_SUCCESS = {'S'};
+    private static const uchar[] XDS_ERROR = {'E'};
+    
+    private static string FILE_NAME = "simple-scan.png";
+    private static string FILE_TYPE = "png";
+    
+    private BookView book_view;
+    private Gtk.Widget event_source;
+    
+    public DragAndDropHandler (BookView book_view)
+    {
+        this.book_view = book_view;
+        this.event_source = book_view.get_event_source ();
+        
+        Gtk.drag_source_set (event_source, Gdk.ModifierType.BUTTON1_MASK, 
+            SOURCE_TARGET_ENTRIES, Gdk.DragAction.COPY);
+        
+        event_source.drag_begin.connect (on_drag_begin);
+        event_source.drag_data_get.connect (on_drag_data_get);
+    }
+    
+    private void on_drag_begin (Gdk.DragContext context)
+    {
+        var page = book_view.get_selected ();
+        return_if_fail (page != null);
+        
+        set_xds_target (context);
+    }
+    
+    private void on_drag_data_get (Gdk.DragContext context, Gtk.SelectionData selection,
+        uint target_type, uint time)
+    {
+        return_if_fail (target_type == TargetType.XDS);
+
+        var filename = get_xds_filename (context);
+        return_if_fail (filename != null);
+        
+        if (save_page (filename))
+            report_success (selection);
+        else
+            report_error (selection);
+    }
+    
+    private void report_success (Gtk.SelectionData selection)
+    {
+        selection.set (XDS_ATOM, ATOM_FORMAT_STRING, XDS_SUCCESS);
+    }
+
+    private void report_error (Gtk.SelectionData selection)
+    {
+        selection.set (XDS_ATOM, ATOM_FORMAT_STRING, XDS_ERROR);
+    }
+    
+    private bool save_page (string filename)
+    {
+        var page = book_view.get_selected ();
+        return_val_if_fail (page != null, false);
+
+        try
+        {
+            var drag_destination = File.new_for_uri (filename);
+            page.save (FILE_TYPE, drag_destination);
+            debug ("Saving page to %s", drag_destination.get_path());
+            return true;
+        }
+        catch (Error e)
+        {
+            warning ("Unable to save file using drag-drop");
+        }
+
+        return false;
+    }
+    
+    private void set_xds_target (Gdk.DragContext context)
+    {
+        var XDS_TARGET = string_to_uchar_array (FILE_NAME);
+        Gdk.property_change (context.get_source_window (), XDS_ATOM, TEXT_ATOM, ATOM_FORMAT_STRING, 
+            Gdk.PropMode.REPLACE, XDS_TARGET);
+    }
+    
+    private string? get_xds_filename (Gdk.DragContext context)
+    {
+        uchar[] data = new uchar[long.MAX];
+        Gdk.Atom actual_type;
+        int actual_format = 0;
+        bool fetched = Gdk.property_get (context.get_source_window(), XDS_ATOM, TEXT_ATOM,
+            0, data.length, 0, out actual_type, out actual_format, out data);
+            
+        return_if_fail (fetched == true);
+        return_if_fail (data != null);
+        return_if_fail (data.length > 0);
+        return_if_fail (actual_format == ATOM_FORMAT_STRING);
+        return_if_fail (actual_type == TEXT_ATOM);
+        
+        return uchar_array_to_string (data);
+    }
+}
+
+public string uchar_array_to_string (uchar[] data)
+{
+    StringBuilder builder = new StringBuilder ();
+    for (int i = 0; i < data.length && data[i] != '\0'; i++)
+        builder.append_c ((char) data[i]);
+    
+    return builder.str;
+}
+
+public uchar[] string_to_uchar_array (string str)
+{
+    uchar[] data = new uchar[0];
+    for (int i = 0; i < str.length; i++)
+        data += (uchar) str[i];
+        
+    return data;
 }
