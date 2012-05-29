@@ -775,28 +775,6 @@ public class SimpleScan
         updating_page_menu = false;
     }
 
-    // FIXME: Duplicated from simple-scan.vala
-    private string? get_temporary_filename (string prefix, string extension)
-    {
-        /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
-         * use the filename but it appears to work in practise */
-
-        var filename = "%sXXXXXX.%s".printf (prefix, extension);
-        string path;
-        try
-        {
-            var fd = FileUtils.open_tmp (filename, out path);
-            Posix.close (fd);
-        }
-        catch (Error e)
-        {
-            warning ("Error saving email attachment: %s", e.message);
-            return null;
-        }
-
-        return path;
-    }
-
     private void show_page_cb (BookView view, Page page)
     {
         var path = get_temporary_filename ("scanned-page", "tiff");
@@ -1541,138 +1519,95 @@ class ProgressBarDialog : Gtk.Window
 
 class DragAndDropHandler
 {
-    private enum TargetType {
-        XDS,
-        IMAGE
+    private enum TargetType
+    {
+        IMAGE,
+        URI
     }
     
-    private static const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
-        {"XdndDirectSave0", Gtk.TargetFlags.OTHER_APP, TargetType.XDS},
-        {"image/png", Gtk.TargetFlags.OTHER_APP, TargetType.IMAGE}
-    };
-    
-    private static Gdk.Atom XDS_ATOM = Gdk.Atom.intern_static_string ("XdndDirectSave0");
-    private static Gdk.Atom TEXT_ATOM = Gdk.Atom.intern_static_string ("text/plain");
-    private static int ATOM_FORMAT_STRING = 8;
-    
-    private static string FILE_NAME = "simple-scan.png";
-    private static string FILE_TYPE = "png";
-    private static int MAX_URI_LEN = 4096;
-    
     private BookView book_view;
-    private Gtk.Widget event_source;
     
     public DragAndDropHandler (BookView book_view)
     {
         this.book_view = book_view;
-        this.event_source = book_view.get_event_source ();
+        var event_source = book_view.get_event_source ();
         
-        Gtk.drag_source_set (event_source, Gdk.ModifierType.BUTTON1_MASK, 
-            SOURCE_TARGET_ENTRIES, Gdk.DragAction.COPY);
-        
-        event_source.drag_begin.connect (on_drag_begin);
+        set_targets (event_source);
         event_source.drag_data_get.connect (on_drag_data_get);
     }
     
-    private void on_drag_begin (Gdk.DragContext context)
+    private void set_targets (Gtk.Widget event_source)
     {
-        var page = book_view.get_selected ();
-        return_if_fail (page != null);
+        var table = new Gtk.TargetEntry [0];
+        var targets = new Gtk.TargetList (table);
+        targets.add_uri_targets (TargetType.URI);
+        targets.add_image_targets (TargetType.IMAGE, true);
         
-        set_xds_target (context);
+        Gtk.drag_source_set (event_source, Gdk.ModifierType.BUTTON1_MASK, table, Gdk.DragAction.COPY);
+        Gtk.drag_source_set_target_list (event_source, targets);
     }
     
     private void on_drag_data_get (Gdk.DragContext context, Gtk.SelectionData selection,
         uint target_type, uint time)
     {
+        var page = book_view.get_selected ();
+        return_if_fail (page != null);
+
         switch (target_type)
         {
-        case TargetType.XDS:
-            var filename = get_xds_filename (context);
-            if (filename != null)
-                save_to_file (filename);
-        break;
         case TargetType.IMAGE:
-            save_to_pixbuf (selection);
+            var image = page.get_image (true);
+            selection.set_pixbuf (image);
+            
+            debug ("Saving page to pixbuf");
         break;
+        
+        case TargetType.URI:
+            var filetype = "png";
+            var path = get_temporary_filename ("scanned-page", filetype);
+            return_if_fail (path != null);
+            
+            var file = File.new_for_path (path);
+            var uri = file.get_uri ();
+
+            try
+            {
+                page.save (filetype, file);
+                selection.set_uris ({ uri });
+                debug ("Saving page to %s", uri);
+            }
+            catch (Error e)
+            {
+                warning ("Unable to save file using drag-drop %s", e.message);
+            }
+        break;
+        
         default:
             warning ("Invalid DND target type %u", target_type);
         break;
         }
     }
-    
-    private bool save_to_file (string filename)
-    {
-        var page = book_view.get_selected ();
-        return_val_if_fail (page != null, false);
-
-        try
-        {
-            var drag_destination = File.new_for_uri (filename);
-            page.save (FILE_TYPE, drag_destination);
-            debug ("Saving page to %s", drag_destination.get_path());
-            return true;
-        }
-        catch (Error e)
-        {
-            warning ("Unable to save file using drag-drop");
-        }
-
-        return false;
-    }
-    
-    private bool save_to_pixbuf (Gtk.SelectionData selection)
-    {
-        var page = book_view.get_selected ();
-        return_val_if_fail (page != null, false);
-        
-        var image = page.get_image (true);
-        selection.set_pixbuf (image);
-        
-        debug ("Saving page to pixbuf");
-        
-        return true;
-    }
-    
-    private void set_xds_target (Gdk.DragContext context)
-    {
-        var XDS_TARGET = string_to_uchar_array (FILE_NAME);
-        Gdk.property_change (context.get_source_window (), XDS_ATOM, TEXT_ATOM, ATOM_FORMAT_STRING, 
-            Gdk.PropMode.REPLACE, XDS_TARGET);
-    }
-    
-    private string? get_xds_filename (Gdk.DragContext context)
-    {
-        uchar[] data = new uchar[MAX_URI_LEN];
-        Gdk.Atom actual_type;
-        int actual_format = 0;
-        bool fetched = Gdk.property_get (context.get_source_window(), XDS_ATOM, TEXT_ATOM,
-            0, data.length, 0, out actual_type, out actual_format, out data);
-            
-        return_if_fail (fetched == true);
-        return_if_fail (data != null);
-        return_if_fail (data.length > 0);
-        return_if_fail (actual_format == ATOM_FORMAT_STRING);
-        return_if_fail (actual_type == TEXT_ATOM);
-        
-        return uchar_array_to_string (data);
-    }
 }
 
-public string uchar_array_to_string (uchar[] data)
+// FIXME: Duplicated from simple-scan.vala
+private string? get_temporary_filename (string prefix, string extension)
 {
-    StringBuilder builder = new StringBuilder ();
-    for (int i = 0; i < data.length && data[i] != '\0'; i++)
-        builder.append_c ((char) data[i]);
-    
-    return builder.str;
+    /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
+     * use the filename but it appears to work in practise */
+
+    var filename = "%sXXXXXX.%s".printf (prefix, extension);
+    string path;
+    try
+    {
+        var fd = FileUtils.open_tmp (filename, out path);
+        Posix.close (fd);
+    }
+    catch (Error e)
+    {
+        warning ("Error saving email attachment: %s", e.message);
+        return null;
+    }
+
+    return path;
 }
 
-public uchar[] string_to_uchar_array (string str)
-{
-    uchar[] data = new uchar[0];
-    for (int i = 0; i < str.length; i++)
-        data += (uchar) str[i];
-        
-    return data;
-}
