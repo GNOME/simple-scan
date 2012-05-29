@@ -1542,22 +1542,22 @@ class ProgressBarDialog : Gtk.Window
 class DragAndDropHandler
 {
     private enum TargetType {
-        XDS
+        XDS,
+        IMAGE
     }
     
     private static const Gtk.TargetEntry[] SOURCE_TARGET_ENTRIES = {
-        {"XdndDirectSave0", Gtk.TargetFlags.OTHER_APP, TargetType.XDS}
+        {"XdndDirectSave0", Gtk.TargetFlags.OTHER_APP, TargetType.XDS},
+        {"image/png", Gtk.TargetFlags.OTHER_APP, TargetType.IMAGE}
     };
     
     private static Gdk.Atom XDS_ATOM = Gdk.Atom.intern_static_string ("XdndDirectSave0");
     private static Gdk.Atom TEXT_ATOM = Gdk.Atom.intern_static_string ("text/plain");
     private static int ATOM_FORMAT_STRING = 8;
     
-    private static const uchar[] XDS_SUCCESS = {'S'};
-    private static const uchar[] XDS_ERROR = {'E'};
-    
     private static string FILE_NAME = "simple-scan.png";
     private static string FILE_TYPE = "png";
+    private static int MAX_URI_LEN = 4096;
     
     private BookView book_view;
     private Gtk.Widget event_source;
@@ -1585,28 +1585,23 @@ class DragAndDropHandler
     private void on_drag_data_get (Gdk.DragContext context, Gtk.SelectionData selection,
         uint target_type, uint time)
     {
-        return_if_fail (target_type == TargetType.XDS);
-
-        var filename = get_xds_filename (context);
-        return_if_fail (filename != null);
-        
-        if (save_page (filename))
-            report_success (selection);
-        else
-            report_error (selection);
+        switch (target_type)
+        {
+        case TargetType.XDS:
+            var filename = get_xds_filename (context);
+            if (filename != null)
+                save_to_file (filename);
+        break;
+        case TargetType.IMAGE:
+            save_to_pixbuf (selection);
+        break;
+        default:
+            warning ("Invalid DND target type %u", target_type);
+        break;
+        }
     }
     
-    private void report_success (Gtk.SelectionData selection)
-    {
-        selection.set (XDS_ATOM, ATOM_FORMAT_STRING, XDS_SUCCESS);
-    }
-
-    private void report_error (Gtk.SelectionData selection)
-    {
-        selection.set (XDS_ATOM, ATOM_FORMAT_STRING, XDS_ERROR);
-    }
-    
-    private bool save_page (string filename)
+    private bool save_to_file (string filename)
     {
         var page = book_view.get_selected ();
         return_val_if_fail (page != null, false);
@@ -1626,6 +1621,19 @@ class DragAndDropHandler
         return false;
     }
     
+    private bool save_to_pixbuf (Gtk.SelectionData selection)
+    {
+        var page = book_view.get_selected ();
+        return_val_if_fail (page != null, false);
+        
+        var image = page.get_image (true);
+        selection.set_pixbuf (image);
+        
+        debug ("Saving page to pixbuf");
+        
+        return true;
+    }
+    
     private void set_xds_target (Gdk.DragContext context)
     {
         var XDS_TARGET = string_to_uchar_array (FILE_NAME);
@@ -1635,7 +1643,7 @@ class DragAndDropHandler
     
     private string? get_xds_filename (Gdk.DragContext context)
     {
-        uchar[] data = new uchar[long.MAX];
+        uchar[] data = new uchar[MAX_URI_LEN];
         Gdk.Atom actual_type;
         int actual_format = 0;
         bool fetched = Gdk.property_get (context.get_source_window(), XDS_ATOM, TEXT_ATOM,
