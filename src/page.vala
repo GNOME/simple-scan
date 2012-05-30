@@ -63,6 +63,7 @@ public class Page
     public signal void scan_line_changed ();
     public signal void scan_direction_changed ();
     public signal void crop_changed ();
+    public signal void scan_finished ();
 
     public Page (int width, int height, int dpi, ScanDirection scan_direction)
     {
@@ -199,6 +200,7 @@ public class Page
         if (size_has_changed)
             size_changed ();
         scan_line_changed ();
+        scan_finished ();
     }
 
     public ScanDirection get_scan_direction ()

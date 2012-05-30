@@ -158,13 +158,6 @@ public class AutosaveManager
                 man.on_page_added (page);
             }
         }
-        /* FIXME: we would like to connect to a scan_fished signal on a page,
-         * but it does not exist. Updating the database every time a scanline
-         * has changed is much to slow. We choose to update the database every
-         * now and then, instead.
-         * FIXME: this takes a reference on man, so it will never be destroyed.
-         */
-        GLib.Timeout.add_seconds (3, man.on_update_all_pages);
 
         return man;
     }
@@ -228,18 +221,18 @@ public class AutosaveManager
         insert_page (page);
         // TODO: save a tiff file
         page.size_changed.connect (on_page_changed);
-        page.scan_line_changed.connect (on_page_changed);
         page.scan_direction_changed.connect (on_page_changed);
         page.crop_changed.connect (on_page_changed);
+        page.scan_finished.connect (on_page_changed);
     }
     
     public void on_page_removed (Page page)
     {
         page.pixels_changed.disconnect (on_page_changed);
         page.size_changed.disconnect (on_page_changed);
-        page.scan_line_changed.disconnect (on_page_changed);
         page.scan_direction_changed.disconnect (on_page_changed);
         page.crop_changed.disconnect (on_page_changed);
+        page.scan_finished.connect (on_page_changed);
 
         warn_if_fail (Sqlite.OK == database_connection.exec (@"
             DELETE FROM pages
@@ -267,10 +260,7 @@ public class AutosaveManager
 
     public void on_page_changed (Page page)
     {
-        /* we don't update the database as it is to slow to do so each time
-         * a scan line is received.
-         */
-        //update_page (page);
+        update_page (page);
     }
 
     public void on_needs_saving_changed (Book book)
@@ -304,16 +294,6 @@ public class AutosaveManager
                 $cur_book_revision)
         "));
         update_page (page);     
-    }
-
-    private bool on_update_all_pages ()
-    {
-        for (int n = 0; n < book.get_n_pages (); n++)
-        {
-            var page = book.get_page (n);
-            update_page (page);
-        }
-        return true;
     }
 
     private void update_page (Page page)
