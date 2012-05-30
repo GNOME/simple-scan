@@ -99,6 +99,7 @@ public class AutosaveManager
             return null;
         }
 
+        bool any_pages_recovered = false;
         try
         {
             // FIXME: this only works on linux
@@ -130,6 +131,7 @@ public class AutosaveManager
                            AND book_hash = $book_hash
                            AND book_revision = $book_revision"))
                     {
+                        any_pages_recovered = true;
                         man.recover_book (ref book);
                     }
                     else
@@ -149,6 +151,13 @@ public class AutosaveManager
         }
 
         man.book = book;
+        if (!any_pages_recovered) {
+            for (var i = 0; i < book.get_n_pages (); i++)
+            {
+                var page = book.get_page (i);
+                man.on_page_added (page);
+            }
+        }
         /* FIXME: we would like to connect to a scan_fished signal on a page,
          * but it does not exist. Updating the database every time a scanline
          * has changed is much to slow. We choose to update the database every
