@@ -82,14 +82,12 @@ public class AutosaveManager
          * contains.
          */
         if (number_of_instances > 0)
-        {
             assert_not_reached ();
-        }
 
         var man = new AutosaveManager ();
         number_of_instances++;
 
-        try
+        try 
         {
             man.database_connection = open_database_connection ();
         }
@@ -102,7 +100,7 @@ public class AutosaveManager
         bool any_pages_recovered = false;
         try
         {
-            // FIXME: this only works on linux
+            // FIXME: this only works on linux. We can maybe use Gtk.Application and some session bus id instead?
             string current_pids;
             Process.spawn_command_line_sync ("pidof simple-scan | sed \"s/ /,/g\"", out current_pids);
             current_pids = current_pids.strip ();
@@ -141,9 +139,7 @@ public class AutosaveManager
                 }
             }
             else
-            {
                 warn_if_reached ();
-            }
         }
         catch (SpawnError e)
         {
@@ -188,9 +184,7 @@ public class AutosaveManager
         }
         Sqlite.Database connection;
         if (Sqlite.OK != Sqlite.Database.open (AUTOSAVE_FILENAME, out connection))
-        {
             throw new IOError.FAILED ("Could not connect to autosave database");
-        }
         warn_if_fail (Sqlite.OK == connection.exec (@"
             CREATE TABLE IF NOT EXISTS pages (
                 id integer PRIMARY KEY,
@@ -328,14 +322,10 @@ public class AutosaveManager
             ", -1, out stmt));
         warn_if_fail (Sqlite.OK == stmt.bind_text (1, page.get_color_profile () ?? ""));
         if (page.get_pixels () != null)
-        {
             // (-1) is the special value SQLITE_TRANSIENT
             warn_if_fail (Sqlite.OK == stmt.bind_blob (2, page.get_pixels (), page.get_pixels ().length, (DestroyNotify)(-1)));
-        }
         else
-        {
             warn_if_fail (Sqlite.OK == stmt.bind_null (2));
-        }
 
         warn_if_fail (Sqlite.DONE == stmt.step ());
     }
@@ -386,9 +376,7 @@ public class AutosaveManager
             var scan_direction = (ScanDirection)stmt.column_int (16);
 
             if (width <= 0 || height <= 0) 
-            {
                 continue;
-            }
             
             var new_page = book.append_page (width, height, dpi, scan_direction);
 
