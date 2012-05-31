@@ -9,7 +9,7 @@
  * license.
  */
 
-public class Application
+public class SimpleScan : Gtk.Application
 {
     static bool show_version;
     static bool debug_enabled;
@@ -32,20 +32,24 @@ public class Application
     private ScanDevice? default_device = null;
     private bool have_devices = false;
     private GUdev.Client udev_client;
-    private SimpleScan ui;
+    private UserInterface ui;
     private Scanner scanner;
     private Book book;
 
-    public Application (ScanDevice? device = null)
+    public SimpleScan (ScanDevice? device = null)
     {
         default_device = device;
+    }
 
-        ui = new SimpleScan ();
+    public override void startup ()
+    {
+        base.startup ();
+
+        ui = new UserInterface ();
         book = ui.get_book ();
         ui.start_scan.connect (scan_cb);
         ui.stop_scan.connect (cancel_cb);
         ui.email.connect (email_cb);
-        ui.quit.connect (quit_cb);
 
         scanner = Scanner.get_instance ();
         scanner.update_devices.connect (update_scan_devices_cb);
@@ -71,13 +75,23 @@ public class Application
             ui.set_selected_device (default_device.name);
         }
     }
-    
-    public void start ()
+
+    public override void activate ()
     {
+        base.activate ();
         ui.start ();
         scanner.start ();
     }
 
+    public override void shutdown ()
+    {
+        base.shutdown ();
+        book = null;
+        ui = null;
+        udev_client = null;
+        scanner.free ();
+    }
+    
     private void update_scan_devices_cb (Scanner scanner, List<ScanDevice> devices)
     {
         var devices_copy = devices.copy ();
@@ -291,7 +305,7 @@ public class Application
         ui.set_scanning (scanner.is_scanning ());
     }
 
-    private void scan_cb (SimpleScan ui, string? device, ScanOptions options)
+    private void scan_cb (UserInterface ui, string? device, ScanOptions options)
     {
         debug ("Requesting scan at %d dpi from device '%s'", options.dpi, device);
 
@@ -310,7 +324,7 @@ public class Application
         scanner.scan (device, options);
     }
 
-    private void cancel_cb (SimpleScan ui)
+    private void cancel_cb (UserInterface ui)
     {
         scanner.cancel ();
     }
@@ -336,7 +350,7 @@ public class Application
         return path;
     }
 
-    private void email_cb (SimpleScan ui, string profile)
+    private void email_cb (UserInterface ui, string profile)
     {
         var saved = false;
         var command_line = "xdg-email";
@@ -400,15 +414,6 @@ public class Application
         {
             warning ("Unable to start email: %s", e.message);
         }
-    }
-
-    private void quit_cb (SimpleScan ui)
-    {
-        book = null;
-        ui = null;
-        udev_client = null;
-        scanner.free ();
-        Gtk.main_quit ();
     }
 
     private static void log_cb (string? log_domain, LogLevelFlags log_level, string message)
@@ -587,11 +592,7 @@ public class Application
 
         debug ("Starting Simple Scan %s, PID=%i", Config.VERSION, Posix.getpid ());
 
-        Application app = new Application (device);
-        app.start ();
-
-        Gtk.main ();
-
-        return Posix.EXIT_SUCCESS;
+        var app = new SimpleScan (device);
+        return app.run (args);
     }
 }

@@ -9,7 +9,7 @@
  * license.
  */
 
-public class SimpleScan
+public class UserInterface
 {
     private const int DEFAULT_TEXT_DPI = 150;
     private const int DEFAULT_PHOTO_DPI = 300;
@@ -89,9 +89,8 @@ public class SimpleScan
     public signal void start_scan (string? device, ScanOptions options);
     public signal void stop_scan ();
     public signal void email (string profile);
-    public signal void quit ();
 
-    public SimpleScan ()
+    public UserInterface ()
     {
         book = new Book ();
         book.page_removed.connect (page_removed_cb);
@@ -1121,7 +1120,7 @@ public class SimpleScan
         settings.set_int ("page-height", default_page_height);
         settings.set_int ("page-dpi", default_page_dpi);
 
-        quit ();
+        window.destroy ();
 
         return true;
     }
@@ -1272,6 +1271,8 @@ public class SimpleScan
         builder.connect_signals (this);
 
         window = (Gtk.Window) builder.get_object ("simple_scan_window");
+        var app = Application.get_default () as Gtk.Application;
+        app.add_window (window);
         main_vbox = (Gtk.VBox) builder.get_object ("main_vbox");
         page_move_left_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_left_menuitem");
         page_move_right_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_right_menuitem");
