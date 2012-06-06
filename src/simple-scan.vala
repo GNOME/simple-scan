@@ -593,6 +593,6 @@ public class SimpleScan : Gtk.Application
         debug ("Starting Simple Scan %s, PID=%i", Config.VERSION, Posix.getpid ());
 
         var app = new SimpleScan (device);
-        return app.run (args);
+        return app.run ();
     }
 }
