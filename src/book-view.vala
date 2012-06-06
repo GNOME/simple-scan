@@ -588,4 +588,9 @@ public class BookView : Gtk.VBox
         else
             return null;
     }
+    
+    public Gtk.Widget get_event_source ()
+    {
+        return drawing_area;
+    }
 }
