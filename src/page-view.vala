@@ -80,6 +80,15 @@ public class PageView
         page.scan_direction_changed.connect (scan_direction_changed_cb);
     }
 
+    ~PageView ()
+    {
+        page.pixels_changed.disconnect (page_pixels_changed_cb);
+        page.size_changed.disconnect (page_size_changed_cb);
+        page.crop_changed.disconnect (page_overlay_changed_cb);
+        page.scan_line_changed.disconnect (page_overlay_changed_cb);
+        page.scan_direction_changed.disconnect (scan_direction_changed_cb);
+    }
+
     public Page get_page ()
     {
         return page;

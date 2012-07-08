@@ -85,6 +85,23 @@ public class BookView : Gtk.VBox
         drawing_area.show ();
     }
 
+    ~BookView ()
+    {
+        book.page_added.disconnect (add_cb);
+        book.page_removed.disconnect (remove_cb);
+        book.reordered.disconnect (reorder_cb);
+        book.cleared.disconnect (clear_cb);
+        drawing_area.configure_event.disconnect (configure_cb);
+        drawing_area.draw.disconnect (draw_cb);
+        drawing_area.motion_notify_event.disconnect (motion_cb);
+        drawing_area.key_press_event.disconnect (key_cb);
+        drawing_area.button_press_event.disconnect (button_cb);
+        drawing_area.button_release_event.disconnect (button_cb);
+        drawing_area.focus_in_event.disconnect (focus_cb);
+        drawing_area.focus_out_event.disconnect (focus_cb);
+        adjustment.value_changed.disconnect (scroll_cb);
+    }
+
     private PageView get_nth_page (int n)
     {
         Page page = book.get_page (n);
@@ -221,6 +238,9 @@ public class BookView : Gtk.VBox
             selected_page = null;
         }
 
+        var page_view = page_data.lookup (page);
+        page_view.changed.disconnect (page_view_changed_cb);
+        page_view.size_changed.disconnect (page_view_size_changed_cb);
         page_data.remove (page);
 
         select_page_view (new_selection);
