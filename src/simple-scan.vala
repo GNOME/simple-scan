@@ -418,47 +418,36 @@ public class SimpleScan : Gtk.Application
 
     private static void log_cb (string? log_domain, LogLevelFlags log_level, string message)
     {
-        /* Log everything to a file */
-        if (log_file != null) 
+        string prefix;
+
+        switch (log_level & LogLevelFlags.LEVEL_MASK)
         {
-            string prefix;
-
-            switch (log_level & LogLevelFlags.LEVEL_MASK)
-            {
-            case LogLevelFlags.LEVEL_ERROR:
-                prefix = "ERROR:";
-                break;
-            case LogLevelFlags.LEVEL_CRITICAL:
-                prefix = "CRITICAL:";
-                break;
-            case LogLevelFlags.LEVEL_WARNING:
-                prefix = "WARNING:";
-                break;
-            case LogLevelFlags.LEVEL_MESSAGE:
-                prefix = "MESSAGE:";
-                break;
-            case LogLevelFlags.LEVEL_INFO:
-                prefix = "INFO:";
-                break;
-            case LogLevelFlags.LEVEL_DEBUG:
-                prefix = "DEBUG:";
-                break;
-            default:
-                prefix = "LOG:";
-                break;
-            }
-
-            log_file.printf ("[%+.2fs] %s %s\n", log_timer.elapsed (), prefix, message);
+        case LogLevelFlags.LEVEL_ERROR:
+            prefix = "ERROR:";
+            break;
+        case LogLevelFlags.LEVEL_CRITICAL:
+            prefix = "CRITICAL:";
+            break;
+        case LogLevelFlags.LEVEL_WARNING:
+            prefix = "WARNING:";
+            break;
+        case LogLevelFlags.LEVEL_MESSAGE:
+            prefix = "MESSAGE:";
+            break;
+        case LogLevelFlags.LEVEL_INFO:
+            prefix = "INFO:";
+            break;
+        case LogLevelFlags.LEVEL_DEBUG:
+            prefix = "DEBUG:";
+            break;
+        default:
+            prefix = "LOG:";
+            break;
         }
 
-        /* Only show debug if requested */
-        if ((log_level & LogLevelFlags.LEVEL_DEBUG) != 0)
-        {
-            if (debug_enabled)
-                Log.default_handler (log_domain, log_level, message);
-        }
-        else
-            Log.default_handler (log_domain, log_level, message);
+        log_file.printf ("[%+.2fs] %s %s\n", log_timer.elapsed (), prefix, message);
+        if (debug_enabled)
+            stderr.printf ("[%+.2fs] %s %s\n", log_timer.elapsed (), prefix, message);
     }
 
     private void on_uevent (GUdev.Client client, string action, GUdev.Device device)
