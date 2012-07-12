@@ -84,6 +84,7 @@ public class ScanOptions
 
 private class ScanJob
 {
+    public int id;
     public string device;
     public double dpi;
     public ScanMode scan_mode;
@@ -167,23 +168,36 @@ private class NotifyExpectPage : Notify
 
 private class NotifyGotPageInfo : Notify
 {
-    public NotifyGotPageInfo (ScanPageInfo info) { this.info = info; }
+    public NotifyGotPageInfo (int job_id, ScanPageInfo info) { this.job_id = job_id; this.info = info; }
+    private int job_id;
     private ScanPageInfo info;
-    public override void run (Scanner scanner) { scanner.got_page_info (info); }
+    public override void run (Scanner scanner)
+    {
+        if (job_id >= scanner.first_job_id && job_id < scanner.job_id)
+            scanner.got_page_info (info);
+    }
 }
 
 private class NotifyPageDone : Notify
 {
-    public override void run (Scanner scanner) { scanner.page_done (); }
+    public NotifyPageDone (int job_id) { this.job_id = job_id; }
+    private int job_id;
+    public override void run (Scanner scanner)
+    {
+        if (job_id >= scanner.first_job_id && job_id < scanner.job_id)
+            scanner.page_done ();
+    }
 }
 
 private class NotifyGotLine : Notify
 {
-    public NotifyGotLine (ScanLine line) { this.line = line; }
+    public NotifyGotLine (int job_id, ScanLine line) { this.job_id = job_id; this.line = line; }
+    private int job_id;
     private ScanLine line;
     public override void run (Scanner scanner)
     {
-        scanner.got_line (line);
+        if (job_id >= scanner.first_job_id && job_id < scanner.job_id)
+            scanner.got_line (line);
     }
 }
 
@@ -203,6 +217,10 @@ public class Scanner
 
     /* Queue of responses to authorization requests */
     private AsyncQueue<Credentials> authorize_queue;
+
+    /* ID for the current job */
+    public int first_job_id;
+    public int job_id;
 
     private string? default_device;
 
@@ -1172,7 +1190,7 @@ public class Scanner
 
         if (page_number != notified_page)
         {
-            notify (new NotifyGotPageInfo (info));
+            notify (new NotifyGotPageInfo (job.id, info));
             notified_page = page_number;
         }
 
@@ -1187,9 +1205,9 @@ public class Scanner
 
     private void do_complete_page ()
     {
-        notify (new NotifyPageDone ());
-
         var job = (ScanJob) job_queue.data;
+
+        notify (new NotifyPageDone (job.id));
 
         /* If multi-pass then scan another page */
         if (!parameters.last_frame)
@@ -1204,7 +1222,7 @@ public class Scanner
         {
             page_number++;
             pass_number = 0;
-            notify (new NotifyPageDone ());
+            notify (new NotifyPageDone (job.id));
             state = ScanState.START;
             return;
         }
@@ -1348,7 +1366,7 @@ public class Scanner
                 line.data_length = (line.width * 2 + 7) / 8;
             }
 
-            notify (new NotifyGotLine (line));
+            notify (new NotifyGotLine (job.id, line));
         }
     }
 
@@ -1476,6 +1494,7 @@ public class Scanner
                get_scan_type_string (options.type), options.paper_width, options.paper_height);
         var request = new RequestStartScan ();
         request.job = new ScanJob ();
+        request.job.id = job_id++;
         request.job.device = device;
         request.job.dpi = options.dpi;
         request.job.scan_mode = options.scan_mode;
@@ -1488,6 +1507,7 @@ public class Scanner
 
     public void cancel ()
     {
+        first_job_id = job_id;
         request_queue.push (new RequestCancel ());
     }
 
