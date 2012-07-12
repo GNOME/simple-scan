@@ -278,7 +278,6 @@ public class Scanner
         if ((scanning && !is_scanning) || (!scanning && is_scanning))
         {
             scanning = is_scanning;
-            scanning_changed ();
             notify (new NotifyScanningChanged ());
         }
     }
