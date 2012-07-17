@@ -12,7 +12,7 @@ install-data-local:
 		CONTEXT=`echo $$icon | cut -d_ -f2`; \
 		SIZE=`echo $$icon | cut -d_ -f3`; \
 		ICONFILE=`echo $$icon | cut -d_ -f4`; \
-		$(mkdir_p) $(DESTDIR)$(pkgdatadir)/icons/$$THEME/$$SIZE/$$CONTEXT; \
+		$(MKDIR_P) $(DESTDIR)$(pkgdatadir)/icons/$$THEME/$$SIZE/$$CONTEXT; \
 		$(INSTALL_DATA) $(srcdir)/$$icon $(DESTDIR)$(pkgdatadir)/icons/$$THEME/$$SIZE/$$CONTEXT/$$ICONFILE; \
 	done
 
