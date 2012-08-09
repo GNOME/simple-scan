@@ -105,11 +105,14 @@ public class AutosaveManager
             Process.spawn_command_line_sync ("pidof simple-scan | sed \"s/ /,/g\"", out current_pids);
             current_pids = current_pids.strip ();
             Sqlite.Statement stmt;
-            if(Sqlite.OK == man.database_connection.prepare_v2 (@"
+            string query = @"
                    SELECT process_id, book_hash, book_revision FROM pages
                    WHERE NOT process_id IN ($current_pids)
                    LIMIT 1
-                ", -1, out stmt))
+                ";
+            debug("preparing query \"%s\"", query);
+            int result = man.database_connection.prepare_v2 (query, -1, out stmt);
+            if(Sqlite.OK == result)
             {
                 while (Sqlite.ROW == stmt.step ())
                 {
@@ -122,24 +125,25 @@ public class AutosaveManager
                      * has taken ownership in the mean time. In that case, recover_book
                      * does nothing, so there should be no problem.
                      */            
-                    if (Sqlite.OK == man.database_connection.exec (@"
+                    query = @"
                         UPDATE pages
                            SET process_id = $PID
                          WHERE process_id = $unowned_pid
                            AND book_hash = $book_hash
-                           AND book_revision = $book_revision"))
+                           AND book_revision = $book_revision";
+                    debug("Executing query \"%s\"", query);
+                    result = man.database_connection.exec(query);
+                    if (Sqlite.OK == result)
                     {
                         any_pages_recovered = true;
                         man.recover_book (ref book);
                     }
                     else
-                    {
-                        warn_if_reached ();
-                    }
+                        warning("error %d while executing query", result);
                 }
             }
             else
-                warn_if_reached ();
+                warning("error %d while preparing statement", result);
         }
         catch (SpawnError e)
         {
@@ -185,7 +189,7 @@ public class AutosaveManager
         Sqlite.Database connection;
         if (Sqlite.OK != Sqlite.Database.open (AUTOSAVE_FILENAME, out connection))
             throw new IOError.FAILED ("Could not connect to autosave database");
-        warn_if_fail (Sqlite.OK == connection.exec (@"
+        string query = @"
             CREATE TABLE IF NOT EXISTS pages (
                 id integer PRIMARY KEY,
                 process_id integer,
@@ -206,7 +210,11 @@ public class AutosaveManager
                 crop_height integer,
                 scan_direction integer,
                 pixels binary
-            )"));
+            )";
+        debug("Executing query \"%s\"", query);
+        int result = connection.exec(query);
+        if (Sqlite.OK != result)
+            warning("error %d while executing query", result);
         return connection;
     }
 
@@ -228,13 +236,17 @@ public class AutosaveManager
         page.crop_changed.disconnect (on_page_changed);
         page.scan_finished.connect (on_page_changed);
 
-        warn_if_fail (Sqlite.OK == database_connection.exec (@"
-            DELETE FROM pages
-                WHERE process_id = $PID
-                  AND page_hash = $(direct_hash (page))
-                  AND book_hash = $(direct_hash (book))
-                  AND book_revision = $cur_book_revision
-            "));
+        string query = @"
+        DELETE FROM pages
+            WHERE process_id = $PID
+              AND page_hash = $(direct_hash (page))
+              AND book_hash = $(direct_hash (book))
+              AND book_revision = $cur_book_revision
+        ";
+        debug("Executing query \"%s\"", query);
+        int result = database_connection.exec (query);
+        if (Sqlite.OK != result)
+            warning("error %d while executing query", result);
     }
     
     public void on_reordered ()
@@ -242,14 +254,18 @@ public class AutosaveManager
         for (var i=0; i < book.get_n_pages (); i++)
         {
             var page = book.get_page (i);
-            warn_if_fail (Sqlite.OK == database_connection.exec (@"
-                UPDATE pages SET page_number = $i
-                WHERE process_id = $PID
-                  AND page_hash = $(direct_hash (page))
-                  AND book_hash = $(direct_hash (book))
-                  AND book_revision = $cur_book_revision
-                "));
-        }    
+            string query = @"
+            UPDATE pages SET page_number = $i
+            WHERE process_id = $PID
+              AND page_hash = $(direct_hash (page))
+              AND book_hash = $(direct_hash (book))
+              AND book_revision = $cur_book_revision
+            ";
+            debug("Executing query \"%s\"", query);
+            int result = database_connection.exec (query);
+            if (Sqlite.OK != result)
+                warning("error %d while executing query", result);
+            }    
     }
 
     public void on_page_changed (Page page)
@@ -275,7 +291,7 @@ public class AutosaveManager
 
     private void insert_page (Page page)
     {
-        warn_if_fail (Sqlite.OK == database_connection.exec (@"
+        string query = @"
             INSERT INTO pages
                 (process_id,
                 page_hash,
@@ -286,7 +302,11 @@ public class AutosaveManager
                 $(direct_hash (page)),
                 $(direct_hash (book)),
                 $cur_book_revision)
-        "));
+        ";
+        debug("Executing query \"%s\"", query);
+        int result = database_connection.exec (query);
+        if (Sqlite.OK != result)
+            warning("error %d while executing query", result);
         update_page (page);     
     }
 
@@ -298,7 +318,7 @@ public class AutosaveManager
         int crop_height;
         page.get_crop (out crop_x, out crop_y, out crop_width, out crop_height);
         Sqlite.Statement stmt;
-        return_if_fail (Sqlite.OK == database_connection.prepare_v2 (@"
+        string query = @"
             UPDATE pages
                 SET
                 page_number=$(book.get_page_index (page)),
@@ -319,12 +339,25 @@ public class AutosaveManager
                   AND page_hash = $(direct_hash (page))
                   AND book_hash = $(direct_hash (book))
                   AND book_revision = $cur_book_revision
-            ", -1, out stmt));
-        warn_if_fail (Sqlite.OK == stmt.bind_text (1, page.get_color_profile () ?? ""));
-        if (page.get_pixels () != null)
+            ";
+        debug("preparing query \"%s\"", query);
+        int result = database_connection.prepare_v2 (query, -1, out stmt);
+        if(Sqlite.OK != result) {
+            warning("error %d while preparing statement", result);
+            return_if_reached();
+        }
+            
+        result = stmt.bind_text (1, page.get_color_profile () ?? "");
+        if(Sqlite.OK != result) {
+            warning("error %d while binding text", result);
+        }
+        if (page.get_pixels () != null) {
             // (-1) is the special value SQLITE_TRANSIENT
-            warn_if_fail (Sqlite.OK == stmt.bind_blob (2, page.get_pixels (), page.get_pixels ().length, (DestroyNotify)(-1)));
-        else
+            result = stmt.bind_blob (2, page.get_pixels (), page.get_pixels ().length, (DestroyNotify)(-1));
+            if(Sqlite.OK != result) {
+                warning("error %d while binding blob", result);
+            }
+        } else
             warn_if_fail (Sqlite.OK == stmt.bind_null (2));
 
         warn_if_fail (Sqlite.DONE == stmt.step ());
@@ -333,7 +366,7 @@ public class AutosaveManager
     private void recover_book (ref Book book)
     {
         Sqlite.Statement stmt;
-        return_if_fail (Sqlite.OK == database_connection.prepare_v2 (@"
+        string query = @"
             SELECT process_id,
                 page_hash,
                 book_hash,
@@ -359,7 +392,12 @@ public class AutosaveManager
                   SELECT MAX(book_revision) WHERE process_id = $PID
               )
             ORDER BY page_number
-        ", -1, out stmt));
+        ";
+        debug("preparing query \"%s\"", query);
+        int result = database_connection.prepare_v2 (query, -1, out stmt);
+        if (Sqlite.OK != result) {
+            warning("error %d while preparing statement", result);
+        }
         bool first = true;
         while (Sqlite.ROW == stmt.step ())
         {
@@ -408,13 +446,18 @@ public class AutosaveManager
             new_page.set_pixels (new_pixels);
 
             var id = stmt.column_int (18);
-            warn_if_fail (Sqlite.OK == database_connection.exec (@"
+            query = @"
                 UPDATE pages
                    SET page_hash=$(direct_hash (new_page)),
                        book_hash=$(direct_hash (book)),
                        book_revision=$cur_book_revision
                 WHERE id = $id
-            "));
+            ";
+            debug("executing query \"%s\"", query);
+            result = database_connection.exec(query);
+            if (Sqlite.OK != result) {
+                warning("error %d while executing query", result);
+            }
         }
     }
 }
