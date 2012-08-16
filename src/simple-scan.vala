@@ -91,7 +91,7 @@ public class SimpleScan : Gtk.Application
         udev_client = null;
         scanner.free ();
     }
-    
+
     private void update_scan_devices_cb (Scanner scanner, List<ScanDevice> devices)
     {
         var devices_copy = devices.copy ();
@@ -242,7 +242,7 @@ public class SimpleScan : Gtk.Application
         return profile.filename;
 #else
         return null;
-#endif        
+#endif
     }
 
     private void scanner_page_info_cb (Scanner scanner, ScanPageInfo info)
@@ -454,7 +454,7 @@ public class SimpleScan : Gtk.Application
     {
         scanner.redetect ();
     }
-    
+
     private static void fix_pdf (string filename) throws Error
     {
         uint8[] data;
@@ -511,7 +511,7 @@ public class SimpleScan : Gtk.Application
             line_number++;
             offset = end_offset;
         }
-        
+
         if (FileUtils.rename (filename, filename + "~") >= 0)
             FileUtils.rename (filename + ".fixed", filename);
     }
@@ -558,7 +558,7 @@ public class SimpleScan : Gtk.Application
             catch (Error e)
             {
                 stderr.printf ("Error fixing PDF file: %s", e.message);
-                return Posix.EXIT_FAILURE;                
+                return Posix.EXIT_FAILURE;
             }
             return Posix.EXIT_SUCCESS;
         }

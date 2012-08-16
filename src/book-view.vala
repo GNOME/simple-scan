@@ -34,7 +34,7 @@ public class BookView : Gtk.VBox
     private Gtk.Adjustment adjustment;
 
     private Gdk.CursorType cursor;
-    
+
     public signal void page_selected (Page? page);
     public signal void show_page (Page page);
     public signal void show_menu ();
@@ -608,7 +608,7 @@ public class BookView : Gtk.VBox
         else
             return null;
     }
-    
+
     public Gtk.Widget get_event_source ()
     {
         return drawing_area;

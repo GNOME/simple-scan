@@ -14,7 +14,7 @@ public class Book
     private List<Page> pages;
 
     private bool needs_saving;
-    
+
     public signal void page_added (Page page);
     public signal void page_removed (Page page);
     public signal void reordered ();
@@ -109,7 +109,7 @@ public class Book
         string prefix = uri, suffix = "";
         var extension_index = basename.last_index_of_char ('.');
         if (extension_index >= 0)
-        {          
+        {
             suffix = basename.slice (extension_index, basename.length);
             prefix = uri.slice (0, uri.length - suffix.length);
         }
@@ -475,7 +475,7 @@ public class Book
             writer.write_string ("\n");
             writer.write_string ("endstream\n");
             writer.write_string ("endobj\n");
-            
+
             saving (i);
         }
 
@@ -600,5 +600,5 @@ public class PsWriter
         }
 
         return Cairo.Status.SUCCESS;
-    }   
+    }
 }

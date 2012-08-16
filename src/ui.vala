@@ -340,7 +340,7 @@ public class UserInterface
         /* Get directory to save to */
         string? directory = null;
         directory = settings.get_string ("save-directory");
-            
+
         if (directory == null || directory == "")
             directory = Environment.get_user_special_dir (UserDirectory.DOCUMENTS);
 
@@ -801,7 +801,7 @@ public class UserInterface
                                e.message);
             return;
         }
-        
+
         try
         {
             Gtk.show_uri (window.get_screen (), file.get_uri (), Gtk.get_current_event_time ());
@@ -1415,13 +1415,13 @@ public class UserInterface
             add_default_page ();
         book.set_needs_saving (false);
         book.needs_saving_changed.connect (needs_saving_cb);
-        
+
         progress_dialog = new ProgressBarDialog (window, _("Saving document..."));
         book.saving.connect (book_saving_cb);
-        
+
         dnd_handler = new DragAndDropHandler (book_view);
     }
-    
+
     private void book_saving_cb (int page_number)
     {
         /* Prevent GUI from freezing */
@@ -1431,7 +1431,7 @@ public class UserInterface
         var total = (int) book.get_n_pages ();
         var fraction = (page_number + 1.0) / total;
         var complete = fraction == 1.0;
-        if (complete) 
+        if (complete)
             Timeout.add(500, () => {
                 progress_dialog.hide();
                 return false;
@@ -1441,12 +1441,12 @@ public class UserInterface
         progress_dialog.set_fraction (fraction);
         progress_dialog.set_message (message);
     }
-    
+
     public void show_progress_dialog ()
     {
         progress_dialog.show ();
     }
-    
+
     public void hide_progress_dialog ()
     {
         progress_dialog.hide ();
@@ -1525,7 +1525,7 @@ class ProgressBarDialog : Gtk.Window
     {
         bar.set_fraction (percent);
     }
-    
+
     public void set_message (string message)
     {
         bar.set_text (message);
@@ -1539,29 +1539,29 @@ class DragAndDropHandler
         IMAGE,
         URI
     }
-    
+
     private BookView book_view;
-    
+
     public DragAndDropHandler (BookView book_view)
     {
         this.book_view = book_view;
         var event_source = book_view.get_event_source ();
-        
+
         set_targets (event_source);
         event_source.drag_data_get.connect (on_drag_data_get);
     }
-    
+
     private void set_targets (Gtk.Widget event_source)
     {
         var table = new Gtk.TargetEntry [0];
         var targets = new Gtk.TargetList (table);
         targets.add_uri_targets (TargetType.URI);
         targets.add_image_targets (TargetType.IMAGE, true);
-        
+
         Gtk.drag_source_set (event_source, Gdk.ModifierType.BUTTON1_MASK, table, Gdk.DragAction.COPY);
         Gtk.drag_source_set_target_list (event_source, targets);
     }
-    
+
     private void on_drag_data_get (Gdk.DragContext context, Gtk.SelectionData selection, uint target_type, uint time)
     {
         var page = book_view.get_selected ();
@@ -1572,15 +1572,15 @@ class DragAndDropHandler
         case TargetType.IMAGE:
             var image = page.get_image (true);
             selection.set_pixbuf (image);
-            
+
             debug ("Saving page to pixbuf");
             break;
-        
+
         case TargetType.URI:
             var filetype = "png";
             var path = get_temporary_filename ("scanned-page", filetype);
             return_if_fail (path != null);
-            
+
             var file = File.new_for_path (path);
             var uri = file.get_uri ();
 
@@ -1595,7 +1595,7 @@ class DragAndDropHandler
                 warning ("Unable to save file using drag-drop %s", e.message);
             }
             break;
-        
+
         default:
             warning ("Invalid DND target type %u", target_type);
             break;

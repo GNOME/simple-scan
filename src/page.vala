@@ -57,7 +57,7 @@ public class Page
     private int crop_y;
     private int crop_width;
     private int crop_height;
-    
+
     public signal void pixels_changed ();
     public signal void size_changed ();
     public signal void scan_line_changed ();
@@ -84,7 +84,7 @@ public class Page
     {
         expected_rows = info.height;
         dpi = (int) info.dpi;
-        
+
         /* Create a white page */
         width = info.width;
         n_rows = info.height;
@@ -406,13 +406,13 @@ public class Page
 
     public void set_named_crop (string name)
     {
-        double width, height;        
+        double width, height;
         switch (name)
         {
         case "A4":
             width = 8.3;
             height = 11.7;
-            break;            
+            break;
         case "A5":
             width = 5.8;
             height = 8.3;

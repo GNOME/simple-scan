@@ -891,7 +891,7 @@ public class PageView
             var y = outer_radius * (Math.cos (arc) - 1.0);
             var inner_radius = 0.6 * Math.sqrt (x*x + y*y);
 
-            double offset = 0.0;          
+            double offset = 0.0;
             for (var i = 0; i < animate_n_segments; i++, offset += arc * 2)
             {
                 x = w / 2 + outer_radius * Math.sin (offset);
