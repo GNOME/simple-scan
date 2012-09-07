@@ -80,6 +80,8 @@ public class ScanOptions
     public ScanType type;
     public int paper_width;
     public int paper_height;
+    public int brightness;
+    public int contrast;
 }
 
 private class ScanJob
@@ -92,6 +94,8 @@ private class ScanJob
     public ScanType type;
     public int page_width;
     public int page_height;
+    public int brightness;
+    public int contrast;
 }
 
 private class Request {}
@@ -1060,6 +1064,18 @@ public class Scanner
                         set_int_option (handle, option, index, job.page_height / 10, null);
                 }
             }
+            option = get_option_by_name (handle, Sane.NAME_BRIGHTNESS, out index);
+            if (option != null)
+            {
+                if (job.brightness != 0)
+                   set_int_option (handle, option, index, job.brightness, null);
+            }
+            option = get_option_by_name (handle, Sane.NAME_CONTRAST, out index);
+            if (option != null)
+            {
+                if (job.contrast != 0)
+                    set_int_option (handle, option, index, job.contrast, null);
+            }
 
             /* Test scanner options (hoping will not effect other scanners...) */
             if (current_device == "test")
@@ -1488,9 +1504,10 @@ public class Scanner
 
     public void scan (string? device, ScanOptions options)
     {
-        debug ("Scanner.scan (\"%s\", dpi=%d, scan_mode=%s, depth=%d, type=%s, paper_width=%d, paper_height=%d)",
+        debug ("Scanner.scan (\"%s\", dpi=%d, scan_mode=%s, depth=%d, type=%s, paper_width=%d, paper_height=%d, brightness=%d, contrast=%d)",
                device != null ? device : "(null)", options.dpi, get_scan_mode_string (options.scan_mode), options.depth,
-               get_scan_type_string (options.type), options.paper_width, options.paper_height);
+               get_scan_type_string (options.type), options.paper_width, options.paper_height,
+               options.brightness, options.contrast);
         var request = new RequestStartScan ();
         request.job = new ScanJob ();
         request.job.id = job_id++;
@@ -1501,6 +1518,8 @@ public class Scanner
         request.job.type = options.type;
         request.job.page_width = options.paper_width;
         request.job.page_height = options.paper_height;
+        request.job.brightness = options.brightness;
+        request.job.contrast = options.contrast;
         request_queue.push (request);
     }
 
