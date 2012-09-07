@@ -382,6 +382,24 @@ public class Scanner
         notify (new NotifyUpdateDevices ((owned) devices));
     }
 
+    private int scale_int (int source_min, int source_max, Sane.OptionDescriptor option, int value)
+    {
+        var v = value;
+
+        return_val_if_fail (option.type == Sane.ValueType.INT, value);
+
+        if (option.constraint_type == Sane.ConstraintType.RANGE && option.range.max != option.range.min) {
+            v -= source_min;
+            v *= (int) (option.range.max - option.range.min);
+            v /= (source_max - source_min);
+            v += (int) option.range.min;
+            debug ("scale_int: scaling %d [min: %d, max: %d] to %d [min: %d, max: %d]",
+                   value, source_min, source_max, v, (int) option.range.min, (int) option.range.max);
+        }
+
+        return v;
+    }
+
     private bool set_default_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index)
     {
         /* Check if supports automatic option */
@@ -1067,14 +1085,18 @@ public class Scanner
             option = get_option_by_name (handle, Sane.NAME_BRIGHTNESS, out index);
             if (option != null)
             {
-                if (job.brightness != 0)
-                   set_int_option (handle, option, index, job.brightness, null);
+                if (job.brightness != 0) {
+                   var brightness = scale_int (-100, 100, option, job.brightness);
+                   set_int_option (handle, option, index, brightness, null);
+                }
             }
             option = get_option_by_name (handle, Sane.NAME_CONTRAST, out index);
             if (option != null)
             {
-                if (job.contrast != 0)
-                    set_int_option (handle, option, index, job.contrast, null);
+                if (job.contrast != 0) {
+                    var contrast = scale_int (-100, 100, option, job.contrast);
+                    set_int_option (handle, option, index, contrast, null);
+                }
             }
 
             /* Test scanner options (hoping will not effect other scanners...) */
