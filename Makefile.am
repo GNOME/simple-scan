@@ -7,9 +7,9 @@ EXTRA_DIST = \
 DISTCLEANFILES = \
 	Makefile.in \
 	aclocal.m4 \
+	compile \
 	configure \
 	depcomp \
-	gnome-doc-utils.make \
 	install-sh \
 	missing \
 	mkinstalldirs \
