@@ -1,16 +1,13 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(configure.ac)
-AM_INIT_AUTOMAKE(simple-scan, 3.6.0)
-AM_CONFIG_HEADER(config.h)
+AC_INIT(simple-scan, 3.6.0)
+AM_INIT_AUTOMAKE([1.11 no-dist-gzip dist-xz foreign])
+AM_SILENT_RULES([yes])
 AM_MAINTAINER_MODE
 GNOME_MAINTAINER_MODE_DEFINES
-m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
 
-AC_ISC_POSIX
 AM_PROG_VALAC([0.16.0])
 AM_PROG_CC_C_O
-AC_HEADER_STDC
 
 GLIB_GSETTINGS
 

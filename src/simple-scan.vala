@@ -519,15 +519,15 @@ public class SimpleScan : Gtk.Application
     public static int main (string[] args)
     {
         Intl.setlocale (LocaleCategory.ALL, "");
-        Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.LOCALE_DIR);
-        Intl.bind_textdomain_codeset (Config.GETTEXT_PACKAGE, "UTF-8");
-        Intl.textdomain (Config.GETTEXT_PACKAGE);
+        Intl.bindtextdomain (GETTEXT_PACKAGE, LOCALE_DIR);
+        Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+        Intl.textdomain (GETTEXT_PACKAGE);
 
         Gtk.init (ref args);
 
         var c = new OptionContext (/* Arguments and description for --help text */
                                    _("[DEVICE...] - Scanning utility"));
-        c.add_main_entries (options, Config.GETTEXT_PACKAGE);
+        c.add_main_entries (options, GETTEXT_PACKAGE);
         c.add_group (Gtk.get_option_group (true));
         try
         {
@@ -544,7 +544,7 @@ public class SimpleScan : Gtk.Application
         if (show_version)
         {
             /* Note, not translated so can be easily parsed */
-            stderr.printf ("simple-scan %s\n", Config.VERSION);
+            stderr.printf ("simple-scan %s\n", VERSION);
             return Posix.EXIT_SUCCESS;
         }
         if (fix_pdf_filename != null)
@@ -579,7 +579,7 @@ public class SimpleScan : Gtk.Application
         log_file = FileStream.open (path, "w");
         Log.set_default_handler (log_cb);
 
-        debug ("Starting Simple Scan %s, PID=%i", Config.VERSION, Posix.getpid ());
+        debug ("Starting Simple Scan %s, PID=%i", VERSION, Posix.getpid ());
 
         var app = new SimpleScan (device);
         return app.run ();

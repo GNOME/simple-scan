@@ -484,7 +484,7 @@ public class Book
         var info_number = writer.start_object ();
         writer.write_string ("%u 0 obj\n".printf (info_number));
         writer.write_string ("<<\n");
-        writer.write_string ("/Creator (Simple Scan %s)\n".printf (Config.VERSION));
+        writer.write_string ("/Creator (Simple Scan %s)\n".printf (VERSION));
         writer.write_string (">>\n");
         writer.write_string ("endobj\n");
 

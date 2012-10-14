@@ -1069,7 +1069,7 @@ public class UserInterface
         Gtk.show_about_dialog (window,
                                "title", title,
                                "program-name", "Simple Scan",
-                               "version", Config.VERSION,
+                               "version", VERSION,
                                "comments", description,
                                "logo-icon-name", "scanner",
                                "authors", authors,
@@ -1241,12 +1241,12 @@ public class UserInterface
 
     private void load ()
     {
-        Gtk.IconTheme.get_default ().append_search_path (Config.ICON_DIR);
+        Gtk.IconTheme.get_default ().append_search_path (ICON_DIR);
 
         Gtk.Window.set_default_icon_name ("scanner");
 
         builder = new Gtk.Builder ();
-        var filename = Path.build_filename (Config.UI_DIR, "simple-scan.ui", null);
+        var filename = Path.build_filename (UI_DIR, "simple-scan.ui", null);
         try
         {
             builder.add_from_file (filename);
