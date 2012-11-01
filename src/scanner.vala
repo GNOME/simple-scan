@@ -80,6 +80,8 @@ public class ScanOptions
     public ScanType type;
     public int paper_width;
     public int paper_height;
+    public int brightness;
+    public int contrast;
 }
 
 private class ScanJob
@@ -92,6 +94,8 @@ private class ScanJob
     public ScanType type;
     public int page_width;
     public int page_height;
+    public int brightness;
+    public int contrast;
 }
 
 private class Request {}
@@ -376,6 +380,25 @@ public class Scanner
             default_device = null;
 
         notify (new NotifyUpdateDevices ((owned) devices));
+    }
+
+    private int scale_int (int source_min, int source_max, Sane.OptionDescriptor option, int value)
+    {
+        var v = value;
+
+        return_val_if_fail (option.type == Sane.ValueType.INT, value);
+
+        if (option.constraint_type == Sane.ConstraintType.RANGE && option.range.max != option.range.min)
+        {
+            v -= source_min;
+            v *= (int) (option.range.max - option.range.min);
+            v /= (source_max - source_min);
+            v += (int) option.range.min;
+            debug ("scale_int: scaling %d [min: %d, max: %d] to %d [min: %d, max: %d]",
+                   value, source_min, source_max, v, (int) option.range.min, (int) option.range.max);
+        }
+
+        return v;
     }
 
     private bool set_default_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index)
@@ -1060,6 +1083,24 @@ public class Scanner
                         set_int_option (handle, option, index, job.page_height / 10, null);
                 }
             }
+            option = get_option_by_name (handle, Sane.NAME_BRIGHTNESS, out index);
+            if (option != null)
+            {
+                if (job.brightness != 0)
+                {
+                    var brightness = scale_int (-100, 100, option, job.brightness);
+                    set_int_option (handle, option, index, brightness, null);
+                }
+            }
+            option = get_option_by_name (handle, Sane.NAME_CONTRAST, out index);
+            if (option != null)
+            {
+                if (job.contrast != 0)
+                {
+                    var contrast = scale_int (-100, 100, option, job.contrast);
+                    set_int_option (handle, option, index, contrast, null);
+                }
+            }
 
             /* Test scanner options (hoping will not effect other scanners...) */
             if (current_device == "test")
@@ -1488,9 +1529,10 @@ public class Scanner
 
     public void scan (string? device, ScanOptions options)
     {
-        debug ("Scanner.scan (\"%s\", dpi=%d, scan_mode=%s, depth=%d, type=%s, paper_width=%d, paper_height=%d)",
+        debug ("Scanner.scan (\"%s\", dpi=%d, scan_mode=%s, depth=%d, type=%s, paper_width=%d, paper_height=%d, brightness=%d, contrast=%d)",
                device != null ? device : "(null)", options.dpi, get_scan_mode_string (options.scan_mode), options.depth,
-               get_scan_type_string (options.type), options.paper_width, options.paper_height);
+               get_scan_type_string (options.type), options.paper_width, options.paper_height,
+               options.brightness, options.contrast);
         var request = new RequestStartScan ();
         request.job = new ScanJob ();
         request.job.id = job_id++;
@@ -1501,6 +1543,8 @@ public class Scanner
         request.job.type = options.type;
         request.job.page_width = options.paper_width;
         request.job.page_height = options.paper_height;
+        request.job.brightness = options.brightness;
+        request.job.contrast = options.contrast;
         request_queue.push (request);
     }
 

@@ -51,11 +51,15 @@ public class UserInterface
     private Gtk.ComboBox photo_dpi_combo;
     private Gtk.ComboBox page_side_combo;
     private Gtk.ComboBox paper_size_combo;
+    private Gtk.Scale brightness_scale;
+    private Gtk.Scale contrast_scale;
     private Gtk.ListStore device_model;
     private Gtk.ListStore text_dpi_model;
     private Gtk.ListStore photo_dpi_model;
     private Gtk.ListStore page_side_model;
     private Gtk.ListStore paper_size_model;
+    private Gtk.Adjustment brightness_adjustment;
+    private Gtk.Adjustment contrast_adjustment;    
     private bool setting_devices;
     private bool user_selected_device;
 
@@ -610,6 +614,16 @@ public class UserInterface
         if (have_iter)
             paper_size_combo.set_active_iter (iter);
     }
+    
+    private void set_brightness (int brightness)
+    {
+        brightness_adjustment.set_value (brightness);
+    }
+
+    private void set_contrast (int contrast)
+    {
+        contrast_adjustment.set_value (contrast);
+    }
 
     private int get_text_dpi ()
     {
@@ -658,6 +672,16 @@ public class UserInterface
         return false;
     }
 
+    private int get_brightness ()
+    {
+        return (int) brightness_adjustment.get_value ();
+    }
+
+    private int get_contrast ()
+    {
+        return (int) contrast_adjustment.get_value ();
+    }
+
     private ScanOptions get_scan_options ()
     {
         var options = new ScanOptions ();
@@ -674,6 +698,8 @@ public class UserInterface
             options.depth = 8;
         }
         get_paper_size (out options.paper_width, out options.paper_height);
+        options.brightness = get_brightness ();
+        options.contrast = get_contrast ();
 
         return options;
     }
@@ -1101,6 +1127,8 @@ public class UserInterface
         settings.set_enum ("page-side", get_page_side ());
         settings.set_int ("paper-width", paper_width);
         settings.set_int ("paper-height", paper_height);
+        settings.set_int ("brightness", get_brightness ());
+        settings.set_int ("contrast", get_contrast ());
         settings.set_int ("window-width", window_width);
         settings.set_int ("window-height", window_height);
         settings.set_boolean ("window-is-maximized", window_is_maximized);
@@ -1297,6 +1325,10 @@ public class UserInterface
         page_side_model = (Gtk.ListStore) page_side_combo.get_model ();
         paper_size_combo = (Gtk.ComboBox) builder.get_object ("paper_size_combo");
         paper_size_model = (Gtk.ListStore) paper_size_combo.get_model ();
+        brightness_scale = (Gtk.Scale) builder.get_object ("brightness_scale");
+        brightness_adjustment = (Gtk.Adjustment) brightness_scale.get_adjustment ();
+        contrast_scale = (Gtk.Scale) builder.get_object ("contrast_scale");
+        contrast_adjustment = (Gtk.Adjustment) contrast_scale.get_adjustment ();
 
         /* Add InfoBar (not supported in Glade) */
         info_bar = new Gtk.InfoBar ();
@@ -1362,6 +1394,24 @@ public class UserInterface
         var paper_width = settings.get_int ("paper-width");
         var paper_height = settings.get_int ("paper-height");
         set_paper_size (paper_width, paper_height);
+
+        var lower = brightness_adjustment.get_lower ();
+        var darker_label = "<small>%s</small>".printf (_("Darker"));
+        var upper = brightness_adjustment.get_upper ();
+        var lighter_label = "<small>%s</small>".printf (_("Lighter"));
+        brightness_scale.add_mark (lower, Gtk.PositionType.BOTTOM, darker_label);
+        brightness_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
+        brightness_scale.add_mark (upper, Gtk.PositionType.BOTTOM, lighter_label);
+        set_brightness (settings.get_int ("brightness"));
+
+        lower = contrast_adjustment.get_lower ();
+        var less_label = "<small>%s</small>".printf (_("Less"));
+        upper = contrast_adjustment.get_upper ();
+        var more_label = "<small>%s</small>".printf (_("More"));
+        contrast_scale.add_mark (lower, Gtk.PositionType.BOTTOM, less_label);
+        contrast_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
+        contrast_scale.add_mark (upper, Gtk.PositionType.BOTTOM, more_label);
+        set_contrast (settings.get_int ("contrast"));
 
         var device = settings.get_string ("selected-device");
         if (device != null)
