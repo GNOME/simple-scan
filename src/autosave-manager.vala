@@ -389,7 +389,7 @@ public class AutosaveManager
             FROM pages
             WHERE process_id = $PID
               AND book_revision = (
-                  SELECT MAX(book_revision) WHERE process_id = $PID
+                  SELECT MAX(book_revision) FROM pages WHERE process_id = $PID
               )
             ORDER BY page_number
         ";
