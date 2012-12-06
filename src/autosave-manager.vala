@@ -54,8 +54,10 @@ public class AutosaveManager
         }
         set
         {
+            debug("setting book to autosave");
             if (_book != null)
             {
+                debug("disconnecting from signals of old book");
                 for (var i = 0; i < _book.get_n_pages (); i++)
                 {
                     var page = _book.get_page (i);
@@ -67,6 +69,7 @@ public class AutosaveManager
                 _book.cleared.disconnect (on_cleared);
             }
             _book = value;
+            debug("connecting to signals of new book");
             _book.page_added.connect (on_page_added);
             _book.page_removed.connect (on_page_removed);
             _book.reordered.connect (on_reordered);
@@ -81,6 +84,7 @@ public class AutosaveManager
          * own pid. Then open the database and fill the book with the pages it
          * contains.
          */
+        debug("creating a new instance of the autosave manager");
         if (number_of_instances > 0)
             assert_not_reached ();
 
@@ -116,6 +120,7 @@ public class AutosaveManager
             {
                 while (Sqlite.ROW == stmt.step ())
                 {
+                    debug("found at least one autosave page, taking ownership");
                     var unowned_pid = stmt.column_int (0);
                     var book_hash = stmt.column_int (1);
                     var book_revision = stmt.column_int (2);
@@ -168,6 +173,7 @@ public class AutosaveManager
 
     public void cleanup () {
         // delete autosave records
+        debug("clean exit; deleting autosave records");
         warn_if_fail (Sqlite.OK == database_connection.exec (@"
             DELETE FROM pages
                 WHERE process_id = $PID
@@ -291,6 +297,7 @@ public class AutosaveManager
 
     private void insert_page (Page page)
     {
+        debug("adding an autosave for a new page");
         string query = @"
             INSERT INTO pages
                 (process_id,
@@ -312,6 +319,7 @@ public class AutosaveManager
 
     private void update_page (Page page)
     {
+        debug("updating the autosave for a page");
         int crop_x;
         int crop_y;
         int crop_width;
@@ -401,6 +409,7 @@ public class AutosaveManager
         bool first = true;
         while (Sqlite.ROW == stmt.step ())
         {
+            debug("found a page that needs to be recovered");
             if (first) 
             {
                 book.clear ();
@@ -416,6 +425,7 @@ public class AutosaveManager
             if (width <= 0 || height <= 0) 
                 continue;
             
+            debug(@"restoring a page of size $(width) x $(height)");
             var new_page = book.append_page (width, height, dpi, scan_direction);
 
             if (depth > 0 && n_channels > 0) 
@@ -446,6 +456,7 @@ public class AutosaveManager
             new_page.set_pixels (new_pixels);
 
             var id = stmt.column_int (18);
+            debug("updating autosave to point to our new copy of the page");
             query = @"
                 UPDATE pages
                    SET page_hash=$(direct_hash (new_page)),
@@ -458,6 +469,9 @@ public class AutosaveManager
             if (Sqlite.OK != result) {
                 warning("error %d while executing query", result);
             }
+        }
+        if (first) {
+            debug("no pages found to recover");
         }
     }
 }
