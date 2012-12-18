@@ -133,18 +133,29 @@ public class AutosaveManager
                     query = @"
                         UPDATE pages
                            SET process_id = $PID
-                         WHERE process_id = $unowned_pid
-                           AND book_hash = $book_hash
-                           AND book_revision = $book_revision";
-                    debug("Executing query \"%s\"", query);
-                    result = man.database_connection.exec(query);
-                    if (Sqlite.OK == result)
+                         WHERE process_id = ?2
+                           AND book_hash = ?3
+                           AND book_revision = ?4";
+                    debug("Preparing query \"%s\"", query);
+                    Sqlite.Statement stmt2;
+                    result = man.database_connection.prepare_v2(query, -1, out stmt2);
+                    if (Sqlite.OK != result)
+                    {
+                        warning (@"Error preparing statement: $query");
+                    }
+                    stmt2.bind_int64 (2, unowned_pid);
+                    stmt2.bind_int64 (3, book_hash);
+                    stmt2.bind_int64 (4, book_revision);
+                    result = stmt2.step();
+                    if (Sqlite.DONE == result)
                     {
                         any_pages_recovered = true;
                         man.recover_book (ref book);
                     }
                     else
-                        warning("error %d while executing query", result);
+                    {
+                        warning ("error %d while executing query", result);
+                    }
                 }
             }
             else
@@ -245,13 +256,21 @@ public class AutosaveManager
         string query = @"
         DELETE FROM pages
             WHERE process_id = $PID
-              AND page_hash = $(direct_hash (page))
-              AND book_hash = $(direct_hash (book))
-              AND book_revision = $cur_book_revision
+              AND page_hash = ?2
+              AND book_hash = ?3
+              AND book_revision = ?4
         ";
         debug("Executing query \"%s\"", query);
-        int result = database_connection.exec (query);
+        Sqlite.Statement stmt;
+        int result = database_connection.prepare_v2 (query, -1, out stmt);
         if (Sqlite.OK != result)
+            warning(@"error $result while preparing query");
+        stmt.bind_int64 (2, direct_hash (page));
+        stmt.bind_int64 (3, direct_hash (book));
+        stmt.bind_int64 (4, cur_book_revision);
+
+        result = stmt.step();
+        if (Sqlite.DONE != result)
             warning("error %d while executing query", result);
     }
     
@@ -261,17 +280,26 @@ public class AutosaveManager
         {
             var page = book.get_page (i);
             string query = @"
-            UPDATE pages SET page_number = $i
+            UPDATE pages SET page_number = ?5
             WHERE process_id = $PID
-              AND page_hash = $(direct_hash (page))
-              AND book_hash = $(direct_hash (book))
-              AND book_revision = $cur_book_revision
+              AND page_hash = ?2
+              AND book_hash = ?3
+              AND book_revision = ?4
             ";
             debug("Executing query \"%s\"", query);
-            int result = database_connection.exec (query);
+            Sqlite.Statement stmt;
+            int result = database_connection.prepare_v2 (query, -1, out stmt);
             if (Sqlite.OK != result)
+                warning(@"error $result while preparing query");
+            stmt.bind_int64 (5, i);
+            stmt.bind_int64 (2, direct_hash (page));
+            stmt.bind_int64 (3, direct_hash (book));
+            stmt.bind_int64 (4, cur_book_revision);
+
+            result = stmt.step();
+            if (Sqlite.DONE != result)
                 warning("error %d while executing query", result);
-            }    
+        }
     }
 
     public void on_page_changed (Page page)
@@ -306,14 +334,21 @@ public class AutosaveManager
                 book_revision)
                 VALUES
                 ($PID,
-                $(direct_hash (page)),
-                $(direct_hash (book)),
-                $cur_book_revision)
+                ?2,
+                ?3,
+                ?4)
         ";
         debug("Executing query \"%s\"", query);
-        int result = database_connection.exec (query);
-        if (Sqlite.OK != result)
-            warning("error %d while executing query", result);
+          Sqlite.Statement stmt;
+          int result = database_connection.prepare_v2 (query, -1, out stmt);
+          if (Sqlite.OK != result)
+              warning(@"error $result while preparing query");
+          stmt.bind_int64 (2, direct_hash (page));
+          stmt.bind_int64 (3, direct_hash (book));
+          stmt.bind_int64 (4, cur_book_revision);
+          result = stmt.step();
+          if (Sqlite.DONE != result)
+              warning("error %d while executing query", result);
         update_page (page);     
     }
 
@@ -344,9 +379,9 @@ public class AutosaveManager
                 color_profile=?1,
                 pixels=?2
                 WHERE process_id = $PID
-                  AND page_hash = $(direct_hash (page))
-                  AND book_hash = $(direct_hash (book))
-                  AND book_revision = $cur_book_revision
+                  AND page_hash = ?4
+                  AND book_hash = ?5
+                  AND book_revision = ?6
             ";
         debug("preparing query \"%s\"", query);
         int result = database_connection.prepare_v2 (query, -1, out stmt);
@@ -354,7 +389,9 @@ public class AutosaveManager
             warning("error %d while preparing statement", result);
             return_if_reached();
         }
-            
+        stmt.bind_int64 (4, direct_hash (page));
+        stmt.bind_int64 (5, direct_hash (book));
+        stmt.bind_int64 (6, cur_book_revision);
         result = stmt.bind_text (1, page.get_color_profile () ?? "");
         if(Sqlite.OK != result) {
             warning("error %d while binding text", result);
@@ -459,16 +496,23 @@ public class AutosaveManager
             debug("updating autosave to point to our new copy of the page");
             query = @"
                 UPDATE pages
-                   SET page_hash=$(direct_hash (new_page)),
-                       book_hash=$(direct_hash (book)),
-                       book_revision=$cur_book_revision
+                   SET page_hash=?1,
+                       book_hash=?2,
+                       book_revision=?3
                 WHERE id = $id
             ";
             debug("executing query \"%s\"", query);
-            result = database_connection.exec(query);
-            if (Sqlite.OK != result) {
+            Sqlite.Statement stmt2;
+            int result2 = database_connection.prepare_v2 (query, -1, out stmt2);
+            if (Sqlite.OK != result2)
+                warning(@"error $result2 while preparing query");
+            stmt2.bind_int64 (1, direct_hash (new_page));
+            stmt2.bind_int64 (2, direct_hash (book));
+            stmt2.bind_int64 (3, cur_book_revision);
+
+            result2 = stmt2.step();
+            if (Sqlite.DONE != result2)
                 warning("error %d while executing query", result);
-            }
         }
         if (first) {
             debug("no pages found to recover");
