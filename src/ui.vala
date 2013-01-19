@@ -74,6 +74,8 @@ public class UserInterface
     private Book book;
     private string? book_uri = null;
 
+    private AutosaveManager? autosave_manager;
+
     private BookView book_view;
     private bool updating_page_menu;
     private int default_page_width;
@@ -103,6 +105,8 @@ public class UserInterface
         settings = new Settings ("org.gnome.SimpleScan");
 
         load ();
+
+        autosave_manager = AutosaveManager.create (ref book);
     }
 
     ~UserInterface ()
@@ -1138,6 +1142,9 @@ public class UserInterface
         settings.set_int ("page-dpi", default_page_dpi);
 
         window.destroy ();
+
+        if (autosave_manager != null)
+            autosave_manager.cleanup ();
 
         return true;
     }
