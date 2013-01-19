@@ -178,10 +178,10 @@ public class AutosaveManager
     public void cleanup ()
     {
         debug ("Clean exit; deleting autosave records");
-        warn_if_fail (Sqlite.OK == database_connection.exec (@"
+        warn_if_fail (database_connection.exec (@"
             DELETE FROM pages
                 WHERE process_id = $PID
-        "));
+        ") == Sqlite.OK);
     }
 
     static Sqlite.Database open_database_connection () throws Error
@@ -401,9 +401,9 @@ public class AutosaveManager
                 warning ("Error %d while binding blob", result);
         }
         else
-            warn_if_fail (Sqlite.OK == stmt.bind_null (2));
+            warn_if_fail (stmt.bind_null (2) == Sqlite.OK);
 
-        warn_if_fail (Sqlite.DONE == stmt.step ());
+        warn_if_fail (stmt.step () == Sqlite.DONE);
     }
 
     private void recover_book (ref Book book)
