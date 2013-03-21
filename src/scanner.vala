@@ -890,7 +890,7 @@ public class Scanner
                     break;
                 case ScanType.ADF_FRONT:
                     if (!set_constrained_string_option (handle, option, index, adf_front_sources, null))
-                        if (!!set_constrained_string_option (handle, option, index, adf_sources, null))
+                        if (!set_constrained_string_option (handle, option, index, adf_sources, null))
                             warning ("Unable to set front ADF source, please file a bug");
                     break;
                 case ScanType.ADF_BACK:
