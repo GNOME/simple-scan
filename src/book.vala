@@ -23,10 +23,25 @@ public class Book
 
     public Book ()
     {
+        pages = new List<Page> ();
+    }
+
+    ~Book ()
+    {
+        foreach (var page in pages)
+        {
+            page.pixels_changed.disconnect (page_changed_cb);
+            page.crop_changed.disconnect (page_changed_cb);
+        }
     }
 
     public void clear ()
     {
+        foreach (var page in pages)
+        {
+            page.pixels_changed.disconnect (page_changed_cb);
+            page.crop_changed.disconnect (page_changed_cb);
+        }
         pages = null;
         cleared ();
     }

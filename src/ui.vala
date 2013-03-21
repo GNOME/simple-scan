@@ -101,6 +101,12 @@ public class SimpleScan
         load ();
     }
 
+    ~UserInterface ()
+    {
+        book.page_removed.disconnect (page_removed_cb);
+        book.page_added.disconnect (page_added_cb);
+    }
+
     private bool find_scan_device (string device, out Gtk.TreeIter iter)
     {
         bool have_iter = false;
@@ -424,6 +430,7 @@ public class SimpleScan
 
         settings.set_string ("save-directory", save_dialog.get_current_folder ());
 
+        file_type_view.get_selection ().changed.disconnect (on_file_type_changed);
         save_dialog.destroy ();
         save_dialog = null;
 
@@ -1044,6 +1051,8 @@ public class SimpleScan
         {
             warning ("Error printing: %s", e.message);
         }
+
+        print.draw_page.disconnect (draw_page);
     }
 
     [CCode (cname = "G_MODULE_EXPORT help_contents_menuitem_activate_cb", instance_pos = -1)]
@@ -1197,6 +1206,9 @@ public class SimpleScan
 
     private void page_removed_cb (Book book, Page page)
     {
+        page.size_changed.disconnect (page_size_changed_cb);
+        page.scan_direction_changed.disconnect (page_scan_direction_changed_cb);
+
         /* If this is the last page add a new blank one */
         if (book.get_n_pages () == 1)
             add_default_page ();
