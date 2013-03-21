@@ -1095,6 +1095,9 @@ public class Scanner
 
     private void do_complete_document ()
     {
+        Sane.cancel (handle);
+        debug ("sane_cancel ()");
+
         job_queue.remove_link (job_queue);
 
         state = ScanState.IDLE;
@@ -1207,9 +1210,6 @@ public class Scanner
             state = ScanState.START;
             return;
         }
-
-        Sane.cancel (handle);
-        debug ("sane_cancel ()");
 
         do_complete_document ();
     }
