@@ -211,7 +211,7 @@ public class Scanner
     private static Scanner scanner_object = null;
 
     /* Thread communicating with SANE */
-    private unowned Thread<void*> thread;
+    private Thread<void*> thread;
 
     /* Queue of requests from main thread */
     private AsyncQueue<Request> request_queue;
@@ -1469,7 +1469,7 @@ public class Scanner
     {
         try
         {
-            thread = Thread.create<void*> (scan_thread, true);
+            thread = new Thread<void*>.try ("scan-thread", scan_thread);
         }
         catch (Error e)
         {
@@ -1561,8 +1561,11 @@ public class Scanner
         request_queue.push (new RequestQuit ());
 
         if (thread != null)
+        {
             thread.join ();
-
+            thread = null;
+        }
+        
         Sane.exit ();
         debug ("sane_exit ()");
     }
