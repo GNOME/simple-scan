@@ -534,6 +534,8 @@ public class SimpleScan
                              _("Discard Changes")))
             return;
 
+        if (scanning)
+            stop_scan ();
         clear_document ();
     }
 
