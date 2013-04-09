@@ -18,8 +18,10 @@ The latest version of Simple Scan is primarily developed on
 and know to successfully build using the following commands:
 
 ```
+sudo apt-get install bzr
 bzr branch lp:simple-scan simple-scan && cd simple-scan
 sudo apt-get build-dep simple-scan
+sudo apt-get install libsqlite3-dev
 sudo apt-get install valac-0.16 vala-0.16
 sudo update-alternatives --config valac # select vala-0.16
 
