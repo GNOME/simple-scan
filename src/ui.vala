@@ -1281,14 +1281,13 @@ public class UserInterface
         Gtk.Window.set_default_icon_name ("scanner");
 
         builder = new Gtk.Builder ();
-        var filename = Path.build_filename (UI_DIR, "simple-scan.ui", null);
         try
         {
-            builder.add_from_file (filename);
+            builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan.ui");
         }
         catch (Error e)
         {
-            critical ("Unable to load UI %s: %s\n", filename, e.message);
+            critical ("Unable to load UI: %s\n", e.message);
             show_error_dialog (/* Title of dialog when cannot load required files */
                                _("Files missing"),
                                /* Description in dialog when cannot load required files */

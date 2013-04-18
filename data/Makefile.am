@@ -1,8 +1,5 @@
 SUBDIRS = icons
 
-uidir = $(datadir)/simple-scan
-ui_DATA = simple-scan.ui
-
 utilitiesdir = $(datadir)/applications
 utilities_in_files = simple-scan.desktop.in
 utilities_DATA = $(utilities_in_files:.desktop.in=.desktop)
@@ -18,6 +15,8 @@ EXTRA_DIST = $(ui_DATA) $(utilities_in_files) org.gnome.SimpleScan.gschema.xml.i
 
 DISTCLEANFILES = \
 	Makefile.in \
+	simple-scan.ui \
+	simple-scan.gresource.xml \
 	$(schema_DATA) \
 	$(utilities_DATA) \
 	$(gsettings_SCHEMAS)

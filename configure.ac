@@ -10,6 +10,7 @@ AM_PROG_VALAC([0.16.0])
 AM_PROG_CC_C_O
 
 GLIB_GSETTINGS
+AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
 
 dnl ###########################################################################
 dnl Dependencies

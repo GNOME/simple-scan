@@ -1,5 +1,8 @@
 bin_PROGRAMS = simple-scan
 
+resources.c: $(top_srcdir)/data/simple-scan.gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir=$(top_srcdir)/data/ $(top_srcdir)/data/simple-scan.gresource.xml)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(top_srcdir)/data/ --generate-source $<
+
 simple_scan_SOURCES = \
 	config.vapi \
 	book.vala \
@@ -12,7 +15,8 @@ simple_scan_SOURCES = \
 	simple-scan.vala \
 	scanner.vala \
 	ui.vala \
-	autosave-manager.vala
+	autosave-manager.vala \
+	resources.c
 
 simple_scan_VALAFLAGS = \
 	--pkg=zlib \
@@ -47,6 +51,7 @@ simple_scan_LDADD = \
 
 CLEANFILES = \
 	$(patsubst %.vala,%.c,$(filter %.vala, $(SOURCES))) \
+	resources.c \
 	*_vala.stamp
 
 DISTCLEANFILES = \
