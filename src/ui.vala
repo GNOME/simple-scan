@@ -31,7 +31,9 @@ public class UserInterface
     private Gtk.MenuItem crop_rotate_menuitem;
     private Gtk.MenuItem save_menuitem;
     private Gtk.MenuItem save_as_menuitem;
+    private Gtk.MenuItem copy_to_clipboard_menuitem;
     private Gtk.ToolButton save_toolbutton;
+    private Gtk.ToolButton copy_toolbutton;
     private Gtk.MenuItem stop_menuitem;
     private Gtk.ToolButton stop_toolbutton;
 
@@ -533,6 +535,8 @@ public class UserInterface
         book_uri = null;
         book.set_needs_saving (false);
         save_as_menuitem.set_sensitive (false);
+        copy_to_clipboard_menuitem.set_sensitive (false);
+        copy_toolbutton.set_sensitive (false);
     }
 
     [CCode (cname = "G_MODULE_EXPORT new_button_clicked_cb", instance_pos = -1)]
@@ -1011,6 +1015,14 @@ public class UserInterface
         save_document (false);
     }
 
+	[CCode (cname = "G_MODULE_EXPORT copy_to_clipboard_button_clicked_cb", instance_pos = -1)]
+    public void copy_to_clipboard_button_clicked_cb (Gtk.Widget widget)
+    {
+		var page = book_view.get_selected ();
+        if (page != null)
+            page.copy_to_clipboard (window);
+    }
+
     [CCode (cname = "G_MODULE_EXPORT save_as_file_button_clicked_cb", instance_pos = -1)]
     public void save_as_file_button_clicked_cb (Gtk.Widget widget)
     {
@@ -1272,6 +1284,8 @@ public class UserInterface
         save_toolbutton.set_sensitive (book.get_needs_saving ());
         if (book.get_needs_saving ())
             save_as_menuitem.set_sensitive (true);
+            copy_to_clipboard_menuitem.set_sensitive (true);
+			copy_toolbutton.set_sensitive (true);
     }
 
     private void load ()
@@ -1306,7 +1320,9 @@ public class UserInterface
         crop_rotate_menuitem = (Gtk.MenuItem) builder.get_object ("crop_rotate_menuitem");
         save_menuitem = (Gtk.MenuItem) builder.get_object ("save_menuitem");
         save_as_menuitem = (Gtk.MenuItem) builder.get_object ("save_as_menuitem");
+        copy_to_clipboard_menuitem = (Gtk.MenuItem) builder.get_object ("copy_to_clipboard_menuitem");
         save_toolbutton = (Gtk.ToolButton) builder.get_object ("save_toolbutton");
+        copy_toolbutton = (Gtk.ToolButton) builder.get_object ("copy_toolbutton");
         stop_menuitem = (Gtk.MenuItem) builder.get_object ("stop_scan_menuitem");
         stop_toolbutton = (Gtk.ToolButton) builder.get_object ("stop_toolbutton");
 
