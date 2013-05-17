@@ -1018,7 +1018,7 @@ public class UserInterface
 	[CCode (cname = "G_MODULE_EXPORT copy_to_clipboard_button_clicked_cb", instance_pos = -1)]
     public void copy_to_clipboard_button_clicked_cb (Gtk.Widget widget)
     {
-		var page = book_view.get_selected ();
+        var page = book_view.get_selected ();
         if (page != null)
             page.copy_to_clipboard (window);
     }
@@ -1282,10 +1282,11 @@ public class UserInterface
     {
         save_menuitem.set_sensitive (book.get_needs_saving ());
         save_toolbutton.set_sensitive (book.get_needs_saving ());
-        if (book.get_needs_saving ())
+        if (book.get_needs_saving ()) {
             save_as_menuitem.set_sensitive (true);
-            copy_to_clipboard_menuitem.set_sensitive (true);
-			copy_toolbutton.set_sensitive (true);
+        }
+        copy_to_clipboard_menuitem.set_sensitive (true);
+        copy_toolbutton.set_sensitive (true);
     }
 
     private void load ()

@@ -687,9 +687,9 @@ public class Page
     public void copy_to_clipboard (Gtk.Window window)
     {        
         Gdk.Display display = window.get_display ();
-		Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
-		var image = get_image (true);
-		clipboard.set_image(image);
+        Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+        var image = get_image (true);
+        clipboard.set_image(image);
 	}
 
     public void save (string type, File file) throws Error
