@@ -325,6 +325,17 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkImageMenuItem" id="copy_to_clipboard_menuitem">
+                        <property name="label">gtk-copy</property>
+                        <property name="visible">True</property>
+                        <property name="sensitive">False</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <signal name="activate" handler="copy_to_clipboard_button_clicked_cb"/>
+                      </object>
+                    </child>                    
+                    <child>
                       <object class="GtkImageMenuItem" id="page_delete_menuitem">
                         <property name="label">gtk-delete</property>
                         <property name="visible">True</property>
