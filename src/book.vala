@@ -114,7 +114,7 @@ public class Book
             prefix = uri.slice (0, uri.length - suffix.length);
         }
 
-        return File.new_for_uri ("%s-%d%s".printf (prefix, i+1, suffix));
+        return File.new_for_uri ("%s-%04d%s".printf (prefix, i+1, suffix));
     }
 
     private void save_multi_file (string type, File file) throws Error
