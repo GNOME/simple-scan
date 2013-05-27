@@ -114,8 +114,9 @@ public class Book
             prefix = uri.slice (0, uri.length - suffix.length);
         }
         var width = get_n_pages ().to_string().length;
-        var digits = zero_pad(width, i + 1);
-        return File.new_for_uri ("%s-%s%s".printf (prefix, digits, suffix));
+        var number_format = "%%0%dd".printf (width);
+        var filename = prefix + "-" + number_format.printf (i + 1) + suffix;
+        return File.new_for_uri (filename);
     }
 
     private string zero_pad(long width, int number)
