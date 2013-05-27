@@ -119,14 +119,6 @@ public class Book
         return File.new_for_uri (filename);
     }
 
-    private string zero_pad(long width, int number)
-    {
-        var s = number.to_string();
-        while (s.length < width)
-            s = "0" + s;
-        return s;
-    }
-
     private void save_multi_file (string type, File file) throws Error
     {
         for (var i = 0; i < get_n_pages (); i++)
