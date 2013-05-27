@@ -113,8 +113,17 @@ public class Book
             suffix = basename.slice (extension_index, basename.length);
             prefix = uri.slice (0, uri.length - suffix.length);
         }
+        var width = get_n_pages ().to_string().length;
+        var digits = zero_pad(width, i + 1);
+        return File.new_for_uri ("%s-%s%s".printf (prefix, digits, suffix));
+    }
 
-        return File.new_for_uri ("%s-%04d%s".printf (prefix, i+1, suffix));
+    private string zero_pad(long width, int number)
+    {
+        var s = number.to_string();
+        while (s.length < width)
+            s = "0" + s;
+        return s;
     }
 
     private void save_multi_file (string type, File file) throws Error
