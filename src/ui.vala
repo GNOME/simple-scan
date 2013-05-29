@@ -385,7 +385,7 @@ public class UserInterface
         string extension = "";
         var index = default_file_name.last_index_of_char ('.');
         if (index >= 0)
-            extension = default_file_name.slice (0, index);
+            extension = default_file_name.substring (index);
 
         var file_type_store = new Gtk.ListStore (2, typeof (string), typeof (string));
         Gtk.TreeIter iter;
@@ -435,7 +435,18 @@ public class UserInterface
 
         string? uri = null;
         if (response == Gtk.ResponseType.ACCEPT)
+        {
+            var path = save_dialog.get_filename ();
+            var basename = Path.get_basename (path);
+            // Check if file name doesn't have extension
+            if (basename.last_index_of_char ('.') <= 0)
+            {
+                var selection = file_type_view.get_selection ();
+                // Force file name extension
+                on_file_type_changed (selection);
+            }
             uri = save_dialog.get_uri ();
+        }
 
         settings.set_string ("save-directory", save_dialog.get_current_folder ());
 
