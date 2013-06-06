@@ -23,6 +23,7 @@ simple_scan_VALAFLAGS = \
 	--pkg=gio-2.0 \
 	--pkg=gtk+-3.0 \
 	--pkg=sqlite3 \
+	-g \
 	--target-glib 2.32
 
 if HAVE_COLORD
@@ -30,6 +31,7 @@ simple_scan_VALAFLAGS += -D HAVE_COLORD
 endif
 
 simple_scan_CFLAGS = \
+	-w \
 	$(SIMPLE_SCAN_CFLAGS) \
 	$(COLORD_CFLAGS) \
 	$(WARN_CFLAGS) \
