@@ -8,7 +8,6 @@ simple_scan_SOURCES = \
 	book.vala \
 	book-view.vala \
 	colord.vapi \
-	jpeglib.vapi \
 	page.vala \
 	page-view.vala \
 	sane.vapi \
@@ -46,7 +45,6 @@ simple_scan_LDADD = \
 	$(SIMPLE_SCAN_LIBS) \
 	$(COLORD_LIBS) \
 	-lsane \
-	-ljpeg \
 	-lm
 
 CLEANFILES = \
