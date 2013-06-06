@@ -193,9 +193,7 @@ public class Book
         catch (Error e)
         {
         }
-        stderr.printf ("l1=%u\n", jpeg_data.len);
         var data = (owned) jpeg_data.data;
-        stderr.printf ("l2=%u\n", data.length);
         jpeg_data = null;
 
         return data;
@@ -203,7 +201,6 @@ public class Book
 
     private bool write_pixbuf_data (uint8[] buf) throws Error
     {
-        stderr.printf ("+%u\n", buf.length);
         jpeg_data.append (buf);
         return true;
     }
