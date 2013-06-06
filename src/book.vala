@@ -119,12 +119,12 @@ public class Book
         return File.new_for_uri (filename);
     }
 
-    private void save_multi_file (string type, File file) throws Error
+    private void save_multi_file (string type, int quality, File file) throws Error
     {
         for (var i = 0; i < get_n_pages (); i++)
         {
             var page = get_page (i);
-            page.save (type, make_indexed_file (file.get_uri (), i));
+            page.save (type, quality, make_indexed_file (file.get_uri (), i));
             saving (i);
         }
     }
@@ -181,11 +181,11 @@ public class Book
 
     private ByteArray jpeg_data;
 
-    private uint8[] compress_jpeg (Gdk.Pixbuf image, int dpi)
+    private uint8[] compress_jpeg (Gdk.Pixbuf image, int quality, int dpi)
     {
         jpeg_data = new ByteArray ();
-        string[] keys = { "density-unit", "x-density", "y-density", null };
-        string[] values = { "dots-per-inch", "%d".printf (dpi), "%d".printf (dpi), null };
+        string[] keys = { "quality", "density-unit", "x-density", "y-density", null };
+        string[] values = { "%d".printf (quality), "dots-per-inch", "%d".printf (dpi), "%d".printf (dpi), null };
         try
         {
             image.save_to_callbackv (write_pixbuf_data, "jpeg", keys, values);
@@ -208,7 +208,7 @@ public class Book
         return true;
     }
 
-    private void save_pdf (File file) throws Error
+    private void save_pdf (File file, int quality) throws Error
     {
         var stream = file.replace (null, false, FileCreateFlags.NONE, null);
         var writer = new PDFWriter (stream);
@@ -400,7 +400,7 @@ public class Book
                 /* Try if JPEG compression is better */
                 if (depth > 1)
                 {
-                    var jpeg_data = compress_jpeg (image, page.get_dpi ());
+                    var jpeg_data = compress_jpeg (image, quality, page.get_dpi ());
                     if (jpeg_data.length < compressed_data.length)
                     {
                         filter = "DCTDecode";
@@ -495,20 +495,20 @@ public class Book
         writer.write_string ("%%EOF\n");
     }
 
-    public void save (string type, File file) throws Error
+    public void save (string type, int quality, File file) throws Error
     {
         switch (type)
         {
         case "jpeg":
         case "png":
         case "tiff":
-            save_multi_file (type, file);
+            save_multi_file (type, quality, file);
             break;
         case "ps":
             save_ps (file);
             break;
         case "pdf":
-            save_pdf (file);
+            save_pdf (file, quality);
             break;
         }
     }

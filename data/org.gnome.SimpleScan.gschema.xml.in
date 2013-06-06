@@ -64,9 +64,9 @@
       <_description>The height of the paper in tenths of a mm (or 0 for automatic paper detection).</_description>
     </key>
     <key name="brightness" type="i">
-        <default>0</default>
-        <_summary>Brightness of scan</_summary>
-        <_description>The brightness adjustment from -100 to 100 (0 being none).</_description>
+      <default>0</default>
+      <_summary>Brightness of scan</_summary>
+      <_description>The brightness adjustment from -100 to 100 (0 being none).</_description>
     </key>
     <key name="contrast" type="i">
         <default>0</default>
@@ -97,6 +97,12 @@
       <default>''</default>
       <_summary>Directory to save files to</_summary>
       <_description>The directory to save files to.  Defaults to the documents directory if unset.</_description>
+    </key>
+    <key name="jpeg-quality" type="i">
+      <range min="0" max="100"/>
+      <default>75</default>
+      <_summary>Quality value to use for JPEG compression</_summary>
+      <_description>Quality value to use for JPEG compression.</_description>
     </key>
   </schema>
 </schemalist>

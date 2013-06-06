@@ -350,7 +350,7 @@ public class SimpleScan : Gtk.Application
         return path;
     }
 
-    private void email_cb (UserInterface ui, string profile)
+    private void email_cb (UserInterface ui, string profile, int quality)
     {
         var saved = false;
         var command_line = "xdg-email";
@@ -366,7 +366,7 @@ public class SimpleScan : Gtk.Application
                 ui.show_progress_dialog ();
                 try
                 {
-                    book.save ("pdf", file);
+                    book.save ("pdf", quality, file);
                 }
                 catch (Error e)
                 {
@@ -391,7 +391,7 @@ public class SimpleScan : Gtk.Application
                 var file = File.new_for_path (path);
                 try
                 {
-                    book.get_page (i).save ("jpeg", file);
+                    book.get_page (i).save ("jpeg", quality, file);
                 }
                 catch (Error e)
                 {
