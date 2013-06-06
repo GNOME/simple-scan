@@ -325,13 +325,7 @@ public class UserInterface
 
     private void on_file_type_changed (Gtk.TreeSelection selection)
     {
-        Gtk.TreeModel model;
-        Gtk.TreeIter iter;
-        if (!selection.get_selected (out model, out iter))
-            return;
-
-        string extension;
-        model.get (iter, 1, out extension, -1);
+        var extension = get_selected_extension (selection);
         var path = save_dialog.get_filename ();
         var filename = Path.get_basename (path);
 
@@ -341,6 +335,17 @@ public class UserInterface
             filename = filename.slice (0, extension_index);
         filename = filename + extension;
         save_dialog.set_current_name (filename);
+    }
+
+    private string get_selected_extension (Gtk.TreeSelection selection)
+    {
+        Gtk.TreeModel model;
+        Gtk.TreeIter iter;
+        string extension = "";
+
+        if (selection.get_selected (out model, out iter))
+            model.get (iter, 1, out extension, -1);
+        return extension;
     }
 
     private string choose_file_location ()
@@ -382,10 +387,10 @@ public class UserInterface
         expander.set_spacing (5);
         save_dialog.set_extra_widget (expander);
 
-        string extension = "";
+        string default_extension = "";
         var index = default_file_name.last_index_of_char ('.');
         if (index >= 0)
-            extension = default_file_name.slice (0, index);
+            default_extension = default_file_name.substring (index);
 
         var file_type_store = new Gtk.ListStore (2, typeof (string), typeof (string));
         Gtk.TreeIter iter;
@@ -423,7 +428,7 @@ public class UserInterface
             {
                 string e;
                 file_type_store.get (iter, 1, out e, -1);
-                if (extension == e)
+                if (default_extension == e)
                     file_type_view.get_selection ().select_iter (iter);
             } while (file_type_store.iter_next (ref iter));
         }
@@ -435,7 +440,19 @@ public class UserInterface
 
         string? uri = null;
         if (response == Gtk.ResponseType.ACCEPT)
-            uri = save_dialog.get_uri ();
+        {
+            var selection = file_type_view.get_selection ();
+            var extension = get_selected_extension (selection);
+
+            var path = save_dialog.get_filename ();
+            var filename = Path.get_basename (path);
+            
+            var extension_index = filename.last_index_of_char ('.');
+            if (extension_index < 0)
+                path += extension;
+
+            uri = File.new_for_path (path).get_uri ();
+        }
 
         settings.set_string ("save-directory", save_dialog.get_current_folder ());
 
