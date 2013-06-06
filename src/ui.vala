@@ -54,13 +54,15 @@ public class UserInterface
     private Gtk.ComboBox paper_size_combo;
     private Gtk.Scale brightness_scale;
     private Gtk.Scale contrast_scale;
+    private Gtk.Scale quality_scale;
     private Gtk.ListStore device_model;
     private Gtk.ListStore text_dpi_model;
     private Gtk.ListStore photo_dpi_model;
     private Gtk.ListStore page_side_model;
     private Gtk.ListStore paper_size_model;
     private Gtk.Adjustment brightness_adjustment;
-    private Gtk.Adjustment contrast_adjustment;    
+    private Gtk.Adjustment contrast_adjustment;
+    private Gtk.Adjustment quality_adjustment;
     private bool setting_devices;
     private bool user_selected_device;
 
@@ -95,15 +97,15 @@ public class UserInterface
 
     public signal void start_scan (string? device, ScanOptions options);
     public signal void stop_scan ();
-    public signal void email (string profile);
+    public signal void email (string profile, int quality);
 
     public UserInterface ()
     {
+        settings = new Settings ("org.gnome.SimpleScan");
+
         book = new Book ();
         book.page_removed.connect (page_removed_cb);
         book.page_added.connect (page_added_cb);
-
-        settings = new Settings ("org.gnome.SimpleScan");
 
         load ();
 
@@ -491,7 +493,7 @@ public class UserInterface
         show_progress_dialog ();
         try
         {
-            book.save (format, file);
+            book.save (format, get_quality (), file);
         }
         catch (Error e)
         {
@@ -648,6 +650,11 @@ public class UserInterface
         contrast_adjustment.set_value (contrast);
     }
 
+    private void set_quality (int quality)
+    {
+        quality_adjustment.set_value (quality);
+    }
+
     private int get_text_dpi ()
     {
         Gtk.TreeIter iter;
@@ -703,6 +710,11 @@ public class UserInterface
     private int get_contrast ()
     {
         return (int) contrast_adjustment.get_value ();
+    }
+
+    private int get_quality ()
+    {
+        return (int) quality_adjustment.get_value ();
     }
 
     private ScanOptions get_scan_options ()
@@ -840,7 +852,7 @@ public class UserInterface
 
         try
         {
-            page.save ("tiff", file);
+            page.save ("tiff", get_quality (), file);
         }
         catch (Error e)
         {
@@ -1072,7 +1084,7 @@ public class UserInterface
     [CCode (cname = "G_MODULE_EXPORT email_button_clicked_cb", instance_pos = -1)]
     public void email_button_clicked_cb (Gtk.Widget widget)
     {
-        email (document_hint);
+        email (document_hint, get_quality ());
     }
 
     [CCode (cname = "G_MODULE_EXPORT print_button_clicked_cb", instance_pos = -1)]
@@ -1160,6 +1172,7 @@ public class UserInterface
         settings.set_int ("paper-height", paper_height);
         settings.set_int ("brightness", get_brightness ());
         settings.set_int ("contrast", get_contrast ());
+        settings.set_int ("jpeg-quality", get_quality ());
         settings.set_int ("window-width", window_width);
         settings.set_int ("window-height", window_height);
         settings.set_boolean ("window-is-maximized", window_is_maximized);
@@ -1364,6 +1377,8 @@ public class UserInterface
         brightness_adjustment = (Gtk.Adjustment) brightness_scale.get_adjustment ();
         contrast_scale = (Gtk.Scale) builder.get_object ("contrast_scale");
         contrast_adjustment = (Gtk.Adjustment) contrast_scale.get_adjustment ();
+        quality_scale = (Gtk.Scale) builder.get_object ("quality_scale");
+        quality_adjustment = (Gtk.Adjustment) quality_scale.get_adjustment ();
 
         /* Add InfoBar (not supported in Glade) */
         info_bar = new Gtk.InfoBar ();
@@ -1447,6 +1462,15 @@ public class UserInterface
         contrast_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
         contrast_scale.add_mark (upper, Gtk.PositionType.BOTTOM, more_label);
         set_contrast (settings.get_int ("contrast"));
+
+        lower = quality_adjustment.get_lower ();
+        var minimum_label = "<small>%s</small>".printf (_("Minimum"));
+        upper = quality_adjustment.get_upper ();
+        var maximum_label = "<small>%s</small>".printf (_("Maximum"));
+        quality_scale.add_mark (lower, Gtk.PositionType.BOTTOM, minimum_label);
+        quality_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
+        quality_scale.add_mark (upper, Gtk.PositionType.BOTTOM, maximum_label);
+        set_quality (settings.get_int ("jpeg-quality"));
 
         var device = settings.get_string ("selected-device");
         if (device != null)

@@ -692,7 +692,7 @@ public class Page
         clipboard.set_image(image);
     }
 
-    public void save (string type, File file) throws Error
+    public void save (string type, int quality, File file) throws Error
     {
         var stream = file.replace (null, false, FileCreateFlags.NONE, null);
         var writer = new PixbufWriter (stream);
@@ -705,7 +705,7 @@ public class Page
         if (strcmp (type, "jpeg") == 0)
         {
             string[] keys = { "quality", "density-unit", "x-density", "y-density", "icc-profile", null };
-            string[] values = { "90", "dots-per-inch", "%d".printf (dpi), "%d".printf (dpi), icc_profile_data, null };
+            string[] values = { "%d".printf (quality), "dots-per-inch", "%d".printf (dpi), "%d".printf (dpi), icc_profile_data, null };
             if (icc_profile_data == null)
                 keys[4] = null;
             writer.save (image, "jpeg", keys, values);
