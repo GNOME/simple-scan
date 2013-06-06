@@ -39,7 +39,6 @@ AM_CONDITIONAL(HAVE_COLORD, test $have_colord = yes)
 
 AC_CHECK_HEADERS([sane/sane.h],[],[AC_MSG_ERROR([SANE not found])])
 AC_CHECK_HEADERS([sane/saneopts.h],[],[AC_MSG_ERROR([SANE not found])])
-AC_CHECK_HEADERS([jpeglib.h],[],[AC_MSG_ERROR([libjpeg not found])])
 
 dnl ###########################################################################
 dnl Documentation

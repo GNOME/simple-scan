@@ -179,47 +179,33 @@ public class Book
         return out_data;
     }
 
-    private static void jpeg_init_cb (JPEG.Compress info) {}
-    private static bool jpeg_empty_cb (JPEG.Compress info) { return true; }
-    private static void jpeg_term_cb (JPEG.Compress info) {}
+    private ByteArray jpeg_data;
 
-    private uint8[] compress_jpeg (Gdk.Pixbuf image, out size_t n_written)
+    private uint8[] compress_jpeg (Gdk.Pixbuf image, int dpi)
     {
-        var info = JPEG.Compress ();
-        var jerr = JPEG.ErrorManager ();
-        var dest_mgr = JPEG.DestinationManager ();
-
-        info.err = jerr.std_error ();
-        info.create_compress ();
-
-        info.image_width = image.get_width ();
-        info.image_height = image.get_height ();
-        info.input_components = 3;
-        info.in_color_space = JPEG.ColorSpace.RGB; /* TODO: JCS_GRAYSCALE? */
-        info.set_defaults ();
-
-        var max_length = info.image_width * info.image_height * info.input_components;
-        var data = new uint8[max_length];
-        dest_mgr.next_output_byte = data;
-        dest_mgr.free_in_buffer = max_length;
-        dest_mgr.init_destination = jpeg_init_cb;
-        dest_mgr.empty_output_buffer = jpeg_empty_cb;
-        dest_mgr.term_destination = jpeg_term_cb;
-        info.dest = &dest_mgr;
-
-        info.start_compress (true);
-        unowned uint8[] pixels = image.get_pixels ();
-        for (var r = 0; r < info.image_height; r++)
+        jpeg_data = new ByteArray ();
+        string[] keys = { "density-unit", "x-density", "y-density", null };
+        string[] values = { "dots-per-inch", "%d".printf (dpi), "%d".printf (dpi), null };
+        try
         {
-            uint8* row[1];
-            row[0] = (uint8*) pixels + r * image.get_rowstride ();
-            info.write_scanlines (row, 1);
+            image.save_to_callbackv (write_pixbuf_data, "jpeg", keys, values);
         }
-        info.finish_compress ();
-        n_written = max_length - dest_mgr.free_in_buffer;
-        data.resize ((int) n_written);
+        catch (Error e)
+        {
+        }
+        stderr.printf ("l1=%u\n", jpeg_data.len);
+        var data = (owned) jpeg_data.data;
+        stderr.printf ("l2=%u\n", data.length);
+        jpeg_data = null;
 
         return data;
+    }
+
+    private bool write_pixbuf_data (uint8[] buf) throws Error
+    {
+        stderr.printf ("+%u\n", buf.length);
+        jpeg_data.append (buf);
+        return true;
     }
 
     private void save_pdf (File file) throws Error
@@ -414,9 +400,8 @@ public class Book
                 /* Try if JPEG compression is better */
                 if (depth > 1)
                 {
-                    size_t jpeg_length;
-                    var jpeg_data = compress_jpeg (image, out jpeg_length);
-                    if (jpeg_length < compressed_data.length)
+                    var jpeg_data = compress_jpeg (image, page.get_dpi ());
+                    if (jpeg_data.length < compressed_data.length)
                     {
                         filter = "DCTDecode";
                         data = jpeg_data;
