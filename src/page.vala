@@ -704,9 +704,10 @@ public class Page
 
         if (strcmp (type, "jpeg") == 0)
         {
-            /* ICC profile is awaiting review in gtk2+ bugzilla */
-            string[] keys = { "quality", /* "icc-profile", */ null };
-            string[] values = { "90", /* icc_profile_data, */ null };
+            string[] keys = { "quality", "density-unit", "x-density", "y-density", "icc-profile", null };
+            string[] values = { "90", "dots-per-inch", "%d".printf (dpi), "%d".printf (dpi), icc_profile_data, null };
+            if (icc_profile_data == null)
+                keys[4] = null;
             writer.save (image, "jpeg", keys, values);
         }
         else if (strcmp (type, "png") == 0)
