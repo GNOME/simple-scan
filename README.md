@@ -34,6 +34,12 @@ make install
 ./install/bin/simple-scan
 ```
 
+Due to popular demand we have an experimental git mirror at
+https://github.com/mnagel/simple-scan
+You can clone from there should you prefer git over bzr.
+Please keep in mind that the sync bzr->git is done manually.
+
+
 
 ## DEBUGGING
 
