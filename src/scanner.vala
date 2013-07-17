@@ -863,7 +863,12 @@ public class Scanner
         if (option == null)
         {
             /* Pick source */
+            debug("Getting SCAN_SOURCE %s", Sane.NAME_SCAN_SOURCE);
             option = get_option_by_name (handle, Sane.NAME_SCAN_SOURCE, out index);
+            if (option == null) {
+                 debug("Trying alternative SCAN_SOURCE %s", "doc-source");
+                 option = get_option_by_name (handle, "doc-source", out index); /* Samsung unified driver. LP: #892915 */
+            }
             if (option != null)
             {
                 string[] flatbed_sources =
@@ -883,7 +888,8 @@ public class Scanner
                     Sane.I18N ("Automatic Document Feeder"),
                     "ADF",
                     "Automatic Document Feeder(left aligned)", /* Seen in the proprietary brother3 driver */
-                    "Automatic Document Feeder(centrally aligned)" /* Seen in the proprietary brother3 driver */
+                    "Automatic Document Feeder(centrally aligned)", /* Seen in the proprietary brother3 driver */
+                    "ADF Simplex" /* Samsung unified driver. LP: # 892915 */
                 };
 
                 string[] adf_front_sources =
@@ -901,7 +907,9 @@ public class Scanner
                 string[] adf_duplex_sources =
                 {
                     "ADF Duplex",
-                    Sane.I18N ("ADF Duplex")
+                    Sane.I18N ("ADF Duplex"),
+                    "ADF Duplex - Long-Edge Binding", /* Samsung unified driver. LP: # 892915 */
+                    "ADF Duplex - Short-Edge Binding"
                 };
 
                 switch (job.type)
@@ -938,7 +946,8 @@ public class Scanner
                 {
                     Sane.VALUE_SCAN_MODE_COLOR,
                     "Color",
-                    "24bit Color" /* Seen in the proprietary brother3 driver */
+                    "24bit Color", /* Seen in the proprietary brother3 driver */
+                    "Color - 16 Million Colors" /* Samsung unified driver. LP: 892915 */
                 };
                 string[] gray_scan_modes =
                 {
@@ -946,7 +955,8 @@ public class Scanner
                     "Gray",
                     "Grayscale",
                     Sane.I18N ("Grayscale"),
-                    "True Gray" /* Seen in the proprietary brother3 driver */
+                    "True Gray", /* Seen in the proprietary brother3 driver */
+                    "Grayscale - 256 Levels"  /* Samsung unified driver. LP: 892915 */
                 };
                 string[] lineart_scan_modes =
                 {
@@ -963,7 +973,9 @@ public class Scanner
                     "Gray",
                     "Grayscale",
                     Sane.I18N ("Grayscale"),
-                    "True Gray" /* Seen in the proprietary brother3 driver */
+                    "True Gray", /* Seen in the proprietary brother3 driver */
+                    "Black and White - Line Art",  /* Samsung unified driver. LP: 892915 */
+                    "Black and White - Halftone"
                 };
 
                 switch (job.scan_mode)
