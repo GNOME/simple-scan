@@ -14,12 +14,11 @@ man1_MANS = simple-scan.1
 EXTRA_DIST = $(utilities_in_files) \
              org.gnome.SimpleScan.gschema.xml.in \
              $(man1_MANS) \
-             simple-scan.ui
+             simple-scan.ui \
+             simple-scan.gresource.xml
 
 DISTCLEANFILES = \
 	Makefile.in \
-	simple-scan.ui \
-	simple-scan.gresource.xml \
 	$(schema_DATA) \
 	$(utilities_DATA) \
 	$(gsettings_SCHEMAS)
