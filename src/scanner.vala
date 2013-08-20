@@ -344,7 +344,7 @@ public class Scanner
             return;
         }
 
-        List<ScanDevice> devices = null;
+        var devices = new List<ScanDevice> ();
         for (var i = 0; device_list[i] != null; i++)
         {
             debug ("Device: name=\"%s\" vendor=\"%s\" model=\"%s\" type=\"%s\"",
