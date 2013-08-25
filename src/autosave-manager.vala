@@ -74,6 +74,11 @@ public class AutosaveManager
             _book.page_removed.connect (on_page_removed);
             _book.reordered.connect (on_reordered);
             _book.cleared.connect (on_cleared);
+            for (var i = 0; i < _book.get_n_pages (); i++)
+            {
+                var page = book.get_page (i);
+                on_page_added (page);
+            }
         }
     }
 
