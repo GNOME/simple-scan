@@ -364,7 +364,7 @@ public class AutosaveManager
             Page p;
             bool is_dirty;
             while (iter.next (out p, out is_dirty))
-                real_update_page (page);
+                real_update_page (p);
 
             dirty_pages.remove_all ();
             update_timeout = 0;
