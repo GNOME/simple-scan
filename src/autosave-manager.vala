@@ -46,6 +46,9 @@ public class AutosaveManager
     private Sqlite.Database database_connection;
     private Book _book = null;
 
+    private uint update_timeout = 0;
+    private HashTable<Page, bool> dirty_pages;
+
     public Book book
     {
         get
@@ -173,11 +176,17 @@ public class AutosaveManager
 
     private AutosaveManager ()
     {
+        dirty_pages = new HashTable<Page, bool> (direct_hash, direct_equal);
     }
 
     public void cleanup ()
     {
         debug ("Clean exit; deleting autosave records");
+
+        if (update_timeout > 0)
+            Source.remove (update_timeout);
+        update_timeout = 0;
+
         warn_if_fail (database_connection.exec (@"
             DELETE FROM pages
                 WHERE process_id = $PID
@@ -345,6 +354,26 @@ public class AutosaveManager
     }
 
     private void update_page (Page page)
+    {
+        dirty_pages.insert (page, true);
+        if (update_timeout > 0)
+            Source.remove (update_timeout);
+        update_timeout = Timeout.add (100, () =>
+        {
+            var iter = HashTableIter<Page, bool> (dirty_pages);
+            Page p;
+            bool is_dirty;
+            while (iter.next (out p, out is_dirty))
+                real_update_page (page);
+
+            dirty_pages.remove_all ();
+            update_timeout = 0;
+
+            return false;
+        });
+    }
+
+    private void real_update_page (Page page)
     {
         debug ("Updating the autosave for a page");
 
