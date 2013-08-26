@@ -248,6 +248,8 @@ public class AutosaveManager
         page.scan_direction_changed.connect (on_page_changed);
         page.crop_changed.connect (on_page_changed);
         page.scan_finished.connect (on_page_changed);
+        page.scan_finished.connect (on_pixels_changed);
+        page.pixels_changed.connect (on_pixels_changed);
     }
 
     public void on_page_removed (Page page)
@@ -256,7 +258,8 @@ public class AutosaveManager
         page.size_changed.disconnect (on_page_changed);
         page.scan_direction_changed.disconnect (on_page_changed);
         page.crop_changed.disconnect (on_page_changed);
-        page.scan_finished.connect (on_page_changed);
+        page.scan_finished.disconnect (on_page_changed);
+        page.pixels_changed.disconnect (on_pixels_changed);
 
         string query = @"
         DELETE FROM pages
@@ -311,6 +314,12 @@ public class AutosaveManager
         update_page (page);
     }
 
+    public void on_pixels_changed (Page page)
+    {
+        if (!page.is_scanning ())
+            update_page_pixels (page);
+    }
+
     public void on_needs_saving_changed (Book book)
     {
         for (var n = 0; n < book.get_n_pages (); n++)
@@ -356,6 +365,7 @@ public class AutosaveManager
             warning ("Error %d while executing query", result);
 
         update_page (page);
+        update_page_pixels (page);
     }
 
     private void update_page (Page page)
@@ -404,8 +414,7 @@ public class AutosaveManager
                 crop_width=$crop_width,
                 crop_height=$crop_height,
                 scan_direction=$((int)page.get_scan_direction ()),
-                color_profile=?1,
-                pixels=?2
+                color_profile=?1
                 WHERE process_id = $PID
                   AND page_hash = ?4
                   AND book_hash = ?5
@@ -427,15 +436,42 @@ public class AutosaveManager
         if (result != Sqlite.OK)
             warning ("Error %d while binding text", result);
 
+        warn_if_fail (stmt.step () == Sqlite.DONE);
+    }
+    
+    private void update_page_pixels (Page page) {
+        debug ("Updating the pixels in the autosave for a page");
+        Sqlite.Statement stmt;
+        string query = @"
+            UPDATE pages
+                SET
+                pixels=?1
+                WHERE process_id = $PID
+                  AND page_hash = ?2
+                  AND book_hash = ?3
+                  AND book_revision = ?4
+            ";
+
+        var result = database_connection.prepare_v2 (query, -1, out stmt);
+        if (result != Sqlite.OK)
+        {
+            warning ("Error %d while preparing statement", result);
+            return;
+        }
+
+        stmt.bind_int64 (2, direct_hash (page));
+        stmt.bind_int64 (3, direct_hash (book));
+        stmt.bind_int64 (4, cur_book_revision);
+
         if (page.get_pixels () != null)
         {
             // (-1) is the special value SQLITE_TRANSIENT
-            result = stmt.bind_blob (2, page.get_pixels (), page.get_pixels ().length, (DestroyNotify)(-1));
+            result = stmt.bind_blob (1, page.get_pixels (), page.get_pixels ().length, (DestroyNotify)(-1));
             if (result != Sqlite.OK)
                 warning ("Error %d while binding blob", result);
         }
         else
-            warn_if_fail (stmt.bind_null (2) == Sqlite.OK);
+            warn_if_fail (stmt.bind_null (1) == Sqlite.OK);
 
         warn_if_fail (stmt.step () == Sqlite.DONE);
     }
