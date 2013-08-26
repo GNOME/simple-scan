@@ -230,6 +230,17 @@ public class AutosaveManager
         Sqlite.Database connection;
         if (Sqlite.Database.open (AUTOSAVE_FILENAME, out connection) != Sqlite.OK)
             throw new IOError.FAILED ("Could not connect to autosave database");
+        Sqlite.Statement stmt;
+        var result = connection.prepare_v2("PRAGMA user_version", -1, out stmt);
+        if (result != Sqlite.OK)
+            warning ("Error %d while executing pragma query", result);
+        while (stmt.step () != Sqlite.DONE) {
+            var user_version = stmt.column_int (0);
+            if ( user_version < 1 ) {
+                connection.exec("DROP TABLE pages");
+                connection.exec("PRAGMA user_version = 1");
+            }
+        }
         string query = @"
             CREATE TABLE IF NOT EXISTS pages (
                 id integer PRIMARY KEY,
@@ -252,7 +263,7 @@ public class AutosaveManager
                 scan_direction integer,
                 pixels_filename string
             )";
-        var result = connection.exec(query);
+        result = connection.exec(query);
         if (result != Sqlite.OK)
             warning ("Error %d while executing query", result);
         return connection;
