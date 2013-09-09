@@ -466,7 +466,7 @@ public class SimpleScan : Gtk.Application
         var line_number = 0;
         var xref_offset = 0;
         var xref_line = -1;
-        var xref_regex = new Regex ("^\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d 0000 n$");
+        var xref_regex = new Regex ("^\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d 0000 n$", RegexCompileFlags.RAW);
         MatchInfo xref_match;
         var line = new StringBuilder ();
         while (offset < data.length)
