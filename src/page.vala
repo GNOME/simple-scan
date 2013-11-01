@@ -361,6 +361,11 @@ public class Page
         if (!has_crop)
             return;
         has_crop = false;
+        crop_name = null;
+        crop_x = 0;
+        crop_y = 0;
+        crop_width = 0;
+        crop_height = 0;
         crop_changed ();
     }
 

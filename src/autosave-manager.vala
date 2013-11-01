@@ -105,9 +105,13 @@ public class AutosaveManager
                 break;
             }
             var color_profile = get_value (file, page_name, "color-profile");
+            if (color_profile == "")
+                color_profile = null;
             var pixels_filename = get_value (file, page_name, "pixels-filename");
             var has_crop = get_boolean (file, page_name, "has-crop");
             var crop_name = get_value (file, page_name, "crop-name");
+            if (crop_name == "")
+                crop_name = null;
             var crop_x = get_integer (file, page_name, "crop-x");
             var crop_y = get_integer (file, page_name, "crop-y");
             var crop_width = get_integer (file, page_name, "crop-width");
@@ -248,6 +252,9 @@ public class AutosaveManager
 
     private void save (bool do_timeout = true)
     {
+        if (update_timeout == 0 && do_timeout)
+            debug ("Waiting to autosave...");
+
         /* Cancel existing timeout */
         if (update_timeout > 0)
             Source.remove (update_timeout);

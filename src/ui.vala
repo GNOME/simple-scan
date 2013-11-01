@@ -926,7 +926,10 @@ public class UserInterface
 
         var page = book_view.selected_page;
         if (page == null)
+        {
+            warning ("Trying to set crop but no selected page");
             return;
+        }
 
         if (crop_name == null)
             page.set_no_crop ();
