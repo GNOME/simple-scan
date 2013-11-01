@@ -200,7 +200,7 @@ public class AutosaveManager
         var result = database_connection.prepare_v2 (query, -1, out stmt);
         if (result != Sqlite.OK)
             warning (@"Error $result while preparing query");
-        while (stmt.step () != Sqlite.DONE)
+        while (stmt.step () == Sqlite.ROW)
         {
             var filename = stmt.column_text (0);
             var file = File.new_for_path (filename);
@@ -238,7 +238,7 @@ public class AutosaveManager
         var result = connection.prepare_v2 ("PRAGMA user_version", -1, out stmt);
         if (result != Sqlite.OK)
             warning ("Error %d while executing pragma query", result);
-        while (stmt.step () != Sqlite.DONE)
+        while (stmt.step () == Sqlite.ROW)
         {
             var user_version = stmt.column_int (0);
             if (user_version < 1)
@@ -310,7 +310,7 @@ public class AutosaveManager
         stmt.bind_int64 (2, direct_hash (page));
         stmt.bind_int64 (3, direct_hash (book));
         stmt.bind_int64 (4, cur_book_revision);
-        while (stmt.step () != Sqlite.DONE)
+        while (stmt.step () == Sqlite.ROW)
         {
             var filename = stmt.column_text (0);
             var file = File.new_for_path (filename);
