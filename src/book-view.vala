@@ -282,8 +282,8 @@ public class BookView : Gtk.VBox
         for (var i = 0; i < book.get_n_pages (); i++)
         {
             var page = book.get_page (i);
-            if (page.get_dpi () > max_dpi)
-                max_dpi = page.get_dpi ();
+            if (page.dpi > max_dpi)
+                max_dpi = page.dpi;
         }
 
         /* Get area required to fit all pages */
@@ -291,12 +291,12 @@ public class BookView : Gtk.VBox
         for (var i = 0; i < book.get_n_pages (); i++)
         {
             var page = book.get_page (i);
-            var w = page.get_width ();
-            var h = page.get_height ();
+            var w = page.width;
+            var h = page.height;
 
             /* Scale to the same DPI */
-            w = (int) ((double)w * max_dpi / page.get_dpi () + 0.5);
-            h = (int) ((double)h * max_dpi / page.get_dpi () + 0.5);
+            w = (int) ((double)w * max_dpi / page.dpi + 0.5);
+            h = (int) ((double)h * max_dpi / page.dpi + 0.5);
 
             if (w > max_width)
                 max_width = w;
@@ -320,13 +320,13 @@ public class BookView : Gtk.VBox
             if (max_aspect > aspect)
             {
                 /* Set width scaled on DPI and maximum width */
-                int w = (int) ((double)p.get_width () * max_dpi * width / (p.get_dpi () * max_width));
+                int w = (int) ((double)p.width * max_dpi * width / (p.dpi * max_width));
                 page.set_width (w);
             }
             else
             {
                 /* Set height scaled on DPI and maximum height */
-                int h = (int) ((double)p.get_height () * max_dpi * height / (p.get_dpi () * max_height));
+                int h = (int) ((double)p.height * max_dpi * height / (p.dpi * max_height));
                 page.set_height (h);
             }
 

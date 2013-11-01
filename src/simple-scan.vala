@@ -128,7 +128,7 @@ public class SimpleScan : Gtk.Application
     {
         /* Use current page if not used */
         var page = book.get_page (-1);
-        if (page != null && !page.has_data ())
+        if (page != null && !page.has_data)
         {
             ui.set_selected_page (page);
             page.start ();
@@ -142,16 +142,19 @@ public class SimpleScan : Gtk.Application
         var width = 100, height = 100, dpi = 100, cx = 0, cy = 0, cw = 0, ch = 0;
         if (page != null)
         {
-            scan_direction = page.get_scan_direction ();
-            width = page.get_width ();
-            height = page.get_height ();
-            dpi = page.get_dpi ();
+            scan_direction = page.scan_direction;
+            width = page.width;
+            height = page.height;
+            dpi = page.dpi;
 
-            do_crop = page.has_crop ();
+            do_crop = page.has_crop;
             if (do_crop)
             {
-                named_crop = page.get_named_crop ();
-                page.get_crop (out cx, out cy, out cw, out ch);
+                named_crop = page.crop_name;
+                cx = page.crop_x;
+                cy = page.crop_y;
+                cw = page.crop_width;
+                ch = page.crop_height;
             }
         }
 
@@ -257,7 +260,7 @@ public class SimpleScan : Gtk.Application
         /* Get ICC color profile */
         /* FIXME: The ICC profile could change */
         /* FIXME: Don't do a D-bus call for each page, cache color profiles */
-        page.set_color_profile (get_profile_for_device (info.device));
+        page.color_profile = get_profile_for_device (info.device);
     }
 
     private void scanner_line_cb (Scanner scanner, ScanLine line)
@@ -277,7 +280,7 @@ public class SimpleScan : Gtk.Application
         var page = book.get_page ((int) book.get_n_pages () - 1);
 
         /* Remove a failed page */
-        if (page.has_data ())
+        if (page.has_data)
             page.finish ();
         else
             book.delete_page (page);

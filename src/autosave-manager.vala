@@ -378,7 +378,7 @@ public class AutosaveManager
 
     public void on_pixels_changed (Page page)
     {
-        if (!page.is_scanning ())
+        if (!page.is_scanning)
             update_page_pixels (page);
     }
 
@@ -454,28 +454,22 @@ public class AutosaveManager
     {
         debug ("Updating the autosave for a page");
 
-        int crop_x;
-        int crop_y;
-        int crop_width;
-        int crop_height;
-        page.get_crop (out crop_x, out crop_y, out crop_width, out crop_height);
-
         Sqlite.Statement stmt;
         string query = @"
             UPDATE pages
                 SET
                 page_number=$(book.get_page_index (page)),
-                dpi=$(page.get_dpi ()),
-                width=$(page.get_width ()),
-                height=$(page.get_height ()),
-                depth=$(page.get_depth ()),
-                n_channels=$(page.get_n_channels ()),
-                rowstride=$(page.get_rowstride ()),
-                crop_x=$crop_x,
-                crop_y=$crop_y,
-                crop_width=$crop_width,
-                crop_height=$crop_height,
-                scan_direction=$((int)page.get_scan_direction ()),
+                dpi=$(page.dpi),
+                width=$(page.width),
+                height=$(page.height),
+                depth=$(page.depth),
+                n_channels=$(page.n_channels),
+                rowstride=$(page.rowstride),
+                crop_x=$(page.crop_x),
+                crop_y=$(page.crop_y),
+                crop_width=$(page.crop_width),
+                crop_height=$(page.crop_height),
+                scan_direction=$((int)page.scan_direction),
                 color_profile=?1
                 WHERE process_id = $PID
                   AND page_hash = ?4
@@ -493,7 +487,7 @@ public class AutosaveManager
         stmt.bind_int64 (4, direct_hash (page));
         stmt.bind_int64 (5, direct_hash (book));
         stmt.bind_int64 (6, cur_book_revision);
-        result = stmt.bind_text (1, page.get_color_profile () ?? "");
+        result = stmt.bind_text (1, page.color_profile ?? "");
 
         if (result != Sqlite.OK)
             warning ("Error %d while binding text", result);
@@ -614,7 +608,7 @@ public class AutosaveManager
                 new_page.set_page_info (info);
             }
 
-            new_page.set_color_profile (stmt.column_text (11));
+            new_page.color_profile = stmt.column_text (11);
             var crop_x = stmt.column_int (12);
             var crop_y = stmt.column_int (13);
             var crop_width = stmt.column_int (14);

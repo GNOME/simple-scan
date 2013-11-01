@@ -148,10 +148,10 @@ public class Book
         {
             var page = get_page (i);
             var image = page.get_image (true);
-            var width = image.get_width () * 72.0 / page.get_dpi ();
-            var height = image.get_height () * 72.0 / page.get_dpi ();
+            var width = image.get_width () * 72.0 / page.dpi;
+            var height = image.get_height () * 72.0 / page.dpi;
             surface.set_size (width, height);
-            save_ps_pdf_surface (surface, image, page.get_dpi ());
+            save_ps_pdf_surface (surface, image, page.dpi);
             surface.show_page ();
             saving (i);
         }
@@ -262,8 +262,8 @@ public class Book
             var width = image.get_width ();
             var height = image.get_height ();
             unowned uint8[] pixels = image.get_pixels ();
-            var page_width = width * 72.0 / page.get_dpi ();
-            var page_height = height * 72.0 / page.get_dpi ();
+            var page_width = width * 72.0 / page.dpi;
+            var page_height = height * 72.0 / page.dpi;
 
             int depth = 8;
             string color_space = "DeviceRGB";
@@ -271,7 +271,7 @@ public class Book
             char[] width_buffer = new char[double.DTOSTR_BUF_SIZE];
             char[] height_buffer = new char[double.DTOSTR_BUF_SIZE];
             uint8[] data;
-            if (page.is_color ())
+            if (page.is_color)
             {
                 depth = 8;
                 color_space = "DeviceRGB";
@@ -292,7 +292,7 @@ public class Book
                     }
                 }
             }
-            else if (page.get_depth () == 2)
+            else if (page.depth == 2)
             {
                 int shift_count = 6;
                 depth = 2;
@@ -336,7 +336,7 @@ public class Book
                     }
                 }
             }
-            else if (page.get_depth () == 1)
+            else if (page.depth == 1)
             {
                 int mask = 0x80;
 
@@ -397,7 +397,7 @@ public class Book
                 /* Try if JPEG compression is better */
                 if (depth > 1)
                 {
-                    var jpeg_data = compress_jpeg (image, quality, page.get_dpi ());
+                    var jpeg_data = compress_jpeg (image, quality, page.dpi);
                     if (jpeg_data.length < compressed_data.length)
                     {
                         filter = "DCTDecode";

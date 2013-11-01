@@ -809,11 +809,11 @@ public class UserInterface
 
         update_page_menu ();
 
-        string? name = null;
-        if (page.has_crop ())
+        var name = "no_crop_menuitem";
+        if (page.has_crop)
         {
             // FIXME: Make more generic, move into page-size.c and reuse
-            var crop_name = page.get_named_crop ();
+            var crop_name = page.crop_name;
             if (crop_name != null)
             {
                 if (crop_name == "A4")
@@ -832,13 +832,11 @@ public class UserInterface
             else
                 name = "custom_crop_menuitem";
         }
-        else
-            name = "no_crop_menuitem";
 
         var menuitem = (Gtk.RadioMenuItem) builder.get_object (name);
         menuitem.set_active (true);
         var toolbutton = (Gtk.ToggleToolButton) builder.get_object ("crop_toolbutton");
-        toolbutton.set_active (page.has_crop ());
+        toolbutton.set_active (page.has_crop);
 
         updating_page_menu = false;
     }
@@ -918,8 +916,8 @@ public class UserInterface
         }
         else if (crop_name == "custom")
         {
-            var width = page.get_width ();
-            var height = page.get_height ();
+            var width = page.width;
+            var height = page.height;
             var crop_width = (int) (width * 0.8 + 0.5);
             var crop_height = (int) (height * 0.8 + 0.5);
             page.set_custom_crop (crop_width, crop_height);
@@ -1067,14 +1065,14 @@ public class UserInterface
         bool is_landscape = false;
         if (print_context.get_width () > print_context.get_height ())
             is_landscape = true;
-        if (page.is_landscape () != is_landscape)
+        if (page.is_landscape != is_landscape)
         {
             context.translate (print_context.get_width (), 0);
             context.rotate (Math.PI_2);
         }
 
-        context.scale (print_context.get_dpi_x () / page.get_dpi (),
-                       print_context.get_dpi_y () / page.get_dpi ());
+        context.scale (print_context.get_dpi_x () / page.dpi,
+                       print_context.get_dpi_y () / page.dpi);
 
         var image = page.get_image (true);
         Gdk.cairo_set_source_pixbuf (context, image, 0, 0);
@@ -1239,22 +1237,22 @@ public class UserInterface
 
     private void page_size_changed_cb (Page page)
     {
-        default_page_width = page.get_width ();
-        default_page_height = page.get_height ();
-        default_page_dpi = page.get_dpi ();
+        default_page_width = page.width;
+        default_page_height = page.height;
+        default_page_dpi = page.dpi;
     }
 
     private void page_scan_direction_changed_cb (Page page)
     {
-        default_page_scan_direction = page.get_scan_direction ();
+        default_page_scan_direction = page.scan_direction;
     }
 
     private void page_added_cb (Book book, Page page)
     {
-        default_page_width = page.get_width ();
-        default_page_height = page.get_height ();
-        default_page_dpi = page.get_dpi ();
-        default_page_scan_direction = page.get_scan_direction ();
+        default_page_width = page.width;
+        default_page_height = page.height;
+        default_page_dpi = page.dpi;
+        default_page_scan_direction = page.scan_direction;
         page.size_changed.connect (page_size_changed_cb);
         page.scan_direction_changed.connect (page_scan_direction_changed_cb);
 
