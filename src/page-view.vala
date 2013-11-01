@@ -26,13 +26,25 @@ public enum CropLocation
 public class PageView
 {
     /* Page being rendered */
-    private Page page;
+    public Page page { get; private set; }
 
     /* Image to render at current resolution */
     private Gdk.Pixbuf? image = null;
 
     /* Border around image */
-    private bool selected;
+    private bool selected_ = false;
+    public bool selected
+    {
+        get { return selected_; }
+        set    
+        {
+            if ((this.selected && selected) || (!this.selected && !selected))
+                return;
+            this.selected = selected;
+            changed ();
+        }
+    }
+
     private int border_width = 1;
 
     /* True if image needs to be regenerated */
@@ -49,8 +61,8 @@ public class PageView
     private int height;
 
     /* Location to place this page */
-    private int x_offset;
-    private int y_offset;
+    public int x_offset { get; set; }
+    public int y_offset { get; set; }
 
     private CropLocation crop_location;
     private double selected_crop_px;
@@ -61,7 +73,7 @@ public class PageView
     private int selected_crop_h;
 
     /* Cursor over this page */
-    private Gdk.CursorType cursor = Gdk.CursorType.ARROW;
+    public Gdk.CursorType cursor { get; private set; default = Gdk.CursorType.ARROW; }
 
     private int animate_n_segments = 7;
     private int animate_segment;
@@ -89,44 +101,6 @@ public class PageView
         page.scan_direction_changed.disconnect (scan_direction_changed_cb);
     }
 
-    public Page get_page ()
-    {
-        return page;
-    }
-
-    public void set_selected (bool selected)
-    {
-        if ((this.selected && selected) || (!this.selected && !selected))
-            return;
-        this.selected = selected;
-        changed ();
-    }
-
-    public bool get_selected ()
-    {
-        return selected;
-    }
-
-    public void set_x_offset (int offset)
-    {
-        x_offset = offset;
-    }
-
-    public void set_y_offset (int offset)
-    {
-        y_offset = offset;
-    }
-
-    public int get_x_offset ()
-    {
-        return x_offset;
-    }
-
-    public int get_y_offset ()
-    {
-        return y_offset;
-    }
-
     private uchar get_sample (uchar[] pixels, int offset, int x, int depth, int sample)
     {
         // FIXME
@@ -135,30 +109,30 @@ public class PageView
 
     private void get_pixel (Page page, int x, int y, uchar[] pixel)
     {
-        switch (page.get_scan_direction ())
+        switch (page.scan_direction)
         {
         case ScanDirection.TOP_TO_BOTTOM:
             break;
         case ScanDirection.BOTTOM_TO_TOP:
-            x = page.get_scan_width () - x - 1;
-            y = page.get_scan_height () - y - 1;
+            x = page.scan_width - x - 1;
+            y = page.scan_height - y - 1;
             break;
         case ScanDirection.LEFT_TO_RIGHT:
             var t = x;
-            x = page.get_scan_width () - y - 1;
+            x = page.scan_width - y - 1;
             y = t;
             break;
         case ScanDirection.RIGHT_TO_LEFT:
             var t = x;
             x = y;
-            y = page.get_scan_height () - t - 1;
+            y = page.scan_height - t - 1;
             break;
         }
 
-        var depth = page.get_depth ();
-        var n_channels = page.get_n_channels ();
+        var depth = page.depth;
+        var n_channels = page.n_channels;
         unowned uchar[] pixels = page.get_pixels ();
-        var offset = page.get_rowstride () * y;
+        var offset = page.rowstride * y;
 
         /* Optimise for 8 bit images */
         if (depth == 8 && n_channels == 3)
@@ -431,14 +405,14 @@ public class PageView
     private void update_preview (Page page, ref Gdk.Pixbuf? output_image, int output_width, int output_height,
                                  ScanDirection scan_direction, int old_scan_line, int scan_line)
     {
-        var input_width = page.get_width ();
-        var input_height = page.get_height ();
+        var input_width = page.width;
+        var input_height = page.height;
 
         /* Create new image if one does not exist or has changed size */
         int L, R, T, B;
         if (output_image == null ||
-            output_image.get_width () != output_width ||
-            output_image.get_height () != output_height)
+            output_image.width != output_width ||
+            output_image.height != output_height)
         {
             output_image = new Gdk.Pixbuf (Gdk.Colorspace.RGB,
                                            false,
@@ -500,10 +474,10 @@ public class PageView
         return_if_fail (output_image != null);
 
         unowned uchar[] output = output_image.get_pixels ();
-        var output_rowstride = output_image.get_rowstride ();
+        var output_rowstride = output_image.rowstride;
         var output_n_channels = output_image.get_n_channels ();
 
-        if (!page.has_data ())
+        if (!page.has_data)
         {
             for (var x = L; x <= R; x++)
                 for (var y = T; y <= B; y++)
@@ -548,19 +522,19 @@ public class PageView
             return;
 
         var old_scan_line = scan_line;
-        var scan_line = page.get_scan_line ();
+        var scan_line = page.scan_line;
 
         /* Delete old image if scan direction changed */
-        var left_steps = scan_direction - page.get_scan_direction ();
+        var left_steps = scan_direction - page.scan_direction;
         if (left_steps != 0 && image != null)
             image = null;
-        scan_direction = page.get_scan_direction ();
+        scan_direction = page.scan_direction;
 
         update_preview (page,
                         ref image,
                         get_preview_width (),
                         get_preview_height (),
-                        page.get_scan_direction (), old_scan_line, scan_line);
+                        page.scan_direction, old_scan_line, scan_line);
 
         update_image = false;
         this.scan_line = scan_line;
@@ -568,31 +542,33 @@ public class PageView
 
     private int page_to_screen_x (int x)
     {
-        return (int) ((double)x * get_preview_width () / page.get_width () + 0.5);
+        return (int) ((double)x * get_preview_width () / page.width + 0.5);
     }
 
     private int page_to_screen_y (int y)
     {
-        return (int) ((double)y * get_preview_height () / page.get_height () + 0.5);
+        return (int) ((double)y * get_preview_height () / page.height + 0.5);
     }
 
     private int screen_to_page_x (int x)
     {
-        return (int) ((double)x * page.get_width () / get_preview_width () + 0.5);
+        return (int) ((double)x * page.width / get_preview_width () + 0.5);
     }
 
     private int screen_to_page_y (int y)
     {
-        return (int) ((double)y * page.get_height () / get_preview_height () + 0.5);
+        return (int) ((double)y * page.height / get_preview_height () + 0.5);
     }
 
     private CropLocation get_crop_location (int x, int y)
     {
-        if (!page.has_crop ())
+        if (!page.has_crop)
             return 0;
 
-        int cx, cy, cw, ch;
-        page.get_crop (out cx, out cy, out cw, out ch);
+        var cx = page.crop_x;
+        var cy = page.crop_y;
+        var cw = page.crop_width;
+        var ch = page.crop_height;
         var dx = page_to_screen_x (cx);
         var dy = page_to_screen_y (cy);
         var dw = page_to_screen_x (cw);
@@ -604,7 +580,7 @@ public class PageView
             return CropLocation.NONE;
 
         /* Can't resize named crops */
-        var name = page.get_named_crop ();
+        var name = page.crop_name;
         if (name != null)
             return CropLocation.MIDDLE;
 
@@ -647,19 +623,17 @@ public class PageView
 
     public void button_press (int x, int y)
     {
-        CropLocation location;
-
         /* See if selecting crop */
-        location = get_crop_location (x, y);;
+        var location = get_crop_location (x, y);
         if (location != CropLocation.NONE)
         {
             crop_location = location;
             selected_crop_px = x;
             selected_crop_py = y;
-            page.get_crop (out selected_crop_x,
-                           out selected_crop_y,
-                           out selected_crop_w,
-                           out selected_crop_h);
+            selected_crop_x = page.crop_x;
+            selected_crop_y = page.crop_y;
+            selected_crop_w = page.crop_width;
+            selected_crop_h = page.crop_height;;
         }
     }
 
@@ -708,10 +682,10 @@ public class PageView
         }
 
         /* Move the crop */
-        var pw = page.get_width ();
-        var ph = page.get_height ();
-        int cx, cy, cw, ch;
-        page.get_crop (out cx, out cy, out cw, out ch);
+        var pw = page.width;
+        var ph = page.height;
+        var cw = page.crop_width;
+        var ch = page.crop_height;
 
         var dx = screen_to_page_x (x - (int) selected_crop_px);
         var dy = screen_to_page_y (y - (int) selected_crop_py);
@@ -816,11 +790,6 @@ public class PageView
         changed ();
     }
 
-    public Gdk.CursorType get_cursor ()
-    {
-        return cursor;
-    }
-
     private bool animation_cb ()
     {
         animate_segment = (animate_segment + 1) % animate_n_segments;
@@ -832,7 +801,7 @@ public class PageView
     {
         bool animate, is_animating;
 
-        animate = page.is_scanning () && !page.has_data ();
+        animate = page.is_scanning && !page.has_data;
         is_animating = animate_timeout != 0;
         if (animate == is_animating)
             return;
@@ -877,7 +846,7 @@ public class PageView
         context.paint ();
 
         /* Draw throbber */
-        if (page.is_scanning () && !page.has_data ())
+        if (page.is_scanning && !page.has_data)
         {
             double outer_radius;
             if (w > h)
@@ -910,13 +879,13 @@ public class PageView
         }
 
         /* Draw scan line */
-        if (page.is_scanning () && page.get_scan_line () > 0)
+        if (page.is_scanning && page.scan_line > 0)
         {
-            var scan_line = page.get_scan_line ();
+            var scan_line = page.scan_line;
 
             double s;
             double x1, y1, x2, y2;
-            switch (page.get_scan_direction ())
+            switch (page.scan_direction)
             {
             case ScanDirection.TOP_TO_BOTTOM:
                 s = page_to_screen_y (scan_line);
@@ -950,10 +919,12 @@ public class PageView
         }
 
         /* Draw crop */
-        if (page.has_crop ())
+        if (page.has_crop)
         {
-            int x, y, crop_width, crop_height;
-            page.get_crop (out x, out y, out crop_width, out crop_height);
+            var x = page.crop_x;
+            var y = page.crop_y;
+            var crop_width = page.crop_width;
+            var crop_height = page.crop_height;
 
             var dx = page_to_screen_x (x);
             var dy = page_to_screen_y (y);
@@ -981,7 +952,7 @@ public class PageView
     public void set_width (int width)
     {
         // FIXME: Automatically update when get updated image
-        var height = (int) ((double)width * page.get_height () / page.get_width ());
+        var height = (int) ((double)width * page.height / page.width);
         if (this.width == width && this.height == height)
             return;
 
@@ -998,7 +969,7 @@ public class PageView
     public void set_height (int height)
     {
         // FIXME: Automatically update when get updated image
-        var width = (int) ((double)height * page.get_width () / page.get_height ());
+        var width = (int) ((double)height * page.width / page.height);
         if (this.width == width && this.height == height)
             return;
 

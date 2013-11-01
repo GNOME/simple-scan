@@ -19,44 +19,128 @@ public enum ScanDirection
 
 public class Page
 {
+    public int width
+    {
+        get
+        {
+            if (scan_direction == ScanDirection.TOP_TO_BOTTOM || scan_direction == ScanDirection.BOTTOM_TO_TOP)
+                return scan_width;
+            else
+                return scan_height;
+        }
+    }
+
+    public int height
+    {
+        get
+        {
+            if (scan_direction == ScanDirection.TOP_TO_BOTTOM || scan_direction == ScanDirection.BOTTOM_TO_TOP)
+                return scan_height;
+            else
+                return scan_width;
+        }
+    }
+
+    public bool is_landscape { get { return width > height; } }
+
     /* Resolution of page */
-    private int dpi;
+    public int dpi { get; private set; }
 
     /* Number of rows in this page or -1 if currently unknown */
     private int expected_rows;
 
     /* Bit depth */
-    private int depth;
+    public int depth { get; private set; }
 
     /* Color profile */
-    private string? color_profile;
+    public string? color_profile { get; set; }
 
     /* Scanned image data */
-    private int width;
-    private int n_rows;
-    private int rowstride;
-    private int n_channels;
+    public int scan_width { get; private set; }
+    public int scan_height { get; private set; }
+    public int rowstride { get; private set; }
+    public int n_channels { get; private set; }
     private uchar[] pixels;
 
     /* Page is getting data */
-    private bool scanning;
+    public bool is_scanning { get; private set; }
 
     /* true if have some page data */
-    private bool has_data_;
+    public bool has_data { get; private set; }
 
     /* Expected next scan row */
-    private int scan_line;
+    public int scan_line { get; private set; }
+
+    public bool is_color { get { return n_channels > 1; } }
 
     /* Rotation of scanned data */
-    private ScanDirection scan_direction = ScanDirection.TOP_TO_BOTTOM;
+    private ScanDirection scan_direction_;
+    public ScanDirection scan_direction
+    {
+        get { return scan_direction_; }
+        
+        set
+        {
+            if (scan_direction_ == value)
+                return;
+
+            /* Work out how many times it has been rotated to the left */
+            var size_has_changed = false;
+            var left_steps = (int) (value - scan_direction_);
+            if (left_steps < 0)
+                left_steps += 4;
+            if (left_steps != 2)
+                size_has_changed = true;
+
+            /* Rotate crop */
+            if (has_crop)
+            {
+                switch (left_steps)
+                {
+                /* 90 degrees counter-clockwise */
+                case 1:
+                    var t = crop_x;
+                    crop_x = crop_y;
+                    crop_y = width - (t + crop_width);
+                    t = crop_width;
+                    crop_width = crop_height;
+                    crop_height = t;
+                    break;
+                /* 180 degrees */
+                case 2:
+                    crop_x = width - (crop_x + crop_width);
+                    crop_y = width - (crop_y + crop_height);
+                    break;
+                /* 90 degrees clockwise */
+                case 3:
+                    var t = crop_y;
+                    crop_y = crop_x;
+                    crop_x = height - (t + crop_height);
+                    t = crop_width;
+                    crop_width = crop_height;
+                    crop_height = t;
+                    break;
+                }
+            }
+
+            scan_direction_ = value;
+            if (size_has_changed)
+                size_changed ();
+            scan_direction_changed ();
+            if (has_crop)
+                crop_changed ();
+        }
+        
+        default = ScanDirection.TOP_TO_BOTTOM;
+    }
 
     /* Crop */
-    private bool has_crop_;
-    private string? crop_name;
-    private int crop_x;
-    private int crop_y;
-    private int crop_width;
-    private int crop_height;
+    public bool has_crop { get; private set; }
+    public string? crop_name { get; private set; }
+    public int crop_x { get; private set; }
+    public int crop_y { get; private set; }
+    public int crop_width { get; private set; }
+    public int crop_height { get; private set; }
 
     public signal void pixels_changed ();
     public signal void size_changed ();
@@ -69,13 +153,13 @@ public class Page
     {
         if (scan_direction == ScanDirection.TOP_TO_BOTTOM || scan_direction == ScanDirection.BOTTOM_TO_TOP)
         {
-            this.width = width;
-            n_rows = height;
+            scan_width = width;
+            scan_height = height;
         }
         else
         {
-            this.width = height;
-            n_rows = width;
+            scan_width = height;
+            scan_height = width;
         }
         this.dpi = dpi;
         this.scan_direction = scan_direction;
@@ -87,22 +171,22 @@ public class Page
         dpi = (int) info.dpi;
 
         /* Create a white page */
-        width = info.width;
-        n_rows = info.height;
+        scan_width = info.width;
+        scan_height = info.height;
         /* Variable height, try 50% of the width for now */
-        if (n_rows < 0)
-            n_rows = width / 2;
+        if (scan_height < 0)
+            scan_height = scan_width / 2;
         depth = info.depth;
         n_channels = info.n_channels;
-        rowstride = (width * depth * n_channels + 7) / 8;
-        pixels.resize (n_rows * rowstride);
+        rowstride = (scan_width * depth * n_channels + 7) / 8;
+        pixels.resize (scan_height * rowstride);
         return_if_fail (pixels != null);
 
         /* Fill with white */
         if (depth == 1)
-            Memory.set (pixels, 0x00, n_rows * rowstride);
+            Memory.set (pixels, 0x00, scan_height * rowstride);
         else
-            Memory.set (pixels, 0xFF, n_rows * rowstride);
+            Memory.set (pixels, 0xFF, scan_height * rowstride);
 
         size_changed ();
         pixels_changed ();
@@ -110,47 +194,23 @@ public class Page
 
     public void start ()
     {
-        scanning = true;
+        is_scanning = true;
         scan_line_changed ();
-    }
-
-    public bool is_scanning ()
-    {
-        return scanning;
-    }
-
-    public bool has_data ()
-    {
-        return has_data_;
-    }
-
-    public bool is_color ()
-    {
-        return n_channels > 1;
-    }
-
-    public int get_scan_line ()
-    {
-        return scan_line;
     }
 
     private void parse_line (ScanLine line, int n, out bool size_changed)
     {
-        int line_number;
-
-        line_number = line.number + n;
+        var line_number = line.number + n;
 
         /* Extend image if necessary */
         size_changed = false;
-        while (line_number >= get_scan_height ())
+        while (line_number >= scan_height)
         {
-            int rows;
-
             /* Extend image */
-            rows = n_rows;
-            n_rows = rows + width / 2;
-            debug ("Extending image from %d lines to %d lines", rows, n_rows);
-            pixels.resize (n_rows * rowstride);
+            var rows = scan_height;
+            scan_height = rows + scan_width / 2;
+            debug ("Extending image from %d lines to %d lines", rows, scan_height);
+            pixels.resize (scan_height * rowstride);
 
             size_changed = true;
         }
@@ -170,7 +230,7 @@ public class Page
         for (var i = 0; i < line.n_lines; i++)
             parse_line (line, i, out size_has_changed);
 
-        has_data_ = true;
+        has_data = true;
 
         if (size_has_changed)
             size_changed ();
@@ -184,18 +244,16 @@ public class Page
 
         /* Trim page */
         if (expected_rows < 0 &&
-            scan_line != get_scan_height ())
+            scan_line != scan_height)
         {
-            int rows;
-
-            rows = n_rows;
-            n_rows = scan_line;
-            pixels.resize (n_rows * rowstride);
-            debug ("Trimming page from %d lines to %d lines", rows, n_rows);
+            var rows = scan_height;
+            scan_height = scan_line;
+            pixels.resize (scan_height * rowstride);
+            debug ("Trimming page from %d lines to %d lines", rows, scan_height);
 
             size_has_changed = true;
         }
-        scanning = false;
+        is_scanning = false;
 
         if (size_has_changed)
             size_changed ();
@@ -203,197 +261,67 @@ public class Page
         scan_finished ();
     }
 
-    public ScanDirection get_scan_direction ()
-    {
-        return scan_direction;
-    }
-
-    private void set_scan_direction (ScanDirection direction)
-    {
-        int left_steps, t;
-        bool size_has_changed = false;
-        int width, height;
-
-        if (scan_direction == direction)
-            return;
-
-        /* Work out how many times it has been rotated to the left */
-        left_steps = direction - scan_direction;
-        if (left_steps < 0)
-            left_steps += 4;
-        if (left_steps != 2)
-            size_has_changed = true;
-
-        width = get_width ();
-        height = get_height ();
-
-        /* Rotate crop */
-        if (has_crop_)
-        {
-            switch (left_steps)
-            {
-            /* 90 degrees counter-clockwise */
-            case 1:
-                t = crop_x;
-                crop_x = crop_y;
-                crop_y = width - (t + crop_width);
-                t = crop_width;
-                crop_width = crop_height;
-                crop_height = t;
-                break;
-            /* 180 degrees */
-            case 2:
-                crop_x = width - (crop_x + crop_width);
-                crop_y = width - (crop_y + crop_height);
-                break;
-            /* 90 degrees clockwise */
-            case 3:
-                t = crop_y;
-                crop_y = crop_x;
-                crop_x = height - (t + crop_height);
-                t = crop_width;
-                crop_width = crop_height;
-                crop_height = t;
-                break;
-            }
-        }
-
-        scan_direction = direction;
-        if (size_has_changed)
-            size_changed ();
-        scan_direction_changed ();
-        if (has_crop_)
-            crop_changed ();
-    }
-
     public void rotate_left ()
     {
-        var direction = scan_direction;
-        switch (direction)
+        switch (scan_direction)
         {
         case ScanDirection.TOP_TO_BOTTOM:
-            direction = ScanDirection.LEFT_TO_RIGHT;
+            scan_direction = ScanDirection.LEFT_TO_RIGHT;
             break;
         case ScanDirection.LEFT_TO_RIGHT:
-            direction = ScanDirection.BOTTOM_TO_TOP;
+            scan_direction = ScanDirection.BOTTOM_TO_TOP;
             break;
         case ScanDirection.BOTTOM_TO_TOP:
-            direction = ScanDirection.RIGHT_TO_LEFT;
+            scan_direction = ScanDirection.RIGHT_TO_LEFT;
             break;
         case ScanDirection.RIGHT_TO_LEFT:
-            direction = ScanDirection.TOP_TO_BOTTOM;
+            scan_direction = ScanDirection.TOP_TO_BOTTOM;
             break;
         }
-        set_scan_direction (direction);
     }
 
     public void rotate_right ()
     {
-        var direction = scan_direction;
-        switch (direction)
+        switch (scan_direction)
         {
         case ScanDirection.TOP_TO_BOTTOM:
-            direction = ScanDirection.RIGHT_TO_LEFT;
+            scan_direction = ScanDirection.RIGHT_TO_LEFT;
             break;
         case ScanDirection.LEFT_TO_RIGHT:
-            direction = ScanDirection.TOP_TO_BOTTOM;
+            scan_direction = ScanDirection.TOP_TO_BOTTOM;
             break;
         case ScanDirection.BOTTOM_TO_TOP:
-            direction = ScanDirection.LEFT_TO_RIGHT;
+            scan_direction = ScanDirection.LEFT_TO_RIGHT;
             break;
         case ScanDirection.RIGHT_TO_LEFT:
-            direction = ScanDirection.BOTTOM_TO_TOP;
+            scan_direction = ScanDirection.BOTTOM_TO_TOP;
             break;
         }
-        set_scan_direction (direction);
-    }
-
-    public int get_dpi ()
-    {
-        return dpi;
-    }
-
-    public bool is_landscape ()
-    {
-       return get_width () > get_height ();
-    }
-
-    public int get_width ()
-    {
-        if (scan_direction == ScanDirection.TOP_TO_BOTTOM || scan_direction == ScanDirection.BOTTOM_TO_TOP)
-            return width;
-        else
-            return n_rows;
-    }
-
-    public int get_height ()
-    {
-        if (scan_direction == ScanDirection.TOP_TO_BOTTOM || scan_direction == ScanDirection.BOTTOM_TO_TOP)
-            return n_rows;
-        else
-            return width;
-    }
-
-    public int get_depth ()
-    {
-        return depth;
-    }
-
-    public int get_n_channels ()
-    {
-        return n_channels;
-    }
-
-    public int get_rowstride ()
-    {
-        return rowstride;
-    }
-
-    public int get_scan_width ()
-    {
-        return width;
-    }
-
-    public int get_scan_height ()
-    {
-        return n_rows;
-    }
-
-    public void set_color_profile (string? color_profile)
-    {
-         this.color_profile = color_profile;
-    }
-
-    public string get_color_profile ()
-    {
-         return color_profile;
     }
 
     public void set_no_crop ()
     {
-        if (!has_crop_)
+        if (!has_crop)
             return;
-        has_crop_ = false;
+        has_crop = false;
         crop_changed ();
     }
 
     public void set_custom_crop (int width, int height)
     {
-        //int pw, ph;
-
         return_if_fail (width >= 1);
         return_if_fail (height >= 1);
 
-        if (crop_name == null && has_crop_ && crop_width == width && crop_height == height)
+        if (crop_name == null && has_crop && crop_width == width && crop_height == height)
             return;
         crop_name = null;
-        has_crop_ = true;
+        has_crop = true;
 
         crop_width = width;
         crop_height = height;
 
-        /*pw = get_width ();
-        ph = get_height ();
+        /*var pw = width;
+        var ph = height;
         if (crop_width < pw)
             crop_x = (pw - crop_width) / 2;
         else
@@ -408,32 +336,32 @@ public class Page
 
     public void set_named_crop (string name)
     {
-        double width, height;
+        double w, h;
         switch (name)
         {
         case "A4":
-            width = 8.3;
-            height = 11.7;
+            w = 8.3;
+            h = 11.7;
             break;
         case "A5":
-            width = 5.8;
-            height = 8.3;
+            w = 5.8;
+            h = 8.3;
             break;
         case "A6":
-            width = 4.1;
-            height = 5.8;
+            w = 4.1;
+            h = 5.8;
             break;
         case "letter":
-            width = 8.5;
-            height = 11;
+            w = 8.5;
+            h = 11;
             break;
         case "legal":
-            width = 8.5;
-            height = 14;
+            w = 8.5;
+            h = 14;
             break;
         case "4x6":
-            width = 4;
-            height = 6;
+            w = 4;
+            h = 6;
             break;
         default:
             warning ("Unknown paper size '%s'", name);
@@ -441,23 +369,22 @@ public class Page
         }
 
         crop_name = name;
-        has_crop_ = true;
+        has_crop = true;
 
-        var pw = get_width ();
-        var ph = get_height ();
+        var pw = width;
+        var ph = height;
 
         /* Rotate to match original aspect */
         if (pw > ph)
         {
-            double t;
-            t = width;
-            width = height;
-            height = t;
+            var t = w;
+            w = h;
+            h = t;
         }
 
         /* Custom crop, make slightly smaller than original */
-        crop_width = (int) (width * dpi + 0.5);
-        crop_height = (int) (height * dpi + 0.5);
+        crop_width = (int) (w * dpi + 0.5);
+        crop_height = (int) (h * dpi + 0.5);
 
         if (crop_width < pw)
             crop_x = (pw - crop_width) / 2;
@@ -474,8 +401,8 @@ public class Page
     {
         return_if_fail (x >= 0);
         return_if_fail (y >= 0);
-        return_if_fail (x < get_width ());
-        return_if_fail (y < get_height ());
+        return_if_fail (x < width);
+        return_if_fail (y < height);
 
         crop_x = x;
         crop_y = y;
@@ -484,22 +411,18 @@ public class Page
 
     public void rotate_crop ()
     {
-        int t;
-
-        if (!has_crop_)
+        if (!has_crop)
             return;
 
-        t = crop_width;
+        var t = crop_width;
         crop_width = crop_height;
         crop_height = t;
 
         /* Clip custom crops */
         if (crop_name == null)
         {
-            int w, h;
-
-            w = get_width ();
-            h = get_height ();
+            var w = width;
+            var h = height;
 
             if (crop_x + crop_width > w)
                 crop_x = w - crop_width;
@@ -520,24 +443,6 @@ public class Page
         crop_changed ();
     }
 
-    public bool has_crop ()
-    {
-        return has_crop_;
-    }
-
-    public void get_crop (out int x, out int y, out int width, out int height)
-    {
-        x = crop_x;
-        y = crop_y;
-        width = crop_width;
-        height = crop_height;
-    }
-
-    public string get_named_crop ()
-    {
-        return crop_name;
-    }
-
     public unowned uchar[] get_pixels ()
     {
         return pixels;
@@ -546,7 +451,7 @@ public class Page
     public void set_pixels (uchar[] new_pixels)
     {
         pixels = new_pixels;
-        has_data_ = new_pixels != null;
+        has_data = new_pixels != null;
         pixels_changed ();
     }
 
@@ -560,29 +465,27 @@ public class Page
     // FIXME: Copied from page-view, should be shared code
     private void get_pixel (int x, int y, uchar[] pixel, int offset)
     {
-        switch (get_scan_direction ())
+        switch (scan_direction)
         {
         case ScanDirection.TOP_TO_BOTTOM:
             break;
         case ScanDirection.BOTTOM_TO_TOP:
-            x = get_scan_width () - x - 1;
-            y = get_scan_height () - y - 1;
+            x = scan_width - x - 1;
+            y = scan_height - y - 1;
             break;
         case ScanDirection.LEFT_TO_RIGHT:
             var t = x;
-            x = get_scan_width () - y - 1;
+            x = scan_width - y - 1;
             y = t;
             break;
         case ScanDirection.RIGHT_TO_LEFT:
             var t = x;
             x = y;
-            y = get_scan_height () - t - 1;
+            y = scan_height - t - 1;
             break;
         }
 
-        var depth = get_depth ();
-        var n_channels = get_n_channels ();
-        var line_offset = get_rowstride () * y;
+        var line_offset = rowstride * y;
 
         /* Optimise for 8 bit images */
         if (depth == 8 && n_channels == 3)
@@ -630,7 +533,7 @@ public class Page
     public Gdk.Pixbuf get_image (bool apply_crop)
     {
         int l, r, t, b;
-        if (apply_crop && has_crop_)
+        if (apply_crop && has_crop)
         {
             l = crop_x;
             r = l + crop_width;
@@ -639,19 +542,19 @@ public class Page
 
             if (l < 0)
                 l = 0;
-            if (r > get_width ())
-                r = get_width ();
+            if (r > width)
+                r = width;
             if (t < 0)
                 t = 0;
-            if (b > get_height ())
-                b = get_height ();
+            if (b > height)
+                b = height;
         }
         else
         {
             l = 0;
-            r = get_width ();
+            r = width;
             t = 0;
-            b = get_height ();
+            b = height;
         }
 
         var image = new Gdk.Pixbuf (Gdk.Colorspace.RGB, false, 8, r - l, b - t);

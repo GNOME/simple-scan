@@ -74,8 +74,20 @@ public class UserInterface
     private string error_text;
     private bool error_change_scanner_hint;
 
-    private Book book;
+    public Book book { get; private set; }
     private string? book_uri = null;
+
+    public Page selected_page
+    {
+        get
+        {
+            return book_view.selected_page;
+        }
+        set
+        {
+            book_view.selected_page = value;
+        }
+    }
 
     private AutosaveManager? autosave_manager;
 
@@ -88,12 +100,68 @@ public class UserInterface
 
     private string document_hint = "photo";
 
-    private string default_file_name = _("Scanned Document.pdf");
-    private bool scanning = false;
+    public string default_file_name { get; set; default = _("Scanned Document.pdf"); }
+    private bool scanning_ = false;
+    public bool scanning
+    {
+        get { return scanning_; }
+        set
+        {
+            scanning_ = value;
+            page_delete_menuitem.set_sensitive (!value);
+            stop_menuitem.set_sensitive (value);
+            stop_toolbutton.set_sensitive (value);
+        }
+    }
 
     private int window_width;
     private int window_height;
     private bool window_is_maximized;
+
+    public int brightness
+    {
+        get { return (int) brightness_adjustment.get_value (); }
+        set { brightness_adjustment.set_value (value); }
+    }
+
+    public int contrast
+    {
+        get { return (int) contrast_adjustment.get_value (); }
+        set { contrast_adjustment.set_value (contrast); }
+    }
+
+    public int quality
+    {
+        get { return (int) quality_adjustment.get_value (); }
+        set { quality_adjustment.set_value (quality); }
+    }
+
+    public string? selected_device
+    {
+        owned get
+        {
+            Gtk.TreeIter iter;
+
+            if (device_combo.get_active_iter (out iter))
+            {
+                string device;
+                device_model.get (iter, 0, out device, -1);
+                return device;
+            }
+
+            return null;
+        }
+
+        set
+        {
+            Gtk.TreeIter iter;
+            if (!find_scan_device (value, out iter))
+                return;
+
+            device_combo.set_active_iter (iter);
+            user_selected_device = true;
+        }
+    }
 
     public signal void start_scan (string? device, ScanOptions options);
     public signal void stop_scan ();
@@ -109,7 +177,7 @@ public class UserInterface
 
         load ();
 
-        autosave_manager = AutosaveManager.create (ref book);
+        autosave_manager = AutosaveManager.create (book);
     }
 
     ~UserInterface ()
@@ -146,11 +214,6 @@ public class UserInterface
         dialog.add_button (Gtk.Stock.CLOSE, 0);
         dialog.format_secondary_text ("%s", error_text);
         dialog.destroy ();
-    }
-
-    public void set_default_file_name (string default_file_name)
-    {
-        this.default_file_name = default_file_name;
     }
 
     public void authorize (string resource, out string username, out string password)
@@ -292,37 +355,13 @@ public class UserInterface
         update_info_bar ();
     }
 
-    private string? get_selected_device ()
-    {
-        Gtk.TreeIter iter;
-
-        if (device_combo.get_active_iter (out iter))
-        {
-            string device;
-            device_model.get (iter, 0, out device, -1);
-            return device;
-        }
-
-        return null;
-    }
-
-    public void set_selected_device (string device)
-    {
-        Gtk.TreeIter iter;
-        if (!find_scan_device (device, out iter))
-            return;
-
-        device_combo.set_active_iter (iter);
-        user_selected_device = true;
-    }
-
     private void add_default_page ()
     {
         var page = book.append_page (default_page_width,
                                      default_page_height,
                                      default_page_dpi,
                                      default_page_scan_direction);
-        book_view.select_page (page);
+        book_view.selected_page = page;
     }
 
     private void on_file_type_changed (Gtk.TreeSelection selection)
@@ -493,7 +532,7 @@ public class UserInterface
         show_progress_dialog ();
         try
         {
-            book.save (format, get_quality (), file);
+            book.save (format, quality, file);
         }
         catch (Error e)
         {
@@ -507,13 +546,13 @@ public class UserInterface
         }
 
         book_uri = uri;
-        book.set_needs_saving (false);
+        book.needs_saving = false;
         return true;
     }
 
     private bool prompt_to_save (string title, string discard_label)
     {
-        if (!book.get_needs_saving ())
+        if (!book.needs_saving)
             return true;
 
         var dialog = new Gtk.MessageDialog (window,
@@ -551,7 +590,7 @@ public class UserInterface
         book.clear ();
         add_default_page ();
         book_uri = null;
-        book.set_needs_saving (false);
+        book.needs_saving = false;
         save_as_menuitem.set_sensitive (false);
         copy_to_clipboard_menuitem.set_sensitive (false);
     }
@@ -639,21 +678,6 @@ public class UserInterface
         if (have_iter)
             paper_size_combo.set_active_iter (iter);
     }
-    
-    private void set_brightness (int brightness)
-    {
-        brightness_adjustment.set_value (brightness);
-    }
-
-    private void set_contrast (int contrast)
-    {
-        contrast_adjustment.set_value (contrast);
-    }
-
-    private void set_quality (int quality)
-    {
-        quality_adjustment.set_value (quality);
-    }
 
     private int get_text_dpi ()
     {
@@ -702,22 +726,7 @@ public class UserInterface
         return false;
     }
 
-    private int get_brightness ()
-    {
-        return (int) brightness_adjustment.get_value ();
-    }
-
-    private int get_contrast ()
-    {
-        return (int) contrast_adjustment.get_value ();
-    }
-
-    private int get_quality ()
-    {
-        return (int) quality_adjustment.get_value ();
-    }
-
-    private ScanOptions get_scan_options ()
+    private ScanOptions make_scan_options ()
     {
         var options = new ScanOptions ();
         if (document_hint == "text")
@@ -733,8 +742,8 @@ public class UserInterface
             options.depth = 8;
         }
         get_paper_size (out options.paper_width, out options.paper_height);
-        options.brightness = get_brightness ();
-        options.contrast = get_contrast ();
+        options.brightness = brightness;
+        options.contrast = contrast;
 
         return options;
     }
@@ -742,9 +751,9 @@ public class UserInterface
     [CCode (cname = "G_MODULE_EXPORT scan_button_clicked_cb", instance_pos = -1)]
     public void scan_button_clicked_cb (Gtk.Widget widget)
     {
-        var options = get_scan_options ();
+        var options = make_scan_options ();
         options.type = ScanType.SINGLE;
-        start_scan (get_selected_device (), options);
+        start_scan (selected_device, options);
     }
 
     [CCode (cname = "G_MODULE_EXPORT stop_scan_button_clicked_cb", instance_pos = -1)]
@@ -760,9 +769,9 @@ public class UserInterface
             stop_scan ();
         else
         {
-            var options = get_scan_options ();
+            var options = make_scan_options ();
             options.type = get_page_side ();
-            start_scan (get_selected_device (), options);
+            start_scan (selected_device, options);
         }
     }
 
@@ -786,7 +795,7 @@ public class UserInterface
 
     private void update_page_menu ()
     {
-        var page = book_view.get_selected ();
+        var page = book_view.selected_page;
         if (page == null)
         {
             page_move_left_menuitem.set_sensitive (false);
@@ -796,7 +805,7 @@ public class UserInterface
         {
             var index = book.get_page_index (page);
             page_move_left_menuitem.set_sensitive (index > 0);
-            page_move_right_menuitem.set_sensitive (index < book.get_n_pages () - 1);
+            page_move_right_menuitem.set_sensitive (index < book.n_pages - 1);
         }
     }
 
@@ -809,11 +818,11 @@ public class UserInterface
 
         update_page_menu ();
 
-        string? name = null;
-        if (page.has_crop ())
+        var name = "no_crop_menuitem";
+        if (page.has_crop)
         {
             // FIXME: Make more generic, move into page-size.c and reuse
-            var crop_name = page.get_named_crop ();
+            var crop_name = page.crop_name;
             if (crop_name != null)
             {
                 if (crop_name == "A4")
@@ -832,13 +841,11 @@ public class UserInterface
             else
                 name = "custom_crop_menuitem";
         }
-        else
-            name = "no_crop_menuitem";
 
         var menuitem = (Gtk.RadioMenuItem) builder.get_object (name);
         menuitem.set_active (true);
         var toolbutton = (Gtk.ToggleToolButton) builder.get_object ("crop_toolbutton");
-        toolbutton.set_active (page.has_crop ());
+        toolbutton.set_active (page.has_crop);
 
         updating_page_menu = false;
     }
@@ -852,7 +859,7 @@ public class UserInterface
 
         try
         {
-            page.save ("tiff", get_quality (), file);
+            page.save ("tiff", quality, file);
         }
         catch (Error e)
         {
@@ -885,7 +892,7 @@ public class UserInterface
     {
         if (updating_page_menu)
             return;
-        var page = book_view.get_selected ();
+        var page = book_view.selected_page;
         if (page != null)
             page.rotate_left ();
     }
@@ -895,7 +902,7 @@ public class UserInterface
     {
         if (updating_page_menu)
             return;
-        var page = book_view.get_selected ();
+        var page = book_view.selected_page;
         if (page != null)
             page.rotate_right ();
     }
@@ -907,7 +914,7 @@ public class UserInterface
         if (updating_page_menu)
             return;
 
-        var page = book_view.get_selected ();
+        var page = book_view.selected_page;
         if (page == null)
             return;
 
@@ -918,8 +925,8 @@ public class UserInterface
         }
         else if (crop_name == "custom")
         {
-            var width = page.get_width ();
-            var height = page.get_height ();
+            var width = page.width;
+            var height = page.height;
             var crop_width = (int) (width * 0.8 + 0.5);
             var crop_height = (int) (height * 0.8 + 0.5);
             page.set_custom_crop (crop_width, crop_height);
@@ -1002,7 +1009,7 @@ public class UserInterface
     [CCode (cname = "G_MODULE_EXPORT crop_rotate_menuitem_activate_cb", instance_pos = -1)]
     public void crop_rotate_menuitem_activate_cb (Gtk.Widget widget)
     {
-        var page = book_view.get_selected ();
+        var page = book_view.selected_page;
         if (page == null)
             return;
         page.rotate_crop ();
@@ -1011,7 +1018,7 @@ public class UserInterface
     [CCode (cname = "G_MODULE_EXPORT page_move_left_menuitem_activate_cb", instance_pos = -1)]
     public void page_move_left_menuitem_activate_cb (Gtk.Widget widget)
     {
-        var page = book_view.get_selected ();
+        var page = book_view.selected_page;
         var index = book.get_page_index (page);
         if (index > 0)
             book.move_page (page, index - 1);
@@ -1022,9 +1029,9 @@ public class UserInterface
     [CCode (cname = "G_MODULE_EXPORT page_move_right_menuitem_activate_cb", instance_pos = -1)]
     public void page_move_right_menuitem_activate_cb (Gtk.Widget widget)
     {
-        var page = book_view.get_selected ();
+        var page = book_view.selected_page;
         var index = book.get_page_index (page);
-        if (index < book.get_n_pages () - 1)
+        if (index < book.n_pages - 1)
             book.move_page (page, book.get_page_index (page) + 1);
 
         update_page_menu ();
@@ -1033,7 +1040,7 @@ public class UserInterface
     [CCode (cname = "G_MODULE_EXPORT page_delete_menuitem_activate_cb", instance_pos = -1)]
     public void page_delete_menuitem_activate_cb (Gtk.Widget widget)
     {
-        book_view.get_book ().delete_page (book_view.get_selected ());
+        book_view.book.delete_page (book_view.selected_page);
     }
 
     [CCode (cname = "G_MODULE_EXPORT save_file_button_clicked_cb", instance_pos = -1)]
@@ -1045,7 +1052,7 @@ public class UserInterface
     [CCode (cname = "G_MODULE_EXPORT copy_to_clipboard_button_clicked_cb", instance_pos = -1)]
     public void copy_to_clipboard_button_clicked_cb (Gtk.Widget widget)
     {
-        var page = book_view.get_selected ();
+        var page = book_view.selected_page;
         if (page != null)
             page.copy_to_clipboard (window);
     }
@@ -1067,14 +1074,14 @@ public class UserInterface
         bool is_landscape = false;
         if (print_context.get_width () > print_context.get_height ())
             is_landscape = true;
-        if (page.is_landscape () != is_landscape)
+        if (page.is_landscape != is_landscape)
         {
             context.translate (print_context.get_width (), 0);
             context.rotate (Math.PI_2);
         }
 
-        context.scale (print_context.get_dpi_x () / page.get_dpi (),
-                       print_context.get_dpi_y () / page.get_dpi ());
+        context.scale (print_context.get_dpi_x () / page.dpi,
+                       print_context.get_dpi_y () / page.dpi);
 
         var image = page.get_image (true);
         Gdk.cairo_set_source_pixbuf (context, image, 0, 0);
@@ -1084,14 +1091,14 @@ public class UserInterface
     [CCode (cname = "G_MODULE_EXPORT email_button_clicked_cb", instance_pos = -1)]
     public void email_button_clicked_cb (Gtk.Widget widget)
     {
-        email (document_hint, get_quality ());
+        email (document_hint, quality);
     }
 
     [CCode (cname = "G_MODULE_EXPORT print_button_clicked_cb", instance_pos = -1)]
     public void print_button_clicked_cb (Gtk.Widget widget)
     {
         var print = new Gtk.PrintOperation ();
-        print.set_n_pages ((int) book.get_n_pages ());
+        print.set_n_pages ((int) book.n_pages);
         print.draw_page.connect (draw_page);
 
         try
@@ -1158,7 +1165,7 @@ public class UserInterface
                              _("Quit without Saving")))
             return false;
 
-        var device = get_selected_device ();
+        var device = selected_device;
         int paper_width = 0, paper_height = 0;
         get_paper_size (out paper_width, out paper_height);
 
@@ -1170,9 +1177,9 @@ public class UserInterface
         settings.set_enum ("page-side", get_page_side ());
         settings.set_int ("paper-width", paper_width);
         settings.set_int ("paper-height", paper_height);
-        settings.set_int ("brightness", get_brightness ());
-        settings.set_int ("contrast", get_contrast ());
-        settings.set_int ("jpeg-quality", get_quality ());
+        settings.set_int ("brightness", brightness);
+        settings.set_int ("contrast", contrast);
+        settings.set_int ("jpeg-quality", quality);
         settings.set_int ("window-width", window_width);
         settings.set_int ("window-height", window_height);
         settings.set_boolean ("window-is-maximized", window_is_maximized);
@@ -1239,22 +1246,22 @@ public class UserInterface
 
     private void page_size_changed_cb (Page page)
     {
-        default_page_width = page.get_width ();
-        default_page_height = page.get_height ();
-        default_page_dpi = page.get_dpi ();
+        default_page_width = page.width;
+        default_page_height = page.height;
+        default_page_dpi = page.dpi;
     }
 
     private void page_scan_direction_changed_cb (Page page)
     {
-        default_page_scan_direction = page.get_scan_direction ();
+        default_page_scan_direction = page.scan_direction;
     }
 
     private void page_added_cb (Book book, Page page)
     {
-        default_page_width = page.get_width ();
-        default_page_height = page.get_height ();
-        default_page_dpi = page.get_dpi ();
-        default_page_scan_direction = page.get_scan_direction ();
+        default_page_width = page.width;
+        default_page_height = page.height;
+        default_page_dpi = page.dpi;
+        default_page_scan_direction = page.scan_direction;
         page.size_changed.connect (page_size_changed_cb);
         page.scan_direction_changed.connect (page_scan_direction_changed_cb);
 
@@ -1267,7 +1274,7 @@ public class UserInterface
         page.scan_direction_changed.disconnect (page_scan_direction_changed_cb);
 
         /* If this is the last page add a new blank one */
-        if (book.get_n_pages () == 1)
+        if (book.n_pages == 1)
             add_default_page ();
 
         update_page_menu ();
@@ -1308,9 +1315,9 @@ public class UserInterface
 
     private void needs_saving_cb (Book book)
     {
-        save_menuitem.set_sensitive (book.get_needs_saving ());
-        save_toolbutton.set_sensitive (book.get_needs_saving ());
-        if (book.get_needs_saving ())
+        save_menuitem.set_sensitive (book.needs_saving);
+        save_toolbutton.set_sensitive (book.needs_saving);
+        if (book.needs_saving)
             save_as_menuitem.set_sensitive (true);
         copy_to_clipboard_menuitem.set_sensitive (true);
     }
@@ -1452,7 +1459,7 @@ public class UserInterface
         brightness_scale.add_mark (lower, Gtk.PositionType.BOTTOM, darker_label);
         brightness_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
         brightness_scale.add_mark (upper, Gtk.PositionType.BOTTOM, lighter_label);
-        set_brightness (settings.get_int ("brightness"));
+        brightness = settings.get_int ("brightness");
 
         lower = contrast_adjustment.get_lower ();
         var less_label = "<small>%s</small>".printf (_("Less"));
@@ -1461,7 +1468,7 @@ public class UserInterface
         contrast_scale.add_mark (lower, Gtk.PositionType.BOTTOM, less_label);
         contrast_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
         contrast_scale.add_mark (upper, Gtk.PositionType.BOTTOM, more_label);
-        set_contrast (settings.get_int ("contrast"));
+        contrast = settings.get_int ("contrast");
 
         lower = quality_adjustment.get_lower ();
         var minimum_label = "<small>%s</small>".printf (_("Minimum"));
@@ -1470,7 +1477,7 @@ public class UserInterface
         quality_scale.add_mark (lower, Gtk.PositionType.BOTTOM, minimum_label);
         quality_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
         quality_scale.add_mark (upper, Gtk.PositionType.BOTTOM, maximum_label);
-        set_quality (settings.get_int ("jpeg-quality"));
+        quality = settings.get_int ("jpeg-quality");
 
         var device = settings.get_string ("selected-device");
         if (device != null)
@@ -1519,9 +1526,9 @@ public class UserInterface
             window.maximize ();
         }
 
-        if (book.get_n_pages () == 0)
+        if (book.n_pages == 0)
             add_default_page ();
-        book.set_needs_saving (false);
+        book.needs_saving = false;
         book.needs_saving_changed.connect (needs_saving_cb);
 
         progress_dialog = new ProgressBarDialog (window, _("Saving document..."));
@@ -1534,7 +1541,7 @@ public class UserInterface
         while (Gtk.events_pending ())
           Gtk.main_iteration ();
 
-        var total = (int) book.get_n_pages ();
+        var total = (int) book.n_pages;
         var fraction = (page_number + 1.0) / total;
         var complete = fraction == 1.0;
         if (complete)
@@ -1556,29 +1563,6 @@ public class UserInterface
     public void hide_progress_dialog ()
     {
         progress_dialog.hide ();
-    }
-
-    public Book get_book ()
-    {
-        return book;
-    }
-
-    public void set_selected_page (Page page)
-    {
-        book_view.select_page (page);
-    }
-
-    public Page get_selected_page ()
-    {
-        return book_view.get_selected ();
-    }
-
-    public void set_scanning (bool scanning)
-    {
-        this.scanning = scanning;
-        page_delete_menuitem.set_sensitive (!scanning);
-        stop_menuitem.set_sensitive (scanning);
-        stop_toolbutton.set_sensitive (scanning);
     }
 
     public void show_error (string error_title, string error_text, bool change_scanner_hint)
