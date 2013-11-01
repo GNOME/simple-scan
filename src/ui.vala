@@ -109,7 +109,18 @@ public class UserInterface
 
         load ();
 
-        autosave_manager = AutosaveManager.create (ref book);
+        autosave_manager = new AutosaveManager ();
+        autosave_manager.book = book;
+        autosave_manager.load ();
+
+        if (book.get_n_pages () == 0)
+        {
+            add_default_page ();
+            book.set_needs_saving (false);
+        }
+        else
+            book_view.select_page (book.get_page (0));
+        book.needs_saving_changed.connect (needs_saving_cb);
     }
 
     ~UserInterface ()
@@ -318,10 +329,11 @@ public class UserInterface
 
     private void add_default_page ()
     {
-        var page = book.append_page (default_page_width,
-                                     default_page_height,
-                                     default_page_dpi,
-                                     default_page_scan_direction);
+        var page = new Page (default_page_width,
+                             default_page_height,
+                             default_page_dpi,
+                             default_page_scan_direction);
+        book.append_page (page);
         book_view.select_page (page);
     }
 
@@ -1183,8 +1195,7 @@ public class UserInterface
 
         window.destroy ();
 
-        if (autosave_manager != null)
-            autosave_manager.cleanup ();
+        autosave_manager.cleanup ();
 
         return true;
     }
@@ -1518,11 +1529,6 @@ public class UserInterface
             debug ("Restoring window to maximized");
             window.maximize ();
         }
-
-        if (book.get_n_pages () == 0)
-            add_default_page ();
-        book.set_needs_saving (false);
-        book.needs_saving_changed.connect (needs_saving_cb);
 
         progress_dialog = new ProgressBarDialog (window, _("Saving document..."));
         book.saving.connect (book_saving_cb);
