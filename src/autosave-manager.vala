@@ -47,7 +47,9 @@ public class AutosaveManager
     private Book book_ = null;
 
     private uint update_timeout = 0;
+    private uint pixel_update_timeout = 0;
     private HashTable<Page, bool> dirty_pages;
+    private HashTable<Page, bool> pixel_dirty_pages;
 
     public Book book
     {
@@ -182,6 +184,7 @@ public class AutosaveManager
     private AutosaveManager ()
     {
         dirty_pages = new HashTable<Page, bool> (direct_hash, direct_equal);
+        pixel_dirty_pages = new HashTable<Page, bool> (direct_hash, direct_equal);
     }
 
     public void cleanup ()
@@ -191,6 +194,9 @@ public class AutosaveManager
         if (update_timeout > 0)
             Source.remove (update_timeout);
         update_timeout = 0;
+        if (pixel_update_timeout > 0)
+            Source.remove (pixel_update_timeout);
+        pixel_update_timeout = 0;
 
         var query = @"
         SELECT pixels_filename FROM pages
@@ -494,8 +500,28 @@ public class AutosaveManager
 
         warn_if_fail (stmt.step () == Sqlite.DONE);
     }
-    
+
     private void update_page_pixels (Page page)
+    {
+        pixel_dirty_pages.insert (page, true);
+        if (pixel_update_timeout > 0)
+            Source.remove (pixel_update_timeout);
+        pixel_update_timeout = Timeout.add (100, () =>
+        {
+            var iter = HashTableIter<Page, bool> (pixel_dirty_pages);
+            Page p;
+            bool is_dirty;
+            while (iter.next (out p, out is_dirty))
+                real_update_page_pixels (p);
+
+            pixel_dirty_pages.remove_all ();
+            pixel_update_timeout = 0;
+
+            return false;
+        });
+    }
+    
+    private void real_update_page_pixels (Page page)
     {
         debug ("Updating the pixels in the autosave for a page");
 
