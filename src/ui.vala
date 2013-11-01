@@ -183,6 +183,8 @@ public class UserInterface
 
         if (book.n_pages == 0)
             add_default_page ();
+        else
+            book_view.selected_page = book.get_page (0);
         book.needs_saving = false;
         book.needs_saving_changed.connect (needs_saving_cb);
     }
@@ -927,10 +929,7 @@ public class UserInterface
             return;
 
         if (crop_name == null)
-        {
             page.set_no_crop ();
-            return;
-        }
         else if (crop_name == "custom")
         {
             var width = page.width;
