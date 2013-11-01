@@ -158,7 +158,8 @@ public class SimpleScan : Gtk.Application
             }
         }
 
-        page = book.append_page (width, height, dpi, scan_direction);
+        page = new Page (width, height, dpi, scan_direction);
+        book.append_page (page);
         if (do_crop)
         {
             if (named_crop != null)
@@ -278,11 +279,7 @@ public class SimpleScan : Gtk.Application
     private void remove_empty_page ()
     {
         var page = book.get_page ((int) book.n_pages - 1);
-
-        /* Remove a failed page */
-        if (page.has_data)
-            page.finish ();
-        else
+        if (!page.has_data)
             book.delete_page (page);
     }
 

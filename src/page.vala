@@ -19,6 +19,7 @@ public enum ScanDirection
 
 public class Page
 {
+    /* Width of the page in pixels after rotation applied */
     public int width
     {
         get
@@ -30,6 +31,7 @@ public class Page
         }
     }
 
+    /* Height of the page in pixels after rotation applied */
     public int height
     {
         get
@@ -41,6 +43,7 @@ public class Page
         }
     }
 
+    /* true if the page is landscape (wider than the height) */
     public bool is_landscape { get { return width > height; } }
 
     /* Resolution of page */
@@ -55,11 +58,19 @@ public class Page
     /* Color profile */
     public string? color_profile { get; set; }
 
-    /* Scanned image data */
+    /* Width of raw scan data in pixels */
     public int scan_width { get; private set; }
+
+    /* Height of raw scan data in pixels */
     public int scan_height { get; private set; }
+
+    /* Offset between rows in scan data */
     public int rowstride { get; private set; }
+
+    /* Number of color channels */
     public int n_channels { get; private set; }
+
+    /* Pixel data */
     private uchar[] pixels;
 
     /* Page is getting data */
@@ -71,6 +82,7 @@ public class Page
     /* Expected next scan row */
     public int scan_line { get; private set; }
 
+    /* true if scan contains color information */
     public bool is_color { get { return n_channels > 1; } }
 
     /* Rotation of scanned data */
@@ -134,12 +146,22 @@ public class Page
         default = ScanDirection.TOP_TO_BOTTOM;
     }
 
-    /* Crop */
+    /* True if the page has a crop set */
     public bool has_crop { get; private set; }
+
+    /* Name of the crop if using a named crop */
     public string? crop_name { get; private set; }
+
+    /* X co-ordinate of top left crop corner */
     public int crop_x { get; private set; }
+
+    /* Y co-ordinate of top left crop corner */
     public int crop_y { get; private set; }
+
+    /* Width of crop in pixels */
     public int crop_width { get; private set; }
+
+    /* Height of crop in pixels*/
     public int crop_height { get; private set; }
 
     public signal void pixels_changed ();
@@ -163,6 +185,41 @@ public class Page
         }
         this.dpi = dpi;
         this.scan_direction = scan_direction;
+    }
+
+    public Page.from_data (int scan_width,
+                           int scan_height,
+                           int rowstride,
+                           int n_channels,
+                           int depth,
+                           int dpi,
+                           ScanDirection scan_direction,
+                           string? color_profile,
+                           uchar[]? pixels,
+                           bool has_crop,
+                           string? crop_name,
+                           int crop_x,
+                           int crop_y,
+                           int crop_width,
+                           int crop_height)
+    {
+        this.scan_width = scan_width;
+        this.scan_height = scan_height;
+        this.expected_rows = scan_height;
+        this.rowstride = rowstride;
+        this.n_channels = n_channels;
+        this.depth = depth;
+        this.dpi = dpi;
+        this.scan_direction = scan_direction;
+        this.color_profile = color_profile;
+        this.pixels = pixels;
+        has_data = pixels != null;
+        this.has_crop = has_crop;
+        this.crop_name = crop_name;
+        this.crop_x = crop_x;
+        this.crop_y = crop_y;
+        this.crop_width = crop_width;
+        this.crop_height = crop_height;
     }
 
     public void set_page_info (ScanPageInfo info)
@@ -446,13 +503,6 @@ public class Page
     public unowned uchar[] get_pixels ()
     {
         return pixels;
-    }
-
-    public void set_pixels (uchar[] new_pixels)
-    {
-        pixels = new_pixels;
-        has_data = new_pixels != null;
-        pixels_changed ();
     }
 
     // FIXME: Copied from page-view, should be shared code
