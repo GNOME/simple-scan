@@ -44,7 +44,7 @@ public class AutosaveManager
     private static int number_of_instances = 0;
 
     private Sqlite.Database database_connection;
-    private Book _book = null;
+    private Book book_ = null;
 
     private uint update_timeout = 0;
     private HashTable<Page, bool> dirty_pages;
@@ -53,28 +53,28 @@ public class AutosaveManager
     {
         get
         {
-            return _book;
+            return book_;
         }
         set
         {
-            if (_book != null)
+            if (book_ != null)
             {
-                for (var i = 0; i < _book.get_n_pages (); i++)
+                for (var i = 0; i < book_.get_n_pages (); i++)
                 {
-                    var page = _book.get_page (i);
+                    var page = book_.get_page (i);
                     on_page_removed (page);
                 }
-                _book.page_added.disconnect (on_page_added);
-                _book.page_removed.disconnect (on_page_removed);
-                _book.reordered.disconnect (on_reordered);
-                _book.cleared.disconnect (on_cleared);
+                book_.page_added.disconnect (on_page_added);
+                book_.page_removed.disconnect (on_page_removed);
+                book_.reordered.disconnect (on_reordered);
+                book_.cleared.disconnect (on_cleared);
             }
-            _book = value;
-            _book.page_added.connect (on_page_added);
-            _book.page_removed.connect (on_page_removed);
-            _book.reordered.connect (on_reordered);
-            _book.cleared.connect (on_cleared);
-            for (var i = 0; i < _book.get_n_pages (); i++)
+            book_ = value;
+            book_.page_added.connect (on_page_added);
+            book_.page_removed.connect (on_page_removed);
+            book_.reordered.connect (on_reordered);
+            book_.cleared.connect (on_cleared);
+            for (var i = 0; i < book_.get_n_pages (); i++)
             {
                 var page = book.get_page (i);
                 on_page_added (page);
@@ -141,7 +141,7 @@ public class AutosaveManager
                            AND book_hash = ?3
                            AND book_revision = ?4";
                     Sqlite.Statement stmt2;
-                    result = man.database_connection.prepare_v2(query, -1, out stmt2);
+                    result = man.database_connection.prepare_v2 (query, -1, out stmt2);
                     if (result != Sqlite.OK)
                         warning (@"Error preparing statement: $query");
 
@@ -200,12 +200,16 @@ public class AutosaveManager
         var result = database_connection.prepare_v2 (query, -1, out stmt);
         if (result != Sqlite.OK)
             warning (@"Error $result while preparing query");
-        while (stmt.step () != Sqlite.DONE) {
+        while (stmt.step () != Sqlite.DONE)
+        {
             string filename = stmt.column_text (0);
             var file = File.new_for_path (filename);
-            try {
+            try
+            {
                 file.delete (null);
-            } catch (Error e) {
+            }
+            catch (Error e)
+            {
                 warning("Failed to delete autosave file");
             }
         }
@@ -231,12 +235,14 @@ public class AutosaveManager
         if (Sqlite.Database.open (AUTOSAVE_FILENAME, out connection) != Sqlite.OK)
             throw new IOError.FAILED ("Could not connect to autosave database");
         Sqlite.Statement stmt;
-        var result = connection.prepare_v2("PRAGMA user_version", -1, out stmt);
+        var result = connection.prepare_v2 ("PRAGMA user_version", -1, out stmt);
         if (result != Sqlite.OK)
             warning ("Error %d while executing pragma query", result);
-        while (stmt.step () != Sqlite.DONE) {
+        while (stmt.step () != Sqlite.DONE)
+        {
             var user_version = stmt.column_int (0);
-            if ( user_version < 1 ) {
+            if (user_version < 1)
+            {
                 connection.exec("DROP TABLE pages");
                 connection.exec("PRAGMA user_version = 1");
             }
@@ -304,12 +310,16 @@ public class AutosaveManager
         stmt.bind_int64 (2, direct_hash (page));
         stmt.bind_int64 (3, direct_hash (book));
         stmt.bind_int64 (4, cur_book_revision);
-        while (stmt.step () != Sqlite.DONE) {
+        while (stmt.step () != Sqlite.DONE)
+        {
             string filename = stmt.column_text (0);
             var file = File.new_for_path (filename);
-            try {
+            try
+            {
                 file.delete (null);
-            } catch (Error e) {
+            }
+            catch (Error e)
+            {
                 warning ("Failed to delete autosave file");
             }
         }
@@ -491,17 +501,21 @@ public class AutosaveManager
         warn_if_fail (stmt.step () == Sqlite.DONE);
     }
     
-    private void update_page_pixels (Page page) {
+    private void update_page_pixels (Page page)
+    {
         debug ("Updating the pixels in the autosave for a page");
 
         string basename = @"$cur_book_revision-$(direct_hash (book))-$(direct_hash (page)).bin";
         string filename = Path.build_filename (AUTOSAVE_DIR, basename);
         var file = File.new_for_path (filename);
-        try {
+        try
+        {
             file.replace_contents (page.get_pixels (), null, false, 0, null, null);
-        } catch (Error e) {
+        }
+        catch (Error e)
+        {
             warning ("Error while saving autosave pixel data");
-        };
+        }
         Sqlite.Statement stmt;
         string query = @"
             UPDATE pages
@@ -613,11 +627,14 @@ public class AutosaveManager
 
             var file = File.new_for_path (stmt.column_text (17));
             uchar[] new_pixels;
-            try {
+            try
+            {
                 file.load_contents (null, out new_pixels, null);
-            } catch (Error e) {
+            }
+            catch (Error e)
+            {
                 warning ("Error while loading pixel data");
-            };
+            }
             new_page.set_pixels (new_pixels);
 
             var id = stmt.column_int (18);
