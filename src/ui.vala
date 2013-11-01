@@ -109,7 +109,7 @@ public class UserInterface
 
         load ();
 
-        autosave_manager = AutosaveManager.create (ref book);
+        autosave_manager = AutosaveManager.create (book);
     }
 
     ~UserInterface ()

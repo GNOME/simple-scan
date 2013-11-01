@@ -82,7 +82,7 @@ public class AutosaveManager
         }
     }
 
-    public static AutosaveManager? create (ref Book book)
+    public static AutosaveManager? create (Book book)
     {
         /* compare autosave directories with pids of current instances of simple-scan
          * take ownership of one of the ones that are unowned by renaming to the
@@ -152,7 +152,7 @@ public class AutosaveManager
                     if (result == Sqlite.DONE)
                     {
                         any_pages_recovered = true;
-                        man.recover_book (ref book);
+                        man.recover_book (book);
                     }
                     else
                         warning ("Error %d while executing query", result);
@@ -545,7 +545,7 @@ public class AutosaveManager
         warn_if_fail (stmt.step () == Sqlite.DONE);
     }
 
-    private void recover_book (ref Book book)
+    private void recover_book (Book book)
     {
         Sqlite.Statement stmt;
         string query = @"
