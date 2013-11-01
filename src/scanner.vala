@@ -1049,6 +1049,7 @@ public class Scanner
                 }
             }
 
+            /* Set scan area */
             option = get_option_by_name (handle, Sane.NAME_SCAN_BR_X, out index);
             if (option != null)
             {
@@ -1088,6 +1089,7 @@ public class Scanner
                 }
             }
 
+            /* Set page size */
             option = get_option_by_name (handle, Sane.NAME_PAGE_WIDTH, out index);
             if (option != null)
             {
