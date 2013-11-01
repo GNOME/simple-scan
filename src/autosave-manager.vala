@@ -192,6 +192,24 @@ public class AutosaveManager
             Source.remove (update_timeout);
         update_timeout = 0;
 
+        string query = @"
+        SELECT pixels_filename FROM pages
+            WHERE process_id = $PID
+        ";
+        Sqlite.Statement stmt;
+        var result = database_connection.prepare_v2 (query, -1, out stmt);
+        if (result != Sqlite.OK)
+            warning (@"Error $result while preparing query");
+        while (stmt.step () != Sqlite.DONE) {
+            string filename = stmt.column_text (0);
+            var file = File.new_for_path (filename);
+            try {
+                file.delete (null);
+            } catch (Error e) {
+                warning("Failed to delete autosave file");
+            }
+        }
+
         warn_if_fail (database_connection.exec (@"
             DELETE FROM pages
                 WHERE process_id = $PID
@@ -212,6 +230,17 @@ public class AutosaveManager
         Sqlite.Database connection;
         if (Sqlite.Database.open (AUTOSAVE_FILENAME, out connection) != Sqlite.OK)
             throw new IOError.FAILED ("Could not connect to autosave database");
+        Sqlite.Statement stmt;
+        var result = connection.prepare_v2("PRAGMA user_version", -1, out stmt);
+        if (result != Sqlite.OK)
+            warning ("Error %d while executing pragma query", result);
+        while (stmt.step () != Sqlite.DONE) {
+            var user_version = stmt.column_int (0);
+            if ( user_version < 1 ) {
+                connection.exec("DROP TABLE pages");
+                connection.exec("PRAGMA user_version = 1");
+            }
+        }
         string query = @"
             CREATE TABLE IF NOT EXISTS pages (
                 id integer PRIMARY KEY,
@@ -232,9 +261,9 @@ public class AutosaveManager
                 crop_width integer,
                 crop_height integer,
                 scan_direction integer,
-                pixels binary
+                pixels_filename string
             )";
-        var result = connection.exec(query);
+        result = connection.exec(query);
         if (result != Sqlite.OK)
             warning ("Error %d while executing query", result);
         return connection;
@@ -248,6 +277,8 @@ public class AutosaveManager
         page.scan_direction_changed.connect (on_page_changed);
         page.crop_changed.connect (on_page_changed);
         page.scan_finished.connect (on_page_changed);
+        page.scan_finished.connect (on_pixels_changed);
+        page.pixels_changed.connect (on_pixels_changed);
     }
 
     public void on_page_removed (Page page)
@@ -256,10 +287,11 @@ public class AutosaveManager
         page.size_changed.disconnect (on_page_changed);
         page.scan_direction_changed.disconnect (on_page_changed);
         page.crop_changed.disconnect (on_page_changed);
-        page.scan_finished.connect (on_page_changed);
+        page.scan_finished.disconnect (on_page_changed);
+        page.pixels_changed.disconnect (on_pixels_changed);
 
         string query = @"
-        DELETE FROM pages
+        SELECT pixels_filename FROM pages
             WHERE process_id = $PID
               AND page_hash = ?2
               AND book_hash = ?3
@@ -267,6 +299,29 @@ public class AutosaveManager
         ";
         Sqlite.Statement stmt;
         var result = database_connection.prepare_v2 (query, -1, out stmt);
+        if (result != Sqlite.OK)
+            warning (@"Error $result while preparing query");
+        stmt.bind_int64 (2, direct_hash (page));
+        stmt.bind_int64 (3, direct_hash (book));
+        stmt.bind_int64 (4, cur_book_revision);
+        while (stmt.step () != Sqlite.DONE) {
+            string filename = stmt.column_text (0);
+            var file = File.new_for_path (filename);
+            try {
+                file.delete (null);
+            } catch (Error e) {
+                warning ("Failed to delete autosave file");
+            }
+        }
+
+        query = @"
+        DELETE FROM pages
+            WHERE process_id = $PID
+              AND page_hash = ?2
+              AND book_hash = ?3
+              AND book_revision = ?4
+        ";
+        result = database_connection.prepare_v2 (query, -1, out stmt);
         if (result != Sqlite.OK)
             warning (@"Error $result while preparing query");
         stmt.bind_int64 (2, direct_hash (page));
@@ -309,6 +364,12 @@ public class AutosaveManager
     public void on_page_changed (Page page)
     {
         update_page (page);
+    }
+
+    public void on_pixels_changed (Page page)
+    {
+        if (!page.is_scanning ())
+            update_page_pixels (page);
     }
 
     public void on_needs_saving_changed (Book book)
@@ -356,6 +417,7 @@ public class AutosaveManager
             warning ("Error %d while executing query", result);
 
         update_page (page);
+        update_page_pixels (page);
     }
 
     private void update_page (Page page)
@@ -404,8 +466,7 @@ public class AutosaveManager
                 crop_width=$crop_width,
                 crop_height=$crop_height,
                 scan_direction=$((int)page.get_scan_direction ()),
-                color_profile=?1,
-                pixels=?2
+                color_profile=?1
                 WHERE process_id = $PID
                   AND page_hash = ?4
                   AND book_hash = ?5
@@ -427,15 +488,45 @@ public class AutosaveManager
         if (result != Sqlite.OK)
             warning ("Error %d while binding text", result);
 
-        if (page.get_pixels () != null)
+        warn_if_fail (stmt.step () == Sqlite.DONE);
+    }
+    
+    private void update_page_pixels (Page page) {
+        debug ("Updating the pixels in the autosave for a page");
+
+        string basename = @"$cur_book_revision-$(direct_hash (book))-$(direct_hash (page)).bin";
+        string filename = Path.build_filename (AUTOSAVE_DIR, basename);
+        var file = File.new_for_path (filename);
+        try {
+            file.replace_contents (page.get_pixels (), null, false, 0, null, null);
+        } catch (Error e) {
+            warning ("Error while saving autosave pixel data");
+        };
+        Sqlite.Statement stmt;
+        string query = @"
+            UPDATE pages
+                SET
+                pixels_filename=?1
+                WHERE process_id = $PID
+                  AND page_hash = ?2
+                  AND book_hash = ?3
+                  AND book_revision = ?4
+            ";
+
+        var result = database_connection.prepare_v2 (query, -1, out stmt);
+        if (result != Sqlite.OK)
         {
-            // (-1) is the special value SQLITE_TRANSIENT
-            result = stmt.bind_blob (2, page.get_pixels (), page.get_pixels ().length, (DestroyNotify)(-1));
-            if (result != Sqlite.OK)
-                warning ("Error %d while binding blob", result);
+            warning ("Error %d while preparing statement", result);
+            return;
         }
-        else
-            warn_if_fail (stmt.bind_null (2) == Sqlite.OK);
+
+        stmt.bind_int64 (2, direct_hash (page));
+        stmt.bind_int64 (3, direct_hash (book));
+        stmt.bind_int64 (4, cur_book_revision);
+
+        result = stmt.bind_text (1, filename);
+        if (result != Sqlite.OK)
+            warning ("Error %d while binding string", result);
 
         warn_if_fail (stmt.step () == Sqlite.DONE);
     }
@@ -461,7 +552,7 @@ public class AutosaveManager
                 crop_width,
                 crop_height,
                 scan_direction,
-                pixels,
+                pixels_filename,
                 id
             FROM pages
             WHERE process_id = $PID
@@ -520,8 +611,13 @@ public class AutosaveManager
                 new_page.move_crop (crop_x, crop_y);
             }
 
-            uchar[] new_pixels = new uchar[stmt.column_bytes (17)];
-            Memory.copy (new_pixels, stmt.column_blob (17), stmt.column_bytes (17));
+            var file = File.new_for_path (stmt.column_text (17));
+            uchar[] new_pixels;
+            try {
+                file.load_contents (null, out new_pixels, null);
+            } catch (Error e) {
+                warning ("Error while loading pixel data");
+            };
             new_page.set_pixels (new_pixels);
 
             var id = stmt.column_int (18);
