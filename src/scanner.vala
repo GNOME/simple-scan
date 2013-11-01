@@ -504,6 +504,32 @@ public class Scanner
         result = Sane.UNFIX (v_fixed);
     }
 
+    private void set_fixed_or_int_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, double value, out double result)
+    {
+        if (option.type == Sane.ValueType.FIXED)
+            set_fixed_option (handle, option, option_index, value, out result);
+        else if (option.type == Sane.ValueType.INT)
+        {
+            int r;
+            set_int_option (handle, option, option_index, (int) Math.round (value), out r);
+            result = r;
+        }
+        else
+        {
+            result = 0.0;
+            warning ("Unable to set unsupported option type");
+        }
+    }
+
+    private void set_option_to_max (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index)
+    {
+        if (option.constraint_type != Sane.ConstraintType.RANGE)
+            return;
+
+        var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &option.range.max, null);
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, option.range.max) -> (%s)", (int) option_index, Sane.status_to_string (status));
+    }
+
     private bool set_string_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, string value, out string result)
     {
         result = "";
@@ -1033,14 +1059,7 @@ public class Scanner
             option = get_option_by_name (handle, Sane.NAME_SCAN_RESOLUTION, out index);
             if (option != null)
             {
-                if (option.type == Sane.ValueType.FIXED)
-                    set_fixed_option (handle, option, index, job.dpi, out job.dpi);
-                else
-                {
-                    int dpi;
-                    set_int_option (handle, option, index, (int) job.dpi, out dpi);
-                    job.dpi = dpi;
-                }
+                set_fixed_or_int_option (handle, option, index, job.dpi, out job.dpi);
                 option = get_option_by_name (handle, Sane.NAME_BIT_DEPTH, out index);
                 if (option != null)
                 {
@@ -1049,52 +1068,32 @@ public class Scanner
                 }
             }
 
-            /* Always use maximum scan area - some scanners default to using partial areas.  This should be patched in sane-backends */
+            /* Set scan area */
             option = get_option_by_name (handle, Sane.NAME_SCAN_BR_X, out index);
             if (option != null)
             {
-                if (option.constraint_type == Sane.ConstraintType.RANGE)
-                {
-                    if (option.type == Sane.ValueType.FIXED)
-                        set_fixed_option (handle, option, index, Sane.UNFIX (option.range.max), null);
-                    else
-                        set_int_option (handle, option, index, (int) option.range.max, null);
-                }
+                if (job.page_width > 0)
+                    set_fixed_or_int_option (handle, option, index, convert_page_size (option, job.page_width, job.dpi), null);
+                else
+                    set_option_to_max (handle, option, index);
             }
             option = get_option_by_name (handle, Sane.NAME_SCAN_BR_Y, out index);
             if (option != null)
             {
-                if (option.constraint_type == Sane.ConstraintType.RANGE)
-                {
-                    if (option.type == Sane.ValueType.FIXED)
-                        set_fixed_option (handle, option, index, Sane.UNFIX (option.range.max), null);
-                    else
-                        set_int_option (handle, option, index, (int) option.range.max, null);
-                }
+                if (job.page_height > 0)
+                    set_fixed_or_int_option (handle, option, index, convert_page_size (option, job.page_height, job.dpi), null);
+                else
+                    set_option_to_max (handle, option, index);
             }
 
+            /* Set page size */
             option = get_option_by_name (handle, Sane.NAME_PAGE_WIDTH, out index);
-            if (option != null)
-            {
-                if (job.page_width > 0.0)
-                {
-                    if (option.type == Sane.ValueType.FIXED)
-                        set_fixed_option (handle, option, index, job.page_width / 10.0, null);
-                    else
-                        set_int_option (handle, option, index, job.page_width / 10, null);
-                }
-            }
+            if (option != null && job.page_width > 0.0)
+                set_fixed_or_int_option (handle, option, index, convert_page_size (option, job.page_width, job.dpi), null);
             option = get_option_by_name (handle, Sane.NAME_PAGE_HEIGHT, out index);
-            if (option != null)
-            {
-                if (job.page_height > 0.0)
-                {
-                    if (option.type == Sane.ValueType.FIXED)
-                        set_fixed_option (handle, option, index, job.page_height / 10.0, null);
-                    else
-                        set_int_option (handle, option, index, job.page_height / 10, null);
-                }
-            }
+            if (option != null && job.page_height > 0.0)
+                set_fixed_or_int_option (handle, option, index, convert_page_size (option, job.page_height, job.dpi), null);
+
             option = get_option_by_name (handle, Sane.NAME_BRIGHTNESS, out index);
             if (option != null)
             {
@@ -1153,6 +1152,19 @@ public class Scanner
             return;
 
         options.insert (option.name, (int) index);
+    }
+
+    private double convert_page_size (Sane.OptionDescriptor option, double size, double dpi)
+    {
+        if (option.unit == Sane.Unit.PIXEL)
+            return dpi * size / 254.0;
+        else if (option.unit == Sane.Unit.MM)
+            return size / 10.0;
+        else
+        {
+            warning ("Unable to set unsupported unit type");
+            return 0.0f;
+        }
     }
 
     private Sane.OptionDescriptor? get_option_by_name (Sane.Handle handle, string name, out int index)
