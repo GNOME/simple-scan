@@ -1049,16 +1049,23 @@ public class Scanner
                 }
             }
 
-            /* Always use maximum scan area - some scanners default to using partial areas.  This should be patched in sane-backends */
             option = get_option_by_name (handle, Sane.NAME_SCAN_BR_X, out index);
             if (option != null)
             {
                 if (option.constraint_type == Sane.ConstraintType.RANGE)
                 {
                     if (option.type == Sane.ValueType.FIXED)
+                    {
                         set_fixed_option (handle, option, index, Sane.UNFIX (option.range.max), null);
+                        if (job.page_width > 0)
+                            set_fixed_option (handle, option, index, job.page_width / 10.0, null);
+                    }
                     else
+                    {
                         set_int_option (handle, option, index, (int) option.range.max, null);
+                        if (job.page_width > 0)
+                            set_int_option (handle, option, index, (int) job.page_width / 10, null);
+                    }
                 }
             }
             option = get_option_by_name (handle, Sane.NAME_SCAN_BR_Y, out index);
@@ -1067,9 +1074,17 @@ public class Scanner
                 if (option.constraint_type == Sane.ConstraintType.RANGE)
                 {
                     if (option.type == Sane.ValueType.FIXED)
+                    {
                         set_fixed_option (handle, option, index, Sane.UNFIX (option.range.max), null);
+                        if (job.page_height > 0)
+                            set_fixed_option (handle, option, index, job.page_height / 10.0, null);
+                    }
                     else
+                    {
                         set_int_option (handle, option, index, (int) option.range.max, null);
+                        if (job.page_height > 0)
+                            set_int_option (handle, option, index, (int) job.page_height / 10, null);
+                    }
                 }
             }
 
