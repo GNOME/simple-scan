@@ -46,7 +46,7 @@ public class SimpleScan : Gtk.Application
         base.startup ();
 
         ui = new UserInterface ();
-        book = ui.get_book ();
+        book = ui.book;
         ui.start_scan.connect (scan_cb);
         ui.stop_scan.connect (cancel_cb);
         ui.email.connect (email_cb);
@@ -72,7 +72,7 @@ public class SimpleScan : Gtk.Application
 
             device_list.append (default_device);
             ui.set_scan_devices (device_list);
-            ui.set_selected_device (default_device.name);
+            ui.selected_device = default_device.name;
         }
     }
 
@@ -130,7 +130,7 @@ public class SimpleScan : Gtk.Application
         var page = book.get_page (-1);
         if (page != null && !page.has_data)
         {
-            ui.set_selected_page (page);
+            ui.selected_page = page;
             page.start ();
             return page;
         }
@@ -169,7 +169,7 @@ public class SimpleScan : Gtk.Application
                 page.set_custom_crop (cw, ch);
             page.move_crop (cx, cy);
         }
-        ui.set_selected_page (page);
+        ui.selected_page = page;
         page.start ();
 
         return page;
@@ -265,19 +265,19 @@ public class SimpleScan : Gtk.Application
 
     private void scanner_line_cb (Scanner scanner, ScanLine line)
     {
-        var page = book.get_page ((int) book.get_n_pages () - 1);
+        var page = book.get_page ((int) book.n_pages - 1);
         page.parse_scan_line (line);
     }
 
     private void scanner_page_done_cb (Scanner scanner)
     {
-        var page = book.get_page ((int) book.get_n_pages () - 1);
+        var page = book.get_page ((int) book.n_pages - 1);
         page.finish ();
     }
 
     private void remove_empty_page ()
     {
-        var page = book.get_page ((int) book.get_n_pages () - 1);
+        var page = book.get_page ((int) book.n_pages - 1);
 
         /* Remove a failed page */
         if (page.has_data)
@@ -305,7 +305,7 @@ public class SimpleScan : Gtk.Application
 
     private void scanner_scanning_changed_cb (Scanner scanner)
     {
-        ui.set_scanning (scanner.is_scanning ());
+        ui.scanning = scanner.is_scanning ();
     }
 
     private void scan_cb (UserInterface ui, string? device, ScanOptions options)
@@ -323,7 +323,7 @@ public class SimpleScan : Gtk.Application
         else
             extension = "pdf";
         var filename = "%s.%s".printf (filename_prefix, extension);
-        ui.set_default_file_name (filename);
+        ui.default_file_name = filename;
         scanner.scan (device, options);
     }
 
@@ -382,7 +382,7 @@ public class SimpleScan : Gtk.Application
         }
         else
         {
-            for (var i = 0; i < book.get_n_pages (); i++)
+            for (var i = 0; i < book.n_pages; i++)
             {
                 var path = get_temporary_filename ("scan", "jpg");
                 if (path == null)

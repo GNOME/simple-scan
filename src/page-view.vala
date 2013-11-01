@@ -26,13 +26,25 @@ public enum CropLocation
 public class PageView
 {
     /* Page being rendered */
-    private Page page;
+    public Page page { get; private set; }
 
     /* Image to render at current resolution */
     private Gdk.Pixbuf? image = null;
 
     /* Border around image */
-    private bool selected;
+    private bool selected_ = false;
+    public bool selected
+    {
+        get { return selected_; }
+        set    
+        {
+            if ((this.selected && selected) || (!this.selected && !selected))
+                return;
+            this.selected = selected;
+            changed ();
+        }
+    }
+
     private int border_width = 1;
 
     /* True if image needs to be regenerated */
@@ -49,8 +61,8 @@ public class PageView
     private int height;
 
     /* Location to place this page */
-    private int x_offset;
-    private int y_offset;
+    public int x_offset { get; set; }
+    public int y_offset { get; set; }
 
     private CropLocation crop_location;
     private double selected_crop_px;
@@ -61,7 +73,7 @@ public class PageView
     private int selected_crop_h;
 
     /* Cursor over this page */
-    private Gdk.CursorType cursor = Gdk.CursorType.ARROW;
+    public Gdk.CursorType cursor { get; private set; default = Gdk.CursorType.ARROW; }
 
     private int animate_n_segments = 7;
     private int animate_segment;
@@ -87,44 +99,6 @@ public class PageView
         page.crop_changed.disconnect (page_overlay_changed_cb);
         page.scan_line_changed.disconnect (page_overlay_changed_cb);
         page.scan_direction_changed.disconnect (scan_direction_changed_cb);
-    }
-
-    public Page get_page ()
-    {
-        return page;
-    }
-
-    public void set_selected (bool selected)
-    {
-        if ((this.selected && selected) || (!this.selected && !selected))
-            return;
-        this.selected = selected;
-        changed ();
-    }
-
-    public bool get_selected ()
-    {
-        return selected;
-    }
-
-    public void set_x_offset (int offset)
-    {
-        x_offset = offset;
-    }
-
-    public void set_y_offset (int offset)
-    {
-        y_offset = offset;
-    }
-
-    public int get_x_offset ()
-    {
-        return x_offset;
-    }
-
-    public int get_y_offset ()
-    {
-        return y_offset;
     }
 
     private uchar get_sample (uchar[] pixels, int offset, int x, int depth, int sample)
@@ -814,11 +788,6 @@ public class PageView
         /* Complete crop */
         crop_location = CropLocation.NONE;
         changed ();
-    }
-
-    public Gdk.CursorType get_cursor ()
-    {
-        return cursor;
     }
 
     private bool animation_cb ()

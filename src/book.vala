@@ -13,7 +13,20 @@ public class Book
 {
     private List<Page> pages;
 
-    private bool needs_saving;
+    public uint n_pages { get { return pages.length (); } }
+
+    private bool needs_saving_;
+    public bool needs_saving
+    {
+        get { return needs_saving_; }
+        set
+        {
+            if (needs_saving_ == value)
+                return;
+            needs_saving_ = value;
+            needs_saving_changed ();
+        }
+    }
 
     public signal void page_added (Page page);
     public signal void page_removed (Page page);
@@ -49,7 +62,7 @@ public class Book
 
     private void page_changed_cb (Page page)
     {
-        set_needs_saving (true);
+        needs_saving = true;
     }
 
     public Page append_page (int width, int height, int dpi, ScanDirection scan_direction)
@@ -60,7 +73,7 @@ public class Book
 
         pages.append (page);
         page_added (page);
-        set_needs_saving (true);
+        needs_saving = true;
 
         return page;
     }
@@ -70,7 +83,7 @@ public class Book
         pages.remove (page);
         pages.insert (page, (int) location);
         reordered ();
-        set_needs_saving (true);
+        needs_saving = true;
     }
 
     public void delete_page (Page page)
@@ -79,12 +92,7 @@ public class Book
         page.crop_changed.disconnect (page_changed_cb);
         page_removed (page);
         pages.remove (page);
-        set_needs_saving (true);
-    }
-
-    public uint get_n_pages ()
-    {
-        return pages.length ();
+        needs_saving = true;
     }
 
     public Page get_page (int page_number)
@@ -101,7 +109,7 @@ public class Book
 
     private File make_indexed_file (string uri, int i)
     {
-        if (get_n_pages () == 1)
+        if (n_pages == 1)
             return File.new_for_uri (uri);
 
         /* Insert index before extension */
@@ -113,7 +121,7 @@ public class Book
             suffix = basename.slice (extension_index, basename.length);
             prefix = uri.slice (0, uri.length - suffix.length);
         }
-        var width = get_n_pages ().to_string().length;
+        var width = n_pages.to_string().length;
         var number_format = "%%0%dd".printf (width);
         var filename = prefix + "-" + number_format.printf (i + 1) + suffix;
         return File.new_for_uri (filename);
@@ -121,7 +129,7 @@ public class Book
 
     private void save_multi_file (string type, int quality, File file) throws Error
     {
-        for (var i = 0; i < get_n_pages (); i++)
+        for (var i = 0; i < n_pages; i++)
         {
             var page = get_page (i);
             page.save (type, quality, make_indexed_file (file.get_uri (), i));
@@ -144,7 +152,7 @@ public class Book
         var writer = new PsWriter (stream);
         var surface = writer.surface;
 
-        for (var i = 0; i < get_n_pages (); i++)
+        for (var i = 0; i < n_pages; i++)
         {
             var page = get_page (i);
             var image = page.get_image (true);
@@ -248,14 +256,14 @@ public class Book
         writer.write_string ("<<\n");
         writer.write_string ("/Type /Pages\n");
         writer.write_string ("/Kids [");
-        for (var i = 0; i < get_n_pages (); i++)
+        for (var i = 0; i < n_pages; i++)
             writer.write_string (" %u 0 R".printf (pages_number + 1 + (i*3)));
         writer.write_string (" ]\n");
-        writer.write_string ("/Count %u\n".printf (get_n_pages ()));
+        writer.write_string ("/Count %u\n".printf (n_pages));
         writer.write_string (">>\n");
         writer.write_string ("endobj\n");
 
-        for (var i = 0; i < get_n_pages (); i++)
+        for (var i = 0; i < n_pages; i++)
         {
             var page = get_page (i);
             var image = page.get_image (true);
@@ -508,19 +516,6 @@ public class Book
             save_pdf (file, quality);
             break;
         }
-    }
-
-    public void set_needs_saving (bool needs_saving)
-    {
-        var needed_saving = this.needs_saving;
-        this.needs_saving = needs_saving;
-        if (needed_saving != needs_saving)
-            needs_saving_changed ();
-    }
-
-    public bool get_needs_saving ()
-    {
-        return needs_saving;
     }
 }
 

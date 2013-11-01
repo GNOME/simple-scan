@@ -59,7 +59,7 @@ public class AutosaveManager
         {
             if (book_ != null)
             {
-                for (var i = 0; i < book_.get_n_pages (); i++)
+                for (var i = 0; i < book_.n_pages; i++)
                 {
                     var page = book_.get_page (i);
                     on_page_removed (page);
@@ -74,7 +74,7 @@ public class AutosaveManager
             book_.page_removed.connect (on_page_removed);
             book_.reordered.connect (on_reordered);
             book_.cleared.connect (on_cleared);
-            for (var i = 0; i < book_.get_n_pages (); i++)
+            for (var i = 0; i < book_.n_pages; i++)
             {
                 var page = book.get_page (i);
                 on_page_added (page);
@@ -169,7 +169,7 @@ public class AutosaveManager
         man.book = book;
         if (!any_pages_recovered)
         {
-            for (var i = 0; i < book.get_n_pages (); i++)
+            for (var i = 0; i < book.n_pages; i++)
             {
                 var page = book.get_page (i);
                 man.on_page_added (page);
@@ -345,7 +345,7 @@ public class AutosaveManager
 
     public void on_reordered ()
     {
-        for (var i=0; i < book.get_n_pages (); i++)
+        for (var i=0; i < book.n_pages; i++)
         {
             var page = book.get_page (i);
             string query = @"
@@ -384,7 +384,7 @@ public class AutosaveManager
 
     public void on_needs_saving_changed (Book book)
     {
-        for (var n = 0; n < book.get_n_pages (); n++)
+        for (var n = 0; n < book.n_pages; n++)
         {
             var page = book.get_page (n);
             update_page (page);
