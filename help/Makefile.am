@@ -2,6 +2,12 @@
 
 HELP_ID = simple-scan
 HELP_POT = simple-scan-help.pot
+
+HELP_MEDIA = \
+             figures/icon.png		\
+             figures/preferences.png	\
+             figures/scan_toolbar.png
+
 HELP_FILES = index.page \
              adf.page \
              crop.page \
