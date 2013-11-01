@@ -373,7 +373,7 @@ public class Page
     {
         return_if_fail (width >= 1);
         return_if_fail (height >= 1);
-
+        
         if (crop_name == null && has_crop && crop_width == width && crop_height == height)
             return;
         crop_name = null;

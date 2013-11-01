@@ -38,13 +38,13 @@ public class AutosaveManager
                 }
                 book_.page_added.disconnect (on_page_added);
                 book_.page_removed.disconnect (on_page_removed);
-                book_.needs_saving_changed.disconnect (on_changed);
+                book_.reordered.disconnect (on_changed);
                 book_.cleared.disconnect (on_cleared);
             }
             book_ = value;
             book_.page_added.connect (on_page_added);
             book_.page_removed.connect (on_page_removed);
-            book_.needs_saving_changed.connect (on_changed);
+            book_.reordered.connect (on_changed);
             book_.cleared.connect (on_cleared);
             for (var i = 0; i < book_.n_pages; i++)
             {
@@ -221,11 +221,13 @@ public class AutosaveManager
     public void on_page_added (Page page)
     {
         page.scan_finished.connect (on_scan_finished);
+        page.crop_changed.connect (on_changed);
     }
 
     public void on_page_removed (Page page)
     {
         page.scan_finished.disconnect (on_scan_finished);
+        page.crop_changed.disconnect (on_changed);
 
         var filename = page_filenames.lookup (page);
         if (filename != null)
