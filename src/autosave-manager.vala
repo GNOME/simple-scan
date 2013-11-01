@@ -575,7 +575,7 @@ public class AutosaveManager
             warning ("Error %d while preparing statement", result);
 
         var first = true;
-        while (Sqlite.ROW == stmt.step ())
+        while (stmt.step () == Sqlite.ROW)
         {
             debug ("Found a page that needs to be recovered");
             if (first)
