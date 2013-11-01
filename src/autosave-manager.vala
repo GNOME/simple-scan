@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2011 Timo Kluck
- * Author: Timo Kluck <tkluck@infty.nl>
+ * Authors: Timo Kluck <tkluck@infty.nl>
+ *          Robert Ancell <robert.ancell@canonical.com>
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -9,48 +10,17 @@
  * license.
  */
 
-/*
- * We store autosaves in a database named
- *    ~/.cache/simple-scan/autosaves/autosaves.db
- * It contains a single table of pages, each containing the process id (pid) of
- * the simple-scan instance that saved it, and a hash of the Book and Page
- * objects corresponding to it. The pixels are saved as a BLOB.
- * Additionally, the autosaves directory contains a number of tiff files that
- * the user can use for manual recovery.
- *
- * At startup, we check whether autosaves.db contains any records
- * with a pid that does not match a current pid for simple-scan. If so, we take
- * ownership by an UPDATE statement changing to our own pid. Then, we
- * recover the book. We're trying our best to avoid the possible race
- * condition if several instances of simple-scan are started simultaneously.
- *
- * At application exit, we delete the records corresponding to our own pid.
- *
- * Important notes:
- *  - We enforce that there is only one AutosaveManager instance in a given
- *    process by using a create function.
- *  - It should be possible to change the book object at runtime, although this
- *    is not used in the current implementation so it has not been tested.
- */
-
 public class AutosaveManager
 {
     private static string AUTOSAVE_DIR = Path.build_filename (Environment.get_user_cache_dir (), "simple-scan", "autosaves");
-    private static string AUTOSAVE_NAME = "autosaves";
-    private static string AUTOSAVE_EXT = ".db";
-    private static string AUTOSAVE_FILENAME = Path.build_filename (AUTOSAVE_DIR, AUTOSAVE_NAME + AUTOSAVE_EXT);
-
-    private static string PID = ((int)(Posix.getpid ())).to_string ();
-    private static int number_of_instances = 0;
-
-    private Sqlite.Database database_connection;
-    private Book book_ = null;
+    private static string AUTOSAVE_FILENAME = "autosave.book";
+    private static string AUTOSAVE_PATH = Path.build_filename (AUTOSAVE_DIR, AUTOSAVE_FILENAME);
 
     private uint update_timeout = 0;
-    private uint pixel_update_timeout = 0;
-    private HashTable<Page, bool> dirty_pages;
-    private HashTable<Page, bool> pixel_dirty_pages;
 
+    private HashTable<Page, string> page_filenames;
+
+    private Book book_ = null;
     public Book book
     {
         get
@@ -68,619 +38,314 @@ public class AutosaveManager
                 }
                 book_.page_added.disconnect (on_page_added);
                 book_.page_removed.disconnect (on_page_removed);
-                book_.reordered.disconnect (on_reordered);
+                book_.needs_saving_changed.disconnect (on_changed);
                 book_.cleared.disconnect (on_cleared);
             }
             book_ = value;
             book_.page_added.connect (on_page_added);
             book_.page_removed.connect (on_page_removed);
-            book_.reordered.connect (on_reordered);
+            book_.needs_saving_changed.connect (on_changed);
             book_.cleared.connect (on_cleared);
             for (var i = 0; i < book_.n_pages; i++)
             {
-                var page = book.get_page (i);
+                var page = book_.get_page (i);
                 on_page_added (page);
             }
         }
     }
 
-    public static AutosaveManager? create (Book book)
+    public AutosaveManager ()
     {
-        /* compare autosave directories with pids of current instances of simple-scan
-         * take ownership of one of the ones that are unowned by renaming to the
-         * own pid. Then open the database and fill the book with the pages it
-         * contains.
-         */
-        if (number_of_instances > 0)
-            assert_not_reached ();
-
-        var man = new AutosaveManager ();
-        number_of_instances++;
-
-        try
-        {
-            man.database_connection = open_database_connection ();
-        }
-        catch
-        {
-            warning ("Could not connect to the autosave database; no autosaves will be kept.");
-            return null;
-        }
-
-        bool any_pages_recovered = false;
-        try
-        {
-            // FIXME: this only works on linux. We can maybe use Gtk.Application and some session bus id instead?
-            string current_pids;
-            Process.spawn_command_line_sync ("pidof simple-scan | sed \"s/ /,/g\"", out current_pids);
-            current_pids = current_pids.strip ();
-            Sqlite.Statement stmt;
-            var query = @"
-                   SELECT process_id, book_hash, book_revision FROM pages
-                   WHERE NOT process_id IN ($current_pids)
-                   LIMIT 1
-                ";
-
-            var result = man.database_connection.prepare_v2 (query, -1, out stmt);
-            if (result == Sqlite.OK)
-            {
-                while (stmt.step () == Sqlite.ROW)
-                {
-                    debug ("Found at least one autosave page, taking ownership");
-                    var unowned_pid = stmt.column_int (0);
-                    var book_hash = stmt.column_int (1);
-                    var book_revision = stmt.column_int (2);
-                    /* there's a possible race condition here when several instances
-                     * try to take ownership of the same rows. What would happen is
-                     * that this operations would affect no rows if another process
-                     * has taken ownership in the mean time. In that case, recover_book
-                     * does nothing, so there should be no problem.
-                     */
-                    query = @"
-                        UPDATE pages
-                           SET process_id = $PID
-                         WHERE process_id = ?2
-                           AND book_hash = ?3
-                           AND book_revision = ?4";
-                    Sqlite.Statement stmt2;
-                    result = man.database_connection.prepare_v2 (query, -1, out stmt2);
-                    if (result != Sqlite.OK)
-                        warning (@"Error preparing statement: $query");
-
-                    stmt2.bind_int64 (2, unowned_pid);
-                    stmt2.bind_int64 (3, book_hash);
-                    stmt2.bind_int64 (4, book_revision);
-                    result = stmt2.step();
-                    if (result == Sqlite.DONE)
-                    {
-                        any_pages_recovered = true;
-                        man.recover_book (book);
-                    }
-                    else
-                        warning ("Error %d while executing query", result);
-                }
-            }
-            else
-                warning ("Error %d while preparing statement", result);
-        }
-        catch (SpawnError e)
-        {
-            warning ("Could not obtain current process ids; not restoring any autosaves");
-        }
-
-        man.book = book;
-        if (!any_pages_recovered)
-        {
-            for (var i = 0; i < book.n_pages; i++)
-            {
-                var page = book.get_page (i);
-                man.on_page_added (page);
-            }
-        }
-
-        return man;
+        page_filenames = new HashTable<Page, string> (direct_hash, direct_equal);
     }
 
-    private AutosaveManager ()
+    public void load ()
     {
-        dirty_pages = new HashTable<Page, bool> (direct_hash, direct_equal);
-        pixel_dirty_pages = new HashTable<Page, bool> (direct_hash, direct_equal);
+        debug ("Loading autosave information");
+
+        book.clear ();
+        page_filenames.remove_all ();
+
+        var file = new KeyFile ();
+        try
+        {
+            file.load_from_file (AUTOSAVE_PATH, KeyFileFlags.NONE);
+        }
+        catch (Error e)
+        {
+            warning ("Could not load autosave infomation; not restoring any autosaves");
+            return;
+        }
+        var pages = get_value (file, "simple-scan", "pages");
+        foreach (var page_name in pages.split (" "))
+        {
+            debug ("Loading automatically saved page %s", page_name);
+
+            var scan_width = get_integer (file, page_name, "scan-width");
+            var scan_height = get_integer (file, page_name, "scan-height");
+            var rowstride = get_integer (file, page_name, "rowstride");
+            var n_channels = get_integer (file, page_name, "n-channels");
+            var depth = get_integer (file, page_name, "depth");
+            var dpi = get_integer (file, page_name, "dpi");
+            var scan_direction_name = get_value (file, page_name, "scan-direction");
+            ScanDirection scan_direction = ScanDirection.TOP_TO_BOTTOM;
+            switch (scan_direction_name)
+            {
+            case "TOP_TO_BOTTOM":
+                scan_direction = ScanDirection.TOP_TO_BOTTOM;
+                break;
+            case "LEFT_TO_RIGHT":
+                scan_direction = ScanDirection.LEFT_TO_RIGHT;
+                break;
+            case "BOTTOM_TO_TOP":
+                scan_direction = ScanDirection.BOTTOM_TO_TOP;
+                break;
+            case "RIGHT_TO_LEFT":
+                scan_direction = ScanDirection.RIGHT_TO_LEFT;
+                break;
+            }
+            var color_profile = get_value (file, page_name, "color-profile");
+            var pixels_filename = get_value (file, page_name, "pixels-filename");
+            var has_crop = get_boolean (file, page_name, "has-crop");
+            var crop_name = get_value (file, page_name, "crop-name");
+            var crop_x = get_integer (file, page_name, "crop-x");
+            var crop_y = get_integer (file, page_name, "crop-y");
+            var crop_width = get_integer (file, page_name, "crop-width");
+            var crop_height = get_integer (file, page_name, "crop-height");
+
+            uchar[]? pixels = null;
+            if (pixels_filename != "")
+            {
+                var path = Path.build_filename (AUTOSAVE_DIR, pixels_filename);
+                var f = File.new_for_path (path);
+                try
+                {
+                    f.load_contents (null, out pixels, null);
+                }
+                catch (Error e)
+                {
+                    warning ("Failed to load pixel information");
+                    continue;
+                }
+            }
+
+            var page = new Page.from_data (scan_width,
+                                           scan_height,
+                                           rowstride,
+                                           n_channels,
+                                           depth,
+                                           dpi,
+                                           scan_direction,
+                                           color_profile,
+                                           pixels,
+                                           has_crop,
+                                           crop_name,
+                                           crop_x,
+                                           crop_y,
+                                           crop_width,
+                                           crop_height);
+            page_filenames.insert (page, pixels_filename);
+            book.append_page (page);
+        }
+    }
+
+    private string get_value (KeyFile file, string group_name, string key, string default = "")
+    {
+        try
+        {
+            return file.get_value (group_name, key);
+        }
+        catch (Error e)
+        {
+            return default;
+        }
+    }
+
+    private int get_integer (KeyFile file, string group_name, string key, int default = 0)
+    {
+        try
+        {
+            return file.get_integer (group_name, key);
+        }
+        catch (Error e)
+        {
+            return default;
+        }
+    }
+
+    private bool get_boolean (KeyFile file, string group_name, string key, bool default = false)
+    {
+        try
+        {
+            return file.get_boolean (group_name, key);
+        }
+        catch (Error e)
+        {
+            return default;
+        }
     }
 
     public void cleanup ()
     {
-        debug ("Clean exit; deleting autosave records");
+        debug ("Deleting autosave records");
 
         if (update_timeout > 0)
             Source.remove (update_timeout);
         update_timeout = 0;
-        if (pixel_update_timeout > 0)
-            Source.remove (pixel_update_timeout);
-        pixel_update_timeout = 0;
 
-        var query = @"
-        SELECT pixels_filename FROM pages
-            WHERE process_id = $PID
-        ";
-        Sqlite.Statement stmt;
-        var result = database_connection.prepare_v2 (query, -1, out stmt);
-        if (result != Sqlite.OK)
-            warning (@"Error $result while preparing query");
-        while (stmt.step () == Sqlite.ROW)
-        {
-            var filename = stmt.column_text (0);
-            var file = File.new_for_path (filename);
-            try
-            {
-                file.delete (null);
-            }
-            catch (Error e)
-            {
-                warning ("Failed to delete autosave file");
-            }
-        }
-
-        warn_if_fail (database_connection.exec (@"
-            DELETE FROM pages
-                WHERE process_id = $PID
-        ") == Sqlite.OK);
-    }
-
-    static Sqlite.Database open_database_connection () throws Error
-    {
-        var autosaves_dir = File.new_for_path (AUTOSAVE_DIR);
+        Dir dir;
         try
         {
-            autosaves_dir.make_directory_with_parents ();
+            dir = Dir.open (AUTOSAVE_DIR);
         }
-        catch
-        { // the directory already exists
-            // pass
-        }
-        Sqlite.Database connection;
-        if (Sqlite.Database.open (AUTOSAVE_FILENAME, out connection) != Sqlite.OK)
-            throw new IOError.FAILED ("Could not connect to autosave database");
-        Sqlite.Statement stmt;
-        var result = connection.prepare_v2 ("PRAGMA user_version", -1, out stmt);
-        if (result != Sqlite.OK)
-            warning ("Error %d while executing pragma query", result);
-        while (stmt.step () == Sqlite.ROW)
+        catch (Error e)
         {
-            var user_version = stmt.column_int (0);
-            if (user_version < 1)
-            {
-                connection.exec("DROP TABLE pages");
-                connection.exec("PRAGMA user_version = 1");
-            }
+            warning ("Failed to delete autosaves: %s", e.message);
+            return;
         }
-        var query = @"
-            CREATE TABLE IF NOT EXISTS pages (
-                id integer PRIMARY KEY,
-                process_id integer,
-                page_hash integer,
-                book_hash integer,
-                book_revision integer,
-                page_number integer,
-                dpi integer,
-                width integer,
-                height integer,
-                depth integer,
-                n_channels integer,
-                rowstride integer,
-                color_profile string,
-                crop_x integer,
-                crop_y integer,
-                crop_width integer,
-                crop_height integer,
-                scan_direction integer,
-                pixels_filename string
-            )";
-        result = connection.exec(query);
-        if (result != Sqlite.OK)
-            warning ("Error %d while executing query", result);
-        return connection;
+
+        while (true)
+        {
+            var filename = dir.read_name ();
+            if (filename == null)
+                break;
+            var path = Path.build_filename (AUTOSAVE_DIR, filename);
+            FileUtils.unlink (path);
+        }
     }
 
-    void on_page_added (Page page)
+    public void on_page_added (Page page)
     {
-        insert_page (page);
-        // TODO: save a tiff file
-        page.size_changed.connect (on_page_changed);
-        page.scan_direction_changed.connect (on_page_changed);
-        page.crop_changed.connect (on_page_changed);
-        page.scan_finished.connect (on_page_changed);
-        page.scan_finished.connect (on_pixels_changed);
-        page.pixels_changed.connect (on_pixels_changed);
+        page.scan_finished.connect (on_scan_finished);
     }
 
     public void on_page_removed (Page page)
     {
-        page.pixels_changed.disconnect (on_page_changed);
-        page.size_changed.disconnect (on_page_changed);
-        page.scan_direction_changed.disconnect (on_page_changed);
-        page.crop_changed.disconnect (on_page_changed);
-        page.scan_finished.disconnect (on_page_changed);
-        page.pixels_changed.disconnect (on_pixels_changed);
+        page.scan_finished.disconnect (on_scan_finished);
 
-        var query = @"
-        SELECT pixels_filename FROM pages
-            WHERE process_id = $PID
-              AND page_hash = ?2
-              AND book_hash = ?3
-              AND book_revision = ?4
-        ";
-        Sqlite.Statement stmt;
-        var result = database_connection.prepare_v2 (query, -1, out stmt);
-        if (result != Sqlite.OK)
-            warning (@"Error $result while preparing query");
-        stmt.bind_int64 (2, direct_hash (page));
-        stmt.bind_int64 (3, direct_hash (book));
-        stmt.bind_int64 (4, cur_book_revision);
-        while (stmt.step () == Sqlite.ROW)
-        {
-            var filename = stmt.column_text (0);
-            var file = File.new_for_path (filename);
-            try
-            {
-                file.delete (null);
-            }
-            catch (Error e)
-            {
-                warning ("Failed to delete autosave file");
-            }
-        }
-
-        query = @"
-        DELETE FROM pages
-            WHERE process_id = $PID
-              AND page_hash = ?2
-              AND book_hash = ?3
-              AND book_revision = ?4
-        ";
-        result = database_connection.prepare_v2 (query, -1, out stmt);
-        if (result != Sqlite.OK)
-            warning (@"Error $result while preparing query");
-        stmt.bind_int64 (2, direct_hash (page));
-        stmt.bind_int64 (3, direct_hash (book));
-        stmt.bind_int64 (4, cur_book_revision);
-
-        result = stmt.step();
-        if (result != Sqlite.DONE)
-            warning ("Error %d while executing query", result);
+        var filename = page_filenames.lookup (page);
+        if (filename != null)
+            FileUtils.unlink (filename);
+        page_filenames.remove (page);
     }
 
-    public void on_reordered ()
+    public void on_scan_finished (Page page)
     {
-        for (var i=0; i < book.n_pages; i++)
-        {
-            var page = book.get_page (i);
-            var query = @"
-            UPDATE pages SET page_number = ?5
-            WHERE process_id = $PID
-              AND page_hash = ?2
-              AND book_hash = ?3
-              AND book_revision = ?4
-            ";
-            Sqlite.Statement stmt;
-            var result = database_connection.prepare_v2 (query, -1, out stmt);
-            if (result != Sqlite.OK)
-                warning (@"Error $result while preparing query");
-
-            stmt.bind_int64 (5, i);
-            stmt.bind_int64 (2, direct_hash (page));
-            stmt.bind_int64 (3, direct_hash (book));
-            stmt.bind_int64 (4, cur_book_revision);
-
-            result = stmt.step();
-            if (result != Sqlite.DONE)
-                warning ("Error %d while executing query", result);
-        }
+        save_pixels (page);
+        save (false);
     }
 
-    public void on_page_changed (Page page)
+    public void on_changed ()
     {
-        update_page (page);
+        save ();
     }
-
-    public void on_pixels_changed (Page page)
-    {
-        if (!page.is_scanning)
-            update_page_pixels (page);
-    }
-
-    public void on_needs_saving_changed (Book book)
-    {
-        for (var n = 0; n < book.n_pages; n++)
-        {
-            var page = book.get_page (n);
-            update_page (page);
-        }
-    }
-
-    private int cur_book_revision = 0;
 
     public void on_cleared ()
     {
-        cur_book_revision++;
+        page_filenames.remove_all ();
+        save ();
     }
 
-    private void insert_page (Page page)
+    private void save (bool do_timeout = true)
     {
-        debug ("Adding an autosave for a new page");
-        var query = @"
-            INSERT INTO pages
-                (process_id,
-                page_hash,
-                book_hash,
-                book_revision)
-                VALUES
-                ($PID,
-                ?2,
-                ?3,
-                ?4)
-        ";
-        Sqlite.Statement stmt;
-        var result = database_connection.prepare_v2 (query, -1, out stmt);
-        if (result != Sqlite.OK)
-            warning (@"Error $result while preparing query");
-
-        stmt.bind_int64 (2, direct_hash (page));
-        stmt.bind_int64 (3, direct_hash (book));
-        stmt.bind_int64 (4, cur_book_revision);
-
-        result = stmt.step();
-        if (result != Sqlite.DONE)
-            warning ("Error %d while executing query", result);
-
-        update_page (page);
-        update_page_pixels (page);
-    }
-
-    private void update_page (Page page)
-    {
-        dirty_pages.insert (page, true);
+        /* Cancel existing timeout */
         if (update_timeout > 0)
             Source.remove (update_timeout);
-        update_timeout = Timeout.add (100, () =>
+        update_timeout = 0;
+
+        if (do_timeout)
         {
-            var iter = HashTableIter<Page, bool> (dirty_pages);
-            Page p;
-            bool is_dirty;
-            while (iter.next (out p, out is_dirty))
-                real_update_page (p);
-
-            dirty_pages.remove_all ();
-            update_timeout = 0;
-
-            return false;
-        });
-    }
-
-    private void real_update_page (Page page)
-    {
-        debug ("Updating the autosave for a page");
-
-        Sqlite.Statement stmt;
-        var query = @"
-            UPDATE pages
-                SET
-                page_number=$(book.get_page_index (page)),
-                dpi=$(page.dpi),
-                width=$(page.width),
-                height=$(page.height),
-                depth=$(page.depth),
-                n_channels=$(page.n_channels),
-                rowstride=$(page.rowstride),
-                crop_x=$(page.crop_x),
-                crop_y=$(page.crop_y),
-                crop_width=$(page.crop_width),
-                crop_height=$(page.crop_height),
-                scan_direction=$((int)page.scan_direction),
-                color_profile=?1
-                WHERE process_id = $PID
-                  AND page_hash = ?4
-                  AND book_hash = ?5
-                  AND book_revision = ?6
-            ";
-
-        var result = database_connection.prepare_v2 (query, -1, out stmt);
-        if (result != Sqlite.OK)
-        {
-            warning ("Error %d while preparing statement", result);
-            return;
+            update_timeout = Timeout.add (100, () =>
+            {
+                real_save ();
+                update_timeout = 0;
+                return false;
+            });
         }
-
-        stmt.bind_int64 (4, direct_hash (page));
-        stmt.bind_int64 (5, direct_hash (book));
-        stmt.bind_int64 (6, cur_book_revision);
-        result = stmt.bind_text (1, page.color_profile ?? "");
-
-        if (result != Sqlite.OK)
-            warning ("Error %d while binding text", result);
-
-        warn_if_fail (stmt.step () == Sqlite.DONE);
+        else
+            real_save();
     }
 
-    private void update_page_pixels (Page page)
+    private void real_save ()
     {
-        pixel_dirty_pages.insert (page, true);
-        if (pixel_update_timeout > 0)
-            Source.remove (pixel_update_timeout);
-        pixel_update_timeout = Timeout.add (100, () =>
+        debug ("Autosaving book information");
+
+        var file = new KeyFile ();
+        var page_names = "";
+        for (var i = 0; i < book.n_pages; i++)
         {
-            var iter = HashTableIter<Page, bool> (pixel_dirty_pages);
-            Page p;
-            bool is_dirty;
-            while (iter.next (out p, out is_dirty))
-                real_update_page_pixels (p);
+            var page = book.get_page (i);
 
-            pixel_dirty_pages.remove_all ();
-            pixel_update_timeout = 0;
+            /* Skip empty pages */
+            if (!page.has_data)
+                continue;
 
-            return false;
-        });
-    }
-    
-    private void real_update_page_pixels (Page page)
-    {
-        debug ("Updating the pixels in the autosave for a page");
+            var page_name = "page-%d".printf (i);
+            if (page_names != "")
+                page_names += " ";
+            page_names += page_name;
 
-        var basename = @"$cur_book_revision-$(direct_hash (book))-$(direct_hash (page)).bin";
-        var filename = Path.build_filename (AUTOSAVE_DIR, basename);
-        var file = File.new_for_path (filename);
+            debug ("Autosaving page %s", page_name);
+
+            file.set_integer (page_name, "scan-width", page.scan_width);
+            file.set_integer (page_name, "scan-height", page.scan_height);
+            file.set_integer (page_name, "rowstride", page.rowstride);
+            file.set_integer (page_name, "n-channels", page.n_channels);
+            file.set_integer (page_name, "depth", page.depth);
+            file.set_integer (page_name, "dpi", page.dpi);
+            switch (page.scan_direction)
+            {
+            case ScanDirection.TOP_TO_BOTTOM:
+                file.set_value (page_name, "scan-direction", "TOP_TO_BOTTOM");
+                break;
+            case ScanDirection.LEFT_TO_RIGHT:
+                file.set_value (page_name, "scan-direction", "LEFT_TO_RIGHT");
+                break;
+            case ScanDirection.BOTTOM_TO_TOP:
+                file.set_value (page_name, "scan-direction", "BOTTOM_TO_TOP");
+                break;
+            case ScanDirection.RIGHT_TO_LEFT:
+                file.set_value (page_name, "scan-direction", "RIGHT_TO_LEFT");
+                break;
+            }
+            file.set_value (page_name, "color-profile", page.color_profile ?? "");
+            file.set_value (page_name, "pixels-filename", page_filenames.lookup (page) ?? "");
+            file.set_boolean (page_name, "has-crop", page.has_crop);
+            file.set_value (page_name, "crop-name", page.crop_name ?? "");
+            file.set_integer (page_name, "crop-x", page.crop_x);
+            file.set_integer (page_name, "crop-y", page.crop_y);
+            file.set_integer (page_name, "crop-width", page.crop_width);
+            file.set_integer (page_name, "crop-height", page.crop_height);
+        }
+        file.set_value ("simple-scan", "pages", page_names);
+ 
         try
         {
-            file.replace_contents (page.get_pixels (), null, false, 0, null, null);
+            DirUtils.create_with_parents (AUTOSAVE_DIR, 0777);
+            FileUtils.set_contents (AUTOSAVE_PATH, file.to_data ());
         }
         catch (Error e)
         {
-            warning ("Error while saving autosave pixel data");
+            warning ("Failed to write autosave: %s", e.message);
         }
-        Sqlite.Statement stmt;
-        var query = @"
-            UPDATE pages
-                SET
-                pixels_filename=?1
-                WHERE process_id = $PID
-                  AND page_hash = ?2
-                  AND book_hash = ?3
-                  AND book_revision = ?4
-            ";
-
-        var result = database_connection.prepare_v2 (query, -1, out stmt);
-        if (result != Sqlite.OK)
-        {
-            warning ("Error %d while preparing statement", result);
-            return;
-        }
-
-        stmt.bind_int64 (2, direct_hash (page));
-        stmt.bind_int64 (3, direct_hash (book));
-        stmt.bind_int64 (4, cur_book_revision);
-
-        result = stmt.bind_text (1, filename);
-        if (result != Sqlite.OK)
-            warning ("Error %d while binding string", result);
-
-        warn_if_fail (stmt.step () == Sqlite.DONE);
     }
 
-    private void recover_book (Book book)
+    private void save_pixels (Page page)
     {
-        Sqlite.Statement stmt;
-        var query = @"
-            SELECT process_id,
-                page_hash,
-                book_hash,
-                book_revision,
-                page_number,
-                dpi,
-                width,
-                height,
-                depth,
-                n_channels,
-                rowstride,
-                color_profile,
-                crop_x,
-                crop_y,
-                crop_width,
-                crop_height,
-                scan_direction,
-                pixels_filename,
-                id
-            FROM pages
-            WHERE process_id = $PID
-              AND book_revision = (
-                  SELECT MAX(book_revision) FROM pages WHERE process_id = $PID
-              )
-            ORDER BY page_number
-        ";
+        var filename = "%u.pixels".printf (direct_hash (page));
+        var path = Path.build_filename (AUTOSAVE_DIR, filename);
+        page_filenames.insert (page, filename);
 
-        var result = database_connection.prepare_v2 (query, -1, out stmt);
-        if (result != Sqlite.OK)
-            warning ("Error %d while preparing statement", result);
+        debug ("Autosaving page pixels to %s", path);
 
-        var first = true;
-        while (stmt.step () == Sqlite.ROW)
+        var file = File.new_for_path (path);
+        try
         {
-            debug ("Found a page that needs to be recovered");
-            if (first)
-            {
-                book.clear ();
-                first = false;
-            }
-            var dpi = stmt.column_int (5);
-            var width = stmt.column_int (6);
-            var height = stmt.column_int (7);
-            var depth = stmt.column_int (8);
-            var n_channels = stmt.column_int (9);
-            var scan_direction = (ScanDirection)stmt.column_int (16);
-
-            if (width <= 0 || height <= 0)
-                continue;
-
-            debug (@"Restoring a page of size $(width) x $(height)");
-            var new_page = book.append_page (width, height, dpi, scan_direction);
-
-            if (depth > 0 && n_channels > 0)
-            {
-                var info = new ScanPageInfo ();
-                info.width = width;
-                info.height = height;
-                info.depth = depth;
-                info.n_channels = n_channels;
-                info.dpi = dpi;
-                info.device = "";
-                new_page.set_page_info (info);
-            }
-
-            new_page.color_profile = stmt.column_text (11);
-            var crop_x = stmt.column_int (12);
-            var crop_y = stmt.column_int (13);
-            var crop_width = stmt.column_int (14);
-            var crop_height = stmt.column_int (15);
-            if (crop_width > 0 && crop_height > 0)
-            {
-                new_page.set_custom_crop (crop_width, crop_height);
-                new_page.move_crop (crop_x, crop_y);
-            }
-
-            var file = File.new_for_path (stmt.column_text (17));
-            uchar[] new_pixels;
-            try
-            {
-                file.load_contents (null, out new_pixels, null);
-            }
-            catch (Error e)
-            {
-                warning ("Error while loading pixel data");
-            }
-            new_page.set_pixels (new_pixels);
-
-            var id = stmt.column_int (18);
-            debug ("Updating autosave to point to our new copy of the page");
-            query = @"
-                UPDATE pages
-                   SET page_hash=?1,
-                       book_hash=?2,
-                       book_revision=?3
-                WHERE id = $id
-            ";
-
-            Sqlite.Statement stmt2;
-            var result2 = database_connection.prepare_v2 (query, -1, out stmt2);
-            if (result2 != Sqlite.OK)
-                warning (@"Error $result2 while preparing query");
-            stmt2.bind_int64 (1, direct_hash (new_page));
-            stmt2.bind_int64 (2, direct_hash (book));
-            stmt2.bind_int64 (3, cur_book_revision);
-
-            result2 = stmt2.step ();
-            if (result2 != Sqlite.DONE)
-                warning ("Error %d while executing query", result);
+            file.replace_contents (page.get_pixels (), null, false, FileCreateFlags.NONE, null);
         }
-
-        if (first)
-            debug ("No pages found to recover");
+        catch (Error e)
+        {
+            warning ("Failed to autosave page contents: %s", e.message);
+        }
     }
 }
