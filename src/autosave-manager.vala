@@ -64,6 +64,7 @@ public class AutosaveManager
         debug ("Loading autosave information");
 
         book.clear ();
+        page_filenames.remove_all ();
 
         var file = new KeyFile ();
         try
@@ -143,6 +144,7 @@ public class AutosaveManager
                                            crop_y,
                                            crop_width,
                                            crop_height);
+            page_filenames.insert (page, pixels_filename);
             book.append_page (page);
         }
     }
@@ -282,6 +284,8 @@ public class AutosaveManager
             if (page_names != "")
                 page_names += " ";
             page_names += page_name;
+
+            debug ("Autosaving page %s", page_name);
 
             file.set_integer (page_name, "scan-width", page.scan_width);
             file.set_integer (page_name, "scan-height", page.scan_height);
