@@ -113,7 +113,7 @@ public class AutosaveManager
             Process.spawn_command_line_sync ("pidof simple-scan | sed \"s/ /,/g\"", out current_pids);
             current_pids = current_pids.strip ();
             Sqlite.Statement stmt;
-            string query = @"
+            var query = @"
                    SELECT process_id, book_hash, book_revision FROM pages
                    WHERE NOT process_id IN ($current_pids)
                    LIMIT 1
@@ -192,7 +192,7 @@ public class AutosaveManager
             Source.remove (update_timeout);
         update_timeout = 0;
 
-        string query = @"
+        var query = @"
         SELECT pixels_filename FROM pages
             WHERE process_id = $PID
         ";
@@ -202,7 +202,7 @@ public class AutosaveManager
             warning (@"Error $result while preparing query");
         while (stmt.step () != Sqlite.DONE)
         {
-            string filename = stmt.column_text (0);
+            var filename = stmt.column_text (0);
             var file = File.new_for_path (filename);
             try
             {
@@ -210,7 +210,7 @@ public class AutosaveManager
             }
             catch (Error e)
             {
-                warning("Failed to delete autosave file");
+                warning ("Failed to delete autosave file");
             }
         }
 
@@ -247,7 +247,7 @@ public class AutosaveManager
                 connection.exec("PRAGMA user_version = 1");
             }
         }
-        string query = @"
+        var query = @"
             CREATE TABLE IF NOT EXISTS pages (
                 id integer PRIMARY KEY,
                 process_id integer,
@@ -296,7 +296,7 @@ public class AutosaveManager
         page.scan_finished.disconnect (on_page_changed);
         page.pixels_changed.disconnect (on_pixels_changed);
 
-        string query = @"
+        var query = @"
         SELECT pixels_filename FROM pages
             WHERE process_id = $PID
               AND page_hash = ?2
@@ -312,7 +312,7 @@ public class AutosaveManager
         stmt.bind_int64 (4, cur_book_revision);
         while (stmt.step () != Sqlite.DONE)
         {
-            string filename = stmt.column_text (0);
+            var filename = stmt.column_text (0);
             var file = File.new_for_path (filename);
             try
             {
@@ -348,7 +348,7 @@ public class AutosaveManager
         for (var i=0; i < book.n_pages; i++)
         {
             var page = book.get_page (i);
-            string query = @"
+            var query = @"
             UPDATE pages SET page_number = ?5
             WHERE process_id = $PID
               AND page_hash = ?2
@@ -401,7 +401,7 @@ public class AutosaveManager
     private void insert_page (Page page)
     {
         debug ("Adding an autosave for a new page");
-        string query = @"
+        var query = @"
             INSERT INTO pages
                 (process_id,
                 page_hash,
@@ -455,7 +455,7 @@ public class AutosaveManager
         debug ("Updating the autosave for a page");
 
         Sqlite.Statement stmt;
-        string query = @"
+        var query = @"
             UPDATE pages
                 SET
                 page_number=$(book.get_page_index (page)),
@@ -499,8 +499,8 @@ public class AutosaveManager
     {
         debug ("Updating the pixels in the autosave for a page");
 
-        string basename = @"$cur_book_revision-$(direct_hash (book))-$(direct_hash (page)).bin";
-        string filename = Path.build_filename (AUTOSAVE_DIR, basename);
+        var basename = @"$cur_book_revision-$(direct_hash (book))-$(direct_hash (page)).bin";
+        var filename = Path.build_filename (AUTOSAVE_DIR, basename);
         var file = File.new_for_path (filename);
         try
         {
@@ -511,7 +511,7 @@ public class AutosaveManager
             warning ("Error while saving autosave pixel data");
         }
         Sqlite.Statement stmt;
-        string query = @"
+        var query = @"
             UPDATE pages
                 SET
                 pixels_filename=?1
@@ -542,7 +542,7 @@ public class AutosaveManager
     private void recover_book (Book book)
     {
         Sqlite.Statement stmt;
-        string query = @"
+        var query = @"
             SELECT process_id,
                 page_hash,
                 book_hash,
