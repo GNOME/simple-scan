@@ -1,3 +1,9 @@
+Overview of changes in simple-scan 3.11.1
+
+  * Fix page size not being applied on some drivers
+  * Rewrite autosaving. Now uses files for scan data, is more efficient in
+    writing to disk and drops dependency on sqlite.
+
 Overview of changes in simple-scan 3.10.0
 
   * Fix --fix-pdf not working due to attempting to treat binary data as UTF-8
