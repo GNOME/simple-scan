@@ -52,17 +52,14 @@ public class Book
         set_needs_saving (true);
     }
 
-    public Page append_page (int width, int height, int dpi, ScanDirection scan_direction)
+    public void append_page (Page page)
     {
-        var page = new Page (width, height, dpi, scan_direction);
         page.pixels_changed.connect (page_changed_cb);
         page.crop_changed.connect (page_changed_cb);
 
         pages.append (page);
         page_added (page);
         set_needs_saving (true);
-
-        return page;
     }
 
     public void move_page (Page page, uint location)

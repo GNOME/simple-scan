@@ -81,6 +81,41 @@ public class Page
         this.scan_direction = scan_direction;
     }
 
+    public Page.from_data (int width,
+                           int n_rows,
+                           int rowstride,
+                           int n_channels,
+                           int depth,
+                           int dpi,
+                           ScanDirection scan_direction,
+                           string? color_profile,
+                           uchar[]? pixels,
+                           bool has_crop,
+                           string? crop_name,
+                           int crop_x,
+                           int crop_y,
+                           int crop_width,
+                           int crop_height)
+    {
+        this.width = width;
+        this.n_rows = n_rows;
+        this.expected_rows = n_rows;
+        this.rowstride = rowstride;
+        this.n_channels = n_channels;
+        this.depth = depth;
+        this.dpi = dpi;
+        this.scan_direction = scan_direction;
+        this.color_profile = color_profile;
+        this.pixels = pixels;
+        has_data_ = pixels != null;
+        this.has_crop_ = has_crop;
+        this.crop_name = crop_name;
+        this.crop_x = crop_x;
+        this.crop_y = crop_y;
+        this.crop_width = crop_width;
+        this.crop_height = crop_height;
+    }
+
     public void set_page_info (ScanPageInfo info)
     {
         expected_rows = info.height;
@@ -374,6 +409,11 @@ public class Page
         if (!has_crop_)
             return;
         has_crop_ = false;
+        crop_name = null;
+        crop_x = 0;
+        crop_y = 0;
+        crop_width = 0;
+        crop_height = 0;
         crop_changed ();
     }
 
@@ -541,13 +581,6 @@ public class Page
     public unowned uchar[] get_pixels ()
     {
         return pixels;
-    }
-
-    public void set_pixels (uchar[] new_pixels)
-    {
-        pixels = new_pixels;
-        has_data_ = new_pixels != null;
-        pixels_changed ();
     }
 
     // FIXME: Copied from page-view, should be shared code
