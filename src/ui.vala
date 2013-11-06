@@ -127,13 +127,13 @@ public class UserInterface
     public int contrast
     {
         get { return (int) contrast_adjustment.get_value (); }
-        set { contrast_adjustment.set_value (contrast); }
+        set { contrast_adjustment.set_value (value); }
     }
 
     public int quality
     {
         get { return (int) quality_adjustment.get_value (); }
-        set { quality_adjustment.set_value (quality); }
+        set { quality_adjustment.set_value (value); }
     }
 
     public string? selected_device
