@@ -19,7 +19,7 @@ public class UserInterface
     private Gtk.Builder builder;
 
     private Gtk.Window window;
-    private Gtk.VBox main_vbox;
+    private Gtk.Box main_vbox;
     private Gtk.InfoBar info_bar;
     private Gtk.Image info_bar_image;
     private Gtk.Label info_bar_label;
@@ -1358,7 +1358,7 @@ public class UserInterface
         window = (Gtk.Window) builder.get_object ("simple_scan_window");
         var app = Application.get_default () as Gtk.Application;
         app.add_window (window);
-        main_vbox = (Gtk.VBox) builder.get_object ("main_vbox");
+        main_vbox = (Gtk.Box) builder.get_object ("main_vbox");
         page_move_left_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_left_menuitem");
         page_move_right_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_right_menuitem");
         page_delete_menuitem = (Gtk.MenuItem) builder.get_object ("page_delete_menuitem");
