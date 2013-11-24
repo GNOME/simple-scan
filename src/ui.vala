@@ -222,7 +222,7 @@ public class UserInterface
                                             Gtk.MessageType.WARNING,
                                             Gtk.ButtonsType.NONE,
                                             "%s", error_title);
-        dialog.add_button ("_Close", 0);
+        dialog.add_button (_("_Close"), 0);
         dialog.format_secondary_text ("%s", error_text);
         dialog.destroy ();
     }
@@ -414,8 +414,8 @@ public class UserInterface
                                                  _("Save As..."),
                                                  window,
                                                  Gtk.FileChooserAction.SAVE,
-                                                 "_Cancel", Gtk.ResponseType.CANCEL,
-                                                 "_Save", Gtk.ResponseType.ACCEPT,
+                                                 _("_Cancel"), Gtk.ResponseType.CANCEL,
+                                                 _("_Save"), Gtk.ResponseType.ACCEPT,
                                                  null);
         save_dialog.set_do_overwrite_confirmation (true);
         save_dialog.set_local_only (false);
@@ -576,8 +576,8 @@ public class UserInterface
                                       /* Text in dialog warning when a document is about to be lost*/
                                       _("If you don't save, changes will be permanently lost."));
         dialog.add_button (discard_label, Gtk.ResponseType.NO);
-        dialog.add_button ("_Cancel", Gtk.ResponseType.CANCEL);
-        dialog.add_button ("_Save", Gtk.ResponseType.YES);
+        dialog.add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
+        dialog.add_button (_("_Save"), Gtk.ResponseType.YES);
 
         var response = dialog.run ();
         dialog.destroy ();
@@ -1416,7 +1416,7 @@ public class UserInterface
         hbox.pack_start (info_bar_label, true, true, 0);
         info_bar_label.show ();
 
-        info_bar_close_button = (Gtk.Button) info_bar.add_button ("_Close", Gtk.ResponseType.CLOSE);
+        info_bar_close_button = (Gtk.Button) info_bar.add_button (_("_Close"), Gtk.ResponseType.CLOSE);
         info_bar_change_scanner_button = (Gtk.Button) info_bar.add_button (/* Button in error infobar to open preferences dialog and change scanner */
                                                                            _("Change _Scanner"), 1);
 
