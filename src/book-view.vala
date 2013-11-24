@@ -12,7 +12,7 @@
 // FIXME: When scrolling, copy existing render sideways?
 // FIXME: Only render pages that change and only the part that changed
 
-public class BookView : Gtk.VBox
+public class BookView : Gtk.Box
 {
     /* Book being rendered */
     public Book book { get; private set; }

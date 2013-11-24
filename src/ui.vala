@@ -19,7 +19,7 @@ public class UserInterface
     private Gtk.Builder builder;
 
     private Gtk.Window window;
-    private Gtk.VBox main_vbox;
+    private Gtk.Box main_vbox;
     private Gtk.InfoBar info_bar;
     private Gtk.Image info_bar_image;
     private Gtk.Label info_bar_label;
@@ -222,7 +222,7 @@ public class UserInterface
                                             Gtk.MessageType.WARNING,
                                             Gtk.ButtonsType.NONE,
                                             "%s", error_title);
-        dialog.add_button (Gtk.Stock.CLOSE, 0);
+        dialog.add_button (_("_Close"), 0);
         dialog.format_secondary_text ("%s", error_text);
         dialog.destroy ();
     }
@@ -262,7 +262,7 @@ public class UserInterface
         if (have_error)
         {
             type = Gtk.MessageType.ERROR;
-            image_id = Gtk.Stock.DIALOG_ERROR;
+            image_id = "dialog-error";
             title = error_title;
             text = error_text;
             show_close_button = true;
@@ -271,7 +271,7 @@ public class UserInterface
         else if (device_model.iter_n_children (null) == 0)
         {
             type = Gtk.MessageType.WARNING;
-            image_id = Gtk.Stock.DIALOG_WARNING;
+            image_id = "dialog-warning";
             /* Warning displayed when no scanners are detected */
             title = _("No scanners detected");
             /* Hint to user on why there are no scanners detected */
@@ -284,7 +284,7 @@ public class UserInterface
         }
 
         info_bar.set_message_type (type);
-        info_bar_image.set_from_stock (image_id, Gtk.IconSize.DIALOG);
+        info_bar_image.set_from_icon_name (image_id, Gtk.IconSize.DIALOG);
         var message = "<big><b>%s</b></big>\n\n%s".printf (title, text);
         info_bar_label.set_markup (message);
         info_bar_close_button.set_visible (show_close_button);
@@ -414,8 +414,8 @@ public class UserInterface
                                                  _("Save As..."),
                                                  window,
                                                  Gtk.FileChooserAction.SAVE,
-                                                 Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL,
-                                                 Gtk.Stock.SAVE, Gtk.ResponseType.ACCEPT,
+                                                 _("_Cancel"), Gtk.ResponseType.CANCEL,
+                                                 _("_Save"), Gtk.ResponseType.ACCEPT,
                                                  null);
         save_dialog.set_do_overwrite_confirmation (true);
         save_dialog.set_local_only (false);
@@ -576,8 +576,8 @@ public class UserInterface
                                       /* Text in dialog warning when a document is about to be lost*/
                                       _("If you don't save, changes will be permanently lost."));
         dialog.add_button (discard_label, Gtk.ResponseType.NO);
-        dialog.add_button (Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
-        dialog.add_button (Gtk.Stock.SAVE, Gtk.ResponseType.YES);
+        dialog.add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
+        dialog.add_button (_("_Save"), Gtk.ResponseType.YES);
 
         var response = dialog.run ();
         dialog.destroy ();
@@ -1358,7 +1358,7 @@ public class UserInterface
         window = (Gtk.Window) builder.get_object ("simple_scan_window");
         var app = Application.get_default () as Gtk.Application;
         app.add_window (window);
-        main_vbox = (Gtk.VBox) builder.get_object ("main_vbox");
+        main_vbox = (Gtk.Box) builder.get_object ("main_vbox");
         page_move_left_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_left_menuitem");
         page_move_right_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_right_menuitem");
         page_delete_menuitem = (Gtk.MenuItem) builder.get_object ("page_delete_menuitem");
@@ -1407,7 +1407,7 @@ public class UserInterface
         content_area.add (hbox);
         hbox.show ();
 
-        info_bar_image = new Gtk.Image.from_stock (Gtk.Stock.DIALOG_WARNING, Gtk.IconSize.DIALOG);
+        info_bar_image = new Gtk.Image.from_icon_name ("dialog-warning", Gtk.IconSize.DIALOG);
         hbox.pack_start (info_bar_image, false, true, 0);
         info_bar_image.show ();
 
@@ -1416,7 +1416,7 @@ public class UserInterface
         hbox.pack_start (info_bar_label, true, true, 0);
         info_bar_label.show ();
 
-        info_bar_close_button = (Gtk.Button) info_bar.add_button (Gtk.Stock.CLOSE, Gtk.ResponseType.CLOSE);
+        info_bar_close_button = (Gtk.Button) info_bar.add_button (_("_Close"), Gtk.ResponseType.CLOSE);
         info_bar_change_scanner_button = (Gtk.Button) info_bar.add_button (/* Button in error infobar to open preferences dialog and change scanner */
                                                                            _("Change _Scanner"), 1);
 
