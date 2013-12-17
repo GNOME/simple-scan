@@ -3,7 +3,7 @@ bin_PROGRAMS = simple-scan
 resources.c: $(top_srcdir)/data/simple-scan.gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir=$(top_srcdir)/data/ $(top_srcdir)/data/simple-scan.gresource.xml)
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(top_srcdir)/data/ --generate-source $<
 
-simple_scan_SOURCES = \
+nodist_simple_scan_SOURCES = \
 	config.vapi \
 	book.vala \
 	book-view.vala \
@@ -22,7 +22,6 @@ simple_scan_VALAFLAGS = \
 	--pkg=gudev-1.0 \
 	--pkg=gio-2.0 \
 	--pkg=gtk+-3.0 \
-	--pkg=sqlite3 \
 	--debug \
 	--target-glib 2.32
 
