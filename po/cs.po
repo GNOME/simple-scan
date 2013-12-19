@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2013-09-03 12:47+1200\n"
-"PO-Revision-Date: 2012-07-23 08:57+0000\n"
-"Last-Translator: Adrian Guniš <andygun696@gmail.com>\n"
+"PO-Revision-Date: 2013-12-18 12:25+0000\n"
+"Last-Translator: Tadeáš Pařík <tadeas.parik@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2013-12-02 05:34+0000\n"
-"X-Generator: Launchpad (build 16856)\n"
+"X-Launchpad-Export-Date: 2013-12-19 05:44+0000\n"
+"X-Generator: Launchpad (build 16872)\n"
 
 #. Title of scan window
 #: ../data/simple-scan.ui.h:2 ../data/simple-scan.desktop.in.h:1
@@ -260,17 +260,17 @@ msgstr "Velikost stránky:"
 #. Label beside brightness scale
 #: ../data/simple-scan.ui.h:95
 msgid "Brightness:"
-msgstr ""
+msgstr "Jas:"
 
 #. Label beside contrast scale
 #: ../data/simple-scan.ui.h:97
 msgid "Contrast:"
-msgstr ""
+msgstr "Kontrast:"
 
 #. Label beside quality scale
 #: ../data/simple-scan.ui.h:99
 msgid "Quality:"
-msgstr ""
+msgstr "Kvalita:"
 
 #. Combo box label for scanning both sides of a page
 #: ../data/simple-scan.ui.h:101
@@ -379,19 +379,19 @@ msgstr ""
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:18
 msgid "Brightness of scan"
-msgstr ""
+msgstr "Jas skenu"
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:19
 msgid "The brightness adjustment from -100 to 100 (0 being none)."
-msgstr ""
+msgstr "Nastavení jasu od -100 do 100 (0 žádná hodnota)."
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:20
 msgid "Contrast of scan"
-msgstr ""
+msgstr "Kontrast skenu"
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:21
 msgid "The contrast adjustment from -100 to 100 (0 being none)."
-msgstr ""
+msgstr "Nastavení kontrastu od -100 do 100 (0 žádná hodnota)."
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:22
 msgid "Resolution of last scanned image"
@@ -438,11 +438,11 @@ msgstr ""
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:32
 msgid "Quality value to use for JPEG compression"
-msgstr ""
+msgstr "Hodnota kvality u JPEG komprese"
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:33
 msgid "Quality value to use for JPEG compression."
-msgstr ""
+msgstr "Hodnota kvality u JPEG komprese."
 
 #. Error displayed when no scanners to scan with
 #: ../src/scanner.vala:840
@@ -480,120 +480,120 @@ msgstr ""
 "Oprava PDF souborů generovaných se starší verzí nástroje Jednoduché skenování"
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.vala:294
+#: ../src/simple-scan.vala:297
 msgid "Failed to scan"
 msgstr "Skenování selhalo"
 
 #. Default filename to use when saving document (and extension will be added, e.g. .jpg)
-#: ../src/simple-scan.vala:313
+#: ../src/simple-scan.vala:316
 msgid "Scanned Document"
 msgstr "Skenovaný dokument"
 
 #. Arguments and description for --help text
-#: ../src/simple-scan.vala:526
+#: ../src/simple-scan.vala:529
 msgid "[DEVICE...] - Scanning utility"
 msgstr "[ZAŘÍZENÍ...] - Nástroj pro skenování"
 
 #. Text printed out when an unknown command-line argument provided
-#: ../src/simple-scan.vala:537
+#: ../src/simple-scan.vala:540
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Spustit příkaz „%s --help“ k zobrazení úplného seznamu dostupných přepínačů "
 "příkazové řádky."
 
-#: ../src/ui.vala:91
+#: ../src/ui.vala:103
 msgid "Scanned Document.pdf"
 msgstr "Naskenovaný dokument.pdf"
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.vala:170
+#: ../src/ui.vala:233
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr "Pro přístup k '%s' je vyžadováno uživatelské jméno a heslo"
 
 #. Warning displayed when no scanners are detected
-#: ../src/ui.vala:213
+#: ../src/ui.vala:276
 msgid "No scanners detected"
 msgstr "Nenalezen žádný skener"
 
 #. Hint to user on why there are no scanners detected
-#: ../src/ui.vala:215
+#: ../src/ui.vala:278
 msgid "Please check your scanner is connected and powered on"
 msgstr "Zkontrolujte prosím, že je váš skener připojen a zapnut"
 
 #. Save dialog: Dialog title
-#: ../src/ui.vala:375
+#: ../src/ui.vala:414
 msgid "Save As..."
 msgstr "Uložit jako..."
 
 #. Save dialog: Filter name to show only image files
-#: ../src/ui.vala:389
+#: ../src/ui.vala:428
 msgid "Image Files"
 msgstr "Soubory obrázků"
 
 #. Save dialog: Filter name to show all files
-#: ../src/ui.vala:395
+#: ../src/ui.vala:434
 msgid "All Files"
 msgstr "Všechny soubory"
 
 #. 
-#: ../src/ui.vala:400
+#: ../src/ui.vala:439
 msgid "Select File _Type"
 msgstr "Zvolit _typ souboru"
 
 #. Save dialog: Label for saving in PDF format
-#: ../src/ui.vala:414
+#: ../src/ui.vala:453
 msgid "PDF (multi-page document)"
 msgstr "PDF (vícestránkový dokument)"
 
 #. Save dialog: Label for saving in JPEG format
-#: ../src/ui.vala:420
+#: ../src/ui.vala:459
 msgid "JPEG (compressed)"
 msgstr "JPEG (komprimovaný)"
 
 #. Save dialog: Label for saving in PNG format
-#: ../src/ui.vala:426
+#: ../src/ui.vala:465
 msgid "PNG (lossless)"
 msgstr "PNG (bezeztrátový)"
 
 #. Title of error dialog when save failed
-#: ../src/ui.vala:515
+#: ../src/ui.vala:554
 msgid "Failed to save file"
 msgstr "Uložení souboru selhalo"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:538
+#: ../src/ui.vala:577
 msgid "If you don't save, changes will be permanently lost."
 msgstr "Pokud neuložíte, změny budou nenávratně ztraceny."
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:575
+#: ../src/ui.vala:614
 msgid "Save current document?"
 msgstr "Uložit stávající dokument?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: ../src/ui.vala:577
+#: ../src/ui.vala:616
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
 #. Error message display when unable to save image for preview
-#: ../src/ui.vala:872
+#: ../src/ui.vala:879
 msgid "Unable to save image for preview"
 msgstr "Nezdařilo se uložit obrázek pro náhled"
 
 #. Error message display when unable to preview image
-#: ../src/ui.vala:884
+#: ../src/ui.vala:891
 msgid "Unable to open image preview application"
 msgstr "Nelze otevřít aplikaci s náhledem obrázku"
 
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.vala:1131
+#: ../src/ui.vala:1138
 msgid "Unable to open help file"
 msgstr "Nelze otevřít soubor s nápovědou"
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.vala:1142
+#: ../src/ui.vala:1149
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -623,16 +623,16 @@ msgstr ""
 "Pokud ne, přečtěte si ji na stránce <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: ../src/ui.vala:1145
+#: ../src/ui.vala:1152
 msgid "About Simple Scan"
 msgstr "O aplikaci Jednoduché skenování"
 
 #. Description of program
-#: ../src/ui.vala:1148
+#: ../src/ui.vala:1155
 msgid "Simple document scanning tool"
 msgstr "Jednoduchý nástroj pro skenování dokumentů"
 
-#: ../src/ui.vala:1157
+#: ../src/ui.vala:1164
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -642,99 +642,94 @@ msgstr ""
 "  Ondra Kadlec https://launchpad.net/~o-kadlec\n"
 "  Petr R. https://launchpad.net/~ateps-r\n"
 "  Petr Šimáček https://launchpad.net/~petr-simacek\n"
+"  Tadeáš Pařík https://launchpad.net/~pariktadeas\n"
 "  Vitezslav Kotrla https://launchpad.net/~vitezslav-kotrla\n"
 "  Vojtěch Trefný https://launchpad.net/~vojtech.trefny\n"
 "  la_serpe https://launchpad.net/~tom-mil"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:1168
+#: ../src/ui.vala:1175
 msgid "Save document before quitting?"
 msgstr "Uložit dokument před ukončením?"
 
 #. Button in dialog to quit and discard unsaved document
-#: ../src/ui.vala:1170
+#: ../src/ui.vala:1177
 msgid "Quit without Saving"
 msgstr "Ukončit bez uložení"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.vala:1300
+#: ../src/ui.vala:1307
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (výchozí)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.vala:1303
+#: ../src/ui.vala:1310
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (náčrt)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.vala:1306
+#: ../src/ui.vala:1313
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (vysoké rozlišení)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.vala:1309
+#: ../src/ui.vala:1316
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Title of dialog when cannot load required files
-#: ../src/ui.vala:1344
+#: ../src/ui.vala:1351
 msgid "Files missing"
 msgstr "Soubory chybí"
 
 #. Description in dialog when cannot load required files
-#: ../src/ui.vala:1346
+#: ../src/ui.vala:1353
 msgid "Please check your installation"
 msgstr "Zkontrolujte prosím svoji instalaci"
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.vala:1414
+#: ../src/ui.vala:1421
 msgid "Change _Scanner"
 msgstr "Změnit _skener"
 
 #. Combo box value for automatic paper size
-#: ../src/ui.vala:1420
+#: ../src/ui.vala:1427
 msgid "Automatic"
 msgstr "Automaticky"
 
-#: ../src/ui.vala:1460
-#, c-format
+#: ../src/ui.vala:1467
 msgid "Darker"
-msgstr ""
-
-#: ../src/ui.vala:1462
-#, c-format
-msgid "Lighter"
-msgstr ""
+msgstr "Tmavší"
 
 #: ../src/ui.vala:1469
-#, c-format
-msgid "Less"
-msgstr ""
+msgid "Lighter"
+msgstr "Světlejší"
 
-#: ../src/ui.vala:1471
-#, c-format
-msgid "More"
-msgstr ""
+#: ../src/ui.vala:1476
+msgid "Less"
+msgstr "Méně"
 
 #: ../src/ui.vala:1478
-#, c-format
+msgid "More"
+msgstr "Více"
+
+#: ../src/ui.vala:1485
 msgid "Minimum"
-msgstr ""
+msgstr "Minimum"
 
-#: ../src/ui.vala:1480
-#, c-format
+#: ../src/ui.vala:1487
 msgid "Maximum"
-msgstr ""
+msgstr "Maximum"
 
-#: ../src/ui.vala:1533
+#: ../src/ui.vala:1540
 msgid "Saving document..."
 msgstr "Ukládání dokumentu..."
 
-#: ../src/ui.vala:1551
+#: ../src/ui.vala:1558
 #, c-format
 msgid "Saving page %d out of %d"
 msgstr "Ukládání strany %d z %d"
