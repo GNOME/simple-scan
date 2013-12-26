@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<interface>
+  <!-- interface-requires gtk+ 3.8 -->
+  <menu id="appmenu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_New Document</attribute>
+        <attribute name="action">app.new_document</attribute>
+      </item>
+    </section>
+    <section>
+      <submenu>
+        <attribute name="label" translatable="yes">_Document</attribute>
+        <section>
+          <item>
+            <attribute name="label" translatable="yes">_Save</attribute>
+            <attribute name="action">app.save</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">_Save As...</attribute>
+            <attribute name="action">app.save_as</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">_Email...</attribute>
+            <attribute name="action">app.email</attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">_Print...</attribute>
+            <attribute name="action">app.print</attribute>
+          </item>
+        </section>
+      </submenu>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Help</attribute>
+        <attribute name="action">app.help</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_About Simple Scan</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Quit</attribute>
+        <attribute name="action">app.quit</attribute>
+        <attribute name="accel"><![CDATA[<Ctrl>Q]]></attribute>
+      </item>
+    </section>
+  </menu>
+</interface>
