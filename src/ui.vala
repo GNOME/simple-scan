@@ -18,7 +18,7 @@ public class UserInterface
 
     private Gtk.Builder builder;
 
-    private Gtk.Window window;
+    private Gtk.ApplicationWindow window;
     private Gtk.Box main_vbox;
     private Gtk.InfoBar info_bar;
     private Gtk.Image info_bar_image;
@@ -1355,7 +1355,7 @@ public class UserInterface
         }
         builder.connect_signals (this);
 
-        window = (Gtk.Window) builder.get_object ("simple_scan_window");
+        window = (Gtk.ApplicationWindow) builder.get_object ("simple_scan_window");
         var app = Application.get_default () as Gtk.Application;
         app.add_window (window);
         main_vbox = (Gtk.Box) builder.get_object ("main_vbox");
@@ -1590,7 +1590,7 @@ class ProgressBarDialog : Gtk.Window
 {
     Gtk.ProgressBar bar;
 
-    public ProgressBarDialog (Gtk.Window parent, string title)
+    public ProgressBarDialog (Gtk.ApplicationWindow parent, string title)
     {
         bar = new Gtk.ProgressBar ();
         var hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 5);
