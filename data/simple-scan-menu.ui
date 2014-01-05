@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<interface>
+  <!-- interface-requires gtk+ 3.8 -->
+  <menu id="appmenu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">New Document</attribute>
+        <attribute name="action">app.new_document</attribute>
+        <attribute name="accel"><![CDATA[<Ctrl>N]]></attribute>
+      </item>
+    </section>
+    <section>
+      <submenu>
+        <attribute name="label" translatable="yes">Document</attribute>
+        <section>
+          <item>
+            <attribute name="label" translatable="yes">Save</attribute>
+            <attribute name="action">app.save</attribute>
+            <attribute name="accel"><![CDATA[<Ctrl>S]]></attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Save As...</attribute>
+            <attribute name="action">app.save_as</attribute>
+            <attribute name="accel"><![CDATA[<Shift><Ctrl>S]]></attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Email...</attribute>
+            <attribute name="action">app.email</attribute>
+            <attribute name="accel"><![CDATA[<Ctrl>E]]></attribute>
+          </item>
+          <item>
+            <attribute name="label" translatable="yes">Print...</attribute>
+            <attribute name="action">app.print</attribute>
+            <attribute name="accel"><![CDATA[<Ctrl>P]]></attribute>
+          </item>
+        </section>
+      </submenu>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Help</attribute>
+        <attribute name="action">app.help</attribute>
+        <attribute name="accel"><![CDATA[F1]]></attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">About</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Quit</attribute>
+        <attribute name="action">app.quit</attribute>
+        <attribute name="accel"><![CDATA[<Ctrl>Q]]></attribute>
+      </item>
+    </section>
+  </menu>
+</interface>

@@ -14,11 +14,26 @@ public class UserInterface
     private const int DEFAULT_TEXT_DPI = 150;
     private const int DEFAULT_PHOTO_DPI = 300;
 
+    private const GLib.ActionEntry[] action_entries =
+    {
+        { "new_document", new_document_activate_cb },
+        { "save", save_document_activate_cb },
+        { "save_as", save_as_document_activate_cb },
+        { "email", email_document_activate_cb },
+        { "print", print_document_activate_cb },
+        { "preferences", preferences_activate_cb },
+        { "help", help_contents_activate_cb },
+        { "about", about_activate_cb },
+        { "quit", quit_activate_cb }
+    };
+
     private Settings settings;
 
     private Gtk.Builder builder;
 
-    private Gtk.Window window;
+    private Gtk.ApplicationWindow window;
+    private GLib.MenuModel app_menu;
+    private Gtk.MenuBar menubar;
     private Gtk.Box main_vbox;
     private Gtk.InfoBar info_bar;
     private Gtk.Image info_bar_image;
@@ -607,8 +622,7 @@ public class UserInterface
         copy_to_clipboard_menuitem.set_sensitive (false);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT new_button_clicked_cb", instance_pos = -1)]
-    public void new_button_clicked_cb (Gtk.Widget widget)
+    private void new_document ()
     {
         if (!prompt_to_save (/* Text in dialog warning when a document is about to be lost */
                              _("Save current document?"),
@@ -619,6 +633,17 @@ public class UserInterface
         if (scanning)
             stop_scan ();
         clear_document ();
+    }
+
+    [CCode (cname = "G_MODULE_EXPORT new_button_clicked_cb", instance_pos = -1)]
+    public void new_button_clicked_cb (Gtk.Widget widget)
+    {
+        new_document();
+    }
+
+    public void new_document_activate_cb ()
+    {
+        new_document();
     }
 
     private void set_document_hint (string document_hint)
@@ -789,6 +814,11 @@ public class UserInterface
 
     [CCode (cname = "G_MODULE_EXPORT preferences_button_clicked_cb", instance_pos = -1)]
     public void preferences_button_clicked_cb (Gtk.Widget widget)
+    {
+        preferences_dialog.present ();
+    }
+
+    public void preferences_activate_cb ()
     {
         preferences_dialog.present ();
     }
@@ -1061,6 +1091,11 @@ public class UserInterface
         save_document (false);
     }
 
+    public void save_document_activate_cb ()
+    {
+        save_document (false);
+    }
+
     [CCode (cname = "G_MODULE_EXPORT copy_to_clipboard_button_clicked_cb", instance_pos = -1)]
     public void copy_to_clipboard_button_clicked_cb (Gtk.Widget widget)
     {
@@ -1071,6 +1106,11 @@ public class UserInterface
 
     [CCode (cname = "G_MODULE_EXPORT save_as_file_button_clicked_cb", instance_pos = -1)]
     public void save_as_file_button_clicked_cb (Gtk.Widget widget)
+    {
+        save_document (true);
+    }
+
+    public void save_as_document_activate_cb ()
     {
         save_document (true);
     }
@@ -1106,8 +1146,12 @@ public class UserInterface
         email (document_hint, quality);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT print_button_clicked_cb", instance_pos = -1)]
-    public void print_button_clicked_cb (Gtk.Widget widget)
+    public void email_document_activate_cb ()
+    {
+        email (document_hint, quality);
+    }
+    
+    private void print_document ()
     {
         var print = new Gtk.PrintOperation ();
         print.set_n_pages ((int) book.n_pages);
@@ -1125,8 +1169,18 @@ public class UserInterface
         print.draw_page.disconnect (draw_page);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT help_contents_menuitem_activate_cb", instance_pos = -1)]
-    public void help_contents_menuitem_activate_cb (Gtk.Widget widget)
+    [CCode (cname = "G_MODULE_EXPORT print_button_clicked_cb", instance_pos = -1)]
+    public void print_button_clicked_cb (Gtk.Widget widget)
+    {
+        print_document ();
+    }
+
+    public void print_document_activate_cb ()
+    {
+        print_document ();
+    }
+
+    private void show_help ()
     {
         try
         {
@@ -1140,8 +1194,18 @@ public class UserInterface
         }
     }
 
-    [CCode (cname = "G_MODULE_EXPORT about_menuitem_activate_cb", instance_pos = -1)]
-    public void about_menuitem_activate_cb (Gtk.Widget widget)
+    [CCode (cname = "G_MODULE_EXPORT help_contents_menuitem_activate_cb", instance_pos = -1)]
+    public void help_contents_menuitem_activate_cb (Gtk.Widget widget)
+    {
+        show_help ();
+    }
+
+    public void help_contents_activate_cb ()
+    {
+        show_help ();
+    }
+
+    private void show_about ()
     {
         string[] authors = { "Robert Ancell <robert.ancell@canonical.com>" };
 
@@ -1167,6 +1231,17 @@ public class UserInterface
                                "license", license,
                                "wrap-license", true,
                                null);
+    }
+
+    [CCode (cname = "G_MODULE_EXPORT about_menuitem_activate_cb", instance_pos = -1)]
+    public void about_menuitem_activate_cb (Gtk.Widget widget)
+    {
+        show_about ();
+    }
+
+    public void about_activate_cb ()
+    {
+        show_about ();
     }
 
     private bool on_quit ()
@@ -1209,6 +1284,11 @@ public class UserInterface
 
     [CCode (cname = "G_MODULE_EXPORT quit_menuitem_activate_cb", instance_pos = -1)]
     public void quit_menuitem_activate_cb (Gtk.Widget widget)
+    {
+        on_quit ();
+    }
+
+    public void quit_activate_cb ()
     {
         on_quit ();
     }
@@ -1333,16 +1413,36 @@ public class UserInterface
         copy_to_clipboard_menuitem.set_sensitive (true);
     }
 
+    private bool has_app_menu (Gtk.Application app)
+    {
+        /* We have three cases:
+         * - GNOME 3: show-app-menu true, show-menubar false -> use the app menu
+         * - Unity, OSX: show-app-menu and show-menubar true -> use the normal menu
+         * - Other WM, Windows: show-app-menu and show-menubar false -> use the normal menu
+         */
+        var gtk_settings = Gtk.Settings.get_default ();
+
+        bool show_app_menu = false;
+        bool show_menubar = true;
+        gtk_settings.get ("gtk-shell-shows-app-menu", &show_app_menu, "gtk-shell-shows-menubar", &show_menubar, null);
+
+        return show_app_menu && !show_menubar;
+    }
+
     private void load ()
     {
         Gtk.IconTheme.get_default ().append_search_path (ICON_DIR);
 
         Gtk.Window.set_default_icon_name ("scanner");
 
+        var app = Application.get_default () as Gtk.Application;
+
         builder = new Gtk.Builder ();
         try
         {
             builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan.ui");
+            if (has_app_menu (app))
+                builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan-menu.ui");
         }
         catch (Error e)
         {
@@ -1355,9 +1455,16 @@ public class UserInterface
         }
         builder.connect_signals (this);
 
-        window = (Gtk.Window) builder.get_object ("simple_scan_window");
-        var app = Application.get_default () as Gtk.Application;
+        window = (Gtk.ApplicationWindow) builder.get_object ("simple_scan_window");
         app.add_window (window);
+        menubar = (Gtk.MenuBar) builder.get_object ("menubar");
+        if (has_app_menu (app))
+        {
+            app_menu = (GLib.MenuModel) builder.get_object ("appmenu");
+            app.add_action_entries (action_entries, this);
+            app.set_app_menu (app_menu);
+            menubar.set_visible(false);
+        }
         main_vbox = (Gtk.Box) builder.get_object ("main_vbox");
         page_move_left_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_left_menuitem");
         page_move_right_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_right_menuitem");
@@ -1590,7 +1697,7 @@ class ProgressBarDialog : Gtk.Window
 {
     Gtk.ProgressBar bar;
 
-    public ProgressBarDialog (Gtk.Window parent, string title)
+    public ProgressBarDialog (Gtk.ApplicationWindow parent, string title)
     {
         bar = new Gtk.ProgressBar ();
         var hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 5);
