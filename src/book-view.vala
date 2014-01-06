@@ -73,6 +73,7 @@ public class BookView : Gtk.Box
 
     public BookView (Book book)
     {
+        GLib.Object (orientation: Gtk.Orientation.VERTICAL);
         this.book = book;
 
         /* Load existing pages */
