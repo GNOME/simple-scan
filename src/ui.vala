@@ -1268,7 +1268,6 @@ public class UserInterface
         settings.set_enum ("page-side", get_page_side ());
         settings.set_int ("paper-width", paper_width);
         settings.set_int ("paper-height", paper_height);
-        settings.set_int ("jpeg-quality", quality);
         settings.set_enum ("scan-direction", default_page_scan_direction);
 
         window.destroy ();
@@ -1572,8 +1571,8 @@ public class UserInterface
         brightness_scale.add_mark (lower, Gtk.PositionType.BOTTOM, darker_label);
         brightness_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
         brightness_scale.add_mark (upper, Gtk.PositionType.BOTTOM, lighter_label);
-        brightness_adjustment.value_changed.connect (() => { settings.set_int ("brightness", brightness); });
         brightness = settings.get_int ("brightness");
+        brightness_adjustment.value_changed.connect (() => { settings.set_int ("brightness", brightness); });
 
         lower = contrast_adjustment.get_lower ();
         var less_label = "<small>%s</small>".printf (_("Less"));
@@ -1582,8 +1581,8 @@ public class UserInterface
         contrast_scale.add_mark (lower, Gtk.PositionType.BOTTOM, less_label);
         contrast_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
         contrast_scale.add_mark (upper, Gtk.PositionType.BOTTOM, more_label);
-        contrast_adjustment.value_changed.connect (() => { settings.set_int ("contrast", contrast); });
         contrast = settings.get_int ("contrast");
+        contrast_adjustment.value_changed.connect (() => { settings.set_int ("contrast", contrast); });
 
         lower = quality_adjustment.get_lower ();
         var minimum_label = "<small>%s</small>".printf (_("Minimum"));
@@ -1593,6 +1592,7 @@ public class UserInterface
         quality_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
         quality_scale.add_mark (upper, Gtk.PositionType.BOTTOM, maximum_label);
         quality = settings.get_int ("jpeg-quality");
+        quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", quality); });
 
         var device = settings.get_string ("selected-device");
         if (device != null)
