@@ -1267,13 +1267,7 @@ public class UserInterface
         settings.set_int ("brightness", brightness);
         settings.set_int ("contrast", contrast);
         settings.set_int ("jpeg-quality", quality);
-        settings.set_int ("window-width", window_width);
-        settings.set_int ("window-height", window_height);
-        settings.set_boolean ("window-is-maximized", window_is_maximized);
         settings.set_enum ("scan-direction", default_page_scan_direction);
-        settings.set_int ("page-width", default_page_width);
-        settings.set_int ("page-height", default_page_height);
-        settings.set_int ("page-dpi", default_page_dpi);
 
         window.destroy ();
 
@@ -1340,6 +1334,7 @@ public class UserInterface
         default_page_width = page.width;
         default_page_height = page.height;
         default_page_dpi = page.dpi;
+        save_cache ();
     }
 
     private void page_scan_direction_changed_cb (Page page)
@@ -1349,9 +1344,7 @@ public class UserInterface
 
     private void page_added_cb (Book book, Page page)
     {
-        default_page_width = page.width;
-        default_page_height = page.height;
-        default_page_dpi = page.dpi;
+        page_size_changed_cb (page);
         default_page_scan_direction = page.scan_direction;
         page.size_changed.connect (page_size_changed_cb);
         page.scan_direction_changed.connect (page_scan_direction_changed_cb);
@@ -1616,28 +1609,14 @@ public class UserInterface
         book_view.show_menu.connect (show_page_menu_cb);
         book_view.show ();
 
+        load_cache ();
+
         /* Find default page details */
         default_page_scan_direction = (ScanDirection) settings.get_enum ("scan-direction");
-        default_page_width = settings.get_int ("page-width");
-        if (default_page_width <= 0)
-            default_page_width = 595;
-        default_page_height = settings.get_int ("page-height");
-        if (default_page_height <= 0)
-            default_page_height = 842;
-        default_page_dpi = settings.get_int ("page-dpi");
-        if (default_page_dpi <= 0)
-            default_page_dpi = 72;
 
         /* Restore window size */
-        window_width = settings.get_int ("window-width");
-        if (window_width <= 0)
-            window_width = 600;
-        window_height = settings.get_int ("window-height");
-        if (window_height <= 0)
-            window_height = 400;
         debug ("Restoring window to %dx%d pixels", window_width, window_height);
         window.set_default_size (window_width, window_height);
-        window_is_maximized = settings.get_boolean ("window-is-maximized");
         if (window_is_maximized)
         {
             debug ("Restoring window to maximized");
@@ -1646,6 +1625,78 @@ public class UserInterface
 
         progress_dialog = new ProgressBarDialog (window, _("Saving document..."));
         book.saving.connect (book_saving_cb);
+    }
+    
+    private string cache_filename
+    {
+        owned get { return Path.build_filename (Environment.get_user_cache_dir (), "simple-scan", "state"); }
+    }
+
+    private void load_cache ()
+    {
+        var f = new KeyFile ();
+        try
+        {
+            f.load_from_file (cache_filename, KeyFileFlags.NONE);
+        }
+        catch (Error e)
+        {
+            if (!(e is FileError.NOENT))
+                warning ("Failed to load cache: %s", e.message);
+        }
+        window_width = cache_get_integer (f, "window", "width", 600);
+        if (window_width <= 0)
+            window_width = 600;
+        window_height = cache_get_integer (f, "window", "height", 400);
+        if (window_height <= 0)
+            window_height = 400;
+        window_is_maximized = cache_get_boolean (f, "window", "maximized");
+        default_page_width = cache_get_integer (f, "last-page", "width", 595);
+        default_page_height = cache_get_integer (f, "last-page", "height", 842);
+        default_page_dpi = cache_get_integer (f, "last-page", "dpi", 72);
+    }
+
+    private int cache_get_integer (KeyFile f, string group_name, string key, int default = 0)
+    {
+        try
+        {
+            return f.get_integer (group_name, key);
+        }
+        catch
+        {
+            return default;
+        }
+    }
+
+    private bool cache_get_boolean (KeyFile f, string group_name, string key, bool default = false)
+    {
+        try
+        {
+            return f.get_boolean (group_name, key);
+        }
+        catch
+        {
+            return default;
+        }
+    }
+
+    private void save_cache ()
+    {
+        var f = new KeyFile ();
+        f.set_integer ("window", "width", window_width);
+        f.set_integer ("window", "height", window_height);
+        f.set_boolean ("is-maximized", "height", window_is_maximized);
+        f.set_integer ("last-page", "width", default_page_width);
+        f.set_integer ("last-page", "height", default_page_height);
+        f.set_integer ("last-page", "dpi", default_page_dpi);
+        try
+        {
+            FileUtils.set_contents (cache_filename, f.to_data ());
+        }
+        catch (Error e)
+        {
+            warning ("Failed to write cache: %s", e.message);
+        }
     }
 
     private void book_saving_cb (int page_number)
