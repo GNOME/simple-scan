@@ -1286,6 +1286,7 @@ public class UserInterface
         {
             window_width = event.width;
             window_height = event.height;
+            save_cache ();
         }
 
         return false;
@@ -1311,7 +1312,10 @@ public class UserInterface
     public bool simple_scan_window_window_state_event_cb (Gtk.Widget widget, Gdk.EventWindowState event)
     {
         if ((event.changed_mask & Gdk.WindowState.MAXIMIZED) != 0)
+        {
             window_is_maximized = (event.new_window_state & Gdk.WindowState.MAXIMIZED) != 0;
+            save_cache ();
+        }
         return false;
     }
 
@@ -1654,7 +1658,7 @@ public class UserInterface
         window_height = cache_get_integer (f, "window", "height", 400);
         if (window_height <= 0)
             window_height = 400;
-        window_is_maximized = cache_get_boolean (f, "window", "maximized");
+        window_is_maximized = cache_get_boolean (f, "window", "is-maximized");
         default_page_width = cache_get_integer (f, "last-page", "width", 595);
         default_page_height = cache_get_integer (f, "last-page", "height", 842);
         default_page_dpi = cache_get_integer (f, "last-page", "dpi", 72);
@@ -1717,7 +1721,7 @@ public class UserInterface
         var f = new KeyFile ();
         f.set_integer ("window", "width", window_width);
         f.set_integer ("window", "height", window_height);
-        f.set_boolean ("is-maximized", "height", window_is_maximized);
+        f.set_boolean ("window", "is-maximized", window_is_maximized);
         f.set_integer ("last-page", "width", default_page_width);
         f.set_integer ("last-page", "height", default_page_height);
         f.set_integer ("last-page", "dpi", default_page_dpi);
