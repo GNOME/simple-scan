@@ -1265,7 +1265,6 @@ public class UserInterface
             settings.set_string ("selected-device", device);
         settings.set_int ("text-dpi", get_text_dpi ());
         settings.set_int ("photo-dpi", get_photo_dpi ());
-        settings.set_enum ("page-side", get_page_side ());
         settings.set_int ("paper-width", paper_width);
         settings.set_int ("paper-height", paper_height);
         settings.set_enum ("scan-direction", default_page_scan_direction);
@@ -1556,6 +1555,7 @@ public class UserInterface
         page_side_combo.pack_start (renderer, true);
         page_side_combo.add_attribute (renderer, "text", 1);
         set_page_side ((ScanType) settings.get_enum ("page-side"));
+        page_side_combo.changed.connect (() => { settings.set_enum ("page-side", get_page_side ()); });
 
         renderer = new Gtk.CellRendererText ();
         paper_size_combo.pack_start (renderer, true);
