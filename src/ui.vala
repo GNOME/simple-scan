@@ -646,7 +646,7 @@ public class UserInterface
         new_document();
     }
 
-    private void set_document_hint (string document_hint)
+    private void set_document_hint (string document_hint, bool save = false)
     {
         this.document_hint = document_hint;
 
@@ -660,20 +660,25 @@ public class UserInterface
             photo_toolbar_menuitem.set_active (true);
             photo_menu_menuitem.set_active (true);
         }
+
+        if (save)
+            settings.set_string ("document-type", document_hint);
     }
 
     [CCode (cname = "G_MODULE_EXPORT text_menuitem_toggled_cb", instance_pos = -1)]
     public void text_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.get_active ())
-            set_document_hint ("text");
+            set_document_hint ("text", true);
     }
 
     [CCode (cname = "G_MODULE_EXPORT photo_menuitem_toggled_cb", instance_pos = -1)]
     public void photo_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.get_active ())
-            set_document_hint ("photo");
+        {
+            set_document_hint ("photo", true);
+        }
     }
 
     private void set_page_side (ScanType page_side)
@@ -1258,14 +1263,11 @@ public class UserInterface
 
         if (device != null)
             settings.set_string ("selected-device", device);
-        settings.set_string ("document-type", document_hint);
         settings.set_int ("text-dpi", get_text_dpi ());
         settings.set_int ("photo-dpi", get_photo_dpi ());
         settings.set_enum ("page-side", get_page_side ());
         settings.set_int ("paper-width", paper_width);
         settings.set_int ("paper-height", paper_height);
-        settings.set_int ("brightness", brightness);
-        settings.set_int ("contrast", contrast);
         settings.set_int ("jpeg-quality", quality);
         settings.set_enum ("scan-direction", default_page_scan_direction);
 
@@ -1570,6 +1572,7 @@ public class UserInterface
         brightness_scale.add_mark (lower, Gtk.PositionType.BOTTOM, darker_label);
         brightness_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
         brightness_scale.add_mark (upper, Gtk.PositionType.BOTTOM, lighter_label);
+        brightness_adjustment.value_changed.connect (() => { settings.set_int ("brightness", brightness); });
         brightness = settings.get_int ("brightness");
 
         lower = contrast_adjustment.get_lower ();
@@ -1579,6 +1582,7 @@ public class UserInterface
         contrast_scale.add_mark (lower, Gtk.PositionType.BOTTOM, less_label);
         contrast_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
         contrast_scale.add_mark (upper, Gtk.PositionType.BOTTOM, more_label);
+        contrast_adjustment.value_changed.connect (() => { settings.set_int ("contrast", contrast); });
         contrast = settings.get_int ("contrast");
 
         lower = quality_adjustment.get_lower ();
