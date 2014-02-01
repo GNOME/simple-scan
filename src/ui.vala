@@ -1258,9 +1258,6 @@ public class UserInterface
             return false;
 
         var device = selected_device;
-        int paper_width = 0, paper_height = 0;
-        get_paper_size (out paper_width, out paper_height);
-
         if (device != null)
             settings.set_string ("selected-device", device);
         settings.set_enum ("scan-direction", default_page_scan_direction);
