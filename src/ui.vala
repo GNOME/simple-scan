@@ -1263,8 +1263,6 @@ public class UserInterface
 
         if (device != null)
             settings.set_string ("selected-device", device);
-        settings.set_int ("paper-width", paper_width);
-        settings.set_int ("paper-height", paper_height);
         settings.set_enum ("scan-direction", default_page_scan_direction);
 
         window.destroy ();
@@ -1563,6 +1561,13 @@ public class UserInterface
         var paper_width = settings.get_int ("paper-width");
         var paper_height = settings.get_int ("paper-height");
         set_paper_size (paper_width, paper_height);
+        paper_size_combo.changed.connect (() =>
+        {
+            int w, h;
+            get_paper_size (out w, out h);
+            settings.set_int ("paper-width", w);
+            settings.set_int ("paper-height", h);
+        });
 
         var lower = brightness_adjustment.get_lower ();
         var darker_label = "<small>%s</small>".printf (_("Darker"));
