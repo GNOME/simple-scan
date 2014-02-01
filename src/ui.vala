@@ -267,6 +267,8 @@ public class UserInterface
         if (setting_devices)
             return;
         user_selected_device = true;
+        if (selected_device != null)
+            settings.set_string ("selected-device", selected_device);
     }
 
     private void update_info_bar ()
@@ -1258,10 +1260,6 @@ public class UserInterface
                              /* Button in dialog to quit and discard unsaved document */
                              _("Quit without Saving")))
             return false;
-
-        var device = selected_device;
-        if (device != null)
-            settings.set_string ("selected-device", device);
 
         window.destroy ();
 
