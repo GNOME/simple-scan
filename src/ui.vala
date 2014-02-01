@@ -133,6 +133,8 @@ public class UserInterface
     private int window_height;
     private bool window_is_maximized;
 
+    private uint save_state_timeout;
+
     public int brightness
     {
         get { return (int) brightness_adjustment.get_value (); }
@@ -1263,6 +1265,9 @@ public class UserInterface
 
         window.destroy ();
 
+        if (save_state_timeout != 0)
+            save_state (true);
+
         autosave_manager.cleanup ();
 
         return true;
@@ -1286,7 +1291,7 @@ public class UserInterface
         {
             window_width = event.width;
             window_height = event.height;
-            save_cache ();
+            save_state ();
         }
 
         return false;
@@ -1314,7 +1319,7 @@ public class UserInterface
         if ((event.changed_mask & Gdk.WindowState.MAXIMIZED) != 0)
         {
             window_is_maximized = (event.new_window_state & Gdk.WindowState.MAXIMIZED) != 0;
-            save_cache ();
+            save_state ();
         }
         return false;
     }
@@ -1330,13 +1335,13 @@ public class UserInterface
         default_page_width = page.width;
         default_page_height = page.height;
         default_page_dpi = page.dpi;
-        save_cache ();
+        save_state ();
     }
 
     private void page_scan_direction_changed_cb (Page page)
     {
         default_page_scan_direction = page.scan_direction;
-        save_cache ();
+        save_state ();
     }
 
     private void page_added_cb (Book book, Page page)
@@ -1619,8 +1624,8 @@ public class UserInterface
         book_view.show_menu.connect (show_page_menu_cb);
         book_view.show ();
 
-        /* Load previous state from cache */
-        load_cache ();
+        /* Load previous state */
+        load_state ();
 
         /* Restore window size */
         debug ("Restoring window to %dx%d pixels", window_width, window_height);
@@ -1635,34 +1640,36 @@ public class UserInterface
         book.saving.connect (book_saving_cb);
     }
     
-    private string cache_filename
+    private string state_filename
     {
         owned get { return Path.build_filename (Environment.get_user_cache_dir (), "simple-scan", "state"); }
     }
 
-    private void load_cache ()
+    private void load_state ()
     {
+        debug ("Loading state from %s", state_filename);
+
         var f = new KeyFile ();
         try
         {
-            f.load_from_file (cache_filename, KeyFileFlags.NONE);
+            f.load_from_file (state_filename, KeyFileFlags.NONE);
         }
         catch (Error e)
         {
             if (!(e is FileError.NOENT))
-                warning ("Failed to load cache: %s", e.message);
+                warning ("Failed to load state: %s", e.message);
         }
-        window_width = cache_get_integer (f, "window", "width", 600);
+        window_width = state_get_integer (f, "window", "width", 600);
         if (window_width <= 0)
             window_width = 600;
-        window_height = cache_get_integer (f, "window", "height", 400);
+        window_height = state_get_integer (f, "window", "height", 400);
         if (window_height <= 0)
             window_height = 400;
-        window_is_maximized = cache_get_boolean (f, "window", "is-maximized");
-        default_page_width = cache_get_integer (f, "last-page", "width", 595);
-        default_page_height = cache_get_integer (f, "last-page", "height", 842);
-        default_page_dpi = cache_get_integer (f, "last-page", "dpi", 72);
-        switch (cache_get_string (f, "last-page", "scan-direction", "top-to-bottom"))
+        window_is_maximized = state_get_boolean (f, "window", "is-maximized");
+        default_page_width = state_get_integer (f, "last-page", "width", 595);
+        default_page_height = state_get_integer (f, "last-page", "height", 842);
+        default_page_dpi = state_get_integer (f, "last-page", "dpi", 72);
+        switch (state_get_string (f, "last-page", "scan-direction", "top-to-bottom"))
         {
         default:
         case "top-to-bottom":
@@ -1680,7 +1687,7 @@ public class UserInterface
         }
     }
 
-    private int cache_get_integer (KeyFile f, string group_name, string key, int default = 0)
+    private int state_get_integer (KeyFile f, string group_name, string key, int default = 0)
     {
         try
         {
@@ -1692,7 +1699,7 @@ public class UserInterface
         }
     }
 
-    private bool cache_get_boolean (KeyFile f, string group_name, string key, bool default = false)
+    private bool state_get_boolean (KeyFile f, string group_name, string key, bool default = false)
     {
         try
         {
@@ -1704,7 +1711,7 @@ public class UserInterface
         }
     }
 
-    private string cache_get_string (KeyFile f, string group_name, string key, string default = "")
+    private string state_get_string (KeyFile f, string group_name, string key, string default = "")
     {
         try
         {
@@ -1716,8 +1723,23 @@ public class UserInterface
         }
     }
 
-    private void save_cache ()
+    private void save_state (bool force = false)
     {
+        if (!force)
+        {
+            if (save_state_timeout != 0)
+                Source.remove (save_state_timeout);
+            save_state_timeout = Timeout.add (100, () =>
+            {
+                save_state (true);
+                save_state_timeout = 0;
+                return false;
+            });
+            return;
+        }
+
+        debug ("Saving state to %s", state_filename);
+
         var f = new KeyFile ();
         f.set_integer ("window", "width", window_width);
         f.set_integer ("window", "height", window_height);
@@ -1742,11 +1764,11 @@ public class UserInterface
         }
         try
         {
-            FileUtils.set_contents (cache_filename, f.to_data ());
+            FileUtils.set_contents (state_filename, f.to_data ());
         }
         catch (Error e)
         {
-            warning ("Failed to write cache: %s", e.message);
+            warning ("Failed to write state: %s", e.message);
         }
     }
 
