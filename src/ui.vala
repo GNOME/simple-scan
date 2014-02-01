@@ -1260,7 +1260,6 @@ public class UserInterface
         var device = selected_device;
         if (device != null)
             settings.set_string ("selected-device", device);
-        settings.set_enum ("scan-direction", default_page_scan_direction);
 
         window.destroy ();
 
@@ -1333,6 +1332,7 @@ public class UserInterface
     private void page_scan_direction_changed_cb (Page page)
     {
         default_page_scan_direction = page.scan_direction;
+        save_cache ();
     }
 
     private void page_added_cb (Book book, Page page)
@@ -1615,10 +1615,8 @@ public class UserInterface
         book_view.show_menu.connect (show_page_menu_cb);
         book_view.show ();
 
+        /* Load previous state from cache */
         load_cache ();
-
-        /* Find default page details */
-        default_page_scan_direction = (ScanDirection) settings.get_enum ("scan-direction");
 
         /* Restore window size */
         debug ("Restoring window to %dx%d pixels", window_width, window_height);
@@ -1660,6 +1658,22 @@ public class UserInterface
         default_page_width = cache_get_integer (f, "last-page", "width", 595);
         default_page_height = cache_get_integer (f, "last-page", "height", 842);
         default_page_dpi = cache_get_integer (f, "last-page", "dpi", 72);
+        switch (cache_get_string (f, "last-page", "scan-direction", "top-to-bottom"))
+        {
+        default:
+        case "top-to-bottom":
+            default_page_scan_direction = ScanDirection.TOP_TO_BOTTOM;
+            break;
+        case "bottom-to-top":
+            default_page_scan_direction = ScanDirection.BOTTOM_TO_TOP;
+            break;
+        case "left-to-right":
+            default_page_scan_direction = ScanDirection.LEFT_TO_RIGHT;
+            break;
+        case "right-to-left":
+            default_page_scan_direction = ScanDirection.RIGHT_TO_LEFT;
+            break;
+        }
     }
 
     private int cache_get_integer (KeyFile f, string group_name, string key, int default = 0)
@@ -1686,6 +1700,18 @@ public class UserInterface
         }
     }
 
+    private string cache_get_string (KeyFile f, string group_name, string key, string default = "")
+    {
+        try
+        {
+            return f.get_string (group_name, key);
+        }
+        catch
+        {
+            return default;
+        }
+    }
+
     private void save_cache ()
     {
         var f = new KeyFile ();
@@ -1695,6 +1721,21 @@ public class UserInterface
         f.set_integer ("last-page", "width", default_page_width);
         f.set_integer ("last-page", "height", default_page_height);
         f.set_integer ("last-page", "dpi", default_page_dpi);
+        switch (default_page_scan_direction)
+        {
+        case ScanDirection.TOP_TO_BOTTOM:
+            f.set_value ("last-page", "scan-direction", "top-to-bottom");
+            break;
+        case ScanDirection.BOTTOM_TO_TOP:
+            f.set_value ("last-page", "scan-direction", "bottom-to-top");
+            break;
+        case ScanDirection.LEFT_TO_RIGHT:
+            f.set_value ("last-page", "scan-direction", "left-to-right");
+            break;
+        case ScanDirection.RIGHT_TO_LEFT:
+            f.set_value ("last-page", "scan-direction", "right-to-left");
+            break;
+        }
         try
         {
             FileUtils.set_contents (cache_filename, f.to_data ());

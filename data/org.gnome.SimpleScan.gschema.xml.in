@@ -1,10 +1,4 @@
 <schemalist>
-  <enum id="org.gnome.SimpleScan.ScanDirection">
-    <value value="0" nick="top-to-bottom"/>
-    <value value="1" nick="left-to-right"/>
-    <value value="2" nick="bottom-to-top"/>
-    <value value="3" nick="right-to-left"/>
-  </enum>
   <enum id="org.gnome.SimpleScan.PageSide">
     <value value="1" nick="front"/>
     <value value="2" nick="back"/>
@@ -25,11 +19,6 @@
       </choices>
       <_summary>Type of document being scanned</_summary>
       <_description>Type of document being scanned. This setting decides on the scan resolution, colors and post-processing.</_description>
-    </key>
-    <key name="scan-direction" enum="org.gnome.SimpleScan.ScanDirection">
-      <default>'top-to-bottom'</default>
-      <_summary>Direction of scan</_summary>
-      <_description>The direction of the scanner across the scanned page.</_description>
     </key>
     <key name="paper-width" type="i">
       <default>0</default>
