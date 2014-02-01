@@ -1263,8 +1263,6 @@ public class UserInterface
 
         if (device != null)
             settings.set_string ("selected-device", device);
-        settings.set_int ("text-dpi", get_text_dpi ());
-        settings.set_int ("photo-dpi", get_photo_dpi ());
         settings.set_int ("paper-width", paper_width);
         settings.set_int ("paper-height", paper_height);
         settings.set_enum ("scan-direction", default_page_scan_direction);
@@ -1542,10 +1540,12 @@ public class UserInterface
         if (dpi <= 0)
             dpi = DEFAULT_TEXT_DPI;
         set_dpi_combo (text_dpi_combo, DEFAULT_TEXT_DPI, dpi);
+        text_dpi_combo.changed.connect (() => { settings.set_int ("text-dpi", get_text_dpi ()); });
         dpi = settings.get_int ("photo-dpi");
         if (dpi <= 0)
             dpi = DEFAULT_PHOTO_DPI;
         set_dpi_combo (photo_dpi_combo, DEFAULT_PHOTO_DPI, dpi);
+        photo_dpi_combo.changed.connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
 
         var renderer = new Gtk.CellRendererText ();
         device_combo.pack_start (renderer, true);
