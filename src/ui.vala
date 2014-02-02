@@ -133,6 +133,8 @@ public class UserInterface
     private int window_height;
     private bool window_is_maximized;
 
+    private uint save_state_timeout;
+
     public int brightness
     {
         get { return (int) brightness_adjustment.get_value (); }
@@ -265,6 +267,8 @@ public class UserInterface
         if (setting_devices)
             return;
         user_selected_device = true;
+        if (selected_device != null)
+            settings.set_string ("selected-device", selected_device);
     }
 
     private void update_info_bar ()
@@ -646,7 +650,7 @@ public class UserInterface
         new_document();
     }
 
-    private void set_document_hint (string document_hint)
+    private void set_document_hint (string document_hint, bool save = false)
     {
         this.document_hint = document_hint;
 
@@ -660,20 +664,25 @@ public class UserInterface
             photo_toolbar_menuitem.set_active (true);
             photo_menu_menuitem.set_active (true);
         }
+
+        if (save)
+            settings.set_string ("document-type", document_hint);
     }
 
     [CCode (cname = "G_MODULE_EXPORT text_menuitem_toggled_cb", instance_pos = -1)]
     public void text_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.get_active ())
-            set_document_hint ("text");
+            set_document_hint ("text", true);
     }
 
     [CCode (cname = "G_MODULE_EXPORT photo_menuitem_toggled_cb", instance_pos = -1)]
     public void photo_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.get_active ())
-            set_document_hint ("photo");
+        {
+            set_document_hint ("photo", true);
+        }
     }
 
     private void set_page_side (ScanType page_side)
@@ -1252,30 +1261,10 @@ public class UserInterface
                              _("Quit without Saving")))
             return false;
 
-        var device = selected_device;
-        int paper_width = 0, paper_height = 0;
-        get_paper_size (out paper_width, out paper_height);
-
-        if (device != null)
-            settings.set_string ("selected-device", device);
-        settings.set_string ("document-type", document_hint);
-        settings.set_int ("text-dpi", get_text_dpi ());
-        settings.set_int ("photo-dpi", get_photo_dpi ());
-        settings.set_enum ("page-side", get_page_side ());
-        settings.set_int ("paper-width", paper_width);
-        settings.set_int ("paper-height", paper_height);
-        settings.set_int ("brightness", brightness);
-        settings.set_int ("contrast", contrast);
-        settings.set_int ("jpeg-quality", quality);
-        settings.set_int ("window-width", window_width);
-        settings.set_int ("window-height", window_height);
-        settings.set_boolean ("window-is-maximized", window_is_maximized);
-        settings.set_enum ("scan-direction", default_page_scan_direction);
-        settings.set_int ("page-width", default_page_width);
-        settings.set_int ("page-height", default_page_height);
-        settings.set_int ("page-dpi", default_page_dpi);
-
         window.destroy ();
+
+        if (save_state_timeout != 0)
+            save_state (true);
 
         autosave_manager.cleanup ();
 
@@ -1300,6 +1289,7 @@ public class UserInterface
         {
             window_width = event.width;
             window_height = event.height;
+            save_state ();
         }
 
         return false;
@@ -1325,7 +1315,10 @@ public class UserInterface
     public bool simple_scan_window_window_state_event_cb (Gtk.Widget widget, Gdk.EventWindowState event)
     {
         if ((event.changed_mask & Gdk.WindowState.MAXIMIZED) != 0)
+        {
             window_is_maximized = (event.new_window_state & Gdk.WindowState.MAXIMIZED) != 0;
+            save_state ();
+        }
         return false;
     }
 
@@ -1340,18 +1333,18 @@ public class UserInterface
         default_page_width = page.width;
         default_page_height = page.height;
         default_page_dpi = page.dpi;
+        save_state ();
     }
 
     private void page_scan_direction_changed_cb (Page page)
     {
         default_page_scan_direction = page.scan_direction;
+        save_state ();
     }
 
     private void page_added_cb (Book book, Page page)
     {
-        default_page_width = page.width;
-        default_page_height = page.height;
-        default_page_dpi = page.dpi;
+        page_size_changed_cb (page);
         default_page_scan_direction = page.scan_direction;
         page.size_changed.connect (page_size_changed_cb);
         page.scan_direction_changed.connect (page_scan_direction_changed_cb);
@@ -1549,10 +1542,12 @@ public class UserInterface
         if (dpi <= 0)
             dpi = DEFAULT_TEXT_DPI;
         set_dpi_combo (text_dpi_combo, DEFAULT_TEXT_DPI, dpi);
+        text_dpi_combo.changed.connect (() => { settings.set_int ("text-dpi", get_text_dpi ()); });
         dpi = settings.get_int ("photo-dpi");
         if (dpi <= 0)
             dpi = DEFAULT_PHOTO_DPI;
         set_dpi_combo (photo_dpi_combo, DEFAULT_PHOTO_DPI, dpi);
+        photo_dpi_combo.changed.connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
 
         var renderer = new Gtk.CellRendererText ();
         device_combo.pack_start (renderer, true);
@@ -1562,6 +1557,7 @@ public class UserInterface
         page_side_combo.pack_start (renderer, true);
         page_side_combo.add_attribute (renderer, "text", 1);
         set_page_side ((ScanType) settings.get_enum ("page-side"));
+        page_side_combo.changed.connect (() => { settings.set_enum ("page-side", get_page_side ()); });
 
         renderer = new Gtk.CellRendererText ();
         paper_size_combo.pack_start (renderer, true);
@@ -1569,6 +1565,13 @@ public class UserInterface
         var paper_width = settings.get_int ("paper-width");
         var paper_height = settings.get_int ("paper-height");
         set_paper_size (paper_width, paper_height);
+        paper_size_combo.changed.connect (() =>
+        {
+            int w, h;
+            get_paper_size (out w, out h);
+            settings.set_int ("paper-width", w);
+            settings.set_int ("paper-height", h);
+        });
 
         var lower = brightness_adjustment.get_lower ();
         var darker_label = "<small>%s</small>".printf (_("Darker"));
@@ -1578,6 +1581,7 @@ public class UserInterface
         brightness_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
         brightness_scale.add_mark (upper, Gtk.PositionType.BOTTOM, lighter_label);
         brightness = settings.get_int ("brightness");
+        brightness_adjustment.value_changed.connect (() => { settings.set_int ("brightness", brightness); });
 
         lower = contrast_adjustment.get_lower ();
         var less_label = "<small>%s</small>".printf (_("Less"));
@@ -1587,6 +1591,7 @@ public class UserInterface
         contrast_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
         contrast_scale.add_mark (upper, Gtk.PositionType.BOTTOM, more_label);
         contrast = settings.get_int ("contrast");
+        contrast_adjustment.value_changed.connect (() => { settings.set_int ("contrast", contrast); });
 
         lower = quality_adjustment.get_lower ();
         var minimum_label = "<small>%s</small>".printf (_("Minimum"));
@@ -1596,6 +1601,7 @@ public class UserInterface
         quality_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
         quality_scale.add_mark (upper, Gtk.PositionType.BOTTOM, maximum_label);
         quality = settings.get_int ("jpeg-quality");
+        quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", quality); });
 
         var device = settings.get_string ("selected-device");
         if (device != null)
@@ -1616,28 +1622,12 @@ public class UserInterface
         book_view.show_menu.connect (show_page_menu_cb);
         book_view.show ();
 
-        /* Find default page details */
-        default_page_scan_direction = (ScanDirection) settings.get_enum ("scan-direction");
-        default_page_width = settings.get_int ("page-width");
-        if (default_page_width <= 0)
-            default_page_width = 595;
-        default_page_height = settings.get_int ("page-height");
-        if (default_page_height <= 0)
-            default_page_height = 842;
-        default_page_dpi = settings.get_int ("page-dpi");
-        if (default_page_dpi <= 0)
-            default_page_dpi = 72;
+        /* Load previous state */
+        load_state ();
 
         /* Restore window size */
-        window_width = settings.get_int ("window-width");
-        if (window_width <= 0)
-            window_width = 600;
-        window_height = settings.get_int ("window-height");
-        if (window_height <= 0)
-            window_height = 400;
         debug ("Restoring window to %dx%d pixels", window_width, window_height);
         window.set_default_size (window_width, window_height);
-        window_is_maximized = settings.get_boolean ("window-is-maximized");
         if (window_is_maximized)
         {
             debug ("Restoring window to maximized");
@@ -1646,6 +1636,138 @@ public class UserInterface
 
         progress_dialog = new ProgressBarDialog (window, _("Saving document..."));
         book.saving.connect (book_saving_cb);
+    }
+    
+    private string state_filename
+    {
+        owned get { return Path.build_filename (Environment.get_user_cache_dir (), "simple-scan", "state"); }
+    }
+
+    private void load_state ()
+    {
+        debug ("Loading state from %s", state_filename);
+
+        var f = new KeyFile ();
+        try
+        {
+            f.load_from_file (state_filename, KeyFileFlags.NONE);
+        }
+        catch (Error e)
+        {
+            if (!(e is FileError.NOENT))
+                warning ("Failed to load state: %s", e.message);
+        }
+        window_width = state_get_integer (f, "window", "width", 600);
+        if (window_width <= 0)
+            window_width = 600;
+        window_height = state_get_integer (f, "window", "height", 400);
+        if (window_height <= 0)
+            window_height = 400;
+        window_is_maximized = state_get_boolean (f, "window", "is-maximized");
+        default_page_width = state_get_integer (f, "last-page", "width", 595);
+        default_page_height = state_get_integer (f, "last-page", "height", 842);
+        default_page_dpi = state_get_integer (f, "last-page", "dpi", 72);
+        switch (state_get_string (f, "last-page", "scan-direction", "top-to-bottom"))
+        {
+        default:
+        case "top-to-bottom":
+            default_page_scan_direction = ScanDirection.TOP_TO_BOTTOM;
+            break;
+        case "bottom-to-top":
+            default_page_scan_direction = ScanDirection.BOTTOM_TO_TOP;
+            break;
+        case "left-to-right":
+            default_page_scan_direction = ScanDirection.LEFT_TO_RIGHT;
+            break;
+        case "right-to-left":
+            default_page_scan_direction = ScanDirection.RIGHT_TO_LEFT;
+            break;
+        }
+    }
+
+    private int state_get_integer (KeyFile f, string group_name, string key, int default = 0)
+    {
+        try
+        {
+            return f.get_integer (group_name, key);
+        }
+        catch
+        {
+            return default;
+        }
+    }
+
+    private bool state_get_boolean (KeyFile f, string group_name, string key, bool default = false)
+    {
+        try
+        {
+            return f.get_boolean (group_name, key);
+        }
+        catch
+        {
+            return default;
+        }
+    }
+
+    private string state_get_string (KeyFile f, string group_name, string key, string default = "")
+    {
+        try
+        {
+            return f.get_string (group_name, key);
+        }
+        catch
+        {
+            return default;
+        }
+    }
+
+    private void save_state (bool force = false)
+    {
+        if (!force)
+        {
+            if (save_state_timeout != 0)
+                Source.remove (save_state_timeout);
+            save_state_timeout = Timeout.add (100, () =>
+            {
+                save_state (true);
+                save_state_timeout = 0;
+                return false;
+            });
+            return;
+        }
+
+        debug ("Saving state to %s", state_filename);
+
+        var f = new KeyFile ();
+        f.set_integer ("window", "width", window_width);
+        f.set_integer ("window", "height", window_height);
+        f.set_boolean ("window", "is-maximized", window_is_maximized);
+        f.set_integer ("last-page", "width", default_page_width);
+        f.set_integer ("last-page", "height", default_page_height);
+        f.set_integer ("last-page", "dpi", default_page_dpi);
+        switch (default_page_scan_direction)
+        {
+        case ScanDirection.TOP_TO_BOTTOM:
+            f.set_value ("last-page", "scan-direction", "top-to-bottom");
+            break;
+        case ScanDirection.BOTTOM_TO_TOP:
+            f.set_value ("last-page", "scan-direction", "bottom-to-top");
+            break;
+        case ScanDirection.LEFT_TO_RIGHT:
+            f.set_value ("last-page", "scan-direction", "left-to-right");
+            break;
+        case ScanDirection.RIGHT_TO_LEFT:
+            f.set_value ("last-page", "scan-direction", "right-to-left");
+            break;
+        }
+        try
+        {
+            FileUtils.set_contents (state_filename, f.to_data ());
+        }
+        catch (Error e)
+        {
+            warning ("Failed to write state: %s", e.message);
+        }
     }
 
     private void book_saving_cb (int page_number)
