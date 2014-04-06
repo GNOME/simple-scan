@@ -626,6 +626,15 @@
                         <signal name="activate" handler="page_delete_menuitem_activate_cb" swapped="no"/>
                       </object>
                     </child>
+                    <child>
+                      <object class="GtkMenuItem" id="repage_menuitem">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes" comments="Menu item to re-arrange pages">Repage</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="repage_menuitem_activate_cb" swapped="no"/>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>

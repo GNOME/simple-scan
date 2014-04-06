@@ -43,6 +43,7 @@ public class UserInterface
     private Gtk.MenuItem page_move_left_menuitem;
     private Gtk.MenuItem page_move_right_menuitem;
     private Gtk.MenuItem page_delete_menuitem;
+    private Gtk.MenuItem repage_menuitem;
     private Gtk.MenuItem crop_rotate_menuitem;
     private Gtk.MenuItem save_menuitem;
     private Gtk.MenuItem save_as_menuitem;
@@ -851,12 +852,18 @@ public class UserInterface
         {
             page_move_left_menuitem.set_sensitive (false);
             page_move_right_menuitem.set_sensitive (false);
+	    repage_menuitem.set_sensitive ( false );
         }
         else
         {
             var index = book.get_page_index (page);
             page_move_left_menuitem.set_sensitive (index > 0);
             page_move_right_menuitem.set_sensitive (index < book.n_pages - 1);
+	    uint cnt = book.n_pages ;
+	    bool enable_repage = ( 0 == ( cnt & 0x1 )) && 
+				( cnt > 2 )
+					  ;
+	    repage_menuitem.set_sensitive ( enable_repage );
         }
     }
 
@@ -1092,6 +1099,27 @@ public class UserInterface
     public void page_delete_menuitem_activate_cb (Gtk.Widget widget)
     {
         book_view.book.delete_page (book_view.selected_page);
+    }
+
+    [CCode (cname = "G_MODULE_EXPORT repage_menuitem_activate_cb", instance_pos = -1)]
+    public void repage_menuitem_activate_cb (Gtk.Widget widget)
+    {
+	List<Page> copy ;
+	copy = new List<Page> ();
+	var ix = 0 ;
+	uint cnt = book .n_pages ;
+	for ( ix = 0 ; ix != cnt ; ix ++ ){
+	    var page = book.get_page ( ix );
+	    copy.append ( page );
+	}
+
+	book .clear ();
+	for ( ix = 0 ; ix != cnt / 2 ; ix ++ ){
+	    book.append_page ( copy.nth_data ( ix ));
+	    book.append_page ( copy.nth_data ( cnt - ix - 1 ));
+	}
+
+        update_page_menu ();
     }
 
     [CCode (cname = "G_MODULE_EXPORT save_file_button_clicked_cb", instance_pos = -1)]
@@ -1462,6 +1490,7 @@ public class UserInterface
         page_move_left_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_left_menuitem");
         page_move_right_menuitem = (Gtk.MenuItem) builder.get_object ("page_move_right_menuitem");
         page_delete_menuitem = (Gtk.MenuItem) builder.get_object ("page_delete_menuitem");
+	repage_menuitem = ( Gtk.MenuItem) builder.get_object ( "repage_menuitem" );
         crop_rotate_menuitem = (Gtk.MenuItem) builder.get_object ("crop_rotate_menuitem");
         save_menuitem = (Gtk.MenuItem) builder.get_object ("save_menuitem");
         save_as_menuitem = (Gtk.MenuItem) builder.get_object ("save_as_menuitem");

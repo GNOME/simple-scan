@@ -87,8 +87,8 @@ public class Book
     {
         page.pixels_changed.disconnect (page_changed_cb);
         page.crop_changed.disconnect (page_changed_cb);
-        page_removed (page);
         pages.remove (page);
+        page_removed (page);
         needs_saving = true;
     }
 
