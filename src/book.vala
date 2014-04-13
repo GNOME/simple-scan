@@ -153,8 +153,8 @@ public class Book
         {
             var page = get_page (i);
             var image = page.get_image (true);
-            var width = image.get_width () * 72.0 / page.dpi;
-            var height = image.get_height () * 72.0 / page.dpi;
+            var width = image.width * 72.0 / page.dpi;
+            var height = image.height * 72.0 / page.dpi;
             surface.set_size (width, height);
             save_ps_pdf_surface (surface, image, page.dpi);
             surface.show_page ();
@@ -264,8 +264,8 @@ public class Book
         {
             var page = get_page (i);
             var image = page.get_image (true);
-            var width = image.get_width ();
-            var height = image.get_height ();
+            var width = image.width;
+            var height = image.height;
             unowned uint8[] pixels = image.get_pixels ();
             var page_width = width * 72.0 / page.dpi;
             var page_height = height * 72.0 / page.dpi;
@@ -284,7 +284,7 @@ public class Book
                 data = new uint8[data_length];
                 for (var row = 0; row < height; row++)
                 {
-                    var in_offset = row * image.get_rowstride ();
+                    var in_offset = row * image.rowstride;
                     var out_offset = row * width * 3;
                     for (var x = 0; x < width; x++)
                     {
@@ -314,7 +314,7 @@ public class Book
                         shift_count = 6;
                     }
 
-                    var in_offset = row * image.get_rowstride ();
+                    var in_offset = row * image.rowstride;
                     for (var x = 0; x < width; x++)
                     {
                         /* Clear byte */
@@ -359,7 +359,7 @@ public class Book
                         mask = 0x80;
                     }
 
-                    var in_offset = row * image.get_rowstride ();
+                    var in_offset = row * image.rowstride;
                     for (var x = 0; x < width; x++)
                     {
                         /* Clear byte */
@@ -388,7 +388,7 @@ public class Book
                 data = new uint8 [data_length];
                 for (var row = 0; row < height; row++)
                 {
-                    var in_offset = row * image.get_rowstride ();
+                    var in_offset = row * image.rowstride;
                     var out_offset = row * width;
                     for (var x = 0; x < width; x++)
                         data[out_offset+x] = pixels[in_offset+x*3];
