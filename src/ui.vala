@@ -1102,6 +1102,16 @@ public class UserInterface
         /* Title of dialog to reorder pages */
         dialog.title = _("Reorder Pages");
         dialog.set_transient_for (window);
+        dialog.key_press_event.connect ((e) =>
+        {
+            if (e.state == 0 && e.keyval == Gdk.Key.Escape)
+            {
+                dialog.destroy ();
+                return true;
+            }
+
+            return false;
+        });
         dialog.visible = true;
 
         var g = new Gtk.Grid ();
