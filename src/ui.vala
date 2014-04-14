@@ -1122,102 +1122,38 @@ public class UserInterface
         g.visible = true;
         dialog.add (g);
 
-        /* Label on button for separating pages in reordering dialog */
-        var b = make_reorder_button (_("Separate pages"), "ABABAB-AAABBB");
+        /* Label on button for combining sides in reordering dialog */
+        var b = make_reorder_button (_("Combine sides"), "F1F2F3B1B2B3-F1B1F2B2F3B3");
         b.clicked.connect (() =>
         {
-            var n_even = book.n_pages / 2;
-            var pages = new List<Page> ();
-            for (var i = 0; i < book.n_pages; i++)
-                pages.append (book.get_page (i));
-            for (var i = 0; i < book.n_pages; i++)
-            {
-                Page page;
-                if (i > n_even)
-                    page = pages.nth_data (((i - n_even) * 2) + 1);
-                else
-                    page = pages.nth_data (i * 2);
-                book.move_page (page, i);
-            }
-
+            book.combine_sides ();
             dialog.destroy ();
         });
         b.visible = true;
         g.attach (b, 0, 0, 1, 1);
 
-        /* Label on button for combining pages in reordering dialog */
-        b = make_reorder_button (_("Combine pages"), "AAABBB-ABABAB");
+        /* Label on button for combining sides in reverse order in reordering dialog */
+        b = make_reorder_button (_("Combine sides (reverse)"), "F1F2F3B3B2B1-F1B1F2B2F3B3");
         b.clicked.connect (() =>
         {
-            var n_even = book.n_pages / 2;
-            var pages = new List<Page> ();
-            for (var i = 0; i < book.n_pages; i++)
-                pages.append (book.get_page (i));
-            for (var i = 0; i < book.n_pages; i++)
-            {
-                Page page;
-                if (i % 2 == 0)
-                    page = pages.nth_data (i / 2);
-                else
-                    page = pages.nth_data ((book.n_pages - n_even) + (i / 2));
-                book.move_page (page, i);
-            }
-
+            book.combine_sides_reverse ();
             dialog.destroy ();
         });
         b.visible = true;
         g.attach (b, 1, 0, 1, 1);
 
-        /* Label on button for removing even pages in reordering dialog */
-        b = make_reorder_button (_("Remove even pages"), "ABABAB-AAA");
+        /* Label on button for reversing in reordering dialog */
+        b = make_reorder_button (_("Reverse"), "C1C2C3C4C5C6-C6C5C4C3C2C1");
         b.clicked.connect (() =>
         {
-            var to_delete = new List<Page> ();
-            for (var i = 1; i < book.n_pages; i += 2)
-                to_delete.append (book.get_page (i));
-            foreach (var p in to_delete)
-                book.delete_page (p);
-
-            dialog.destroy ();
-        });
-        b.visible = true;
-        g.attach (b, 0, 1, 1, 1);
-
-        /* Label on button for removing odd pages in reordering dialog */
-        b = make_reorder_button (_("Remove odd pages"), "ABABAB-BBB");
-        b.clicked.connect (() =>
-        {
-            var to_delete = new List<Page> ();
-            if (book.n_pages > 1)
-            {
-                for (var i = 0; i < book.n_pages; i += 2)
-                    to_delete.append (book.get_page (i));
-                foreach (var p in to_delete)
-                    book.delete_page (p);
-            }
-
-            dialog.destroy ();
-        });
-        b.visible = true;
-        g.attach (b, 1, 1, 1, 1);
-
-        /* Label on button for reversing pages in reordering dialog */
-        b = make_reorder_button (_("Reverse pages"), "123456-654321");
-        b.clicked.connect (() =>
-        {
-            var pages = new List<Page> ();
-            for (var i = 0; i < book.n_pages; i++)
-                pages.prepend (book.get_page (i));
-            for (var i = 0; i < book.n_pages; i++)
-                book.move_page (pages.nth_data (i), i);
-            
+            book.reverse ();           
             dialog.destroy ();
         });
         b.visible = true;
         g.attach (b, 0, 2, 1, 1);
 
         /* Label on button for cancelling page reordering dialog */
-        b = make_reorder_button (_("Keep unchanged"), "123456-123456");
+        b = make_reorder_button (_("Keep unchanged"), "C1C2C3C4C5C6-C1C2C3C4C5C6");
         b.clicked.connect (() =>
         {
             dialog.destroy ();
@@ -1238,11 +1174,11 @@ public class UserInterface
 
         var label = new Gtk.Label (text);
         label.visible = true;
-        vbox.pack_start (label, false, false, 0);
+        vbox.pack_start (label, true, true, 0);
 
         var rb = make_reorder_box (items);
         rb.visible = true;
-        vbox.pack_start (rb, false, true, 0);
+        vbox.pack_start (rb, true, true, 0);
 
         return b;
     }
@@ -1264,6 +1200,12 @@ public class UserInterface
                 continue;
             }
 
+            /* First character describes side */
+            var side = items[i];
+            i++;
+            if (items[i] == '\0')
+                break;
+
             if (page_box == null)
             {
                 page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
@@ -1275,9 +1217,9 @@ public class UserInterface
             var r = 1.0;
             var g = 1.0;
             var b = 1.0;
-            switch (items[i])
+            switch (side)
             {
-            case 'A':
+            case 'F':
                 /* Plum */
                 r = 0x75 / 255.0;
                 g = 0x50 / 255.0;
@@ -1289,12 +1231,7 @@ public class UserInterface
                 g = 0x79 / 255.0;
                 b = 0.0;
                 break;
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
+            case 'C':
                 /* Butter to Scarlet Red */
                 var p = (items[i] - '1') / 5.0;
                 r = (0xED / 255.0) * (1 - p) + 0xCC * p;
