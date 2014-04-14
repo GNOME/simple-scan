@@ -57,8 +57,8 @@ public class PageView
     private int scan_line;
 
     /* Dimensions of image to generate */
-    private int width;
-    private int height;
+    private int width_;
+    private int height_;
 
     /* Location to place this page */
     public int x_offset { get; set; }
@@ -475,7 +475,7 @@ public class PageView
 
         unowned uchar[] output = output_image.get_pixels ();
         var output_rowstride = output_image.rowstride;
-        var output_n_channels = output_image.get_n_channels ();
+        var output_n_channels = output_image.n_channels;
 
         if (!page.has_data)
         {
@@ -508,12 +508,12 @@ public class PageView
 
     private int get_preview_width ()
     {
-        return width - border_width * 2;
+        return width_ - border_width * 2;
     }
 
     private int get_preview_height ()
     {
-        return height - border_width * 2;
+        return height_ - border_width * 2;
     }
 
     private void update_page_view ()
@@ -836,8 +836,8 @@ public class PageView
         context.set_line_width (border_width);
         context.rectangle ((double)border_width / 2,
                            (double)border_width / 2,
-                           width - border_width,
-                           height - border_width);
+                           width_ - border_width,
+                           height_ - border_width);
         context.stroke ();
 
         /* Draw image */
@@ -949,48 +949,46 @@ public class PageView
         }
     }
 
-    public void set_width (int width)
+    public int width
     {
-        // FIXME: Automatically update when get updated image
-        var height = (int) ((double)width * page.height / page.width);
-        if (this.width == width && this.height == height)
-            return;
+        get { return width_; }
+        set
+        {
+            // FIXME: Automatically update when get updated image
+            var h = (int) ((double) value * page.height / page.width);
+            if (width_ == value && height_ == h)
+                return;
 
-        this.width = width;
-        this.height = height;
+            width_ = value;
+            height_ = h;
 
-        /* Regenerate image */
-        update_image = true;
+            /* Regenerate image */
+            update_image = true;
 
-        size_changed ();
-        changed ();
+            size_changed ();
+            changed ();
+        }
     }
 
-    public void set_height (int height)
+    public int height
     {
-        // FIXME: Automatically update when get updated image
-        var width = (int) ((double)height * page.width / page.height);
-        if (this.width == width && this.height == height)
-            return;
+        get { return height_; }
+        set
+        {
+            // FIXME: Automatically update when get updated image
+            var w = (int) ((double) value * page.width / page.height);
+            if (width_ == w && height_ == value)
+                return;
 
-        this.width = width;
-        this.height = height;
+            width_ = w;
+            height_ = value;
 
-        /* Regenerate image */
-        update_image = true;
+            /* Regenerate image */
+            update_image = true;
 
-        size_changed ();
-        changed ();
-    }
-
-    public int get_width ()
-    {
-        return width;
-    }
-
-    public int get_height ()
-    {
-        return height;
+            size_changed ();
+            changed ();
+        }
     }
 
     private void page_pixels_changed_cb (Page p)

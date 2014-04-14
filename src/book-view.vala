@@ -67,7 +67,7 @@ public class BookView : Gtk.Box
         }
         set
         {
-            adjustment.set_value (value);
+            adjustment.value = value;
         }
     }
 
@@ -97,12 +97,12 @@ public class BookView : Gtk.Box
 
         drawing_area = new Gtk.DrawingArea ();
         drawing_area.set_size_request (200, 100);
-        drawing_area.set_can_focus (true);
-        drawing_area.set_events (Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK | Gdk.EventMask.FOCUS_CHANGE_MASK | Gdk.EventMask.STRUCTURE_MASK | Gdk.EventMask.SCROLL_MASK);
+        drawing_area.can_focus = true;
+        drawing_area.events = Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK | Gdk.EventMask.FOCUS_CHANGE_MASK | Gdk.EventMask.STRUCTURE_MASK | Gdk.EventMask.SCROLL_MASK;
         pack_start (drawing_area, true, true, 0);
 
         scroll = new Gtk.Scrollbar (Gtk.Orientation.HORIZONTAL, null);
-        adjustment = scroll.get_adjustment ();
+        adjustment = scroll.adjustment;
         pack_start (scroll, false, true, 0);
 
         drawing_area.configure_event.connect (configure_cb);
@@ -115,7 +115,7 @@ public class BookView : Gtk.Box
         drawing_area.focus_out_event.connect_after (focus_cb);
         adjustment.value_changed.connect (scroll_cb);
 
-        drawing_area.show ();
+        drawing_area.visible = true;
     }
 
     ~BookView ()
@@ -221,7 +221,7 @@ public class BookView : Gtk.Box
         Gtk.Allocation allocation;
         drawing_area.get_allocation (out allocation);
         var left_edge = page.x_offset;
-        var right_edge = page.x_offset + page.get_width ();
+        var right_edge = page.x_offset + page.width;
 
         if (left_edge - x_offset < 0)
             x_offset = left_edge;
@@ -339,19 +339,19 @@ public class BookView : Gtk.Box
             {
                 /* Set width scaled on DPI and maximum width */
                 int w = (int) ((double)p.width * max_dpi * width / (p.dpi * max_width));
-                page.set_width (w);
+                page.width = w;
             }
             else
             {
                 /* Set height scaled on DPI and maximum height */
                 int h = (int) ((double)p.height * max_dpi * height / (p.dpi * max_height));
-                page.set_height (h);
+                page.height = h;
             }
 
-            var h = page.get_height ();
+            var h = page.height;
             if (h > book_height)
                 book_height = h;
-            book_width += page.get_width ();
+            book_width += page.width;
             if (i != 0)
                 book_width += spacing;
         }
@@ -363,10 +363,10 @@ public class BookView : Gtk.Box
 
             /* Layout pages left to right */
             page.x_offset = x_offset;
-            x_offset += page.get_width () + spacing;
+            x_offset += page.width + spacing;
 
             /* Centre page vertically */
-            page.y_offset = (height - page.get_height ()) / 2;
+            page.y_offset = (height - page.height) / 2;
         }
     }
 
@@ -401,24 +401,24 @@ public class BookView : Gtk.Box
             layout_into (width, height, out book_width, out book_height);
 
             /* Set scrollbar limits */
-            adjustment.set_lower (0);
-            adjustment.set_upper (book_width);
-            adjustment.set_page_size (allocation.width);
+            adjustment.lower = 0;
+            adjustment.upper = book_width;
+            adjustment.page_size = allocation.width;
 
             /* Keep right-aligned */
             var max_offset = book_width - allocation.width;
             if (right_aligned || x_offset > max_offset)
                 x_offset = max_offset;
 
-            scroll.show ();
+            scroll.visible = true;
         }
         else
         {
-            scroll.hide ();
+            scroll.visible = false;
             var offset = (book_width - allocation.width) / 2;
-            adjustment.set_lower (offset);
-            adjustment.set_upper (offset);
-            adjustment.set_page_size (0);
+            adjustment.lower = offset;
+            adjustment.upper = offset;
+            adjustment.page_size = 0;
             x_offset = offset;
         }
 
@@ -445,7 +445,7 @@ public class BookView : Gtk.Box
         {
             var page = get_nth_page (i);
             var left_edge = page.x_offset - x_offset;
-            var right_edge = page.x_offset + page.get_width () - x_offset;
+            var right_edge = page.x_offset + page.width - x_offset;
 
             /* Page not visible, don't render */
             if (right_edge < left || left_edge > right)
@@ -460,8 +460,8 @@ public class BookView : Gtk.Box
                 drawing_area.get_style_context ().render_focus (context,
                                                                 page.x_offset - x_offset,
                                                                 page.y_offset,
-                                                                page.get_width (),
-                                                                page.get_height ());
+                                                                page.width,
+                                                                page.height);
         }
 
         return false;
@@ -474,9 +474,9 @@ public class BookView : Gtk.Box
         {
             var page = get_nth_page (i);
             var left = page.x_offset;
-            var right = left + page.get_width ();
+            var right = left + page.width;
             var top = page.y_offset;
-            var bottom = top + page.get_height ();
+            var bottom = top + page.height;
             if (x >= left && x <= right && y >= top && y <= bottom)
             {
                 x_ = x - left;
