@@ -83,12 +83,56 @@ public class Book
         needs_saving = true;
     }
 
+    public void reverse ()
+    {
+        var new_pages = new List<Page> ();
+        foreach (var page in pages)
+            new_pages.prepend (page);
+        pages = (owned) new_pages;
+
+        reordered ();
+        needs_saving = true;
+    }
+
+    public void combine_sides ()
+    {
+        var n_front = n_pages - n_pages / 2;
+        var new_pages = new List<Page> ();
+        for (var i = 0; i < n_pages; i++)
+        {
+            if (i % 2 == 0)
+                new_pages.append (pages.nth_data (i / 2));
+            else
+                new_pages.append (pages.nth_data (n_front + (i / 2)));
+        }
+        pages = (owned) new_pages;
+
+        reordered ();
+        needs_saving = true;
+    }
+
+    public void combine_sides_reverse ()
+    {
+        var new_pages = new List<Page> ();
+        for (var i = 0; i < n_pages; i++)
+        {
+            if (i % 2 == 0)
+                new_pages.append (pages.nth_data (i / 2));
+            else
+                new_pages.append (pages.nth_data (n_pages - 1 - (i / 2)));
+        }
+        pages = (owned) new_pages;
+
+        reordered ();
+        needs_saving = true;
+    }
+
     public void delete_page (Page page)
     {
         page.pixels_changed.disconnect (page_changed_cb);
         page.crop_changed.disconnect (page_changed_cb);
-        page_removed (page);
         pages.remove (page);
+        page_removed (page);
         needs_saving = true;
     }
 

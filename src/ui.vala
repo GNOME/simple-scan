@@ -189,8 +189,9 @@ public class UserInterface
         settings = new Settings ("org.gnome.SimpleScan");
 
         book = new Book ();
-        book.page_removed.connect (page_removed_cb);
         book.page_added.connect (page_added_cb);
+        book.reordered.connect (reordered_cb);
+        book.page_removed.connect (page_removed_cb);
 
         load ();
 
@@ -210,8 +211,9 @@ public class UserInterface
 
     ~UserInterface ()
     {
-        book.page_removed.disconnect (page_removed_cb);
         book.page_added.disconnect (page_added_cb);
+        book.reordered.disconnect (reordered_cb);
+        book.page_removed.disconnect (page_removed_cb);
     }
 
     private bool find_scan_device (string device, out Gtk.TreeIter iter)
@@ -1073,8 +1075,6 @@ public class UserInterface
         var index = book.get_page_index (page);
         if (index > 0)
             book.move_page (page, index - 1);
-
-        update_page_menu ();
     }
 
     [CCode (cname = "G_MODULE_EXPORT page_move_right_menuitem_activate_cb", instance_pos = -1)]
@@ -1084,14 +1084,173 @@ public class UserInterface
         var index = book.get_page_index (page);
         if (index < book.n_pages - 1)
             book.move_page (page, book.get_page_index (page) + 1);
-
-        update_page_menu ();
     }
 
     [CCode (cname = "G_MODULE_EXPORT page_delete_menuitem_activate_cb", instance_pos = -1)]
     public void page_delete_menuitem_activate_cb (Gtk.Widget widget)
     {
         book_view.book.delete_page (book_view.selected_page);
+    }
+
+    [CCode (cname = "G_MODULE_EXPORT reorder_menuitem_activate_cb", instance_pos = -1)]
+    public void reorder_menuitem_activate_cb (Gtk.Widget widget)
+    {
+        var dialog = new Gtk.Window ();
+        dialog.type_hint = Gdk.WindowTypeHint.DIALOG;
+        dialog.modal = true;
+        dialog.border_width = 12;
+        /* Title of dialog to reorder pages */
+        dialog.title = _("Reorder Pages");
+        dialog.set_transient_for (window);
+        dialog.key_press_event.connect ((e) =>
+        {
+            if (e.state == 0 && e.keyval == Gdk.Key.Escape)
+            {
+                dialog.destroy ();
+                return true;
+            }
+
+            return false;
+        });
+        dialog.visible = true;
+
+        var g = new Gtk.Grid ();
+        g.row_homogeneous = true;
+        g.row_spacing = 6;
+        g.column_homogeneous = true;
+        g.column_spacing = 6;
+        g.visible = true;
+        dialog.add (g);
+
+        /* Label on button for combining sides in reordering dialog */
+        var b = make_reorder_button (_("Combine sides"), "F1F2F3B1B2B3-F1B1F2B2F3B3");
+        b.clicked.connect (() =>
+        {
+            book.combine_sides ();
+            dialog.destroy ();
+        });
+        b.visible = true;
+        g.attach (b, 0, 0, 1, 1);
+
+        /* Label on button for combining sides in reverse order in reordering dialog */
+        b = make_reorder_button (_("Combine sides (reverse)"), "F1F2F3B3B2B1-F1B1F2B2F3B3");
+        b.clicked.connect (() =>
+        {
+            book.combine_sides_reverse ();
+            dialog.destroy ();
+        });
+        b.visible = true;
+        g.attach (b, 1, 0, 1, 1);
+
+        /* Label on button for reversing in reordering dialog */
+        b = make_reorder_button (_("Reverse"), "C1C2C3C4C5C6-C6C5C4C3C2C1");
+        b.clicked.connect (() =>
+        {
+            book.reverse ();           
+            dialog.destroy ();
+        });
+        b.visible = true;
+        g.attach (b, 0, 2, 1, 1);
+
+        /* Label on button for cancelling page reordering dialog */
+        b = make_reorder_button (_("Keep unchanged"), "C1C2C3C4C5C6-C1C2C3C4C5C6");
+        b.clicked.connect (() =>
+        {
+            dialog.destroy ();
+        });
+        b.visible = true;
+        g.attach (b, 1, 2, 1, 1);
+
+        dialog.present ();
+    }
+
+    private Gtk.Button make_reorder_button (string text, string items)
+    {
+        var b = new Gtk.Button ();
+        
+        var vbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        vbox.visible = true;
+        b.add (vbox);
+
+        var label = new Gtk.Label (text);
+        label.visible = true;
+        vbox.pack_start (label, true, true, 0);
+
+        var rb = make_reorder_box (items);
+        rb.visible = true;
+        vbox.pack_start (rb, true, true, 0);
+
+        return b;
+    }
+
+    private Gtk.Box make_reorder_box (string items)
+    {
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        box.visible = true;
+
+        Gtk.Box? page_box = null;
+        for (var i = 0; items[i] != '\0'; i++)
+        {
+            if (items[i] == '-')
+            {
+                var a = new Gtk.Arrow (Gtk.ArrowType.RIGHT, Gtk.ShadowType.NONE);
+                a.visible = true;
+                box.pack_start (a, false, false, 0);
+                page_box = null;
+                continue;
+            }
+
+            /* First character describes side */
+            var side = items[i];
+            i++;
+            if (items[i] == '\0')
+                break;
+
+            if (page_box == null)
+            {
+                page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
+                page_box.visible = true;
+                box.pack_start (page_box, false, false, 0);
+            }
+
+            /* Get colours for each page (from Tango palette) */
+            var r = 1.0;
+            var g = 1.0;
+            var b = 1.0;
+            switch (side)
+            {
+            case 'F':
+                /* Plum */
+                r = 0x75 / 255.0;
+                g = 0x50 / 255.0;
+                b = 0x7B / 255.0;
+                break;
+            case 'B':
+                /* Orange */
+                r = 0xF5 / 255.0;
+                g = 0x79 / 255.0;
+                b = 0.0;
+                break;
+            case 'C':
+                /* Butter to Scarlet Red */
+                var p = (items[i] - '1') / 5.0;
+                r = (0xED / 255.0) * (1 - p) + 0xCC * p;
+                g = (0xD4 / 255.0) * (1 - p);
+                b = 0;
+                break;
+            }
+
+            /* Mix with white to look more paper like */
+            r = r + (1.0 - r) * 0.7;
+            g = g + (1.0 - g) * 0.7;
+            b = b + (1.0 - b) * 0.7;
+
+            var icon = new PageIcon ("%c".printf (items[i]), r, g, b);
+            icon.visible = true;
+            page_box.pack_start (icon, false, false, 0);
+        }
+
+        return box;
     }
 
     [CCode (cname = "G_MODULE_EXPORT save_file_button_clicked_cb", instance_pos = -1)]
@@ -1349,6 +1508,11 @@ public class UserInterface
         page.size_changed.connect (page_size_changed_cb);
         page.scan_direction_changed.connect (page_scan_direction_changed_cb);
 
+        update_page_menu ();
+    }
+
+    private void reordered_cb (Book book)
+    {
         update_page_menu ();
     }
 
@@ -1815,7 +1979,7 @@ public class UserInterface
     }
 }
 
-class ProgressBarDialog : Gtk.Window
+private class ProgressBarDialog : Gtk.Window
 {
     private Gtk.ProgressBar bar;
     
@@ -1879,4 +2043,69 @@ private string? get_temporary_filename (string prefix, string extension)
     }
 
     return path;
+}
+
+private class PageIcon : Gtk.DrawingArea
+{
+    private string text;
+    private double r;
+    private double g;
+    private double b;
+    private const int MINIMUM_WIDTH = 20;
+
+    public PageIcon (string text, double r = 1.0, double g = 1.0, double b = 1.0)
+    {
+        this.text = text;
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
+
+    public override void get_preferred_width (out int minimum_width, out int natural_width)
+    {
+        minimum_width = natural_width = MINIMUM_WIDTH;
+    }
+
+    public override void get_preferred_height (out int minimum_height, out int natural_height)
+    {
+        minimum_height = natural_height = (int) Math.round (MINIMUM_WIDTH * Math.SQRT2);
+    }
+
+    public override void get_preferred_height_for_width (int width, out int minimum_height, out int natural_height)
+    {
+        minimum_height = natural_height = (int) (width * Math.SQRT2);
+    }
+
+    public override void get_preferred_width_for_height (int height, out int minimum_width, out int natural_width)
+    {
+        minimum_width = natural_width = (int) (height / Math.SQRT2);
+    }
+
+    public override bool draw (Cairo.Context c)
+    {
+        var w = get_allocated_width ();
+        var h = get_allocated_height ();
+        if (w * Math.SQRT2 > h)
+            w = (int) Math.round (h / Math.SQRT2);
+        else
+            h = (int) Math.round (w * Math.SQRT2);
+
+        c.translate ((get_allocated_width () - w) / 2, (get_allocated_height () - h) / 2);
+
+        c.rectangle (0.5, 0.5, w - 1, h - 1);
+
+        c.set_source_rgb (r, g, b);
+        c.fill_preserve ();
+
+        c.set_line_width (1.0);
+        c.set_source_rgb (0.0, 0.0, 0.0);
+        c.stroke ();
+
+        Cairo.TextExtents extents;
+        c.text_extents (text, out extents);
+        c.translate ((w - extents.width) * 0.5 - 0.5, (h + extents.height) * 0.5 - 0.5);
+        c.show_text (text);
+
+        return true;
+    }
 }
