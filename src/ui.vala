@@ -1123,10 +1123,10 @@ public class UserInterface
             for (var i = 0; i < book.n_pages; i++)
             {
                 Page page;
-                if (i < n_even)
-                    page = pages.nth_data (i * 2);
-                else
+                if (i > n_even)
                     page = pages.nth_data (((i - n_even) * 2) + 1);
+                else
+                    page = pages.nth_data (i * 2);
                 book.move_page (page, i);
             }
 
@@ -1149,7 +1149,7 @@ public class UserInterface
                 if (i % 2 == 0)
                     page = pages.nth_data (i / 2);
                 else
-                    page = pages.nth_data (n_even + (i / 2));
+                    page = pages.nth_data ((book.n_pages - n_even) + (i / 2));
                 book.move_page (page, i);
             }
 
