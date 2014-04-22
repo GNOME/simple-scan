@@ -524,14 +524,15 @@ public class Book
         /* Cross-reference table */
         var xref_offset = writer.offset;
         writer.write_string ("xref\n");
-        writer.write_string ("1 %zu\n".printf (writer.object_offsets.length ()));
+        writer.write_string ("0 %zu\n".printf (writer.object_offsets.length () + 1));
+        writer.write_string ("0000000000 65535 f \n");
         foreach (var offset in writer.object_offsets)
             writer.write_string ("%010zu 00000 n \n".printf (offset));
 
         /* Trailer */
         writer.write_string ("trailer\n");
         writer.write_string ("<<\n");
-        writer.write_string ("/Size %zu\n".printf (writer.object_offsets.length ()));
+        writer.write_string ("/Size %zu\n".printf (writer.object_offsets.length () + 1));
         writer.write_string ("/Info %u 0 R\n".printf (info_number));
         writer.write_string ("/Root %u 0 R\n".printf (catalog_number));
         //FIXME: writer.write_string ("/ID [<...> <...>]\n");
