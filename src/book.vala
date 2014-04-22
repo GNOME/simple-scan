@@ -256,6 +256,11 @@ public class Book
 
     private void save_pdf (File file, int quality) throws Error
     {
+        /* Generate a random ID for this file */
+        var id = "";
+        for (var i = 0; i < 4; i++)
+            id += "%08x".printf (Random.next_int ());
+
         var stream = file.replace (null, false, FileCreateFlags.NONE, null);
         var writer = new PDFWriter (stream);
 
@@ -537,7 +542,7 @@ public class Book
         writer.write_string ("/Size %zu\n".printf (writer.object_offsets.length () + 1));
         writer.write_string ("/Info %u 0 R\n".printf (info_number));
         writer.write_string ("/Root %u 0 R\n".printf (catalog_number));
-        //FIXME: writer.write_string ("/ID [<...> <...>]\n");
+        writer.write_string ("/ID [<%s> <%s>]\n".printf (id, id));
         writer.write_string (">>\n");
         writer.write_string ("startxref\n");
         writer.write_string ("%zu\n".printf (xref_offset));
