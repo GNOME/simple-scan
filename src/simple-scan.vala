@@ -466,8 +466,8 @@ public class SimpleScan : Gtk.Application
         var line_number = 0;
         var xref_offset = 0;
         var xref_line = -1;
-        var xref_regex = new Regex ("^\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d 0000 n$");
-        MatchInfo xref_match;
+        var startxref_line = -1;
+        var fixed_size = -1;
         var line = new StringBuilder ();
         while (offset < data.length)
         {
@@ -483,6 +483,9 @@ public class SimpleScan : Gtk.Application
             }
 
             if (line.str == "startxref\n")
+                startxref_line = line_number;
+
+            if (line.str == "xref\n")
                 xref_line = line_number;
 
             /* Fix PDF header and binary comment */
@@ -492,16 +495,27 @@ public class SimpleScan : Gtk.Application
                 fixed_file.printf ("%s", line.str.substring (1));
             }
 
+            /* Fix xref subsection count */
+            else if (line_number == xref_line + 1 && line.str.has_prefix ("1 "))
+            {
+                fixed_size = int.parse (line.str.substring (2)) + 1;
+                fixed_file.printf ("0 %d\n", fixed_size);
+                fixed_file.printf ("0000000000 65535 f \n");
+            }
+
             /* Fix xref format */
-            else if (xref_regex.match (line.str, 0, out xref_match))
-                fixed_file.printf ("%010d 00000 n \n", int.parse (xref_match.get_string ()) + xref_offset);
+            else if (line_number > xref_line && line.str.has_suffix (" 0000 n\n"))
+                fixed_file.printf ("%010d 00000 n \n", int.parse (line.str) + xref_offset);
 
             /* Fix xref offset */
-            else if (xref_line > 0 && line_number == xref_line + 1)
+            else if (startxref_line > 0 && line_number == startxref_line + 1)
                 fixed_file.printf ("%d\n".printf (int.parse (line.str) + xref_offset));
 
+            else if (fixed_size > 0 && line.str.has_prefix ("/Size "))
+                fixed_file.printf ("/Size %d\n".printf (fixed_size));
+
             /* Fix EOF marker */
-            else if (line_number == xref_line + 2 && line.str.has_prefix ("%%%%"))
+            else if (line_number == startxref_line + 2 && line.str.has_prefix ("%%%%"))
                 fixed_file.printf ("%s", line.str.substring (2));
 
             else
