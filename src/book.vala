@@ -522,6 +522,7 @@ public class Book
         writer.write_string ("endobj\n");
 
         /* Cross-reference table */
+        writer.write_string ("\n");
         var xref_offset = writer.offset;
         writer.write_string ("xref\n");
         writer.write_string ("0 %zu\n".printf (writer.object_offsets.length () + 1));
@@ -530,6 +531,7 @@ public class Book
             writer.write_string ("%010zu 00000 n \n".printf (offset));
 
         /* Trailer */
+        writer.write_string ("\n");
         writer.write_string ("trailer\n");
         writer.write_string ("<<\n");
         writer.write_string ("/Size %zu\n".printf (writer.object_offsets.length () + 1));
