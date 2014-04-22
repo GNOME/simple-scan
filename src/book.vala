@@ -507,7 +507,7 @@ public class Book
             number = writer.start_object ();
             writer.write_string ("%u 0 obj\n".printf (number));
             writer.write_string ("<<\n");
-            writer.write_string ("/Length %d\n".printf (command.length + 1));
+            writer.write_string ("/Length %d\n".printf (command.length));
             writer.write_string (">>\n");
             writer.write_string ("stream\n");
             writer.write_string (command);
