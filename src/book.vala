@@ -204,6 +204,11 @@ public class Book
 
     private void save_pdf (File file, int quality) throws Error
     {
+        /* Generate a random ID for this file */
+        var id = "";
+        for (var i = 0; i < 4; i++)
+            id += "%08x".printf (Random.next_int ());
+
         var stream = file.replace (null, false, FileCreateFlags.NONE, null);
         var writer = new PDFWriter (stream);
 
@@ -219,6 +224,7 @@ public class Book
         writer.write_string ("<<\n");
         writer.write_string ("/Type /Catalog\n");
         //FIXMEwriter.write_string ("/Metadata %u 0 R\n".printf (catalog_number + 1));
+        //FIXMEwriter.write_string ("/MarkInfo << /Marked true >>");
         writer.write_string ("/Pages %u 0 R\n".printf (catalog_number + 1)); //+2
         writer.write_string (">>\n");
         writer.write_string ("endobj\n");
@@ -449,7 +455,7 @@ public class Book
             number = writer.start_object ();
             writer.write_string ("%u 0 obj\n".printf (number));
             writer.write_string ("<<\n");
-            writer.write_string ("/Length %d\n".printf (command.length + 1));
+            writer.write_string ("/Length %d\n".printf (command.length));
             writer.write_string (">>\n");
             writer.write_string ("stream\n");
             writer.write_string (command);
@@ -470,19 +476,22 @@ public class Book
         writer.write_string ("endobj\n");
 
         /* Cross-reference table */
+        writer.write_string ("\n");
         var xref_offset = writer.offset;
         writer.write_string ("xref\n");
-        writer.write_string ("1 %zu\n".printf (writer.object_offsets.length ()));
+        writer.write_string ("0 %zu\n".printf (writer.object_offsets.length () + 1));
+        writer.write_string ("0000000000 65535 f \n");
         foreach (var offset in writer.object_offsets)
             writer.write_string ("%010zu 00000 n \n".printf (offset));
 
         /* Trailer */
+        writer.write_string ("\n");
         writer.write_string ("trailer\n");
         writer.write_string ("<<\n");
-        writer.write_string ("/Size %zu\n".printf (writer.object_offsets.length ()));
+        writer.write_string ("/Size %zu\n".printf (writer.object_offsets.length () + 1));
         writer.write_string ("/Info %u 0 R\n".printf (info_number));
         writer.write_string ("/Root %u 0 R\n".printf (catalog_number));
-        //FIXME: writer.write_string ("/ID [<...> <...>]\n");
+        writer.write_string ("/ID [<%s> <%s>]\n".printf (id, id));
         writer.write_string (">>\n");
         writer.write_string ("startxref\n");
         writer.write_string ("%zu\n".printf (xref_offset));
