@@ -1779,7 +1779,7 @@ public class UserInterface
             set_document_hint (document_type);
 
         book_view = new BookView (book);
-        book_view.border_width = 18;
+
         main_vbox.pack_end (book_view, true, true, 0);
         book_view.page_selected.connect (page_selected_cb);
         book_view.show_page.connect (show_page_cb);
