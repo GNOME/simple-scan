@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <!-- Generated with glade 3.16.0 on Tue Nov 19 13:50:35 2013 -->
     <interface>
-      <!-- interface-requires gtk+ 3.12 -->
+      <!-- interface-requires gtk+ 3.10 -->
       <object class="GtkDialog" id="authorize_dialog">
         <property name="can_focus">False</property>
         <property name="border_width">12</property>
@@ -679,9 +678,7 @@
                 </child>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
+
               </packing>
             </child>
 			<child>
@@ -690,7 +687,7 @@
           </object>
         </child>
 		
-		<child type="titlebar">
+	<child type="titlebar">
               <object class="GtkHeaderBar" id="toolbar1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -700,22 +697,6 @@
                 <style>
                   <class name="titlebar"/>
                 </style>
-     
-                <child>
-                  <object class="GtkButton" id="new_button">
-                    <property name="visible">False</property>
-                    <property name="can_focus">False</property>
-                    <property name="tooltip_text" translatable="yes" comments="Tooltip for new document button">Start a new document</property>
-                    <property name="label" translatable="yes">New</property>
-                    <property name="use_underline">True</property>
-                    <property name="stock_id">gtk-new</property>
-                    <signal name="clicked" handler="new_button_clicked_cb" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="homogeneous">True</property>
-                  </packing>
-                </child>
            
                 <child>
                   <object class="GtkBox" id="open_box">
@@ -729,10 +710,8 @@
                       <object class="GtkButton" id="scan_button">
                         <property name="visible">True</property>
                         <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button">Scan a single page from the scanner</property>
-                        <property name="is_important">True</property>
                         <property name="label" translatable="yes" comments="Label on scan toolbar item">Scan</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">scanner</property>
                         <signal name="clicked" handler="scan_button_clicked_cb" swapped="no"/>
                         <style>
                           <class name="text-button"/>
@@ -743,7 +722,6 @@
                       <object class="GtkMenuButton" id="open_menu">
                         <property name="visible">True</property>
                         <property name="popup">scan_button_menu</property>
-                        <property name="button_sensitivity">on</property>
                         <style>
                           <class name="image-button"/>
                         </style>
@@ -761,9 +739,8 @@
                     <property name="sensitive">False</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes" comments="Tooltip for save toolbar button">Save document to a file</property>
-                    <property name="is_important">True</property>
                     <property name="use_underline">True</property>
-                    <property name="stock_id">gtk-save</property>
+                    
                     <signal name="clicked" handler="save_file_button_clicked_cb" swapped="no"/>
      
                     <style>
@@ -776,17 +753,9 @@
                         <property name="icon_name">document-save-symbolic</property>
                       </object>
                     </child>
-                    <child internal-child="accessible">
-                      <object class="AtkObject" id="save_button_a11y">
-                        <property name="accessible-name" translatable="yes">Save</property>
-                        <property name="accessible-description" translatable="yes">Save the current file</property>
-                      </object>
-                    </child>
                  
                     </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="homogeneous">True</property>
                   </packing>
      
                 </child>
@@ -796,7 +765,6 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Crop the selected page</property>
-                    <property name="is_important">True</property>
                     <property name="use_underline">True</property>
                     <signal name="toggled" handler="crop_button_toggled_cb" swapped="no"/>
                     <style>
@@ -867,9 +835,6 @@
                
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
               </packing>
             
 			</child>
@@ -954,7 +919,6 @@
                     <property name="can_focus">False</property>
                     <property name="hexpand">True</property>
                     <property name="model">device_store</property>
-                    <property name="button_sensitivity">on</property>
                     <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
                   </object>
                   <packing>
