@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2009-2011 Canonical Ltd.
  * Author: Robert Ancell <robert.ancell@canonical.com>
+ * 	   Eduard Gotwig <g@ox.io>
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -1821,12 +1822,12 @@ public class UserInterface
             if (!(e is FileError.NOENT))
                 warning ("Failed to load state: %s", e.message);
         }
-        window_width = state_get_integer (f, "window", "width", 600);
+        window_width = state_get_integer (f, "window", "width", 566);
         if (window_width <= 0)
-            window_width = 600;
-        window_height = state_get_integer (f, "window", "height", 400);
+            window_width = 566;
+        window_height = state_get_integer (f, "window", "height", 505);
         if (window_height <= 0)
-            window_height = 400;
+            window_height = 505;
         window_is_maximized = state_get_boolean (f, "window", "is-maximized");
         default_page_width = state_get_integer (f, "last-page", "width", 595);
         default_page_height = state_get_integer (f, "last-page", "height", 842);
