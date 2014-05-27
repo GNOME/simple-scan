@@ -762,6 +762,32 @@
      
                 </child>
                
+<child>
+                  <object class="GtkButton" id="new_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes" comments="Tooltip for new document button">Start a new document</property>
+                    <property name="use_underline">True</property>
+                    
+                    <signal name="clicked" handler="new_button_clicked_cb" swapped="no"/>
+
+                    <style>
+                      <class name="image-button"/>
+                    </style>
+                    <child>
+                      <object class="GtkImage" id="new_image">
+                        <property name="visible">True</property>
+                        <property name="icon_size">1</property>
+                        <property name="icon_name">document-new</property>
+                      </object>
+                    </child>
+                 
+                    </object>
+                  <packing>
+                  </packing>
+     
+                </child>
+
                 <child>
                   <object class="GtkToggleButton" id="crop_button">
                     <property name="visible">True</property>
@@ -786,7 +812,7 @@
                 </child>
      
                 <child>
-                  <object class="GtkButton" id="rotate_right_button">
+                  <object class="GtkButton" id="rotate_riaste.org/104956ght_button">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes" comments="Tooltip for rotate right (clockwise) button">Rotate the page to the right (clockwise)</property>
@@ -833,7 +859,6 @@
                     <property name="pack_type">end</property>
                   </packing>
                 </child>
-               
                
               </object>
               <packing>
