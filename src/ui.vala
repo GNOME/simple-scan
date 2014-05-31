@@ -50,6 +50,7 @@ public class UserInterface
     private Gtk.MenuItem save_as_menuitem;
     private Gtk.MenuItem copy_to_clipboard_menuitem;
     private Gtk.Button save_button;
+    private Gtk.ToolButton save_toolbutton;
     private Gtk.MenuItem stop_menuitem;
     private Gtk.ToolButton stop_toolbutton;
     private Gtk.Button stop_button;
@@ -903,9 +904,12 @@ public class UserInterface
 
         var menuitem = builder.get_object (name) as Gtk.RadioMenuItem;
         menuitem.active = true;
-        var button = builder.get_object ("crop_button") as Gtk.ToggleButton;
-        button.active = page.has_crop;
+        var crop_button = builder.get_object ("crop_button") as Gtk.ToggleButton;
+        crop_button.active = page.has_crop;
 
+	var crop_toolbutton = builder.get_object ("crop_toolbutton") as Gtk.ToggleToolButton;
+        crop_toolbutton.active = page.has_crop;
+	
         updating_page_menu = false;
     }
 
@@ -1011,6 +1015,20 @@ public class UserInterface
 
     [CCode (cname = "G_MODULE_EXPORT crop_button_toggled_cb", instance_pos = -1)]
     public void crop_button_toggled_cb (Gtk.ToggleButton widget)
+    {
+        if (updating_page_menu)
+            return;
+
+        Gtk.RadioMenuItem menuitem;
+        if (widget.active)
+            menuitem = builder.get_object ("custom_crop_menuitem") as Gtk.RadioMenuItem;
+        else
+            menuitem = builder.get_object ("no_crop_menuitem") as Gtk.RadioMenuItem;
+        menuitem.active = true;
+    }
+    
+    [CCode (cname = "G_MODULE_EXPORT crop_toolbutton_toggled_cb", instance_pos = -1)]
+    public void crop_toolbutton_toggled_cb (Gtk.ToggleToolButton widget)
     {
         if (updating_page_menu)
             return;
@@ -1571,6 +1589,7 @@ public class UserInterface
     {
         save_menuitem.sensitive = book.needs_saving;
         save_button.sensitive = book.needs_saving;
+	save_toolbutton.sensitive = book.needs_saving;
         if (book.needs_saving)
             save_as_menuitem.sensitive = true;
         copy_to_clipboard_menuitem.sensitive = true;
@@ -1642,6 +1661,7 @@ public class UserInterface
         save_as_menuitem = builder.get_object ("save_as_menuitem") as Gtk.MenuItem;
         copy_to_clipboard_menuitem = builder.get_object ("copy_to_clipboard_menuitem") as Gtk.MenuItem;
         save_button = builder.get_object ("save_button") as Gtk.Button;
+	save_toolbutton = builder.get_object ("save_toolbutton") as Gtk.ToolButton;
         stop_menuitem = builder.get_object ("stop_scan_menuitem") as Gtk.MenuItem;
         stop_button = builder.get_object ("stop_button") as Gtk.Button;
         stop_toolbutton = builder.get_object ("stop_toolbutton") as Gtk.ToolButton;
