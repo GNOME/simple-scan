@@ -12,6 +12,7 @@
 
 public class UserInterface
 {
+    private bool DEPRECATEDGUI = false;
     private const int DEFAULT_TEXT_DPI = 150;
     private const int DEFAULT_PHOTO_DPI = 300;
 
@@ -50,7 +51,9 @@ public class UserInterface
     private Gtk.MenuItem copy_to_clipboard_menuitem;
     private Gtk.Button save_button;
     private Gtk.MenuItem stop_menuitem;
+    private Gtk.ToolButton stop_toolbutton;
     private Gtk.Button stop_button;
+    private Gtk.Button scan_button;
 
     private Gtk.RadioMenuItem text_toolbar_menuitem;
     private Gtk.RadioMenuItem text_menu_menuitem;
@@ -126,7 +129,9 @@ public class UserInterface
             scanning_ = value;
             page_delete_menuitem.sensitive = !value;
             stop_menuitem.sensitive = value;
-            stop_button.sensitive = value;
+	    stop_toolbutton.sensitive = value;
+	    scan_button.visible = !value;
+	    stop_button.visible = value;
         }
     }
 
@@ -1598,9 +1603,13 @@ public class UserInterface
         builder = new Gtk.Builder ();
         try
         {
-            builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan.ui");
-            if (has_app_menu (app))
-                builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan-menu.ui");
+            if (has_app_menu (app)){
+	      	builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan.ui");
+	    }
+	    else {
+		DEPRECATEDGUI = true;
+	        builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan-deprecated.ui");
+	    }
         }
         catch (Error e)
         {
@@ -1616,12 +1625,13 @@ public class UserInterface
         window = builder.get_object ("simple_scan_window") as Gtk.ApplicationWindow;
         app.add_window (window);
         menubar = builder.get_object ("menubar") as Gtk.MenuBar;
-        if (has_app_menu (app))
+        if (!DEPRECATEDGUI)
         {
             app_menu = builder.get_object ("appmenu") as GLib.MenuModel;
             app.add_action_entries (action_entries, this);
             app.app_menu = app_menu;
-            menubar.visible = false;
+	    menubar.visible = false;
+	    
         }
         main_vbox = builder.get_object ("main_vbox") as Gtk.Box;
         page_move_left_menuitem = builder.get_object ("page_move_left_menuitem") as Gtk.MenuItem;
@@ -1634,7 +1644,9 @@ public class UserInterface
         save_button = builder.get_object ("save_button") as Gtk.Button;
         stop_menuitem = builder.get_object ("stop_scan_menuitem") as Gtk.MenuItem;
         stop_button = builder.get_object ("stop_button") as Gtk.Button;
-
+        stop_toolbutton = builder.get_object ("stop_toolbutton") as Gtk.ToolButton;
+	scan_button = builder.get_object ("scan_button") as Gtk.Button;
+	
         text_toolbar_menuitem = builder.get_object ("text_toolbutton_menuitem") as Gtk.RadioMenuItem;
         text_menu_menuitem = builder.get_object ("text_menuitem") as Gtk.RadioMenuItem;
         photo_toolbar_menuitem = builder.get_object ("photo_toolbutton_menuitem") as Gtk.RadioMenuItem;

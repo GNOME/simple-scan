@@ -690,7 +690,7 @@
         </child>
 		
 	<child type="titlebar">
-              <object class="GtkHeaderBar" id="toolbar1">
+              <object class="GtkHeaderBar" id="headerbar">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="vexpand">True</property>
@@ -708,7 +708,26 @@
                     <style>
                       <class name="linked"/>
                     </style>
-                    <child>
+		    <child>
+                      <object class="GtkButton" id="stop_button">
+                        <property name="visible">false</property>
+		        <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
+                        <property name="label" translatable="yes">Stop</property>
+                        <property name="use_underline">True</property>
+                        <signal name="clicked" handler="stop_scan_button_clicked_cb" swapped="no"/>
+                        <style>
+                          <class name="image-button"/>
+                        </style>
+                        <child>
+                          <object class="GtkImage" id="stop_image">
+                            <property name="visible">True</property>
+                            <property name="icon_size">1</property>
+                            <property name="icon_name">process-stop-symbolic</property>
+                          </object>
+                        </child>
+                          </object>
+                        </child>
+		    <child>
                       <object class="GtkButton" id="scan_button">
                         <property name="visible">True</property>
                         <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button">Scan a single page from the scanner</property>
@@ -729,7 +748,8 @@
                         </style>
                       </object>
                     </child>
-                  </object>
+
+                      </object>
                   <packing>
                     <property name="pack_type">start</property>
                   </packing>
@@ -787,32 +807,17 @@
                   </packing>
      
                 </child>
-
-                <child>
-                  <object class="GtkToggleButton" id="crop_button">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="tooltip_text" translatable="yes">Crop the selected page</property>
-                    <property name="use_underline">True</property>
-                    <signal name="toggled" handler="crop_button_toggled_cb" swapped="no"/>
-                    <style>
-                      <class name="image-button"/>
-                    </style>
-                    <child>
-                      <object class="GtkImage" id="objectcrop-button">
-                        <property name="visible">True</property>
-                        <property name="icon_size">1</property>
-                        <property name="icon_name">edit-cut-symbolic</property>
-                      </object>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="pack_type">end</property>
-                  </packing>
-                </child>
      
+		 <child>
+                  <object class="GtkBox" id="rotate_box">
+                    <property name="visible">True</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="valign">center</property>
+                    <style>
+                      <class name="linked"/>
+                    </style>
                 <child>
-                  <object class="GtkButton" id="rotate_riaste.org/104956ght_button">
+                  <object class="GtkButton" id="rotate_right_button">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes" comments="Tooltip for rotate right (clockwise) button">Rotate the page to the right (clockwise)</property>
@@ -859,6 +864,104 @@
                     <property name="pack_type">end</property>
                   </packing>
                 </child>
+		    </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                  </packing>
+                </child>
+		
+		<child>
+                  <object class="GtkToggleButton" id="crop_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">Crop the selected page</property>
+                    <property name="use_underline">True</property>
+                    <signal name="toggled" handler="crop_button_toggled_cb" swapped="no"/>
+                    <style>
+                      <class name="image-button"/>
+                    </style>
+                    <child>
+                      <object class="GtkImage" id="objectcrop-button">
+                        <property name="visible">True</property>
+                        <property name="icon_size">1</property>
+                        <property name="icon_name">edit-cut-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                  </packing>
+                </child>
+
+		<child>
+                  <object class="GtkButton" id="email_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">Crop the selected page</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="email_button_clicked_cb" swapped="no"/>
+                    <style>
+                      <class name="image-button"/>
+                    </style>
+                    <child>
+                      <object class="GtkImage" id="objectemail-button">
+                        <property name="visible">True</property>
+                        <property name="icon_size">1</property>
+                        <property name="icon_name">document-send</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                  </packing>
+                </child>
+		
+		<child>
+                  <object class="GtkButton" id="print_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">Crop the selected page</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="print_button_clicked_cb" swapped="no"/>
+                    <style>
+                      <class name="image-button"/>
+                    </style>
+                    <child>
+                      <object class="GtkImage" id="objectprint-button">
+                        <property name="visible">True</property>
+                        <property name="icon_size">1</property>
+                        <property name="icon_name">document-print</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                  </packing>
+                </child>
+		
+		<child>
+                  <object class="GtkButton" id="reorder_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">Crop the selected page</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="reorder_menuitem_activate_cb" swapped="no"/>
+                    <style>
+                      <class name="image-button"/>
+                    </style>
+                    <child>
+                      <object class="GtkImage" id="objectreorder-button">
+                        <property name="visible">True</property>
+                        <property name="icon_size">1</property>
+                        <property name="icon_name">document-multiple</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="pack_type">end</property>
+                  </packing>
+                </child>
+		
                
               </object>
               <packing>
