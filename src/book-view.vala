@@ -516,7 +516,7 @@ public class BookView : Gtk.Box
         if (event.button == 3)
             show_menu ();
 
-        return true;
+        return false;
     }
 
     private void set_cursor (Gdk.CursorType cursor)
