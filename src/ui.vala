@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2009-2011 Canonical Ltd.
  * Author: Robert Ancell <robert.ancell@canonical.com>
- * 	   Eduard Gotwig <g@ox.io>
+ *         Eduard Gotwig <g@ox.io>
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -12,7 +12,6 @@
 
 public class UserInterface
 {
-    private bool DEPRECATEDGUI = false;
     private const int DEFAULT_TEXT_DPI = 150;
     private const int DEFAULT_PHOTO_DPI = 300;
 
@@ -35,7 +34,6 @@ public class UserInterface
 
     private Gtk.ApplicationWindow window;
     private GLib.MenuModel app_menu;
-    private Gtk.MenuBar menubar;
     private Gtk.Box main_vbox;
     private Gtk.InfoBar info_bar;
     private Gtk.Image info_bar_image;
@@ -130,9 +128,9 @@ public class UserInterface
             scanning_ = value;
             page_delete_menuitem.sensitive = !value;
             stop_menuitem.sensitive = value;
-	    stop_toolbutton.sensitive = value;
-	    scan_button.visible = !value;
-	    stop_button.visible = value;
+            stop_toolbutton.sensitive = value;
+            scan_button.visible = !value;
+            stop_button.visible = value;
         }
     }
 
@@ -907,9 +905,9 @@ public class UserInterface
         var crop_button = builder.get_object ("crop_button") as Gtk.ToggleButton;
         crop_button.active = page.has_crop;
 
-	var crop_toolbutton = builder.get_object ("crop_toolbutton") as Gtk.ToggleToolButton;
+        var crop_toolbutton = builder.get_object ("crop_toolbutton") as Gtk.ToggleToolButton;
         crop_toolbutton.active = page.has_crop;
-	
+        
         updating_page_menu = false;
     }
 
@@ -1589,7 +1587,7 @@ public class UserInterface
     {
         save_menuitem.sensitive = book.needs_saving;
         save_button.sensitive = book.needs_saving;
-	save_toolbutton.sensitive = book.needs_saving;
+        save_toolbutton.sensitive = book.needs_saving;
         if (book.needs_saving)
             save_as_menuitem.sensitive = true;
         copy_to_clipboard_menuitem.sensitive = true;
@@ -1622,13 +1620,7 @@ public class UserInterface
         builder = new Gtk.Builder ();
         try
         {
-            if (has_app_menu (app)){
-	      	builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan.ui");
-	    }
-	    else {
-		DEPRECATEDGUI = true;
-	        builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan-deprecated.ui");
-	    }
+            builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan.ui");
         }
         catch (Error e)
         {
@@ -1642,16 +1634,21 @@ public class UserInterface
         builder.connect_signals (this);
 
         window = builder.get_object ("simple_scan_window") as Gtk.ApplicationWindow;
-        app.add_window (window);
-        menubar = builder.get_object ("menubar") as Gtk.MenuBar;
-        if (!DEPRECATEDGUI)
+        if (has_app_menu (app))
         {
             app_menu = builder.get_object ("appmenu") as GLib.MenuModel;
             app.add_action_entries (action_entries, this);
             app.app_menu = app_menu;
-	    menubar.visible = false;
-	    
         }
+        else
+        {
+            window.set_titlebar (null);
+            var menubar = builder.get_object ("menubar") as Gtk.MenuBar;
+            menubar.visible = true;
+            var toolbar = builder.get_object ("toolbar") as Gtk.Toolbar;
+            toolbar.visible = true;
+        }
+        app.add_window (window);
         main_vbox = builder.get_object ("main_vbox") as Gtk.Box;
         page_move_left_menuitem = builder.get_object ("page_move_left_menuitem") as Gtk.MenuItem;
         page_move_right_menuitem = builder.get_object ("page_move_right_menuitem") as Gtk.MenuItem;
@@ -1661,12 +1658,12 @@ public class UserInterface
         save_as_menuitem = builder.get_object ("save_as_menuitem") as Gtk.MenuItem;
         copy_to_clipboard_menuitem = builder.get_object ("copy_to_clipboard_menuitem") as Gtk.MenuItem;
         save_button = builder.get_object ("save_button") as Gtk.Button;
-	save_toolbutton = builder.get_object ("save_toolbutton") as Gtk.ToolButton;
+        save_toolbutton = builder.get_object ("save_toolbutton") as Gtk.ToolButton;
         stop_menuitem = builder.get_object ("stop_scan_menuitem") as Gtk.MenuItem;
         stop_button = builder.get_object ("stop_button") as Gtk.Button;
         stop_toolbutton = builder.get_object ("stop_toolbutton") as Gtk.ToolButton;
-	scan_button = builder.get_object ("scan_button") as Gtk.Button;
-	
+        scan_button = builder.get_object ("scan_button") as Gtk.Button;
+
         text_toolbar_menuitem = builder.get_object ("text_toolbutton_menuitem") as Gtk.RadioMenuItem;
         text_menu_menuitem = builder.get_object ("text_menuitem") as Gtk.RadioMenuItem;
         photo_toolbar_menuitem = builder.get_object ("photo_toolbutton_menuitem") as Gtk.RadioMenuItem;
@@ -1854,12 +1851,12 @@ public class UserInterface
             if (!(e is FileError.NOENT))
                 warning ("Failed to load state: %s", e.message);
         }
-        window_width = state_get_integer (f, "window", "width", 566);
+        window_width = state_get_integer (f, "window", "width", 600);
         if (window_width <= 0)
-            window_width = 566;
-        window_height = state_get_integer (f, "window", "height", 505);
+            window_width = 600;
+        window_height = state_get_integer (f, "window", "height", 400);
         if (window_height <= 0)
-            window_height = 505;
+            window_height = 400;
         window_is_maximized = state_get_boolean (f, "window", "is-maximized");
         default_page_width = state_get_integer (f, "last-page", "width", 595);
         default_page_height = state_get_integer (f, "last-page", "height", 842);
