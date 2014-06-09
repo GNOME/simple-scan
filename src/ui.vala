@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2009-2011 Canonical Ltd.
- * Author: Robert Ancell <robert.ancell@canonical.com>
+ * Author: Robert Ancell <robert.ancell@canonical.com>,
  *         Eduard Gotwig <g@ox.io>
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -1813,7 +1813,6 @@ public class UserInterface
 
         book_view = new BookView (book);
         book_view.border_width = 18;
-
         main_vbox.pack_end (book_view, true, true, 0);
         book_view.page_selected.connect (page_selected_cb);
         book_view.show_page.connect (show_page_cb);
