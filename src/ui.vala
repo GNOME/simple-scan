@@ -1669,9 +1669,9 @@ public class UserInterface
         stop_toolbutton = builder.get_object ("stop_toolbutton") as Gtk.ToolButton;
         scan_button = builder.get_object ("scan_button") as Gtk.Button;
 
-        text_toolbar_menuitem = builder.get_object ("text_toolbutton_menuitem") as Gtk.RadioMenuItem;
+        text_toolbar_menuitem = builder.get_object ("text_button_menuitem") as Gtk.RadioMenuItem;
         text_menu_menuitem = builder.get_object ("text_menuitem") as Gtk.RadioMenuItem;
-        photo_toolbar_menuitem = builder.get_object ("photo_toolbutton_menuitem") as Gtk.RadioMenuItem;
+        photo_toolbar_menuitem = builder.get_object ("photo_button_menuitem") as Gtk.RadioMenuItem;
         photo_menu_menuitem = builder.get_object ("photo_menuitem") as Gtk.RadioMenuItem;
 
         authorize_dialog = builder.get_object ("authorize_dialog") as Gtk.Dialog;
