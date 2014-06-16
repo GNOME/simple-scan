@@ -18,6 +18,7 @@ public class UserInterface
     private const GLib.ActionEntry[] action_entries =
     {
         { "new_document", new_document_activate_cb },
+        { "reorder", reorder_document_activate_cb },
         { "save", save_document_activate_cb },
         { "save_as", save_as_document_activate_cb },
         { "email", email_document_activate_cb },
@@ -1114,8 +1115,7 @@ public class UserInterface
         book_view.book.delete_page (book_view.selected_page);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT reorder_menuitem_activate_cb", instance_pos = -1)]
-    public void reorder_menuitem_activate_cb (Gtk.Widget widget)
+    private void reorder_document ()
     {
         var dialog = new Gtk.Window ();
         dialog.type_hint = Gdk.WindowTypeHint.DIALOG;
@@ -1184,6 +1184,17 @@ public class UserInterface
         g.attach (b, 1, 2, 1, 1);
 
         dialog.present ();
+    }
+
+    public void reorder_document_activate_cb ()
+    {
+        reorder_document ();
+    }
+
+    [CCode (cname = "G_MODULE_EXPORT reorder_menuitem_activate_cb", instance_pos = -1)]
+    public void reorder_menuitem_activate_cb (Gtk.Widget widget)
+    {
+        reorder_document ();
     }
 
     private Gtk.Button make_reorder_button (string text, string items)
