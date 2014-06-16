@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2009-2011 Canonical Ltd.
- * Author: Robert Ancell <robert.ancell@canonical.com>
+ * Author: Robert Ancell <robert.ancell@canonical.com>,
+ *         Eduard Gotwig <g@ox.io>
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,6 +18,7 @@ public class UserInterface
     private const GLib.ActionEntry[] action_entries =
     {
         { "new_document", new_document_activate_cb },
+        { "reorder", reorder_document_activate_cb },
         { "save", save_document_activate_cb },
         { "save_as", save_as_document_activate_cb },
         { "email", email_document_activate_cb },
@@ -33,7 +35,6 @@ public class UserInterface
 
     private Gtk.ApplicationWindow window;
     private GLib.MenuModel app_menu;
-    private Gtk.MenuBar menubar;
     private Gtk.Box main_vbox;
     private Gtk.InfoBar info_bar;
     private Gtk.Image info_bar_image;
@@ -47,9 +48,12 @@ public class UserInterface
     private Gtk.MenuItem save_menuitem;
     private Gtk.MenuItem save_as_menuitem;
     private Gtk.MenuItem copy_to_clipboard_menuitem;
+    private Gtk.Button save_button;
     private Gtk.ToolButton save_toolbutton;
     private Gtk.MenuItem stop_menuitem;
     private Gtk.ToolButton stop_toolbutton;
+    private Gtk.Button stop_button;
+    private Gtk.Button scan_button;
 
     private Gtk.RadioMenuItem text_toolbar_menuitem;
     private Gtk.RadioMenuItem text_menu_menuitem;
@@ -126,6 +130,8 @@ public class UserInterface
             page_delete_menuitem.sensitive = !value;
             stop_menuitem.sensitive = value;
             stop_toolbutton.sensitive = value;
+            scan_button.visible = !value;
+            stop_button.visible = value;
         }
     }
 
@@ -897,9 +903,12 @@ public class UserInterface
 
         var menuitem = builder.get_object (name) as Gtk.RadioMenuItem;
         menuitem.active = true;
-        var toolbutton = builder.get_object ("crop_toolbutton") as Gtk.ToggleToolButton;
-        toolbutton.active = page.has_crop;
+        var crop_button = builder.get_object ("crop_button") as Gtk.ToggleButton;
+        crop_button.active = page.has_crop;
 
+        var crop_toolbutton = builder.get_object ("crop_toolbutton") as Gtk.ToggleToolButton;
+        crop_toolbutton.active = page.has_crop;
+        
         updating_page_menu = false;
     }
 
@@ -1003,6 +1012,20 @@ public class UserInterface
             set_crop ("custom");
     }
 
+    [CCode (cname = "G_MODULE_EXPORT crop_button_toggled_cb", instance_pos = -1)]
+    public void crop_button_toggled_cb (Gtk.ToggleButton widget)
+    {
+        if (updating_page_menu)
+            return;
+
+        Gtk.RadioMenuItem menuitem;
+        if (widget.active)
+            menuitem = builder.get_object ("custom_crop_menuitem") as Gtk.RadioMenuItem;
+        else
+            menuitem = builder.get_object ("no_crop_menuitem") as Gtk.RadioMenuItem;
+        menuitem.active = true;
+    }
+    
     [CCode (cname = "G_MODULE_EXPORT crop_toolbutton_toggled_cb", instance_pos = -1)]
     public void crop_toolbutton_toggled_cb (Gtk.ToggleToolButton widget)
     {
@@ -1092,8 +1115,7 @@ public class UserInterface
         book_view.book.delete_page (book_view.selected_page);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT reorder_menuitem_activate_cb", instance_pos = -1)]
-    public void reorder_menuitem_activate_cb (Gtk.Widget widget)
+    private void reorder_document ()
     {
         var dialog = new Gtk.Window ();
         dialog.type_hint = Gdk.WindowTypeHint.DIALOG;
@@ -1162,6 +1184,17 @@ public class UserInterface
         g.attach (b, 1, 2, 1, 1);
 
         dialog.present ();
+    }
+
+    public void reorder_document_activate_cb ()
+    {
+        reorder_document ();
+    }
+
+    [CCode (cname = "G_MODULE_EXPORT reorder_menuitem_activate_cb", instance_pos = -1)]
+    public void reorder_menuitem_activate_cb (Gtk.Widget widget)
+    {
+        reorder_document ();
     }
 
     private Gtk.Button make_reorder_button (string text, string items)
@@ -1564,6 +1597,7 @@ public class UserInterface
     private void needs_saving_cb (Book book)
     {
         save_menuitem.sensitive = book.needs_saving;
+        save_button.sensitive = book.needs_saving;
         save_toolbutton.sensitive = book.needs_saving;
         if (book.needs_saving)
             save_as_menuitem.sensitive = true;
@@ -1613,15 +1647,21 @@ public class UserInterface
         builder.connect_signals (this);
 
         window = builder.get_object ("simple_scan_window") as Gtk.ApplicationWindow;
-        app.add_window (window);
-        menubar = builder.get_object ("menubar") as Gtk.MenuBar;
         if (has_app_menu (app))
         {
             app_menu = builder.get_object ("appmenu") as GLib.MenuModel;
             app.add_action_entries (action_entries, this);
             app.app_menu = app_menu;
-            menubar.visible = false;
         }
+        else
+        {
+            window.set_titlebar (null);
+            var menubar = builder.get_object ("menubar") as Gtk.MenuBar;
+            menubar.visible = true;
+            var toolbar = builder.get_object ("toolbar") as Gtk.Toolbar;
+            toolbar.visible = true;
+        }
+        app.add_window (window);
         main_vbox = builder.get_object ("main_vbox") as Gtk.Box;
         page_move_left_menuitem = builder.get_object ("page_move_left_menuitem") as Gtk.MenuItem;
         page_move_right_menuitem = builder.get_object ("page_move_right_menuitem") as Gtk.MenuItem;
@@ -1630,13 +1670,16 @@ public class UserInterface
         save_menuitem = builder.get_object ("save_menuitem") as Gtk.MenuItem;
         save_as_menuitem = builder.get_object ("save_as_menuitem") as Gtk.MenuItem;
         copy_to_clipboard_menuitem = builder.get_object ("copy_to_clipboard_menuitem") as Gtk.MenuItem;
+        save_button = builder.get_object ("save_button") as Gtk.Button;
         save_toolbutton = builder.get_object ("save_toolbutton") as Gtk.ToolButton;
         stop_menuitem = builder.get_object ("stop_scan_menuitem") as Gtk.MenuItem;
+        stop_button = builder.get_object ("stop_button") as Gtk.Button;
         stop_toolbutton = builder.get_object ("stop_toolbutton") as Gtk.ToolButton;
+        scan_button = builder.get_object ("scan_button") as Gtk.Button;
 
-        text_toolbar_menuitem = builder.get_object ("text_toolbutton_menuitem") as Gtk.RadioMenuItem;
+        text_toolbar_menuitem = builder.get_object ("text_button_menuitem") as Gtk.RadioMenuItem;
         text_menu_menuitem = builder.get_object ("text_menuitem") as Gtk.RadioMenuItem;
-        photo_toolbar_menuitem = builder.get_object ("photo_toolbutton_menuitem") as Gtk.RadioMenuItem;
+        photo_toolbar_menuitem = builder.get_object ("photo_button_menuitem") as Gtk.RadioMenuItem;
         photo_menu_menuitem = builder.get_object ("photo_menuitem") as Gtk.RadioMenuItem;
 
         authorize_dialog = builder.get_object ("authorize_dialog") as Gtk.Dialog;

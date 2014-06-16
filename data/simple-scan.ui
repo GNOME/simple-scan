@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Tue Nov 19 13:50:35 2013 -->
 <interface>
-  <!-- interface-requires gtk+ 3.8 -->
+  <!-- interface-requires gtk+ 3.10 -->
   <object class="GtkDialog" id="authorize_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">12</property>
@@ -254,7 +253,7 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkMenuBar" id="menubar">
-            <property name="visible">True</property>
+            <property name="visible">False</property>
             <property name="can_focus">False</property>
             <child>
               <object class="GtkMenuItem" id="document_menuitem">
@@ -683,8 +682,8 @@
           </packing>
         </child>
         <child>
-          <object class="GtkToolbar" id="toolbar1">
-            <property name="visible">True</property>
+          <object class="GtkToolbar" id="toolbar">
+            <property name="visible">False</property>
             <property name="can_focus">False</property>
             <style>
               <class name="primary-toolbar"/>
@@ -713,7 +712,7 @@
                 <property name="label" translatable="yes" comments="Label on scan toolbar item">Scan</property>
                 <property name="use_underline">True</property>
                 <property name="icon_name">scanner</property>
-                <property name="menu">scan_toolbutton_menu</property>
+                <property name="menu">scan_button_menu</property>
                 <signal name="clicked" handler="scan_button_clicked_cb" swapped="no"/>
               </object>
               <packing>
@@ -822,6 +821,195 @@
         </child>
       </object>
     </child>
+    <child type="titlebar">
+      <object class="GtkHeaderBar" id="headerbar">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="vexpand">True</property>
+        <property name="show_close_button">True</property>
+        <property name="title" translatable="yes" comments="Title of scan window">Simple Scan</property>
+        <style>
+          <class name="titlebar"/>
+        </style>
+        <child>
+          <object class="GtkBox" id="open_box">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="valign">center</property>
+            <style>
+              <class name="linked"/>
+            </style>
+            <child>
+              <object class="GtkButton" id="stop_button">
+                <property name="visible">false</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
+                <property name="label" translatable="yes">Stop</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="stop_scan_button_clicked_cb" swapped="no"/>
+                <style>
+                  <class name="image-button"/>
+                </style>
+                <child>
+                  <object class="GtkImage" id="stop_image">
+                    <property name="visible">True</property>
+                    <property name="icon_size">1</property>
+                    <property name="icon_name">process-stop-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="scan_button">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button">Scan a single page from the scanner</property>
+                <property name="label" translatable="yes" comments="Label on scan toolbar item">Scan</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="scan_button_clicked_cb" swapped="no"/>
+                <style>
+                  <class name="text-button"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuButton" id="open_menu">
+                <property name="visible">True</property>
+                <property name="popup">scan_button_menu</property>
+                <style>
+                  <class name="image-button"/>
+                </style>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack_type">start</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="save_button">
+            <property name="visible">True</property>
+            <property name="sensitive">False</property>
+            <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes" comments="Tooltip for save toolbar button">Save document to a file</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="save_file_button_clicked_cb" swapped="no"/>
+            <style>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage" id="save_image">
+                <property name="visible">True</property>
+                <property name="icon_size">1</property>
+                <property name="icon_name">document-save-symbolic</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="new_button">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes" comments="Tooltip for new document button">Start a new document</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="new_button_clicked_cb" swapped="no"/>
+            <style>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage" id="new_image">
+                <property name="visible">True</property>
+                <property name="icon_size">1</property>
+                <property name="icon_name">document-new-symbolic</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="rotate_box">
+            <property name="visible">True</property>
+            <property name="orientation">horizontal</property>
+            <property name="valign">center</property>
+            <style>
+              <class name="linked"/>
+            </style>
+            <child>
+              <object class="GtkButton" id="rotate_right_button">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for rotate right (clockwise) button">Rotate the page to the right (clockwise)</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="rotate_right_button_clicked_cb" swapped="no"/>
+                <style>
+                  <class name="image-button"/>
+                </style>
+                <child>
+                  <object class="GtkImage" id="objectrotateright-button">
+                    <property name="visible">True</property>
+                    <property name="icon_size">1</property>
+                    <property name="icon_name">object-rotate-right-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="rotate_left_button">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for rotate left (counter-clockwise) button">Rotate the page to the left (counter-clockwise)</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="rotate_left_button_clicked_cb" swapped="no"/>
+                <style>
+                  <class name="image-button"/>
+                </style>
+                <child>
+                  <object class="GtkImage" id="objectrotateleft-button">
+                    <property name="visible">True</property>
+                    <property name="icon_size">1</property>
+                    <property name="icon_name">object-rotate-left-symbolic</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToggleButton" id="crop_button">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="tooltip_text" translatable="yes">Crop the selected page</property>
+            <property name="use_underline">True</property>
+            <signal name="toggled" handler="crop_button_toggled_cb" swapped="no"/>
+            <style>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage" id="objectcrop-button">
+                <property name="visible">True</property>
+                <property name="icon_size">1</property>
+                <property name="icon_name">edit-cut-symbolic</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+      </packing>
+    </child>
   </object>
   <object class="GtkListStore" id="text_dpi_store">
     <columns>
@@ -903,7 +1091,6 @@
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="model">device_store</property>
-                <property name="button_sensitivity">on</property>
                 <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
               </object>
               <packing>
@@ -1138,11 +1325,11 @@
       <action-widget response="1">preferences_close_button</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkMenu" id="scan_toolbutton_menu">
+  <object class="GtkMenu" id="scan_button_menu">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkMenuItem" id="scan_single_toolbutton_menuitem">
+      <object class="GtkMenuItem" id="scan_single_button_menuitem">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes" comments="Toolbar scan menu item to scan a single page from the scanner">Single _Page</property>
@@ -1151,7 +1338,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkMenuItem" id="scan_all_toolbutton_menuitem">
+      <object class="GtkMenuItem" id="scan_all_button_menuitem">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes" comments="Toolbar scan menu item to scan all pages from a document feeder">All Pages From _Feeder</property>
@@ -1166,7 +1353,7 @@
       </object>
     </child>
     <child>
-      <object class="GtkRadioMenuItem" id="text_toolbutton_menuitem">
+      <object class="GtkRadioMenuItem" id="text_button_menuitem">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">Text</property>
@@ -1176,14 +1363,14 @@
       </object>
     </child>
     <child>
-      <object class="GtkRadioMenuItem" id="photo_toolbutton_menuitem">
+      <object class="GtkRadioMenuItem" id="photo_button_menuitem">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">Photo</property>
         <property name="use_underline">True</property>
         <property name="active">True</property>
         <property name="draw_as_radio">True</property>
-        <property name="group">text_toolbutton_menuitem</property>
+        <property name="group">text_button_menuitem</property>
         <signal name="toggled" handler="photo_menuitem_toggled_cb" swapped="no"/>
       </object>
     </child>
