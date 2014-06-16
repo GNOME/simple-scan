@@ -1621,11 +1621,8 @@ public class UserInterface
         try
         {
             builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan.ui");
-        if (has_app_menu (app))
-        {
-            builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan-menu.ui");
-        }
-
+            if (has_app_menu (app))
+                builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan-menu.ui");
         }
         catch (Error e)
         {
@@ -1638,7 +1635,7 @@ public class UserInterface
         }
         builder.connect_signals (this);
 
- window = builder.get_object ("simple_scan_window") as Gtk.ApplicationWindow;
+        window = builder.get_object ("simple_scan_window") as Gtk.ApplicationWindow;
         if (has_app_menu (app))
         {
             app_menu = builder.get_object ("appmenu") as GLib.MenuModel;
