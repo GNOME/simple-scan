@@ -22,8 +22,9 @@ simple_scan_VALAFLAGS = \
 	--pkg=gudev-1.0 \
 	--pkg=gio-2.0 \
 	--pkg=gtk+-3.0 \
+	--gresources=$(top_srcdir)/data/simple-scan.gresource.xml \
 	--debug \
-	--target-glib 2.32
+	--target-glib 2.38
 
 if HAVE_COLORD
 simple_scan_VALAFLAGS += -D HAVE_COLORD

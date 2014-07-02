@@ -10,7 +10,8 @@
  * license.
  */
 
-public class UserInterface
+[GtkTemplate (ui = "/org/gnome/SimpleScan/simple-scan.ui")]
+public class UserInterface : Gtk.ApplicationWindow
 {
     private const int DEFAULT_TEXT_DPI = 150;
     private const int DEFAULT_PHOTO_DPI = 300;
@@ -31,48 +32,101 @@ public class UserInterface
 
     private Settings settings;
 
-    private Gtk.Builder builder;
-
-    private Gtk.ApplicationWindow window;
-    private GLib.MenuModel app_menu;
+    [GtkChild]
+    private Gtk.MenuBar menubar;
+    [GtkChild]
+    private Gtk.Toolbar toolbar;
+    [GtkChild]
+    private Gtk.Menu page_menu;
+    [GtkChild]
     private Gtk.Box main_vbox;
     private Gtk.InfoBar info_bar;
     private Gtk.Image info_bar_image;
     private Gtk.Label info_bar_label;
     private Gtk.Button info_bar_close_button;
     private Gtk.Button info_bar_change_scanner_button;
+    [GtkChild]
+    private Gtk.RadioMenuItem custom_crop_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem a4_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem a5_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem a6_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem letter_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem legal_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem four_by_six_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem no_crop_menuitem;
+    [GtkChild]
     private Gtk.MenuItem page_move_left_menuitem;
+    [GtkChild]
     private Gtk.MenuItem page_move_right_menuitem;
+    [GtkChild]
     private Gtk.MenuItem page_delete_menuitem;
+    [GtkChild]
     private Gtk.MenuItem crop_rotate_menuitem;
+    [GtkChild]
     private Gtk.MenuItem save_menuitem;
+    [GtkChild]
     private Gtk.MenuItem save_as_menuitem;
+    [GtkChild]
     private Gtk.MenuItem copy_to_clipboard_menuitem;
+    [GtkChild]
     private Gtk.Button save_button;
+    [GtkChild]
     private Gtk.ToolButton save_toolbutton;
-    private Gtk.MenuItem stop_menuitem;
+    [GtkChild]
+    private Gtk.MenuItem stop_scan_menuitem;
+    [GtkChild]
     private Gtk.ToolButton stop_toolbutton;
+    [GtkChild]
+    private Gtk.ToggleButton crop_button;
+    [GtkChild]
+    private Gtk.ToggleToolButton crop_toolbutton;
+    [GtkChild]
     private Gtk.Button stop_button;
+    [GtkChild]
     private Gtk.Button scan_button;
 
-    private Gtk.RadioMenuItem text_toolbar_menuitem;
-    private Gtk.RadioMenuItem text_menu_menuitem;
-    private Gtk.RadioMenuItem photo_toolbar_menuitem;
-    private Gtk.RadioMenuItem photo_menu_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem text_button_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem text_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem photo_button_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem photo_menuitem;
 
+    [GtkChild]
     private Gtk.Dialog authorize_dialog;
+    [GtkChild]
     private Gtk.Label authorize_label;
+    [GtkChild]
     private Gtk.Entry username_entry;
+    [GtkChild]
     private Gtk.Entry password_entry;
 
+    [GtkChild]
     private Gtk.Dialog preferences_dialog;
+    [GtkChild]
     private Gtk.ComboBox device_combo;
+    [GtkChild]
     private Gtk.ComboBox text_dpi_combo;
+    [GtkChild]
     private Gtk.ComboBox photo_dpi_combo;
+    [GtkChild]
     private Gtk.ComboBox page_side_combo;
+    [GtkChild]
     private Gtk.ComboBox paper_size_combo;
+    [GtkChild]
     private Gtk.Scale brightness_scale;
+    [GtkChild]
     private Gtk.Scale contrast_scale;
+    [GtkChild]
     private Gtk.Scale quality_scale;
     private Gtk.ListStore device_model;
     private Gtk.ListStore text_dpi_model;
@@ -128,7 +182,7 @@ public class UserInterface
         {
             scanning_ = value;
             page_delete_menuitem.sensitive = !value;
-            stop_menuitem.sensitive = value;
+            stop_scan_menuitem.sensitive = value;
             stop_toolbutton.sensitive = value;
             scan_button.visible = !value;
             stop_button.visible = value;
@@ -242,7 +296,7 @@ public class UserInterface
 
     private void show_error_dialog (string error_title, string error_text)
     {
-        var dialog = new Gtk.MessageDialog (window,
+        var dialog = new Gtk.MessageDialog (this,
                                             Gtk.DialogFlags.MODAL,
                                             Gtk.MessageType.WARNING,
                                             Gtk.ButtonsType.NONE,
@@ -269,8 +323,8 @@ public class UserInterface
         password = password_entry.text;
     }
 
-    [CCode (cname = "G_MODULE_EXPORT device_combo_changed_cb", instance_pos = -1)]
-    public void device_combo_changed_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void device_combo_changed_cb (Gtk.Widget widget)
     {
         if (setting_devices)
             return;
@@ -439,7 +493,7 @@ public class UserInterface
 
         save_dialog = new Gtk.FileChooserDialog (/* Save dialog: Dialog title */
                                                  _("Save As..."),
-                                                 window,
+                                                 this,
                                                  Gtk.FileChooserAction.SAVE,
                                                  _("_Cancel"), Gtk.ResponseType.CANCEL,
                                                  _("_Save"), Gtk.ResponseType.ACCEPT,
@@ -594,7 +648,7 @@ public class UserInterface
         if (!book.needs_saving)
             return true;
 
-        var dialog = new Gtk.MessageDialog (window,
+        var dialog = new Gtk.MessageDialog (this,
                                             Gtk.DialogFlags.MODAL,
                                             Gtk.MessageType.WARNING,
                                             Gtk.ButtonsType.NONE,
@@ -647,8 +701,8 @@ public class UserInterface
         clear_document ();
     }
 
-    [CCode (cname = "G_MODULE_EXPORT new_button_clicked_cb", instance_pos = -1)]
-    public void new_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void new_button_clicked_cb (Gtk.Widget widget)
     {
         new_document();
     }
@@ -664,28 +718,28 @@ public class UserInterface
 
         if (document_hint == "text")
         {
-            text_toolbar_menuitem.active = true;
-            text_menu_menuitem.active = true;
+            text_button_menuitem.active = true;
+            text_menuitem.active = true;
         }
         else if (document_hint == "photo")
         {
-            photo_toolbar_menuitem.active = true;
-            photo_menu_menuitem.active = true;
+            photo_button_menuitem.active = true;
+            photo_menuitem.active = true;
         }
 
         if (save)
             settings.set_string ("document-type", document_hint);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT text_menuitem_toggled_cb", instance_pos = -1)]
-    public void text_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    [GtkCallback]
+    private void text_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
             set_document_hint ("text", true);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT photo_menuitem_toggled_cb", instance_pos = -1)]
-    public void photo_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    [GtkCallback]
+    private void photo_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
         {
@@ -802,22 +856,22 @@ public class UserInterface
         return options;
     }
 
-    [CCode (cname = "G_MODULE_EXPORT scan_button_clicked_cb", instance_pos = -1)]
-    public void scan_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void scan_button_clicked_cb (Gtk.Widget widget)
     {
         var options = make_scan_options ();
         options.type = ScanType.SINGLE;
         start_scan (selected_device, options);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT stop_scan_button_clicked_cb", instance_pos = -1)]
-    public void stop_scan_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void stop_scan_button_clicked_cb (Gtk.Widget widget)
     {
         stop_scan ();
     }
 
-    [CCode (cname = "G_MODULE_EXPORT continuous_scan_button_clicked_cb", instance_pos = -1)]
-    public void continuous_scan_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void continuous_scan_button_clicked_cb (Gtk.Widget widget)
     {
         if (scanning)
             stop_scan ();
@@ -829,8 +883,8 @@ public class UserInterface
         }
     }
 
-    [CCode (cname = "G_MODULE_EXPORT preferences_button_clicked_cb", instance_pos = -1)]
-    public void preferences_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void preferences_button_clicked_cb (Gtk.Widget widget)
     {
         preferences_dialog.present ();
     }
@@ -840,14 +894,14 @@ public class UserInterface
         preferences_dialog.present ();
     }
 
-    [CCode (cname = "G_MODULE_EXPORT preferences_dialog_delete_event_cb", instance_pos = -1)]
-    public bool preferences_dialog_delete_event_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private bool preferences_dialog_delete_event_cb (Gtk.Widget widget, Gdk.EventAny event)
     {
         return true;
     }
 
-    [CCode (cname = "G_MODULE_EXPORT preferences_dialog_response_cb", instance_pos = -1)]
-    public void preferences_dialog_response_cb (Gtk.Widget widget, int response_id)
+    [GtkCallback]
+    private void preferences_dialog_response_cb (Gtk.Widget widget, int response_id)
     {
         preferences_dialog.visible = false;
     }
@@ -877,36 +931,31 @@ public class UserInterface
 
         update_page_menu ();
 
-        var name = "no_crop_menuitem";
+        var menuitem = no_crop_menuitem;
         if (page.has_crop)
         {
-            // FIXME: Make more generic, move into page-size.c and reuse
             var crop_name = page.crop_name;
             if (crop_name != null)
             {
                 if (crop_name == "A4")
-                    name = "a4_menuitem";
+                    menuitem = a4_menuitem;
                 else if (crop_name == "A5")
-                    name = "a5_menuitem";
+                    menuitem = a5_menuitem;
                 else if (crop_name == "A6")
-                    name = "a6_menuitem";
+                    menuitem = a6_menuitem;
                 else if (crop_name == "letter")
-                    name = "letter_menuitem";
+                    menuitem = letter_menuitem;
                 else if (crop_name == "legal")
-                    name = "legal_menuitem";
+                    menuitem = legal_menuitem;
                 else if (crop_name == "4x6")
-                    name = "4x6_menuitem";
+                    menuitem = four_by_six_menuitem;
             }
             else
-                name = "custom_crop_menuitem";
+                menuitem = custom_crop_menuitem;
         }
 
-        var menuitem = builder.get_object (name) as Gtk.RadioMenuItem;
         menuitem.active = true;
-        var crop_button = builder.get_object ("crop_button") as Gtk.ToggleButton;
         crop_button.active = page.has_crop;
-
-        var crop_toolbutton = builder.get_object ("crop_toolbutton") as Gtk.ToggleToolButton;
         crop_toolbutton.active = page.has_crop;
         
         updating_page_menu = false;
@@ -933,7 +982,7 @@ public class UserInterface
 
         try
         {
-            Gtk.show_uri (window.screen, file.get_uri (), Gtk.get_current_event_time ());
+            Gtk.show_uri (screen, file.get_uri (), Gtk.get_current_event_time ());
         }
         catch (Error e)
         {
@@ -945,12 +994,11 @@ public class UserInterface
 
     private void show_page_menu_cb (BookView view)
     {
-        var menu = builder.get_object ("page_menu") as Gtk.Menu;
-        menu.popup (null, null, null, 3, Gtk.get_current_event_time ());
+        page_menu.popup (null, null, null, 3, Gtk.get_current_event_time ());
     }
 
-    [CCode (cname = "G_MODULE_EXPORT rotate_left_button_clicked_cb", instance_pos = -1)]
-    public void rotate_left_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void rotate_left_button_clicked_cb (Gtk.Widget widget)
     {
         if (updating_page_menu)
             return;
@@ -959,8 +1007,8 @@ public class UserInterface
             page.rotate_left ();
     }
 
-    [CCode (cname = "G_MODULE_EXPORT rotate_right_button_clicked_cb", instance_pos = -1)]
-    public void rotate_right_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void rotate_right_button_clicked_cb (Gtk.Widget widget)
     {
         if (updating_page_menu)
             return;
@@ -998,92 +1046,88 @@ public class UserInterface
             page.set_named_crop (crop_name);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT no_crop_menuitem_toggled_cb", instance_pos = -1)]
-    public void no_crop_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    [GtkCallback]
+    private void no_crop_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
             set_crop (null);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT custom_crop_menuitem_toggled_cb", instance_pos = -1)]
-    public void custom_crop_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    [GtkCallback]
+    private void custom_crop_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
             set_crop ("custom");
     }
 
-    [CCode (cname = "G_MODULE_EXPORT crop_button_toggled_cb", instance_pos = -1)]
-    public void crop_button_toggled_cb (Gtk.ToggleButton widget)
+    [GtkCallback]
+    private void crop_button_toggled_cb (Gtk.ToggleButton widget)
     {
         if (updating_page_menu)
             return;
 
-        Gtk.RadioMenuItem menuitem;
         if (widget.active)
-            menuitem = builder.get_object ("custom_crop_menuitem") as Gtk.RadioMenuItem;
+            custom_crop_menuitem.active = true;
         else
-            menuitem = builder.get_object ("no_crop_menuitem") as Gtk.RadioMenuItem;
-        menuitem.active = true;
+            no_crop_menuitem.active = true;
     }
     
-    [CCode (cname = "G_MODULE_EXPORT crop_toolbutton_toggled_cb", instance_pos = -1)]
-    public void crop_toolbutton_toggled_cb (Gtk.ToggleToolButton widget)
+    [GtkCallback]
+    private void crop_toolbutton_toggled_cb (Gtk.ToggleToolButton widget)
     {
         if (updating_page_menu)
             return;
 
-        Gtk.RadioMenuItem menuitem;
         if (widget.active)
-            menuitem = builder.get_object ("custom_crop_menuitem") as Gtk.RadioMenuItem;
+            custom_crop_menuitem.active = true;
         else
-            menuitem = builder.get_object ("no_crop_menuitem") as Gtk.RadioMenuItem;
-        menuitem.active = true;
+            no_crop_menuitem.active = true;
     }
 
-    [CCode (cname = "G_MODULE_EXPORT four_by_six_menuitem_toggled_cb", instance_pos = -1)]
-    public void four_by_six_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    [GtkCallback]
+    private void four_by_six_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
             set_crop ("4x6");
     }
 
-    [CCode (cname = "G_MODULE_EXPORT legal_menuitem_toggled_cb", instance_pos = -1)]
-    public void legal_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    [GtkCallback]
+    private void legal_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
             set_crop ("legal");
     }
 
-    [CCode (cname = "G_MODULE_EXPORT letter_menuitem_toggled_cb", instance_pos = -1)]
-    public void letter_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    [GtkCallback]
+    private void letter_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
             set_crop ("letter");
     }
 
-    [CCode (cname = "G_MODULE_EXPORT a6_menuitem_toggled_cb", instance_pos = -1)]
-    public void a6_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    [GtkCallback]
+    private void a6_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
             set_crop ("A6");
     }
 
-    [CCode (cname = "G_MODULE_EXPORT a5_menuitem_toggled_cb", instance_pos = -1)]
-    public void a5_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    [GtkCallback]
+    private void a5_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
             set_crop ("A5");
     }
 
-    [CCode (cname = "G_MODULE_EXPORT a4_menuitem_toggled_cb", instance_pos = -1)]
-    public void a4_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    [GtkCallback]
+    private void a4_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
             set_crop ("A4");
     }
 
-    [CCode (cname = "G_MODULE_EXPORT crop_rotate_menuitem_activate_cb", instance_pos = -1)]
-    public void crop_rotate_menuitem_activate_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void crop_rotate_menuitem_activate_cb (Gtk.Widget widget)
     {
         var page = book_view.selected_page;
         if (page == null)
@@ -1091,8 +1135,8 @@ public class UserInterface
         page.rotate_crop ();
     }
 
-    [CCode (cname = "G_MODULE_EXPORT page_move_left_menuitem_activate_cb", instance_pos = -1)]
-    public void page_move_left_menuitem_activate_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void page_move_left_menuitem_activate_cb (Gtk.Widget widget)
     {
         var page = book_view.selected_page;
         var index = book.get_page_index (page);
@@ -1100,8 +1144,8 @@ public class UserInterface
             book.move_page (page, index - 1);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT page_move_right_menuitem_activate_cb", instance_pos = -1)]
-    public void page_move_right_menuitem_activate_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void page_move_right_menuitem_activate_cb (Gtk.Widget widget)
     {
         var page = book_view.selected_page;
         var index = book.get_page_index (page);
@@ -1109,8 +1153,8 @@ public class UserInterface
             book.move_page (page, book.get_page_index (page) + 1);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT page_delete_menuitem_activate_cb", instance_pos = -1)]
-    public void page_delete_menuitem_activate_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void page_delete_menuitem_activate_cb (Gtk.Widget widget)
     {
         book_view.book.delete_page (book_view.selected_page);
     }
@@ -1123,7 +1167,7 @@ public class UserInterface
         dialog.border_width = 12;
         /* Title of dialog to reorder pages */
         dialog.title = _("Reorder Pages");
-        dialog.set_transient_for (window);
+        dialog.set_transient_for (this);
         dialog.key_press_event.connect ((e) =>
         {
             if (e.state == 0 && e.keyval == Gdk.Key.Escape)
@@ -1191,8 +1235,8 @@ public class UserInterface
         reorder_document ();
     }
 
-    [CCode (cname = "G_MODULE_EXPORT reorder_menuitem_activate_cb", instance_pos = -1)]
-    public void reorder_menuitem_activate_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void reorder_menuitem_activate_cb (Gtk.Widget widget)
     {
         reorder_document ();
     }
@@ -1286,8 +1330,8 @@ public class UserInterface
         return box;
     }
 
-    [CCode (cname = "G_MODULE_EXPORT save_file_button_clicked_cb", instance_pos = -1)]
-    public void save_file_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void save_file_button_clicked_cb (Gtk.Widget widget)
     {
         save_document (false);
     }
@@ -1297,16 +1341,16 @@ public class UserInterface
         save_document (false);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT copy_to_clipboard_button_clicked_cb", instance_pos = -1)]
-    public void copy_to_clipboard_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void copy_to_clipboard_button_clicked_cb (Gtk.Widget widget)
     {
         var page = book_view.selected_page;
         if (page != null)
-            page.copy_to_clipboard (window);
+            page.copy_to_clipboard (this);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT save_as_file_button_clicked_cb", instance_pos = -1)]
-    public void save_as_file_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void save_as_file_button_clicked_cb (Gtk.Widget widget)
     {
         save_document (true);
     }
@@ -1341,8 +1385,8 @@ public class UserInterface
         context.paint ();
     }
 
-    [CCode (cname = "G_MODULE_EXPORT email_button_clicked_cb", instance_pos = -1)]
-    public void email_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void email_button_clicked_cb (Gtk.Widget widget)
     {
         email (document_hint, quality);
     }
@@ -1360,7 +1404,7 @@ public class UserInterface
 
         try
         {
-            print.run (Gtk.PrintOperationAction.PRINT_DIALOG, window);
+            print.run (Gtk.PrintOperationAction.PRINT_DIALOG, this);
         }
         catch (Error e)
         {
@@ -1370,8 +1414,8 @@ public class UserInterface
         print.draw_page.disconnect (draw_page);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT print_button_clicked_cb", instance_pos = -1)]
-    public void print_button_clicked_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void print_button_clicked_cb (Gtk.Widget widget)
     {
         print_document ();
     }
@@ -1381,11 +1425,11 @@ public class UserInterface
         print_document ();
     }
 
-    private void show_help ()
+    private void launch_help ()
     {
         try
         {
-            Gtk.show_uri (window.screen, "help:simple-scan", Gtk.get_current_event_time ());
+            Gtk.show_uri (screen, "help:simple-scan", Gtk.get_current_event_time ());
         }
         catch (Error e)
         {
@@ -1395,15 +1439,15 @@ public class UserInterface
         }
     }
 
-    [CCode (cname = "G_MODULE_EXPORT help_contents_menuitem_activate_cb", instance_pos = -1)]
-    public void help_contents_menuitem_activate_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void help_contents_menuitem_activate_cb (Gtk.Widget widget)
     {
-        show_help ();
+        launch_help ();
     }
 
     public void help_contents_activate_cb ()
     {
-        show_help ();
+        launch_help ();
     }
 
     private void show_about ()
@@ -1419,7 +1463,7 @@ public class UserInterface
         /* Description of program */
         string description = _("Simple document scanning tool");
 
-        Gtk.show_about_dialog (window,
+        Gtk.show_about_dialog (this,
                                "title", title,
                                "program-name", "Simple Scan",
                                "version", VERSION,
@@ -1434,8 +1478,8 @@ public class UserInterface
                                null);
     }
 
-    [CCode (cname = "G_MODULE_EXPORT about_menuitem_activate_cb", instance_pos = -1)]
-    public void about_menuitem_activate_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void about_menuitem_activate_cb (Gtk.Widget widget)
     {
         show_about ();
     }
@@ -1453,7 +1497,7 @@ public class UserInterface
                              _("Quit without Saving")))
             return false;
 
-        window.destroy ();
+        destroy ();
 
         if (save_state_timeout != 0)
             save_state (true);
@@ -1463,8 +1507,8 @@ public class UserInterface
         return true;
     }
 
-    [CCode (cname = "G_MODULE_EXPORT quit_menuitem_activate_cb", instance_pos = -1)]
-    public void quit_menuitem_activate_cb (Gtk.Widget widget)
+    [GtkCallback]
+    private void quit_menuitem_activate_cb (Gtk.Widget widget)
     {
         on_quit ();
     }
@@ -1474,8 +1518,8 @@ public class UserInterface
         on_quit ();
     }
 
-    [CCode (cname = "G_MODULE_EXPORT simple_scan_window_configure_event_cb", instance_pos = -1)]
-    public bool simple_scan_window_configure_event_cb (Gtk.Widget widget, Gdk.EventConfigure event)
+    [GtkCallback]
+    private bool simple_scan_window_configure_event_cb (Gtk.Widget widget, Gdk.EventConfigure event)
     {
         if (!window_is_maximized)
         {
@@ -1503,8 +1547,8 @@ public class UserInterface
         }
     }
 
-    [CCode (cname = "G_MODULE_EXPORT simple_scan_window_window_state_event_cb", instance_pos = -1)]
-    public bool simple_scan_window_window_state_event_cb (Gtk.Widget widget, Gdk.EventWindowState event)
+    [GtkCallback]
+    private bool simple_scan_window_window_state_event_cb (Gtk.Widget widget, Gdk.EventWindowState event)
     {
         if ((event.changed_mask & Gdk.WindowState.MAXIMIZED) != 0)
         {
@@ -1514,8 +1558,8 @@ public class UserInterface
         return false;
     }
 
-    [CCode (cname = "G_MODULE_EXPORT window_delete_event_cb", instance_pos = -1)]
-    public bool window_delete_event_cb (Gtk.Widget widget, Gdk.Event event)
+    [GtkCallback]
+    private bool window_delete_event_cb (Gtk.Widget widget, Gdk.Event event)
     {
         return !on_quit ();
     }
@@ -1628,82 +1672,52 @@ public class UserInterface
 
         var app = Application.get_default () as Gtk.Application;
 
-        builder = new Gtk.Builder ();
-        try
-        {
-            builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan.ui");
-            if (has_app_menu (app))
-                builder.add_from_resource ("/org/gnome/SimpleScan/simple-scan-menu.ui");
-        }
-        catch (Error e)
-        {
-            critical ("Unable to load UI: %s\n", e.message);
-            show_error_dialog (/* Title of dialog when cannot load required files */
-                               _("Files missing"),
-                               /* Description in dialog when cannot load required files */
-                               _("Please check your installation"));
-            Posix.exit (Posix.EXIT_FAILURE);
-        }
-        builder.connect_signals (this);
-
-        window = builder.get_object ("simple_scan_window") as Gtk.ApplicationWindow;
         if (has_app_menu (app))
         {
-            app_menu = builder.get_object ("appmenu") as GLib.MenuModel;
             app.add_action_entries (action_entries, this);
-            app.app_menu = app_menu;
+
+            var appmenu = new Menu ();
+            var section = new Menu ();
+            appmenu.append_section (null, section);
+            section.append (_("New Document"), "app.new_document");
+
+            section = new Menu ();
+            appmenu.append_section (null, section);
+            var menu = new Menu ();
+            section.append_submenu (_("Document"), menu);
+            menu.append (_("Reorder Pages"), "app.reorder");
+            menu.append (_("Save"), "app.save");
+            menu.append (_("Save As..."), "app.save_as");
+            menu.append (_("Email..."), "app.email");
+            menu.append (_("Print..."), "app.print");
+
+            section = new Menu ();
+            appmenu.append_section (null, section);
+            section.append (_("Preferences"), "app.preferences");
+
+            section = new Menu ();
+            appmenu.append_section (null, section);
+            section.append (_("Help"), "app.help");
+            section.append (_("About"), "app.about");
+            section.append (_("Quit"), "app.quit");
+
+            app.app_menu = appmenu;
+
+            app.add_accelerator ("<Ctrl>N", "app.new_document", null);
+            app.add_accelerator ("<Ctrl>S", "app.save", null);
+            app.add_accelerator ("<Shift><Ctrl>S", "app.save_as", null);
+            app.add_accelerator ("<Ctrl>E", "app.email", null);
+            app.add_accelerator ("<Ctrl>P", "app.print", null);
+            app.add_accelerator ("F1", "app.help", null);
+            app.add_accelerator ("<Ctrl>Q", "app.quit", null);
         }
         else
         {
-            window.set_titlebar (null);
-            var menubar = builder.get_object ("menubar") as Gtk.MenuBar;
+            set_titlebar (null);
             menubar.visible = true;
-            var toolbar = builder.get_object ("toolbar") as Gtk.Toolbar;
             toolbar.visible = true;
         }
-        app.add_window (window);
-        main_vbox = builder.get_object ("main_vbox") as Gtk.Box;
-        page_move_left_menuitem = builder.get_object ("page_move_left_menuitem") as Gtk.MenuItem;
-        page_move_right_menuitem = builder.get_object ("page_move_right_menuitem") as Gtk.MenuItem;
-        page_delete_menuitem = builder.get_object ("page_delete_menuitem") as Gtk.MenuItem;
-        crop_rotate_menuitem = builder.get_object ("crop_rotate_menuitem") as Gtk.MenuItem;
-        save_menuitem = builder.get_object ("save_menuitem") as Gtk.MenuItem;
-        save_as_menuitem = builder.get_object ("save_as_menuitem") as Gtk.MenuItem;
-        copy_to_clipboard_menuitem = builder.get_object ("copy_to_clipboard_menuitem") as Gtk.MenuItem;
-        save_button = builder.get_object ("save_button") as Gtk.Button;
-        save_toolbutton = builder.get_object ("save_toolbutton") as Gtk.ToolButton;
-        stop_menuitem = builder.get_object ("stop_scan_menuitem") as Gtk.MenuItem;
-        stop_button = builder.get_object ("stop_button") as Gtk.Button;
-        stop_toolbutton = builder.get_object ("stop_toolbutton") as Gtk.ToolButton;
-        scan_button = builder.get_object ("scan_button") as Gtk.Button;
-
-        text_toolbar_menuitem = builder.get_object ("text_button_menuitem") as Gtk.RadioMenuItem;
-        text_menu_menuitem = builder.get_object ("text_menuitem") as Gtk.RadioMenuItem;
-        photo_toolbar_menuitem = builder.get_object ("photo_button_menuitem") as Gtk.RadioMenuItem;
-        photo_menu_menuitem = builder.get_object ("photo_menuitem") as Gtk.RadioMenuItem;
-
-        authorize_dialog = builder.get_object ("authorize_dialog") as Gtk.Dialog;
-        authorize_label = builder.get_object ("authorize_label") as Gtk.Label;
-        username_entry = builder.get_object ("username_entry") as Gtk.Entry;
-        password_entry = builder.get_object ("password_entry") as Gtk.Entry;
-
-        preferences_dialog = builder.get_object ("preferences_dialog") as Gtk.Dialog;
-        device_combo = builder.get_object ("device_combo") as Gtk.ComboBox;
-        device_model = device_combo.model as Gtk.ListStore;
-        text_dpi_combo = builder.get_object ("text_dpi_combo") as Gtk.ComboBox;
-        text_dpi_model = text_dpi_combo.model as Gtk.ListStore;
-        photo_dpi_combo = builder.get_object ("photo_dpi_combo") as Gtk.ComboBox;
-        photo_dpi_model = photo_dpi_combo.model as Gtk.ListStore;
-        page_side_combo = builder.get_object ("page_side_combo") as Gtk.ComboBox;
-        page_side_model = page_side_combo.model as Gtk.ListStore;
-        paper_size_combo = builder.get_object ("paper_size_combo") as Gtk.ComboBox;
-        paper_size_model = paper_size_combo.model as Gtk.ListStore;
-        brightness_scale = builder.get_object ("brightness_scale") as Gtk.Scale;
-        brightness_adjustment = brightness_scale.adjustment as Gtk.Adjustment;
-        contrast_scale = builder.get_object ("contrast_scale") as Gtk.Scale;
-        contrast_adjustment = contrast_scale.adjustment as Gtk.Adjustment;
-        quality_scale = builder.get_object ("quality_scale") as Gtk.Scale;
-        quality_adjustment = quality_scale.adjustment as Gtk.Adjustment;
+        app.add_window (this);
 
         /* Add InfoBar (not supported in Glade) */
         info_bar = new Gtk.InfoBar ();
@@ -1834,14 +1848,14 @@ public class UserInterface
 
         /* Restore window size */
         debug ("Restoring window to %dx%d pixels", window_width, window_height);
-        window.set_default_size (window_width, window_height);
+        set_default_size (window_width, window_height);
         if (window_is_maximized)
         {
             debug ("Restoring window to maximized");
-            window.maximize ();
+            maximize ();
         }
 
-        progress_dialog = new ProgressBarDialog (window, _("Saving document..."));
+        progress_dialog = new ProgressBarDialog (this, _("Saving document..."));
         book.saving.connect (book_saving_cb);
     }
     
@@ -2018,7 +2032,7 @@ public class UserInterface
 
     public void start ()
     {
-        window.visible = true;
+        visible = true;
     }
 }
 
