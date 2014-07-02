@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2014-03-04 11:26+1300\n"
+"POT-Creation-Date: 2014-07-02 12:08+1200\n"
 "PO-Revision-Date: 2014-03-11 21:02+0000\n"
 "Last-Translator: Asier Sarasua Garmendia <Unknown>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-06-23 05:48+0000\n"
-"X-Generator: Launchpad (build 17065)\n"
+"X-Launchpad-Export-Date: 2014-07-02 06:03+0000\n"
+"X-Generator: Launchpad (build 17082)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -86,6 +86,12 @@ msgstr "_Elikagailuko orri guztiak"
 #: ../data/simple-scan.ui.h:28
 msgid "_Stop Scan"
 msgstr "_Gelditu eskaneatzea"
+
+#. Menu item to reorder pages
+#. Title of dialog to reorder pages
+#: ../data/simple-scan.ui.h:30 ../src/ui.vala:1169 ../src/ui.vala:1688
+msgid "Reorder Pages"
+msgstr ""
 
 #. Label on email menu item
 #: ../data/simple-scan.ui.h:32
@@ -201,7 +207,7 @@ msgstr "Eskaneatu"
 msgid "Save document to a file"
 msgstr "Gorde dokumentua fitxategi batean"
 
-#: ../data/simple-scan.ui.h:76
+#: ../data/simple-scan.ui.h:76 ../src/ui.vala:1689
 msgid "Save"
 msgstr "Gorde"
 
@@ -243,7 +249,7 @@ msgid "Crop"
 msgstr "Moztu"
 
 #. Title of preferences dialog
-#: ../data/simple-scan.ui.h:91
+#: ../data/simple-scan.ui.h:91 ../src/ui.vala:1696
 msgid "Preferences"
 msgstr "Hobespenak"
 
@@ -450,110 +456,130 @@ msgstr "[DEVICE...] - Eskaneatze-aplikazioa"
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Exekutatu '%s --help' komando-lerroko aukera guztiak zerrendatzeko."
 
-#: ../src/ui.vala:118
+#: ../src/ui.vala:176
 msgid "Scanned Document.pdf"
 msgstr "Dokumentu.pdf eskaneatuta"
 
-#: ../src/ui.vala:244 ../src/ui.vala:1683
+#: ../src/ui.vala:304 ../src/ui.vala:1740
 msgid "_Close"
 msgstr "_Itxi"
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.vala:252
+#: ../src/ui.vala:312
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr "Erabiltzaile-izena eta pasahitza behar dira '%s' atzitzeko"
 
 #. Warning displayed when no scanners are detected
-#: ../src/ui.vala:297
+#: ../src/ui.vala:357
 msgid "No scanners detected"
 msgstr "Ez da eskanerrik detektatu"
 
 #. Hint to user on why there are no scanners detected
-#: ../src/ui.vala:299
+#: ../src/ui.vala:359
 msgid "Please check your scanner is connected and powered on"
 msgstr "Egiaztatu zure eskanerra konektatuta eta piztuta dagoela"
 
 #. Save dialog: Dialog title
-#: ../src/ui.vala:435
+#: ../src/ui.vala:495 ../src/ui.vala:1690
 msgid "Save As..."
 msgstr "Gorde honela..."
 
-#: ../src/ui.vala:438 ../src/ui.vala:600
+#: ../src/ui.vala:498 ../src/ui.vala:660
 msgid "_Cancel"
 msgstr "_Utzi"
 
-#: ../src/ui.vala:439 ../src/ui.vala:601
+#: ../src/ui.vala:499 ../src/ui.vala:661
 msgid "_Save"
 msgstr "_Gorde"
 
 #. Save dialog: Filter name to show only image files
-#: ../src/ui.vala:449
+#: ../src/ui.vala:509
 msgid "Image Files"
 msgstr "Irudi-fitxategiak"
 
 #. Save dialog: Filter name to show all files
-#: ../src/ui.vala:455
+#: ../src/ui.vala:515
 msgid "All Files"
 msgstr "Fitxategi guztiak"
 
 #. 
-#: ../src/ui.vala:460
+#: ../src/ui.vala:520
 msgid "Select File _Type"
 msgstr "Hautatu fit_xategi-mota"
 
 #. Save dialog: Label for saving in PDF format
-#: ../src/ui.vala:474
+#: ../src/ui.vala:534
 msgid "PDF (multi-page document)"
 msgstr "PDF (orrialde anitzeko dokumentua)"
 
 #. Save dialog: Label for saving in JPEG format
-#: ../src/ui.vala:480
+#: ../src/ui.vala:540
 msgid "JPEG (compressed)"
 msgstr "JPEG (konprimitua)"
 
 #. Save dialog: Label for saving in PNG format
-#: ../src/ui.vala:486
+#: ../src/ui.vala:546
 msgid "PNG (lossless)"
 msgstr "PNG (galerarik gabea)"
 
 #. Title of error dialog when save failed
-#: ../src/ui.vala:575
+#: ../src/ui.vala:635
 msgid "Failed to save file"
 msgstr "Ezin izan da fitxategia gorde"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:598
+#: ../src/ui.vala:658
 msgid "If you don't save, changes will be permanently lost."
 msgstr "Gordetzen ez baduzu, aldaketak betiko galduko dira."
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:634
+#: ../src/ui.vala:694
 msgid "Save current document?"
 msgstr "Gorde uneko dokumentua?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: ../src/ui.vala:636
+#: ../src/ui.vala:696
 msgid "Discard Changes"
 msgstr "Baztertu aldaketak"
 
 #. Error message display when unable to save image for preview
-#: ../src/ui.vala:920
+#: ../src/ui.vala:978
 msgid "Unable to save image for preview"
 msgstr "Ezin izan da aurrebistarako irudia gorde"
 
 #. Error message display when unable to preview image
-#: ../src/ui.vala:932
+#: ../src/ui.vala:990
 msgid "Unable to open image preview application"
 msgstr "Ezin izan da ireki irudiaren aurrebistarako aplikazioa"
 
+#. Label on button for combining sides in reordering dialog
+#: ../src/ui.vala:1192
+msgid "Combine sides"
+msgstr ""
+
+#. Label on button for combining sides in reverse order in reordering dialog
+#: ../src/ui.vala:1202
+msgid "Combine sides (reverse)"
+msgstr ""
+
+#. Label on button for reversing in reordering dialog
+#: ../src/ui.vala:1212
+msgid "Reverse"
+msgstr ""
+
+#. Label on button for cancelling page reordering dialog
+#: ../src/ui.vala:1222
+msgid "Keep unchanged"
+msgstr ""
+
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.vala:1360
+#: ../src/ui.vala:1437
 msgid "Unable to open help file"
 msgstr "Ezin izan da ireki laguntza-fitxategia"
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.vala:1381
+#: ../src/ui.vala:1458
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -582,16 +608,16 @@ msgstr ""
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: ../src/ui.vala:1384
+#: ../src/ui.vala:1461
 msgid "About Simple Scan"
 msgstr "Simple Scan-i buruz"
 
 #. Description of program
-#: ../src/ui.vala:1387
+#: ../src/ui.vala:1464
 msgid "Simple document scanning tool"
 msgstr "Dokumentuak eskaneatzeko tresna sinplea"
 
-#: ../src/ui.vala:1396
+#: ../src/ui.vala:1473
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -606,94 +632,115 @@ msgstr ""
 "  Xabier Isla Rodriguez https://launchpad.net/~xabier.isla"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:1418
+#: ../src/ui.vala:1495
 msgid "Save document before quitting?"
 msgstr "Gorde dokumentua irten baino lehen?"
 
 #. Button in dialog to quit and discard unsaved document
-#: ../src/ui.vala:1420
+#: ../src/ui.vala:1497
 msgid "Quit without Saving"
 msgstr "Irten gorde gabe"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.vala:1544
+#: ../src/ui.vala:1621
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (lehenetsia)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.vala:1547
+#: ../src/ui.vala:1624
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (zirriborroa)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.vala:1550
+#: ../src/ui.vala:1627
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (bereizmen altua)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.vala:1553
+#: ../src/ui.vala:1630
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
-#. Title of dialog when cannot load required files
-#: ../src/ui.vala:1608
-msgid "Files missing"
-msgstr "Fitxategiak falta dira"
+#: ../src/ui.vala:1682
+msgid "New Document"
+msgstr ""
 
-#. Description in dialog when cannot load required files
-#: ../src/ui.vala:1610
-msgid "Please check your installation"
-msgstr "Egiaztatu instalazioa"
+#: ../src/ui.vala:1687
+msgid "Document"
+msgstr ""
+
+#: ../src/ui.vala:1691
+msgid "Email..."
+msgstr ""
+
+#: ../src/ui.vala:1692
+msgid "Print..."
+msgstr ""
+
+#: ../src/ui.vala:1700
+msgid "Help"
+msgstr ""
+
+#: ../src/ui.vala:1701
+msgid "About"
+msgstr ""
+
+#: ../src/ui.vala:1702
+msgid "Quit"
+msgstr ""
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.vala:1685
+#: ../src/ui.vala:1742
 msgid "Change _Scanner"
 msgstr "Aldatu e_skanerra"
 
 #. Combo box value for automatic paper size
-#: ../src/ui.vala:1691
+#: ../src/ui.vala:1748
 msgid "Automatic"
 msgstr "Automatikoa"
 
-#: ../src/ui.vala:1741
+#: ../src/ui.vala:1798
 msgid "Darker"
 msgstr "Ilunago"
 
-#: ../src/ui.vala:1743
+#: ../src/ui.vala:1800
 msgid "Lighter"
 msgstr "Argiago"
 
-#: ../src/ui.vala:1751
+#: ../src/ui.vala:1808
 msgid "Less"
 msgstr "Gutxiago"
 
-#: ../src/ui.vala:1753
+#: ../src/ui.vala:1810
 msgid "More"
 msgstr "Gehiago"
 
-#: ../src/ui.vala:1761
+#: ../src/ui.vala:1818
 msgid "Minimum"
 msgstr "Minimoa"
 
-#: ../src/ui.vala:1763
+#: ../src/ui.vala:1820
 msgid "Maximum"
 msgstr "Maximoa"
 
-#: ../src/ui.vala:1801
+#: ../src/ui.vala:1858
 msgid "Saving document..."
 msgstr "Dokumentua gordetzen..."
 
-#: ../src/ui.vala:1951
+#: ../src/ui.vala:2008
 #, c-format
 msgid "Saving page %d out of %d"
 msgstr "%d orria (%d-etik) gordetzen"
 
 #~ msgid "4&#xD7;6"
 #~ msgstr "4&#xD7;6"
+
+#~ msgid "Files missing"
+#~ msgstr "Fitxategiak falta dira"
 
 #~ msgid "Height of scanned image in pixels"
 #~ msgstr "Eskaneatutako irudiaren altuera pixeletan"
@@ -708,6 +755,9 @@ msgstr "%d orria (%d-etik) gordetzen"
 #~ msgstr ""
 #~ "Erabilera:\n"
 #~ "  %s [GAILUA...] - Eskaneatzeko utilitatea"
+
+#~ msgid "Please check your installation"
+#~ msgstr "Egiaztatu instalazioa"
 
 #~ msgid ""
 #~ "The direction of the scanner across the scanned page. It can be one of the "
