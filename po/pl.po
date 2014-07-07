@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-07-02 12:08+1200\n"
-"PO-Revision-Date: 2014-01-25 19:21+0000\n"
-"Last-Translator: Piotr Strębski <strebski@o2.pl>\n"
+"PO-Revision-Date: 2014-07-06 15:24+0000\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-07-03 05:39+0000\n"
-"X-Generator: Launchpad (build 17082)\n"
+"X-Launchpad-Export-Date: 2014-07-07 05:43+0000\n"
+"X-Generator: Launchpad (build 17086)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -91,7 +91,7 @@ msgstr "Zatrzymaj _skanowanie"
 #. Title of dialog to reorder pages
 #: ../data/simple-scan.ui.h:30 ../src/ui.vala:1169 ../src/ui.vala:1688
 msgid "Reorder Pages"
-msgstr ""
+msgstr "Zmień kolejność stron"
 
 #. Label on email menu item
 #: ../data/simple-scan.ui.h:32
@@ -223,7 +223,7 @@ msgstr "Zatrzymaj"
 #. Tooltip for rotate left (counter-clockwise) button
 #: ../data/simple-scan.ui.h:81
 msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Obraca stronę w lewo (przeciwnie do wskazówek zegara)"
+msgstr "Obraca stronę w lewo (przeciwnie do ruchu wskazówek zegara)"
 
 #. Label on rotate page left (anti-clockwise) item
 #: ../data/simple-scan.ui.h:83
@@ -233,7 +233,7 @@ msgstr "Obróć w lewo"
 #. Tooltip for rotate right (clockwise) button
 #: ../data/simple-scan.ui.h:85
 msgid "Rotate the page to the right (clockwise)"
-msgstr "Obraca stronę w prawo (zgodnie ze wskazówkami zegara)"
+msgstr "Obraca stronę w prawo (zgodnie z ruchem wskazówek zegara)"
 
 #. Label on rotate page right (clockwise) item
 #: ../data/simple-scan.ui.h:87
@@ -364,7 +364,7 @@ msgstr "Rozdzielczość skanowanego tekstu"
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:14
 msgid "The resolution in dots-per-inch to use when scanning text."
 msgstr ""
-"Rozdzielczość do użycia podczas skanowania tekstu w punktach na cal (dpi)."
+"Rozdzielczość do użycia podczas skanowania tekstu w punktach na cal (DPI)."
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:15
 msgid "Resolution for photo scans"
@@ -373,7 +373,7 @@ msgstr "Rozdzielczość skanowanych zdjęć"
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:16
 msgid "The resolution in dots-per-inch to use when scanning photos."
 msgstr ""
-"Rozdzielczość do użycia podczas skanowania zdjęć w punktach na cal (dpi)."
+"Rozdzielczość do użycia podczas skanowania zdjęć w punktach na cal (DPI)."
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:17
 msgid "Page side to scan"
@@ -410,7 +410,7 @@ msgstr "Brak dostępnych skanerów. Proszę podłączyć skaner."
 #. Error displayed when cannot connect to scanner
 #: ../src/scanner.vala:870
 msgid "Unable to connect to scanner"
-msgstr "Nie można połączyć się ze skanerem"
+msgstr "Nie można połączyć ze skanerem"
 
 #. Error display when unable to start scan
 #: ../src/scanner.vala:1219
@@ -425,12 +425,12 @@ msgstr "Błąd podczas komunikacji ze skanerem"
 #. Help string for command line --version flag
 #: ../src/simple-scan.vala:21
 msgid "Show release version"
-msgstr "Wypisuje inforamacje o wersji"
+msgstr "Wyświetla informacje o wersji"
 
 #. Help string for command line --debug flag
 #: ../src/simple-scan.vala:24
 msgid "Print debugging messages"
-msgstr "Wypisuje komunikaty diagnozowania błędów"
+msgstr "Wyświetla komunikaty diagnozowania błędów"
 
 #: ../src/simple-scan.vala:26
 msgid "Fix PDF files generated with older versions of Simple Scan"
@@ -455,7 +455,9 @@ msgstr "[URZĄDZENIE] - Narzędzie do skanowania"
 #: ../src/simple-scan.vala:554
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr "Proszę wprowadzić „%s --help”, aby wypisać komunikat pomocy."
+msgstr ""
+"Wykonanie polecenia \"%s --help\" wyświetli pełną listę dostępnych opcji "
+"wiersza poleceń."
 
 #: ../src/ui.vala:176
 msgid "Scanned Document.pdf"
@@ -557,22 +559,22 @@ msgstr "Nie można otworzyć programu podglądu obrazów"
 #. Label on button for combining sides in reordering dialog
 #: ../src/ui.vala:1192
 msgid "Combine sides"
-msgstr ""
+msgstr "Połącz strony"
 
 #. Label on button for combining sides in reverse order in reordering dialog
 #: ../src/ui.vala:1202
 msgid "Combine sides (reverse)"
-msgstr ""
+msgstr "Połącz strony (odwrotnie)"
 
 #. Label on button for reversing in reordering dialog
 #: ../src/ui.vala:1212
 msgid "Reverse"
-msgstr ""
+msgstr "Odwrotnie"
 
 #. Label on button for cancelling page reordering dialog
 #: ../src/ui.vala:1222
 msgid "Keep unchanged"
-msgstr ""
+msgstr "Bez zmiany"
 
 #. Error message displayed when unable to launch help browser
 #: ../src/ui.vala:1437
@@ -656,53 +658,53 @@ msgstr "Zakończ bez zapisywania"
 #: ../src/ui.vala:1621
 #, c-format
 msgid "%d dpi (default)"
-msgstr "%d dpi (domyślnie)"
+msgstr "%d DPI (domyślnie)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
 #: ../src/ui.vala:1624
 #, c-format
 msgid "%d dpi (draft)"
-msgstr "%d dpi (szkic)"
+msgstr "%d DPI (szkic)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
 #: ../src/ui.vala:1627
 #, c-format
 msgid "%d dpi (high resolution)"
-msgstr "%d dpi (wysoka rozdzielczość)"
+msgstr "%d DPI (wysoka rozdzielczość)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
 #: ../src/ui.vala:1630
 #, c-format
 msgid "%d dpi"
-msgstr "%d dpi"
+msgstr "%d DPI"
 
 #: ../src/ui.vala:1682
 msgid "New Document"
-msgstr ""
+msgstr "Nowy dokument"
 
 #: ../src/ui.vala:1687
 msgid "Document"
-msgstr ""
+msgstr "Dokument"
 
 #: ../src/ui.vala:1691
 msgid "Email..."
-msgstr ""
+msgstr "E-mail..."
 
 #: ../src/ui.vala:1692
 msgid "Print..."
-msgstr ""
+msgstr "Wydrukuj..."
 
 #: ../src/ui.vala:1700
 msgid "Help"
-msgstr ""
+msgstr "Pomoc"
 
 #: ../src/ui.vala:1701
 msgid "About"
-msgstr ""
+msgstr "O programie"
 
 #: ../src/ui.vala:1702
 msgid "Quit"
-msgstr ""
+msgstr "Zakończ"
 
 #. Button in error infobar to open preferences dialog and change scanner
 #: ../src/ui.vala:1742
