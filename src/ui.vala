@@ -1648,20 +1648,14 @@ public class UserInterface : Gtk.ApplicationWindow
         copy_to_clipboard_menuitem.sensitive = true;
     }
 
-    private bool has_app_menu (Gtk.Application app)
+    private bool shell_shows_menubar
     {
-        /* We have three cases:
-         * - GNOME 3: show-app-menu true, show-menubar false -> use the app menu
-         * - Unity, OSX: show-app-menu and show-menubar true -> use the normal menu
-         * - Other WM, Windows: show-app-menu and show-menubar false -> use the normal menu
-         */
-        var gtk_settings = Gtk.Settings.get_default ();
-
-        bool show_app_menu = false;
-        bool show_menubar = true;
-        gtk_settings.get ("gtk-shell-shows-app-menu", &show_app_menu, "gtk-shell-shows-menubar", &show_menubar, null);
-
-        return show_app_menu && !show_menubar;
+        get
+        {
+            bool shell_shows_menubar;
+            Gtk.Settings.get_default ().get ("gtk-shell-shows-menubar", out shell_shows_menubar);
+            return shell_shows_menubar;
+        }
     }
 
     private void load ()
@@ -1672,7 +1666,7 @@ public class UserInterface : Gtk.ApplicationWindow
 
         var app = Application.get_default () as Gtk.Application;
 
-        if (has_app_menu (app))
+        if (!shell_shows_menubar)
         {
             app.add_action_entries (action_entries, this);
 
