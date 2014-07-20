@@ -22,8 +22,8 @@ sudo apt-get install bzr
 bzr branch lp:simple-scan simple-scan && cd simple-scan
 sudo apt-get build-dep simple-scan
 sudo apt-get install libsqlite3-dev
-sudo apt-get install valac-0.16 vala-0.16
-sudo update-alternatives --config valac # select vala-0.16
+sudo apt-get install valac-0.22 vala-0.22
+sudo update-alternatives --config valac # select vala-0.22
 
 # one of the follwing
 ./autogen.sh                           # system-wide installation
