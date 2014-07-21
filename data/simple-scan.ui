@@ -158,7 +158,7 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="GtkListStore" id="device_store">
+  <object class="GtkListStore" id="device_model">
     <columns>
       <!-- column-name device_name -->
       <column type="gchararray"/>
@@ -176,25 +176,7 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-help</property>
   </object>
-  <object class="GtkListStore" id="mode_store">
-    <columns>
-      <!-- column-name mode -->
-      <column type="gchararray"/>
-      <!-- column-name label -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">text</col>
-        <col id="1" translatable="yes" comments="Combo box label for text scan mode">Text</col>
-      </row>
-      <row>
-        <col id="0">photo</col>
-        <col id="1" translatable="yes" comments="Combo box label for photo scan mode">Photo</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="page_side_store">
+  <object class="GtkListStore" id="page_side_model">
     <columns>
       <!-- column-name side -->
       <column type="gint"/>
@@ -216,7 +198,7 @@
       </row>
     </data>
   </object>
-  <object class="GtkListStore" id="paper_size_store">
+  <object class="GtkListStore" id="paper_size_model">
     <columns>
       <!-- column-name width -->
       <column type="gint"/>
@@ -226,7 +208,7 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkListStore" id="photo_dpi_store">
+  <object class="GtkListStore" id="photo_dpi_model">
     <columns>
       <!-- column-name dpi -->
       <column type="gint"/>
@@ -1011,7 +993,7 @@
       </packing>
     </child>
   </template>
-  <object class="GtkListStore" id="text_dpi_store">
+  <object class="GtkListStore" id="text_dpi_model">
     <columns>
       <!-- column-name dpi -->
       <column type="gint"/>
@@ -1090,7 +1072,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
-                <property name="model">device_store</property>
+                <property name="model">device_model</property>
                 <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
               </object>
               <packing>
@@ -1137,7 +1119,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
-                <property name="model">text_dpi_store</property>
+                <property name="model">text_dpi_model</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -1151,7 +1133,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
-                <property name="model">photo_dpi_store</property>
+                <property name="model">photo_dpi_model</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -1181,7 +1163,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
-                <property name="model">page_side_store</property>
+                <property name="model">page_side_model</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -1211,7 +1193,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
-                <property name="model">paper_size_store</property>
+                <property name="model">paper_size_model</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>

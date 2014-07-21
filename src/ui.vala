@@ -128,13 +128,21 @@ public class UserInterface : Gtk.ApplicationWindow
     private Gtk.Scale contrast_scale;
     [GtkChild]
     private Gtk.Scale quality_scale;
+    [GtkChild]
     private Gtk.ListStore device_model;
+    [GtkChild]
     private Gtk.ListStore text_dpi_model;
+    [GtkChild]
     private Gtk.ListStore photo_dpi_model;
+    [GtkChild]
     private Gtk.ListStore page_side_model;
+    [GtkChild]
     private Gtk.ListStore paper_size_model;
+    [GtkChild]
     private Gtk.Adjustment brightness_adjustment;
+    [GtkChild]
     private Gtk.Adjustment contrast_adjustment;
+    [GtkChild]
     private Gtk.Adjustment quality_adjustment;
     private bool setting_devices;
     private bool user_selected_device;
