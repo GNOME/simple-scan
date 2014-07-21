@@ -1559,7 +1559,7 @@ public class UserInterface : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private bool window_delete_event_cb (Gtk.Widget widget, Gdk.Event event)
+    private bool window_delete_event_cb (Gtk.Widget widget, Gdk.EventAny event)
     {
         return !on_quit ();
     }
