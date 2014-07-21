@@ -8,7 +8,6 @@
     <property name="modal">True</property>
     <property name="type_hint">normal</property>
     <property name="urgency_hint">True</property>
-    <property name="transient_for">simple_scan_window</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>
@@ -855,7 +854,7 @@
             <child>
               <object class="GtkMenuButton" id="open_menu">
                 <property name="visible">True</property>
-                <property name="popup">scan_button_menu</property>
+                <property name="popup">scan_button_hb_menu</property>
                 <style>
                   <class name="image-button"/>
                 </style>
@@ -1008,7 +1007,6 @@
     <property name="resizable">False</property>
     <property name="icon_name">scanner</property>
     <property name="type_hint">normal</property>
-    <property name="transient_for">simple_scan_window</property>
     <signal name="delete-event" handler="preferences_dialog_delete_event_cb" swapped="no"/>
     <signal name="response" handler="preferences_dialog_response_cb" swapped="no"/>
     <child internal-child="vbox">
@@ -1353,6 +1351,56 @@
         <property name="active">True</property>
         <property name="draw_as_radio">True</property>
         <property name="group">text_button_menuitem</property>
+        <signal name="toggled" handler="photo_menuitem_toggled_cb" swapped="no"/>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMenu" id="scan_button_hb_menu">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="scan_single_button_hb_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes" comments="Toolbar scan menu item to scan a single page from the scanner">Single _Page</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="scan_button_clicked_cb" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="scan_all_button_hb_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes" comments="Toolbar scan menu item to scan all pages from a document feeder">All Pages From _Feeder</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="continuous_scan_button_clicked_cb" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="menuitem3">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="text_button_hb_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Text</property>
+        <property name="use_underline">True</property>
+        <property name="draw_as_radio">True</property>
+        <signal name="toggled" handler="text_menuitem_toggled_cb" swapped="no"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkRadioMenuItem" id="photo_button_hb_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Photo</property>
+        <property name="use_underline">True</property>
+        <property name="active">True</property>
+        <property name="draw_as_radio">True</property>
+        <property name="group">text_button_hb_menuitem</property>
         <signal name="toggled" handler="photo_menuitem_toggled_cb" swapped="no"/>
       </object>
     </child>

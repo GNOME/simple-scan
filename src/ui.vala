@@ -95,9 +95,13 @@ public class UserInterface : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.RadioMenuItem text_button_menuitem;
     [GtkChild]
+    private Gtk.RadioMenuItem text_button_hb_menuitem;
+    [GtkChild]
     private Gtk.RadioMenuItem text_menuitem;
     [GtkChild]
     private Gtk.RadioMenuItem photo_button_menuitem;
+    [GtkChild]
+    private Gtk.RadioMenuItem photo_button_hb_menuitem;
     [GtkChild]
     private Gtk.RadioMenuItem photo_menuitem;
 
@@ -727,11 +731,13 @@ public class UserInterface : Gtk.ApplicationWindow
         if (document_hint == "text")
         {
             text_button_menuitem.active = true;
+            text_button_hb_menuitem.active = true;
             text_menuitem.active = true;
         }
         else if (document_hint == "photo")
         {
             photo_button_menuitem.active = true;
+            photo_button_hb_menuitem.active = true;
             photo_menuitem.active = true;
         }
 
@@ -750,9 +756,7 @@ public class UserInterface : Gtk.ApplicationWindow
     private void photo_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
     {
         if (widget.active)
-        {
             set_document_hint ("photo", true);
-        }
     }
 
     private void set_page_side (ScanType page_side)
@@ -1844,6 +1848,9 @@ public class UserInterface : Gtk.ApplicationWindow
         book_view.show_page.connect (show_page_cb);
         book_view.show_menu.connect (show_page_menu_cb);
         book_view.visible = true;
+
+        authorize_dialog.transient_for = this;
+        preferences_dialog.transient_for = this;
 
         /* Load previous state */
         load_state ();
