@@ -822,21 +822,14 @@
             </style>
             <child>
               <object class="GtkButton" id="stop_button">
-                <property name="visible">false</property>
+                <property name="visible">False</property>
                 <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
                 <property name="label" translatable="yes">Stop</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="stop_scan_button_clicked_cb" swapped="no"/>
                 <style>
-                  <class name="image-button"/>
+                  <class name="text-button"/>
                 </style>
-                <child>
-                  <object class="GtkImage" id="stop_image">
-                    <property name="visible">True</property>
-                    <property name="icon_size">1</property>
-                    <property name="icon_name">process-stop-symbolic</property>
-                  </object>
-                </child>
               </object>
             </child>
             <child>
@@ -852,11 +845,11 @@
               </object>
             </child>
             <child>
-              <object class="GtkMenuButton" id="open_menu">
+              <object class="GtkMenuButton" id="open_button">
                 <property name="visible">True</property>
                 <property name="popup">scan_button_hb_menu</property>
                 <style>
-                  <class name="image-button"/>
+                  <class name="text-button"/>
                 </style>
               </object>
             </child>
