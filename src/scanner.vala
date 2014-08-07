@@ -936,8 +936,8 @@ public class Scanner
                     Sane.I18N ("ADF Duplex"),
                     "ADF Duplex - Long-Edge Binding", /* Samsung unified driver. LP: # 892915 */
                     "ADF Duplex - Short-Edge Binding",
-		    "Duplex",  /* HP duplex scan support. LP: #1353599 */
-		    "Automatic Document Feeder(centrally aligned,Duplex)",  /* Brother duplex scan support. LP: #1343773 */
+		     "Duplex",  /* HP duplex scan support. LP: #1353599 */
+		     "Automatic Document Feeder(centrally aligned,Duplex)",  /* Brother duplex scan support. LP: #1343773 */
                     "Automatic Document Feeder(left aligned,Duplex)"
                 };
 
