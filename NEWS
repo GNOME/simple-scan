@@ -1,3 +1,14 @@
+Overview of changes in simple-scan 3.4.5
+
+  * Fix page size not being applied on some drivers
+  * Add non-standard option names for duplex scanning on HP And Brother scanners
+  * Add support for Samsung devices that don't use the standard SANE field names
+  * Don't access a variable after ownership is transferred - was breaking scans
+  * Use GLib 2.32 threading API
+  * Stop configure if Vala not found
+  * Compile with Vala debugging information
+  * Hide C warnings
+
 Overview of changes in simple-scan 3.4.4
 
   * Correct generation of PDF trailer to conform to the PDF standard
