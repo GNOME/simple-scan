@@ -23,6 +23,7 @@ dnl * gnome-icon-theme
 dnl * xdg-utils (for xdg-email)
 
 PKG_CHECK_MODULES(SIMPLE_SCAN, [
+    glib-2.0 >= 2.32
     gtk+-3.0
     gmodule-export-2.0
     gthread-2.0
