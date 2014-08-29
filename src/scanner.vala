@@ -1317,7 +1317,7 @@ public class Scanner
             line_count += line.n_lines;
 
             /* Increase buffer size if did full read */
-            var buffer_size = buffer.length;
+            var buffer_size = line.data.length;
             if (full_read)
                 buffer_size += parameters.bytes_per_line;
 
