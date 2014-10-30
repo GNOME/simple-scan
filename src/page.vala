@@ -687,25 +687,26 @@ public class Page
 
         if (strcmp (type, "jpeg") == 0)
         {
-            /* ICC profile is awaiting review in gtk2+ bugzilla */
-            string[] keys = { "quality", /* "icc-profile", */ null };
-            string[] values = { "90", /* icc_profile_data, */ null };
+            string[] keys = { "x-dpi", "y-dpi", "quality", "icc-profile", null };
+            string[] values = { "%d".printf (dpi), "%d".printf (dpi), "90", icc_profile_data, null };
+            if (icc_profile_data == null)
+                keys[3] = null;
             writer.save (image, "jpeg", keys, values);
         }
         else if (strcmp (type, "png") == 0)
         {
-            string[] keys = { "icc-profile", null };
-            string[] values = { icc_profile_data, null };
+            string[] keys = { "x-dpi", "y-dpi", "icc-profile", null };
+            string[] values = { "%d".printf (dpi), "%d".printf (dpi), icc_profile_data, null };
             if (icc_profile_data == null)
-                keys[0] = null;
+                keys[2] = null;
             writer.save (image, "png", keys, values);
         }
         else if (strcmp (type, "tiff") == 0)
         {
-            string[] keys = { "compression", "icc-profile", null };
-            string[] values = { "8" /* Deflate compression */, icc_profile_data, null };
+            string[] keys = { "x-dpi", "y-dpi", "compression", "icc-profile", null };
+            string[] values = { "%d".printf (dpi), "%d".printf (dpi), "8" /* Deflate compression */, icc_profile_data, null };
             if (icc_profile_data == null)
-                keys[1] = null;
+                keys[3] = null;
             writer.save (image, "tiff", keys, values);
         }
         else
