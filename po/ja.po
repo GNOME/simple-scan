@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2014-08-18 17:31+1200\n"
-"PO-Revision-Date: 2012-07-23 09:03+0000\n"
-"Last-Translator: Shushi Kurose <md81bird@hitaki.net>\n"
+"PO-Revision-Date: 2014-11-20 05:14+0000\n"
+"Last-Translator: Kentaro Kazuhama <Unknown>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-11-04 06:35+0000\n"
-"X-Generator: Launchpad (build 17211)\n"
+"X-Launchpad-Export-Date: 2014-11-20 05:38+0000\n"
+"X-Generator: Launchpad (build 17252)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -164,12 +164,12 @@ msgstr "切り抜きを回転(_R)"
 #. Menu item to move the selected page to the left
 #: ../data/simple-scan.ui.h:58
 msgid "Move Left"
-msgstr ""
+msgstr "左へ移動"
 
 #. Menu item to move the selected page to the right
 #: ../data/simple-scan.ui.h:60
 msgid "Move Right"
-msgstr ""
+msgstr "右へ移動"
 
 #. Label on help menu
 #: ../data/simple-scan.ui.h:62
@@ -321,7 +321,7 @@ msgstr "10mm単位での紙の幅"
 msgid ""
 "The width of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
-msgstr ""
+msgstr "10mm単位の用紙の幅 (または自動用紙検知の場合は 0)"
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:7
 msgid "Height of paper in tenths of a mm"
@@ -432,7 +432,7 @@ msgstr "スキャンに失敗しました"
 #. Default filename to use when saving document (and extension will be added, e.g. .jpg)
 #: ../src/simple-scan.vala:316
 msgid "Scanned Document"
-msgstr ""
+msgstr "スキャン済みドキュメント"
 
 #. Arguments and description for --help text
 #: ../src/simple-scan.vala:543
@@ -485,32 +485,32 @@ msgstr "保存(_S)"
 #. Save dialog: Filter name to show only image files
 #: ../src/ui.vala:521
 msgid "Image Files"
-msgstr ""
+msgstr "画像ファイル"
 
 #. Save dialog: Filter name to show all files
 #: ../src/ui.vala:527
 msgid "All Files"
-msgstr ""
+msgstr "すべてのファイル"
 
 #. 
 #: ../src/ui.vala:532
 msgid "Select File _Type"
-msgstr ""
+msgstr "ファイルタイプの選択(_T)"
 
 #. Save dialog: Label for saving in PDF format
 #: ../src/ui.vala:546
 msgid "PDF (multi-page document)"
-msgstr ""
+msgstr "PDF (複数ページ)"
 
 #. Save dialog: Label for saving in JPEG format
 #: ../src/ui.vala:552
 msgid "JPEG (compressed)"
-msgstr ""
+msgstr "JPEG (圧縮済み)"
 
 #. Save dialog: Label for saving in PNG format
 #: ../src/ui.vala:558
 msgid "PNG (lossless)"
-msgstr ""
+msgstr "PNG (ロスレス)"
 
 #. Title of error dialog when save failed
 #: ../src/ui.vala:647
@@ -520,17 +520,17 @@ msgstr "ファイルの保存に失敗しました"
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.vala:670
 msgid "If you don't save, changes will be permanently lost."
-msgstr ""
+msgstr "保存しない場合、変更点は失われます。"
 
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.vala:706
 msgid "Save current document?"
-msgstr ""
+msgstr "現在のドキュメントを保存しますか?"
 
 #. Button in dialog to create new document and discard unsaved document
 #: ../src/ui.vala:708
 msgid "Discard Changes"
-msgstr ""
+msgstr "変更を破棄"
 
 #. Error message display when unable to save image for preview
 #: ../src/ui.vala:990
@@ -540,7 +540,7 @@ msgstr "プレビュー用の画像を保存できません"
 #. Error message display when unable to preview image
 #: ../src/ui.vala:1002
 msgid "Unable to open image preview application"
-msgstr ""
+msgstr "画像プレビューアプリケーションを開けませんでした"
 
 #. Label on button for combining sides in reordering dialog
 #: ../src/ui.vala:1204
@@ -565,7 +565,7 @@ msgstr "無変更を維持"
 #. Error message displayed when unable to launch help browser
 #: ../src/ui.vala:1449
 msgid "Unable to open help file"
-msgstr ""
+msgstr "ヘルプファイルを開くことができません"
 
 #. The license this software is under (GPL3+)
 #: ../src/ui.vala:1470
@@ -583,6 +583,18 @@ msgid ""
 "You should have received a copy of the GNU General Public License\n"
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 msgstr ""
+"This program is free software: you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation, either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program.  If not, see <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
 #: ../src/ui.vala:1473
@@ -612,36 +624,36 @@ msgstr ""
 #. Text in dialog warning when a document is about to be lost
 #: ../src/ui.vala:1507
 msgid "Save document before quitting?"
-msgstr ""
+msgstr "終了する前にドキュメントを保存しますか?"
 
 #. Button in dialog to quit and discard unsaved document
 #: ../src/ui.vala:1509
 msgid "Quit without Saving"
-msgstr ""
+msgstr "保存せずに終了"
 
 #. Preferences dialog: Label for default resolution in resolution list
 #: ../src/ui.vala:1633
 #, c-format
 msgid "%d dpi (default)"
-msgstr ""
+msgstr "%d dpi (標準)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
 #: ../src/ui.vala:1636
 #, c-format
 msgid "%d dpi (draft)"
-msgstr ""
+msgstr "%d dpi (ドラフト)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
 #: ../src/ui.vala:1639
 #, c-format
 msgid "%d dpi (high resolution)"
-msgstr ""
+msgstr "%d dpi (高解像度)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
 #: ../src/ui.vala:1642
 #, c-format
 msgid "%d dpi"
-msgstr ""
+msgstr "%d dpi"
 
 #: ../src/ui.vala:1688
 msgid "New Document"
@@ -679,7 +691,7 @@ msgstr "スキャナを変更(_S)"
 #. Combo box value for automatic paper size
 #: ../src/ui.vala:1754
 msgid "Automatic"
-msgstr ""
+msgstr "自動"
 
 #: ../src/ui.vala:1804
 msgid "Darker"
