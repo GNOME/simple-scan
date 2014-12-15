@@ -537,8 +537,6 @@ public class SimpleScan : Gtk.Application
         Intl.bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
         Intl.textdomain (GETTEXT_PACKAGE);
 
-        Gtk.init (ref args);
-
         var c = new OptionContext (/* Arguments and description for --help text */
                                    _("[DEVICE...] - Scanning utility"));
         c.add_main_entries (options, GETTEXT_PACKAGE);
@@ -594,6 +592,8 @@ public class SimpleScan : Gtk.Application
         Log.set_default_handler (log_cb);
 
         debug ("Starting Simple Scan %s, PID=%i", VERSION, Posix.getpid ());
+
+        Gtk.init (ref args);
 
         var app = new SimpleScan (device);
         return app.run ();
