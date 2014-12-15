@@ -1660,16 +1660,6 @@ public class UserInterface : Gtk.ApplicationWindow
         copy_to_clipboard_menuitem.sensitive = true;
     }
 
-    private bool shell_shows_menubar
-    {
-        get
-        {
-            bool shell_shows_menubar;
-            Gtk.Settings.get_default ().get ("gtk-shell-shows-menubar", out shell_shows_menubar);
-            return shell_shows_menubar;
-        }
-    }
-
     private void load ()
     {
         Gtk.IconTheme.get_default ().append_search_path (ICON_DIR);
@@ -1678,7 +1668,13 @@ public class UserInterface : Gtk.ApplicationWindow
 
         var app = Application.get_default () as Gtk.Application;
 
-        if (!shell_shows_menubar)
+        if (is_desktop ("Unity") || is_desktop ("XFCE"))
+        {
+            set_titlebar (null);
+            menubar.visible = true;
+            toolbar.visible = true;
+        }
+        else
         {
             app.add_action_entries (action_entries, this);
 
@@ -1716,12 +1712,6 @@ public class UserInterface : Gtk.ApplicationWindow
             app.add_accelerator ("<Ctrl>P", "app.print", null);
             app.add_accelerator ("F1", "app.help", null);
             app.add_accelerator ("<Ctrl>Q", "app.quit", null);
-        }
-        else
-        {
-            set_titlebar (null);
-            menubar.visible = true;
-            toolbar.visible = true;
         }
         app.add_window (this);
 
@@ -1867,7 +1857,20 @@ public class UserInterface : Gtk.ApplicationWindow
         progress_dialog = new ProgressBarDialog (this, _("Saving document..."));
         book.saving.connect (book_saving_cb);
     }
-    
+
+    private bool is_desktop (string name)
+    {
+        var desktop_name_list = Environment.get_variable ("XDG_CURRENT_DESKTOP");
+        if (desktop_name_list == null)
+            return false;
+
+        foreach (var n in desktop_name_list.split (":"))
+            if (n == name)
+                return true;
+
+        return false;
+    }
+
     private string state_filename
     {
         owned get { return Path.build_filename (Environment.get_user_cache_dir (), "simple-scan", "state"); }
