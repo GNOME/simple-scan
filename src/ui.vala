@@ -1667,7 +1667,7 @@ public class UserInterface : Gtk.ApplicationWindow
 
         var app = Application.get_default () as Gtk.Application;
 
-        if (is_desktop ("Unity") || is_desktop ("XFCE") || is_desktop ("MATE"))
+        if (is_desktop ("Unity") || is_desktop ("XFCE") || is_desktop ("MATE") || is_desktop ("LXDE"))
         {
             set_titlebar (null);
             menubar.visible = true;
