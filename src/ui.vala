@@ -608,11 +608,10 @@ public class UserInterface
                 return true;
             else
                 return false;
-        case Gtk.ResponseType.CANCEL:
-            return false;
         case Gtk.ResponseType.NO:
-        default:
             return true;
+        default:
+            return false;
         }
     }
 
