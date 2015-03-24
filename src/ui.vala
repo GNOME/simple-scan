@@ -191,6 +191,7 @@ public class UserInterface
         book = new Book ();
         book.page_removed.connect (page_removed_cb);
         book.page_added.connect (page_added_cb);
+        book.needs_saving_changed.connect (needs_saving_cb);
 
         load ();
 
@@ -205,7 +206,6 @@ public class UserInterface
         }
         else
             book_view.selected_page = book.get_page (0);
-        book.needs_saving_changed.connect (needs_saving_cb);
     }
 
     ~UserInterface ()
