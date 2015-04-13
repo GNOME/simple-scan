@@ -1610,7 +1610,7 @@ public class UserInterface : Gtk.ApplicationWindow
         page.scan_direction_changed.disconnect (page_scan_direction_changed_cb);
 
         /* If this is the last page add a new blank one */
-        if (book.n_pages == 1)
+        if (book.n_pages == 0)
             add_default_page ();
 
         update_page_menu ();
