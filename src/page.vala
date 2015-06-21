@@ -685,7 +685,7 @@ public class Page
             writer.save (image, "tiff", keys, values);
         }
         else
-            ; // FIXME: Throw Error
+            throw new FileError.INVAL ("Unknown file type: %s".printf (type));
     }
 }
 
