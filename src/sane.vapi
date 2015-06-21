@@ -195,7 +195,7 @@ namespace Sane {
         public Int cap;
 
         public ConstraintType constraint_type;
-        [CCode (cname = "constraint.string_list", array_length = false, null_terminated = true)]
+        [CCode (cname = "constraint.string_list", array_length = false, array_null_terminated = true)]
         public string[] string_list;
         [CCode (cname = "constraint.word_list", array_length = false)]
         public Word[] word_list;
