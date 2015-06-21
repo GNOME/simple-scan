@@ -527,7 +527,7 @@ public class BookView : Gtk.Box
             return;
         this.cursor = cursor;
 
-        c = new Gdk.Cursor (cursor);
+        c = new Gdk.Cursor.for_display (get_display (), cursor);
         drawing_area.get_window ().set_cursor (c);
     }
 
