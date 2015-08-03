@@ -18,8 +18,9 @@ simple_scan_SOURCES = \
 	resources.c
 
 simple_scan_VALAFLAGS = \
+	--pkg=posix \
 	--pkg=zlib \
-	--pkg=gudev-1.0 \
+	--pkg=gusb \
 	--pkg=gio-2.0 \
 	--pkg=gtk+-3.0 \
 	--gresources=$(top_srcdir)/data/simple-scan.gresource.xml \

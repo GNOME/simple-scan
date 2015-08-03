@@ -31,7 +31,7 @@ public class SimpleScan : Gtk.Application
 
     private ScanDevice? default_device = null;
     private bool have_devices = false;
-    private GUdev.Client udev_client;
+    private GUsb.Context usb_context;
     private UserInterface ui;
     private Scanner scanner;
     private Book book;
@@ -62,9 +62,16 @@ public class SimpleScan : Gtk.Application
         scanner.scan_failed.connect (scanner_failed_cb);
         scanner.scanning_changed.connect (scanner_scanning_changed_cb);
 
-        string[]? subsystems = { "usb", null };
-        udev_client = new GUdev.Client (subsystems);
-        udev_client.uevent.connect (on_uevent);
+        try
+        {
+            usb_context = new GUsb.Context ();
+            usb_context.device_added.connect (() => { scanner.redetect (); });
+            usb_context.device_removed.connect (() => { scanner.redetect (); });
+        }
+        catch (Error e)
+        {
+            warning ("Failed to create USB context: %s\n", e.message);
+        }
 
         if (default_device != null)
         {
@@ -88,7 +95,7 @@ public class SimpleScan : Gtk.Application
         base.shutdown ();
         book = null;
         ui = null;
-        udev_client = null;
+        usb_context = null;
         scanner.free ();
     }
 
@@ -448,11 +455,6 @@ public class SimpleScan : Gtk.Application
         log_file.printf ("[%+.2fs] %s %s\n", log_timer.elapsed (), prefix, message);
         if (debug_enabled)
             stderr.printf ("[%+.2fs] %s %s\n", log_timer.elapsed (), prefix, message);
-    }
-
-    private void on_uevent (GUdev.Client client, string action, GUdev.Device device)
-    {
-        scanner.redetect ();
     }
 
     private static void fix_pdf (string filename) throws Error
