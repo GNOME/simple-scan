@@ -149,6 +149,7 @@ public class UserInterface : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.Adjustment quality_adjustment;
     private bool setting_devices;
+    private string? missing_driver = null;
     private bool user_selected_device;
 
     private Gtk.FileChooserDialog? save_dialog;
@@ -365,10 +366,21 @@ public class UserInterface : Gtk.ApplicationWindow
         {
             type = Gtk.MessageType.WARNING;
             image_id = "dialog-warning";
-            /* Warning displayed when no scanners are detected */
-            title = _("No scanners detected");
-            /* Hint to user on why there are no scanners detected */
-            text = _("Please check your scanner is connected and powered on");
+            if (missing_driver == null)
+            {
+                /* Warning displayed when no scanners are detected */
+                title = _("No scanners detected");
+                /* Hint to user on why there are no scanners detected */
+                text = _("Please check your scanner is connected and powered on");
+            }
+            else
+            {
+                /* Warning displayed when no drivers are installed but a compatible scanner is detected */
+                title = _("Additional software needed");
+                /* Instructions to install driver software */
+                // FIXME
+                text = _("Good luck getting that to work...");
+            }
         }
         else
         {
@@ -385,13 +397,15 @@ public class UserInterface : Gtk.ApplicationWindow
         info_bar.visible = true;
     }
 
-    public void set_scan_devices (List<ScanDevice> devices)
+    public void set_scan_devices (List<ScanDevice> devices, string? missing_driver = null)
     {
         bool have_selection = false;
         int index;
         Gtk.TreeIter iter;
 
         setting_devices = true;
+
+        this.missing_driver = missing_driver;
 
         /* If the user hasn't chosen a scanner choose the best available one */
         if (user_selected_device)
