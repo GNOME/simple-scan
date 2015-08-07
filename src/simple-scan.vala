@@ -406,15 +406,6 @@ public class SimpleScan : Gtk.Application
         if (!scanner.is_scanning ())
             append_page ();
 
-        /* Default filename to use when saving document (and extension will be added, e.g. .jpg) */
-        string filename_prefix = _("Scanned Document");
-        string extension;
-        if (options.scan_mode == ScanMode.COLOR)
-            extension = "jpg";
-        else
-            extension = "pdf";
-        var filename = "%s.%s".printf (filename_prefix, extension);
-        ui.default_file_name = filename;
         scanner.scan (device, options);
     }
 

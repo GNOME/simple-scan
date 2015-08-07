@@ -186,7 +186,6 @@ public class UserInterface : Gtk.ApplicationWindow
 
     private string document_hint = "photo";
 
-    public string default_file_name { get; set; default = _("Scanned Document.pdf"); }
     private bool scanning_ = false;
     public bool scanning
     {
@@ -483,31 +482,6 @@ public class UserInterface : Gtk.ApplicationWindow
         book_view.selected_page = page;
     }
 
-    private void on_file_type_changed (Gtk.TreeSelection selection)
-    {
-        var extension = get_selected_extension (selection);
-        var path = save_dialog.get_filename ();
-        var filename = Path.get_basename (path);
-
-        /* Replace extension */
-        var extension_index = filename.last_index_of_char ('.');
-        if (extension_index >= 0)
-            filename = filename.slice (0, extension_index);
-        filename = filename + extension;
-        save_dialog.set_current_name (filename);
-    }
-
-    private string get_selected_extension (Gtk.TreeSelection selection)
-    {
-        Gtk.TreeModel model;
-        Gtk.TreeIter iter;
-        string extension = "";
-
-        if (selection.get_selected (out model, out iter))
-            model.get (iter, 1, out extension, -1);
-        return extension;
-    }
-
     private string choose_file_location ()
     {
         /* Get directory to save to */
@@ -527,7 +501,8 @@ public class UserInterface : Gtk.ApplicationWindow
         save_dialog.do_overwrite_confirmation = true;
         save_dialog.local_only = false;
         save_dialog.set_current_folder (directory);
-        save_dialog.set_current_name (default_file_name);
+        /* Default filename to use when saving document */
+        save_dialog.set_current_name (_("Scanned Document.pdf"));
 
         /* Filter to only show images by default */
         var filter = new Gtk.FileFilter ();
@@ -541,16 +516,6 @@ public class UserInterface : Gtk.ApplicationWindow
                                 _("All Files"));
         filter.add_pattern ("*");
         save_dialog.add_filter (filter);
-
-        var expander = new Gtk.Expander.with_mnemonic (/* */
-                                                       _("Select File _Type"));
-        expander.spacing = 5;
-        save_dialog.set_extra_widget (expander);
-
-        string default_extension = "";
-        var index = default_file_name.last_index_of_char ('.');
-        if (index >= 0)
-            default_extension = default_file_name.substring (index);
 
         var file_type_store = new Gtk.ListStore (2, typeof (string), typeof (string));
         Gtk.TreeIter iter;
@@ -573,36 +538,50 @@ public class UserInterface : Gtk.ApplicationWindow
                              1, ".png",
                              -1);
 
-        var file_type_view = new Gtk.TreeView.with_model (file_type_store);
-        file_type_view.headers_visible = false;
-        file_type_view.rules_hint = true;
-        var column = new Gtk.TreeViewColumn.with_attributes ("",
-                                                             new Gtk.CellRendererText (),
-                                                             "text", 0, null);
-        file_type_view.append_column (column);
-        expander.add (file_type_view);
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        box.visible = true;
+        save_dialog.set_extra_widget (box);
 
-        if (file_type_store.get_iter_first (out iter))
+        /* Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG) */
+        var label = new Gtk.Label (_("File format:"));
+        label.visible = true;
+        box.pack_start (label, false, false, 0);
+
+        var file_type_combo = new Gtk.ComboBox.with_model (file_type_store);
+        file_type_combo.visible = true;
+        var renderer = new Gtk.CellRendererText ();
+        file_type_combo.pack_start (renderer, true);
+        file_type_combo.add_attribute (renderer, "text", 0);
+
+        file_type_combo.set_active (0);
+        file_type_combo.changed.connect (() =>
         {
-            do
-            {
-                string e;
-                file_type_store.get (iter, 1, out e, -1);
-                if (default_extension == e)
-                    file_type_view.get_selection ().select_iter (iter);
-            } while (file_type_store.iter_next (ref iter));
-        }
-        file_type_view.get_selection ().changed.connect (on_file_type_changed);
+            var extension = "";
+            Gtk.TreeIter i;
+            if (file_type_combo.get_active_iter (out i))
+                file_type_store.get (i, 1, out extension, -1);
 
-        expander.show_all ();
+            var path = save_dialog.get_filename ();
+            var filename = Path.get_basename (path);
+
+            /* Replace extension */
+            var extension_index = filename.last_index_of_char ('.');
+            if (extension_index >= 0)
+                filename = filename.slice (0, extension_index);
+            filename = filename + extension;
+            save_dialog.set_current_name (filename);
+        });
+        box.pack_start (file_type_combo, false, false, 0);
 
         var response = save_dialog.run ();
 
         string? uri = null;
         if (response == Gtk.ResponseType.ACCEPT)
         {
-            var selection = file_type_view.get_selection ();
-            var extension = get_selected_extension (selection);
+            var extension = "";
+            Gtk.TreeIter i;
+            if (file_type_combo.get_active_iter (out i))
+                file_type_store.get (i, 1, out extension, -1);
 
             var path = save_dialog.get_filename ();
             var filename = Path.get_basename (path);
@@ -616,7 +595,6 @@ public class UserInterface : Gtk.ApplicationWindow
 
         settings.set_string ("save-directory", save_dialog.get_current_folder ());
 
-        file_type_view.get_selection ().changed.disconnect (on_file_type_changed);
         save_dialog.destroy ();
         save_dialog = null;
 
