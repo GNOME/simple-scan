@@ -185,7 +185,6 @@ public class UserInterface : Gtk.ApplicationWindow
 
     private string document_hint = "photo";
 
-    public string default_file_name { get; set; default = _("Scanned Document.pdf"); }
     private bool scanning_ = false;
     public bool scanning
     {
@@ -513,7 +512,8 @@ public class UserInterface : Gtk.ApplicationWindow
         save_dialog.do_overwrite_confirmation = true;
         save_dialog.local_only = false;
         save_dialog.set_current_folder (directory);
-        save_dialog.set_current_name (default_file_name);
+        /* Default filename to use when saving document */
+        save_dialog.set_current_name (_("Scanned Document.pdf"));
 
         /* Filter to only show images by default */
         var filter = new Gtk.FileFilter ();
@@ -532,11 +532,6 @@ public class UserInterface : Gtk.ApplicationWindow
                                                        _("Select File _Type"));
         expander.spacing = 5;
         save_dialog.set_extra_widget (expander);
-
-        string default_extension = "";
-        var index = default_file_name.last_index_of_char ('.');
-        if (index >= 0)
-            default_extension = default_file_name.substring (index);
 
         var file_type_store = new Gtk.ListStore (2, typeof (string), typeof (string));
         Gtk.TreeIter iter;
@@ -568,16 +563,8 @@ public class UserInterface : Gtk.ApplicationWindow
         file_type_view.append_column (column);
         expander.add (file_type_view);
 
-        if (file_type_store.get_iter_first (out iter))
-        {
-            do
-            {
-                string e;
-                file_type_store.get (iter, 1, out e, -1);
-                if (default_extension == e)
-                    file_type_view.get_selection ().select_iter (iter);
-            } while (file_type_store.iter_next (ref iter));
-        }
+        file_type_store.get_iter_first (out iter);
+        file_type_view.get_selection ().select_iter (iter);
         file_type_view.get_selection ().changed.connect (on_file_type_changed);
 
         expander.show_all ();
