@@ -314,6 +314,7 @@ public class UserInterface : Gtk.ApplicationWindow
                                             "%s", error_title);
         dialog.add_button (_("_Close"), 0);
         dialog.format_secondary_text ("%s", error_text);
+        dialog.run ();
         dialog.destroy ();
     }
 
