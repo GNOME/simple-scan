@@ -43,7 +43,8 @@ simple_scan_CFLAGS = \
 	-DUI_DIR=\"$(datadir)/simple-scan/\" \
 	-DICON_DIR=\"$(datadir)/simple-scan/icons\" \
 	-DGCONF_DIR=\"/apps/simple-scan\" \
-	-DSIMPLE_SCAN_BINARY=\"simple-scan\"
+	-DSIMPLE_SCAN_BINARY=\"simple-scan\" \
+	-DI_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE
 
 simple_scan_LDADD = \
 	$(SIMPLE_SCAN_LIBS) \

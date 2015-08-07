@@ -45,7 +45,7 @@ public class UserInterface : Gtk.ApplicationWindow
     private Gtk.Label info_bar_label;
     private Gtk.Button info_bar_close_button;
     private Gtk.Button info_bar_change_scanner_button;
-    private Gtk.Button info_bar_install_button;    
+    private Gtk.Button info_bar_install_button;
     [GtkChild]
     private Gtk.RadioMenuItem custom_crop_menuitem;
     [GtkChild]
@@ -352,7 +352,7 @@ public class UserInterface : Gtk.ApplicationWindow
         Gtk.MessageType type;
         string title, text, image_id;
         bool show_close_button = false;
-        bool show_install_button = false;        
+        bool show_install_button = false;
         bool show_change_scanner_button = false;
 
         if (have_error)
@@ -381,7 +381,7 @@ public class UserInterface : Gtk.ApplicationWindow
                 title = _("Additional software needed");
                 /* Instructions to install driver software */
                 text = _("You need to install driver software for your scanner.");
-                show_install_button = true;                
+                show_install_button = true;
             }
         }
         else
@@ -589,7 +589,7 @@ public class UserInterface : Gtk.ApplicationWindow
 
             var path = save_dialog.get_filename ();
             var filename = Path.get_basename (path);
-            
+
             var extension_index = filename.last_index_of_char ('.');
             if (extension_index < 0)
                 path += extension;
@@ -964,7 +964,7 @@ public class UserInterface : Gtk.ApplicationWindow
         menuitem.active = true;
         crop_button.active = page.has_crop;
         crop_toolbutton.active = page.has_crop;
-        
+
         updating_page_menu = false;
     }
 
@@ -1078,7 +1078,7 @@ public class UserInterface : Gtk.ApplicationWindow
         else
             no_crop_menuitem.active = true;
     }
-    
+
     [GtkCallback]
     private void crop_toolbutton_toggled_cb (Gtk.ToggleToolButton widget)
     {
@@ -1219,7 +1219,7 @@ public class UserInterface : Gtk.ApplicationWindow
         b = make_reorder_button (_("Reverse"), "C1C2C3C4C5C6-C6C5C4C3C2C1");
         b.clicked.connect (() =>
         {
-            book.reverse ();           
+            book.reverse ();
             dialog.destroy ();
         });
         b.visible = true;
@@ -1251,7 +1251,7 @@ public class UserInterface : Gtk.ApplicationWindow
     private Gtk.Button make_reorder_button (string text, string items)
     {
         var b = new Gtk.Button ();
-        
+
         var vbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
         vbox.visible = true;
         b.add (vbox);
@@ -1402,7 +1402,7 @@ public class UserInterface : Gtk.ApplicationWindow
     {
         email (document_hint, quality);
     }
-    
+
     private void print_document ()
     {
         var print = new Gtk.PrintOperation ();
@@ -1563,6 +1563,7 @@ public class UserInterface : Gtk.ApplicationWindow
     private void install_drivers ()
     {
         var message = "";
+        string[] packages_to_install = {};
         switch (missing_driver)
         {
         case "brscan":
@@ -1573,13 +1574,14 @@ public class UserInterface : Gtk.ApplicationWindow
             message = _("You appear to have a Brother scanner.\n\nDrivers for this are available on the <a href=\"http://support.brother.com\">Brother website</a>.\nOnce installed you will need to restart Simple Scan.");
             break;
         case "samsung":
-            /* Instructions on how to install Samsung scanner drivers */        
+            /* Instructions on how to install Samsung scanner drivers */
             message = _("You appear to have a Samsung scanner.\n\nDrivers for this are available on the <a href=\"http://samsung.com/support\">Samsung website</a>.\nOnce installed you will need to restart Simple Scan.");
             break;
         case "hpaio":
             // FIXME
-            /* Instructions on how to install HP scanner drivers */            
-            //message = _("You appear to have an HP scanner.\n\nDrivers for this are ...\nOnce installed you will need to restart Simple Scan.");            
+            /* Instructions on how to install HP scanner drivers */
+            message = _("You appear to have an HP scanner.\n\nInstalling drivers now...\nOnce installed you will need to restart Simple Scan.");
+            packages_to_install = { "libsane-hpaio" };
             break;
         case "epkowa":
             /* Instructions on how to install Epson scanner drivers */
@@ -1593,8 +1595,72 @@ public class UserInterface : Gtk.ApplicationWindow
         label.use_markup = true;
         dialog.get_content_area ().border_width = 12;
         dialog.get_content_area ().pack_start (label, true, true, 0);
+
+        Gtk.ProgressBar progress_bar;
+        if (packages_to_install.length > 0)
+        {
+            progress_bar = new Gtk.ProgressBar ();
+            progress_bar.visible = true;
+            dialog.get_content_area ().pack_start (progress_bar, false, true, 0);
+
+            install_packages.begin (packages_to_install, () => { progress_bar.pulse (); }, (object, result) =>
+            {
+                install_packages.end (result);
+                progress_bar.fraction = 1.0;
+            });
+        }
+
         dialog.run ();
         dialog.destroy ();
+    }
+
+    private async void install_packages (string[] packages, Pk.ProgressCallback progress_callback)
+    {
+        var task = new Pk.Task ();
+        var loop = new MainLoop ();
+        Pk.Results results;
+        try
+        {
+            results = yield task.resolve_async (Pk.Filter.NOT_INSTALLED, packages, null, progress_callback);
+        }
+        catch (Error e)
+        {
+            stderr.printf ("Failed to resolve: %s", e.message);        
+            return;
+        }
+
+        if (results == null)
+            return;
+        if (results.get_error_code () != null)
+        {
+            stderr.printf ("Failed to resolve: %s", results.get_error_code ().details);
+            return;
+        }
+
+        var package_array = results.get_package_array ();
+        var package_ids = new string[package_array.length + 1];
+        package_ids[package_array.length] = null;
+        for (var i = 0; i < package_array.length; i++)
+            package_ids[i] = package_array.data[i].get_id ();
+
+        results = null;
+        loop = new MainLoop ();
+        try
+        {
+            results = yield task.install_packages_async (package_ids, null, progress_callback);
+        }
+        catch (Error e)
+        {
+            stderr.printf ("Failed to install: %s\n", e.message);
+        }
+
+        if (results == null)
+            return;
+        if (results.get_error_code () != null)
+        {
+            stderr.printf ("Failed to install: %s", results.get_error_code ().details);
+            return;
+        }
     }
 
     [GtkCallback]
@@ -2091,7 +2157,7 @@ public class UserInterface : Gtk.ApplicationWindow
 private class ProgressBarDialog : Gtk.Window
 {
     private Gtk.ProgressBar bar;
-    
+
     public double fraction
     {
         get { return bar.fraction; }
