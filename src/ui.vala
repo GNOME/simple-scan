@@ -572,7 +572,7 @@ public class UserInterface : Gtk.ApplicationWindow
 
             var path = save_dialog.get_filename ();
             var filename = Path.get_basename (path);
-            
+
             var extension_index = filename.last_index_of_char ('.');
             if (extension_index < 0)
                 path += extension;
@@ -947,7 +947,7 @@ public class UserInterface : Gtk.ApplicationWindow
         menuitem.active = true;
         crop_button.active = page.has_crop;
         crop_toolbutton.active = page.has_crop;
-        
+
         updating_page_menu = false;
     }
 
@@ -1061,7 +1061,7 @@ public class UserInterface : Gtk.ApplicationWindow
         else
             no_crop_menuitem.active = true;
     }
-    
+
     [GtkCallback]
     private void crop_toolbutton_toggled_cb (Gtk.ToggleToolButton widget)
     {
@@ -1202,7 +1202,7 @@ public class UserInterface : Gtk.ApplicationWindow
         b = make_reorder_button (_("Reverse"), "C1C2C3C4C5C6-C6C5C4C3C2C1");
         b.clicked.connect (() =>
         {
-            book.reverse ();           
+            book.reverse ();
             dialog.destroy ();
         });
         b.visible = true;
@@ -1234,7 +1234,7 @@ public class UserInterface : Gtk.ApplicationWindow
     private Gtk.Button make_reorder_button (string text, string items)
     {
         var b = new Gtk.Button ();
-        
+
         var vbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
         vbox.visible = true;
         b.add (vbox);
@@ -1385,7 +1385,7 @@ public class UserInterface : Gtk.ApplicationWindow
     {
         email (document_hint, quality);
     }
-    
+
     private void print_document ()
     {
         var print = new Gtk.PrintOperation ();
@@ -2029,7 +2029,7 @@ public class UserInterface : Gtk.ApplicationWindow
 private class ProgressBarDialog : Gtk.Window
 {
     private Gtk.ProgressBar bar;
-    
+
     public double fraction
     {
         get { return bar.fraction; }
