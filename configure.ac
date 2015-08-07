@@ -29,6 +29,7 @@ PKG_CHECK_MODULES(SIMPLE_SCAN, [
     cairo
     gdk-pixbuf-2.0
     gusb
+    packagekit-glib2
 ])
 
 PKG_CHECK_MODULES(COLORD, [
