@@ -45,6 +45,7 @@ public class UserInterface : Gtk.ApplicationWindow
     private Gtk.Label info_bar_label;
     private Gtk.Button info_bar_close_button;
     private Gtk.Button info_bar_change_scanner_button;
+    private Gtk.Button info_bar_install_button;    
     [GtkChild]
     private Gtk.RadioMenuItem custom_crop_menuitem;
     [GtkChild]
@@ -315,6 +316,7 @@ public class UserInterface : Gtk.ApplicationWindow
                                             "%s", error_title);
         dialog.add_button (_("_Close"), 0);
         dialog.format_secondary_text ("%s", error_text);
+        dialog.run ();
         dialog.destroy ();
     }
 
@@ -350,6 +352,7 @@ public class UserInterface : Gtk.ApplicationWindow
         Gtk.MessageType type;
         string title, text, image_id;
         bool show_close_button = false;
+        bool show_install_button = false;        
         bool show_change_scanner_button = false;
 
         if (have_error)
@@ -377,8 +380,8 @@ public class UserInterface : Gtk.ApplicationWindow
                 /* Warning displayed when no drivers are installed but a compatible scanner is detected */
                 title = _("Additional software needed");
                 /* Instructions to install driver software */
-                // FIXME
-                text = _("Good luck getting that to work...");
+                text = _("You need to install driver software for your scanner.");
+                show_install_button = true;                
             }
         }
         else
@@ -393,6 +396,7 @@ public class UserInterface : Gtk.ApplicationWindow
         info_bar_label.set_markup (message);
         info_bar_close_button.visible = show_close_button;
         info_bar_change_scanner_button.visible = show_change_scanner_button;
+        info_bar_install_button.visible = show_install_button;
         info_bar.visible = true;
     }
 
@@ -1536,18 +1540,61 @@ public class UserInterface : Gtk.ApplicationWindow
 
     private void info_bar_response_cb (Gtk.InfoBar widget, int response_id)
     {
-        if (response_id == 1)
+        switch (response_id)
         {
+        /* Change scanner */
+        case 1:
             device_combo.grab_focus ();
             preferences_dialog.present ();
-        }
-        else
-        {
+            break;
+        /* Install drivers */
+        case 2:
+            install_drivers ();
+            break;
+        default:
             have_error = false;
             error_title = null;
             error_text = null;
             update_info_bar ();
+            break;
         }
+    }
+
+    private void install_drivers ()
+    {
+        var message = "";
+        switch (missing_driver)
+        {
+        case "brscan":
+        case "brscan2":
+        case "brscan3":
+        case "brscan4":
+            /* Instructions on how to install Brother scanner drivers */
+            message = _("You appear to have a Brother scanner.\n\nDrivers for this are available on the <a href=\"http://support.brother.com\">Brother website</a>.\nOnce installed you will need to restart Simple Scan.");
+            break;
+        case "samsung":
+            /* Instructions on how to install Samsung scanner drivers */        
+            message = _("You appear to have a Samsung scanner.\n\nDrivers for this are available on the <a href=\"http://samsung.com/support\">Samsung website</a>.\nOnce installed you will need to restart Simple Scan.");
+            break;
+        case "hpaio":
+            // FIXME
+            /* Instructions on how to install HP scanner drivers */            
+            //message = _("You appear to have an HP scanner.\n\nDrivers for this are ...\nOnce installed you will need to restart Simple Scan.");            
+            break;
+        case "epkowa":
+            /* Instructions on how to install Epson scanner drivers */
+            message = _("You appear to have an Epson scanner.\n\nDrivers for this are available on the <a href=\"http://support.epsom.com\">Epson website</a>.\nOnce installed you will need to restart Simple Scan.");
+            break;
+        }
+        var dialog = new Gtk.Dialog.with_buttons (/* Title of dialog giving instructions on how to install drivers */
+                                                  _("Install drivers"), this, Gtk.DialogFlags.MODAL, _("_Close"), Gtk.ResponseType.CLOSE);
+        var label = new Gtk.Label (message);
+        label.visible = true;
+        label.use_markup = true;
+        dialog.get_content_area ().border_width = 12;
+        dialog.get_content_area ().pack_start (label, true, true, 0);
+        dialog.run ();
+        dialog.destroy ();
     }
 
     [GtkCallback]
@@ -1727,6 +1774,8 @@ public class UserInterface : Gtk.ApplicationWindow
         info_bar_close_button = info_bar.add_button (_("_Close"), Gtk.ResponseType.CLOSE) as Gtk.Button;
         info_bar_change_scanner_button = info_bar.add_button (/* Button in error infobar to open preferences dialog and change scanner */
                                                               _("Change _Scanner"), 1) as Gtk.Button;
+        info_bar_install_button = info_bar.add_button (/* Button in error infobar to prompt user to install drivers */
+                                                       _("_Install Drivers"), 2) as Gtk.Button;
 
         Gtk.TreeIter iter;
         paper_size_model.append (out iter);
