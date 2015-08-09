@@ -22,6 +22,3 @@ HELP_FILES = index.page \
              scanning.page
 
 HELP_LINGUAS = de
-
-DISTCLEANFILES = \
-	Makefile.in

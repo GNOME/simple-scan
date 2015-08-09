@@ -16,7 +16,6 @@ EXTRA_DIST = simple-scan.desktop.in \
              simple-scan.gresource.xml
 
 DISTCLEANFILES = \
-	Makefile.in \
 	$(schema_DATA) \
 	$(desktop_DATA) \
 	$(gsettings_SCHEMAS)

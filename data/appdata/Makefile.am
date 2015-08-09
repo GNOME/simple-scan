@@ -5,5 +5,4 @@ appdata_DATA = simple-scan.appdata.xml
 EXTRA_DIST = simple-scan.appdata.xml.in
 
 DISTCLEANFILES = \
-	Makefile.in \
 	$(appdata_DATA)

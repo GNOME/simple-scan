@@ -55,6 +55,3 @@ CLEANFILES = \
 	$(patsubst %.vala,%.c,$(filter %.vala, $(SOURCES))) \
 	resources.c \
 	*_vala.stamp
-
-DISTCLEANFILES = \
-	Makefile.in
