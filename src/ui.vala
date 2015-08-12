@@ -1562,35 +1562,131 @@ public class UserInterface : Gtk.ApplicationWindow
 
     private void install_drivers ()
     {
-        var message = "";
+        var message = "", instructions = "";
+        string[] packages_to_install = {};
         switch (missing_driver)
         {
         case "brscan":
         case "brscan2":
         case "brscan3":
         case "brscan4":
+            /* Message to indicate a Brother scanner has been detected */
+            message = _("You appear to have a Brother scanner.");
             /* Instructions on how to install Brother scanner drivers */
-            message = _("You appear to have a Brother scanner.\n\nDrivers for this are available on the <a href=\"http://support.brother.com\">Brother website</a>.\nOnce installed you will need to restart Simple Scan.");
+            instructions = _("Drivers for this are available on the <a href=\"http://support.brother.com\">Brother website</a>.");
             break;
         case "samsung":
+            /* Message to indicate a Samsung scanner has been detected */
+            message = _("You appear to have a Samsung scanner.");
             /* Instructions on how to install Samsung scanner drivers */
-            message = _("You appear to have a Samsung scanner.\n\nDrivers for this are available on the <a href=\"http://samsung.com/support\">Samsung website</a>.\nOnce installed you will need to restart Simple Scan.");
+            instructions = _("Drivers for this are available on the <a href=\"http://samsung.com/support\">Samsung website</a>.");
+            break;
+        case "hpaio":
+            /* Message to indicate a HP scanner has been detected */
+            message = _("You appear to have an HP scanner.");
+            packages_to_install = { "libsane-hpaio" };
             break;
         case "epkowa":
+            /* Message to indicate an Epson scanner has been detected */
+            message = _("You appear to have an Epson scanner.");
             /* Instructions on how to install Epson scanner drivers */
-            message = _("You appear to have an Epson scanner.\n\nDrivers for this are available on the <a href=\"http://support.epsom.com\">Epson website</a>.\nOnce installed you will need to restart Simple Scan.");
+            instructions = _("Drivers for this are available on the <a href=\"http://support.epsom.com\">Epson website</a>.");
             break;
         }
         var dialog = new Gtk.Dialog.with_buttons (/* Title of dialog giving instructions on how to install drivers */
                                                   _("Install drivers"), this, Gtk.DialogFlags.MODAL, _("_Close"), Gtk.ResponseType.CLOSE);
+        dialog.get_content_area ().border_width = 12;
+        dialog.get_content_area ().spacing = 6;
+
         var label = new Gtk.Label (message);
         label.visible = true;
-        label.use_markup = true;
+        label.xalign = 0f;
+        dialog.get_content_area ().pack_start (label, true, true, 0);
+
+        var instructions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        instructions_box.visible = true;
+        dialog.get_content_area ().pack_start (instructions_box, true, true, 0);
+        
+        var stack = new Gtk.Stack ();
+        instructions_box.pack_start (stack, false, false, 0);
+
+        var spinner = new Gtk.Spinner ();
+        spinner.visible = true;
+        stack.add (spinner);
+
+        var status_label = new Gtk.Label ("");
+        status_label.visible = true;
+        stack.add (status_label);
+
+        var instructions_label = new Gtk.Label (instructions);
+        instructions_label.visible = true;
+        instructions_label.xalign = 0f;        
+        instructions_label.use_markup = true;
+        instructions_box.pack_start (instructions_label, false, false, 0);
+
+        label = new Gtk.Label (/* Message in driver install dialog */
+                               _("Once installed you will need to restart Simple Scan."));
+        label.visible = true;
+        label.xalign = 0f;        
         dialog.get_content_area ().border_width = 12;
         dialog.get_content_area ().pack_start (label, true, true, 0);
 
+        if (packages_to_install.length > 0)
+        {
+            stack.visible = true;
+            spinner.active = true;
+            instructions_label.set_text (/* Label shown while installing drivers */
+                                         _("Installing drivers..."));
+            install_packages.begin (packages_to_install, () => {}, (object, result) =>
+            {
+                status_label.visible = true;
+                spinner.active = false;
+                status_label.set_text ("☒");
+                stack.visible_child = status_label;
+                /* Label shown once drivers successfully installed */
+                var result_text = _("Drivers installed successfully!");
+                try
+                {
+                    var results = install_packages.end (result);
+                    if (results.get_error_code () == null)
+                        status_label.set_text ("☑");
+                    else
+                    {
+                        var e = results.get_error_code ();
+                        /* Label shown if failed to install drivers */
+                        var error_text = _("Failed to install drivers (error code %d).").printf (e.code);
+                    }
+
+                }
+                catch (Error e)
+                {
+                    /* Label shown if failed to install drivers */
+                    error_text = _("Failed to install drivers.");
+                    warning ("Failed to install drivers: %s", e.message);
+                }
+                instructions_label.set_text (result_text);
+            });
+        }
+
         dialog.run ();
         dialog.destroy ();
+    }
+
+    private async Pk.Results? install_packages (string[] packages, Pk.ProgressCallback progress_callback) throws GLib.Error
+    {
+        var task = new Pk.Task ();
+        Pk.Results results;
+        results = yield task.resolve_async (Pk.Filter.NOT_INSTALLED, packages, null, progress_callback);
+        if (results == null || results.get_error_code () != null)
+            return results;
+
+        var package_array = results.get_package_array ();
+        var package_ids = new string[package_array.length + 1];
+        package_ids[package_array.length] = null;
+        for (var i = 0; i < package_array.length; i++)
+            package_ids[i] = package_array.data[i].get_id ();
+
+        return yield task.install_packages_async (package_ids, null, progress_callback);
     }
 
     [GtkCallback]
