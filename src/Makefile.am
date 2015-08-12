@@ -8,7 +8,8 @@ simple_scan_SOURCES = \
 	book.vala \
 	book-view.vala \
 	colord.vapi \
-	fixes.vapi \    
+	fixes.vapi \
+	packagekit-glib2.vapi \
 	page.vala \
 	page-view.vala \
 	sane.vapi \
