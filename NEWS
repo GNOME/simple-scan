@@ -1,3 +1,13 @@
+Overview of changes in simple-scan 3.17.90
+
+  * Default to PDF when saving in all cases.
+  * Always show file format options and use a combo box to fit better into dialog
+  * Detect HP scanners and install drivers using PackageKit if found.
+  * If SANE detects no scanners but we see USB IDs of Brother, Epson or Samsung
+    scanners then prompt the user to go to their website to install drivers.
+  * Use GUsb instead of GUdev.
+  * Fix error dialogs not showing.
+
 Overview of changes in simple-scan 3.17.4
 
   * Updated translations
