@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-08-11 05:39+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2015-08-19 05:34+0000\n"
+"X-Generator: Launchpad (build 17690)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -49,6 +49,7 @@ msgstr "Verso"
 
 #. Title of scan window
 #: ../data/simple-scan.ui.h:14 ../data/simple-scan.desktop.in.h:1
+#: ../data/appdata/simple-scan.appdata.xml.in.h:1
 msgid "Simple Scan"
 msgstr "Outil de numérisation Simple Scan"
 
@@ -87,7 +88,7 @@ msgstr "Photo"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: ../data/simple-scan.ui.h:28 ../src/ui.vala:1180 ../src/ui.vala:1693
+#: ../data/simple-scan.ui.h:28 ../src/ui.vala:1176 ../src/ui.vala:1820
 msgid "Reorder Pages"
 msgstr "Réorganiser les pages"
 
@@ -205,7 +206,7 @@ msgstr "Numériser"
 msgid "Save document to a file"
 msgstr "Enregistrer le document dans un fichier"
 
-#: ../data/simple-scan.ui.h:74 ../src/ui.vala:1694
+#: ../data/simple-scan.ui.h:74 ../src/ui.vala:1821
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -247,7 +248,7 @@ msgid "Crop"
 msgstr "Recadrer"
 
 #. Title of preferences dialog
-#: ../data/simple-scan.ui.h:89 ../src/ui.vala:1701
+#: ../data/simple-scan.ui.h:89 ../src/ui.vala:1828
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -295,7 +296,7 @@ msgstr "Qualité :"
 msgid "Document Scanner"
 msgstr "Numériseur de documents"
 
-#: ../data/simple-scan.desktop.in.h:2
+#: ../data/simple-scan.desktop.in.h:3
 msgid "Scan Documents"
 msgstr "Numériser des documents"
 
@@ -466,7 +467,7 @@ msgstr ""
 "Corriger les fichiers PDF générés avec les anciennes versions de Simple Scan"
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.vala:297
+#: ../src/simple-scan.vala:391
 msgid "Failed to scan"
 msgstr "Échec de la numérisation"
 
@@ -476,64 +477,65 @@ msgid "Scanned Document"
 msgstr "Document numérisé"
 
 #. Arguments and description for --help text
-#: ../src/simple-scan.vala:543
+#: ../src/simple-scan.vala:621
 msgid "[DEVICE...] - Scanning utility"
 msgstr "[DEVICE...] - Outil de numérisation"
 
 #. Text printed out when an unknown command-line argument provided
-#: ../src/simple-scan.vala:554
+#: ../src/simple-scan.vala:632
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Exécutez « %s --help » pour voir la liste complète des options disponibles "
 "en ligne de commande."
 
-#: ../src/ui.vala:188
+#. Default filename to use when saving document
+#: ../src/ui.vala:509
 msgid "Scanned Document.pdf"
 msgstr "Document.pdf numérisé"
 
-#: ../src/ui.vala:316 ../src/ui.vala:1745
+#: ../src/ui.vala:317 ../src/ui.vala:1597 ../src/ui.vala:1866
 msgid "_Close"
 msgstr "_Fermer"
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.vala:324
+#: ../src/ui.vala:326
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr "Nom d'utilisateur et mot de passe nécessaires pour accéder à « %s »"
 
 #. Warning displayed when no scanners are detected
-#: ../src/ui.vala:369
+#: ../src/ui.vala:374
 msgid "No scanners detected"
 msgstr "Aucun périphérique de numérisation n'a été détecté."
 
 #. Hint to user on why there are no scanners detected
-#: ../src/ui.vala:371
+#: ../src/ui.vala:376
 msgid "Please check your scanner is connected and powered on"
 msgstr ""
 "Veuillez vérifier que votre périphérique de numérisation est connecté et "
 "sous tension."
 
 #. Save dialog: Dialog title
-#: ../src/ui.vala:507 ../src/ui.vala:1695
+#: ../src/ui.vala:499 ../src/ui.vala:1822
 msgid "Save As..."
 msgstr "Enregistrer sous..."
 
-#: ../src/ui.vala:510 ../src/ui.vala:672
+#: ../src/ui.vala:502 ../src/ui.vala:668
 msgid "_Cancel"
 msgstr "_Annuler"
 
-#: ../src/ui.vala:511 ../src/ui.vala:673
+#: ../src/ui.vala:503 ../src/ui.vala:669
 msgid "_Save"
 msgstr "_Enregistrer"
 
 #. Save dialog: Filter name to show only image files
-#: ../src/ui.vala:521
+#: ../src/ui.vala:514
 msgid "Image Files"
 msgstr "Fichiers image"
 
 #. Save dialog: Filter name to show all files
-#: ../src/ui.vala:527
+#: ../src/ui.vala:520
 msgid "All Files"
 msgstr "Tous les fichiers"
 
@@ -543,78 +545,78 @@ msgid "Select File _Type"
 msgstr "Sélectionner le _type de fichier"
 
 #. Save dialog: Label for saving in PDF format
-#: ../src/ui.vala:546
+#: ../src/ui.vala:529
 msgid "PDF (multi-page document)"
 msgstr "PDF (document multipage)"
 
 #. Save dialog: Label for saving in JPEG format
-#: ../src/ui.vala:552
+#: ../src/ui.vala:535
 msgid "JPEG (compressed)"
 msgstr "JPEG (compressé)"
 
 #. Save dialog: Label for saving in PNG format
-#: ../src/ui.vala:558
+#: ../src/ui.vala:541
 msgid "PNG (lossless)"
 msgstr "PNG (sans perte)"
 
 #. Title of error dialog when save failed
-#: ../src/ui.vala:647
+#: ../src/ui.vala:643
 msgid "Failed to save file"
 msgstr "Impossible d'enregistrer le fichier"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:670
+#: ../src/ui.vala:666
 msgid "If you don't save, changes will be permanently lost."
 msgstr ""
 "Si vous n'enregistrez pas, les modifications seront définitivement perdues."
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:705
+#: ../src/ui.vala:701
 msgid "Save current document?"
 msgstr "Enregistrer le document actuel ?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: ../src/ui.vala:707
+#: ../src/ui.vala:703
 msgid "Discard Changes"
 msgstr "Abandonner les modifications"
 
 #. Error message display when unable to save image for preview
-#: ../src/ui.vala:989
+#: ../src/ui.vala:985
 msgid "Unable to save image for preview"
 msgstr "Impossible d'enregistrer l'image pour la prévisualiser"
 
 #. Error message display when unable to preview image
-#: ../src/ui.vala:1001
+#: ../src/ui.vala:997
 msgid "Unable to open image preview application"
 msgstr "Impossible d'ouvrir l'aperçu de l'image"
 
 #. Label on button for combining sides in reordering dialog
-#: ../src/ui.vala:1203
+#: ../src/ui.vala:1199
 msgid "Combine sides"
 msgstr "Associer les côtés"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: ../src/ui.vala:1213
+#: ../src/ui.vala:1209
 msgid "Combine sides (reverse)"
 msgstr "Associer les côtés (inverser)"
 
 #. Label on button for reversing in reordering dialog
-#: ../src/ui.vala:1223
+#: ../src/ui.vala:1219
 msgid "Reverse"
 msgstr "Inverser"
 
 #. Label on button for cancelling page reordering dialog
-#: ../src/ui.vala:1233
+#: ../src/ui.vala:1229
 msgid "Keep unchanged"
 msgstr "Maintenir inchangé"
 
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.vala:1448
+#: ../src/ui.vala:1444
 msgid "Unable to open help file"
 msgstr "Impossible d'ouvrir le fichier d'aide"
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.vala:1469
+#: ../src/ui.vala:1465
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -644,16 +646,16 @@ msgstr ""
 "<http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: ../src/ui.vala:1472
+#: ../src/ui.vala:1468
 msgid "About Simple Scan"
 msgstr "À propos de Simple Scan"
 
 #. Description of program
-#: ../src/ui.vala:1475
+#: ../src/ui.vala:1471
 msgid "Simple document scanning tool"
 msgstr "Numériser simplement vos documents"
 
-#: ../src/ui.vala:1484
+#: ../src/ui.vala:1480
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -696,106 +698,106 @@ msgstr ""
 "  torglut https://launchpad.net/~torglut"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:1506
+#: ../src/ui.vala:1502
 msgid "Save document before quitting?"
 msgstr "Enregistrer le document avant de quitter ?"
 
 #. Button in dialog to quit and discard unsaved document
-#: ../src/ui.vala:1508
+#: ../src/ui.vala:1504
 msgid "Quit without Saving"
 msgstr "Quitter sans enregistrer"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.vala:1632
+#: ../src/ui.vala:1763
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d ppp (par défaut)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.vala:1635
+#: ../src/ui.vala:1766
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d ppp (brouillon)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.vala:1638
+#: ../src/ui.vala:1769
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d ppp (haute résolution)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.vala:1641
+#: ../src/ui.vala:1772
 #, c-format
 msgid "%d dpi"
 msgstr "%d ppp"
 
-#: ../src/ui.vala:1687
+#: ../src/ui.vala:1814
 msgid "New Document"
 msgstr "Nouveau document"
 
-#: ../src/ui.vala:1692
+#: ../src/ui.vala:1819
 msgid "Document"
 msgstr "Document"
 
-#: ../src/ui.vala:1696
+#: ../src/ui.vala:1823
 msgid "Email..."
 msgstr "Courriel..."
 
-#: ../src/ui.vala:1697
+#: ../src/ui.vala:1824
 msgid "Print..."
 msgstr "Imprimer..."
 
-#: ../src/ui.vala:1705
+#: ../src/ui.vala:1832
 msgid "Help"
 msgstr "Aide"
 
-#: ../src/ui.vala:1706
+#: ../src/ui.vala:1833
 msgid "About"
 msgstr "À propos"
 
-#: ../src/ui.vala:1707
+#: ../src/ui.vala:1834
 msgid "Quit"
 msgstr "Quitter"
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.vala:1747
+#: ../src/ui.vala:1868
 msgid "Change _Scanner"
 msgstr "Changer de _périphérique de numérisation"
 
 #. Combo box value for automatic paper size
-#: ../src/ui.vala:1753
+#: ../src/ui.vala:1876
 msgid "Automatic"
 msgstr "Automatique"
 
-#: ../src/ui.vala:1803
+#: ../src/ui.vala:1926
 msgid "Darker"
 msgstr "Plus foncé"
 
-#: ../src/ui.vala:1805
+#: ../src/ui.vala:1928
 msgid "Lighter"
 msgstr "Plus clair"
 
-#: ../src/ui.vala:1813
+#: ../src/ui.vala:1936
 msgid "Less"
 msgstr "Moins"
 
-#: ../src/ui.vala:1815
+#: ../src/ui.vala:1938
 msgid "More"
 msgstr "Plus"
 
-#: ../src/ui.vala:1823
+#: ../src/ui.vala:1946
 msgid "Minimum"
 msgstr "Minimum"
 
-#: ../src/ui.vala:1825
+#: ../src/ui.vala:1948
 msgid "Maximum"
 msgstr "Maximum"
 
-#: ../src/ui.vala:1866
+#: ../src/ui.vala:1989
 msgid "Saving document..."
 msgstr "Enregistrement du document..."
 
-#: ../src/ui.vala:2016
+#: ../src/ui.vala:2152
 #, c-format
 msgid "Saving page %d out of %d"
 msgstr "Enregistrement de la page %d sur %d"

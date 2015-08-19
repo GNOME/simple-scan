@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-08-11 05:39+0000\n"
-"X-Generator: Launchpad (build 17686)\n"
+"X-Launchpad-Export-Date: 2015-08-19 05:35+0000\n"
+"X-Generator: Launchpad (build 17690)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -49,6 +49,7 @@ msgstr "ਪਿੱਛੇ"
 
 #. Title of scan window
 #: ../data/simple-scan.ui.h:14 ../data/simple-scan.desktop.in.h:1
+#: ../data/appdata/simple-scan.appdata.xml.in.h:1
 msgid "Simple Scan"
 msgstr "ਸੌਖਾ ਸਕੈਨ"
 
@@ -87,7 +88,7 @@ msgstr "ਫੋਟੋ"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: ../data/simple-scan.ui.h:28 ../src/ui.vala:1180 ../src/ui.vala:1693
+#: ../data/simple-scan.ui.h:28 ../src/ui.vala:1176 ../src/ui.vala:1820
 msgid "Reorder Pages"
 msgstr ""
 
@@ -205,7 +206,7 @@ msgstr "ਸਕੈਨ"
 msgid "Save document to a file"
 msgstr "ਡੌਕੂਮੈਂਟ ਫਾਇਲ ਵਿੱਚ ਸੰਭਾਲੋ"
 
-#: ../data/simple-scan.ui.h:74 ../src/ui.vala:1694
+#: ../data/simple-scan.ui.h:74 ../src/ui.vala:1821
 msgid "Save"
 msgstr "ਸੰਭਾਲੋ"
 
@@ -247,7 +248,7 @@ msgid "Crop"
 msgstr "ਕਰੋਪ ਕਰੋ"
 
 #. Title of preferences dialog
-#: ../data/simple-scan.ui.h:89 ../src/ui.vala:1701
+#: ../data/simple-scan.ui.h:89 ../src/ui.vala:1828
 msgid "Preferences"
 msgstr "ਮੇਰੀ ਪਸੰਦ"
 
@@ -295,7 +296,7 @@ msgstr ""
 msgid "Document Scanner"
 msgstr ""
 
-#: ../data/simple-scan.desktop.in.h:2
+#: ../data/simple-scan.desktop.in.h:3
 msgid "Scan Documents"
 msgstr "ਸਕੈਨ ਕੀਤੇ ਡੌਕੂਮੈਂਟ"
 
@@ -448,7 +449,7 @@ msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr ""
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.vala:297
+#: ../src/simple-scan.vala:391
 msgid "Failed to scan"
 msgstr "ਸਕੈਨ ਕਰਨ ਲਈ ਫੇਲ੍ਹ"
 
@@ -458,60 +459,61 @@ msgid "Scanned Document"
 msgstr "ਸਕੈਨ ਕੀਤੇ ਡੌਕੂਮੈਂਟ"
 
 #. Arguments and description for --help text
-#: ../src/simple-scan.vala:543
+#: ../src/simple-scan.vala:621
 msgid "[DEVICE...] - Scanning utility"
 msgstr ""
 
 #. Text printed out when an unknown command-line argument provided
-#: ../src/simple-scan.vala:554
+#: ../src/simple-scan.vala:632
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 
-#: ../src/ui.vala:188
+#. Default filename to use when saving document
+#: ../src/ui.vala:509
 msgid "Scanned Document.pdf"
 msgstr "ਸਕੈਨ ਕੀਤਾ ਡੌਕੂਮੈਂਟ.pdf"
 
-#: ../src/ui.vala:316 ../src/ui.vala:1745
+#: ../src/ui.vala:317 ../src/ui.vala:1597 ../src/ui.vala:1866
 msgid "_Close"
 msgstr ""
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.vala:324
+#: ../src/ui.vala:326
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr "'%s' ਵਰਤਣ ਲਈ ਯੂਜ਼ਰ-ਨਾਂ ਅਤੇ ਪਾਸਵਰਡ ਚਾਹੀਦਾ ਹੈ"
 
 #. Warning displayed when no scanners are detected
-#: ../src/ui.vala:369
+#: ../src/ui.vala:374
 msgid "No scanners detected"
 msgstr "ਕੋਈ ਸਕੈਨਰ ਨਹੀਂ ਮਿਲਿਆ"
 
 #. Hint to user on why there are no scanners detected
-#: ../src/ui.vala:371
+#: ../src/ui.vala:376
 msgid "Please check your scanner is connected and powered on"
 msgstr "ਆਪਣੇ ਜੁੜ ਹੋਏ ਸਕੈਨਰ ਨੂੰ ਚੈੱਕ ਕਰੋ ਅਤੇ ਚਾਲੂ ਕਰੋ"
 
 #. Save dialog: Dialog title
-#: ../src/ui.vala:507 ../src/ui.vala:1695
+#: ../src/ui.vala:499 ../src/ui.vala:1822
 msgid "Save As..."
 msgstr "ਇੰਝ ਸੰਭਾਲੋ..."
 
-#: ../src/ui.vala:510 ../src/ui.vala:672
+#: ../src/ui.vala:502 ../src/ui.vala:668
 msgid "_Cancel"
 msgstr ""
 
-#: ../src/ui.vala:511 ../src/ui.vala:673
+#: ../src/ui.vala:503 ../src/ui.vala:669
 msgid "_Save"
 msgstr ""
 
 #. Save dialog: Filter name to show only image files
-#: ../src/ui.vala:521
+#: ../src/ui.vala:514
 msgid "Image Files"
 msgstr "ਚਿੱਤਰ ਫਾਇਲਾਂ"
 
 #. Save dialog: Filter name to show all files
-#: ../src/ui.vala:527
+#: ../src/ui.vala:520
 msgid "All Files"
 msgstr "ਸਭ ਫਾਇਲਾਂ"
 
@@ -521,77 +523,77 @@ msgid "Select File _Type"
 msgstr "ਫਾਇਲ ਕਿਸਮ ਚੁਣੋ(_T)"
 
 #. Save dialog: Label for saving in PDF format
-#: ../src/ui.vala:546
+#: ../src/ui.vala:529
 msgid "PDF (multi-page document)"
 msgstr "PDF (ਬਹੁ-ਸਫ਼ਾ ਡੌਕੂਮੈਂਟ)"
 
 #. Save dialog: Label for saving in JPEG format
-#: ../src/ui.vala:552
+#: ../src/ui.vala:535
 msgid "JPEG (compressed)"
 msgstr "JPEG (compressed)"
 
 #. Save dialog: Label for saving in PNG format
-#: ../src/ui.vala:558
+#: ../src/ui.vala:541
 msgid "PNG (lossless)"
 msgstr "PNG (lossless)"
 
 #. Title of error dialog when save failed
-#: ../src/ui.vala:647
+#: ../src/ui.vala:643
 msgid "Failed to save file"
 msgstr "ਫਾਇਲ ਸੰਭਾਲਣ ਲਈ ਫੇਲ੍ਹ ਹੈ"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:670
+#: ../src/ui.vala:666
 msgid "If you don't save, changes will be permanently lost."
 msgstr "ਜੇ ਤੁਸੀਂ ਨਾ ਸੰਭਾਲਿਆ ਤਾਂ ਸਭ ਬਦਲਾਅ ਖਤਮ ਹੋ ਜਾਣਗੇ।"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:705
+#: ../src/ui.vala:701
 msgid "Save current document?"
 msgstr "ਮੌਜੂਦਾ ਡੌਕੂਮੈਂਟ ਸੰਭਾਲਣਾ ਹੈ?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: ../src/ui.vala:707
+#: ../src/ui.vala:703
 msgid "Discard Changes"
 msgstr "ਬਦਲਾਅ ਅਣਡਿੱਠੇ"
 
 #. Error message display when unable to save image for preview
-#: ../src/ui.vala:989
+#: ../src/ui.vala:985
 msgid "Unable to save image for preview"
 msgstr ""
 
 #. Error message display when unable to preview image
-#: ../src/ui.vala:1001
+#: ../src/ui.vala:997
 msgid "Unable to open image preview application"
 msgstr "ਚਿੱਤਰ ਝਲਕ ਐਪਲੀਕੇਸ਼ਨ ਖੋਲ੍ਹਣ ਲਈ ਅਸਮਰੱਥ"
 
 #. Label on button for combining sides in reordering dialog
-#: ../src/ui.vala:1203
+#: ../src/ui.vala:1199
 msgid "Combine sides"
 msgstr ""
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: ../src/ui.vala:1213
+#: ../src/ui.vala:1209
 msgid "Combine sides (reverse)"
 msgstr ""
 
 #. Label on button for reversing in reordering dialog
-#: ../src/ui.vala:1223
+#: ../src/ui.vala:1219
 msgid "Reverse"
 msgstr ""
 
 #. Label on button for cancelling page reordering dialog
-#: ../src/ui.vala:1233
+#: ../src/ui.vala:1229
 msgid "Keep unchanged"
 msgstr ""
 
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.vala:1448
+#: ../src/ui.vala:1444
 msgid "Unable to open help file"
 msgstr "ਮੱਦਦ ਫਾਇਲ ਖੋਲ੍ਹਣ ਲਈ ਅਸਮਰੱਥ"
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.vala:1469
+#: ../src/ui.vala:1465
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -608,122 +610,122 @@ msgid ""
 msgstr ""
 
 #. Title of about dialog
-#: ../src/ui.vala:1472
+#: ../src/ui.vala:1468
 msgid "About Simple Scan"
 msgstr "ਸੈਂਪਲ ਸਕੈਨ ਬਾਰੇ"
 
 #. Description of program
-#: ../src/ui.vala:1475
+#: ../src/ui.vala:1471
 msgid "Simple document scanning tool"
 msgstr "ਸੈਂਪਲ ਡੌਕੂਮੈਂਟ ਸਕੈਨਿੰਗ ਟੂਲ"
 
-#: ../src/ui.vala:1484
+#: ../src/ui.vala:1480
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  A S Alam https://launchpad.net/~aalam-users"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:1506
+#: ../src/ui.vala:1502
 msgid "Save document before quitting?"
 msgstr "ਕੀ ਬੰਦ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਡੌਕੂਮੈਂਟ ਸੰਭਾਲਣਾ ਹੈ?"
 
 #. Button in dialog to quit and discard unsaved document
-#: ../src/ui.vala:1508
+#: ../src/ui.vala:1504
 msgid "Quit without Saving"
 msgstr "ਬਿਨਾਂ ਸੰਭਾਲੇ ਬੰਦ ਕਰਨਾ ਹੈ"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.vala:1632
+#: ../src/ui.vala:1763
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (ਡਿਫਾਲਟ)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.vala:1635
+#: ../src/ui.vala:1766
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (draft)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.vala:1638
+#: ../src/ui.vala:1769
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (ਵੱਧ ਰੈਜ਼ੋਲੂਸ਼ਨ)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.vala:1641
+#: ../src/ui.vala:1772
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
-#: ../src/ui.vala:1687
+#: ../src/ui.vala:1814
 msgid "New Document"
 msgstr ""
 
-#: ../src/ui.vala:1692
+#: ../src/ui.vala:1819
 msgid "Document"
 msgstr ""
 
-#: ../src/ui.vala:1696
+#: ../src/ui.vala:1823
 msgid "Email..."
 msgstr ""
 
-#: ../src/ui.vala:1697
+#: ../src/ui.vala:1824
 msgid "Print..."
 msgstr ""
 
-#: ../src/ui.vala:1705
+#: ../src/ui.vala:1832
 msgid "Help"
 msgstr ""
 
-#: ../src/ui.vala:1706
+#: ../src/ui.vala:1833
 msgid "About"
 msgstr ""
 
-#: ../src/ui.vala:1707
+#: ../src/ui.vala:1834
 msgid "Quit"
 msgstr ""
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.vala:1747
+#: ../src/ui.vala:1868
 msgid "Change _Scanner"
 msgstr "ਸਕੈਨਰ ਬਦਲੋ(_S)"
 
 #. Combo box value for automatic paper size
-#: ../src/ui.vala:1753
+#: ../src/ui.vala:1876
 msgid "Automatic"
 msgstr "ਆਟੋਮੈਟਿਕ"
 
-#: ../src/ui.vala:1803
+#: ../src/ui.vala:1926
 msgid "Darker"
 msgstr ""
 
-#: ../src/ui.vala:1805
+#: ../src/ui.vala:1928
 msgid "Lighter"
 msgstr ""
 
-#: ../src/ui.vala:1813
+#: ../src/ui.vala:1936
 msgid "Less"
 msgstr ""
 
-#: ../src/ui.vala:1815
+#: ../src/ui.vala:1938
 msgid "More"
 msgstr ""
 
-#: ../src/ui.vala:1823
+#: ../src/ui.vala:1946
 msgid "Minimum"
 msgstr ""
 
-#: ../src/ui.vala:1825
+#: ../src/ui.vala:1948
 msgid "Maximum"
 msgstr ""
 
-#: ../src/ui.vala:1866
+#: ../src/ui.vala:1989
 msgid "Saving document..."
 msgstr ""
 
-#: ../src/ui.vala:2016
+#: ../src/ui.vala:2152
 #, c-format
 msgid "Saving page %d out of %d"
 msgstr ""
