@@ -101,7 +101,7 @@ public class SimpleScan
         load ();
     }
 
-    ~UserInterface ()
+    ~SimpleScan ()
     {
         book.page_removed.disconnect (page_removed_cb);
         book.page_added.disconnect (page_added_cb);
