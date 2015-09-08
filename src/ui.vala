@@ -377,9 +377,15 @@ public class UserInterface
         while (device_model.iter_nth_child (out iter, null, index))
             device_model.remove (iter);
 
-        /* Select the first available device */
-        if (!have_selection && devices != null)
-            device_combo.set_active (0);
+        /* Select the previously selected device or the first available device */
+        if (!have_selection)
+        {
+            var device = settings.get_string ("selected-device");
+            if (device != null && find_scan_device (device, out iter))
+                device_combo.set_active_iter (iter);
+            else
+                device_combo.set_active (0);
+        }
 
         setting_devices = false;
 
@@ -1602,13 +1608,6 @@ public class UserInterface
         quality_scale.add_mark (upper, Gtk.PositionType.BOTTOM, maximum_label);
         quality = settings.get_int ("jpeg-quality");
         quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", quality); });
-
-        var device = settings.get_string ("selected-device");
-        if (device != null)
-        {
-            if (find_scan_device (device, out iter))
-                device_combo.set_active_iter (iter);
-        }
 
         var document_type = settings.get_string ("document-type");
         if (document_type != null)
