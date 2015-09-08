@@ -273,9 +273,15 @@ public class SimpleScan
         while (device_model.iter_nth_child (out iter, null, index))
             device_model.remove (iter);
 
-        /* Select the first available device */
-        if (!have_selection && devices != null)
-            device_combo.set_active (0);
+        /* Select the previously selected device or the first available device */
+        if (!have_selection)
+        {
+            var device = settings.get_string ("selected-device");
+            if (device != null && find_scan_device (device, out iter))
+                device_combo.set_active_iter (iter);
+            else
+                device_combo.set_active (0);
+        }
 
         setting_devices = false;
 
@@ -1381,13 +1387,6 @@ public class SimpleScan
         var paper_width = settings.get_int ("paper-width");
         var paper_height = settings.get_int ("paper-height");
         set_paper_size (paper_width, paper_height);
-
-        var device = settings.get_string ("selected-device");
-        if (device != null)
-        {
-            if (find_scan_device (device, out iter))
-                device_combo.set_active_iter (iter);
-        }
 
         var document_type = settings.get_string ("document-type");
         if (document_type != null)
