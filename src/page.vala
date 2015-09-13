@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009-2011 Canonical Ltd.
+ * Copyright (C) 2009-2015 Canonical Ltd.
  * Author: Robert Ancell <robert.ancell@canonical.com>
  *
  * This program is free software: you can redistribute it and/or modify it under
