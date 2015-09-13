@@ -1485,7 +1485,7 @@ public class UserInterface : Gtk.ApplicationWindow
                                "authors", authors,
                                "translator-credits", _("translator-credits"),
                                "website", "https://launchpad.net/simple-scan",
-                               "copyright", "Copyright © 2009-2011 Canonical Ltd.",
+                               "copyright", "Copyright © 2009-2015 Canonical Ltd.",
                                "license", license,
                                "wrap-license", true,
                                null);
