@@ -1660,14 +1660,13 @@ public class UserInterface : Gtk.ApplicationWindow
                     {
                         var e = results.get_error_code ();
                         /* Label shown if failed to install drivers */
-                        var error_text = _("Failed to install drivers (error code %d).").printf (e.code);
+                        result_text = _("Failed to install drivers (error code %d).").printf (e.code);
                     }
-
                 }
                 catch (Error e)
                 {
                     /* Label shown if failed to install drivers */
-                    error_text = _("Failed to install drivers.");
+                    result_text = _("Failed to install drivers.");
                     warning ("Failed to install drivers: %s", e.message);
                 }
                 instructions_label.set_text (result_text);
