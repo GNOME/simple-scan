@@ -33,10 +33,15 @@ if HAVE_COLORD
 simple_scan_VALAFLAGS += -D HAVE_COLORD
 endif
 
+if HAVE_PACKAGEKIT
+simple_scan_VALAFLAGS += -D HAVE_PACKAGEKIT
+endif
+
 simple_scan_CFLAGS = \
 	-w \
 	$(SIMPLE_SCAN_CFLAGS) \
 	$(COLORD_CFLAGS) \
+	$(PACKAGEKIT_CFLAGS) \    
 	$(WARN_CFLAGS) \
 	-DVERSION=\"$(VERSION)\" \
 	-DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\" \
@@ -50,6 +55,7 @@ simple_scan_CFLAGS = \
 simple_scan_LDADD = \
 	$(SIMPLE_SCAN_LIBS) \
 	$(COLORD_LIBS) \
+	$(PACKAGEKIT_LIBS) \    
 	-lsane \
 	-lm
 

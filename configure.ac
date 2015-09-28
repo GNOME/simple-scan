@@ -29,13 +29,17 @@ PKG_CHECK_MODULES(SIMPLE_SCAN, [
     cairo
     gdk-pixbuf-2.0
     gusb
-    packagekit-glib2
 ])
 
 PKG_CHECK_MODULES(COLORD, [
     colord
 ], have_colord=yes, have_colord=no)
 AM_CONDITIONAL(HAVE_COLORD, test $have_colord = yes)
+
+PKG_CHECK_MODULES(PACKAGEKIT, [
+    packagekit-glib2
+], have_packagekit=yes, have_packagekit=no)
+AM_CONDITIONAL(HAVE_PACKAGEKIT, test $have_packagekit = yes)
 
 AC_CHECK_HEADERS([sane/sane.h],[],[AC_MSG_ERROR([SANE not found])])
 AC_CHECK_HEADERS([sane/saneopts.h],[],[AC_MSG_ERROR([SANE not found])])
@@ -66,3 +70,16 @@ help/Makefile
 po/Makefile.in
 src/Makefile
 ])
+
+dnl ###########################################################################
+dnl Summary
+dnl ###########################################################################
+
+echo "
+                    Simple Scan $VERSION
+                    ====================
+
+        prefix:                   $prefix
+        PackageKit support:       $have_packagekit
+        Color management:         $have_colord
+"
