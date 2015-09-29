@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-15 12:17+1200\n"
+"POT-Creation-Date: 2015-09-29 11:41+1300\n"
 "PO-Revision-Date: 2013-09-22 12:07+0000\n"
 "Last-Translator: Jiri Grönroos <Unknown>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-09-15 05:14+0000\n"
-"X-Generator: Launchpad (build 17737)\n"
+"X-Launchpad-Export-Date: 2015-09-29 05:25+0000\n"
+"X-Generator: Launchpad (build 17768)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -88,7 +88,7 @@ msgstr "Valokuva"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: ../data/simple-scan.ui.h:28 ../src/ui.vala:1182 ../src/ui.vala:1826
+#: ../data/simple-scan.ui.h:28 ../src/ui.vala:1182 ../src/ui.vala:1832
 msgid "Reorder Pages"
 msgstr "Järjestä sivut"
 
@@ -206,7 +206,7 @@ msgstr "Lue"
 msgid "Save document to a file"
 msgstr "Tallenna asiakirja tiedostoon"
 
-#: ../data/simple-scan.ui.h:74 ../src/ui.vala:1827
+#: ../data/simple-scan.ui.h:74 ../src/ui.vala:1833
 msgid "Save"
 msgstr "Tallenna"
 
@@ -248,7 +248,7 @@ msgid "Crop"
 msgstr "Rajaa"
 
 #. Title of preferences dialog
-#: ../data/simple-scan.ui.h:89 ../src/ui.vala:1834
+#: ../data/simple-scan.ui.h:89 ../src/ui.vala:1840
 msgid "Preferences"
 msgstr "Asetukset"
 
@@ -302,19 +302,6 @@ msgstr "Lue asiakirjoja kuvanlukijalta"
 
 #: ../data/simple-scan.desktop.in.h:4
 msgid "scan;scanner;flatbed;adf;"
-msgstr ""
-
-#: ../data/appdata/simple-scan.appdata.xml.in.h:2
-msgid ""
-"A really easy way to scan both documents and photos. You can crop out the "
-"bad parts of a photo and rotate it if it is the wrong way round. You can "
-"print your scans, export them to pdf, or save them in a range of image "
-"formats."
-msgstr ""
-
-#: ../data/appdata/simple-scan.appdata.xml.in.h:3
-msgid ""
-"Simple Scan uses the SANE framework to support most existing scanners."
 msgstr ""
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:1
@@ -419,6 +406,19 @@ msgstr "JPEG-pakkaukseen käytettävä laatuarvo"
 msgid "Quality value to use for JPEG compression."
 msgstr "JPEG-pakkaukseen käytettävä laatuarvo."
 
+#: ../data/appdata/simple-scan.appdata.xml.in.h:2
+msgid ""
+"A really easy way to scan both documents and photos. You can crop out the "
+"bad parts of a photo and rotate it if it is the wrong way round. You can "
+"print your scans, export them to pdf, or save them in a range of image "
+"formats."
+msgstr ""
+
+#: ../data/appdata/simple-scan.appdata.xml.in.h:3
+msgid ""
+"Simple Scan uses the SANE framework to support most existing scanners."
+msgstr ""
+
 #. Error displayed when no scanners to scan with
 #: ../src/scanner.vala:840
 msgid "No scanners available.  Please connect a scanner."
@@ -454,32 +454,22 @@ msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr "Korjaa vanhemmilla Kuvanlukijan versioilla luodut PDF-tiedostot"
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.vala:391
+#: ../src/simple-scan.vala:393
 msgid "Failed to scan"
 msgstr "Kuvanluku epäonnistui"
 
-#. Default filename to use when saving document (and extension will be added, e.g. .jpg)
-#: ../src/simple-scan.vala:316
-msgid "Scanned Document"
-msgstr "Kuvanlukuasiakirja"
-
 #. Arguments and description for --help text
-#: ../src/simple-scan.vala:621
+#: ../src/simple-scan.vala:623
 msgid "[DEVICE...] - Scanning utility"
 msgstr "[LAITE...] - Skannaus apuohjelma"
 
 #. Text printed out when an unknown command-line argument provided
-#: ../src/simple-scan.vala:632
+#: ../src/simple-scan.vala:634
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Näet kaikki komentorivivalitsimet komennolla \"%s --help\""
 
-#. Default filename to use when saving document
-#: ../src/ui.vala:515
-msgid "Scanned Document.pdf"
-msgstr "Asiakirja kuvanlukijasta.pdf"
-
-#: ../src/ui.vala:317 ../src/ui.vala:1603 ../src/ui.vala:1872
+#: ../src/ui.vala:317 ../src/ui.vala:1603 ../src/ui.vala:1878
 msgid "_Close"
 msgstr "_Sulje"
 
@@ -499,8 +489,18 @@ msgstr "Kuvanlukijoita ei havaittu"
 msgid "Please check your scanner is connected and powered on"
 msgstr "Varmista että kuvanlukijasi on yhdistetty ja kytketty päälle"
 
+#. Warning displayed when no drivers are installed but a compatible scanner is detected
+#: ../src/ui.vala:381
+msgid "Additional software needed"
+msgstr "Lisäohjelmistoja vaaditaan"
+
+#. Instructions to install driver software
+#: ../src/ui.vala:383
+msgid "You need to install driver software for your scanner."
+msgstr "Kuvanlukijaa varten on asennettava erillinen ajuri."
+
 #. Save dialog: Dialog title
-#: ../src/ui.vala:505 ../src/ui.vala:1828
+#: ../src/ui.vala:505 ../src/ui.vala:1834
 msgid "Save As..."
 msgstr "Tallenna nimellä..."
 
@@ -512,6 +512,11 @@ msgstr "_Peru"
 msgid "_Save"
 msgstr "_Tallenna"
 
+#. Default filename to use when saving document
+#: ../src/ui.vala:515
+msgid "Scanned Document.pdf"
+msgstr "Asiakirja kuvanlukijasta.pdf"
+
 #. Save dialog: Filter name to show only image files
 #: ../src/ui.vala:520
 msgid "Image Files"
@@ -521,11 +526,6 @@ msgstr "Kuvatiedostot"
 #: ../src/ui.vala:526
 msgid "All Files"
 msgstr "Kaikki tiedostot"
-
-#. 
-#: ../src/ui.vala:532
-msgid "Select File _Type"
-msgstr "Valitse tiedosto_tyyppi"
 
 #. Save dialog: Label for saving in PDF format
 #: ../src/ui.vala:535
@@ -541,6 +541,11 @@ msgstr "JPEG (pakattu)"
 #: ../src/ui.vala:547
 msgid "PNG (lossless)"
 msgstr "PNG (häviötön)"
+
+#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
+#: ../src/ui.vala:556
+msgid "File format:"
+msgstr "Tiedostomuoto:"
 
 #. Title of error dialog when save failed
 #: ../src/ui.vala:649
@@ -662,97 +667,187 @@ msgstr "Tallennetaanko asiakirja ennen sovelluksen sulkemista?"
 msgid "Quit without Saving"
 msgstr "Sulje tallentamatta"
 
+#. Message to indicate a Brother scanner has been detected
+#: ../src/ui.vala:1580
+msgid "You appear to have a Brother scanner."
+msgstr "Käytössäsi vaikuttaa olevan Brother-kuvanlukija."
+
+#. Instructions on how to install Brother scanner drivers
+#: ../src/ui.vala:1582
+msgid ""
+"Drivers for this are available on the <a "
+"href=\"http://support.brother.com\">Brother website</a>."
+msgstr ""
+"Sen ajurit voi ladata <a href=\"http://support.brother.com\">Brotherin "
+"verkkosivustolta</a>."
+
+#. Message to indicate a Samsung scanner has been detected
+#: ../src/ui.vala:1586
+msgid "You appear to have a Samsung scanner."
+msgstr "Käytössäsi vaikuttaa olevan Samsung-kuvanlukija."
+
+#. Instructions on how to install Samsung scanner drivers
+#: ../src/ui.vala:1588
+msgid ""
+"Drivers for this are available on the <a "
+"href=\"http://samsung.com/support\">Samsung website</a>."
+msgstr ""
+"Sen ajurit voi ladata <a href=\"http://samsung.com/support\">Samsungin "
+"verkkosivustolta</a>."
+
+#. Message to indicate a HP scanner has been detected
+#: ../src/ui.vala:1592
+msgid "You appear to have an HP scanner."
+msgstr "Käytössäsi vaikuttaa olevan HP-kuvanlukija."
+
+#. Message to indicate an Epson scanner has been detected
+#: ../src/ui.vala:1597
+msgid "You appear to have an Epson scanner."
+msgstr "Käytössäsi vaikuttaa olevan Epson-kuvanlukija."
+
+#. Instructions on how to install Epson scanner drivers
+#: ../src/ui.vala:1599
+msgid ""
+"Drivers for this are available on the <a "
+"href=\"http://support.epsom.com\">Epson website</a>."
+msgstr ""
+"Sen ajurit voi ladata <a href=\"http://support.epsom.com\">Epsonin "
+"verkkosivustolta</a>."
+
+#. Title of dialog giving instructions on how to install drivers
+#: ../src/ui.vala:1603
+msgid "Install drivers"
+msgstr "Asenna ajurit"
+
+#. Message in driver install dialog
+#: ../src/ui.vala:1634
+msgid "Once installed you will need to restart Simple Scan."
+msgstr ""
+"Kun ajurit on asennettu, kuvanlukusovellus on käynnistettävä uudelleen."
+
+#. Label shown while installing drivers
+#: ../src/ui.vala:1646
+msgid "Installing drivers..."
+msgstr "Asennetaan ajureita..."
+
+#. Label shown once drivers successfully installed
+#: ../src/ui.vala:1654
+msgid "Drivers installed successfully!"
+msgstr "Ajurit asennettiin onnistuneesti!"
+
+#. Label shown if failed to install drivers
+#: ../src/ui.vala:1664
+#, c-format
+msgid "Failed to install drivers (error code %d)."
+msgstr "Ajurien asentaminen epäonnistui (virhekoodi %d)."
+
+#. Label shown if failed to install drivers
+#: ../src/ui.vala:1670
+msgid "Failed to install drivers."
+msgstr "Ajurien asentaminen epäonnistui."
+
+#. Label shown to prompt user to install packages (when PackageKit not available)
+#: ../src/ui.vala:1677
+#, c-format
+msgid "You need to install the %s package(s)."
+msgstr ""
+
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.vala:1769
+#: ../src/ui.vala:1775
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (oletus)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.vala:1772
+#: ../src/ui.vala:1778
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (vedos)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.vala:1775
+#: ../src/ui.vala:1781
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (korkea tarkkuus)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.vala:1778
+#: ../src/ui.vala:1784
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
-#: ../src/ui.vala:1820
+#: ../src/ui.vala:1826
 msgid "New Document"
 msgstr "Uusi asiakirja"
 
-#: ../src/ui.vala:1825
+#: ../src/ui.vala:1831
 msgid "Document"
 msgstr "Asiakirja"
 
-#: ../src/ui.vala:1829
+#: ../src/ui.vala:1835
 msgid "Email..."
 msgstr "Sähköposti..."
 
-#: ../src/ui.vala:1830
+#: ../src/ui.vala:1836
 msgid "Print..."
 msgstr "Tulosta..."
 
-#: ../src/ui.vala:1838
+#: ../src/ui.vala:1844
 msgid "Help"
 msgstr "Ohje"
 
-#: ../src/ui.vala:1839
+#: ../src/ui.vala:1845
 msgid "About"
 msgstr "Tietoja"
 
-#: ../src/ui.vala:1840
+#: ../src/ui.vala:1846
 msgid "Quit"
 msgstr "Lopeta"
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.vala:1874
+#: ../src/ui.vala:1880
 msgid "Change _Scanner"
 msgstr "Muuta _kuvanlukijaa"
 
-#. Combo box value for automatic paper size
+#. Button in error infobar to prompt user to install drivers
 #: ../src/ui.vala:1882
+msgid "_Install Drivers"
+msgstr "_Asenna ajurit"
+
+#. Combo box value for automatic paper size
+#: ../src/ui.vala:1888
 msgid "Automatic"
 msgstr "Automaattinen"
 
-#: ../src/ui.vala:1932
+#: ../src/ui.vala:1938
 msgid "Darker"
 msgstr "Tummempi"
 
-#: ../src/ui.vala:1934
+#: ../src/ui.vala:1940
 msgid "Lighter"
 msgstr "Vaaleampi"
 
-#: ../src/ui.vala:1942
+#: ../src/ui.vala:1948
 msgid "Less"
 msgstr "Vähemmän"
 
-#: ../src/ui.vala:1944
+#: ../src/ui.vala:1950
 msgid "More"
 msgstr "Enemmän"
 
-#: ../src/ui.vala:1952
+#: ../src/ui.vala:1958
 msgid "Minimum"
 msgstr "Heikompi"
 
-#: ../src/ui.vala:1954
+#: ../src/ui.vala:1960
 msgid "Maximum"
 msgstr "Parempi"
 
-#: ../src/ui.vala:1988
+#: ../src/ui.vala:1994
 msgid "Saving document..."
 msgstr "Tallennetaan asiakirjaa..."
 
-#: ../src/ui.vala:2151
+#: ../src/ui.vala:2157
 #, c-format
 msgid "Saving page %d out of %d"
 msgstr "Tallennetaan sivua %d/%d"
@@ -797,6 +892,12 @@ msgstr "Tallennetaan sivua %d/%d"
 
 #~ msgid "Window width in pixels"
 #~ msgstr "Ikkunan leveys pikseleinä"
+
+#~ msgid "Scanned Document"
+#~ msgstr "Kuvanlukuasiakirja"
+
+#~ msgid "Select File _Type"
+#~ msgstr "Valitse tiedosto_tyyppi"
 
 #~ msgid "Please check your installation"
 #~ msgstr "Tarkista asennuksesi tila"

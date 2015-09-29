@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-04-15 12:17+1200\n"
+"POT-Creation-Date: 2015-09-29 11:41+1300\n"
 "PO-Revision-Date: 2015-08-25 06:00+0000\n"
 "Last-Translator: Daniel Nylander <yeager@ubuntu.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-09-15 05:14+0000\n"
-"X-Generator: Launchpad (build 17737)\n"
+"X-Launchpad-Export-Date: 2015-09-29 05:26+0000\n"
+"X-Generator: Launchpad (build 17768)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -88,7 +88,7 @@ msgstr "Foto"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: ../data/simple-scan.ui.h:28 ../src/ui.vala:1182 ../src/ui.vala:1826
+#: ../data/simple-scan.ui.h:28 ../src/ui.vala:1182 ../src/ui.vala:1832
 msgid "Reorder Pages"
 msgstr "Ändra sidordning"
 
@@ -206,7 +206,7 @@ msgstr "Läs in"
 msgid "Save document to a file"
 msgstr "Spara dokument till en fil"
 
-#: ../data/simple-scan.ui.h:74 ../src/ui.vala:1827
+#: ../data/simple-scan.ui.h:74 ../src/ui.vala:1833
 msgid "Save"
 msgstr "Spara"
 
@@ -248,7 +248,7 @@ msgid "Crop"
 msgstr "Beskär"
 
 #. Title of preferences dialog
-#: ../data/simple-scan.ui.h:89 ../src/ui.vala:1834
+#: ../data/simple-scan.ui.h:89 ../src/ui.vala:1840
 msgid "Preferences"
 msgstr "Inställningar"
 
@@ -303,25 +303,6 @@ msgstr "Läs in dokument"
 #: ../data/simple-scan.desktop.in.h:4
 msgid "scan;scanner;flatbed;adf;"
 msgstr "scan;scanner;flatbädd;adf;skan;skanner;"
-
-#: ../data/appdata/simple-scan.appdata.xml.in.h:2
-msgid ""
-"A really easy way to scan both documents and photos. You can crop out the "
-"bad parts of a photo and rotate it if it is the wrong way round. You can "
-"print your scans, export them to pdf, or save them in a range of image "
-"formats."
-msgstr ""
-"Ett väldigt lätt sätt att skanna både dokument och foton. Du kan beskära "
-"bort dåliga delar av ett foto, och rotera det om det är felvänt. Du kan "
-"skriva ut det du skannat in, exportera till pdf, eller spara dem i ett brett "
-"utbud av bildformat."
-
-#: ../data/appdata/simple-scan.appdata.xml.in.h:3
-msgid ""
-"Simple Scan uses the SANE framework to support most existing scanners."
-msgstr ""
-"Simple Scan använder ramverket SANE för att hantera de flesta skannrar som "
-"finns på marknaden."
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:1
 msgid "Device to scan from"
@@ -426,6 +407,25 @@ msgstr "Kvalitets värde i JPEG kompression"
 msgid "Quality value to use for JPEG compression."
 msgstr "Kvalitets värde i JPEG kompression"
 
+#: ../data/appdata/simple-scan.appdata.xml.in.h:2
+msgid ""
+"A really easy way to scan both documents and photos. You can crop out the "
+"bad parts of a photo and rotate it if it is the wrong way round. You can "
+"print your scans, export them to pdf, or save them in a range of image "
+"formats."
+msgstr ""
+"Ett väldigt lätt sätt att skanna både dokument och foton. Du kan beskära "
+"bort dåliga delar av ett foto, och rotera det om det är felvänt. Du kan "
+"skriva ut det du skannat in, exportera till pdf, eller spara dem i ett brett "
+"utbud av bildformat."
+
+#: ../data/appdata/simple-scan.appdata.xml.in.h:3
+msgid ""
+"Simple Scan uses the SANE framework to support most existing scanners."
+msgstr ""
+"Simple Scan använder ramverket SANE för att hantera de flesta skannrar som "
+"finns på marknaden."
+
 #. Error displayed when no scanners to scan with
 #: ../src/scanner.vala:840
 msgid "No scanners available.  Please connect a scanner."
@@ -461,34 +461,24 @@ msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr "Laga PDF-filer som skapades med äldre versioner av Simple Scan"
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.vala:391
+#: ../src/simple-scan.vala:393
 msgid "Failed to scan"
 msgstr "Misslyckades med att läsa in"
 
-#. Default filename to use when saving document (and extension will be added, e.g. .jpg)
-#: ../src/simple-scan.vala:316
-msgid "Scanned Document"
-msgstr "Inläst dokument"
-
 #. Arguments and description for --help text
-#: ../src/simple-scan.vala:621
+#: ../src/simple-scan.vala:623
 msgid "[DEVICE...] - Scanning utility"
 msgstr "[ENHET...] - Bildinläsningsverktyg"
 
 #. Text printed out when an unknown command-line argument provided
-#: ../src/simple-scan.vala:632
+#: ../src/simple-scan.vala:634
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Kör \"%s --help\" för en komplett lista över tillgängliga "
 "kommandoradsflaggor."
 
-#. Default filename to use when saving document
-#: ../src/ui.vala:515
-msgid "Scanned Document.pdf"
-msgstr "Inläst dokument.pdf"
-
-#: ../src/ui.vala:317 ../src/ui.vala:1603 ../src/ui.vala:1872
+#: ../src/ui.vala:317 ../src/ui.vala:1603 ../src/ui.vala:1878
 msgid "_Close"
 msgstr "_Stäng"
 
@@ -508,8 +498,18 @@ msgstr "Inga bildinläsare hittades"
 msgid "Please check your scanner is connected and powered on"
 msgstr "Kontrollera att din bildläsare är ansluten och påslagen"
 
+#. Warning displayed when no drivers are installed but a compatible scanner is detected
+#: ../src/ui.vala:381
+msgid "Additional software needed"
+msgstr "Ytterligare programvara behövs"
+
+#. Instructions to install driver software
+#: ../src/ui.vala:383
+msgid "You need to install driver software for your scanner."
+msgstr "Du behöver installera drivrutiner för din skanner."
+
 #. Save dialog: Dialog title
-#: ../src/ui.vala:505 ../src/ui.vala:1828
+#: ../src/ui.vala:505 ../src/ui.vala:1834
 msgid "Save As..."
 msgstr "Spara som..."
 
@@ -521,6 +521,11 @@ msgstr "_Avbryt"
 msgid "_Save"
 msgstr "_Spara"
 
+#. Default filename to use when saving document
+#: ../src/ui.vala:515
+msgid "Scanned Document.pdf"
+msgstr "Inläst dokument.pdf"
+
 #. Save dialog: Filter name to show only image files
 #: ../src/ui.vala:520
 msgid "Image Files"
@@ -530,11 +535,6 @@ msgstr "Bildfiler"
 #: ../src/ui.vala:526
 msgid "All Files"
 msgstr "Alla filer"
-
-#. 
-#: ../src/ui.vala:532
-msgid "Select File _Type"
-msgstr "Välj fil_typ"
 
 #. Save dialog: Label for saving in PDF format
 #: ../src/ui.vala:535
@@ -550,6 +550,11 @@ msgstr "JPEG (komprimerad)"
 #: ../src/ui.vala:547
 msgid "PNG (lossless)"
 msgstr "PNG (förlustfri)"
+
+#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
+#: ../src/ui.vala:556
+msgid "File format:"
+msgstr "Filformat:"
 
 #. Title of error dialog when save failed
 #: ../src/ui.vala:649
@@ -672,97 +677,186 @@ msgstr "Spara dokumment innan du avslutar?"
 msgid "Quit without Saving"
 msgstr "Avsluta utan att spara"
 
+#. Message to indicate a Brother scanner has been detected
+#: ../src/ui.vala:1580
+msgid "You appear to have a Brother scanner."
+msgstr "Du verkar ha en skanner från Brother."
+
+#. Instructions on how to install Brother scanner drivers
+#: ../src/ui.vala:1582
+msgid ""
+"Drivers for this are available on the <a "
+"href=\"http://support.brother.com\">Brother website</a>."
+msgstr ""
+"Drivrutinerna finns på <a href=\"http://support.brother.com\">Brothers "
+"webbplats</a>."
+
+#. Message to indicate a Samsung scanner has been detected
+#: ../src/ui.vala:1586
+msgid "You appear to have a Samsung scanner."
+msgstr "Du verkar ha en skanner från Samsung."
+
+#. Instructions on how to install Samsung scanner drivers
+#: ../src/ui.vala:1588
+msgid ""
+"Drivers for this are available on the <a "
+"href=\"http://samsung.com/support\">Samsung website</a>."
+msgstr ""
+"Drivrutinerna finns på <a href=\"http://samsung.com/support\">Samsungs "
+"webbplats</a>."
+
+#. Message to indicate a HP scanner has been detected
+#: ../src/ui.vala:1592
+msgid "You appear to have an HP scanner."
+msgstr "Du verkar ha en skanner från HP."
+
+#. Message to indicate an Epson scanner has been detected
+#: ../src/ui.vala:1597
+msgid "You appear to have an Epson scanner."
+msgstr "Du verkar ha en skanner från Epson."
+
+#. Instructions on how to install Epson scanner drivers
+#: ../src/ui.vala:1599
+msgid ""
+"Drivers for this are available on the <a "
+"href=\"http://support.epsom.com\">Epson website</a>."
+msgstr ""
+"Drivrutinerna finns på <a href=\"http://support.epson.com\">Epsons "
+"webbplats</a>."
+
+#. Title of dialog giving instructions on how to install drivers
+#: ../src/ui.vala:1603
+msgid "Install drivers"
+msgstr "Installera drivrutiner"
+
+#. Message in driver install dialog
+#: ../src/ui.vala:1634
+msgid "Once installed you will need to restart Simple Scan."
+msgstr "Efter installation kan du behöva starta om Simple Scan."
+
+#. Label shown while installing drivers
+#: ../src/ui.vala:1646
+msgid "Installing drivers..."
+msgstr "Installerar drivrutiner..."
+
+#. Label shown once drivers successfully installed
+#: ../src/ui.vala:1654
+msgid "Drivers installed successfully!"
+msgstr "Drivrutinerna installerades!"
+
+#. Label shown if failed to install drivers
+#: ../src/ui.vala:1664
+#, c-format
+msgid "Failed to install drivers (error code %d)."
+msgstr "Kunde inte installera drivrutiner (felkod %d)."
+
+#. Label shown if failed to install drivers
+#: ../src/ui.vala:1670
+msgid "Failed to install drivers."
+msgstr "Kunde inte installera drivrutiner."
+
+#. Label shown to prompt user to install packages (when PackageKit not available)
+#: ../src/ui.vala:1677
+#, c-format
+msgid "You need to install the %s package(s)."
+msgstr ""
+
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.vala:1769
+#: ../src/ui.vala:1775
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (standard)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.vala:1772
+#: ../src/ui.vala:1778
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (utkast)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.vala:1775
+#: ../src/ui.vala:1781
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (hög upplösning)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.vala:1778
+#: ../src/ui.vala:1784
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
-#: ../src/ui.vala:1820
+#: ../src/ui.vala:1826
 msgid "New Document"
 msgstr "Nytt dokument"
 
-#: ../src/ui.vala:1825
+#: ../src/ui.vala:1831
 msgid "Document"
 msgstr "Dokument"
 
-#: ../src/ui.vala:1829
+#: ../src/ui.vala:1835
 msgid "Email..."
 msgstr "E-post..."
 
-#: ../src/ui.vala:1830
+#: ../src/ui.vala:1836
 msgid "Print..."
 msgstr "Skriv ut..."
 
-#: ../src/ui.vala:1838
+#: ../src/ui.vala:1844
 msgid "Help"
 msgstr "Hjälp"
 
-#: ../src/ui.vala:1839
+#: ../src/ui.vala:1845
 msgid "About"
 msgstr "Om"
 
-#: ../src/ui.vala:1840
+#: ../src/ui.vala:1846
 msgid "Quit"
 msgstr "Avsluta"
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.vala:1874
+#: ../src/ui.vala:1880
 msgid "Change _Scanner"
 msgstr "Byt _bildinläsare"
 
-#. Combo box value for automatic paper size
+#. Button in error infobar to prompt user to install drivers
 #: ../src/ui.vala:1882
+msgid "_Install Drivers"
+msgstr "_Installera drivrutiner"
+
+#. Combo box value for automatic paper size
+#: ../src/ui.vala:1888
 msgid "Automatic"
 msgstr "Automatiskt"
 
-#: ../src/ui.vala:1932
+#: ../src/ui.vala:1938
 msgid "Darker"
 msgstr "Mörkare"
 
-#: ../src/ui.vala:1934
+#: ../src/ui.vala:1940
 msgid "Lighter"
 msgstr "Ljusare"
 
-#: ../src/ui.vala:1942
+#: ../src/ui.vala:1948
 msgid "Less"
 msgstr "Mindre"
 
-#: ../src/ui.vala:1944
+#: ../src/ui.vala:1950
 msgid "More"
 msgstr "Mer"
 
-#: ../src/ui.vala:1952
+#: ../src/ui.vala:1958
 msgid "Minimum"
 msgstr "Minimum"
 
-#: ../src/ui.vala:1954
+#: ../src/ui.vala:1960
 msgid "Maximum"
 msgstr "Maximum"
 
-#: ../src/ui.vala:1988
+#: ../src/ui.vala:1994
 msgid "Saving document..."
 msgstr "Sparar dokument..."
 
-#: ../src/ui.vala:2151
+#: ../src/ui.vala:2157
 #, c-format
 msgid "Saving page %d out of %d"
 msgstr "Sparar sida %d av %d"
@@ -780,6 +874,9 @@ msgstr "Sparar sida %d av %d"
 #~ msgstr ""
 #~ "Användning:\n"
 #~ "  %s [ENHET...] - Inläsningsverktyg"
+
+#~ msgid "Select File _Type"
+#~ msgstr "Välj fil_typ"
 
 #~ msgid "Please check your installation"
 #~ msgstr "Kontrollera din installation"
@@ -842,6 +939,9 @@ msgstr "Sparar sida %d av %d"
 #~ "  --sync                          Gör X-anrop synkrona\n"
 #~ "  --gtk-module=MODULER            Läs in ytterligare GTK+-moduler\n"
 #~ "  --g-fatal-warnings              Gör alla varningar ödesdigra"
+
+#~ msgid "Scanned Document"
+#~ msgstr "Inläst dokument"
 
 #~ msgid ""
 #~ "The height of scanned image in pixels. This value is updated to what the "
