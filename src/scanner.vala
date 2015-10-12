@@ -672,63 +672,64 @@ public class Scanner
         var cap = option.cap;
         if (cap != 0)
         {
-            s += " cap=";
+            var caps = "";
             if ((cap & Sane.Capability.SOFT_SELECT) != 0)
             {
-                if (s != "")
-                    s += ",";
-                s += "soft-select";
+                if (caps != "")
+                    caps += ",";
+                caps += "soft-select";
                 cap &= ~Sane.Capability.SOFT_SELECT;
             }
             if ((cap & Sane.Capability.HARD_SELECT) != 0)
             {
-                if (s != "")
-                    s += ",";
-                s += "hard-select";
+                if (caps != "")
+                    caps += ",";
+                caps += "hard-select";
                 cap &= ~Sane.Capability.HARD_SELECT;
             }
             if ((cap & Sane.Capability.SOFT_DETECT) != 0)
             {
-                if (s != "")
-                    s += ",";
-                s += "soft-detect";
+                if (caps != "")
+                    caps += ",";
+                caps += "soft-detect";
                 cap &= ~Sane.Capability.SOFT_DETECT;
             }
             if ((cap & Sane.Capability.EMULATED) != 0)
             {
-                if (s != "")
-                    s += ",";
-                s += "emulated";
+                if (caps != "")
+                    caps += ",";
+                caps += "emulated";
                 cap &= ~Sane.Capability.EMULATED;
             }
             if ((cap & Sane.Capability.AUTOMATIC) != 0)
             {
-                if (s != "")
-                    s += ",";
-                s += "automatic";
+                if (caps != "")
+                    caps += ",";
+                caps += "automatic";
                 cap &= ~Sane.Capability.AUTOMATIC;
             }
             if ((cap & Sane.Capability.INACTIVE) != 0)
             {
-                if (s != "")
-                    s += ",";
-                s += "inactive";
+                if (caps != "")
+                    caps += ",";
+                caps += "inactive";
                 cap &= ~Sane.Capability.INACTIVE;
             }
             if ((cap & Sane.Capability.ADVANCED) != 0)
             {
-                if (s != "")
-                    s += ",";
-                s += "advanced";
+                if (caps != "")
+                    caps += ",";
+                caps += "advanced";
                 cap &= ~Sane.Capability.ADVANCED;
             }
             /* Unknown capabilities */
             if (cap != 0)
             {
-                if (s != "")
-                    s += ",";
-                s += "%x".printf ((int) cap);
+                if (caps != "")
+                    caps += ",";
+                caps += "%x".printf ((int) cap);
             }
+            s += " cap=" + caps;
         }
 
         debug ("%s", s);
