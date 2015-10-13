@@ -10,11 +10,13 @@ HELP_MEDIA = \
 
 HELP_FILES = index.page \
              adf.page \
+             brightness-contrast.page \
              crop.page \
              dpi.page \
              email.page \
              legal.xml \
              print.page \
+             quality.page \
              reorder.page \
              rotate.page \
              save.page \
