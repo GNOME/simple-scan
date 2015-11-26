@@ -1596,7 +1596,7 @@ public class UserInterface : Gtk.ApplicationWindow
             /* Message to indicate an Epson scanner has been detected */
             message = _("You appear to have an Epson scanner.");
             /* Instructions on how to install Epson scanner drivers */
-            instructions = _("Drivers for this are available on the <a href=\"http://support.epsom.com\">Epson website</a>.");
+            instructions = _("Drivers for this are available on the <a href=\"http://support.epson.com\">Epson website</a>.");
             break;
         }
         var dialog = new Gtk.Dialog.with_buttons (/* Title of dialog giving instructions on how to install drivers */
