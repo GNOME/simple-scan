@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-09-29 11:41+1300\n"
+"POT-Creation-Date: 2015-11-27 09:10+1300\n"
 "PO-Revision-Date: 2015-09-22 09:45+0000\n"
 "Last-Translator: Ivo Xavier <ivofernandes12@gmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-10-20 05:15+0000\n"
-"X-Generator: Launchpad (build 17812)\n"
+"X-Launchpad-Export-Date: 2015-11-27 05:13+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -51,7 +51,7 @@ msgstr "Verso"
 #: ../data/simple-scan.ui.h:14 ../data/simple-scan.desktop.in.h:1
 #: ../data/appdata/simple-scan.appdata.xml.in.h:1
 msgid "Simple Scan"
-msgstr "Digitalização"
+msgstr "Digitalização Simples"
 
 #. Label on document menu (contains actions for this document, e.g. save, print)
 #: ../data/simple-scan.ui.h:16
@@ -426,22 +426,22 @@ msgstr ""
 "atuais."
 
 #. Error displayed when no scanners to scan with
-#: ../src/scanner.vala:840
+#: ../src/scanner.vala:841
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Sem digitalizador disponível. Por favor, ligue um scanner."
 
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.vala:870
+#: ../src/scanner.vala:871
 msgid "Unable to connect to scanner"
 msgstr "Impossível ligar ao scanner"
 
 #. Error display when unable to start scan
-#: ../src/scanner.vala:1222
+#: ../src/scanner.vala:1223
 msgid "Unable to start scan"
 msgstr "Não é possível iniciar a digitalização"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.vala:1235 ../src/scanner.vala:1332
+#: ../src/scanner.vala:1236 ../src/scanner.vala:1333
 msgid "Error communicating with scanner"
 msgstr "Erro de comunicação com scanner"
 
@@ -502,12 +502,12 @@ msgstr "Verifique se o seu scanner está conetado e ligado"
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
 #: ../src/ui.vala:381
 msgid "Additional software needed"
-msgstr ""
+msgstr "Software adicional necessário"
 
 #. Instructions to install driver software
 #: ../src/ui.vala:383
 msgid "You need to install driver software for your scanner."
-msgstr ""
+msgstr "Precisa instalar o driver de software para o seu scanner."
 
 #. Save dialog: Dialog title
 #: ../src/ui.vala:505 ../src/ui.vala:1834
@@ -555,7 +555,7 @@ msgstr "PNG (sem perdas)"
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
 #: ../src/ui.vala:556
 msgid "File format:"
-msgstr ""
+msgstr "Formato do ficheiro:"
 
 #. Title of error dialog when save failed
 #: ../src/ui.vala:649
@@ -701,7 +701,7 @@ msgstr "Sair sem guardar"
 #. Message to indicate a Brother scanner has been detected
 #: ../src/ui.vala:1580
 msgid "You appear to have a Brother scanner."
-msgstr ""
+msgstr "Aparenta ter um scanner da Brother."
 
 #. Instructions on how to install Brother scanner drivers
 #: ../src/ui.vala:1582
@@ -709,11 +709,13 @@ msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://support.brother.com\">Brother website</a>."
 msgstr ""
+"Os controladores estão disponíveis em <a "
+"href=\"http://support.brother.com\">Brother website</a>"
 
 #. Message to indicate a Samsung scanner has been detected
 #: ../src/ui.vala:1586
 msgid "You appear to have a Samsung scanner."
-msgstr ""
+msgstr "Aparentemente tem um digitalizador Samsung."
 
 #. Instructions on how to install Samsung scanner drivers
 #: ../src/ui.vala:1588
@@ -721,16 +723,18 @@ msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://samsung.com/support\">Samsung website</a>."
 msgstr ""
+"Os controladores estão disponíveis em <a "
+"href=\"http://samsung.com/support\">Samsung website</a>"
 
 #. Message to indicate a HP scanner has been detected
 #: ../src/ui.vala:1592
 msgid "You appear to have an HP scanner."
-msgstr ""
+msgstr "Aparentemente tem um digitalizador HP"
 
 #. Message to indicate an Epson scanner has been detected
 #: ../src/ui.vala:1597
 msgid "You appear to have an Epson scanner."
-msgstr ""
+msgstr "Aparentemente tem um digitalizador Epson"
 
 #. Instructions on how to install Epson scanner drivers
 #: ../src/ui.vala:1599
@@ -742,39 +746,40 @@ msgstr ""
 #. Title of dialog giving instructions on how to install drivers
 #: ../src/ui.vala:1603
 msgid "Install drivers"
-msgstr ""
+msgstr "Instalar drivers"
 
 #. Message in driver install dialog
 #: ../src/ui.vala:1634
 msgid "Once installed you will need to restart Simple Scan."
 msgstr ""
+"Uma vez instalado vai necessitar de re-iniciar a Digitalização Simples"
 
 #. Label shown while installing drivers
 #: ../src/ui.vala:1646
 msgid "Installing drivers..."
-msgstr ""
+msgstr "A instalar drivers..."
 
 #. Label shown once drivers successfully installed
 #: ../src/ui.vala:1654
 msgid "Drivers installed successfully!"
-msgstr ""
+msgstr "Controladores instalados com sucesso!"
 
 #. Label shown if failed to install drivers
 #: ../src/ui.vala:1664
 #, c-format
 msgid "Failed to install drivers (error code %d)."
-msgstr ""
+msgstr "Erro na instalação dos controladores (código de erro %d)"
 
 #. Label shown if failed to install drivers
 #: ../src/ui.vala:1670
 msgid "Failed to install drivers."
-msgstr ""
+msgstr "Falhou a instalar os drivers."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
 #: ../src/ui.vala:1677
 #, c-format
 msgid "You need to install the %s package(s)."
-msgstr ""
+msgstr "Necessita de instalar o pacote(s) %s"
 
 #. Preferences dialog: Label for default resolution in resolution list
 #: ../src/ui.vala:1775
@@ -836,7 +841,7 @@ msgstr "Alterar _digitalizador"
 #. Button in error infobar to prompt user to install drivers
 #: ../src/ui.vala:1882
 msgid "_Install Drivers"
-msgstr ""
+msgstr "_Instalar drivers"
 
 #. Combo box value for automatic paper size
 #: ../src/ui.vala:1888
@@ -1001,3 +1006,10 @@ msgstr "A guardar a página %d de %d"
 
 #~ msgid "Select File _Type"
 #~ msgstr "Selecionar _tipo de ficheiro"
+
+#~ msgid ""
+#~ "Drivers for this are available on the <a "
+#~ "href=\"http://support.epsom.com\">Epson website</a>."
+#~ msgstr ""
+#~ "Os controladores estão disponíveis em <a "
+#~ "href=\"http://support.epsom.com\">Epson website</a>"

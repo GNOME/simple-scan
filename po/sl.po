@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2015-09-29 11:41+1300\n"
+"POT-Creation-Date: 2015-11-27 09:10+1300\n"
 "PO-Revision-Date: 2012-07-23 09:19+0000\n"
 "Last-Translator: Andrej Znidarsic <andrej.znidarsic@gmail.com>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-10-20 05:15+0000\n"
-"X-Generator: Launchpad (build 17812)\n"
+"X-Launchpad-Export-Date: 2015-11-27 05:13+0000\n"
+"X-Generator: Launchpad (build 17850)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -412,29 +412,35 @@ msgid ""
 "print your scans, export them to pdf, or save them in a range of image "
 "formats."
 msgstr ""
+"Zelo enostaven način za optično branje tako dokumentov kot fotografij. Slabe "
+"dele fotografije lahko obrežete in fotografijo zavrtite, če je obrnjena. "
+"Prebrane dokumente lahko natisnete, izvozite v pdf ali shranite v eno od "
+"mnogih oblik."
 
 #: ../data/appdata/simple-scan.appdata.xml.in.h:3
 msgid ""
 "Simple Scan uses the SANE framework to support most existing scanners."
 msgstr ""
+"Enostavno optično branje zahteva ogrodje SANE, da lahko podpira večino "
+"obstoječih optičnih bralnikov."
 
 #. Error displayed when no scanners to scan with
-#: ../src/scanner.vala:840
+#: ../src/scanner.vala:841
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Ni optičnih bralnikov na voljo. Priklopite optični bralnik."
 
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.vala:870
+#: ../src/scanner.vala:871
 msgid "Unable to connect to scanner"
 msgstr "Z optičnim bralnikom se ni mogoče povezati"
 
 #. Error display when unable to start scan
-#: ../src/scanner.vala:1222
+#: ../src/scanner.vala:1223
 msgid "Unable to start scan"
 msgstr "Optičnega branja ni mogoče začeti"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.vala:1235 ../src/scanner.vala:1332
+#: ../src/scanner.vala:1236 ../src/scanner.vala:1333
 msgid "Error communicating with scanner"
 msgstr "Napaka med sporazumevanjem z optičnim bralnikom"
 
@@ -492,12 +498,12 @@ msgstr "Preverite, če je vaš optični bralnik povezan in vklopljen"
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
 #: ../src/ui.vala:381
 msgid "Additional software needed"
-msgstr ""
+msgstr "Potrebna je dodatna programska oprema"
 
 #. Instructions to install driver software
 #: ../src/ui.vala:383
 msgid "You need to install driver software for your scanner."
-msgstr ""
+msgstr "Za svoj optični bralnik morate namestiti gonilnik."
 
 #. Save dialog: Dialog title
 #: ../src/ui.vala:505 ../src/ui.vala:1834
@@ -545,7 +551,7 @@ msgstr "PNG (brez izgub)"
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
 #: ../src/ui.vala:556
 msgid "File format:"
-msgstr ""
+msgstr "Vrsta datoteke:"
 
 #. Title of error dialog when save failed
 #: ../src/ui.vala:649
@@ -650,6 +656,7 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Andrej Znidarsic https://launchpad.net/~andrej.znidarsic\n"
 "  Damir Jerovšek https://launchpad.net/~jierro\n"
+"  Dražen Matešić https://launchpad.net/~crazylemon\n"
 "  Klemen Košir https://launchpad.net/~klemen.kosir\n"
 "  Martin Srebotnjak https://launchpad.net/~miles\n"
 "  Peter Klofutar https://launchpad.net/~peter-klofutar\n"
@@ -670,7 +677,7 @@ msgstr "Končaj brez shranjevanja"
 #. Message to indicate a Brother scanner has been detected
 #: ../src/ui.vala:1580
 msgid "You appear to have a Brother scanner."
-msgstr ""
+msgstr "Videti je, da imate optični bralnik Brother."
 
 #. Instructions on how to install Brother scanner drivers
 #: ../src/ui.vala:1582
@@ -678,11 +685,13 @@ msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://support.brother.com\">Brother website</a>."
 msgstr ""
+"Za ta optični bralnik so gonilniki na voljo na  <a "
+"href=\"http://support.brother.com\">spletni strani Brother</a>."
 
 #. Message to indicate a Samsung scanner has been detected
 #: ../src/ui.vala:1586
 msgid "You appear to have a Samsung scanner."
-msgstr ""
+msgstr "Videti je, da imate optični bralnik Samsung."
 
 #. Instructions on how to install Samsung scanner drivers
 #: ../src/ui.vala:1588
@@ -690,16 +699,18 @@ msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://samsung.com/support\">Samsung website</a>."
 msgstr ""
+"Za ta optični bralnik so gonilniki na voljo na  <a "
+"href=\"http://samsung.com/support\">spletni strani Samsung</a>."
 
 #. Message to indicate a HP scanner has been detected
 #: ../src/ui.vala:1592
 msgid "You appear to have an HP scanner."
-msgstr ""
+msgstr "Videti je, da imate optični bralnik HP."
 
 #. Message to indicate an Epson scanner has been detected
 #: ../src/ui.vala:1597
 msgid "You appear to have an Epson scanner."
-msgstr ""
+msgstr "Videti je, da imate optični bralnik Epson."
 
 #. Instructions on how to install Epson scanner drivers
 #: ../src/ui.vala:1599
@@ -711,39 +722,41 @@ msgstr ""
 #. Title of dialog giving instructions on how to install drivers
 #: ../src/ui.vala:1603
 msgid "Install drivers"
-msgstr ""
+msgstr "Namesti gonilnike"
 
 #. Message in driver install dialog
 #: ../src/ui.vala:1634
 msgid "Once installed you will need to restart Simple Scan."
 msgstr ""
+"Ko se namestijo, boste morali program Enostavno optično branje ponovno "
+"zagnati."
 
 #. Label shown while installing drivers
 #: ../src/ui.vala:1646
 msgid "Installing drivers..."
-msgstr ""
+msgstr "Nameščanje gonilnikov ..."
 
 #. Label shown once drivers successfully installed
 #: ../src/ui.vala:1654
 msgid "Drivers installed successfully!"
-msgstr ""
+msgstr "Gonilniki uspešno nameščeni!"
 
 #. Label shown if failed to install drivers
 #: ../src/ui.vala:1664
 #, c-format
 msgid "Failed to install drivers (error code %d)."
-msgstr ""
+msgstr "Namestitev gonilnikov je spodletela (koda napake %d)."
 
 #. Label shown if failed to install drivers
 #: ../src/ui.vala:1670
 msgid "Failed to install drivers."
-msgstr ""
+msgstr "Namestitev gonilnikov je spodletela."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
 #: ../src/ui.vala:1677
 #, c-format
 msgid "You need to install the %s package(s)."
-msgstr ""
+msgstr "Morate namestiti paket(e) %s."
 
 #. Preferences dialog: Label for default resolution in resolution list
 #: ../src/ui.vala:1775
@@ -805,7 +818,7 @@ msgstr "Spremeni _optični bralnik"
 #. Button in error infobar to prompt user to install drivers
 #: ../src/ui.vala:1882
 msgid "_Install Drivers"
-msgstr ""
+msgstr "_Namesti gonilnike"
 
 #. Combo box value for automatic paper size
 #: ../src/ui.vala:1888
@@ -967,3 +980,10 @@ msgstr "Shranjevanje strani %d od %d"
 
 #~ msgid "The direction of the scanner across the scanned page."
 #~ msgstr "Smer optičnega bralnika na optično brani strani."
+
+#~ msgid ""
+#~ "Drivers for this are available on the <a "
+#~ "href=\"http://support.epsom.com\">Epson website</a>."
+#~ msgstr ""
+#~ "Za ta optični bralnik so gonilniki na voljo na <a "
+#~ "href=\"http://support.epsom.com\">spletni strani Epson</a>."
