@@ -23,4 +23,4 @@ HELP_FILES = index.page \
              scanner.page \
              scanning.page
 
-HELP_LINGUAS = de
+HELP_LINGUAS = ar bg cs de en_GB es eu fi fr hu it ja nl pl pt_BR ru sk sl sr uk zh_TW
