@@ -205,6 +205,7 @@ public class UserInterface : Gtk.ApplicationWindow
     private int window_width;
     private int window_height;
     private bool window_is_maximized;
+    private bool window_is_fullscreen;    
 
     private uint save_state_timeout;
 
@@ -1531,17 +1532,15 @@ public class UserInterface : Gtk.ApplicationWindow
         on_quit ();
     }
 
-    [GtkCallback]
-    private bool simple_scan_window_configure_event_cb (Gtk.Widget widget, Gdk.EventConfigure event)
+    public override void size_allocate (Gtk.Allocation allocation)
     {
-        if (!window_is_maximized)
+        base.size_allocate (allocation);
+
+        if (!window_is_maximized && !window_is_fullscreen)
         {
-            window_width = event.width;
-            window_height = event.height;
+            get_size (out window_width, out window_height);
             save_state ();
         }
-
-        return false;
     }
 
     private void info_bar_response_cb (Gtk.InfoBar widget, int response_id)
@@ -1701,15 +1700,25 @@ public class UserInterface : Gtk.ApplicationWindow
     }
 #endif
 
-    [GtkCallback]
-    private bool simple_scan_window_window_state_event_cb (Gtk.Widget widget, Gdk.EventWindowState event)
+    public override bool window_state_event (Gdk.EventWindowState event)
     {
+        var result = Gdk.EVENT_PROPAGATE;
+
+        if (base.window_state_event != null)
+            result = base.window_state_event (event);
+
         if ((event.changed_mask & Gdk.WindowState.MAXIMIZED) != 0)
         {
             window_is_maximized = (event.new_window_state & Gdk.WindowState.MAXIMIZED) != 0;
             save_state ();
         }
-        return false;
+        if ((event.changed_mask & Gdk.WindowState.FULLSCREEN) != 0)
+        {
+            window_is_fullscreen = (event.new_window_state & Gdk.WindowState.FULLSCREEN) != 0;
+            save_state ();
+        }
+
+        return result;
     }
 
     [GtkCallback]
@@ -1990,6 +1999,11 @@ public class UserInterface : Gtk.ApplicationWindow
             debug ("Restoring window to maximized");
             maximize ();
         }
+        if (window_is_fullscreen)
+        {
+            debug ("Restoring window to fullscreen");
+            fullscreen ();
+        }
 
         progress_dialog = new ProgressBarDialog (this, _("Saving document..."));
         book.saving.connect (book_saving_cb);
@@ -2034,6 +2048,7 @@ public class UserInterface : Gtk.ApplicationWindow
         if (window_height <= 0)
             window_height = 400;
         window_is_maximized = state_get_boolean (f, "window", "is-maximized");
+        window_is_fullscreen = state_get_boolean (f, "window", "is-fullscreen");
         default_page_width = state_get_integer (f, "last-page", "width", 595);
         default_page_height = state_get_integer (f, "last-page", "height", 842);
         default_page_dpi = state_get_integer (f, "last-page", "dpi", 72);
@@ -2112,6 +2127,7 @@ public class UserInterface : Gtk.ApplicationWindow
         f.set_integer ("window", "width", window_width);
         f.set_integer ("window", "height", window_height);
         f.set_boolean ("window", "is-maximized", window_is_maximized);
+        f.set_boolean ("window", "is-fullscreen", window_is_fullscreen);        
         f.set_integer ("last-page", "width", default_page_width);
         f.set_integer ("last-page", "height", default_page_height);
         f.set_integer ("last-page", "dpi", default_page_dpi);
