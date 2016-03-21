@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-12-22 04:38+0000\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Launchpad-Export-Date: 2016-03-21 05:20+0000\n"
+"X-Generator: Launchpad (build 17947)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -412,29 +412,34 @@ msgid ""
 "print your scans, export them to pdf, or save them in a range of image "
 "formats."
 msgstr ""
+"Igazán egyszerű megoldás dokumentumok és fényképek szkennelésére. Levághatja "
+"a képek fölösleges részeit, és elforgathatja azokat. Kinyomtathatja, PDF-be "
+"vagy számos képformátumba is exportálhatja a szkennelt dokumentumokat."
 
 #: ../data/appdata/simple-scan.appdata.xml.in.h:3
 msgid ""
 "Simple Scan uses the SANE framework to support most existing scanners."
 msgstr ""
+"A Simple Scan a SANE keretrendszert használja a legtöbb létező szkenner "
+"támogatása érdekében."
 
 #. Error displayed when no scanners to scan with
-#: ../src/scanner.vala:841
+#: ../src/scanner.vala:840
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Nem található szkenner. Csatlakoztasson egyet."
 
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.vala:871
+#: ../src/scanner.vala:870
 msgid "Unable to connect to scanner"
 msgstr "Nem sikerült csatlakozni a szkennerhez"
 
 #. Error display when unable to start scan
-#: ../src/scanner.vala:1223
+#: ../src/scanner.vala:1222
 msgid "Unable to start scan"
 msgstr "Nem sikerült elindítani a szkennelést"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.vala:1236 ../src/scanner.vala:1333
+#: ../src/scanner.vala:1235 ../src/scanner.vala:1332
 msgid "Error communicating with scanner"
 msgstr "Kommunikációs hiba a szkennerrel"
 
@@ -493,12 +498,12 @@ msgstr ""
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
 #: ../src/ui.vala:381
 msgid "Additional software needed"
-msgstr ""
+msgstr "További szoftverek szükségesek"
 
 #. Instructions to install driver software
 #: ../src/ui.vala:383
 msgid "You need to install driver software for your scanner."
-msgstr ""
+msgstr "A szkennerhez illesztőprogramot kell telepíteni."
 
 #. Save dialog: Dialog title
 #: ../src/ui.vala:505 ../src/ui.vala:1834
@@ -546,7 +551,7 @@ msgstr "PNG (veszteségmentes)"
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
 #: ../src/ui.vala:556
 msgid "File format:"
-msgstr ""
+msgstr "Fájlformátum:"
 
 #. Title of error dialog when save failed
 #: ../src/ui.vala:649
@@ -670,7 +675,7 @@ msgstr "Kilépés mentés nélkül"
 #. Message to indicate a Brother scanner has been detected
 #: ../src/ui.vala:1580
 msgid "You appear to have a Brother scanner."
-msgstr ""
+msgstr "Úgy tűnik, Brother márkájú szkennere van."
 
 #. Instructions on how to install Brother scanner drivers
 #: ../src/ui.vala:1582
@@ -678,11 +683,13 @@ msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://support.brother.com\">Brother website</a>."
 msgstr ""
+"Ehhez a <a href=\"http://support.brother.com\">Brother weboldaláról</a> "
+"érhetők el illesztőprogramok."
 
 #. Message to indicate a Samsung scanner has been detected
 #: ../src/ui.vala:1586
 msgid "You appear to have a Samsung scanner."
-msgstr ""
+msgstr "Úgy tűnik, Samsung márkájú szkennere van."
 
 #. Instructions on how to install Samsung scanner drivers
 #: ../src/ui.vala:1588
@@ -690,16 +697,18 @@ msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://samsung.com/support\">Samsung website</a>."
 msgstr ""
+"Ehhez a <a href=\"http://samsung.com/support\">Samsung weboldaláról</a> "
+"érhetők el illesztőprogramok."
 
 #. Message to indicate a HP scanner has been detected
 #: ../src/ui.vala:1592
 msgid "You appear to have an HP scanner."
-msgstr ""
+msgstr "Úgy tűnik, HP márkájú szkennere van."
 
 #. Message to indicate an Epson scanner has been detected
 #: ../src/ui.vala:1597
 msgid "You appear to have an Epson scanner."
-msgstr ""
+msgstr "Úgy tűnik, Epson márkájú szkennere van."
 
 #. Instructions on how to install Epson scanner drivers
 #: ../src/ui.vala:1599
@@ -707,43 +716,45 @@ msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://support.epson.com\">Epson website</a>."
 msgstr ""
+"Ehhez az <a href=\"http://support.epson.com\">Epson weboldaláról</a> érhetők "
+"el illesztőprogramok."
 
 #. Title of dialog giving instructions on how to install drivers
 #: ../src/ui.vala:1603
 msgid "Install drivers"
-msgstr ""
+msgstr "Illesztőprogramok telepítése"
 
 #. Message in driver install dialog
 #: ../src/ui.vala:1634
 msgid "Once installed you will need to restart Simple Scan."
-msgstr ""
+msgstr "A telepítés után újra kell indítania a Simple Scant."
 
 #. Label shown while installing drivers
 #: ../src/ui.vala:1646
 msgid "Installing drivers..."
-msgstr ""
+msgstr "Illesztőprogramok telepítése…"
 
 #. Label shown once drivers successfully installed
 #: ../src/ui.vala:1654
 msgid "Drivers installed successfully!"
-msgstr ""
+msgstr "Az illesztőprogramok sikeresen telepítve"
 
 #. Label shown if failed to install drivers
 #: ../src/ui.vala:1664
 #, c-format
 msgid "Failed to install drivers (error code %d)."
-msgstr ""
+msgstr "Az illesztőprogramok telepítése meghiúsult (hibakód: %d)."
 
 #. Label shown if failed to install drivers
 #: ../src/ui.vala:1670
 msgid "Failed to install drivers."
-msgstr ""
+msgstr "Az illesztőprogramok telepítése meghiúsult."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
 #: ../src/ui.vala:1677
 #, c-format
 msgid "You need to install the %s package(s)."
-msgstr ""
+msgstr "Telepíteni kell a következő csomagokat: %s."
 
 #. Preferences dialog: Label for default resolution in resolution list
 #: ../src/ui.vala:1775
@@ -805,7 +816,7 @@ msgstr "_Szkennerváltás"
 #. Button in error infobar to prompt user to install drivers
 #: ../src/ui.vala:1882
 msgid "_Install Drivers"
-msgstr ""
+msgstr "_Illesztőprogramok telepítése"
 
 #. Combo box value for automatic paper size
 #: ../src/ui.vala:1888

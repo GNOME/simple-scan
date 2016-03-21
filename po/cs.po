@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-12-22 04:38+0000\n"
-"X-Generator: Launchpad (build 17865)\n"
+"X-Launchpad-Export-Date: 2016-03-21 05:20+0000\n"
+"X-Generator: Launchpad (build 17947)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -90,7 +90,7 @@ msgstr "Fotografie"
 #. Title of dialog to reorder pages
 #: ../data/simple-scan.ui.h:28 ../src/ui.vala:1182 ../src/ui.vala:1832
 msgid "Reorder Pages"
-msgstr ""
+msgstr "Přeskupit stránky"
 
 #. Label on email menu item
 #: ../data/simple-scan.ui.h:30
@@ -294,7 +294,7 @@ msgstr "Kvalita:"
 
 #: ../data/simple-scan.desktop.in.h:2
 msgid "Document Scanner"
-msgstr ""
+msgstr "Skener dokumentu"
 
 #: ../data/simple-scan.desktop.in.h:3
 msgid "Scan Documents"
@@ -302,7 +302,7 @@ msgstr "Naskenovat dokumenty"
 
 #: ../data/simple-scan.desktop.in.h:4
 msgid "scan;scanner;flatbed;adf;"
-msgstr ""
+msgstr "scan;scanner;flatbed;adf;"
 
 #: ../data/org.gnome.SimpleScan.gschema.xml.in.h:1
 msgid "Device to scan from"
@@ -412,29 +412,34 @@ msgid ""
 "print your scans, export them to pdf, or save them in a range of image "
 "formats."
 msgstr ""
+"Skutečně snadné skenování dokumentů a fotek, které mimo jiné nabízí šikovné "
+"úpravy. Vystřihněte nechtěné části fotografie a přetočte ji klidně o 360 "
+"stupňů! Až budete hotovy, materiál si nechtě vytisknout, převést do pdf, "
+"nebo uložit v rozmanité škále formátů."
 
 #: ../data/appdata/simple-scan.appdata.xml.in.h:3
 msgid ""
 "Simple Scan uses the SANE framework to support most existing scanners."
 msgstr ""
+"Simple Scan používá SANE framework, aby pokryl co největší množství scannerů."
 
 #. Error displayed when no scanners to scan with
-#: ../src/scanner.vala:841
+#: ../src/scanner.vala:840
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Není k dispozici žádný skener. Připojte prosím zařízení."
 
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.vala:871
+#: ../src/scanner.vala:870
 msgid "Unable to connect to scanner"
 msgstr "Nelze navázat spojení se skenerem"
 
 #. Error display when unable to start scan
-#: ../src/scanner.vala:1223
+#: ../src/scanner.vala:1222
 msgid "Unable to start scan"
 msgstr "Nelze zahájit skenování"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.vala:1236 ../src/scanner.vala:1333
+#: ../src/scanner.vala:1235 ../src/scanner.vala:1332
 msgid "Error communicating with scanner"
 msgstr "Při komunikaci se skenerem došlo k chybě"
 
@@ -494,12 +499,12 @@ msgstr "Zkontrolujte prosím, že je váš skener připojen a zapnut"
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
 #: ../src/ui.vala:381
 msgid "Additional software needed"
-msgstr ""
+msgstr "Jsou potřeba ovladače scaneru"
 
 #. Instructions to install driver software
 #: ../src/ui.vala:383
 msgid "You need to install driver software for your scanner."
-msgstr ""
+msgstr "Jsou potřeba ovladače scaneru"
 
 #. Save dialog: Dialog title
 #: ../src/ui.vala:505 ../src/ui.vala:1834
@@ -547,7 +552,7 @@ msgstr "PNG (bezeztrátový)"
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
 #: ../src/ui.vala:556
 msgid "File format:"
-msgstr ""
+msgstr "Typ souboru:"
 
 #. Title of error dialog when save failed
 #: ../src/ui.vala:649
@@ -582,22 +587,22 @@ msgstr "Nelze otevřít aplikaci s náhledem obrázku"
 #. Label on button for combining sides in reordering dialog
 #: ../src/ui.vala:1205
 msgid "Combine sides"
-msgstr ""
+msgstr "Kombinovat strany"
 
 #. Label on button for combining sides in reverse order in reordering dialog
 #: ../src/ui.vala:1215
 msgid "Combine sides (reverse)"
-msgstr ""
+msgstr "Kombinovat strany (obráceně)"
 
 #. Label on button for reversing in reordering dialog
 #: ../src/ui.vala:1225
 msgid "Reverse"
-msgstr ""
+msgstr "Obrátit"
 
 #. Label on button for cancelling page reordering dialog
 #: ../src/ui.vala:1235
 msgid "Keep unchanged"
-msgstr ""
+msgstr "Zachovat beze změň"
 
 #. Error message displayed when unable to launch help browser
 #: ../src/ui.vala:1450
@@ -650,6 +655,7 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Adrian Guniš https://launchpad.net/~andygun\n"
 "  Jan Hrdina https://launchpad.net/~jan-hrdina\n"
+"  Martin Šácha https://launchpad.net/~sachy\n"
 "  Marv-CZ https://launchpad.net/~marek-manet\n"
 "  Matiseli https://launchpad.net/~sisolpes\n"
 "  Ondra Kadlec https://launchpad.net/~o-kadlec\n"
@@ -674,7 +680,7 @@ msgstr "Ukončit bez uložení"
 #. Message to indicate a Brother scanner has been detected
 #: ../src/ui.vala:1580
 msgid "You appear to have a Brother scanner."
-msgstr ""
+msgstr "Vypadá to, že máte scaner Brother"
 
 #. Instructions on how to install Brother scanner drivers
 #: ../src/ui.vala:1582
@@ -682,11 +688,13 @@ msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://support.brother.com\">Brother website</a>."
 msgstr ""
+"Ovladače jsou dostupné na <a href=\"http://support.brother.com\">webu "
+"výrobce</a>."
 
 #. Message to indicate a Samsung scanner has been detected
 #: ../src/ui.vala:1586
 msgid "You appear to have a Samsung scanner."
-msgstr ""
+msgstr "Vypadá to, že máte scaner Samsung"
 
 #. Instructions on how to install Samsung scanner drivers
 #: ../src/ui.vala:1588
@@ -694,16 +702,18 @@ msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://samsung.com/support\">Samsung website</a>."
 msgstr ""
+"Ovladače jsou dostupné na <a href=\"http://samsung.com/support\">webu "
+"výrobce</a>."
 
 #. Message to indicate a HP scanner has been detected
 #: ../src/ui.vala:1592
 msgid "You appear to have an HP scanner."
-msgstr ""
+msgstr "Vypadá to, že máte scaner HP."
 
 #. Message to indicate an Epson scanner has been detected
 #: ../src/ui.vala:1597
 msgid "You appear to have an Epson scanner."
-msgstr ""
+msgstr "Vypadá to, že máte scaner Epson."
 
 #. Instructions on how to install Epson scanner drivers
 #: ../src/ui.vala:1599
@@ -711,43 +721,45 @@ msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://support.epson.com\">Epson website</a>."
 msgstr ""
+"Ovladače jsou dostupné na <a href=\"http://support.epson.com\">webu "
+"výrobce</a>."
 
 #. Title of dialog giving instructions on how to install drivers
 #: ../src/ui.vala:1603
 msgid "Install drivers"
-msgstr ""
+msgstr "Instalace ovladačů"
 
 #. Message in driver install dialog
 #: ../src/ui.vala:1634
 msgid "Once installed you will need to restart Simple Scan."
-msgstr ""
+msgstr "Po instlaci je potřeba restartovat Simple Scan"
 
 #. Label shown while installing drivers
 #: ../src/ui.vala:1646
 msgid "Installing drivers..."
-msgstr ""
+msgstr "Instalace ovladačů..."
 
 #. Label shown once drivers successfully installed
 #: ../src/ui.vala:1654
 msgid "Drivers installed successfully!"
-msgstr ""
+msgstr "Instalace ovladačů byla úspěšná!"
 
 #. Label shown if failed to install drivers
 #: ../src/ui.vala:1664
 #, c-format
 msgid "Failed to install drivers (error code %d)."
-msgstr ""
+msgstr "Instalace ovladačů skončila chybou %d"
 
 #. Label shown if failed to install drivers
 #: ../src/ui.vala:1670
 msgid "Failed to install drivers."
-msgstr ""
+msgstr "Instalace ovladačů se nezdařila."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
 #: ../src/ui.vala:1677
 #, c-format
 msgid "You need to install the %s package(s)."
-msgstr ""
+msgstr "Je potřeba nainstalovat balík %s."
 
 #. Preferences dialog: Label for default resolution in resolution list
 #: ../src/ui.vala:1775
@@ -775,31 +787,31 @@ msgstr "%d dpi"
 
 #: ../src/ui.vala:1826
 msgid "New Document"
-msgstr ""
+msgstr "Nový dokument"
 
 #: ../src/ui.vala:1831
 msgid "Document"
-msgstr ""
+msgstr "Dokument"
 
 #: ../src/ui.vala:1835
 msgid "Email..."
-msgstr ""
+msgstr "Email..."
 
 #: ../src/ui.vala:1836
 msgid "Print..."
-msgstr ""
+msgstr "Tisk…"
 
 #: ../src/ui.vala:1844
 msgid "Help"
-msgstr ""
+msgstr "Nápověda"
 
 #: ../src/ui.vala:1845
 msgid "About"
-msgstr ""
+msgstr "O aplikaci"
 
 #: ../src/ui.vala:1846
 msgid "Quit"
-msgstr ""
+msgstr "Ukončit"
 
 #. Button in error infobar to open preferences dialog and change scanner
 #: ../src/ui.vala:1880
@@ -809,7 +821,7 @@ msgstr "Změnit _skener"
 #. Button in error infobar to prompt user to install drivers
 #: ../src/ui.vala:1882
 msgid "_Install Drivers"
-msgstr ""
+msgstr "_Instalovat ovladače"
 
 #. Combo box value for automatic paper size
 #: ../src/ui.vala:1888
