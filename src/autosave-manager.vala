@@ -74,7 +74,7 @@ public class AutosaveManager
         catch (Error e)
         {
             if (!(e is FileError.NOENT))
-                warning ("Could not load autosave infomation; not restoring any autosaves: %s", e.message);
+                warning ("Could not load autosave information; not restoring any autosaves: %s", e.message);
             return;
         }
         var pages = get_value (file, "simple-scan", "pages");
