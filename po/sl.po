@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-04-14 05:40+0000\n"
-"X-Generator: Launchpad (build 17990)\n"
+"X-Launchpad-Export-Date: 2016-05-07 04:36+0000\n"
+"X-Generator: Launchpad (build 18025)\n"
 
 #. Button to submit authorization dialog
 #: ../data/simple-scan.ui.h:2
@@ -33,56 +33,57 @@ msgid "_Password:"
 msgstr "_Geslo:"
 
 #. Combo box label for scanning both sides of a page
-#: ../data/simple-scan.ui.h:8
+#: ../data/simple-scan.ui.h:12
 msgid "Front and Back"
 msgstr "Prednja in hrbtna stran"
 
 #. Combo box label for scanning the front side of a page
-#: ../data/simple-scan.ui.h:10
+#: ../data/simple-scan.ui.h:14
 msgid "Front"
 msgstr "Prednja stran"
 
 #. Combo box label for scanning the back side of a page
-#: ../data/simple-scan.ui.h:12
+#: ../data/simple-scan.ui.h:16
 msgid "Back"
 msgstr "Hrbtna stran"
 
 #. Title of scan window
-#: ../data/simple-scan.ui.h:14 ../data/simple-scan.desktop.in.h:1
-#: ../data/appdata/simple-scan.appdata.xml.in.h:1
+#: ../data/simple-scan.ui.h:18 ../data/simple-scan.desktop.in.h:1
 msgid "Simple Scan"
 msgstr "Enostavno optično branje"
 
 #. Label on document menu (contains actions for this document, e.g. save, print)
-#: ../data/simple-scan.ui.h:16
+#: ../data/simple-scan.ui.h:20
 msgid "_Document"
 msgstr "_Dokument"
 
 #. Scan menu item
-#: ../data/simple-scan.ui.h:18
+#: ../data/simple-scan.ui.h:22
 msgid "Sc_an"
 msgstr "Op_tično branje"
 
 #. Toolbar scan menu item to scan a single page from the scanner
-#: ../data/simple-scan.ui.h:20
+#: ../data/simple-scan.ui.h:24
 msgid "Single _Page"
 msgstr "Ena _stran"
 
 #. Toolbar scan menu item to scan all pages from a document feeder
-#: ../data/simple-scan.ui.h:22
+#: ../data/simple-scan.ui.h:26
 msgid "All Pages From _Feeder"
 msgstr "Vse strani iz _podajalnika"
 
 #. Menu entry to stop current scan
-#: ../data/simple-scan.ui.h:24
+#: ../data/simple-scan.ui.h:28
 msgid "_Stop Scan"
 msgstr "_Zaustavi optično branje"
 
-#: ../data/simple-scan.ui.h:25
+#. Combo box label for text scan mode
+#: ../data/simple-scan.ui.h:8
 msgid "Text"
 msgstr "Besedilo"
 
-#: ../data/simple-scan.ui.h:26
+#. Combo box label for photo scan mode
+#: ../data/simple-scan.ui.h:10
 msgid "Photo"
 msgstr "Fotografija"
 
@@ -206,7 +207,7 @@ msgstr "Optično branje"
 msgid "Save document to a file"
 msgstr "Shrani dokument v datoteko"
 
-#: ../data/simple-scan.ui.h:74 ../src/ui.vala:1842
+#: ../data/simple-scan.ui.h:74
 msgid "Save"
 msgstr "Shrani"
 
@@ -248,7 +249,7 @@ msgid "Crop"
 msgstr "Obreži"
 
 #. Title of preferences dialog
-#: ../data/simple-scan.ui.h:89 ../src/ui.vala:1849
+#: ../data/simple-scan.ui.h:89
 msgid "Preferences"
 msgstr "Možnosti"
 
@@ -296,7 +297,7 @@ msgstr "Kakovost:"
 msgid "Document Scanner"
 msgstr "Optični bralnik dokumentov"
 
-#: ../data/simple-scan.desktop.in.h:3
+#: ../data/simple-scan.desktop.in.h:2
 msgid "Scan Documents"
 msgstr "Optično preberite dokumente"
 
@@ -425,22 +426,22 @@ msgstr ""
 "obstoječih optičnih bralnikov."
 
 #. Error displayed when no scanners to scan with
-#: ../src/scanner.vala:841
+#: ../src/scanner.vala:840
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Ni optičnih bralnikov na voljo. Priklopite optični bralnik."
 
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.vala:871
+#: ../src/scanner.vala:870
 msgid "Unable to connect to scanner"
 msgstr "Z optičnim bralnikom se ni mogoče povezati"
 
 #. Error display when unable to start scan
-#: ../src/scanner.vala:1223
+#: ../src/scanner.vala:1222
 msgid "Unable to start scan"
 msgstr "Optičnega branja ni mogoče začeti"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.vala:1236 ../src/scanner.vala:1333
+#: ../src/scanner.vala:1235 ../src/scanner.vala:1332
 msgid "Error communicating with scanner"
 msgstr "Napaka med sporazumevanjem z optičnim bralnikom"
 
@@ -460,38 +461,38 @@ msgstr ""
 "Popravi datoteke PDF ustvarjene s starejšimi različicami programa Simple Scan"
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.vala:391
+#: ../src/simple-scan.vala:297
 msgid "Failed to scan"
 msgstr "Optično branje je spodletelo"
 
 #. Arguments and description for --help text
-#: ../src/simple-scan.vala:621
+#: ../src/simple-scan.vala:543
 msgid "[DEVICE...] - Scanning utility"
 msgstr "[NAPRAVA ...] - pripomoček optičnega branja"
 
 #. Text printed out when an unknown command-line argument provided
-#: ../src/simple-scan.vala:632
+#: ../src/simple-scan.vala:554
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Za popoln seznam možnosti ukazne vrstice zaženite '%s --help'."
 
-#: ../src/ui.vala:318 ../src/ui.vala:1602 ../src/ui.vala:1887
+#: ../src/ui.vala:242 ../src/ui.vala:1525
 msgid "_Close"
 msgstr "_Zapri"
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.vala:327
+#: ../src/ui.vala:251
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr "Za dostop do '%s' je zahtevano uporabniško ime in geslo"
 
 #. Warning displayed when no scanners are detected
-#: ../src/ui.vala:375
+#: ../src/ui.vala:296
 msgid "No scanners detected"
 msgstr "Optičnega bralnika ni mogoče zaznati"
 
 #. Hint to user on why there are no scanners detected
-#: ../src/ui.vala:377
+#: ../src/ui.vala:298
 msgid "Please check your scanner is connected and powered on"
 msgstr "Preverite, če je vaš optični bralnik povezan in vklopljen"
 
@@ -506,45 +507,44 @@ msgid "You need to install driver software for your scanner."
 msgstr "Za svoj optični bralnik morate namestiti gonilnik."
 
 #. Save dialog: Dialog title
-#: ../src/ui.vala:506 ../src/ui.vala:1843
+#: ../src/ui.vala:440
 msgid "Save As..."
 msgstr "Shrani kot ..."
 
-#: ../src/ui.vala:509 ../src/ui.vala:675
+#: ../src/ui.vala:443 ../src/ui.vala:605
 msgid "_Cancel"
 msgstr "_Prekliči"
 
-#: ../src/ui.vala:510 ../src/ui.vala:676
+#: ../src/ui.vala:444 ../src/ui.vala:606
 msgid "_Save"
 msgstr "_Shrani"
 
-#. Default filename to use when saving document
-#: ../src/ui.vala:516
+#: ../src/ui.vala:118
 msgid "Scanned Document.pdf"
 msgstr "Optično bran dokument.pdf"
 
 #. Save dialog: Filter name to show only image files
-#: ../src/ui.vala:521
+#: ../src/ui.vala:454
 msgid "Image Files"
 msgstr "Slikovne datoteke"
 
 #. Save dialog: Filter name to show all files
-#: ../src/ui.vala:527
+#: ../src/ui.vala:460
 msgid "All Files"
 msgstr "Vse datoteke"
 
 #. Save dialog: Label for saving in PDF format
-#: ../src/ui.vala:536
+#: ../src/ui.vala:479
 msgid "PDF (multi-page document)"
 msgstr "PDF (večstranski dokument)"
 
 #. Save dialog: Label for saving in JPEG format
-#: ../src/ui.vala:542
+#: ../src/ui.vala:485
 msgid "JPEG (compressed)"
 msgstr "JPEG (stisnjen)"
 
 #. Save dialog: Label for saving in PNG format
-#: ../src/ui.vala:548
+#: ../src/ui.vala:491
 msgid "PNG (lossless)"
 msgstr "PNG (brez izgub)"
 
@@ -554,32 +554,32 @@ msgid "File format:"
 msgstr "Vrsta datoteke:"
 
 #. Title of error dialog when save failed
-#: ../src/ui.vala:650
+#: ../src/ui.vala:580
 msgid "Failed to save file"
 msgstr "Shranjevanje datoteke je spodletelo"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:673
+#: ../src/ui.vala:603
 msgid "If you don't save, changes will be permanently lost."
 msgstr "V primeru, da sprememb ne shranite, bodo trajno izgubljene."
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:708
+#: ../src/ui.vala:638
 msgid "Save current document?"
 msgstr "Naj bo trenutni dokument shranjen?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: ../src/ui.vala:710
+#: ../src/ui.vala:640
 msgid "Discard Changes"
 msgstr "Zavrzi vse spremembe"
 
 #. Error message display when unable to save image for preview
-#: ../src/ui.vala:992
+#: ../src/ui.vala:924
 msgid "Unable to save image for preview"
 msgstr "Ni bilo mogoče shraniti slike za predogled"
 
 #. Error message display when unable to preview image
-#: ../src/ui.vala:1004
+#: ../src/ui.vala:936
 msgid "Unable to open image preview application"
 msgstr "Ni mogoče odpreti programa predogleda slik"
 
@@ -604,12 +604,12 @@ msgid "Keep unchanged"
 msgstr "Ohrani nespremenjeno"
 
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.vala:1451
+#: ../src/ui.vala:1207
 msgid "Unable to open help file"
 msgstr "Ni mogoče odpreti datoteke pomoči"
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.vala:1472
+#: ../src/ui.vala:1228
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -641,16 +641,16 @@ msgstr ""
 "v primeru, da kopije niste prejeli si oglejte <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: ../src/ui.vala:1475
+#: ../src/ui.vala:1231
 msgid "About Simple Scan"
 msgstr "O programu"
 
 #. Description of program
-#: ../src/ui.vala:1478
+#: ../src/ui.vala:1234
 msgid "Simple document scanning tool"
 msgstr "Preprosto orodje za optično branje dokumentov"
 
-#: ../src/ui.vala:1487
+#: ../src/ui.vala:1243
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -665,12 +665,12 @@ msgstr ""
 "  grofaty https://launchpad.net/~grofaty"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:1509
+#: ../src/ui.vala:1265
 msgid "Save document before quitting?"
 msgstr "Ali naj bo dokument pred končanjem programa shranjen?"
 
 #. Button in dialog to quit and discard unsaved document
-#: ../src/ui.vala:1511
+#: ../src/ui.vala:1267
 msgid "Quit without Saving"
 msgstr "Končaj brez shranjevanja"
 
@@ -761,25 +761,25 @@ msgid "You need to install the %s package(s)."
 msgstr "Morate namestiti paket(e) %s."
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.vala:1784
+#: ../src/ui.vala:1386
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d točk na palec (privzeto)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.vala:1787
+#: ../src/ui.vala:1389
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d točk na palec (osnutek)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.vala:1790
+#: ../src/ui.vala:1392
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d točk na palec (visoka ločljivost)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.vala:1793
+#: ../src/ui.vala:1395
 #, c-format
 msgid "%d dpi"
 msgstr "%d točk na palec"
@@ -813,7 +813,7 @@ msgid "Quit"
 msgstr "Izhod"
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.vala:1889
+#: ../src/ui.vala:1527
 msgid "Change _Scanner"
 msgstr "Spremeni _optični bralnik"
 
@@ -823,39 +823,39 @@ msgid "_Install Drivers"
 msgstr "_Namesti gonilnike"
 
 #. Combo box value for automatic paper size
-#: ../src/ui.vala:1897
+#: ../src/ui.vala:1533
 msgid "Automatic"
 msgstr "Samodejno"
 
-#: ../src/ui.vala:1947
+#: ../src/ui.vala:1583
 msgid "Darker"
 msgstr "Temenjše"
 
-#: ../src/ui.vala:1949
+#: ../src/ui.vala:1585
 msgid "Lighter"
 msgstr "Svetlejše"
 
-#: ../src/ui.vala:1957
+#: ../src/ui.vala:1593
 msgid "Less"
 msgstr "Manj"
 
-#: ../src/ui.vala:1959
+#: ../src/ui.vala:1595
 msgid "More"
 msgstr "Več"
 
-#: ../src/ui.vala:1967
+#: ../src/ui.vala:1603
 msgid "Minimum"
 msgstr "Najmanj"
 
-#: ../src/ui.vala:1969
+#: ../src/ui.vala:1605
 msgid "Maximum"
 msgstr "Največ"
 
-#: ../src/ui.vala:2008
+#: ../src/ui.vala:1636
 msgid "Saving document..."
 msgstr "Shranjevanje dokumenta ..."
 
-#: ../src/ui.vala:2173
+#: ../src/ui.vala:1786
 #, c-format
 msgid "Saving page %d out of %d"
 msgstr "Shranjevanje strani %d od %d"
