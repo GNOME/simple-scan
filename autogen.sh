@@ -19,7 +19,6 @@ fi
 
 set -x
 aclocal --install || exit 1
-intltoolize --force --copy --automake || exit 1
 autoreconf --verbose --force --install -Wno-portability || exit 1
 { set +x; } 2>/dev/null
 
