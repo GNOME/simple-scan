@@ -4,8 +4,10 @@ desktopdir = $(datadir)/applications
 desktop_in_files = simple-scan.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
+# Explicitly list the keywords to stop the icon field being translated
+# https://bugs.launchpad.net/bugs/1624662
 $(desktop_DATA): $(desktop_in_files)
-	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
+	$(AM_V_GEN) $(MSGFMT) --desktop --keyword=Name --keyword=GenericName --keyword=Comment --keyword=Keywords --template $< -d $(top_srcdir)/po -o $@
 
 gsettings_SCHEMAS = org.gnome.SimpleScan.gschema.xml
 @GSETTINGS_RULES@
