@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-07-30 05:45+0000\n"
-"X-Generator: Launchpad (build 18169)\n"
+"X-Launchpad-Export-Date: 2016-09-26 05:55+0000\n"
+"X-Generator: Launchpad (build 18204)\n"
 
 #. Button to submit authorization dialog
 #: data/simple-scan.ui:24
@@ -88,8 +88,8 @@ msgstr "Текстовий"
 msgid "Photo"
 msgstr "Фотографія"
 
-#. Menu item to reorder pages
-#: data/simple-scan.ui:336 src/ui.vala:1183 src/ui.vala:1841
+#. Title of dialog to reorder pages
+#: ../src/ui.vala:1183 ../src/ui.vala:1841
 msgid "Reorder Pages"
 msgstr "Перевпорядкувати сторінки"
 
@@ -207,7 +207,7 @@ msgstr "Сканувати"
 msgid "Save document to a file"
 msgstr "Зберегти документ до файла"
 
-#: data/simple-scan.ui:709 src/ui.vala:1842
+#: ../src/ui.vala:1842
 msgid "Save"
 msgstr "Зберегти"
 
@@ -248,8 +248,7 @@ msgstr "Обрізати позначену сторінку"
 msgid "Crop"
 msgstr "Обрізати"
 
-#. Title of preferences dialog
-#: data/simple-scan.ui:997 src/ui.vala:1849
+#: ../src/ui.vala:1849
 msgid "Preferences"
 msgstr "Налаштування"
 
@@ -330,162 +329,196 @@ msgstr ""
 "Для роботи із більшістю сканерів у Simple Scan використовуються бібліотеки "
 "SANE."
 
-#: src/scanner.vala:841
+#. Error displayed when no scanners to scan with
+#: ../src/scanner.vala:841
 msgid "No scanners available.  Please connect a scanner."
 msgstr ""
 "Не вдалося виявити жодного сканера. Будь ласка, з’єднайте сканер з "
 "комп’ютером."
 
-#: src/scanner.vala:871
+#. Error displayed when cannot connect to scanner
+#: ../src/scanner.vala:871
 msgid "Unable to connect to scanner"
 msgstr "Не вдалося з’єднатися зі сканером"
 
-#: src/scanner.vala:1223
+#. Error display when unable to start scan
+#: ../src/scanner.vala:1223
 msgid "Unable to start scan"
 msgstr "Не вдалося розпочати сканування"
 
-#: src/scanner.vala:1236 src/scanner.vala:1333
+#. Error displayed when communication with scanner broken
+#: ../src/scanner.vala:1236 ../src/scanner.vala:1333
 msgid "Error communicating with scanner"
 msgstr "Помилка під час спроби обміну даними зі сканером"
 
-#: src/simple-scan.vala:21
+#. Help string for command line --version flag
+#: ../src/simple-scan.vala:21
 msgid "Show release version"
 msgstr "Показати версію випуску"
 
-#: src/simple-scan.vala:24
+#. Help string for command line --debug flag
+#: ../src/simple-scan.vala:24
 msgid "Print debugging messages"
 msgstr "Показувати діагностичні повідомлення"
 
-#: src/simple-scan.vala:26
+#: ../src/simple-scan.vala:26
 msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr ""
 "Виправити файли PDF, створені за допомогою застарілих версій Simple Scan"
 
-#: src/simple-scan.vala:391
+#. Title of error dialog when scan failed
+#: ../src/simple-scan.vala:391
 msgid "Failed to scan"
 msgstr "Помилка сканування"
 
-#: src/simple-scan.vala:621
+#. Arguments and description for --help text
+#: ../src/simple-scan.vala:621
 msgid "[DEVICE...] - Scanning utility"
 msgstr "[ПРИСТРІЙ...] — програма для сканування"
 
-#: src/simple-scan.vala:632
+#. Text printed out when an unknown command-line argument provided
+#: ../src/simple-scan.vala:632
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Виконайте « %s --help», щоб побачити повний перелік доступних параметрів "
 "командного рядка."
 
-#: src/ui.vala:318 src/ui.vala:1602 src/ui.vala:1887
+#: ../src/ui.vala:318 ../src/ui.vala:1602 ../src/ui.vala:1887
 msgid "_Close"
 msgstr "За_крити"
 
-#: src/ui.vala:327
+#. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
+#: ../src/ui.vala:327
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr "Для доступу до «%s» слід вказати ім’я користувача та пароль"
 
-#: src/ui.vala:375
+#. Warning displayed when no scanners are detected
+#: ../src/ui.vala:375
 msgid "No scanners detected"
 msgstr "Сканерів не виявлено"
 
-#: src/ui.vala:377
+#. Hint to user on why there are no scanners detected
+#: ../src/ui.vala:377
 msgid "Please check your scanner is connected and powered on"
 msgstr "Будь ласка, перевірте, чи з’єднано ваш сканер і чи увімкнено його"
 
-#: src/ui.vala:382
+#. Warning displayed when no drivers are installed but a compatible scanner is detected
+#: ../src/ui.vala:382
 msgid "Additional software needed"
 msgstr "Потрібне додаткове програмне забезпечення"
 
-#: src/ui.vala:384
+#. Instructions to install driver software
+#: ../src/ui.vala:384
 msgid "You need to install driver software for your scanner."
 msgstr "Вам слід встановити драйвер до вашого сканера."
 
-#: src/ui.vala:506 src/ui.vala:1843
+#. Save dialog: Dialog title
+#: ../src/ui.vala:506 ../src/ui.vala:1843
 msgid "Save As..."
 msgstr "Зберегти як..."
 
-#: src/ui.vala:509 src/ui.vala:675
+#: ../src/ui.vala:509 ../src/ui.vala:675
 msgid "_Cancel"
 msgstr "_Скасувати"
 
-#: src/ui.vala:510 src/ui.vala:676
+#: ../src/ui.vala:510 ../src/ui.vala:676
 msgid "_Save"
 msgstr "З_берегти"
 
-#: src/ui.vala:516
+#. Default filename to use when saving document
+#: ../src/ui.vala:516
 msgid "Scanned Document.pdf"
 msgstr "Сканований документ.pdf"
 
-#: src/ui.vala:521
+#. Save dialog: Filter name to show only image files
+#: ../src/ui.vala:521
 msgid "Image Files"
 msgstr "Файли зображень"
 
-#: src/ui.vala:527
+#. Save dialog: Filter name to show all files
+#: ../src/ui.vala:527
 msgid "All Files"
 msgstr "Всі файли"
 
-#: src/ui.vala:536
+#. Save dialog: Label for saving in PDF format
+#: ../src/ui.vala:536
 msgid "PDF (multi-page document)"
 msgstr "PDF (багатосторінковий документ)"
 
-#: src/ui.vala:542
+#. Save dialog: Label for saving in JPEG format
+#: ../src/ui.vala:542
 msgid "JPEG (compressed)"
 msgstr "JPEG (стиснений)"
 
-#: src/ui.vala:548
+#. Save dialog: Label for saving in PNG format
+#: ../src/ui.vala:548
 msgid "PNG (lossless)"
 msgstr "PNG (без втрат)"
 
-#: src/ui.vala:557
+#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
+#: ../src/ui.vala:557
 msgid "File format:"
 msgstr "Формат файлів:"
 
-#: src/ui.vala:650
+#. Title of error dialog when save failed
+#: ../src/ui.vala:650
 msgid "Failed to save file"
 msgstr "Не вдалося зберегти файл"
 
-#: src/ui.vala:673
+#. Text in dialog warning when a document is about to be lost
+#: ../src/ui.vala:673
 msgid "If you don't save, changes will be permanently lost."
 msgstr "Якщо ви не збережете внесені зміни, їх буде втрачено остаточно."
 
-#: src/ui.vala:708
+#. Text in dialog warning when a document is about to be lost
+#: ../src/ui.vala:708
 msgid "Save current document?"
 msgstr "Зберегти поточний документ?"
 
-#: src/ui.vala:710
+#. Button in dialog to create new document and discard unsaved document
+#: ../src/ui.vala:710
 msgid "Discard Changes"
 msgstr "Відкинути зміни"
 
-#: src/ui.vala:992
+#. Error message display when unable to save image for preview
+#: ../src/ui.vala:992
 msgid "Unable to save image for preview"
 msgstr "Не вдалося зберегти зображення для попереднього перегляду"
 
-#: src/ui.vala:1004
+#. Error message display when unable to preview image
+#: ../src/ui.vala:1004
 msgid "Unable to open image preview application"
 msgstr "Не вдалося запустити програму для перегляду зображення"
 
-#: src/ui.vala:1206
+#. Label on button for combining sides in reordering dialog
+#: ../src/ui.vala:1206
 msgid "Combine sides"
 msgstr "З’єднувати збоку"
 
-#: src/ui.vala:1216
+#. Label on button for combining sides in reverse order in reordering dialog
+#: ../src/ui.vala:1216
 msgid "Combine sides (reverse)"
 msgstr "З’єднувати збоку (у зворотному порядку)"
 
-#: src/ui.vala:1226
+#. Label on button for reversing in reordering dialog
+#: ../src/ui.vala:1226
 msgid "Reverse"
 msgstr "У зворотному порядку"
 
-#: src/ui.vala:1236
+#. Label on button for cancelling page reordering dialog
+#: ../src/ui.vala:1236
 msgid "Keep unchanged"
 msgstr "Не змінювати"
 
-#: src/ui.vala:1451
+#. Error message displayed when unable to launch help browser
+#: ../src/ui.vala:1451
 msgid "Unable to open help file"
 msgstr "Не вдалося відкрити файл довідки"
 
-#: src/ui.vala:1472
+#. The license this software is under (GPL3+)
+#: ../src/ui.vala:1472
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -513,15 +546,17 @@ msgstr ""
 "Якщо ви її не отримали, зверніться за адресою "
 "<http://www.gnu.org/licenses/>, щоб дізнатися про подальші дії."
 
-#: src/ui.vala:1475
+#. Title of about dialog
+#: ../src/ui.vala:1475
 msgid "About Simple Scan"
 msgstr "Про «Просте сканування»"
 
-#: src/ui.vala:1478
+#. Description of program
+#: ../src/ui.vala:1478
 msgid "Simple document scanning tool"
 msgstr "Інструмент для спрощення сканування документів"
 
-#: src/ui.vala:1487
+#: ../src/ui.vala:1487
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -531,19 +566,23 @@ msgstr ""
 "  passtas https://launchpad.net/~passtas\n"
 "  Микола Ткач https://launchpad.net/~stuartlittle1970"
 
-#: src/ui.vala:1509
+#. Text in dialog warning when a document is about to be lost
+#: ../src/ui.vala:1509
 msgid "Save document before quitting?"
 msgstr "Зберегти документ перед виходом?"
 
-#: src/ui.vala:1511
+#. Button in dialog to quit and discard unsaved document
+#: ../src/ui.vala:1511
 msgid "Quit without Saving"
 msgstr "Вийти без збереження"
 
-#: src/ui.vala:1579
+#. Message to indicate a Brother scanner has been detected
+#: ../src/ui.vala:1579
 msgid "You appear to have a Brother scanner."
 msgstr "Здається, у вас сканер Brother."
 
-#: src/ui.vala:1581
+#. Instructions on how to install Brother scanner drivers
+#: ../src/ui.vala:1581
 msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://support.brother.com\">Brother website</a>."
@@ -551,11 +590,13 @@ msgstr ""
 "Драйвери можна отримати на <a href=\"http://support.brother.com\">сайті "
 "Brother</a>."
 
-#: src/ui.vala:1585
+#. Message to indicate a Samsung scanner has been detected
+#: ../src/ui.vala:1585
 msgid "You appear to have a Samsung scanner."
 msgstr "Здається, у вас сканер Samsung."
 
-#: src/ui.vala:1587
+#. Instructions on how to install Samsung scanner drivers
+#: ../src/ui.vala:1587
 msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://samsung.com/support\">Samsung website</a>."
@@ -563,15 +604,18 @@ msgstr ""
 "Драйвери до таких сканерів можна отримати з <a "
 "href=\"http://samsung.com/support\">сайта Samsung</a>."
 
-#: src/ui.vala:1591
+#. Message to indicate a HP scanner has been detected
+#: ../src/ui.vala:1591
 msgid "You appear to have an HP scanner."
 msgstr "Здається, у вас сканер HP."
 
-#: src/ui.vala:1596
+#. Message to indicate an Epson scanner has been detected
+#: ../src/ui.vala:1596
 msgid "You appear to have an Epson scanner."
 msgstr "Здається, у вас сканер Epson."
 
-#: src/ui.vala:1598
+#. Instructions on how to install Epson scanner drivers
+#: ../src/ui.vala:1598
 msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://support.epson.com\">Epson website</a>."
@@ -579,125 +623,139 @@ msgstr ""
 "Драйвери для цього доступні на <a href=\"http://support.epson.com\">Веб-"
 "сайті Epson</a>."
 
-#: src/ui.vala:1602
+#. Title of dialog giving instructions on how to install drivers
+#: ../src/ui.vala:1602
 msgid "Install drivers"
 msgstr "Встановлення драйверів"
 
-#: src/ui.vala:1633
+#. Message in driver install dialog
+#: ../src/ui.vala:1633
 msgid "Once installed you will need to restart Simple Scan."
 msgstr "Після встановлення драйверів, вам слід перезапустити Simple Scan."
 
-#: src/ui.vala:1645
+#. Label shown while installing drivers
+#: ../src/ui.vala:1645
 msgid "Installing drivers..."
 msgstr "Встановлюємо драйвери…"
 
-#: src/ui.vala:1653
+#. Label shown once drivers successfully installed
+#: ../src/ui.vala:1653
 msgid "Drivers installed successfully!"
 msgstr "Драйвери успішно встановлено!"
 
-#: src/ui.vala:1663
+#. Label shown if failed to install drivers
+#: ../src/ui.vala:1663
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Не вдалося встановити драйвери (код помилки %d)."
 
-#: src/ui.vala:1669
+#. Label shown if failed to install drivers
+#: ../src/ui.vala:1669
 msgid "Failed to install drivers."
 msgstr "Не вдалося встановити драйвери."
 
-#: src/ui.vala:1676
+#. Label shown to prompt user to install packages (when PackageKit not available)
+#: ../src/ui.vala:1676
 #, c-format
 msgid "You need to install the %s package(s)."
 msgstr "Необхідно встановити пакунок(-и) %s."
 
-#: src/ui.vala:1784
+#. Preferences dialog: Label for default resolution in resolution list
+#: ../src/ui.vala:1784
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d т/д (типова)"
 
-#: src/ui.vala:1787
+#. Preferences dialog: Label for minimum resolution in resolution list
+#: ../src/ui.vala:1787
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d т/д (чернетка)"
 
-#: src/ui.vala:1790
+#. Preferences dialog: Label for maximum resolution in resolution list
+#: ../src/ui.vala:1790
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d т/д (висока роздільність)"
 
-#: src/ui.vala:1793
+#. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
+#: ../src/ui.vala:1793
 #, c-format
 msgid "%d dpi"
 msgstr "%d т/д"
 
-#: src/ui.vala:1835
+#: ../src/ui.vala:1835
 msgid "New Document"
 msgstr "Новий документ"
 
-#: src/ui.vala:1840
+#: ../src/ui.vala:1840
 msgid "Document"
 msgstr "Документ"
 
-#: src/ui.vala:1844
+#: ../src/ui.vala:1844
 msgid "Email..."
 msgstr "Надіслати ел. поштою…"
 
-#: src/ui.vala:1845
+#: ../src/ui.vala:1845
 msgid "Print..."
 msgstr "Надрукувати…"
 
-#: src/ui.vala:1853
+#: ../src/ui.vala:1853
 msgid "Help"
 msgstr "Довідка"
 
-#: src/ui.vala:1854
+#: ../src/ui.vala:1854
 msgid "About"
 msgstr "Про програму"
 
-#: src/ui.vala:1855
+#: ../src/ui.vala:1855
 msgid "Quit"
 msgstr "Вийти"
 
-#: src/ui.vala:1889
+#. Button in error infobar to open preferences dialog and change scanner
+#: ../src/ui.vala:1889
 msgid "Change _Scanner"
 msgstr "З_мінити сканер"
 
-#: src/ui.vala:1891
+#. Button in error infobar to prompt user to install drivers
+#: ../src/ui.vala:1891
 msgid "_Install Drivers"
 msgstr "_Встановити драйвери"
 
-#: src/ui.vala:1897
+#. Combo box value for automatic paper size
+#: ../src/ui.vala:1897
 msgid "Automatic"
 msgstr "Автоматично"
 
-#: src/ui.vala:1947
+#: ../src/ui.vala:1947
 msgid "Darker"
 msgstr "темніше"
 
-#: src/ui.vala:1949
+#: ../src/ui.vala:1949
 msgid "Lighter"
 msgstr "світліше"
 
-#: src/ui.vala:1957
+#: ../src/ui.vala:1957
 msgid "Less"
 msgstr "менше"
 
-#: src/ui.vala:1959
+#: ../src/ui.vala:1959
 msgid "More"
 msgstr "більше"
 
-#: src/ui.vala:1967
+#: ../src/ui.vala:1967
 msgid "Minimum"
 msgstr "Мінімальна"
 
-#: src/ui.vala:1969
+#: ../src/ui.vala:1969
 msgid "Maximum"
 msgstr "Максимальна"
 
-#: src/ui.vala:2008
+#: ../src/ui.vala:2008
 msgid "Saving document..."
 msgstr "Збереження документа…"
 
-#: src/ui.vala:2173
+#: ../src/ui.vala:2173
 #, c-format
 msgid "Saving page %d out of %d"
 msgstr "Зберігаємо сторінку %d з %d"

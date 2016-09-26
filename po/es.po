@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2016-07-30 05:45+0000\n"
-"X-Generator: Launchpad (build 18169)\n"
+"X-Launchpad-Export-Date: 2016-09-26 05:55+0000\n"
+"X-Generator: Launchpad (build 18204)\n"
 
 #. Button to submit authorization dialog
 #: data/simple-scan.ui:24
@@ -88,8 +88,8 @@ msgstr "Texto"
 msgid "Photo"
 msgstr "Foto"
 
-#. Menu item to reorder pages
-#: data/simple-scan.ui:336 src/ui.vala:1183 src/ui.vala:1841
+#. Title of dialog to reorder pages
+#: ../src/ui.vala:1183 ../src/ui.vala:1841
 msgid "Reorder Pages"
 msgstr "Reordenar las páginas"
 
@@ -207,7 +207,7 @@ msgstr "Escanear"
 msgid "Save document to a file"
 msgstr "Guardar documento a un archivo"
 
-#: data/simple-scan.ui:709 src/ui.vala:1842
+#: ../src/ui.vala:1842
 msgid "Save"
 msgstr "Guardar"
 
@@ -248,8 +248,7 @@ msgstr "Recortar la página seleccionada"
 msgid "Crop"
 msgstr "Recortar"
 
-#. Title of preferences dialog
-#: data/simple-scan.ui:997 src/ui.vala:1849
+#: ../src/ui.vala:1849
 msgid "Preferences"
 msgstr "Preferencias"
 
@@ -328,160 +327,194 @@ msgstr ""
 "Simple Scan emplea el marco SANE para compatibilidad con la mayoría de los "
 "escáneres existentes."
 
-#: src/scanner.vala:841
+#. Error displayed when no scanners to scan with
+#: ../src/scanner.vala:841
 msgid "No scanners available.  Please connect a scanner."
 msgstr "No hay escáneres disponibles. Conecte un escáner."
 
-#: src/scanner.vala:871
+#. Error displayed when cannot connect to scanner
+#: ../src/scanner.vala:871
 msgid "Unable to connect to scanner"
 msgstr "No se pudo conectar al escáner"
 
-#: src/scanner.vala:1223
+#. Error display when unable to start scan
+#: ../src/scanner.vala:1223
 msgid "Unable to start scan"
 msgstr "Incapaz de iniciar el escaneo"
 
-#: src/scanner.vala:1236 src/scanner.vala:1333
+#. Error displayed when communication with scanner broken
+#: ../src/scanner.vala:1236 ../src/scanner.vala:1333
 msgid "Error communicating with scanner"
 msgstr "Error al comunicarse con el escáner"
 
-#: src/simple-scan.vala:21
+#. Help string for command line --version flag
+#: ../src/simple-scan.vala:21
 msgid "Show release version"
 msgstr "Mostrar el número de versión"
 
-#: src/simple-scan.vala:24
+#. Help string for command line --debug flag
+#: ../src/simple-scan.vala:24
 msgid "Print debugging messages"
 msgstr "Mostrar mensajes de depuración"
 
-#: src/simple-scan.vala:26
+#: ../src/simple-scan.vala:26
 msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr ""
 "Arreglar archivos PDF generados con versiones anteriores de Simple Scan"
 
-#: src/simple-scan.vala:391
+#. Title of error dialog when scan failed
+#: ../src/simple-scan.vala:391
 msgid "Failed to scan"
 msgstr "Falló al escanear"
 
-#: src/simple-scan.vala:621
+#. Arguments and description for --help text
+#: ../src/simple-scan.vala:621
 msgid "[DEVICE...] - Scanning utility"
 msgstr "[DISPOSITIVO…] - Utilidad de escaneo"
 
-#: src/simple-scan.vala:632
+#. Text printed out when an unknown command-line argument provided
+#: ../src/simple-scan.vala:632
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
 "Ejecute «%s --help» para ver una lista completa de las opciones de línea de "
 "órdenes disponibles."
 
-#: src/ui.vala:318 src/ui.vala:1602 src/ui.vala:1887
+#: ../src/ui.vala:318 ../src/ui.vala:1602 ../src/ui.vala:1887
 msgid "_Close"
 msgstr "_Cerrar"
 
-#: src/ui.vala:327
+#. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
+#: ../src/ui.vala:327
 #, c-format
 msgid "Username and password required to access '%s'"
 msgstr "Usuario y contraseña necesarios para acceder a «%s»"
 
-#: src/ui.vala:375
+#. Warning displayed when no scanners are detected
+#: ../src/ui.vala:375
 msgid "No scanners detected"
 msgstr "No se detectó ningún escáner"
 
-#: src/ui.vala:377
+#. Hint to user on why there are no scanners detected
+#: ../src/ui.vala:377
 msgid "Please check your scanner is connected and powered on"
 msgstr "Compruebe que su escáner está encendido y conectado"
 
-#: src/ui.vala:382
+#. Warning displayed when no drivers are installed but a compatible scanner is detected
+#: ../src/ui.vala:382
 msgid "Additional software needed"
 msgstr "Se necesita software adicional"
 
-#: src/ui.vala:384
+#. Instructions to install driver software
+#: ../src/ui.vala:384
 msgid "You need to install driver software for your scanner."
 msgstr "Es necesario instalar controladores para el escáner."
 
-#: src/ui.vala:506 src/ui.vala:1843
+#. Save dialog: Dialog title
+#: ../src/ui.vala:506 ../src/ui.vala:1843
 msgid "Save As..."
 msgstr "Guardar como…"
 
-#: src/ui.vala:509 src/ui.vala:675
+#: ../src/ui.vala:509 ../src/ui.vala:675
 msgid "_Cancel"
 msgstr "_Cancelar"
 
-#: src/ui.vala:510 src/ui.vala:676
+#: ../src/ui.vala:510 ../src/ui.vala:676
 msgid "_Save"
 msgstr "_Guardar"
 
-#: src/ui.vala:516
+#. Default filename to use when saving document
+#: ../src/ui.vala:516
 msgid "Scanned Document.pdf"
 msgstr "Documento escaneado.pdf"
 
-#: src/ui.vala:521
+#. Save dialog: Filter name to show only image files
+#: ../src/ui.vala:521
 msgid "Image Files"
 msgstr "Archivos de imagen"
 
-#: src/ui.vala:527
+#. Save dialog: Filter name to show all files
+#: ../src/ui.vala:527
 msgid "All Files"
 msgstr "Todos los archivos"
 
-#: src/ui.vala:536
+#. Save dialog: Label for saving in PDF format
+#: ../src/ui.vala:536
 msgid "PDF (multi-page document)"
 msgstr "PDF (documento multipágina)"
 
-#: src/ui.vala:542
+#. Save dialog: Label for saving in JPEG format
+#: ../src/ui.vala:542
 msgid "JPEG (compressed)"
 msgstr "JPEG (comprimido)"
 
-#: src/ui.vala:548
+#. Save dialog: Label for saving in PNG format
+#: ../src/ui.vala:548
 msgid "PNG (lossless)"
 msgstr "PNG (sin pérdida)"
 
-#: src/ui.vala:557
+#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
+#: ../src/ui.vala:557
 msgid "File format:"
 msgstr "Formato de archivo:"
 
-#: src/ui.vala:650
+#. Title of error dialog when save failed
+#: ../src/ui.vala:650
 msgid "Failed to save file"
 msgstr "Falló al guardar el archivo"
 
-#: src/ui.vala:673
+#. Text in dialog warning when a document is about to be lost
+#: ../src/ui.vala:673
 msgid "If you don't save, changes will be permanently lost."
 msgstr "Los cambios se perderán permanentemente si no los guarda."
 
-#: src/ui.vala:708
+#. Text in dialog warning when a document is about to be lost
+#: ../src/ui.vala:708
 msgid "Save current document?"
 msgstr "¿Guardar el documento actual?"
 
-#: src/ui.vala:710
+#. Button in dialog to create new document and discard unsaved document
+#: ../src/ui.vala:710
 msgid "Discard Changes"
 msgstr "Descartar cambios"
 
-#: src/ui.vala:992
+#. Error message display when unable to save image for preview
+#: ../src/ui.vala:992
 msgid "Unable to save image for preview"
 msgstr "No se pudo guardar la imagen para previsualización"
 
-#: src/ui.vala:1004
+#. Error message display when unable to preview image
+#: ../src/ui.vala:1004
 msgid "Unable to open image preview application"
 msgstr "No se puede abrir la aplicación de previsualización de imágenes"
 
-#: src/ui.vala:1206
+#. Label on button for combining sides in reordering dialog
+#: ../src/ui.vala:1206
 msgid "Combine sides"
 msgstr "Combinar lados"
 
-#: src/ui.vala:1216
+#. Label on button for combining sides in reverse order in reordering dialog
+#: ../src/ui.vala:1216
 msgid "Combine sides (reverse)"
 msgstr "Combinar lados (invertido)"
 
-#: src/ui.vala:1226
+#. Label on button for reversing in reordering dialog
+#: ../src/ui.vala:1226
 msgid "Reverse"
 msgstr "Invertir"
 
-#: src/ui.vala:1236
+#. Label on button for cancelling page reordering dialog
+#: ../src/ui.vala:1236
 msgid "Keep unchanged"
 msgstr "Mantener sin cambios"
 
-#: src/ui.vala:1451
+#. Error message displayed when unable to launch help browser
+#: ../src/ui.vala:1451
 msgid "Unable to open help file"
 msgstr "No se pudo abrir el archivo de ayuda"
 
-#: src/ui.vala:1472
+#. The license this software is under (GPL3+)
+#: ../src/ui.vala:1472
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -496,28 +529,32 @@ msgid ""
 "You should have received a copy of the GNU General Public License\n"
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 msgstr ""
-"Este programa es software libre: puede redistribuirlo o modificarlo\n"
-"en los términos de la Licencia Pública General de GNU publicada por la\n"
-"Free Software Foundation, en su versión 3 o, a su elección, cualquiera\n"
-"posterior.\n"
+"Este programa es software libre: puede redistribuirlo o \n"
+"modificarlo en los términos de la Licencia Pública General\n"
+"de GNU publicada por la Free Software Foundation, en su\n"
+"versión 3 o, a su elección, cualquiera posterior.\n"
 "\n"
-"Este programa se distribuye con la esperanza de que sea útil,\n"
-"pero SIN NINGUNA GARANTÍA; ni siquiera la garantía implícita de\n"
-"COMERCIABILIDAD o ADECUACIÓN A UN OBJETIVO PARTICULAR. Vea la\n"
-"Licencia Pública General de GNU para más detalles.\n"
+"Este programa se distribuye con la esperanza de que sea\n"
+"útil, pero SIN NINGUNA GARANTÍA; ni siquiera la garantía\n"
+"implícita de COMERCIABILIDAD o ADECUACIÓN A UN \n"
+"OBJETIVO PARTICULAR. Vea la Licencia Pública General\n"
+"de GNU para más detalles.\n"
 "\n"
-"Debe haber recibido una copia de la Licencia Pública General de GNU\n"
-"con este programa. Si no fuera así, vea <http://www.gnu.org/licenses/>."
+"Debe haber recibido una copia de la Licencia Pública\n"
+"General de GNU con este programa. Si no fuera así,\n"
+"vea  <http://www.gnu.org/licenses/>."
 
-#: src/ui.vala:1475
+#. Title of about dialog
+#: ../src/ui.vala:1475
 msgid "About Simple Scan"
 msgstr "Acerca de Simple Scan"
 
-#: src/ui.vala:1478
+#. Description of program
+#: ../src/ui.vala:1478
 msgid "Simple document scanning tool"
 msgstr "Herramienta sencilla para escanear documentos"
 
-#: src/ui.vala:1487
+#: ../src/ui.vala:1487
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -546,19 +583,23 @@ msgstr ""
 "  fosk https://launchpad.net/~oscarrdg\n"
 "  hhlp https://launchpad.net/~hhlp-deactivatedaccount"
 
-#: src/ui.vala:1509
+#. Text in dialog warning when a document is about to be lost
+#: ../src/ui.vala:1509
 msgid "Save document before quitting?"
 msgstr "¿Guardar el documento antes de salir?"
 
-#: src/ui.vala:1511
+#. Button in dialog to quit and discard unsaved document
+#: ../src/ui.vala:1511
 msgid "Quit without Saving"
 msgstr "Salir sin guardar"
 
-#: src/ui.vala:1579
+#. Message to indicate a Brother scanner has been detected
+#: ../src/ui.vala:1579
 msgid "You appear to have a Brother scanner."
 msgstr "Parece que tiene un escáner Brother."
 
-#: src/ui.vala:1581
+#. Instructions on how to install Brother scanner drivers
+#: ../src/ui.vala:1581
 msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://support.brother.com\">Brother website</a>."
@@ -566,11 +607,13 @@ msgstr ""
 "En el <a href=\"http://support.brother.com\">sitio web de Brother</a> "
 "encontrará controladores."
 
-#: src/ui.vala:1585
+#. Message to indicate a Samsung scanner has been detected
+#: ../src/ui.vala:1585
 msgid "You appear to have a Samsung scanner."
 msgstr "Parece que tiene un escáner Samsung."
 
-#: src/ui.vala:1587
+#. Instructions on how to install Samsung scanner drivers
+#: ../src/ui.vala:1587
 msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://samsung.com/support\">Samsung website</a>."
@@ -578,15 +621,18 @@ msgstr ""
 "En el <a href=\"http://samsung.com/support\">sitio web de Samsung</a> "
 "encontrará controladores."
 
-#: src/ui.vala:1591
+#. Message to indicate a HP scanner has been detected
+#: ../src/ui.vala:1591
 msgid "You appear to have an HP scanner."
 msgstr "Parece que tiene un escáner HP."
 
-#: src/ui.vala:1596
+#. Message to indicate an Epson scanner has been detected
+#: ../src/ui.vala:1596
 msgid "You appear to have an Epson scanner."
 msgstr "Parece que tiene un escáner Epson."
 
-#: src/ui.vala:1598
+#. Instructions on how to install Epson scanner drivers
+#: ../src/ui.vala:1598
 msgid ""
 "Drivers for this are available on the <a "
 "href=\"http://support.epson.com\">Epson website</a>."
@@ -594,125 +640,139 @@ msgstr ""
 "Visite el <a href=\"http://support.epson.com\">sitio web de Epson</a> para "
 "encontrar controladores."
 
-#: src/ui.vala:1602
+#. Title of dialog giving instructions on how to install drivers
+#: ../src/ui.vala:1602
 msgid "Install drivers"
 msgstr "Instalación de controladores"
 
-#: src/ui.vala:1633
+#. Message in driver install dialog
+#: ../src/ui.vala:1633
 msgid "Once installed you will need to restart Simple Scan."
 msgstr "Cuando finalice la instalación deberá reiniciar Simple Scan."
 
-#: src/ui.vala:1645
+#. Label shown while installing drivers
+#: ../src/ui.vala:1645
 msgid "Installing drivers..."
 msgstr "Instalando los controladores…"
 
-#: src/ui.vala:1653
+#. Label shown once drivers successfully installed
+#: ../src/ui.vala:1653
 msgid "Drivers installed successfully!"
 msgstr "Los controladores se instalaron correctamente."
 
-#: src/ui.vala:1663
+#. Label shown if failed to install drivers
+#: ../src/ui.vala:1663
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Falló la instalación de los controladores (cód. de error: %d)"
 
-#: src/ui.vala:1669
+#. Label shown if failed to install drivers
+#: ../src/ui.vala:1669
 msgid "Failed to install drivers."
 msgstr "Falló la instalación de los controladores."
 
-#: src/ui.vala:1676
+#. Label shown to prompt user to install packages (when PackageKit not available)
+#: ../src/ui.vala:1676
 #, c-format
 msgid "You need to install the %s package(s)."
 msgstr "Necesita instalar el paquete %s."
 
-#: src/ui.vala:1784
+#. Preferences dialog: Label for default resolution in resolution list
+#: ../src/ui.vala:1784
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d ppp (predeterminado)"
 
-#: src/ui.vala:1787
+#. Preferences dialog: Label for minimum resolution in resolution list
+#: ../src/ui.vala:1787
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d ppp (borrador)"
 
-#: src/ui.vala:1790
+#. Preferences dialog: Label for maximum resolution in resolution list
+#: ../src/ui.vala:1790
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d ppp (alta resolución)"
 
-#: src/ui.vala:1793
+#. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
+#: ../src/ui.vala:1793
 #, c-format
 msgid "%d dpi"
 msgstr "%d ppp"
 
-#: src/ui.vala:1835
+#: ../src/ui.vala:1835
 msgid "New Document"
 msgstr "Documento nuevo"
 
-#: src/ui.vala:1840
+#: ../src/ui.vala:1840
 msgid "Document"
 msgstr "Documento"
 
-#: src/ui.vala:1844
+#: ../src/ui.vala:1844
 msgid "Email..."
 msgstr "Correo..."
 
-#: src/ui.vala:1845
+#: ../src/ui.vala:1845
 msgid "Print..."
 msgstr "Imprimir…"
 
-#: src/ui.vala:1853
+#: ../src/ui.vala:1853
 msgid "Help"
 msgstr "Ayuda"
 
-#: src/ui.vala:1854
+#: ../src/ui.vala:1854
 msgid "About"
 msgstr "Acerca de"
 
-#: src/ui.vala:1855
+#: ../src/ui.vala:1855
 msgid "Quit"
 msgstr "Salir"
 
-#: src/ui.vala:1889
+#. Button in error infobar to open preferences dialog and change scanner
+#: ../src/ui.vala:1889
 msgid "Change _Scanner"
 msgstr "Cambiar _escáner"
 
-#: src/ui.vala:1891
+#. Button in error infobar to prompt user to install drivers
+#: ../src/ui.vala:1891
 msgid "_Install Drivers"
 msgstr "_Instalar controladores"
 
-#: src/ui.vala:1897
+#. Combo box value for automatic paper size
+#: ../src/ui.vala:1897
 msgid "Automatic"
 msgstr "Automático"
 
-#: src/ui.vala:1947
+#: ../src/ui.vala:1947
 msgid "Darker"
 msgstr "Más oscuro"
 
-#: src/ui.vala:1949
+#: ../src/ui.vala:1949
 msgid "Lighter"
 msgstr "Más claro"
 
-#: src/ui.vala:1957
+#: ../src/ui.vala:1957
 msgid "Less"
 msgstr "Menos"
 
-#: src/ui.vala:1959
+#: ../src/ui.vala:1959
 msgid "More"
 msgstr "Más"
 
-#: src/ui.vala:1967
+#: ../src/ui.vala:1967
 msgid "Minimum"
 msgstr "Mínima"
 
-#: src/ui.vala:1969
+#: ../src/ui.vala:1969
 msgid "Maximum"
 msgstr "Máxima"
 
-#: src/ui.vala:2008
+#: ../src/ui.vala:2008
 msgid "Saving document..."
 msgstr "Guardando el documento…"
 
-#: src/ui.vala:2173
+#: ../src/ui.vala:2173
 #, c-format
 msgid "Saving page %d out of %d"
 msgstr "Guardando la página %d de %d"
