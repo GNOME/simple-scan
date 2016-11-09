@@ -275,26 +275,44 @@ public class Book
         writer.write_string ("%u 0 obj\n".printf (catalog_number));
         writer.write_string ("<<\n");
         writer.write_string ("/Type /Catalog\n");
-        //FIXMEwriter.write_string ("/Metadata %u 0 R\n".printf (catalog_number + 1));
+        writer.write_string ("/Metadata %u 0 R\n".printf (catalog_number + 1));
         //FIXMEwriter.write_string ("/MarkInfo << /Marked true >>");
-        writer.write_string ("/Pages %u 0 R\n".printf (catalog_number + 1)); //+2
+        writer.write_string ("/Pages %u 0 R\n".printf (catalog_number + 2));
         writer.write_string (">>\n");
         writer.write_string ("endobj\n");
 
         /* Metadata */
-        /* FIXME writer.write_string ("\n");
-        number = writer.start_object ();
-        writer.write_string ("%u 0 obj\n".printf (number));
+        var now = new DateTime.now_local ();
+        var date_string = now.format ("%FT%H:%M:%S%:z");
+        /* NOTE: The id has to be hardcoded to this value according to the spec... */
+        var metadata = """<?xpacket begin="%s" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+  <rdf:Description rdf:about=""
+                   xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/"
+                   xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+    <pdfaid:part>1</pdfaid:part>
+    <pdfaid:conformance>A</pdfaid:conformance>
+    <xmp:CreatorTool>Simple Scan %s</xmp:CreatorTool>
+    <xmp:CreateDate>%s</xmp:CreateDate>
+    <xmp:ModifyDate>%s</xmp:ModifyDate>
+    <xmp:MetadataDate>%s</xmp:MetadataDate>
+  </rdf:Description>
+</rdf:RDF>
+<?xpacket end="w"?>""".printf (((unichar) 0xFEFF).to_string (), VERSION, date_string, date_string, date_string);
+        writer.write_string ("\n");
+        var metadata_number = writer.start_object ();
+        writer.write_string ("%u 0 obj\n".printf (metadata_number));
         writer.write_string ("<<\n");
         writer.write_string ("/Type /Metadata\n");
         writer.write_string ("/Subtype /XML\n");
-        writer.write_string ("/Length %u\n".printf (...));
+        writer.write_string ("/Length %u\n".printf (metadata.length));
         writer.write_string (">>\n");
         writer.write_string ("stream\n");
-        // ...
+        writer.write_string (metadata);
         writer.write_string ("\n");
         writer.write_string ("endstream\n");
-        writer.write_string ("endobj\n");*/
+        writer.write_string ("endobj\n");
 
         /* Pages */
         writer.write_string ("\n");
