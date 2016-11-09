@@ -276,7 +276,7 @@ public class Book
         writer.write_string ("<<\n");
         writer.write_string ("/Type /Catalog\n");
         writer.write_string ("/Metadata %u 0 R\n".printf (catalog_number + 1));
-        //FIXMEwriter.write_string ("/MarkInfo << /Marked true >>");
+        writer.write_string ("/MarkInfo << /Marked true >>");
         writer.write_string ("/Pages %u 0 R\n".printf (catalog_number + 2));
         writer.write_string (">>\n");
         writer.write_string ("endobj\n");
