@@ -264,6 +264,21 @@ public class Book
         var stream = file.replace (null, false, FileCreateFlags.NONE, null);
         var writer = new PDFWriter (stream);
 
+        /* Choose object numbers */
+        var catalog_number = writer.add_object ();
+        var metadata_number = writer.add_object ();
+        var pages_number = writer.add_object ();
+        var info_number = writer.add_object ();
+        var page_numbers = new uint[n_pages];
+        var page_image_numbers = new uint[n_pages];
+        var page_content_numbers = new uint[n_pages];
+        for (var i = 0; i < n_pages; i++)
+        {
+            page_numbers[i] = writer.add_object ();
+            page_image_numbers[i] = writer.add_object ();
+            page_content_numbers[i] = writer.add_object ();            
+        }
+
         /* Header */
         writer.write_string ("%PDF-1.3\n");
 
@@ -271,13 +286,13 @@ public class Book
         writer.write_string ("%\xe2\xe3\xcf\xd3\n");
 
         /* Catalog */
-        var catalog_number = writer.start_object ();
+        writer.start_object (catalog_number);
         writer.write_string ("%u 0 obj\n".printf (catalog_number));
         writer.write_string ("<<\n");
         writer.write_string ("/Type /Catalog\n");
-        writer.write_string ("/Metadata %u 0 R\n".printf (catalog_number + 1));
-        writer.write_string ("/MarkInfo << /Marked true >>");
-        writer.write_string ("/Pages %u 0 R\n".printf (catalog_number + 2));
+        writer.write_string ("/Metadata %u 0 R\n".printf (metadata_number));
+        writer.write_string ("/MarkInfo << /Marked true >>\n");
+        writer.write_string ("/Pages %u 0 R\n".printf (pages_number));
         writer.write_string (">>\n");
         writer.write_string ("endobj\n");
 
@@ -301,7 +316,7 @@ public class Book
 </rdf:RDF>
 <?xpacket end="w"?>""".printf (((unichar) 0xFEFF).to_string (), VERSION, date_string, date_string, date_string);
         writer.write_string ("\n");
-        var metadata_number = writer.start_object ();
+        writer.start_object (metadata_number);
         writer.write_string ("%u 0 obj\n".printf (metadata_number));
         writer.write_string ("<<\n");
         writer.write_string ("/Type /Metadata\n");
@@ -316,13 +331,13 @@ public class Book
 
         /* Pages */
         writer.write_string ("\n");
-        var pages_number = writer.start_object ();
+        writer.start_object (pages_number);
         writer.write_string ("%u 0 obj\n".printf (pages_number));
         writer.write_string ("<<\n");
         writer.write_string ("/Type /Pages\n");
         writer.write_string ("/Kids [");
         for (var i = 0; i < n_pages; i++)
-            writer.write_string (" %u 0 R".printf (pages_number + 1 + (i*3)));
+            writer.write_string (" %u 0 R".printf (page_numbers[i]));
         writer.write_string (" ]\n");
         writer.write_string ("/Count %u\n".printf (n_pages));
         writer.write_string (">>\n");
@@ -487,21 +502,21 @@ public class Book
 
             /* Page */
             writer.write_string ("\n");
-            var number = writer.start_object ();
-            writer.write_string ("%u 0 obj\n".printf (number));
+            writer.start_object (page_numbers[i]);
+            writer.write_string ("%u 0 obj\n".printf (page_numbers[i]));
             writer.write_string ("<<\n");
             writer.write_string ("/Type /Page\n");
             writer.write_string ("/Parent %u 0 R\n".printf (pages_number));
-            writer.write_string ("/Resources << /XObject << /Im%d %u 0 R >> >>\n".printf (i, number+1));
+            writer.write_string ("/Resources << /XObject << /Im%d %u 0 R >> >>\n".printf (i, page_image_numbers[i]));
             writer.write_string ("/MediaBox [ 0 0 %s %s ]\n".printf (page_width.format (width_buffer, "%.2f"), page_height.format (height_buffer, "%.2f")));
-            writer.write_string ("/Contents %u 0 R\n".printf (number+2));
+            writer.write_string ("/Contents %u 0 R\n".printf (page_content_numbers[i]));
             writer.write_string (">>\n");
             writer.write_string ("endobj\n");
 
             /* Page image */
             writer.write_string ("\n");
-            number = writer.start_object ();
-            writer.write_string ("%u 0 obj\n".printf (number));
+            writer.start_object (page_image_numbers[i]);
+            writer.write_string ("%u 0 obj\n".printf (page_image_numbers[i]));
             writer.write_string ("<<\n");
             writer.write_string ("/Type /XObject\n");
             writer.write_string ("/Subtype /Image\n");
@@ -522,8 +537,8 @@ public class Book
             /* Page contents */
             var command = "q\n%s 0 0 %s 0 0 cm\n/Im%d Do\nQ".printf (page_width.format (width_buffer, "%f"), page_height.format (height_buffer, "%f"), i);
             writer.write_string ("\n");
-            number = writer.start_object ();
-            writer.write_string ("%u 0 obj\n".printf (number));
+            writer.start_object (page_content_numbers[i]);
+            writer.write_string ("%u 0 obj\n".printf (page_content_numbers[i]));
             writer.write_string ("<<\n");
             writer.write_string ("/Length %d\n".printf (command.length));
             writer.write_string (">>\n");
@@ -538,7 +553,7 @@ public class Book
 
         /* Info */
         writer.write_string ("\n");
-        var info_number = writer.start_object ();
+        writer.start_object (info_number);
         writer.write_string ("%u 0 obj\n".printf (info_number));
         writer.write_string ("<<\n");
         writer.write_string ("/Creator (Simple Scan %s)\n".printf (VERSION));
@@ -549,16 +564,16 @@ public class Book
         writer.write_string ("\n");
         var xref_offset = writer.offset;
         writer.write_string ("xref\n");
-        writer.write_string ("0 %zu\n".printf (writer.object_offsets.length () + 1));
+        writer.write_string ("0 %zu\n".printf (writer.object_offsets.length + 1));
         writer.write_string ("0000000000 65535 f \n");
-        foreach (var offset in writer.object_offsets)
-            writer.write_string ("%010zu 00000 n \n".printf (offset));
+        for (var i = 0; i < writer.object_offsets.length; i++)
+            writer.write_string ("%010zu 00000 n \n".printf (writer.object_offsets[i]));
 
         /* Trailer */
         writer.write_string ("\n");
         writer.write_string ("trailer\n");
         writer.write_string ("<<\n");
-        writer.write_string ("/Size %zu\n".printf (writer.object_offsets.length () + 1));
+        writer.write_string ("/Size %zu\n".printf (writer.object_offsets.length + 1));
         writer.write_string ("/Info %u 0 R\n".printf (info_number));
         writer.write_string ("/Root %u 0 R\n".printf (catalog_number));
         writer.write_string ("/ID [<%s> <%s>]\n".printf (id, id));
@@ -590,12 +605,13 @@ public class Book
 private class PDFWriter
 {
     public size_t offset = 0;
-    public List<uint> object_offsets;
+    public uint[] object_offsets;
     private FileOutputStream stream;
 
     public PDFWriter (FileOutputStream stream)
     {
         this.stream = stream;
+        object_offsets = new uint[0];
     }
 
     public void write (uint8[] data)
@@ -616,10 +632,17 @@ private class PDFWriter
         write ((uint8[]) text.to_utf8 ());
     }
 
-    public uint start_object ()
+    public uint add_object ()
     {
-        object_offsets.append ((uint)offset);
-        return object_offsets.length ();
+        object_offsets.resize (object_offsets.length + 1);
+        var index = object_offsets.length;
+        object_offsets[index - 1] = 0;
+        return index;
+    }
+
+    public void start_object (uint index)
+    {
+        object_offsets[index - 1] = (uint)offset;
     }
 }
 
