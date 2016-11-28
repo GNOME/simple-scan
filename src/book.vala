@@ -276,8 +276,9 @@ public class Book
         {
             page_numbers[i] = writer.add_object ();
             page_image_numbers[i] = writer.add_object ();
-            page_content_numbers[i] = writer.add_object ();            
+            page_content_numbers[i] = writer.add_object ();
         }
+        var struct_tree_root_number = writer.add_object ();
 
         /* Header */
         writer.write_string ("%PDF-1.3\n");
@@ -292,6 +293,7 @@ public class Book
         writer.write_string ("/Type /Catalog\n");
         writer.write_string ("/Metadata %u 0 R\n".printf (metadata_number));
         writer.write_string ("/MarkInfo << /Marked true >>\n");
+        writer.write_string ("/StructTreeRoot %u 0 R\n".printf (struct_tree_root_number));
         writer.write_string ("/Pages %u 0 R\n".printf (pages_number));
         writer.write_string (">>\n");
         writer.write_string ("endobj\n");
@@ -534,6 +536,15 @@ public class Book
             writer.write_string ("endstream\n");
             writer.write_string ("endobj\n");
 
+            /* Structure tree */
+            writer.write_string ("\n");
+            writer.start_object (struct_tree_root_number);
+            writer.write_string ("%u 0 obj\n".printf (struct_tree_root_number));
+            writer.write_string ("<<\n");
+            writer.write_string ("/Type /StructTreeRoot\n");            
+            writer.write_string (">>\n");
+            writer.write_string ("endobj\n");
+
             /* Page contents */
             var command = "q\n%s 0 0 %s 0 0 cm\n/Im%d Do\nQ".printf (page_width.format (width_buffer, "%f"), page_height.format (height_buffer, "%f"), i);
             writer.write_string ("\n");
@@ -565,9 +576,12 @@ public class Book
         var xref_offset = writer.offset;
         writer.write_string ("xref\n");
         writer.write_string ("0 %zu\n".printf (writer.object_offsets.length + 1));
-        writer.write_string ("0000000000 65535 f \n");
+        writer.write_string ("%010zu 65535 f \n".printf (next_empty_object (writer, 0)));
         for (var i = 0; i < writer.object_offsets.length; i++)
-            writer.write_string ("%010zu 00000 n \n".printf (writer.object_offsets[i]));
+            if (writer.object_offsets[i] == 0)
+                writer.write_string ("%010zu 65535 f \n".printf (next_empty_object (writer, i + 1)));
+            else
+                writer.write_string ("%010zu 00000 n \n".printf (writer.object_offsets[i]));
 
         /* Trailer */
         writer.write_string ("\n");
@@ -581,6 +595,14 @@ public class Book
         writer.write_string ("startxref\n");
         writer.write_string ("%zu\n".printf (xref_offset));
         writer.write_string ("%%EOF\n");
+    }
+
+    static int next_empty_object (PDFWriter writer, int start)
+    {
+        for (var i = start; i < writer.object_offsets.length; i++)
+            if (writer.object_offsets[i] == 0)
+                return i + 1;
+        return 0;
     }
 
     public void save (string type, int quality, File file) throws Error
@@ -635,9 +657,9 @@ private class PDFWriter
     public uint add_object ()
     {
         object_offsets.resize (object_offsets.length + 1);
-        var index = object_offsets.length;
-        object_offsets[index - 1] = 0;
-        return index;
+        var index = object_offsets.length - 1;
+        object_offsets[index] = 0;
+        return index + 1;
     }
 
     public void start_object (uint index)
