@@ -41,7 +41,7 @@ simple_scan_CFLAGS = \
 	-w \
 	$(SIMPLE_SCAN_CFLAGS) \
 	$(COLORD_CFLAGS) \
-	$(PACKAGEKIT_CFLAGS) \    
+	$(PACKAGEKIT_CFLAGS) \
 	$(WARN_CFLAGS) \
 	-DVERSION=\"$(VERSION)\" \
 	-DGETTEXT_PACKAGE=\"$(GETTEXT_PACKAGE)\" \
@@ -55,7 +55,7 @@ simple_scan_CFLAGS = \
 simple_scan_LDADD = \
 	$(SIMPLE_SCAN_LIBS) \
 	$(COLORD_LIBS) \
-	$(PACKAGEKIT_LIBS) \    
+	$(PACKAGEKIT_LIBS) \
 	-lsane \
 	-lm
 
