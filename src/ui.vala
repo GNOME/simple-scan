@@ -1819,7 +1819,7 @@ public class UserInterface : Gtk.ApplicationWindow
 
         var app = Application.get_default () as Gtk.Application;
 
-        if (is_desktop ("Unity") || is_desktop ("XFCE") || is_desktop ("MATE") || is_desktop ("LXDE"))
+        if (is_traditional_desktop ())
         {
             set_titlebar (null);
             menubar.visible = true;
@@ -2021,6 +2021,15 @@ public class UserInterface : Gtk.ApplicationWindow
 
         return false;
     }
+
+    private bool is_traditional_desktop ()
+    {
+        const string[] traditional_desktops = { "Unity", "XFCE", "MATE", "LXDE" };
+        foreach (var name in traditional_desktops)
+            if (is_desktop (name))
+                return true;
+        return false;
+    }   
 
     private string state_filename
     {
