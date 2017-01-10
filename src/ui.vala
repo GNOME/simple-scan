@@ -2024,7 +2024,7 @@ public class UserInterface : Gtk.ApplicationWindow
 
     private bool is_traditional_desktop ()
     {
-        const string[] traditional_desktops = { "Unity", "XFCE", "MATE", "LXDE" };
+        const string[] traditional_desktops = { "Unity", "XFCE", "MATE", "LXDE", "Cinnamon", "X-Cinnamon" };
         foreach (var name in traditional_desktops)
             if (is_desktop (name))
                 return true;
