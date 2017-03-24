@@ -26,7 +26,7 @@ sudo apt-get install appstream-util
 sudo apt-get install valac-0.22 vala-0.22
 sudo update-alternatives --config valac # select vala-0.22
 
-# one of the follwing
+# one of the following
 ./autogen.sh                           # system-wide installation
 ./autogen.sh --prefix=`pwd`/install    # for development purposes
 
