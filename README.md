@@ -10,41 +10,24 @@ https://launchpad.net/simple-scan
 
 ## BUILDING
 
-Unfortunatly Simple Scan is a little bit picky about dependencies when building.
-The latest version of Simple Scan is primarily developed on
-
-* Ubuntu 12.04 LTS
-
-and know to successfully build using the following commands:
-
+Install the dependencies (on Ubuntu/Debian):
 ```
-sudo apt-get install bzr
-bzr branch lp:simple-scan simple-scan && cd simple-scan
-sudo apt-get build-dep simple-scan
-sudo apt-get install libsqlite3-dev
-sudo apt-get install appstream-util
-sudo apt-get install valac-0.22 vala-0.22
-sudo update-alternatives --config valac # select vala-0.22
-
-# one of the following
-./autogen.sh                           # system-wide installation
-./autogen.sh --prefix=`pwd`/install    # for development purposes
-
-make
-make install
-./install/bin/simple-scan
+$ sudo apt install bzr valac libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libsane-dev gettext itstool
 ```
 
-Due to popular demand we have an experimental git mirror at
-https://github.com/mnagel/simple-scan
-You can clone from there should you prefer git over bzr.
-Please keep in mind that the sync bzr->git is done manually.
+Get the source:
+```
+$ bzr branch lp:simple-scan
+```
 
-
+Build locally with:
+```
+$ meson --prefix $PWD/install build/
+$ ninja -C build/ all install
+$ XDG_DATA_DIRS=install/share/$XDG_DATA_DIRS ./install/bin/simple-scan
+```
 
 ## DEBUGGING
-
-The following tips might be helpful when debugging.
 
 There is a --debug command line switch to enable more verbose logging:
 ```
@@ -65,8 +48,6 @@ When debugging hardware issues always check xsane and especially scanimage.
 
 * http://xsane.org/
 * http://www.sane-project.org/man/scanimage.1.html
-
-
 
 ## CONTRIBUTING
 

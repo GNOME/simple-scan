@@ -191,9 +191,7 @@ public class SimpleScan : Gtk.Application
         add_devices (driver_map, samsung_devices, "samsung");
         add_devices (driver_map, hpaio_devices, "hpaio");
         add_devices (driver_map, epkowa_devices, "epkowa");        
-        var devices = GUsb.context_get_devices (usb_context);
-        /* Fixed in GUsb 0.2.7: https://github.com/hughsie/libgusb/commit/83a6b1a20653c1a17f0a909f08652b5e1df44075 */
-        /*var devices = GUSB.context_get_devices (context);*/
+        var devices = usb_context.get_devices ();
         for (var i = 0; i < devices.length; i++)
         {
             var device = devices.data[i];
@@ -281,7 +279,7 @@ public class SimpleScan : Gtk.Application
         var device_id = "sane:%s".printf (device_name);
         debug ("Getting color profile for device %s", device_name);
 
-        var client = new Colord.Client ();
+        var client = new Cd.Client ();
         try
         {
             client.connect_sync ();
@@ -292,10 +290,10 @@ public class SimpleScan : Gtk.Application
             return null;
         }
 
-        Colord.Device device;
+        Cd.Device device;
         try
         {
-            device = client.find_device_by_property_sync (Colord.DEVICE_PROPERTY_SERIAL, device_id);
+            device = client.find_device_by_property_sync (Cd.DEVICE_PROPERTY_SERIAL, device_id);
         }
         catch (Error e)
         {
