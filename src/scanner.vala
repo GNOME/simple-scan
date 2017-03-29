@@ -69,7 +69,8 @@ public enum ScanType
     SINGLE,
     ADF_FRONT,
     ADF_BACK,
-    ADF_BOTH
+    ADF_BOTH,
+    BURST
 }
 
 public class ScanOptions
@@ -964,6 +965,11 @@ public class Scanner
                         if (!set_constrained_string_option (handle, option, index, adf_sources, null))
                             warning ("Unable to set duplex ADF source, please file a bug");
                     break;
+                case ScanType.BURST:
+                    if (!set_default_option (handle, option, index))
+                        if (!set_constrained_string_option (handle, option, index, flatbed_sources, null))
+                            warning ("Unable to set single page source, please file a bug");
+                    break;
                 }
             }
 
@@ -1040,7 +1046,7 @@ public class Scanner
             if (option != null)
             {
                 if (option.type == Sane.ValueType.BOOL)
-                    set_bool_option (handle, option, index, job.type != ScanType.SINGLE, null);
+                    set_bool_option (handle, option, index, (job.type != ScanType.SINGLE) && (job.type != ScanType.BURST), null);
             }
 
             /* Disable compression, we will compress after scanning */
@@ -1550,6 +1556,8 @@ public class Scanner
             return "ScanType.ADF_BACK";
         case ScanType.ADF_BOTH:
             return "ScanType.ADF_BOTH";
+        case ScanType.BURST:
+			return "ScanType.BURST";
         default:
             return "%d".printf (type);
         }
