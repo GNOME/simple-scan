@@ -21,7 +21,6 @@ public class UserInterface : Gtk.ApplicationWindow
         { "new_document", new_document_activate_cb },
         { "reorder", reorder_document_activate_cb },
         { "save", save_document_activate_cb },
-        { "save_as", save_as_document_activate_cb },
         { "email", email_document_activate_cb },
         { "print", print_document_activate_cb },
         { "preferences", preferences_activate_cb },
@@ -72,8 +71,6 @@ public class UserInterface : Gtk.ApplicationWindow
     private Gtk.MenuItem crop_rotate_menuitem;
     [GtkChild]
     private Gtk.MenuItem save_menuitem;
-    [GtkChild]
-    private Gtk.MenuItem save_as_menuitem;
     [GtkChild]
     private Gtk.MenuItem copy_to_clipboard_menuitem;
     [GtkChild]
@@ -162,7 +159,7 @@ public class UserInterface : Gtk.ApplicationWindow
     private bool error_change_scanner_hint;
 
     public Book book { get; private set; }
-    private string? book_uri = null;
+    private bool book_needs_saving;
 
     public Page selected_page
     {
@@ -266,21 +263,20 @@ public class UserInterface : Gtk.ApplicationWindow
         book.page_added.connect (page_added_cb);
         book.reordered.connect (reordered_cb);
         book.page_removed.connect (page_removed_cb);
-        book.needs_saving_changed.connect (needs_saving_cb);
 
         load ();
 
         autosave_manager = new AutosaveManager ();
         autosave_manager.book = book;
         autosave_manager.load ();
+        book_needs_saving = true;
 
         if (book.n_pages == 0)
-        {
             add_default_page ();
-            book.needs_saving = false;
-        }
         else
             book_view.selected_page = book.get_page (0);
+
+        book.changed.connect (book_changed_cb);
     }
 
     ~UserInterface ()
@@ -491,6 +487,7 @@ public class UserInterface : Gtk.ApplicationWindow
                              default_page_scan_direction);
         book.append_page (page);
         book_view.selected_page = page;
+        book_needs_saving = false;
     }
 
     private string choose_file_location ()
@@ -614,11 +611,7 @@ public class UserInterface : Gtk.ApplicationWindow
 
     private bool save_document (bool force_choose_location)
     {
-        string? uri;
-        if (book_uri != null && !force_choose_location)
-            uri = book_uri;
-        else
-            uri = choose_file_location ();
+        var uri = choose_file_location ();
         if (uri == null)
             return false;
 
@@ -653,14 +646,13 @@ public class UserInterface : Gtk.ApplicationWindow
             return false;
         }
 
-        book_uri = uri;
-        book.needs_saving = false;
+        book_needs_saving = false;
         return true;
     }
 
     private bool prompt_to_save (string title, string discard_label)
     {
-        if (!book.needs_saving)
+        if (!book_needs_saving)
             return true;
 
         var dialog = new Gtk.MessageDialog (this,
@@ -696,9 +688,9 @@ public class UserInterface : Gtk.ApplicationWindow
     {
         book.clear ();
         add_default_page ();
-        book_uri = null;
-        book.needs_saving = false;
-        save_as_menuitem.sensitive = false;
+        save_menuitem.sensitive = false;
+        save_button.sensitive = false;
+        save_toolbutton.sensitive = false;
         copy_to_clipboard_menuitem.sensitive = false;
     }
 
@@ -1371,17 +1363,6 @@ public class UserInterface : Gtk.ApplicationWindow
             page.copy_to_clipboard (this);
     }
 
-    [GtkCallback]
-    private void save_as_file_button_clicked_cb (Gtk.Widget widget)
-    {
-        save_document (true);
-    }
-
-    public void save_as_document_activate_cb ()
-    {
-        save_document (true);
-    }
-
     private void draw_page (Gtk.PrintOperation operation,
                             Gtk.PrintContext   print_context,
                             int                page_number)
@@ -1809,13 +1790,12 @@ public class UserInterface : Gtk.ApplicationWindow
         }
     }
 
-    private void needs_saving_cb (Book book)
+    private void book_changed_cb (Book book)
     {
-        save_menuitem.sensitive = book.needs_saving;
-        save_button.sensitive = book.needs_saving;
-        save_toolbutton.sensitive = book.needs_saving;
-        if (book.needs_saving)
-            save_as_menuitem.sensitive = true;
+        save_menuitem.sensitive = true;
+        save_button.sensitive = true;
+        save_toolbutton.sensitive = true;
+        book_needs_saving = true;
         copy_to_clipboard_menuitem.sensitive = true;
     }
 
@@ -1848,7 +1828,6 @@ public class UserInterface : Gtk.ApplicationWindow
             section.append_submenu (_("Document"), menu);
             menu.append (_("Reorder Pages"), "app.reorder");
             menu.append (_("Save"), "app.save");
-            menu.append (_("Save As..."), "app.save_as");
             menu.append (_("Email..."), "app.email");
             menu.append (_("Print..."), "app.print");
 
@@ -1866,7 +1845,6 @@ public class UserInterface : Gtk.ApplicationWindow
 
             app.add_accelerator ("<Ctrl>N", "app.new_document", null);
             app.add_accelerator ("<Ctrl>S", "app.save", null);
-            app.add_accelerator ("<Shift><Ctrl>S", "app.save_as", null);
             app.add_accelerator ("<Ctrl>E", "app.email", null);
             app.add_accelerator ("<Ctrl>P", "app.print", null);
             app.add_accelerator ("F1", "app.help", null);

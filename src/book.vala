@@ -15,24 +15,11 @@ public class Book
 
     public uint n_pages { get { return pages.length (); } }
 
-    private bool needs_saving_;
-    public bool needs_saving
-    {
-        get { return needs_saving_; }
-        set
-        {
-            if (needs_saving_ == value)
-                return;
-            needs_saving_ = value;
-            needs_saving_changed ();
-        }
-    }
-
     public signal void page_added (Page page);
     public signal void page_removed (Page page);
     public signal void reordered ();
     public signal void cleared ();
-    public signal void needs_saving_changed ();
+    public signal void changed ();
     public signal void saving (int i);
 
     public Book ()
@@ -62,7 +49,7 @@ public class Book
 
     private void page_changed_cb (Page page)
     {
-        needs_saving = true;
+        changed ();
     }
 
     public void append_page (Page page)
@@ -72,7 +59,7 @@ public class Book
 
         pages.append (page);
         page_added (page);
-        needs_saving = true;
+        changed ();
     }
 
     public void move_page (Page page, uint location)
@@ -80,7 +67,7 @@ public class Book
         pages.remove (page);
         pages.insert (page, (int) location);
         reordered ();
-        needs_saving = true;
+        changed ();
     }
 
     public void reverse ()
@@ -91,7 +78,7 @@ public class Book
         pages = (owned) new_pages;
 
         reordered ();
-        needs_saving = true;
+        changed ();
     }
 
     public void combine_sides ()
@@ -108,7 +95,7 @@ public class Book
         pages = (owned) new_pages;
 
         reordered ();
-        needs_saving = true;
+        changed ();
     }
 
     public void combine_sides_reverse ()
@@ -124,7 +111,7 @@ public class Book
         pages = (owned) new_pages;
 
         reordered ();
-        needs_saving = true;
+        changed ();
     }
 
     public void delete_page (Page page)
@@ -133,7 +120,7 @@ public class Book
         page.crop_changed.disconnect (page_changed_cb);
         pages.remove (page);
         page_removed (page);
-        needs_saving = true;
+        changed ();
     }
 
     public Page get_page (int page_number)
