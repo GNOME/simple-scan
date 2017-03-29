@@ -23,6 +23,20 @@ public class BookView : Gtk.Box
     private bool laying_out;
     private bool show_selected_page;
 
+    /* Page to show when book empty */
+    private PageView? default_page_view = null;
+    public Page default_page
+    {
+        set
+        {
+            if (value == null)
+                default_page_view = null;
+            else
+                default_page_view = new PageView (value);
+            need_layout = true;
+        }
+    }
+
     /* Currently selected page */
     private PageView? selected_page_view = null;
     public Page? selected_page
@@ -295,26 +309,38 @@ public class BookView : Gtk.Box
 
     private void layout_into (int width, int height, out int book_width, out int book_height)
     {
+        var pages = new List<PageView> ();
+        if (book.n_pages == 0)
+        {
+            if (default_page_view != null)
+                pages.append (default_page_view);
+        }
+        else
+        {
+            for (var i = 0; i < book.n_pages; i++)
+                pages.append (get_nth_page (i));
+        }
+
         /* Get maximum page resolution */
         int max_dpi = 0;
-        for (var i = 0; i < book.n_pages; i++)
+        foreach (var page in pages)
         {
-            var page = book.get_page (i);
-            if (page.dpi > max_dpi)
-                max_dpi = page.dpi;
+            var p = page.page;
+            if (p.dpi > max_dpi)
+                max_dpi = p.dpi;
         }
 
         /* Get area required to fit all pages */
         int max_width = 0, max_height = 0;
-        for (var i = 0; i < book.n_pages; i++)
+        foreach (var page in pages)
         {
-            var page = book.get_page (i);
-            var w = page.width;
-            var h = page.height;
+            var p = page.page;
+            var w = p.width;
+            var h = p.height;
 
             /* Scale to the same DPI */
-            w = (int) ((double)w * max_dpi / page.dpi + 0.5);
-            h = (int) ((double)h * max_dpi / page.dpi + 0.5);
+            w = (int) ((double)w * max_dpi / p.dpi + 0.5);
+            h = (int) ((double)h * max_dpi / p.dpi + 0.5);
 
             if (w > max_width)
                 max_width = w;
@@ -329,9 +355,8 @@ public class BookView : Gtk.Box
         int spacing = 12;
         book_width = 0;
         book_height = 0;
-        for (var i = 0; i < book.n_pages; i++)
+        foreach (var page in pages)
         {
-            var page = get_nth_page (i);
             var p = page.page;
 
             /* NOTE: Using double to avoid overflow for large images */
@@ -351,16 +376,14 @@ public class BookView : Gtk.Box
             var h = page.height;
             if (h > book_height)
                 book_height = h;
-            book_width += page.width;
-            if (i != 0)
-                book_width += spacing;
+            book_width += page.width + spacing;
         }
+        if (pages != null)
+            book_width -= spacing;
 
         int x_offset = 0;
-        for (var i = 0; i < book.n_pages; i++)
+        foreach (var page in pages)
         {
-            var page = get_nth_page (i);
-
             /* Layout pages left to right */
             page.x_offset = x_offset;
             x_offset += page.width + spacing;
@@ -432,18 +455,26 @@ public class BookView : Gtk.Box
 
     private bool draw_cb (Gtk.Widget widget, Cairo.Context context)
     {
-        if (book.n_pages == 0)
-            return false;
-
         layout ();
 
         double left, top, right, bottom;
         context.clip_extents (out left, out top, out right, out bottom);
 
-        /* Render each page */
-        for (var i = 0; i < book.n_pages; i++)
+        var pages = new List<PageView> ();
+        if (book.n_pages == 0)
         {
-            var page = get_nth_page (i);
+            if (default_page_view != null)
+                pages.append (default_page_view);
+        }
+        else
+        {
+            for (var i = 0; i < book.n_pages; i++)
+                pages.append (get_nth_page (i));
+        }
+
+        /* Render each page */
+        foreach (var page in pages)
+        {
             var left_edge = page.x_offset - x_offset;
             var right_edge = page.x_offset + page.width - x_offset;
 

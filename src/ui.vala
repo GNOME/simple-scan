@@ -268,21 +268,23 @@ public class UserInterface : Gtk.ApplicationWindow
         book.page_added.connect (page_added_cb);
         book.reordered.connect (reordered_cb);
         book.page_removed.connect (page_removed_cb);
+        book.changed.connect (book_changed_cb);
 
         load ();
 
+        clear_document ();
         autosave_manager = new AutosaveManager ();
         autosave_manager.book = book;
         autosave_manager.load ();
-        book_needs_saving = true;
-        book_changed_cb (book);
 
         if (book.n_pages == 0)
-            add_default_page ();
+            book_needs_saving = false;
         else
+        {
             book_view.selected_page = book.get_page (0);
-
-        book.changed.connect (book_changed_cb);
+            book_needs_saving = true;
+            book_changed_cb (book);
+        }
     }
 
     ~UserInterface ()
@@ -483,18 +485,6 @@ public class UserInterface : Gtk.ApplicationWindow
         setting_devices = false;
 
         update_info_bar ();
-    }
-
-    private void add_default_page ()
-    {
-        var page = new Page (default_page_width,
-                             default_page_height,
-                             default_page_dpi,
-                             default_page_scan_direction);
-        book.append_page (page);
-        book_view.selected_page = page;
-        book_needs_saving = false;
-        book_uri = null;
     }
 
     private string choose_file_location ()
@@ -698,8 +688,13 @@ public class UserInterface : Gtk.ApplicationWindow
 
     private void clear_document ()
     {
+        book_view.default_page = new Page (default_page_width,
+                                           default_page_height,
+                                           default_page_dpi,
+                                           default_page_scan_direction);
         book.clear ();
-        add_default_page ();
+        book_needs_saving = false;
+        book_uri = null;
         save_menuitem.sensitive = false;
         email_menuitem.sensitive = false;
         print_menuitem.sensitive = false;        
@@ -1763,10 +1758,6 @@ public class UserInterface : Gtk.ApplicationWindow
     {
         page.size_changed.disconnect (page_size_changed_cb);
         page.scan_direction_changed.disconnect (page_scan_direction_changed_cb);
-
-        /* If this is the last page add a new blank one */
-        if (book.n_pages == 0)
-            add_default_page ();
 
         update_page_menu ();
     }
