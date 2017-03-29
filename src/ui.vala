@@ -898,6 +898,14 @@ public class UserInterface : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
+    private void burst_button_clicked_cb (Gtk.Widget widget)
+    {
+        var options = make_scan_options ();
+        options.type = ScanType.BATCH;
+        start_scan (selected_device, options);
+    }
+
+    [GtkCallback]
     private void preferences_button_clicked_cb (Gtk.Widget widget)
     {
         preferences_dialog.present ();
