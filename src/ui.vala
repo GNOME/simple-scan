@@ -160,6 +160,7 @@ public class UserInterface : Gtk.ApplicationWindow
 
     public Book book { get; private set; }
     private bool book_needs_saving;
+    private string? book_uri = null;
 
     public Page selected_page
     {
@@ -489,6 +490,7 @@ public class UserInterface : Gtk.ApplicationWindow
         book.append_page (page);
         book_view.selected_page = page;
         book_needs_saving = false;
+        book_uri = null;
     }
 
     private string choose_file_location ()
@@ -509,9 +511,13 @@ public class UserInterface : Gtk.ApplicationWindow
                                                  null);
         save_dialog.do_overwrite_confirmation = true;
         save_dialog.local_only = false;
-        save_dialog.set_current_folder (directory);
-        /* Default filename to use when saving document */
-        save_dialog.set_current_name (_("Scanned Document.pdf"));
+        if (book_uri != null)
+            save_dialog.set_uri (book_uri);
+        else {
+            save_dialog.set_current_folder (directory);
+            /* Default filename to use when saving document */
+            save_dialog.set_current_name (_("Scanned Document.pdf"));
+        }
 
         /* Filter to only show images by default */
         var filter = new Gtk.FileFilter ();
@@ -648,6 +654,7 @@ public class UserInterface : Gtk.ApplicationWindow
         }
 
         book_needs_saving = false;
+        book_uri = uri;
         return true;
     }
 
