@@ -275,7 +275,7 @@
                                 <accelerator key="1" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                                 <signal name="activate" handler="scan_button_clicked_cb" swapped="no"/>
                               </object>
-                            </child>
+                            </child>                             
                             <child>
                               <object class="GtkMenuItem" id="scan_all_menuitem">
                                 <property name="visible">True</property>
@@ -286,6 +286,16 @@
                                 <signal name="activate" handler="continuous_scan_button_clicked_cb" swapped="no"/>
                               </object>
                             </child>
+                            <child>
+                              <object class="GtkMenuItem" id="burst_menuitem">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes" comments="Scan menu item to scan continuously from the flatbed">_Multiple Pages From Flatbed</property>
+                                <property name="use_underline">True</property>
+                                <accelerator key="m" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                                <signal name="activate" handler="burst_button_clicked_cb" swapped="no"/>
+                              </object>
+                            </child>              
                             <child>
                               <object class="GtkMenuItem" id="stop_scan_menuitem">
                                 <property name="visible">True</property>
@@ -1318,6 +1328,15 @@
       </object>
     </child>
     <child>
+      <object class="GtkMenuItem" id="burst_button_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes" comments="Toolbar scan menu item to scan continuously from the flatbed">_Multiple Pages From Flatbed</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="burst_button_clicked_cb" swapped="no"/>
+      </object>
+    </child> 
+    <child>
       <object class="GtkSeparatorMenuItem" id="menuitem1">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -1367,6 +1386,15 @@
         <signal name="activate" handler="continuous_scan_button_clicked_cb" swapped="no"/>
       </object>
     </child>
+    <child>
+      <object class="GtkMenuItem" id="burst_button_hb_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes" comments="Toolbar scan menu item to scan continuously from the flatbed">_Multiple Pages From Flatbed</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="burst_button_clicked_cb" swapped="no"/>
+      </object>
+    </child> 
     <child>
       <object class="GtkSeparatorMenuItem" id="menuitem3">
         <property name="visible">True</property>
