@@ -270,6 +270,7 @@ public class UserInterface : Gtk.ApplicationWindow
         autosave_manager.book = book;
         autosave_manager.load ();
         book_needs_saving = true;
+        book_changed_cb (book);
 
         if (book.n_pages == 0)
             add_default_page ();
