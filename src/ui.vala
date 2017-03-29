@@ -72,6 +72,10 @@ public class UserInterface : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.MenuItem save_menuitem;
     [GtkChild]
+    private Gtk.MenuItem email_menuitem;
+    [GtkChild]
+    private Gtk.MenuItem print_menuitem;
+    [GtkChild]
     private Gtk.MenuItem copy_to_clipboard_menuitem;
     [GtkChild]
     private Gtk.Button save_button;
@@ -697,6 +701,8 @@ public class UserInterface : Gtk.ApplicationWindow
         book.clear ();
         add_default_page ();
         save_menuitem.sensitive = false;
+        email_menuitem.sensitive = false;
+        print_menuitem.sensitive = false;        
         save_button.sensitive = false;
         save_toolbutton.sensitive = false;
         copy_to_clipboard_menuitem.sensitive = false;
@@ -1801,6 +1807,8 @@ public class UserInterface : Gtk.ApplicationWindow
     private void book_changed_cb (Book book)
     {
         save_menuitem.sensitive = true;
+        email_menuitem.sensitive = true;
+        print_menuitem.sensitive = true;        
         save_button.sensitive = true;
         save_toolbutton.sensitive = true;
         book_needs_saving = true;
