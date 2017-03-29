@@ -502,8 +502,7 @@ public class UserInterface : Gtk.ApplicationWindow
                                                  Gtk.FileChooserAction.SAVE,
                                                  _("_Cancel"), Gtk.ResponseType.CANCEL,
                                                  _("_Save"), Gtk.ResponseType.ACCEPT,
-                                                 null);
-        save_dialog.do_overwrite_confirmation = true;
+                                                 null);                                                 
         save_dialog.local_only = false;
         if (book_uri != null)
             save_dialog.set_uri (book_uri);
@@ -582,11 +581,13 @@ public class UserInterface : Gtk.ApplicationWindow
         });
         box.pack_start (file_type_combo, false, false, 0);
 
-        var response = save_dialog.run ();
-
         string? uri = null;
-        if (response == Gtk.ResponseType.ACCEPT)
+        while (true)
         {
+            var response = save_dialog.run ();
+            if (response != Gtk.ResponseType.ACCEPT)
+                break;
+
             var extension = "";
             Gtk.TreeIter i;
             if (file_type_combo.get_active_iter (out i))
@@ -600,6 +601,20 @@ public class UserInterface : Gtk.ApplicationWindow
                 path += extension;
 
             uri = File.new_for_path (path).get_uri ();
+
+            /* Check the file(s) don't already exist */
+            var files = new List<File> ();
+            var format = uri_to_format (uri);
+            if (format == "jpeg" || format == "png" || format == "tiff")
+            {
+                for (var j = 0; j < book.n_pages; j++)
+                    files.append (book.make_indexed_file (uri, j));
+            }
+            else
+                files.append (File.new_for_uri (uri));
+
+            if (check_overwrite (save_dialog, files))
+                break;
         }
 
         settings.set_string ("save-directory", save_dialog.get_current_folder ());
@@ -610,7 +625,45 @@ public class UserInterface : Gtk.ApplicationWindow
         return uri;
     }
 
-    private bool save_document (bool force_choose_location)
+    private bool check_overwrite (Gtk.Window parent, List<File> files)
+    {
+        foreach (var file in files)
+        {
+            if (!file.query_exists ())
+                continue;
+
+            var dialog = new Gtk.MessageDialog (parent, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
+                                                /* Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file. */
+                                                _("A file named “%s” already exists.  Do you want to replace it?"), file.get_basename ());
+            dialog.add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
+            dialog.add_button (/* Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file. */
+                               _("_Replace"), Gtk.ResponseType.ACCEPT);
+            var response = dialog.run ();
+            dialog.destroy ();
+            
+            if (response != Gtk.ResponseType.ACCEPT)
+                return false;
+        }
+
+        return true;
+    }
+
+    private string uri_to_format (string uri)
+    {
+        var uri_lower = uri.down ();
+        if (uri_lower.has_suffix (".pdf"))
+            return "pdf";
+        else if (uri_lower.has_suffix (".ps"))
+            return "ps";
+        else if (uri_lower.has_suffix (".png"))
+            return "png";
+        else if (uri_lower.has_suffix (".tif") || uri_lower.has_suffix (".tiff"))
+            return "tiff";
+        else
+            return "jpeg";
+    }
+
+    private bool save_document ()
     {
         var uri = choose_file_location ();
         if (uri == null)
@@ -620,16 +673,7 @@ public class UserInterface : Gtk.ApplicationWindow
 
         debug ("Saving to '%s'", uri);
 
-        var uri_lower = uri.down ();
-        string format = "jpeg";
-        if (uri_lower.has_suffix (".pdf"))
-            format = "pdf";
-        else if (uri_lower.has_suffix (".ps"))
-            format = "ps";
-        else if (uri_lower.has_suffix (".png"))
-            format = "png";
-        else if (uri_lower.has_suffix (".tif") || uri_lower.has_suffix (".tiff"))
-            format = "tiff";
+        var format = uri_to_format (uri);
 
         show_progress_dialog ();
         try
@@ -675,7 +719,7 @@ public class UserInterface : Gtk.ApplicationWindow
         switch (response)
         {
         case Gtk.ResponseType.YES:
-            if (save_document (false))
+            if (save_document ())
                 return true;
             else
                 return false;
@@ -1356,12 +1400,12 @@ public class UserInterface : Gtk.ApplicationWindow
     [GtkCallback]
     private void save_file_button_clicked_cb (Gtk.Widget widget)
     {
-        save_document (false);
+        save_document ();
     }
 
     public void save_document_activate_cb ()
     {
-        save_document (false);
+        save_document ();
     }
 
     [GtkCallback]

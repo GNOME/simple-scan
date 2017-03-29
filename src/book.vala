@@ -135,7 +135,7 @@ public class Book
         return pages.index (page);
     }
 
-    private File make_indexed_file (string uri, int i)
+    public File make_indexed_file (string uri, int i)
     {
         if (n_pages == 1)
             return File.new_for_uri (uri);
