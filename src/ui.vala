@@ -135,6 +135,8 @@ public class UserInterface : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.Scale quality_scale;
     [GtkChild]
+    private Gtk.Scale speed_scale;
+    [GtkChild]
     private Gtk.ListStore device_model;
     [GtkChild]
     private Gtk.ListStore text_dpi_model;
@@ -150,6 +152,8 @@ public class UserInterface : Gtk.ApplicationWindow
     private Gtk.Adjustment contrast_adjustment;
     [GtkChild]
     private Gtk.Adjustment quality_adjustment;
+    [GtkChild]
+    private Gtk.Adjustment speed_adjustment;
     private bool setting_devices;
     private string? missing_driver = null;
     private bool user_selected_device;
@@ -227,6 +231,12 @@ public class UserInterface : Gtk.ApplicationWindow
     {
         get { return (int) quality_adjustment.value; }
         set { quality_adjustment.value = value; }
+    }
+
+    public int speed
+    {
+        get { return (int) speed_adjustment.value; }
+        set { speed_adjustment.value = value; }
     }
 
     public string? selected_device
@@ -911,6 +921,7 @@ public class UserInterface : Gtk.ApplicationWindow
         get_paper_size (out options.paper_width, out options.paper_height);
         options.brightness = brightness;
         options.contrast = contrast;
+        options.speed = speed;
 
         return options;
     }
@@ -943,7 +954,7 @@ public class UserInterface : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private void burst_button_clicked_cb (Gtk.Widget widget)
+    private void batch_button_clicked_cb (Gtk.Widget widget)
     {
         var options = make_scan_options ();
         options.type = ScanType.BATCH;
@@ -2009,6 +2020,16 @@ public class UserInterface : Gtk.ApplicationWindow
         quality_scale.add_mark (upper, Gtk.PositionType.BOTTOM, maximum_label);
         quality = settings.get_int ("jpeg-quality");
         quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", quality); });
+
+        lower = speed_adjustment.lower;
+        var fast_label = "<small>%s</small>".printf (_("Fast"));
+        upper = speed_adjustment.upper;
+        var slow_label = "<small>%s</small>".printf (_("Slow"));
+        speed_scale.add_mark (lower, Gtk.PositionType.BOTTOM, fast_label);
+        speed_scale.add_mark (1000000, Gtk.PositionType.BOTTOM, null);
+        speed_scale.add_mark (upper, Gtk.PositionType.BOTTOM, slow_label);
+        speed = settings.get_int ("batch-speed");
+        speed_adjustment.value_changed.connect (() => { settings.set_int ("batch-speed", speed); });
 
         var document_type = settings.get_string ("document-type");
         if (document_type != null)

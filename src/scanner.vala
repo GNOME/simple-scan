@@ -83,6 +83,7 @@ public class ScanOptions
     public int paper_height;
     public int brightness;
     public int contrast;
+    public int speed; // Batch scan only.
 }
 
 private class ScanJob
@@ -97,6 +98,7 @@ private class ScanJob
     public int page_height;
     public int brightness;
     public int contrast;
+    public int speed; // Batch scan only.
 }
 
 private class Request {}
@@ -1293,6 +1295,10 @@ public class Scanner
         /* Go back for another page */
         if (job.type != ScanType.SINGLE)
         {
+            
+            if (job.type == ScanType.BATCH)
+                Thread.usleep (job.speed);
+
             page_number++;
             pass_number = 0;
             notify (new NotifyPageDone (job.id));
@@ -1561,10 +1567,10 @@ public class Scanner
 
     public void scan (string? device, ScanOptions options)
     {
-        debug ("Scanner.scan (\"%s\", dpi=%d, scan_mode=%s, depth=%d, type=%s, paper_width=%d, paper_height=%d, brightness=%d, contrast=%d)",
+        debug ("Scanner.scan (\"%s\", dpi=%d, scan_mode=%s, depth=%d, type=%s, paper_width=%d, paper_height=%d, brightness=%d, contrast=%d, speed=%d)",
                device != null ? device : "(null)", options.dpi, get_scan_mode_string (options.scan_mode), options.depth,
                get_scan_type_string (options.type), options.paper_width, options.paper_height,
-               options.brightness, options.contrast);
+               options.brightness, options.contrast, options.speed);
         var request = new RequestStartScan ();
         request.job = new ScanJob ();
         request.job.id = job_id++;
@@ -1577,6 +1583,7 @@ public class Scanner
         request.job.page_height = options.paper_height;
         request.job.brightness = options.brightness;
         request.job.contrast = options.contrast;
+        request.job.speed = options.speed;
         request_queue.push (request);
     }
 
