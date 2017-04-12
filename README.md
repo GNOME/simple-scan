@@ -12,7 +12,7 @@ https://launchpad.net/simple-scan
 
 Install the dependencies (on Ubuntu/Debian):
 ```
-$ sudo apt install bzr valac libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libsane-dev gettext itstool
+$ sudo apt install bzr meson valac libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libsane-dev gettext itstool
 ```
 
 Get the source:
@@ -24,7 +24,7 @@ Build locally with:
 ```
 $ meson --prefix $PWD/install build/
 $ ninja -C build/ all install
-$ XDG_DATA_DIRS=install/share/$XDG_DATA_DIRS ./install/bin/simple-scan
+$ XDG_DATA_DIRS=install/share:$XDG_DATA_DIRS ./install/bin/simple-scan
 ```
 
 ## DEBUGGING
