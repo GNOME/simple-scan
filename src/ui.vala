@@ -135,6 +135,8 @@ public class UserInterface : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.Scale quality_scale;
     [GtkChild]
+    private Gtk.Scale page_delay_scale;
+    [GtkChild]
     private Gtk.ListStore device_model;
     [GtkChild]
     private Gtk.ListStore text_dpi_model;
@@ -150,6 +152,8 @@ public class UserInterface : Gtk.ApplicationWindow
     private Gtk.Adjustment contrast_adjustment;
     [GtkChild]
     private Gtk.Adjustment quality_adjustment;
+    [GtkChild]
+    private Gtk.Adjustment page_delay_adjustment;
     private bool setting_devices;
     private string? missing_driver = null;
     private bool user_selected_device;
@@ -227,6 +231,12 @@ public class UserInterface : Gtk.ApplicationWindow
     {
         get { return (int) quality_adjustment.value; }
         set { quality_adjustment.value = value; }
+    }
+
+    public int page_delay
+    {
+        get { return (int) page_delay_adjustment.value; }
+        set { page_delay_adjustment.value = value; }
     }
 
     public string? selected_device
@@ -911,6 +921,7 @@ public class UserInterface : Gtk.ApplicationWindow
         get_paper_size (out options.paper_width, out options.paper_height);
         options.brightness = brightness;
         options.contrast = contrast;
+        options.page_delay = page_delay;
 
         return options;
     }
@@ -943,7 +954,7 @@ public class UserInterface : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private void burst_button_clicked_cb (Gtk.Widget widget)
+    private void batch_button_clicked_cb (Gtk.Widget widget)
     {
         var options = make_scan_options ();
         options.type = ScanType.BATCH;
@@ -2009,6 +2020,18 @@ public class UserInterface : Gtk.ApplicationWindow
         quality_scale.add_mark (upper, Gtk.PositionType.BOTTOM, maximum_label);
         quality = settings.get_int ("jpeg-quality");
         quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", quality); });
+
+        page_delay_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (500, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (1000, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (2000, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (4000, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (6000, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (8000, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (10000, Gtk.PositionType.BOTTOM, null);        
+        page_delay = settings.get_int ("page-delay");
+        page_delay_scale.format_value.connect ((value) => { return "%.1fs".printf (value / 1000.0); });
+        page_delay_adjustment.value_changed.connect (() => { settings.set_int ("page-delay", page_delay); });
 
         var document_type = settings.get_string ("document-type");
         if (document_type != null)

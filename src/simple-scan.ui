@@ -220,6 +220,12 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="page_delay_adjustment">
+    <property name="lower">0</property>
+    <property name="upper">10000</property>
+    <property name="step_increment">100</property>
+    <property name="page_increment">1000</property>
+  </object>
   <template class="UserInterface" parent="GtkApplicationWindow">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes" comments="Title of scan window">Simple Scan</property>
@@ -287,13 +293,13 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkMenuItem" id="burst_menuitem">
+                              <object class="GtkMenuItem" id="batch_menuitem">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes" comments="Scan menu item to scan continuously from the flatbed">_Multiple Pages From Flatbed</property>
                                 <property name="use_underline">True</property>
                                 <accelerator key="m" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                                <signal name="activate" handler="burst_button_clicked_cb" swapped="no"/>
+                                <signal name="activate" handler="batch_button_clicked_cb" swapped="no"/>
                               </object>
                             </child>              
                             <child>
@@ -1282,7 +1288,38 @@
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
+            </child> 
+            <child>
+              <object class="GtkLabel" id="page_delay_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes" comments="Label beside page delay scale">Delay between pages:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">page_delay_scale</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">8</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
             </child>
+            <child>
+              <object class="GtkScale" id="page_delay_scale">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="adjustment">page_delay_adjustment</property>
+                <property name="draw_value">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">8</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>  
           </object>
           <packing>
             <property name="expand">False</property>
@@ -1318,12 +1355,12 @@
       </object>
     </child>
     <child>
-      <object class="GtkMenuItem" id="burst_button_menuitem">
+      <object class="GtkMenuItem" id="batch_button_menuitem">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes" comments="Toolbar scan menu item to scan continuously from the flatbed">_Multiple Pages From Flatbed</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="burst_button_clicked_cb" swapped="no"/>
+        <signal name="activate" handler="batch_button_clicked_cb" swapped="no"/>
       </object>
     </child> 
     <child>
@@ -1377,12 +1414,12 @@
       </object>
     </child>
     <child>
-      <object class="GtkMenuItem" id="burst_button_hb_menuitem">
+      <object class="GtkMenuItem" id="batch_button_hb_menuitem">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes" comments="Toolbar scan menu item to scan continuously from the flatbed">_Multiple Pages From Flatbed</property>
         <property name="use_underline">True</property>
-        <signal name="activate" handler="burst_button_clicked_cb" swapped="no"/>
+        <signal name="activate" handler="batch_button_clicked_cb" swapped="no"/>
       </object>
     </child> 
     <child>
