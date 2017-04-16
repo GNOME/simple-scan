@@ -165,34 +165,6 @@ public class Book
         }
     }
 
-    private void save_ps_pdf_surface (Cairo.Surface surface, Gdk.Pixbuf image, double dpi)
-    {
-        var context = new Cairo.Context (surface);
-        context.scale (72.0 / dpi, 72.0 / dpi);
-        Gdk.cairo_set_source_pixbuf (context, image, 0, 0);
-        context.get_source ().set_filter (Cairo.Filter.BEST);
-        context.paint ();
-    }
-
-    private void save_ps (File file) throws Error
-    {
-        var stream = file.replace (null, false, FileCreateFlags.NONE, null);
-        var writer = new PsWriter (stream);
-        var surface = writer.surface;
-
-        for (var i = 0; i < n_pages; i++)
-        {
-            var page = get_page (i);
-            var image = page.get_image (true);
-            var width = image.width * 72.0 / page.dpi;
-            var height = image.height * 72.0 / page.dpi;
-            surface.set_size (width, height);
-            save_ps_pdf_surface (surface, image, page.dpi);
-            surface.show_page ();
-            saving (i);
-        }
-    }
-
     private uint8[]? compress_zlib (uint8[] data)
     {
         var stream = ZLib.DeflateStream (ZLib.Level.BEST_COMPRESSION);
@@ -598,11 +570,7 @@ public class Book
         {
         case "jpeg":
         case "png":
-        case "tiff":
             save_multi_file (type, quality, file);
-            break;
-        case "ps":
-            save_ps (file);
             break;
         case "pdf":
             save_pdf (file, quality);
