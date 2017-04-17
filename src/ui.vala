@@ -615,7 +615,7 @@ public class UserInterface : Gtk.ApplicationWindow
             /* Check the file(s) don't already exist */
             var files = new List<File> ();
             var format = uri_to_format (uri);
-            if (format == "jpeg" || format == "png" || format == "tiff")
+            if (format == "jpeg" || format == "png")
             {
                 for (var j = 0; j < book.n_pages; j++)
                     files.append (book.make_indexed_file (uri, j));
@@ -663,12 +663,8 @@ public class UserInterface : Gtk.ApplicationWindow
         var uri_lower = uri.down ();
         if (uri_lower.has_suffix (".pdf"))
             return "pdf";
-        else if (uri_lower.has_suffix (".ps"))
-            return "ps";
         else if (uri_lower.has_suffix (".png"))
             return "png";
-        else if (uri_lower.has_suffix (".tif") || uri_lower.has_suffix (".tiff"))
-            return "tiff";
         else
             return "jpeg";
     }
@@ -1041,14 +1037,14 @@ public class UserInterface : Gtk.ApplicationWindow
 
     private void show_page_cb (BookView view, Page page)
     {
-        var path = get_temporary_filename ("scanned-page", "tiff");
+        var path = get_temporary_filename ("scanned-page", "png");
         if (path == null)
             return;
         var file = File.new_for_path (path);
 
         try
         {
-            page.save ("tiff", quality, file);
+            page.save ("png", quality, file);
         }
         catch (Error e)
         {

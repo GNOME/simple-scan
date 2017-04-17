@@ -676,14 +676,6 @@ public class Page
                 keys[2] = null;
             writer.save (image, "png", keys, values);
         }
-        else if (strcmp (type, "tiff") == 0)
-        {
-            string[] keys = { "x-dpi", "y-dpi", "compression", "icc-profile", null };
-            string[] values = { "%d".printf (dpi), "%d".printf (dpi), "8" /* Deflate compression */, icc_profile_data, null };
-            if (icc_profile_data == null)
-                keys[3] = null;
-            writer.save (image, "tiff", keys, values);
-        }
         else
             throw new FileError.INVAL ("Unknown file type: %s".printf (type));
     }
