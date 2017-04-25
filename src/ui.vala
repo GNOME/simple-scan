@@ -467,7 +467,11 @@ public class UserInterface : Gtk.ApplicationWindow
                 for (i = 0; i < n_delete; i++)
                 {
                     device_model.iter_nth_child (out iter, null, index);
+#if VALA_0_36
+                    device_model.remove (ref iter);
+#else
                     device_model.remove (iter);
+#endif
                 }
             }
             else
@@ -480,7 +484,11 @@ public class UserInterface : Gtk.ApplicationWindow
 
         /* Remove any remaining devices */
         while (device_model.iter_nth_child (out iter, null, index))
+#if VALA_0_36
+            device_model.remove (ref iter);
+#else
             device_model.remove (iter);
+#endif
 
         /* Select the previously selected device or the first available device */
         if (!have_selection)
