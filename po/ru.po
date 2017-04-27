@@ -2,20 +2,22 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# Stas Solovey <whats_up@tut.by>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-07-29 12:47+1200\n"
-"PO-Revision-Date: 2015-11-01 17:49+0000\n"
-"Last-Translator: Sandro <Unknown>\n"
+"Report-Msgid-Bugs-To: https://bugs.launchpad.net/simple-scan\n"
+"POT-Creation-Date: 2017-04-27 11:45+0000\n"
+"PO-Revision-Date: 2017-04-27 16:22+0300\n"
+"Last-Translator: Stas Solovey <whats_up@tut.by>\n"
 "Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2016-12-19 05:08+0000\n"
-"X-Generator: Launchpad (build 18298)\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #. Button to submit authorization dialog
 #: data/simple-scan.ui:24
@@ -88,8 +90,9 @@ msgstr "Текст"
 msgid "Photo"
 msgstr "Фотография"
 
+#. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: ../src/ui.vala:1183 ../src/ui.vala:1841
+#: data/simple-scan.ui:336 src/ui.vala:1191 src/ui.vala:1849
 msgid "Reorder Pages"
 msgstr "Организация страниц"
 
@@ -156,7 +159,7 @@ msgstr "4×6"
 #. Radio button for cropping to custom page size
 #: data/simple-scan.ui:547
 msgid "_Custom"
-msgstr "_Другое..."
+msgstr "_Другое"
 
 #. Menu item to rotate the crop area
 #: data/simple-scan.ui:565
@@ -207,7 +210,7 @@ msgstr "Сканировать"
 msgid "Save document to a file"
 msgstr "Сохранить документ в файл"
 
-#: ../src/ui.vala:1842
+#: data/simple-scan.ui:709 src/ui.vala:1850
 msgid "Save"
 msgstr "Сохранить"
 
@@ -218,7 +221,7 @@ msgstr "Прервать выполняемое сканирование"
 
 #: data/simple-scan.ui:725 data/simple-scan.ui:825
 msgid "Stop"
-msgstr "Завершить"
+msgstr "Остановить"
 
 #. Tooltip for rotate left (counter-clockwise) button
 #: data/simple-scan.ui:749 data/simple-scan.ui:936
@@ -248,7 +251,8 @@ msgstr "Обрезать выбранную страницу"
 msgid "Crop"
 msgstr "Обрезать"
 
-#: ../src/ui.vala:1849
+#. Title of preferences dialog
+#: data/simple-scan.ui:997 src/ui.vala:1857
 msgid "Preferences"
 msgstr "Параметры"
 
@@ -296,7 +300,7 @@ msgstr "Качество:"
 msgid "Document Scanner"
 msgstr "Сканер документов"
 
-#: data/simple-scan.desktop.in:5
+#: data/simple-scan.desktop.in:5 data/simple-scan.appdata.xml.in:7
 msgid "Scan Documents"
 msgstr "Сканирование документов"
 
@@ -306,9 +310,9 @@ msgstr "сканировать;сканер;планшетный;автопод�
 
 #: data/simple-scan.desktop.in:8
 msgid "scanner"
-msgstr ""
+msgstr "сканер"
 
-#: data/simple-scan.appdata.xml.in:8
+#: data/simple-scan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both documents and photos. You can crop out the "
 "bad parts of a photo and rotate it if it is the wrong way round. You can "
@@ -320,198 +324,197 @@ msgstr ""
 "неправильно. Вы можете распечатать сканированные материалы, экспортировать "
 "их в PDF или изображения ряда форматов."
 
-#: data/simple-scan.appdata.xml.in:13
-msgid ""
-"Simple Scan uses the SANE framework to support most existing scanners."
+#: data/simple-scan.appdata.xml.in:14
+msgid "Simple Scan uses the SANE framework to support most existing scanners."
 msgstr ""
 "Простое сканирование использует фреймворк SANE для поддержки большинства "
 "существующих сканеров."
 
 #. Error displayed when no scanners to scan with
-#: ../src/scanner.vala:841
+#: src/scanner.vala:841
 msgid "No scanners available.  Please connect a scanner."
-msgstr "Нет доступного сканера. Подключите его."
+msgstr "Нет доступных сканеров. Подключите сканер."
 
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.vala:871
+#: src/scanner.vala:871
 msgid "Unable to connect to scanner"
-msgstr "Не могу подключиться к сканеру"
+msgstr "Не удалось подключиться к сканеру"
 
 #. Error display when unable to start scan
-#: ../src/scanner.vala:1223
+#: src/scanner.vala:1223
 msgid "Unable to start scan"
-msgstr "Не могу начать сканирование"
+msgstr "Не удалось начать сканирование"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.vala:1236 ../src/scanner.vala:1333
+#: src/scanner.vala:1236 src/scanner.vala:1333
 msgid "Error communicating with scanner"
-msgstr "Ошибка при работе со сканером"
+msgstr "Ошибка связи со сканером"
 
 #. Help string for command line --version flag
-#: ../src/simple-scan.vala:21
+#: src/simple-scan.vala:21
 msgid "Show release version"
 msgstr "Показать версию"
 
 #. Help string for command line --debug flag
-#: ../src/simple-scan.vala:24
+#: src/simple-scan.vala:24
 msgid "Print debugging messages"
 msgstr "Показать сообщения отладки"
 
-#: ../src/simple-scan.vala:26
+#: src/simple-scan.vala:26
 msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr "Исправить PDF-файлы, созданные предыдущими версиями Simple Scan"
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.vala:391
+#: src/simple-scan.vala:391
 msgid "Failed to scan"
 msgstr "Сканирование не удалось"
 
 #. Arguments and description for --help text
-#: ../src/simple-scan.vala:621
+#: src/simple-scan.vala:621
 msgid "[DEVICE...] - Scanning utility"
 msgstr "[DEVICE...] — Устройство сканирования"
 
 #. Text printed out when an unknown command-line argument provided
-#: ../src/simple-scan.vala:632
+#: src/simple-scan.vala:632
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr "Выполните '%s --help', чтобы вывести полный список доступных опций."
+msgstr "Выполните «%s --help», чтобы вывести полный список доступных опций."
 
-#: ../src/ui.vala:318 ../src/ui.vala:1602 ../src/ui.vala:1887
+#: src/ui.vala:318 src/ui.vala:1610 src/ui.vala:1895
 msgid "_Close"
 msgstr "_Закрыть"
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.vala:327
+#: src/ui.vala:327
 #, c-format
 msgid "Username and password required to access '%s'"
-msgstr "Для доступа к '%s' нужны имя пользователя и пароль"
+msgstr "Требуется имя пользователя и пароль для доступа к «%s»"
 
 #. Warning displayed when no scanners are detected
-#: ../src/ui.vala:375
+#: src/ui.vala:375
 msgid "No scanners detected"
 msgstr "Сканеры не обнаружены"
 
 #. Hint to user on why there are no scanners detected
-#: ../src/ui.vala:377
+#: src/ui.vala:377
 msgid "Please check your scanner is connected and powered on"
 msgstr "Проверьте, что сканер подсоединён и включён"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: ../src/ui.vala:382
+#: src/ui.vala:382
 msgid "Additional software needed"
-msgstr "Необходимо дополнительно программное обеспечение"
+msgstr "Необходимо дополнительное программное обеспечение"
 
 #. Instructions to install driver software
-#: ../src/ui.vala:384
+#: src/ui.vala:384
 msgid "You need to install driver software for your scanner."
 msgstr "Необходимо установить драйвер для вашего сканера."
 
 #. Save dialog: Dialog title
-#: ../src/ui.vala:506 ../src/ui.vala:1843
+#: src/ui.vala:514 src/ui.vala:1851
 msgid "Save As..."
-msgstr "Сохранить как..."
+msgstr "Сохранить как…"
 
-#: ../src/ui.vala:509 ../src/ui.vala:675
+#: src/ui.vala:517 src/ui.vala:683
 msgid "_Cancel"
 msgstr "_Отменить"
 
-#: ../src/ui.vala:510 ../src/ui.vala:676
+#: src/ui.vala:518 src/ui.vala:684
 msgid "_Save"
 msgstr "Со_хранить"
 
 #. Default filename to use when saving document
-#: ../src/ui.vala:516
+#: src/ui.vala:524
 msgid "Scanned Document.pdf"
 msgstr "Сканированный документ.pdf"
 
 #. Save dialog: Filter name to show only image files
-#: ../src/ui.vala:521
+#: src/ui.vala:529
 msgid "Image Files"
 msgstr "Файлы изображений"
 
 #. Save dialog: Filter name to show all files
-#: ../src/ui.vala:527
+#: src/ui.vala:535
 msgid "All Files"
 msgstr "Все файлы"
 
 #. Save dialog: Label for saving in PDF format
-#: ../src/ui.vala:536
+#: src/ui.vala:544
 msgid "PDF (multi-page document)"
 msgstr "PDF (многостраничный документ)"
 
 #. Save dialog: Label for saving in JPEG format
-#: ../src/ui.vala:542
+#: src/ui.vala:550
 msgid "JPEG (compressed)"
 msgstr "JPEG (сжатый)"
 
 #. Save dialog: Label for saving in PNG format
-#: ../src/ui.vala:548
+#: src/ui.vala:556
 msgid "PNG (lossless)"
 msgstr "PNG (без потерь в качестве)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
-#: ../src/ui.vala:557
+#: src/ui.vala:565
 msgid "File format:"
 msgstr "Формат файла:"
 
 #. Title of error dialog when save failed
-#: ../src/ui.vala:650
+#: src/ui.vala:658
 msgid "Failed to save file"
 msgstr "Не удалось сохранить файл"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:673
+#: src/ui.vala:681
 msgid "If you don't save, changes will be permanently lost."
 msgstr "Если не выполнить сохранение, все изменения будут утеряны."
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:708
+#: src/ui.vala:716
 msgid "Save current document?"
 msgstr "Сохранить текущий документ?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: ../src/ui.vala:710
+#: src/ui.vala:718
 msgid "Discard Changes"
 msgstr "Отменить изменения"
 
 #. Error message display when unable to save image for preview
-#: ../src/ui.vala:992
+#: src/ui.vala:1000
 msgid "Unable to save image for preview"
 msgstr "Не удалось сохранить изображение для предварительного просмотра"
 
 #. Error message display when unable to preview image
-#: ../src/ui.vala:1004
+#: src/ui.vala:1012
 msgid "Unable to open image preview application"
-msgstr "Невозможно открыть программу для просмотра изображений"
+msgstr "Не удалось открыть программу для просмотра изображений"
 
 #. Label on button for combining sides in reordering dialog
-#: ../src/ui.vala:1206
+#: src/ui.vala:1214
 msgid "Combine sides"
 msgstr "Объединить стороны"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: ../src/ui.vala:1216
+#: src/ui.vala:1224
 msgid "Combine sides (reverse)"
 msgstr "Объединить стороны (в обратном порядке)"
 
 #. Label on button for reversing in reordering dialog
-#: ../src/ui.vala:1226
+#: src/ui.vala:1234
 msgid "Reverse"
 msgstr "В обратном порядке"
 
 #. Label on button for cancelling page reordering dialog
-#: ../src/ui.vala:1236
+#: src/ui.vala:1244
 msgid "Keep unchanged"
 msgstr "Оставить без изменений"
 
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.vala:1451
+#: src/ui.vala:1459
 msgid "Unable to open help file"
 msgstr "Не удалось открыть файл справки"
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.vala:1472
+#: src/ui.vala:1480
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -540,442 +543,209 @@ msgstr ""
 "пройдите по ссылке: <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: ../src/ui.vala:1475
+#: src/ui.vala:1483
 msgid "About Simple Scan"
-msgstr "О программе"
+msgstr "О приложении"
 
 #. Description of program
-#: ../src/ui.vala:1478
+#: src/ui.vala:1486
 msgid "Simple document scanning tool"
 msgstr "Простой инструмент для сканирования документов"
 
-#: ../src/ui.vala:1487
+#: src/ui.vala:1495
 msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Aleksey Kabanov https://launchpad.net/~ak099\n"
-"  Alexander Telenga https://launchpad.net/~telenga\n"
-"  Alexandre Prokoudine https://launchpad.net/~alexandre-prokoudine\n"
-"  Alexey Kotlyarov https://launchpad.net/~koterpillar\n"
-"  Andrew Sudarikov https://launchpad.net/~andrey-interra\n"
-"  Andrew Yakush https://launchpad.net/~andyak77\n"
-"  Artem Popov https://launchpad.net/~artfwo\n"
-"  AsstZD https://launchpad.net/~eskaer-spamsink\n"
-"  Dmitry Shachnev https://launchpad.net/~mitya57\n"
-"  Dr Gregory House https://launchpad.net/~greghouse\n"
-"  Eugene Marshal https://launchpad.net/~lowrider\n"
-"  Evgeny https://launchpad.net/~evgeny-ig\n"
-"  Igor Zubarev https://launchpad.net/~igor.zubarev\n"
-"  Int https://launchpad.net/~howrudoin\n"
-"  KEIII https://launchpad.net/~cashagent\n"
-"  ManDrive https://launchpad.net/~roman-romul\n"
-"  Net4Hack https://launchpad.net/~networkforhackers\n"
-"  Novichkov Alexander https://launchpad.net/~berkut\n"
-"  Oleg https://launchpad.net/~oleg-devyatilov\n"
-"  Oleg Koptev https://launchpad.net/~koptev-oleg\n"
-"  Pavel Nazarov https://launchpad.net/~alsvartr\n"
-"  Sandro https://launchpad.net/~regipool\n"
-"  Sergey Loshakov https://launchpad.net/~sergeylo\n"
-"  Sergey Sedov https://launchpad.net/~serg-sedov\n"
-"  Simplehuman https://launchpad.net/~simplehuman\n"
-"  Stas Solovey https://launchpad.net/~whats-up\n"
-"  Victor Mireyev https://launchpad.net/~victor-mireyev\n"
-"  Vitaly Zawullon Katraev https://launchpad.net/~zawullon\n"
-"  evilzipik https://launchpad.net/~evilzipik\n"
-"  ned https://launchpad.net/~ru100\n"
-"  vasilisc https://launchpad.net/~vasilisc\n"
-"  Илья Калитко https://launchpad.net/~kalitko-ilya007\n"
-"  ☠Jay ZDLin☠ https://launchpad.net/~black-buddha666"
+msgstr "Stas Solovey <whats_up@tut.by>, 2015-2017"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:1509
+#: src/ui.vala:1517
 msgid "Save document before quitting?"
 msgstr "Сохранить документ перед выходом?"
 
 #. Button in dialog to quit and discard unsaved document
-#: ../src/ui.vala:1511
+#: src/ui.vala:1519
 msgid "Quit without Saving"
 msgstr "Выйти без сохранения"
 
 #. Message to indicate a Brother scanner has been detected
-#: ../src/ui.vala:1579
+#: src/ui.vala:1587
 msgid "You appear to have a Brother scanner."
 msgstr "Похоже, у вас сканер компании Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: ../src/ui.vala:1581
+#: src/ui.vala:1589
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.brother.com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother.com"
+"\">Brother website</a>."
 msgstr ""
-"Драйверы для этих сканеров доступны на <a "
-"href=\"http://support.brother.com\">веб-сайте Brother</a>."
+"Драйверы для этих сканеров доступны на <a href=\"http://support.brother.com"
+"\">веб-сайте Brother</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: ../src/ui.vala:1585
+#: src/ui.vala:1593
 msgid "You appear to have a Samsung scanner."
 msgstr "Похоже, у вас сканер компании Samsung."
 
 #. Instructions on how to install Samsung scanner drivers
-#: ../src/ui.vala:1587
+#: src/ui.vala:1595
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://samsung.com/support\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"http://samsung.com/support"
+"\">Samsung website</a>."
 msgstr ""
-"Драйверы для этих сканеров доступны на <a "
-"href=\"http://samsung.com/support\">веб-сайте Samsung</a>."
+"Драйверы для этих сканеров доступны на <a href=\"http://samsung.com/support"
+"\">веб-сайте Samsung</a>."
 
 #. Message to indicate a HP scanner has been detected
-#: ../src/ui.vala:1591
+#: src/ui.vala:1599
 msgid "You appear to have an HP scanner."
 msgstr "Похоже, у вас сканер компании HP."
 
 #. Message to indicate an Epson scanner has been detected
-#: ../src/ui.vala:1596
+#: src/ui.vala:1604
 msgid "You appear to have an Epson scanner."
 msgstr "Похоже, у вас сканер компании Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: ../src/ui.vala:1598
+#: src/ui.vala:1606
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.epson.com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson.com"
+"\">Epson website</a>."
 msgstr ""
-"Драйверы для этих сканеров доступны на <a "
-"href=\"http://support.epson.com\">веб-сайте Epson</a>."
+"Драйверы для этих сканеров доступны на <a href=\"http://support.epson.com"
+"\">веб-сайте Epson</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: ../src/ui.vala:1602
+#: src/ui.vala:1610
 msgid "Install drivers"
 msgstr "Установка драйверов"
 
 #. Message in driver install dialog
-#: ../src/ui.vala:1633
+#: src/ui.vala:1641
 msgid "Once installed you will need to restart Simple Scan."
 msgstr "После установки необходимо перезапустить Simple Scan."
 
 #. Label shown while installing drivers
-#: ../src/ui.vala:1645
+#: src/ui.vala:1653
 msgid "Installing drivers..."
 msgstr "Установка драйверов…"
 
 #. Label shown once drivers successfully installed
-#: ../src/ui.vala:1653
+#: src/ui.vala:1661
 msgid "Drivers installed successfully!"
 msgstr "Драйверы успешно установлены!"
 
 #. Label shown if failed to install drivers
-#: ../src/ui.vala:1663
+#: src/ui.vala:1671
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Не удалось установить драйверы (код ошибки %d)."
 
 #. Label shown if failed to install drivers
-#: ../src/ui.vala:1669
+#: src/ui.vala:1677
 msgid "Failed to install drivers."
 msgstr "Не удалось установить драйверы."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: ../src/ui.vala:1676
+#: src/ui.vala:1684
 #, c-format
 msgid "You need to install the %s package(s)."
 msgstr "Необходимо установить пакет(-ы) %s."
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.vala:1784
+#: src/ui.vala:1792
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (по умолчанию)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.vala:1787
+#: src/ui.vala:1795
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (черновик)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.vala:1790
+#: src/ui.vala:1798
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (высокое разрешение)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.vala:1793
+#: src/ui.vala:1801
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
-#: ../src/ui.vala:1835
+#: src/ui.vala:1843
 msgid "New Document"
 msgstr "Новый документ"
 
-#: ../src/ui.vala:1840
+#: src/ui.vala:1848
 msgid "Document"
 msgstr "Документ"
 
-#: ../src/ui.vala:1844
+#: src/ui.vala:1852
 msgid "Email..."
-msgstr "Отправить..."
+msgstr "Отправить эл. почтой…"
 
-#: ../src/ui.vala:1845
+#: src/ui.vala:1853
 msgid "Print..."
-msgstr "Печать..."
+msgstr "Печать…"
 
-#: ../src/ui.vala:1853
+#: src/ui.vala:1861
 msgid "Help"
 msgstr "Справка"
 
-#: ../src/ui.vala:1854
+#: src/ui.vala:1862
 msgid "About"
 msgstr "О программе"
 
-#: ../src/ui.vala:1855
+#: src/ui.vala:1863
 msgid "Quit"
 msgstr "Завершить"
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.vala:1889
+#: src/ui.vala:1897
 msgid "Change _Scanner"
 msgstr "Сменить _сканер"
 
 #. Button in error infobar to prompt user to install drivers
-#: ../src/ui.vala:1891
+#: src/ui.vala:1899
 msgid "_Install Drivers"
 msgstr "_Установить драйверы"
 
 #. Combo box value for automatic paper size
-#: ../src/ui.vala:1897
+#: src/ui.vala:1905
 msgid "Automatic"
-msgstr "Выбрать автоматически"
+msgstr "Автоматический"
 
-#: ../src/ui.vala:1947
+#: src/ui.vala:1955
 msgid "Darker"
 msgstr "Темнее"
 
-#: ../src/ui.vala:1949
+#: src/ui.vala:1957
 msgid "Lighter"
 msgstr "Светлее"
 
-#: ../src/ui.vala:1957
+#: src/ui.vala:1965
 msgid "Less"
 msgstr "Меньше"
 
-#: ../src/ui.vala:1959
+#: src/ui.vala:1967
 msgid "More"
 msgstr "Больше"
 
-#: ../src/ui.vala:1967
+#: src/ui.vala:1975
 msgid "Minimum"
-msgstr "Мин."
+msgstr "Минимум"
 
-#: ../src/ui.vala:1969
+#: src/ui.vala:1977
 msgid "Maximum"
-msgstr "Макс."
+msgstr "Максимум"
 
-#: ../src/ui.vala:2008
+#: src/ui.vala:2016
 msgid "Saving document..."
-msgstr "Сохранение документа..."
+msgstr "Сохранение документа…"
 
-#: ../src/ui.vala:2173
+#: src/ui.vala:2190
 #, c-format
 msgid "Saving page %d out of %d"
 msgstr "Сохранение страницы %d из %d"
-
-#~ msgid "4&#xD7;6"
-#~ msgstr "4&#xD7;6"
-
-#, c-format
-#~ msgid ""
-#~ "Usage:\n"
-#~ "  %s [DEVICE...] - Scanning utility"
-#~ msgstr ""
-#~ "Использование:\n"
-#~ "  %s [УСТРОЙСТВО...] - Инструмент для сканирования"
-
-#, c-format
-#~ msgid ""
-#~ "GTK+ Options:\n"
-#~ "  --class=CLASS                   Program class as used by the window "
-#~ "manager\n"
-#~ "  --name=NAME                     Program name as used by the window "
-#~ "manager\n"
-#~ "  --screen=SCREEN                 X screen to use\n"
-#~ "  --sync                          Make X calls synchronous\n"
-#~ "  --gtk-module=MODULES            Load additional GTK+ modules\n"
-#~ "  --g-fatal-warnings              Make all warnings fatal"
-#~ msgstr ""
-#~ "Параметры GTK+:\n"
-#~ "  --class=КЛАСС                   Класс программы в оконном менеджере\n"
-#~ "  --name=НАЗВАНИЕ                 Название программы в оконном менеджере\n"
-#~ "  --screen=ЭКРАН                  Используемый экран X\n"
-#~ "  --sync                          Сделать вызовы X синхронными\n"
-#~ "  --gtk-module=МОДУЛИ             Загрузить дополнительные модули GTK+\n"
-#~ "  --g-fatal-warnings              Сделать все предупреждения фатальными"
-
-#~ msgid "Files missing"
-#~ msgstr "Файлы отсутствуют"
-
-#~ msgid "Please check your installation"
-#~ msgstr "Пожалуйста, проверьте правильность установки программы"
-
-#~ msgid "Height of scanned image in pixels"
-#~ msgstr "Высота отсканированного изображения в пикселах"
-
-#~ msgid "Device to scan from"
-#~ msgstr "Устройство сканирования"
-
-#~ msgid "Directory to save files to"
-#~ msgstr "Папка для сохранения файлов"
-
-#~ msgid "Direction of scan"
-#~ msgstr "Направление сканирования"
-
-#~ msgid ""
-#~ "The height of scanned image in pixels. This value is updated to what the "
-#~ "last scanned page was."
-#~ msgstr ""
-#~ "Высота отсканированного изображения в пикселах. Это значение обновляется при "
-#~ "каждом новом сканировании."
-
-#~ msgid ""
-#~ "The direction of the scanner across the scanned page. It can be one of the "
-#~ "following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
-#~ msgstr ""
-#~ "Направление сканирования. Возможны следующие варианты: 'top-to-bottom' "
-#~ "'bottom-to-top' 'left-to-right' 'right-to-left'"
-
-#~ msgid "TRUE if the application window is maximized"
-#~ msgstr "TRUE, если окно приложения развёрнуто на весь экран"
-
-#~ msgid "SANE device to acquire images from."
-#~ msgstr "Устройство SANE для получения изображений."
-
-#~ msgid "Resolution for text scans"
-#~ msgstr "Разрешение для сканирования текста"
-
-#~ msgid "Resolution for photo scans"
-#~ msgstr "Разрешение для сканирования фотографий"
-
-#~ msgid "The resolution in dots-per-inch of the previously scanned image."
-#~ msgstr ""
-#~ "Разрешение в точках на дюйм предыдущего отсканированного изображения."
-
-#~ msgid "Resolution of last scanned image"
-#~ msgstr "Разрешение последнего отсканированного изображения"
-
-#~ msgid "The resolution in dots-per-inch to use when scanning photos."
-#~ msgstr "Разрешение в точках на дюйм при сканировании фотографий."
-
-#~ msgid ""
-#~ "The directory to save files to. Defaults to the documents directory if unset."
-#~ msgstr ""
-#~ "Папка для сохранения файлов. По умолчанию используется папка с документами."
-
-#~ msgid "Type of document being scanned"
-#~ msgstr "Тип сканируемого документа"
-
-#~ msgid "Window height in pixels"
-#~ msgstr "Высота окна в пикселах"
-
-#~ msgid "Window width in pixels"
-#~ msgstr "Ширина окна в пикселах"
-
-#, c-format
-#~ msgid ""
-#~ "Help Options:\n"
-#~ "  -d, --debug                     Print debugging messages\n"
-#~ "  -v, --version                   Show release version\n"
-#~ "  -h, --help                      Show help options\n"
-#~ "  --help-all                      Show all help options\n"
-#~ "  --help-gtk                      Show GTK+ options"
-#~ msgstr ""
-#~ "Использование:\n"
-#~ "  -d, --debug выводить отладочные сообщения\n"
-#~ "  -v, --version показать информацию о версии\n"
-#~ "  -h, --help показать эту справку\n"
-#~ "  --help-all показать все ключи справки\n"
-#~ "  --help-gtk показать ключи GTK+"
-
-#~ msgid ""
-#~ "The width of scanned image in pixels. This value is updated to what the last "
-#~ "scanned page was."
-#~ msgstr ""
-#~ "Ширина отсканированного изображения в пикселах. Это значение обновляется при "
-#~ "каждом новом сканировании."
-
-#~ msgid "The resolution in dots-per-inch to use when scanning text."
-#~ msgstr "Разрешение в точках на дюйм при сканировании текста."
-
-#~ msgid "Width of scanned image in pixels"
-#~ msgstr "Ширина отсканированного изображения в пикселах"
-
-#~ msgid "Scanned Document"
-#~ msgstr "Отсканированный документ"
-
-#~ msgid "Select File _Type"
-#~ msgstr "Выберите _тип файла"
-
-#~ msgid ""
-#~ "The page side to scan. It can be one of the following: 'both' 'front' 'back'"
-#~ msgstr ""
-#~ "Сторона страницы для сканирования. Может быть: 'с обоих сторон', 'лицевая', "
-#~ "'обратная'"
-
-#~ msgid "Page side to scan"
-#~ msgstr "Сторона страницы для сканирования"
-
-#~ msgid ""
-#~ "The width of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr "Ширина бумаги в десятках мм (или 0 для автоматического определения)"
-
-#~ msgid "Height of paper in tenths of a mm"
-#~ msgstr "Высота бумаги в десятых долях мм"
-
-#~ msgid "Width of paper in tenths of a mm"
-#~ msgstr "Ширина бумаги, см"
-
-#~ msgid "The page side to scan."
-#~ msgstr "Сторона страницы для сканирования."
-
-#~ msgid "The direction of the scanner across the scanned page."
-#~ msgstr "Направление сканирования страницы."
-
-#~ msgid ""
-#~ "Type of document being scanned. This setting decides on the scan resolution, "
-#~ "colors and post-processing."
-#~ msgstr ""
-#~ "Тип сканируемого документа. Эта настройка отвечает за разрешение, глубину "
-#~ "цвета и пост-обработку."
-
-#~ msgid ""
-#~ "The height of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr "Высота бумаги в десятках мм (или 0 для автоматического определения)."
-
-#~ msgid ""
-#~ "Type of document being scanned. 'text' for text documents, 'photo' for "
-#~ "photos. This setting decides on the scan resolution, colors and post-"
-#~ "processing."
-#~ msgstr ""
-#~ "Тип сканируемого документа. 'Текст' для текстовых документов, 'Фотография' "
-#~ "для фотографий. Выбор типа определяет разрешение, цвета и пост-обработку при "
-#~ "сканировании."
-
-#~ msgid "The brightness adjustment from -100 to 100 (0 being none)."
-#~ msgstr "Значение яркости от -100 до 100 (0 — без изменений)."
-
-#~ msgid "The contrast adjustment from -100 to 100 (0 being none)."
-#~ msgstr "Значение контрастности от -100 до 100 (0 — без изменений)."
-
-#~ msgid "Contrast of scan"
-#~ msgstr "Контрастность изображения"
-
-#~ msgid "Brightness of scan"
-#~ msgstr "Яркость изображения"
-
-#~ msgid "Quality value to use for JPEG compression."
-#~ msgstr "Значение качества, используемого для сжатия JPEG."
-
-#~ msgid "Quality value to use for JPEG compression"
-#~ msgstr "Значение качества, используемого для сжатия JPEG"
