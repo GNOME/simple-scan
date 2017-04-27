@@ -49,7 +49,6 @@ public class SimpleScan : Gtk.Application
         book = ui.book;
         ui.start_scan.connect (scan_cb);
         ui.stop_scan.connect (cancel_cb);
-        ui.email.connect (email_cb);
 
         scanner = Scanner.get_instance ();
         scanner.update_devices.connect (update_scan_devices_cb);
@@ -410,93 +409,6 @@ public class SimpleScan : Gtk.Application
     private void cancel_cb (UserInterface ui)
     {
         scanner.cancel ();
-    }
-
-    private string? get_temporary_filename (string prefix, string extension)
-    {
-        /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
-         * use the filename but it appears to work in practise */
-
-        var filename = "%sXXXXXX.%s".printf (prefix, extension);
-        string path;
-        try
-        {
-            var fd = FileUtils.open_tmp (filename, out path);
-            Posix.close (fd);
-        }
-        catch (Error e)
-        {
-            warning ("Error saving email attachment: %s", e.message);
-            return null;
-        }
-
-        return path;
-    }
-
-    private void email_cb (UserInterface ui, string profile, int quality)
-    {
-        var saved = false;
-        var command_line = "xdg-email";
-
-        /* Save text files as PDFs */
-        if (profile == "text")
-        {
-            /* Open a temporary file */
-            var path = get_temporary_filename ("scan", "pdf");
-            if (path != null)
-            {
-                var file = File.new_for_path (path);
-                ui.show_progress_dialog ();
-                try
-                {
-                    book.save ("pdf", quality, file);
-                }
-                catch (Error e)
-                {
-                    ui.hide_progress_dialog ();
-                    warning ("Unable to save email file: %s", e.message);
-                    return;
-                }
-                command_line += " --attach %s".printf (path);
-            }
-        }
-        else
-        {
-            for (var i = 0; i < book.n_pages; i++)
-            {
-                var path = get_temporary_filename ("scan", "jpg");
-                if (path == null)
-                {
-                    saved = false;
-                    break;
-                }
-
-                var file = File.new_for_path (path);
-                try
-                {
-                    book.get_page (i).save ("jpeg", quality, file);
-                }
-                catch (Error e)
-                {
-                    warning ("Unable to save email file: %s", e.message);
-                    return;
-                }
-                command_line += " --attach %s".printf (path);
-
-                if (!saved)
-                    break;
-            }
-        }
-
-        debug ("Launching email client: %s", command_line);
-        try
-        {
-            Process.spawn_command_line_async (command_line);
-        }
-        catch (Error e)
-        {
-            warning ("Unable to start email: %s", e.message);
-        }
     }
 
     private static void log_cb (string? log_domain, LogLevelFlags log_level, string message)

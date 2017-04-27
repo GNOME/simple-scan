@@ -268,7 +268,6 @@ public class UserInterface : Gtk.ApplicationWindow
 
     public signal void start_scan (string? device, ScanOptions options);
     public signal void stop_scan ();
-    public signal void email (string profile, int quality);
 
     public UserInterface ()
     {
@@ -1460,12 +1459,79 @@ public class UserInterface : Gtk.ApplicationWindow
     [GtkCallback]
     private void email_button_clicked_cb (Gtk.Widget widget)
     {
-        email (document_hint, quality);
+        email_document ();
     }
 
     public void email_document_activate_cb ()
     {
-        email (document_hint, quality);
+        email_document ();
+    }
+
+
+    private void email_document ()
+    {
+        var saved = false;
+        var command_line = "xdg-email";
+
+        /* Save text files as PDFs */
+        if (document_hint == "text")
+        {
+            /* Open a temporary file */
+            var path = get_temporary_filename ("scan", "pdf");
+            if (path != null)
+            {
+                var file = File.new_for_path (path);
+                show_progress_dialog ();
+                try
+                {
+                    book.save ("pdf", quality, file);
+                }
+                catch (Error e)
+                {
+                    hide_progress_dialog ();
+                    warning ("Unable to save email file: %s", e.message);
+                    return;
+                }
+                command_line += " --attach %s".printf (path);
+            }
+        }
+        else
+        {
+            for (var i = 0; i < book.n_pages; i++)
+            {
+                var path = get_temporary_filename ("scan", "jpg");
+                if (path == null)
+                {
+                    saved = false;
+                    break;
+                }
+
+                var file = File.new_for_path (path);
+                try
+                {
+                    book.get_page (i).save ("jpeg", quality, file);
+                }
+                catch (Error e)
+                {
+                    warning ("Unable to save email file: %s", e.message);
+                    return;
+                }
+                command_line += " --attach %s".printf (path);
+
+                if (!saved)
+                    break;
+            }
+        }
+
+        debug ("Launching email client: %s", command_line);
+        try
+        {
+            Process.spawn_command_line_async (command_line);
+        }
+        catch (Error e)
+        {
+            warning ("Unable to start email: %s", e.message);
+        }
     }
 
     private void print_document ()
@@ -2319,11 +2385,10 @@ private class ProgressBarDialog : Gtk.Window
     }
 }
 
-// FIXME: Duplicated from simple-scan.vala
 private string? get_temporary_filename (string prefix, string extension)
 {
     /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
-     * use the filename but it appears to work in practise */
+     * use the filename but it appears to work in practice */
 
     var filename = "%sXXXXXX.%s".printf (prefix, extension);
     string path;
@@ -2334,7 +2399,7 @@ private string? get_temporary_filename (string prefix, string extension)
     }
     catch (Error e)
     {
-        warning ("Error saving email attachment: %s", e.message);
+        warning ("Error creating temporary file: %s", e.message);
         return null;
     }
 
