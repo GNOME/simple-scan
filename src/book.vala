@@ -165,10 +165,10 @@ public class Book
         }
     }
 
-    private uint8[]? compress_zlib (uint8[] data)
+    private uint8[]? compress_zlib (uint8[] data, uint max_size)
     {
         var stream = ZLib.DeflateStream (ZLib.Level.BEST_COMPRESSION);
-        var out_data = new uint8[data.length];
+        var out_data = new uint8[max_size];
 
         stream.next_in = data;
         stream.next_out = out_data;
@@ -181,7 +181,7 @@ public class Book
         if (stream.avail_in > 0)
             return null;
 
-        var n_written = data.length - stream.avail_out;
+        var n_written = out_data.length - stream.avail_out;
         out_data.resize ((int) n_written);
 
         return out_data;
@@ -439,26 +439,20 @@ public class Book
                 }
             }
 
-            /* Compress data */
-            var compressed_data = compress_zlib (data);
-            if (compressed_data != null)
+            /* Compress data and use zlib compression if it is smaller than JPEG.
+             * zlib compression is slower in the worst case, so do JPEG first
+             * and stop zlib if it exceeds the JPEG size */
+            var jpeg_data = compress_jpeg (image, quality, page.dpi);
+            var zlib_data = compress_zlib (data, jpeg_data.length);
+            if (zlib_data != null)
             {
-                /* Try if JPEG compression is better */
-                if (depth > 1)
-                {
-                    var jpeg_data = compress_jpeg (image, quality, page.dpi);
-                    if (jpeg_data.length < compressed_data.length)
-                    {
-                        filter = "DCTDecode";
-                        data = jpeg_data;
-                    }
-                }
-
-                if (filter == null)
-                {
-                    filter = "FlateDecode";
-                    data = compressed_data;
-                }
+                filter = "FlateDecode";
+                data = zlib_data;
+            }
+            else
+            {
+                filter = "DCTDecode";
+                data = jpeg_data;
             }
 
             /* Page */
