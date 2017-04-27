@@ -532,9 +532,10 @@ public class UserInterface : Gtk.ApplicationWindow
 
         /* Filter to only show images by default */
         var filter = new Gtk.FileFilter ();
-        filter.set_filter_name (/* Save dialog: Filter name to show only image files */
+        filter.set_filter_name (/* Save dialog: Filter name to show only supported image files */
                                 _("Image Files"));
-        filter.add_pixbuf_formats ();
+        filter.add_mime_type ("image/jpeg");
+        filter.add_mime_type ("image/png");
         filter.add_mime_type ("application/pdf");
         save_dialog.add_filter (filter);
         filter = new Gtk.FileFilter ();
