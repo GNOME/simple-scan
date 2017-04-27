@@ -336,8 +336,8 @@ public class UserInterface : Gtk.ApplicationWindow
 
     public void authorize (string resource, out string username, out string password)
     {
-        /* Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization */
-        var description = _("Username and password required to access '%s'").printf (resource);
+        /* Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization */
+        var description = _("Username and password required to access “%s”").printf (resource);
 
         username_entry.text = "";
         password_entry.text = "";
@@ -514,7 +514,7 @@ public class UserInterface : Gtk.ApplicationWindow
             directory = Environment.get_user_special_dir (UserDirectory.DOCUMENTS);
 
         save_dialog = new Gtk.FileChooserDialog (/* Save dialog: Dialog title */
-                                                 _("Save As..."),
+                                                 _("Save As…"),
                                                  this,
                                                  Gtk.FileChooserAction.SAVE,
                                                  _("_Cancel"), Gtk.ResponseType.CANCEL,
@@ -722,7 +722,7 @@ public class UserInterface : Gtk.ApplicationWindow
                                             "%s", title);
         dialog.format_secondary_text ("%s",
                                       /* Text in dialog warning when a document is about to be lost*/
-                                      _("If you don't save, changes will be permanently lost."));
+                                      _("If you don’t save, changes will be permanently lost."));
         dialog.add_button (discard_label, Gtk.ResponseType.NO);
         dialog.add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
         dialog.add_button (_("_Save"), Gtk.ResponseType.YES);
@@ -1766,7 +1766,7 @@ public class UserInterface : Gtk.ApplicationWindow
             stack.visible = true;
             spinner.active = true;
             instructions_label.set_text (/* Label shown while installing drivers */
-                                         _("Installing drivers..."));
+                                         _("Installing drivers…"));
             install_packages.begin (packages_to_install, () => {}, (object, result) =>
             {
                 status_label.visible = true;
@@ -1961,8 +1961,8 @@ public class UserInterface : Gtk.ApplicationWindow
             section.append_submenu (_("Document"), menu);
             menu.append (_("Reorder Pages"), "app.reorder");
             menu.append (_("Save"), "app.save");
-            menu.append (_("Email..."), "app.email");
-            menu.append (_("Print..."), "app.print");
+            menu.append (_("Email…"), "app.email");
+            menu.append (_("Print…"), "app.print");
 
             section = new Menu ();
             appmenu.append_section (null, section);
@@ -2136,7 +2136,7 @@ public class UserInterface : Gtk.ApplicationWindow
             fullscreen ();
         }
 
-        progress_dialog = new ProgressBarDialog (this, _("Saving document..."));
+        progress_dialog = new ProgressBarDialog (this, _("Saving document…"));
         book.saving.connect (book_saving_cb);
     }
 

@@ -23,7 +23,7 @@ public class SimpleScan : Gtk.Application
           /* Help string for command line --debug flag */
           N_("Print debugging messages"), null},
         { "fix-pdf", 0, 0, OptionArg.STRING, ref fix_pdf_filename,
-          N_("Fix PDF files generated with older versions of Simple Scan"), "FILENAME..."},
+          N_("Fix PDF files generated with older versions of Simple Scan"), "FILENAME…"},
         { null }
     };
     private static Timer log_timer;
@@ -528,7 +528,7 @@ public class SimpleScan : Gtk.Application
         Intl.textdomain (GETTEXT_PACKAGE);
 
         var c = new OptionContext (/* Arguments and description for --help text */
-                                   _("[DEVICE...] - Scanning utility"));
+                                   _("[DEVICE…] — Scanning utility"));
         c.add_main_entries (options, GETTEXT_PACKAGE);
         c.add_group (Gtk.get_option_group (true));
         try
@@ -539,7 +539,7 @@ public class SimpleScan : Gtk.Application
         {
             stderr.printf ("%s\n", e.message);
             stderr.printf (/* Text printed out when an unknown command-line argument provided */
-                           _("Run '%s --help' to see a full list of available command line options."), args[0]);
+                           _("Run “%s --help” to see a full list of available command line options."), args[0]);
             stderr.printf ("\n");
             return Posix.EXIT_FAILURE;
         }
