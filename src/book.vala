@@ -172,14 +172,19 @@ public class Book
 
         stream.next_in = data;
         stream.next_out = out_data;
-        while (stream.avail_in > 0)
+        while (true)
         {
-            if (stream.deflate (ZLib.Flush.FINISH) == ZLib.Status.STREAM_ERROR)
+            /* Compression complete */
+            if (stream.avail_in == 0)
                 break;
-        }
 
-        if (stream.avail_in > 0)
-            return null;
+            /* Out of space */
+            if (stream.avail_out == 0)
+                return null;
+
+            if (stream.deflate (ZLib.Flush.FINISH) == ZLib.Status.STREAM_ERROR)
+                return null;
+        }
 
         var n_written = out_data.length - stream.avail_out;
         out_data.resize ((int) n_written);
