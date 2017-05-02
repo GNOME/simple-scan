@@ -9,6 +9,8 @@
  * license.
  */
 
+public delegate void ProgressionCallback (double fraction);
+
 public class Book
 {
     private List<Page> pages;
@@ -20,7 +22,6 @@ public class Book
     public signal void reordered ();
     public signal void cleared ();
     public signal void changed ();
-    public signal void saving (int i);
 
     public Book ()
     {
@@ -155,77 +156,445 @@ public class Book
         return File.new_for_uri (filename);
     }
 
-    private void save_multi_file (string type, int quality, File file) throws Error
+    public async void save_async (string t, int q, File f, ProgressionCallback? p, Cancellable? c) throws Error
     {
+        var book_saver = new BookSaver ();
+        yield book_saver.save_async (this, t, q, f, p, c);
+    }
+}
+
+private class BookSaver
+{
+    private uint n_pages;
+    private int quality;
+    private File file;
+    private unowned ProgressionCallback progression_callback;
+    private double progression;
+    private Mutex progression_mutex;
+    private Cancellable? cancellable;
+    private AsyncQueue<WriteTask> write_queue;
+    private SourceFunc save_async_callback;
+
+    /* save_async get called in the main thread to start saving. It
+     * distributes all encode tasks to other threads then yield so
+     * the ui can continue operating. The method then return once saving
+     * is completed, cancelled, or failed */
+    public async void save_async (Book book, string type, int quality, File file, ProgressionCallback? progression_callback, Cancellable? cancellable) throws Error
+    {
+        var timer = new Timer ();
+
+        this.n_pages = book.n_pages;
+        this.quality = quality;
+        this.file = file;
+        this.cancellable = cancellable;
+        this.save_async_callback = save_async.callback;
+        this.write_queue = new AsyncQueue<WriteTask> ();
+        this.progression = 0;
+        this.progression_mutex = Mutex ();
+
+        /* Configure a callback that monitor saving progression */
+        if (progression_callback == null)
+            this.progression_callback = (fraction) =>
+            {
+                debug ("Save progression: %f%%", fraction*100.0);
+            };
+        else
+            this.progression_callback = progression_callback;
+
+        /* Configure an encoder */
+        ThreadPoolFunc<EncodeTask>? encode_delegate = null;
+        switch (type)
+        {
+        case "jpeg":
+            encode_delegate = encode_jpeg;
+            break;
+        case "png":
+            encode_delegate = encode_png;
+            break;
+#if HAVE_WEBP
+        case "webp":
+            encode_delegate = encode_webp;
+            break;
+#endif
+        case "pdf":
+            encode_delegate = encode_pdf;
+            break;
+        }
+        var encoder = new ThreadPool<EncodeTask>.with_owned_data (encode_delegate, (int) get_num_processors (), false);
+
+        /* Configure a writer */
+        ThreadFunc<Error?>? write_delegate = null;
+        switch (type)
+        {
+        case "jpeg":
+        case "png":
+#if HAVE_WEBP
+        case "webp":
+#endif
+            write_delegate = write_multifile;
+            break;
+        case "pdf":
+            write_delegate = write_pdf;
+            break;
+        }
+        var writer = new Thread<Error?> (null, write_delegate);
+
+        /* Issue encode tasks */
         for (var i = 0; i < n_pages; i++)
         {
-            var page = get_page (i);
-            page.save (type, quality, make_indexed_file (file.get_uri (), i));
-            saving (i);
-        }
-    }
-
-    private uint8[]? compress_zlib (uint8[] data, uint max_size)
-    {
-        var stream = ZLib.DeflateStream (ZLib.Level.BEST_COMPRESSION);
-        var out_data = new uint8[max_size];
-
-        stream.next_in = data;
-        stream.next_out = out_data;
-        while (true)
-        {
-            /* Compression complete */
-            if (stream.avail_in == 0)
-                break;
-
-            /* Out of space */
-            if (stream.avail_out == 0)
-                return null;
-
-            if (stream.deflate (ZLib.Flush.FINISH) == ZLib.Status.STREAM_ERROR)
-                return null;
+            var encode_task = new EncodeTask ();
+            encode_task.number = i;
+            encode_task.page = book.get_page(i);
+            encoder.add ((owned) encode_task);
         }
 
-        var n_written = out_data.length - stream.avail_out;
-        out_data.resize ((int) n_written);
+        /* Waiting for saving to finish */
+        yield;
 
-        return out_data;
+        /* At this point, any remaining encode_task ought to remain unprocessed */
+        ThreadPool.free ((owned) encoder, true, true);
+
+        /* Any error from any thread ends up here */
+        var error = writer.join ();
+        if (error != null)
+            throw error;
+
+        timer.stop ();
+        debug ("Save time: %f seconds", timer.elapsed (null));
     }
 
-    private ByteArray jpeg_data;
+    /* Those methods are run in the encoder threads pool. It process
+     * one encode_task issued by save_async and reissue the result with
+     * a write_task */
 
-    private uint8[] compress_jpeg (Gdk.Pixbuf image, int quality, int dpi)
+    private void encode_png (owned EncodeTask encode_task)
     {
-        jpeg_data = new ByteArray ();
-        string[] keys = { "quality", "x-dpi", "y-dpi", null };
-        string[] values = { "%d".printf (quality), "%d".printf (dpi), "%d".printf (dpi), null };
+        if (cancellable.is_cancelled ())
+            return;
+
+        var page = encode_task.page;
+        var icc_data = page.get_icc_data_encoded ();
+        var write_task = new WriteTask ();
+        var image = page.get_image (true);
+
+        string[] keys = { "x-dpi", "y-dpi", "icc-profile", null };
+        string[] values = { "%d".printf (page.dpi), "%d".printf (page.dpi), icc_data, null };
+        if (icc_data == null)
+            keys[2] = null;
+
         try
         {
-            image.save_to_callbackv (write_pixbuf_data, "jpeg", keys, values);
+            image.save_to_bufferv (out write_task.data, "png", keys, values);
         }
-        catch (Error e)
+        catch (Error error)
         {
+            write_task.error = error;
         }
-        var data = (owned) jpeg_data.data;
-        jpeg_data = null;
+        write_task.number = encode_task.number;
+        write_queue.push ((owned) write_task);
 
-        return data;
+        update_progression ();
     }
 
-    private bool write_pixbuf_data (uint8[] buf) throws Error
+    private void encode_jpeg (owned EncodeTask encode_task)
     {
-        jpeg_data.append (buf);
-        return true;
+        var page = encode_task.page;
+        var icc_data = page.get_icc_data_encoded ();
+        var write_task = new WriteTask ();
+        var image = page.get_image (true);
+
+        string[] keys = { "x-dpi", "y-dpi", "quality", "icc-profile", null };
+        string[] values = { "%d".printf (page.dpi), "%d".printf (page.dpi), "%d".printf (quality), icc_data, null };
+        if (icc_data == null)
+            keys[3] = null;
+
+        try
+        {
+            image.save_to_bufferv (out write_task.data, "jpeg", keys, values);
+        }
+        catch (Error error)
+        {
+            write_task.error = error;
+        }
+        write_task.number = encode_task.number;
+        write_queue.push ((owned) write_task);
+
+        update_progression ();
     }
 
-    private void save_pdf (File file, int quality) throws Error
+#if HAVE_WEBP
+    private void encode_webp (owned EncodeTask encode_task)
+    {
+        var page = encode_task.page;
+        var icc_data = page.get_icc_data_encoded ();
+        var write_task = new WriteTask ();
+        var image = page.get_image (true);
+        var webp_data = WebP.encode_rgb (image.get_pixels (),
+                                         image.get_width (),
+                                         image.get_height (),
+                                         image.get_rowstride (),
+                                         (float) quality);
+#if HAVE_COLORD
+        WebP.MuxError mux_error;
+        var mux = WebP.Mux.new_mux ();
+        uint8[] output;
+
+        mux_error = mux.set_image (webp_data, false);
+        debug ("mux.set_image: %s", mux_error.to_string ());
+
+        if (icc_data != null)
+        {
+            mux_error = mux.set_chunk ("ICCP", icc_data.data, false);
+            debug ("mux.set_chunk: %s", mux_error.to_string ());
+            if (mux_error != WebP.MuxError.OK)
+                warning ("icc profile data not saved with page %i", encode_task.number);
+        }
+
+        mux_error = mux.assemble (out output);
+        debug ("mux.assemble: %s", mux_error.to_string ());
+        if (mux_error != WebP.MuxError.OK)
+            write_task.error = new FileError.FAILED (_("Unable to encode page %i").printf (encode_task.number));
+
+        write_task.data = (owned) output;
+#else
+
+        if (webp_data.length == 0)
+            write_task.error = new FileError.FAILED (_("Unable to encode page %i").printf (encode_task.number));
+
+        write_task.data = (owned) webp_data;
+#endif
+        write_task.number = encode_task.number;
+        write_queue.push ((owned) write_task);
+
+        update_progression ();
+    }
+#endif
+
+    private void encode_pdf (owned EncodeTask encode_task)
+    {
+        var page = encode_task.page;
+        var image = page.get_image (true);
+        var width = image.width;
+        var height = image.height;
+        unowned uint8[] pixels = image.get_pixels ();
+        int depth = 8;
+        string color_space = "DeviceRGB";
+        string? filter = null;
+        uint8[] data;
+
+        if (page.is_color)
+        {
+            depth = 8;
+            color_space = "DeviceRGB";
+            var data_length = height * width * 3;
+            data = new uint8[data_length];
+            for (var row = 0; row < height; row++)
+            {
+                var in_offset = row * image.rowstride;
+                var out_offset = row * width * 3;
+                for (var x = 0; x < width; x++)
+                {
+                    var in_o = in_offset + x*3;
+                    var out_o = out_offset + x*3;
+
+                    data[out_o] = pixels[in_o];
+                    data[out_o+1] = pixels[in_o+1];
+                    data[out_o+2] = pixels[in_o+2];
+                }
+            }
+        }
+        else if (page.depth == 2)
+        {
+            int shift_count = 6;
+            depth = 2;
+            color_space = "DeviceGray";
+            var data_length = height * ((width * 2 + 7) / 8);
+            data = new uint8[data_length];
+            var offset = 0;
+            for (var row = 0; row < height; row++)
+            {
+                /* Pad to the next line */
+                if (shift_count != 6)
+                {
+                    offset++;
+                    shift_count = 6;
+                }
+
+                var in_offset = row * image.rowstride;
+                for (var x = 0; x < width; x++)
+                {
+                    /* Clear byte */
+                    if (shift_count == 6)
+                        data[offset] = 0;
+
+                    /* Set bits */
+                    var p = pixels[in_offset + x*3];
+                    if (p >= 192)
+                        data[offset] |= 3 << shift_count;
+                    else if (p >= 128)
+                        data[offset] |= 2 << shift_count;
+                    else if (p >= 64)
+                        data[offset] |= 1 << shift_count;
+
+                    /* Move to the next position */
+                    if (shift_count == 0)
+                    {
+                        offset++;
+                        shift_count = 6;
+                    }
+                    else
+                        shift_count -= 2;
+                }
+            }
+        }
+        else if (page.depth == 1)
+        {
+            int mask = 0x80;
+
+            depth = 1;
+            color_space = "DeviceGray";
+            var data_length = height * ((width + 7) / 8);
+            data = new uint8[data_length];
+            var offset = 0;
+            for (var row = 0; row < height; row++)
+            {
+                /* Pad to the next line */
+                if (mask != 0x80)
+                {
+                    offset++;
+                    mask = 0x80;
+                }
+
+                var in_offset = row * image.rowstride;
+                for (var x = 0; x < width; x++)
+                {
+                    /* Clear byte */
+                    if (mask == 0x80)
+                        data[offset] = 0;
+
+                    /* Set bit */
+                    if (pixels[in_offset+x*3] != 0)
+                        data[offset] |= (uint8) mask;
+
+                    /* Move to the next bit */
+                    mask >>= 1;
+                    if (mask == 0)
+                    {
+                        offset++;
+                        mask = 0x80;
+                    }
+                }
+            }
+        }
+        else
+        {
+            depth = 8;
+            color_space = "DeviceGray";
+            var data_length = height * width;
+            data = new uint8 [data_length];
+            for (var row = 0; row < height; row++)
+            {
+                var in_offset = row * image.rowstride;
+                var out_offset = row * width;
+                for (var x = 0; x < width; x++)
+                    data[out_offset+x] = pixels[in_offset+x*3];
+            }
+        }
+
+        /* Compress data and use zlib compression if it is smaller than JPEG.
+         * zlib compression is slower in the worst case, so do JPEG first
+         * and stop zlib if it exceeds the JPEG size */
+        var write_task = new WriteTaskPDF ();
+        uint8[]? jpeg_data = null;
+        try
+        {
+            jpeg_data = compress_jpeg (image, quality, page.dpi);
+        }
+        catch (Error error)
+        {
+            write_task.error = error;
+        }
+        var zlib_data = compress_zlib (data, jpeg_data.length);
+        if (zlib_data != null)
+        {
+            filter = "FlateDecode";
+            data = zlib_data;
+        }
+        else
+        {
+            filter = "DCTDecode";
+            data = jpeg_data;
+        }
+
+        write_task.number = encode_task.number;
+        write_task.data = data;
+        write_task.width = width;
+        write_task.height = height;
+        write_task.color_space = color_space;
+        write_task.depth = depth;
+        write_task.filter = filter;
+        write_task.dpi = page.dpi;
+        write_queue.push (write_task);
+
+        update_progression ();
+    }
+
+    private Error? write_multifile ()
+    {
+        for (var i=0; i < n_pages; i++)
+        {
+            if (cancellable.is_cancelled ())
+            {
+                finished_saving ();
+                return null;
+            }
+
+            var write_task = write_queue.pop ();
+            if (write_task.error != null)
+            {
+                finished_saving ();
+                return write_task.error;
+            }
+
+            var indexed_file = make_indexed_file (file.get_uri (), write_task.number);
+            try
+            {
+                var stream = indexed_file.replace (null, false, FileCreateFlags.NONE);
+                stream.write_all (write_task.data, null);
+            }
+            catch (Error error)
+            {
+                finished_saving ();
+                return error;
+            }
+        }
+
+        update_progression ();
+        finished_saving ();
+        return null;
+    }
+
+    /* Those methods are run in the writer thread. It receive all
+     * write_tasks sent to it by the encoder threads and write those to
+     * disk. */
+
+    private Error? write_pdf ()
     {
         /* Generate a random ID for this file */
         var id = "";
         for (var i = 0; i < 4; i++)
             id += "%08x".printf (Random.next_int ());
 
-        var stream = file.replace (null, false, FileCreateFlags.NONE, null);
+        FileOutputStream? stream = null;
+        try
+        {
+            stream = file.replace (null, false, FileCreateFlags.NONE, null);
+        }
+        catch (Error error)
+        {
+            finished_saving ();
+            return error;
+        }
         var writer = new PDFWriter (stream);
 
         /* Choose object numbers */
@@ -309,156 +678,40 @@ public class Book
         writer.write_string (">>\n");
         writer.write_string ("endobj\n");
 
-        for (var i = 0; i < n_pages; i++)
+        /* Process each page in order */
+        var tasks_in_standby = new Queue<WriteTaskPDF> ();
+        for (int i = 0; i < n_pages; i++)
         {
-            var page = get_page (i);
-            var image = page.get_image (true);
-            var width = image.width;
-            var height = image.height;
-            unowned uint8[] pixels = image.get_pixels ();
-            var page_width = width * 72.0 / page.dpi;
-            var page_height = height * 72.0 / page.dpi;
-
-            int depth = 8;
-            string color_space = "DeviceRGB";
-            string? filter = null;
-            char[] width_buffer = new char[double.DTOSTR_BUF_SIZE];
-            char[] height_buffer = new char[double.DTOSTR_BUF_SIZE];
-            uint8[] data;
-            if (page.is_color)
+            if (cancellable.is_cancelled ())
             {
-                depth = 8;
-                color_space = "DeviceRGB";
-                var data_length = height * width * 3;
-                data = new uint8[data_length];
-                for (var row = 0; row < height; row++)
-                {
-                    var in_offset = row * image.rowstride;
-                    var out_offset = row * width * 3;
-                    for (var x = 0; x < width; x++)
-                    {
-                        var in_o = in_offset + x*3;
-                        var out_o = out_offset + x*3;
-
-                        data[out_o] = pixels[in_o];
-                        data[out_o+1] = pixels[in_o+1];
-                        data[out_o+2] = pixels[in_o+2];
-                    }
-                }
+                finished_saving ();
+                return null;
             }
-            else if (page.depth == 2)
-            {
-                int shift_count = 6;
-                depth = 2;
-                color_space = "DeviceGray";
-                var data_length = height * ((width * 2 + 7) / 8);
-                data = new uint8[data_length];
-                var offset = 0;
-                for (var row = 0; row < height; row++)
-                {
-                    /* Pad to the next line */
-                    if (shift_count != 6)
-                    {
-                        offset++;
-                        shift_count = 6;
-                    }
 
-                    var in_offset = row * image.rowstride;
-                    for (var x = 0; x < width; x++)
-                    {
-                        /* Clear byte */
-                        if (shift_count == 6)
-                            data[offset] = 0;
-
-                        /* Set bits */
-                        var p = pixels[in_offset + x*3];
-                        if (p >= 192)
-                            data[offset] |= 3 << shift_count;
-                        else if (p >= 128)
-                            data[offset] |= 2 << shift_count;
-                        else if (p >= 64)
-                            data[offset] |= 1 << shift_count;
-
-                        /* Move to the next position */
-                        if (shift_count == 0)
-                        {
-                            offset++;
-                            shift_count = 6;
-                        }
-                        else
-                            shift_count -= 2;
-                    }
-                }
-            }
-            else if (page.depth == 1)
-            {
-                int mask = 0x80;
-
-                depth = 1;
-                color_space = "DeviceGray";
-                var data_length = height * ((width + 7) / 8);
-                data = new uint8[data_length];
-                var offset = 0;
-                for (var row = 0; row < height; row++)
-                {
-                    /* Pad to the next line */
-                    if (mask != 0x80)
-                    {
-                        offset++;
-                        mask = 0x80;
-                    }
-
-                    var in_offset = row * image.rowstride;
-                    for (var x = 0; x < width; x++)
-                    {
-                        /* Clear byte */
-                        if (mask == 0x80)
-                            data[offset] = 0;
-
-                        /* Set bit */
-                        if (pixels[in_offset+x*3] != 0)
-                            data[offset] |= (uint8) mask;
-
-                        /* Move to the next bit */
-                        mask >>= 1;
-                        if (mask == 0)
-                        {
-                            offset++;
-                            mask = 0x80;
-                        }
-                    }
-                }
-            }
+            var write_task = tasks_in_standby.peek_head ();
+            if (write_task != null && write_task.number == i)
+                tasks_in_standby.pop_head ();
             else
             {
-                depth = 8;
-                color_space = "DeviceGray";
-                var data_length = height * width;
-                data = new uint8 [data_length];
-                for (var row = 0; row < height; row++)
+                while (true)
                 {
-                    var in_offset = row * image.rowstride;
-                    var out_offset = row * width;
-                    for (var x = 0; x < width; x++)
-                        data[out_offset+x] = pixels[in_offset+x*3];
+                    write_task = (WriteTaskPDF) write_queue.pop ();
+                    if (write_task.error != null)
+                    {
+                        finished_saving ();
+                        return write_task.error;
+                    }
+                    if (write_task.number == i)
+                        break;
+
+                    tasks_in_standby.insert_sorted (write_task, (a, b) => {return a.number - b.number;});
                 }
             }
 
-            /* Compress data and use zlib compression if it is smaller than JPEG.
-             * zlib compression is slower in the worst case, so do JPEG first
-             * and stop zlib if it exceeds the JPEG size */
-            var jpeg_data = compress_jpeg (image, quality, page.dpi);
-            var zlib_data = compress_zlib (data, jpeg_data.length);
-            if (zlib_data != null)
-            {
-                filter = "FlateDecode";
-                data = zlib_data;
-            }
-            else
-            {
-                filter = "DCTDecode";
-                data = jpeg_data;
-            }
+            var page_width = write_task.width * 72.0 / write_task.dpi;
+            var page_height = write_task.height * 72.0 / write_task.dpi;
+            var width_buffer = new char[double.DTOSTR_BUF_SIZE];
+            var height_buffer = new char[double.DTOSTR_BUF_SIZE];
 
             /* Page */
             writer.write_string ("\n");
@@ -480,16 +733,16 @@ public class Book
             writer.write_string ("<<\n");
             writer.write_string ("/Type /XObject\n");
             writer.write_string ("/Subtype /Image\n");
-            writer.write_string ("/Width %d\n".printf (width));
-            writer.write_string ("/Height %d\n".printf (height));
-            writer.write_string ("/ColorSpace /%s\n".printf (color_space));
-            writer.write_string ("/BitsPerComponent %d\n".printf (depth));
-            writer.write_string ("/Length %d\n".printf (data.length));
-            if (filter != null)
-                writer.write_string ("/Filter /%s\n".printf (filter));
+            writer.write_string ("/Width %d\n".printf (write_task.width));
+            writer.write_string ("/Height %d\n".printf (write_task.height));
+            writer.write_string ("/ColorSpace /%s\n".printf (write_task.color_space));
+            writer.write_string ("/BitsPerComponent %d\n".printf (write_task.depth));
+            writer.write_string ("/Length %d\n".printf (write_task.data.length));
+            if (write_task.filter != null)
+                writer.write_string ("/Filter /%s\n".printf (write_task.filter));
             writer.write_string (">>\n");
             writer.write_string ("stream\n");
-            writer.write (data);
+            writer.write (write_task.data);
             writer.write_string ("\n");
             writer.write_string ("endstream\n");
             writer.write_string ("endobj\n");
@@ -499,7 +752,7 @@ public class Book
             writer.start_object (struct_tree_root_number);
             writer.write_string ("%u 0 obj\n".printf (struct_tree_root_number));
             writer.write_string ("<<\n");
-            writer.write_string ("/Type /StructTreeRoot\n");            
+            writer.write_string ("/Type /StructTreeRoot\n");
             writer.write_string (">>\n");
             writer.write_string ("endobj\n");
 
@@ -516,8 +769,6 @@ public class Book
             writer.write_string ("\n");
             writer.write_string ("endstream\n");
             writer.write_string ("endobj\n");
-
-            saving (i);
         }
 
         /* Info */
@@ -534,10 +785,10 @@ public class Book
         var xref_offset = writer.offset;
         writer.write_string ("xref\n");
         writer.write_string ("0 %zu\n".printf (writer.object_offsets.length + 1));
-        writer.write_string ("%010zu 65535 f \n".printf (next_empty_object (writer, 0)));
+        writer.write_string ("%010zu 65535 f \n".printf (writer.next_empty_object (0)));
         for (var i = 0; i < writer.object_offsets.length; i++)
             if (writer.object_offsets[i] == 0)
-                writer.write_string ("%010zu 65535 f \n".printf (next_empty_object (writer, i + 1)));
+                writer.write_string ("%010zu 65535 f \n".printf (writer.next_empty_object (i + 1)));
             else
                 writer.write_string ("%010zu 00000 n \n".printf (writer.object_offsets[i]));
 
@@ -553,34 +804,117 @@ public class Book
         writer.write_string ("startxref\n");
         writer.write_string ("%zu\n".printf (xref_offset));
         writer.write_string ("%%EOF\n");
+
+        update_progression ();
+        finished_saving ();
+        return null;
     }
 
-    static int next_empty_object (PDFWriter writer, int start)
+    /* update_progression is called once by page by encoder threads and
+     * once at the end by writer thread. */
+    private void update_progression ()
     {
-        for (var i = start; i < writer.object_offsets.length; i++)
-            if (writer.object_offsets[i] == 0)
-                return i + 1;
-        return 0;
-    }
-
-    public void save (string type, int quality, File file) throws Error
-    {
-        switch (type)
+        double step = 1.0 / (double)(n_pages+1);
+        progression_mutex.lock ();
+        progression += step;
+        progression_mutex.unlock ();
+        Idle.add (() =>
         {
-        case "jpeg":
-        case "png":
-#if HAVE_WEBP
-        case "webp":
-#endif
-            save_multi_file (type, quality, file);
-            break;
-        case "pdf":
-            save_pdf (file, quality);
-            break;
-        default:
-            throw new FileError.INVAL ("Unknown file type: %s".printf (type));
-        }
+            progression_callback (progression);
+            return false;
+        });
     }
+
+    /* finished_saving is called by the writer thread when it's done,
+     * meaning there is nothing left to do or saving has been
+     * cancelled */
+    private void finished_saving ()
+    {
+        /* Wake-up save_async method in main thread */
+        Idle.add ((owned)save_async_callback);
+    }
+
+    /* Utility methods */
+
+    private File make_indexed_file (string uri, int i)
+    {
+        if (n_pages == 1)
+            return File.new_for_uri (uri);
+
+        /* Insert index before extension */
+        var basename = Path.get_basename (uri);
+        string prefix = uri, suffix = "";
+        var extension_index = basename.last_index_of_char ('.');
+        if (extension_index >= 0)
+        {
+            suffix = basename.slice (extension_index, basename.length);
+            prefix = uri.slice (0, uri.length - suffix.length);
+        }
+        var width = n_pages.to_string().length;
+        var number_format = "%%0%dd".printf (width);
+        var filename = prefix + "-" + number_format.printf (i + 1) + suffix;
+        return File.new_for_uri (filename);
+    }
+
+    private static uint8[]? compress_zlib (uint8[] data, uint max_size)
+    {
+        var stream = ZLib.DeflateStream (ZLib.Level.BEST_COMPRESSION);
+        var out_data = new uint8[max_size];
+
+        stream.next_in = data;
+        stream.next_out = out_data;
+        while (true)
+        {
+            /* Compression complete */
+            if (stream.avail_in == 0)
+                break;
+
+            /* Out of space */
+            if (stream.avail_out == 0)
+                return null;
+
+            if (stream.deflate (ZLib.Flush.FINISH) == ZLib.Status.STREAM_ERROR)
+                return null;
+        }
+
+        var n_written = out_data.length - stream.avail_out;
+        out_data.resize ((int) n_written);
+
+        return out_data;
+    }
+
+    private static uint8[] compress_jpeg (Gdk.Pixbuf image, int quality, int dpi) throws Error
+    {
+        uint8[] jpeg_data;
+        string[] keys = { "quality", "x-dpi", "y-dpi", null };
+        string[] values = { "%d".printf (quality), "%d".printf (dpi), "%d".printf (dpi), null };
+
+        image.save_to_bufferv (out jpeg_data, "jpeg", keys, values);
+        return jpeg_data;
+    }
+}
+
+private class EncodeTask
+{
+    public int number;
+    public Page page;
+}
+
+private class WriteTask
+{
+    public int number;
+    public uint8[] data;
+    public Error error;
+}
+
+private class WriteTaskPDF : WriteTask
+{
+    public int width;
+    public int height;
+    public string color_space;
+    public int depth;
+    public string? filter;
+    public int dpi;
 }
 
 private class PDFWriter
@@ -624,5 +958,13 @@ private class PDFWriter
     public void start_object (uint index)
     {
         object_offsets[index - 1] = (uint)offset;
+    }
+
+    public int next_empty_object (int start)
+    {
+        for (var i = start; i < object_offsets.length; i++)
+            if (object_offsets[i] == 0)
+                return i + 1;
+        return 0;
     }
 }

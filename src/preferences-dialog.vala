@@ -468,50 +468,6 @@ private class PreferencesDialog : Gtk.Dialog
     }
 }
 
-private class ProgressBarDialog : Gtk.Window
-{
-    private Gtk.ProgressBar bar;
-
-    public double fraction
-    {
-        get { return bar.fraction; }
-        set { bar.fraction = value; }
-    }
-
-    public string message
-    {
-        get { return bar.text; }
-        set { bar.text = value; }
-    }
-
-    public ProgressBarDialog (Gtk.ApplicationWindow parent, string title)
-    {
-        bar = new Gtk.ProgressBar ();
-        var hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 5);
-        var vbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 5);
-        hbox.hexpand = true;
-
-        bar.text = "";
-        bar.show_text = true;
-        bar.set_size_request (225, 25);
-        set_size_request (250, 50);
-
-        vbox.pack_start (bar, true, false, 0);
-        hbox.pack_start (vbox, true, false, 0);
-        add (hbox);
-        this.title = title;
-
-        transient_for = parent;
-        set_position (Gtk.WindowPosition.CENTER_ON_PARENT);
-        modal = true;
-        resizable = false;
-
-        hbox.visible = true;
-        vbox.visible = true;
-        bar.visible = true;
-    }
-}
-
 private class PageIcon : Gtk.DrawingArea
 {
     private string text;

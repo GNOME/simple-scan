@@ -117,7 +117,6 @@ public class AppWindow : Gtk.ApplicationWindow
     private string? missing_driver = null;
 
     private Gtk.FileChooserDialog? save_dialog;
-    private ProgressBarDialog progress_dialog;
 
     public Book book { get; private set; }
     private bool book_needs_saving;
@@ -497,7 +496,7 @@ public class AppWindow : Gtk.ApplicationWindow
             return "jpeg";
     }
 
-    private bool save_document ()
+    private async bool save_document_async ()
     {
         var uri = choose_file_location ();
         if (uri == null)
@@ -509,27 +508,34 @@ public class AppWindow : Gtk.ApplicationWindow
 
         var format = uri_to_format (uri);
 
-        show_progress_dialog ();
+        var cancellable = new Cancellable ();
+        var progress_bar =  new CancellableProgressBar ("Saving", cancellable);
+        action_bar.pack_end (progress_bar);
+        progress_bar.visible = true;
         try
         {
-            book.save (format, settings.get_int ("jpeg-quality"), file);
+            yield book.save_async (format, settings.get_int ("jpeg-quality"), file, (fraction) =>
+            {
+                progress_bar.set_fraction (fraction);
+            }, cancellable);
         }
         catch (Error e)
         {
-            hide_progress_dialog ();
+            progress_bar.destroy ();
             warning ("Error saving file: %s", e.message);
             show_error_dialog (/* Title of error dialog when save failed */
                               _("Failed to save file"),
                                e.message);
             return false;
         }
+        progress_bar.destroy_with_delay (500);
 
         book_needs_saving = false;
         book_uri = uri;
         return true;
     }
 
-    private bool prompt_to_save (string title, string discard_label)
+    private async bool prompt_to_save_async (string title, string discard_label)
     {
         if (!book_needs_saving)
             return true;
@@ -552,7 +558,7 @@ public class AppWindow : Gtk.ApplicationWindow
         switch (response)
         {
         case Gtk.ResponseType.YES:
-            if (save_document ())
+            if (yield save_document_async ())
                 return true;
             else
                 return false;
@@ -581,15 +587,19 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void new_document ()
     {
-        if (!prompt_to_save (/* Text in dialog warning when a document is about to be lost */
-                             _("Save current document?"),
-                             /* Button in dialog to create new document and discard unsaved document */
-                             _("Discard Changes")))
-            return;
+        prompt_to_save_async.begin (/* Text in dialog warning when a document is about to be lost */
+                                    _("Save current document?"),
+                                    /* Button in dialog to create new document and discard unsaved document */
+                                    _("Discard Changes"), (obj, res) =>
+        {
+            if (!prompt_to_save_async.end(res))
+                return;
 
-        if (scanning)
-            stop_scan ();
-        clear_document ();
+            if (scanning)
+                stop_scan ();
+
+            clear_document ();
+        });
     }
 
     [GtkCallback]
@@ -782,7 +792,7 @@ public class AppWindow : Gtk.ApplicationWindow
         {
             var dir = DirUtils.make_tmp ("simple-scan-XXXXXX");
             file = File.new_for_path (Path.build_filename (dir, "scan.png"));
-            page.save ("png", 0, file);
+            page.save_png (file);
         }
         catch (Error e)
         {
@@ -1121,12 +1131,12 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkCallback]
     private void save_file_button_clicked_cb (Gtk.Widget widget)
     {
-        save_document ();
+        save_document_async.begin ();
     }
 
     public void save_document_activate_cb ()
     {
-        save_document ();
+        save_document_async.begin ();
     }
 
     [GtkCallback]
@@ -1165,24 +1175,22 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkCallback]
     private void email_button_clicked_cb (Gtk.Widget widget)
     {
-        email_document ();
+        email_document_async.begin ();
     }
 
     public void email_document_activate_cb ()
     {
-        email_document ();
+        email_document_async.begin ();
     }
 
-    private void email_document ()
+    private async void email_document_async ()
     {
-        show_progress_dialog ();
-
         try
         {
             var dir = DirUtils.make_tmp ("simple-scan-XXXXXX");
             var type = document_hint == "text" ? "pdf" : "jpeg";
             var file = File.new_for_path (Path.build_filename (dir, "scan." + type));
-            book.save (type, settings.get_int ("jpeg-quality"), file);
+            yield book.save_async (type, settings.get_int ("jpeg-quality"), file, null, null);
             var command_line = "xdg-email";
             if (type == "pdf")
                 command_line += "--attach %s".printf (file.get_path ());
@@ -1199,8 +1207,6 @@ public class AppWindow : Gtk.ApplicationWindow
         {
             warning ("Unable to email document: %s", e.message);
         }
-
-        hide_progress_dialog ();
     }
 
     private void print_document ()
@@ -1296,22 +1302,23 @@ public class AppWindow : Gtk.ApplicationWindow
         show_about ();
     }
 
-    private bool on_quit ()
+    private void on_quit ()
     {
-        if (!prompt_to_save (/* Text in dialog warning when a document is about to be lost */
-                             _("Save document before quitting?"),
-                             /* Button in dialog to quit and discard unsaved document */
-                             _("Quit without Saving")))
-            return false;
+        prompt_to_save_async.begin (/* Text in dialog warning when a document is about to be lost */
+                                    _("Save document before quitting?"),
+                                    /* Text in dialog warning when a document is about to be lost */
+                                    _("Quit without Saving"), (obj, res) =>
+        {
+            if (!prompt_to_save_async.end(res))
+                return;
 
-        destroy ();
+            destroy ();
 
-        if (save_state_timeout != 0)
-            save_state (true);
+            if (save_state_timeout != 0)
+                save_state (true);
 
-        autosave_manager.cleanup ();
-
-        return true;
+            autosave_manager.cleanup ();
+        });
     }
 
     [GtkCallback]
@@ -1495,7 +1502,8 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkCallback]
     private bool window_delete_event_cb (Gtk.Widget widget, Gdk.EventAny event)
     {
-        return !on_quit ();
+        on_quit ();
+        return true; /* Let us quit on our own terms */
     }
 
     private void page_added_cb (Book book, Page page)
@@ -1670,9 +1678,6 @@ public class AppWindow : Gtk.ApplicationWindow
             debug ("Restoring window to fullscreen");
             fullscreen ();
         }
-
-        progress_dialog = new ProgressBarDialog (this, _("Saving document…"));
-        book.saving.connect (book_saving_cb);
     }
 
     private bool is_desktop (string name)
@@ -1782,38 +1787,53 @@ public class AppWindow : Gtk.ApplicationWindow
         }
     }
 
-    private void book_saving_cb (int page_number)
-    {
-        /* Prevent GUI from freezing */
-        while (Gtk.events_pending ())
-          Gtk.main_iteration ();
-
-        var total = (int) book.n_pages;
-        var fraction = (page_number + 1.0) / total;
-        var complete = fraction == 1.0;
-        if (complete)
-            Timeout.add (500, () => {
-                progress_dialog.visible = false;
-                return false;
-            });
-        var message = _("Saving page %d out of %d").printf (page_number + 1, total);
-
-        progress_dialog.fraction = fraction;
-        progress_dialog.message = message;
-    }
-
-    public void show_progress_dialog ()
-    {
-        progress_dialog.visible = true;
-    }
-
-    public void hide_progress_dialog ()
-    {
-        progress_dialog.visible = false;
-    }
-
     public void start ()
     {
         visible = true;
     }
+}
+
+private class CancellableProgressBar : Gtk.HBox
+{
+    private Gtk.ProgressBar bar;
+    private Gtk.Button? button;
+
+    public CancellableProgressBar (string? text, Cancellable? cancellable)
+    {
+        bar = new Gtk.ProgressBar ();
+        bar.visible = true;
+        bar.set_text (text);
+        bar.set_show_text (true);
+        pack_start (bar);
+
+        if (cancellable != null)
+        {
+            button = new Gtk.Button.with_label (/* Text of button for cancelling save */
+                                                _("Cancel"));
+            button.visible = true;
+            button.clicked.connect (() =>
+            {
+                cancellable.cancel ();
+            });
+            pack_start (button);
+        }
+    }
+
+    public void set_fraction (double fraction)
+    {
+        bar.set_fraction (fraction);
+    }
+
+    public void destroy_with_delay (uint delay)
+    {
+        button.set_sensitive (false);
+
+        Timeout.add (delay, () =>
+        {
+            this.destroy ();
+            return false;
+        });
+    }
+
+
 }

@@ -624,13 +624,16 @@ public class Page
         return image;
     }
 
-    private string? get_icc_data_encoded (string icc_profile_filename)
+    public string? get_icc_data_encoded ()
     {
+        if (color_profile == null)
+            return null;
+
         /* Get binary data */
         string contents;
         try
         {
-            FileUtils.get_contents (icc_profile_filename, out contents);
+            FileUtils.get_contents (color_profile, out contents);
         }
         catch (Error e)
         {
@@ -641,102 +644,33 @@ public class Page
         /* Encode into base64 */
         return Base64.encode ((uchar[]) contents.to_utf8 ());
     }
-    
+
     public void copy_to_clipboard (Gtk.Window window)
-    {        
+    {
         var display = window.get_display ();
         var clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
         var image = get_image (true);
         clipboard.set_image (image);
     }
 
-    public void save (string type, int quality, File file) throws Error
+    public void save_png (File file) throws Error
     {
         var stream = file.replace (null, false, FileCreateFlags.NONE, null);
-        var writer = new PixbufWriter (stream);
         var image = get_image (true);
 
         string? icc_profile_data = null;
         if (color_profile != null)
-            icc_profile_data = get_icc_data_encoded (color_profile);
+            icc_profile_data = get_icc_data_encoded ();
 
-        if (strcmp (type, "jpeg") == 0)
+        string[] keys = { "x-dpi", "y-dpi", "icc-profile", null };
+        string[] values = { "%d".printf (dpi), "%d".printf (dpi), icc_profile_data, null };
+        if (icc_profile_data == null)
+            keys[2] = null;
+
+        image.save_to_callbackv ((buf) =>
         {
-            string[] keys = { "x-dpi", "y-dpi", "quality", "icc-profile", null };
-            string[] values = { "%d".printf (dpi), "%d".printf (dpi), "%d".printf (quality), icc_profile_data, null };
-            if (icc_profile_data == null)
-                keys[3] = null;
-            writer.save (image, "jpeg", keys, values);
-        }
-        else if (strcmp (type, "png") == 0)
-        {
-            string[] keys = { "x-dpi", "y-dpi", "icc-profile", null };
-            string[] values = { "%d".printf (dpi), "%d".printf (dpi), icc_profile_data, null };
-            if (icc_profile_data == null)
-                keys[2] = null;
-            writer.save (image, "png", keys, values);
-        }
-#if HAVE_WEBP
-        else if (strcmp (type, "webp") == 0)
-        {
-            var webp_data = WebP.encode_rgb (image.get_pixels (),
-                                             image.get_width (),
-                                             image.get_height (),
-                                             image.get_rowstride (),
-                                             (float) quality);
-#if HAVE_COLORD
-            WebP.MuxError mux_error;
-            var mux = WebP.Mux.new_mux ();
-            uint8[] output;
-
-            mux_error = mux.set_image (webp_data, false);
-            debug ("mux.set_image: %s", mux_error.to_string ());
-
-            if (icc_profile_data != null)
-            {
-                mux_error = mux.set_chunk ("ICCP", icc_profile_data.data, false);
-                debug ("mux.set_chunk: %s", mux_error.to_string ());
-                if (mux_error != WebP.MuxError.OK)
-                    warning ("icc profile data not saved in %s", file.get_basename ());
-            }
-
-            mux_error = mux.assemble (out output);
-            debug ("mux.assemble: %s", mux_error.to_string ());
-            if (mux_error != WebP.MuxError.OK)
-                throw new FileError.FAILED (_("Unable to encode %s").printf (file.get_basename ()));
-
-            stream.write_all (output, null);
-#else
-
-            if (webp_data.length == 0)
-                throw new FileError.FAILED (_("Unable to encode %s").printf (file.get_basename ()));
-
-            stream.write_all (webp_data, null);
-#endif
-        }
-#endif
-        else
-            throw new FileError.INVAL ("Unknown file type: %s".printf (type));
-    }
-}
-
-public class PixbufWriter
-{
-    public FileOutputStream stream;
-
-    public PixbufWriter (FileOutputStream stream)
-    {
-        this.stream = stream;
-    }
-
-    public void save (Gdk.Pixbuf image, string type, string[] option_keys, string[] option_values) throws Error
-    {
-        image.save_to_callbackv (write_pixbuf_data, type, option_keys, option_values);
-    }
-
-    private bool write_pixbuf_data (uint8[] buf) throws Error
-    {
-        stream.write_all (buf, null, null);
-        return true;
+            stream.write_all (buf, null, null);
+            return true;
+        }, "png", keys, values);
     }
 }
