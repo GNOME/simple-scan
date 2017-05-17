@@ -27,28 +27,6 @@
     <property name="step_increment">100</property>
     <property name="page_increment">1000</property>
   </object>
-  <object class="GtkListStore" id="page_side_model">
-    <columns>
-      <!-- column-name side -->
-      <column type="gint"/>
-      <!-- column-name label -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">3</col>
-        <col id="1" translatable="yes" comments="Combo box label for scanning both sides of a page">Front and Back</col>
-      </row>
-      <row>
-        <col id="0">1</col>
-        <col id="1" translatable="yes" comments="Combo box label for scanning the front side of a page">Front</col>
-      </row>
-      <row>
-        <col id="0">2</col>
-        <col id="1" translatable="yes" comments="Combo box label for scanning the back side of a page">Back</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkListStore" id="paper_size_model">
     <columns>
       <!-- column-name width -->
@@ -212,23 +190,11 @@
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes" comments="Label beside scan side combo box">Scan Side:</property>
                 <property name="use_underline">True</property>
-                <property name="mnemonic_widget">photo_dpi_combo</property>
+                <property name="mnemonic_widget">scan_side_box</property>
                 <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBox" id="page_side_combo">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="model">page_side_model</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
                 <property name="top_attach">3</property>
               </packing>
             </child>
@@ -362,6 +328,64 @@
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">8</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="scan_side_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="homogeneous">True</property>
+                <child>
+                  <object class="GtkRadioButton" id="front_side_button">
+                    <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">Front</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="draw_indicator">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="back_side_button">
+                    <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on the back side of a page">Back</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="draw_indicator">False</property>
+                    <property name="group">front_side_button</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="both_side_button">
+                    <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on both sides of a page">Both</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="draw_indicator">False</property>
+                    <property name="group">front_side_button</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <style>
+                  <class name="linked"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">3</property>
               </packing>
             </child>
           </object>

@@ -25,8 +25,6 @@ private class PreferencesDialog : Gtk.Dialog
     [GtkChild]
     private Gtk.ComboBox photo_dpi_combo;
     [GtkChild]
-    private Gtk.ComboBox page_side_combo;
-    [GtkChild]
     private Gtk.ComboBox paper_size_combo;
     [GtkChild]
     private Gtk.Scale brightness_scale;
@@ -43,7 +41,11 @@ private class PreferencesDialog : Gtk.Dialog
     [GtkChild]
     private Gtk.ListStore photo_dpi_model;
     [GtkChild]
-    private Gtk.ListStore page_side_model;
+    private Gtk.ToggleButton front_side_button;
+    [GtkChild]
+    private Gtk.ToggleButton back_side_button;
+    [GtkChild]
+    private Gtk.ToggleButton both_side_button;
     [GtkChild]
     private Gtk.ListStore paper_size_model;
     [GtkChild]
@@ -90,9 +92,6 @@ private class PreferencesDialog : Gtk.Dialog
         device_combo.pack_start (renderer, true);
         device_combo.add_attribute (renderer, "text", 1);
 
-        renderer = new Gtk.CellRendererText ();
-        page_side_combo.pack_start (renderer, true);
-        page_side_combo.add_attribute (renderer, "text", 1);
         var dpi = settings.get_int ("text-dpi");
         if (dpi <= 0)
             dpi = DEFAULT_TEXT_DPI;
@@ -105,7 +104,9 @@ private class PreferencesDialog : Gtk.Dialog
         photo_dpi_combo.changed.connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
 
         set_page_side ((ScanType) settings.get_enum ("page-side"));
-        page_side_combo.changed.connect (() => { settings.set_enum ("page-side", get_page_side ()); });
+        front_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanType.ADF_FRONT); });
+        back_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanType.ADF_BACK); });
+        both_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanType.ADF_BOTH); });
 
         renderer = new Gtk.CellRendererText ();
         paper_size_combo.pack_start (renderer, true);
@@ -297,21 +298,29 @@ private class PreferencesDialog : Gtk.Dialog
 
     private void set_page_side (ScanType page_side)
     {
-        Gtk.TreeIter iter;
-
-        if (page_side_model.get_iter_first (out iter))
+        switch (page_side)
         {
-            do
-            {
-                int s;
-                page_side_model.get (iter, 0, out s, -1);
-                if (s == page_side)
-                {
-                    page_side_combo.set_active_iter (iter);
-                    return;
-                }
-            } while (page_side_model.iter_next (ref iter));
-         }
+        case ScanType.ADF_FRONT:
+            front_side_button.active = true;
+            break;
+        case ScanType.ADF_BACK:
+            back_side_button.active = true;
+            break;
+        default:
+        case ScanType.ADF_BOTH:
+            both_side_button.active = true;
+            break;
+        }
+    }
+
+    public ScanType get_page_side ()
+    {
+        if (front_side_button.active)
+            return ScanType.ADF_FRONT;
+        else if (back_side_button.active)
+            return ScanType.ADF_BACK;
+        else
+            return ScanType.ADF_BOTH;
     }
 
     public void set_paper_size (int width, int height)
@@ -355,17 +364,6 @@ private class PreferencesDialog : Gtk.Dialog
             photo_dpi_model.get (iter, 0, out dpi, -1);
 
         return dpi;
-    }
-
-    public ScanType get_page_side ()
-    {
-        Gtk.TreeIter iter;
-        int page_side = ScanType.ADF_BOTH;
-
-        if (page_side_combo.get_active_iter (out iter))
-            page_side_model.get (iter, 0, out page_side, -1);
-
-        return (ScanType) page_side;
     }
 
     public bool get_paper_size (out int width, out int height)
