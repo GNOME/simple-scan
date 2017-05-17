@@ -10,12 +10,12 @@
  * license.
  */
 
+private const int DEFAULT_TEXT_DPI = 150;
+private const int DEFAULT_PHOTO_DPI = 300;
+
 [GtkTemplate (ui = "/org/gnome/SimpleScan/simple-scan.ui")]
 public class UserInterface : Gtk.ApplicationWindow
 {
-    private const int DEFAULT_TEXT_DPI = 150;
-    private const int DEFAULT_PHOTO_DPI = 300;
-
     private const GLib.ActionEntry[] action_entries =
     {
         { "new_document", new_document_activate_cb },
@@ -30,6 +30,8 @@ public class UserInterface : Gtk.ApplicationWindow
     };
 
     private Settings settings;
+
+    private PreferencesDialog preferences_dialog;
 
     [GtkChild]
     private Gtk.MenuBar menubar;
@@ -116,47 +118,7 @@ public class UserInterface : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.Entry password_entry;
 
-    [GtkChild]
-    private Gtk.Dialog preferences_dialog;
-    [GtkChild]
-    private Gtk.ComboBox device_combo;
-    [GtkChild]
-    private Gtk.ComboBox text_dpi_combo;
-    [GtkChild]
-    private Gtk.ComboBox photo_dpi_combo;
-    [GtkChild]
-    private Gtk.ComboBox page_side_combo;
-    [GtkChild]
-    private Gtk.ComboBox paper_size_combo;
-    [GtkChild]
-    private Gtk.Scale brightness_scale;
-    [GtkChild]
-    private Gtk.Scale contrast_scale;
-    [GtkChild]
-    private Gtk.Scale quality_scale;
-    [GtkChild]
-    private Gtk.Scale page_delay_scale;
-    [GtkChild]
-    private Gtk.ListStore device_model;
-    [GtkChild]
-    private Gtk.ListStore text_dpi_model;
-    [GtkChild]
-    private Gtk.ListStore photo_dpi_model;
-    [GtkChild]
-    private Gtk.ListStore page_side_model;
-    [GtkChild]
-    private Gtk.ListStore paper_size_model;
-    [GtkChild]
-    private Gtk.Adjustment brightness_adjustment;
-    [GtkChild]
-    private Gtk.Adjustment contrast_adjustment;
-    [GtkChild]
-    private Gtk.Adjustment quality_adjustment;
-    [GtkChild]
-    private Gtk.Adjustment page_delay_adjustment;
-    private bool setting_devices;
     private string? missing_driver = null;
-    private bool user_selected_device;
 
     private Gtk.FileChooserDialog? save_dialog;
     private ProgressBarDialog progress_dialog;
@@ -211,59 +173,38 @@ public class UserInterface : Gtk.ApplicationWindow
     private int window_width;
     private int window_height;
     private bool window_is_maximized;
-    private bool window_is_fullscreen;    
+    private bool window_is_fullscreen;
 
     private uint save_state_timeout;
 
     public int brightness
     {
-        get { return (int) brightness_adjustment.value; }
-        set { brightness_adjustment.value = value; }
+        get { return preferences_dialog.get_brightness (); }
+        set { preferences_dialog.set_brightness (value); }
     }
 
     public int contrast
     {
-        get { return (int) contrast_adjustment.value; }
-        set { contrast_adjustment.value = value; }
+        get { return preferences_dialog.get_contrast (); }
+        set { preferences_dialog.set_contrast (value); }
     }
 
     public int quality
     {
-        get { return (int) quality_adjustment.value; }
-        set { quality_adjustment.value = value; }
+        get { return preferences_dialog.get_quality (); }
+        set { preferences_dialog.set_quality (value); }
     }
 
     public int page_delay
     {
-        get { return (int) page_delay_adjustment.value; }
-        set { page_delay_adjustment.value = value; }
+        get { return preferences_dialog.get_page_delay (); }
+        set { preferences_dialog.set_page_delay (value); }
     }
 
     public string? selected_device
     {
-        owned get
-        {
-            Gtk.TreeIter iter;
-
-            if (device_combo.get_active_iter (out iter))
-            {
-                string device;
-                device_model.get (iter, 0, out device, -1);
-                return device;
-            }
-
-            return null;
-        }
-
-        set
-        {
-            Gtk.TreeIter iter;
-            if (!find_scan_device (value, out iter))
-                return;
-
-            device_combo.set_active_iter (iter);
-            user_selected_device = true;
-        }
+        owned get { return preferences_dialog.get_selected_device (); }
+        set { preferences_dialog.set_selected_device (value); }
     }
 
     public signal void start_scan (string? device, ScanOptions options);
@@ -303,24 +244,6 @@ public class UserInterface : Gtk.ApplicationWindow
         book.page_removed.disconnect (page_removed_cb);
     }
 
-    private bool find_scan_device (string device, out Gtk.TreeIter iter)
-    {
-        bool have_iter = false;
-
-        if (device_model.get_iter_first (out iter))
-        {
-            do
-            {
-                string d;
-                device_model.get (iter, 0, out d, -1);
-                if (d == device)
-                    have_iter = true;
-            } while (!have_iter && device_model.iter_next (ref iter));
-        }
-
-        return have_iter;
-    }
-
     private void show_error_dialog (string error_title, string error_text)
     {
         var dialog = new Gtk.MessageDialog (this,
@@ -351,16 +274,6 @@ public class UserInterface : Gtk.ApplicationWindow
         password = password_entry.text;
     }
 
-    [GtkCallback]
-    private void device_combo_changed_cb (Gtk.Widget widget)
-    {
-        if (setting_devices)
-            return;
-        user_selected_device = true;
-        if (selected_device != null)
-            settings.set_string ("selected-device", selected_device);
-    }
-
     private void update_info_bar ()
     {
         Gtk.MessageType type;
@@ -378,7 +291,7 @@ public class UserInterface : Gtk.ApplicationWindow
             show_close_button = true;
             show_change_scanner_button = error_change_scanner_hint;
         }
-        else if (device_model.iter_n_children (null) == 0)
+        else if (preferences_dialog.get_device_count () == 0)
         {
             type = Gtk.MessageType.WARNING;
             image_id = "dialog-warning";
@@ -416,90 +329,9 @@ public class UserInterface : Gtk.ApplicationWindow
 
     public void set_scan_devices (List<ScanDevice> devices, string? missing_driver = null)
     {
-        bool have_selection = false;
-        int index;
-        Gtk.TreeIter iter;
-
-        setting_devices = true;
-
         this.missing_driver = missing_driver;
 
-        /* If the user hasn't chosen a scanner choose the best available one */
-        if (user_selected_device)
-            have_selection = device_combo.active >= 0;
-
-        /* Add new devices */
-        index = 0;
-        foreach (var device in devices)
-        {
-            int n_delete = -1;
-
-            /* Find if already exists */
-            if (device_model.iter_nth_child (out iter, null, index))
-            {
-                int i = 0;
-                do
-                {
-                    string name;
-                    bool matched;
-
-                    device_model.get (iter, 0, out name, -1);
-                    matched = name == device.name;
-
-                    if (matched)
-                    {
-                        n_delete = i;
-                        break;
-                    }
-                    i++;
-                } while (device_model.iter_next (ref iter));
-            }
-
-            /* If exists, remove elements up to this one */
-            if (n_delete >= 0)
-            {
-                int i;
-
-                /* Update label */
-                device_model.set (iter, 1, device.label, -1);
-
-                for (i = 0; i < n_delete; i++)
-                {
-                    device_model.iter_nth_child (out iter, null, index);
-#if VALA_0_36
-                    device_model.remove (ref iter);
-#else
-                    device_model.remove (iter);
-#endif
-                }
-            }
-            else
-            {
-                device_model.insert (out iter, index);
-                device_model.set (iter, 0, device.name, 1, device.label, -1);
-            }
-            index++;
-        }
-
-        /* Remove any remaining devices */
-        while (device_model.iter_nth_child (out iter, null, index))
-#if VALA_0_36
-            device_model.remove (ref iter);
-#else
-            device_model.remove (iter);
-#endif
-
-        /* Select the previously selected device or the first available device */
-        if (!have_selection)
-        {
-            var device = settings.get_string ("selected-device");
-            if (device != null && find_scan_device (device, out iter))
-                device_combo.set_active_iter (iter);
-            else
-                device_combo.set_active (0);
-        }
-
-        setting_devices = false;
+        preferences_dialog.set_scan_devices (devices);
 
         update_info_bar ();
     }
@@ -519,7 +351,7 @@ public class UserInterface : Gtk.ApplicationWindow
                                                  Gtk.FileChooserAction.SAVE,
                                                  _("_Cancel"), Gtk.ResponseType.CANCEL,
                                                  _("_Save"), Gtk.ResponseType.ACCEPT,
-                                                 null);                                                 
+                                                 null);
         save_dialog.local_only = false;
         if (book_uri != null)
             save_dialog.set_uri (book_uri);
@@ -658,7 +490,7 @@ public class UserInterface : Gtk.ApplicationWindow
                                _("_Replace"), Gtk.ResponseType.ACCEPT);
             var response = dialog.run ();
             dialog.destroy ();
-            
+
             if (response != Gtk.ResponseType.ACCEPT)
                 return false;
         }
@@ -755,7 +587,7 @@ public class UserInterface : Gtk.ApplicationWindow
         book_uri = null;
         save_menuitem.sensitive = false;
         email_menuitem.sensitive = false;
-        print_menuitem.sensitive = false;        
+        print_menuitem.sensitive = false;
         save_button.sensitive = false;
         save_toolbutton.sensitive = false;
         copy_to_clipboard_menuitem.sensitive = false;
@@ -820,109 +652,22 @@ public class UserInterface : Gtk.ApplicationWindow
             set_document_hint ("photo", true);
     }
 
-    private void set_page_side (ScanType page_side)
-    {
-        Gtk.TreeIter iter;
-
-        if (page_side_model.get_iter_first (out iter))
-        {
-            do
-            {
-                int s;
-                page_side_model.get (iter, 0, out s, -1);
-                if (s == page_side)
-                {
-                    page_side_combo.set_active_iter (iter);
-                    return;
-                }
-            } while (page_side_model.iter_next (ref iter));
-         }
-    }
-
-    private void set_paper_size (int width, int height)
-    {
-        Gtk.TreeIter iter;
-        bool have_iter;
-
-        for (have_iter = paper_size_model.get_iter_first (out iter);
-             have_iter;
-             have_iter = paper_size_model.iter_next (ref iter))
-        {
-            int w, h;
-            paper_size_model.get (iter, 0, out w, 1, out h, -1);
-            if (w == width && h == height)
-               break;
-        }
-
-        if (!have_iter)
-            have_iter = paper_size_model.get_iter_first (out iter);
-        if (have_iter)
-            paper_size_combo.set_active_iter (iter);
-    }
-
-    private int get_text_dpi ()
-    {
-        Gtk.TreeIter iter;
-        int dpi = DEFAULT_TEXT_DPI;
-
-        if (text_dpi_combo.get_active_iter (out iter))
-            text_dpi_model.get (iter, 0, out dpi, -1);
-
-        return dpi;
-    }
-
-    private int get_photo_dpi ()
-    {
-        Gtk.TreeIter iter;
-        int dpi = DEFAULT_PHOTO_DPI;
-
-        if (photo_dpi_combo.get_active_iter (out iter))
-            photo_dpi_model.get (iter, 0, out dpi, -1);
-
-        return dpi;
-    }
-
-    private ScanType get_page_side ()
-    {
-        Gtk.TreeIter iter;
-        int page_side = ScanType.ADF_BOTH;
-
-        if (page_side_combo.get_active_iter (out iter))
-            page_side_model.get (iter, 0, out page_side, -1);
-
-        return (ScanType) page_side;
-    }
-
-    private bool get_paper_size (out int width, out int height)
-    {
-        Gtk.TreeIter iter;
-
-        width = height = 0;
-        if (paper_size_combo.get_active_iter (out iter))
-        {
-            paper_size_model.get (iter, 0, ref width, 1, ref height, -1);
-            return true;
-        }
-
-        return false;
-    }
-
     private ScanOptions make_scan_options ()
     {
         var options = new ScanOptions ();
         if (document_hint == "text")
         {
             options.scan_mode = ScanMode.GRAY;
-            options.dpi = get_text_dpi ();
+            options.dpi = preferences_dialog.get_text_dpi ();
             options.depth = 2;
         }
         else
         {
             options.scan_mode = ScanMode.COLOR;
-            options.dpi = get_photo_dpi ();
+            options.dpi = preferences_dialog.get_photo_dpi ();
             options.depth = 8;
         }
-        get_paper_size (out options.paper_width, out options.paper_height);
+        preferences_dialog.get_paper_size (out options.paper_width, out options.paper_height);
         options.brightness = brightness;
         options.contrast = contrast;
         options.page_delay = page_delay;
@@ -952,7 +697,7 @@ public class UserInterface : Gtk.ApplicationWindow
         else
         {
             var options = make_scan_options ();
-            options.type = get_page_side ();
+            options.type = preferences_dialog.get_page_side ();
             start_scan (selected_device, options);
         }
     }
@@ -974,18 +719,6 @@ public class UserInterface : Gtk.ApplicationWindow
     public void preferences_activate_cb ()
     {
         preferences_dialog.present ();
-    }
-
-    [GtkCallback]
-    private bool preferences_dialog_delete_event_cb (Gtk.Widget widget, Gdk.EventAny event)
-    {
-        return true;
-    }
-
-    [GtkCallback]
-    private void preferences_dialog_response_cb (Gtk.Widget widget, int response_id)
-    {
-        preferences_dialog.visible = false;
     }
 
     private void update_page_menu ()
@@ -1673,8 +1406,7 @@ public class UserInterface : Gtk.ApplicationWindow
         {
         /* Change scanner */
         case 1:
-            device_combo.grab_focus ();
-            preferences_dialog.present ();
+            preferences_dialog.present_device ();
             break;
         /* Install drivers */
         case 2:
@@ -1735,7 +1467,7 @@ public class UserInterface : Gtk.ApplicationWindow
         var instructions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         instructions_box.visible = true;
         dialog.get_content_area ().pack_start (instructions_box, true, true, 0);
-        
+
         var stack = new Gtk.Stack ();
         instructions_box.pack_start (stack, false, false, 0);
 
@@ -1749,14 +1481,14 @@ public class UserInterface : Gtk.ApplicationWindow
 
         var instructions_label = new Gtk.Label (instructions);
         instructions_label.visible = true;
-        instructions_label.xalign = 0f;        
+        instructions_label.xalign = 0f;
         instructions_label.use_markup = true;
         instructions_box.pack_start (instructions_label, false, false, 0);
 
         label = new Gtk.Label (/* Message in driver install dialog */
                                _("Once installed you will need to restart Simple Scan."));
         label.visible = true;
-        label.xalign = 0f;        
+        label.xalign = 0f;
         dialog.get_content_area ().border_width = 12;
         dialog.get_content_area ().pack_start (label, true, true, 0);
 
@@ -1888,44 +1620,11 @@ public class UserInterface : Gtk.ApplicationWindow
         update_page_menu ();
     }
 
-    private void set_dpi_combo (Gtk.ComboBox combo, int default_dpi, int current_dpi)
-    {
-        var renderer = new Gtk.CellRendererText ();
-        combo.pack_start (renderer, true);
-        combo.add_attribute (renderer, "text", 1);
-
-        var model = combo.model as Gtk.ListStore;
-        int[] scan_resolutions = {75, 150, 300, 600, 1200, 2400};
-        foreach (var dpi in scan_resolutions)
-        {
-            string label;
-            if (dpi == default_dpi)
-                /* Preferences dialog: Label for default resolution in resolution list */
-                label = _("%d dpi (default)").printf (dpi);
-            else if (dpi == 75)
-                /* Preferences dialog: Label for minimum resolution in resolution list */
-                label = _("%d dpi (draft)").printf (dpi);
-            else if (dpi == 1200)
-                /* Preferences dialog: Label for maximum resolution in resolution list */
-                label = _("%d dpi (high resolution)").printf (dpi);
-            else
-                /* Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch) */
-                label = _("%d dpi").printf (dpi);
-
-            Gtk.TreeIter iter;
-            model.append (out iter);
-            model.set (iter, 0, dpi, 1, label, -1);
-
-            if (dpi == current_dpi)
-                combo.set_active_iter (iter);
-        }
-    }
-
     private void book_changed_cb (Book book)
     {
         save_menuitem.sensitive = true;
         email_menuitem.sensitive = true;
-        print_menuitem.sensitive = true;        
+        print_menuitem.sensitive = true;
         save_button.sensitive = true;
         save_toolbutton.sensitive = true;
         book_needs_saving = true;
@@ -1934,6 +1633,10 @@ public class UserInterface : Gtk.ApplicationWindow
 
     private void load ()
     {
+        preferences_dialog = new PreferencesDialog (settings);
+        preferences_dialog.delete_event.connect (() => { return true; });
+        preferences_dialog.response.connect (() => { preferences_dialog.visible = false; });
+
         Gtk.IconTheme.get_default ().append_search_path (ICON_DIR);
 
         Gtk.Window.set_default_icon_name ("scanner");
@@ -2009,101 +1712,6 @@ public class UserInterface : Gtk.ApplicationWindow
         info_bar_install_button = info_bar.add_button (/* Button in error infobar to prompt user to install drivers */
                                                        _("_Install Drivers"), 2) as Gtk.Button;
 
-        Gtk.TreeIter iter;
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 0, 1, 0, 2,
-                              /* Combo box value for automatic paper size */
-                              _("Automatic"), -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 1050, 1, 1480, 2, "A6", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 1480, 1, 2100, 2, "A5", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 2100, 1, 2970, 2, "A4", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 2159, 1, 2794, 2, "Letter", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 2159, 1, 3556, 2, "Legal", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 1016, 1, 1524, 2, "4×6", -1);
-
-        var dpi = settings.get_int ("text-dpi");
-        if (dpi <= 0)
-            dpi = DEFAULT_TEXT_DPI;
-        set_dpi_combo (text_dpi_combo, DEFAULT_TEXT_DPI, dpi);
-        text_dpi_combo.changed.connect (() => { settings.set_int ("text-dpi", get_text_dpi ()); });
-        dpi = settings.get_int ("photo-dpi");
-        if (dpi <= 0)
-            dpi = DEFAULT_PHOTO_DPI;
-        set_dpi_combo (photo_dpi_combo, DEFAULT_PHOTO_DPI, dpi);
-        photo_dpi_combo.changed.connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
-
-        var renderer = new Gtk.CellRendererText ();
-        device_combo.pack_start (renderer, true);
-        device_combo.add_attribute (renderer, "text", 1);
-
-        renderer = new Gtk.CellRendererText ();
-        page_side_combo.pack_start (renderer, true);
-        page_side_combo.add_attribute (renderer, "text", 1);
-        set_page_side ((ScanType) settings.get_enum ("page-side"));
-        page_side_combo.changed.connect (() => { settings.set_enum ("page-side", get_page_side ()); });
-
-        renderer = new Gtk.CellRendererText ();
-        paper_size_combo.pack_start (renderer, true);
-        paper_size_combo.add_attribute (renderer, "text", 2);
-        var paper_width = settings.get_int ("paper-width");
-        var paper_height = settings.get_int ("paper-height");
-        set_paper_size (paper_width, paper_height);
-        paper_size_combo.changed.connect (() =>
-        {
-            int w, h;
-            get_paper_size (out w, out h);
-            settings.set_int ("paper-width", w);
-            settings.set_int ("paper-height", h);
-        });
-
-        var lower = brightness_adjustment.lower;
-        var darker_label = "<small>%s</small>".printf (_("Darker"));
-        var upper = brightness_adjustment.upper;
-        var lighter_label = "<small>%s</small>".printf (_("Lighter"));
-        brightness_scale.add_mark (lower, Gtk.PositionType.BOTTOM, darker_label);
-        brightness_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
-        brightness_scale.add_mark (upper, Gtk.PositionType.BOTTOM, lighter_label);
-        brightness = settings.get_int ("brightness");
-        brightness_adjustment.value_changed.connect (() => { settings.set_int ("brightness", brightness); });
-
-        lower = contrast_adjustment.lower;
-        var less_label = "<small>%s</small>".printf (_("Less"));
-        upper = contrast_adjustment.upper;
-        var more_label = "<small>%s</small>".printf (_("More"));
-        contrast_scale.add_mark (lower, Gtk.PositionType.BOTTOM, less_label);
-        contrast_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
-        contrast_scale.add_mark (upper, Gtk.PositionType.BOTTOM, more_label);
-        contrast = settings.get_int ("contrast");
-        contrast_adjustment.value_changed.connect (() => { settings.set_int ("contrast", contrast); });
-
-        lower = quality_adjustment.lower;
-        var minimum_label = "<small>%s</small>".printf (_("Minimum"));
-        upper = quality_adjustment.upper;
-        var maximum_label = "<small>%s</small>".printf (_("Maximum"));
-        quality_scale.add_mark (lower, Gtk.PositionType.BOTTOM, minimum_label);
-        quality_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
-        quality_scale.add_mark (upper, Gtk.PositionType.BOTTOM, maximum_label);
-        quality = settings.get_int ("jpeg-quality");
-        quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", quality); });
-
-        page_delay_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (500, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (1000, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (2000, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (4000, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (6000, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (8000, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (10000, Gtk.PositionType.BOTTOM, null);        
-        page_delay = settings.get_int ("page-delay");
-        page_delay_scale.format_value.connect ((value) => { return "%.1fs".printf (value / 1000.0); });
-        page_delay_adjustment.value_changed.connect (() => { settings.set_int ("page-delay", page_delay); });
-
         var document_type = settings.get_string ("document-type");
         if (document_type != null)
             set_document_hint (document_type);
@@ -2160,7 +1768,7 @@ public class UserInterface : Gtk.ApplicationWindow
             if (is_desktop (name))
                 return true;
         return false;
-    }   
+    }
 
     private string state_filename
     {
@@ -2267,7 +1875,7 @@ public class UserInterface : Gtk.ApplicationWindow
         f.set_integer ("window", "width", window_width);
         f.set_integer ("window", "height", window_height);
         f.set_boolean ("window", "is-maximized", window_is_maximized);
-        f.set_boolean ("window", "is-fullscreen", window_is_fullscreen);        
+        f.set_boolean ("window", "is-fullscreen", window_is_fullscreen);
         f.set_integer ("last-page", "width", default_page_width);
         f.set_integer ("last-page", "height", default_page_height);
         f.set_integer ("last-page", "dpi", default_page_dpi);
@@ -2338,6 +1946,462 @@ public class UserInterface : Gtk.ApplicationWindow
     public void start ()
     {
         visible = true;
+    }
+}
+
+[GtkTemplate (ui = "/org/gnome/SimpleScan/preferences.ui")]
+private class PreferencesDialog : Gtk.Dialog
+{
+    private Settings settings;
+
+    private bool setting_devices;
+    private bool user_selected_device;
+
+    [GtkChild]
+    private Gtk.ComboBox device_combo;
+    [GtkChild]
+    private Gtk.ComboBox text_dpi_combo;
+    [GtkChild]
+    private Gtk.ComboBox photo_dpi_combo;
+    [GtkChild]
+    private Gtk.ComboBox page_side_combo;
+    [GtkChild]
+    private Gtk.ComboBox paper_size_combo;
+    [GtkChild]
+    private Gtk.Scale brightness_scale;
+    [GtkChild]
+    private Gtk.Scale contrast_scale;
+    [GtkChild]
+    private Gtk.Scale quality_scale;
+    [GtkChild]
+    private Gtk.Scale page_delay_scale;
+    [GtkChild]
+    private Gtk.ListStore device_model;
+    [GtkChild]
+    private Gtk.ListStore text_dpi_model;
+    [GtkChild]
+    private Gtk.ListStore photo_dpi_model;
+    [GtkChild]
+    private Gtk.ListStore page_side_model;
+    [GtkChild]
+    private Gtk.ListStore paper_size_model;
+    [GtkChild]
+    private Gtk.Adjustment brightness_adjustment;
+    [GtkChild]
+    private Gtk.Adjustment contrast_adjustment;
+    [GtkChild]
+    private Gtk.Adjustment quality_adjustment;
+    [GtkChild]
+    private Gtk.Adjustment page_delay_adjustment;
+
+    public PreferencesDialog (Settings settings)
+    {
+        this.settings = settings;
+
+        Gtk.TreeIter iter;
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 0, 1, 0, 2,
+                              /* Combo box value for automatic paper size */
+                              _("Automatic"), -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 1050, 1, 1480, 2, "A6", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 1480, 1, 2100, 2, "A5", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 2100, 1, 2970, 2, "A4", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 2159, 1, 2794, 2, "Letter", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 2159, 1, 3556, 2, "Legal", -1);
+        paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 1016, 1, 1524, 2, "4×6", -1);
+
+        page_delay_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (500, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (1000, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (2000, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (4000, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (6000, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (8000, Gtk.PositionType.BOTTOM, null);
+        page_delay_scale.add_mark (10000, Gtk.PositionType.BOTTOM, null);
+
+        var renderer = new Gtk.CellRendererText ();
+        device_combo.pack_start (renderer, true);
+        device_combo.add_attribute (renderer, "text", 1);
+
+        renderer = new Gtk.CellRendererText ();
+        page_side_combo.pack_start (renderer, true);
+        page_side_combo.add_attribute (renderer, "text", 1);
+        var dpi = settings.get_int ("text-dpi");
+        if (dpi <= 0)
+            dpi = DEFAULT_TEXT_DPI;
+        set_dpi_combo (text_dpi_combo, DEFAULT_TEXT_DPI, dpi);
+        text_dpi_combo.changed.connect (() => { settings.set_int ("text-dpi", get_text_dpi ()); });
+        dpi = settings.get_int ("photo-dpi");
+        if (dpi <= 0)
+            dpi = DEFAULT_PHOTO_DPI;
+        set_dpi_combo (photo_dpi_combo, DEFAULT_PHOTO_DPI, dpi);
+        photo_dpi_combo.changed.connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
+
+        set_page_side ((ScanType) settings.get_enum ("page-side"));
+        page_side_combo.changed.connect (() => { settings.set_enum ("page-side", get_page_side ()); });
+
+        renderer = new Gtk.CellRendererText ();
+        paper_size_combo.pack_start (renderer, true);
+        paper_size_combo.add_attribute (renderer, "text", 2);
+
+        var lower = brightness_adjustment.lower;
+        var darker_label = "<small>%s</small>".printf (_("Darker"));
+        var upper = brightness_adjustment.upper;
+        var lighter_label = "<small>%s</small>".printf (_("Lighter"));
+        brightness_scale.add_mark (lower, Gtk.PositionType.BOTTOM, darker_label);
+        brightness_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
+        brightness_scale.add_mark (upper, Gtk.PositionType.BOTTOM, lighter_label);
+        brightness_adjustment.value = settings.get_int ("brightness");
+        brightness_adjustment.value_changed.connect (() => { settings.set_int ("brightness", get_brightness ()); });
+
+        lower = contrast_adjustment.lower;
+        var less_label = "<small>%s</small>".printf (_("Less"));
+        upper = contrast_adjustment.upper;
+        var more_label = "<small>%s</small>".printf (_("More"));
+        contrast_scale.add_mark (lower, Gtk.PositionType.BOTTOM, less_label);
+        contrast_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
+        contrast_scale.add_mark (upper, Gtk.PositionType.BOTTOM, more_label);
+        contrast_adjustment.value = settings.get_int ("contrast");
+        contrast_adjustment.value_changed.connect (() => { settings.set_int ("contrast", get_contrast ()); });
+
+        lower = quality_adjustment.lower;
+        var minimum_label = "<small>%s</small>".printf (_("Minimum"));
+        upper = quality_adjustment.upper;
+        var maximum_label = "<small>%s</small>".printf (_("Maximum"));
+        quality_scale.add_mark (lower, Gtk.PositionType.BOTTOM, minimum_label);
+        quality_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
+        quality_scale.add_mark (upper, Gtk.PositionType.BOTTOM, maximum_label);
+        quality_adjustment.value = settings.get_int ("jpeg-quality");
+        quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", get_quality ()); });
+
+        var paper_width = settings.get_int ("paper-width");
+        var paper_height = settings.get_int ("paper-height");
+        set_paper_size (paper_width, paper_height);
+        paper_size_combo.changed.connect (() =>
+        {
+            int w, h;
+            get_paper_size (out w, out h);
+            settings.set_int ("paper-width", w);
+            settings.set_int ("paper-height", h);
+        });
+
+        set_page_delay (settings.get_int ("page-delay"));
+        page_delay_scale.format_value.connect ((value) => { return "%.1fs".printf (value / 1000.0); });
+        page_delay_adjustment.value_changed.connect (() => { settings.set_int ("page-delay", get_page_delay ()); });
+    }
+
+    public void present_device ()
+    {
+        device_combo.grab_focus ();
+        present ();
+    }
+
+    public void set_scan_devices (List<ScanDevice> devices)
+    {
+        setting_devices = true;
+
+        /* If the user hasn't chosen a scanner choose the best available one */
+        var have_selection = false;
+        if (user_selected_device)
+            have_selection = device_combo.active >= 0;
+
+        /* Add new devices */
+        int index = 0;
+        Gtk.TreeIter iter;
+        foreach (var device in devices)
+        {
+            int n_delete = -1;
+
+            /* Find if already exists */
+            if (device_model.iter_nth_child (out iter, null, index))
+            {
+                int i = 0;
+                do
+                {
+                    string name;
+                    bool matched;
+
+                    device_model.get (iter, 0, out name, -1);
+                    matched = name == device.name;
+
+                    if (matched)
+                    {
+                        n_delete = i;
+                        break;
+                    }
+                    i++;
+                } while (device_model.iter_next (ref iter));
+            }
+
+            /* If exists, remove elements up to this one */
+            if (n_delete >= 0)
+            {
+                int i;
+
+                /* Update label */
+                device_model.set (iter, 1, device.label, -1);
+
+                for (i = 0; i < n_delete; i++)
+                {
+                    device_model.iter_nth_child (out iter, null, index);
+#if VALA_0_36
+                    device_model.remove (ref iter);
+#else
+                    device_model.remove (iter);
+#endif
+                }
+            }
+            else
+            {
+                device_model.insert (out iter, index);
+                device_model.set (iter, 0, device.name, 1, device.label, -1);
+            }
+            index++;
+        }
+
+        /* Remove any remaining devices */
+        while (device_model.iter_nth_child (out iter, null, index))
+#if VALA_0_36
+            device_model.remove (ref iter);
+#else
+            device_model.remove (iter);
+#endif
+
+        /* Select the previously selected device or the first available device */
+        if (!have_selection)
+        {
+            var device = settings.get_string ("selected-device");
+            if (device != null && find_scan_device (device, out iter))
+                device_combo.set_active_iter (iter);
+            else
+                device_combo.set_active (0);
+        }
+
+        setting_devices = false;
+    }
+
+    public int get_device_count ()
+    {
+        return device_model.iter_n_children (null);
+    }
+
+    public string? get_selected_device ()
+    {
+        Gtk.TreeIter iter;
+
+        if (device_combo.get_active_iter (out iter))
+        {
+            string device;
+            device_model.get (iter, 0, out device, -1);
+            return device;
+        }
+
+        return null;
+    }
+
+    public void set_selected_device (string device)
+    {
+        user_selected_device = true;
+
+        Gtk.TreeIter iter;
+        if (!find_scan_device (device, out iter))
+            return;
+
+        device_combo.set_active_iter (iter);
+    }
+
+    private bool find_scan_device (string device, out Gtk.TreeIter iter)
+    {
+        bool have_iter = false;
+
+        if (device_model.get_iter_first (out iter))
+        {
+            do
+            {
+                string d;
+                device_model.get (iter, 0, out d, -1);
+                if (d == device)
+                    have_iter = true;
+            } while (!have_iter && device_model.iter_next (ref iter));
+        }
+
+        return have_iter;
+    }
+
+    private void set_page_side (ScanType page_side)
+    {
+        Gtk.TreeIter iter;
+
+        if (page_side_model.get_iter_first (out iter))
+        {
+            do
+            {
+                int s;
+                page_side_model.get (iter, 0, out s, -1);
+                if (s == page_side)
+                {
+                    page_side_combo.set_active_iter (iter);
+                    return;
+                }
+            } while (page_side_model.iter_next (ref iter));
+         }
+    }
+
+    public void set_paper_size (int width, int height)
+    {
+        Gtk.TreeIter iter;
+        bool have_iter;
+
+        for (have_iter = paper_size_model.get_iter_first (out iter);
+             have_iter;
+             have_iter = paper_size_model.iter_next (ref iter))
+        {
+            int w, h;
+            paper_size_model.get (iter, 0, out w, 1, out h, -1);
+            if (w == width && h == height)
+               break;
+        }
+
+        if (!have_iter)
+            have_iter = paper_size_model.get_iter_first (out iter);
+        if (have_iter)
+            paper_size_combo.set_active_iter (iter);
+    }
+
+    public int get_text_dpi ()
+    {
+        Gtk.TreeIter iter;
+        int dpi = DEFAULT_TEXT_DPI;
+
+        if (text_dpi_combo.get_active_iter (out iter))
+            text_dpi_model.get (iter, 0, out dpi, -1);
+
+        return dpi;
+    }
+
+    public int get_photo_dpi ()
+    {
+        Gtk.TreeIter iter;
+        int dpi = DEFAULT_PHOTO_DPI;
+
+        if (photo_dpi_combo.get_active_iter (out iter))
+            photo_dpi_model.get (iter, 0, out dpi, -1);
+
+        return dpi;
+    }
+
+    public ScanType get_page_side ()
+    {
+        Gtk.TreeIter iter;
+        int page_side = ScanType.ADF_BOTH;
+
+        if (page_side_combo.get_active_iter (out iter))
+            page_side_model.get (iter, 0, out page_side, -1);
+
+        return (ScanType) page_side;
+    }
+
+    public bool get_paper_size (out int width, out int height)
+    {
+        Gtk.TreeIter iter;
+
+        width = height = 0;
+        if (paper_size_combo.get_active_iter (out iter))
+        {
+            paper_size_model.get (iter, 0, ref width, 1, ref height, -1);
+            return true;
+        }
+
+        return false;
+    }
+
+    public int get_brightness ()
+    {
+        return (int) brightness_adjustment.value;
+    }
+
+    public void set_brightness (int brightness)
+    {
+        brightness_adjustment.value = brightness;
+    }
+
+    public int get_contrast ()
+    {
+        return (int) contrast_adjustment.value;
+    }
+
+    public void set_contrast (int contrast)
+    {
+        contrast_adjustment.value = contrast;
+    }
+
+    public int get_quality ()
+    {
+        return (int) quality_adjustment.value;
+    }
+
+    public void set_quality (int quality)
+    {
+        quality_adjustment.value = quality;
+    }
+
+    public int get_page_delay ()
+    {
+        return (int) page_delay_adjustment.value;
+    }
+
+    public void set_page_delay (int page_delay)
+    {
+        page_delay_adjustment.value = page_delay;
+    }
+
+    private void set_dpi_combo (Gtk.ComboBox combo, int default_dpi, int current_dpi)
+    {
+        var renderer = new Gtk.CellRendererText ();
+        combo.pack_start (renderer, true);
+        combo.add_attribute (renderer, "text", 1);
+
+        var model = combo.model as Gtk.ListStore;
+        int[] scan_resolutions = {75, 150, 300, 600, 1200, 2400};
+        foreach (var dpi in scan_resolutions)
+        {
+            string label;
+            if (dpi == default_dpi)
+                /* Preferences dialog: Label for default resolution in resolution list */
+                label = _("%d dpi (default)").printf (dpi);
+            else if (dpi == 75)
+                /* Preferences dialog: Label for minimum resolution in resolution list */
+                label = _("%d dpi (draft)").printf (dpi);
+            else if (dpi == 1200)
+                /* Preferences dialog: Label for maximum resolution in resolution list */
+                label = _("%d dpi (high resolution)").printf (dpi);
+            else
+                /* Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch) */
+                label = _("%d dpi").printf (dpi);
+
+            Gtk.TreeIter iter;
+            model.append (out iter);
+            model.set (iter, 0, dpi, 1, label, -1);
+
+            if (dpi == current_dpi)
+                combo.set_active_iter (iter);
+        }
+    }
+
+    [GtkCallback]
+    private void device_combo_changed_cb (Gtk.Widget widget)
+    {
+        if (setting_devices)
+            return;
+        user_selected_device = true;
+        if (get_selected_device () != null)
+            settings.set_string ("selected-device", get_selected_device ());
     }
 }
 
