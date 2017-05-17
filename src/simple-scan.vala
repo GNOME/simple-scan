@@ -32,7 +32,7 @@ public class SimpleScan : Gtk.Application
     private ScanDevice? default_device = null;
     private bool have_devices = false;
     private GUsb.Context usb_context;
-    private UserInterface ui;
+    private AppWindow app;
     private Scanner scanner;
     private Book book;
 
@@ -45,10 +45,10 @@ public class SimpleScan : Gtk.Application
     {
         base.startup ();
 
-        ui = new UserInterface ();
-        book = ui.book;
-        ui.start_scan.connect (scan_cb);
-        ui.stop_scan.connect (cancel_cb);
+        app = new AppWindow ();
+        book = app.book;
+        app.start_scan.connect (scan_cb);
+        app.stop_scan.connect (cancel_cb);
 
         scanner = Scanner.get_instance ();
         scanner.update_devices.connect (update_scan_devices_cb);
@@ -77,15 +77,15 @@ public class SimpleScan : Gtk.Application
             List<ScanDevice> device_list = null;
 
             device_list.append (default_device);
-            ui.set_scan_devices (device_list);
-            ui.selected_device = default_device.name;
+            app.set_scan_devices (device_list);
+            app.selected_device = default_device.name;
         }
     }
 
     public override void activate ()
     {
         base.activate ();
-        ui.start ();
+        app.start ();
         scanner.start ();
     }
 
@@ -93,7 +93,7 @@ public class SimpleScan : Gtk.Application
     {
         base.shutdown ();
         book = null;
-        ui = null;
+        app = null;
         usb_context = null;
         scanner.free ();
     }
@@ -126,7 +126,7 @@ public class SimpleScan : Gtk.Application
         if (!have_devices)
             missing_driver = suggest_driver ();
 
-        ui.set_scan_devices (devices_copy, missing_driver);
+        app.set_scan_devices (devices_copy, missing_driver);
     }
     
     /* Taken from /usr/local/Brother/sane/Brsane.ini from brscan driver */
@@ -211,7 +211,7 @@ public class SimpleScan : Gtk.Application
     private void authorize_cb (Scanner scanner, string resource)
     {
         string username, password;
-        ui.authorize (resource, out username, out password);
+        app.authorize (resource, out username, out password);
         scanner.authorize (username, password);
     }
 
@@ -221,7 +221,7 @@ public class SimpleScan : Gtk.Application
         var page = book.get_page (-1);
         if (page != null && !page.has_data)
         {
-            ui.selected_page = page;
+            app.selected_page = page;
             page.start ();
             return page;
         }
@@ -261,7 +261,7 @@ public class SimpleScan : Gtk.Application
                 page.set_custom_crop (cw, ch);
             page.move_crop (cx, cy);
         }
-        ui.selected_page = page;
+        app.selected_page = page;
         page.start ();
 
         return page;
@@ -384,19 +384,19 @@ public class SimpleScan : Gtk.Application
         remove_empty_page ();
         if (error_code != Sane.Status.CANCELLED)
         {
-            ui.show_error (/* Title of error dialog when scan failed */
-                           _("Failed to scan"),
-                           error_string,
-                           have_devices);
+            app.show_error (/* Title of error dialog when scan failed */
+                            _("Failed to scan"),
+                            error_string,
+                            have_devices);
         }
     }
 
     private void scanner_scanning_changed_cb (Scanner scanner)
     {
-        ui.scanning = scanner.is_scanning ();
+        app.scanning = scanner.is_scanning ();
     }
 
-    private void scan_cb (UserInterface ui, string? device, ScanOptions options)
+    private void scan_cb (AppWindow ui, string? device, ScanOptions options)
     {
         debug ("Requesting scan at %d dpi from device '%s'", options.dpi, device);
 
@@ -406,7 +406,7 @@ public class SimpleScan : Gtk.Application
         scanner.scan (device, options);
     }
 
-    private void cancel_cb (UserInterface ui)
+    private void cancel_cb (AppWindow ui)
     {
         scanner.cancel ();
     }
