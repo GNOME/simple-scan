@@ -109,15 +109,6 @@ public class UserInterface : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.RadioMenuItem photo_menuitem;
 
-    [GtkChild]
-    private Gtk.Dialog authorize_dialog;
-    [GtkChild]
-    private Gtk.Label authorize_label;
-    [GtkChild]
-    private Gtk.Entry username_entry;
-    [GtkChild]
-    private Gtk.Entry password_entry;
-
     private string? missing_driver = null;
 
     private Gtk.FileChooserDialog? save_dialog;
@@ -261,17 +252,14 @@ public class UserInterface : Gtk.ApplicationWindow
     {
         /* Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization */
         var description = _("Username and password required to access “%s”").printf (resource);
-
-        username_entry.text = "";
-        password_entry.text = "";
-        authorize_label.set_text (description);
-
+        var authorize_dialog = new AuthorizeDialog (description);
         authorize_dialog.visible = true;
+        authorize_dialog.transient_for = this;
         authorize_dialog.run ();
-        authorize_dialog.visible = false;
+        authorize_dialog.destroy ();
 
-        username = username_entry.text;
-        password = password_entry.text;
+        username = authorize_dialog.get_username ();
+        password = authorize_dialog.get_password ();
     }
 
     private void update_info_bar ()
@@ -1724,7 +1712,6 @@ public class UserInterface : Gtk.ApplicationWindow
         book_view.show_menu.connect (show_page_menu_cb);
         book_view.visible = true;
 
-        authorize_dialog.transient_for = this;
         preferences_dialog.transient_for = this;
 
         /* Load previous state */
@@ -2532,5 +2519,31 @@ private class PageIcon : Gtk.DrawingArea
         c.show_text (text);
 
         return true;
+    }
+}
+
+[GtkTemplate (ui = "/org/gnome/SimpleScan/authorize-dialog.ui")]
+private class AuthorizeDialog : Gtk.Dialog
+{
+    [GtkChild]
+    private Gtk.Label authorize_label;
+    [GtkChild]
+    private Gtk.Entry username_entry;
+    [GtkChild]
+    private Gtk.Entry password_entry;
+
+    public AuthorizeDialog (string title)
+    {
+        authorize_label.set_text (title);
+    }
+
+    public string get_username ()
+    {
+        return username_entry.text;
+    }
+
+    public string get_password ()
+    {
+        return password_entry.text;
     }
 }
