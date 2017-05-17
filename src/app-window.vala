@@ -1621,7 +1621,9 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void load ()
     {
-        preferences_dialog = new PreferencesDialog (settings);
+        var use_header_bar = !is_traditional_desktop ();
+
+        preferences_dialog = new PreferencesDialog (settings, use_header_bar);
         preferences_dialog.delete_event.connect (() => { return true; });
         preferences_dialog.response.connect (() => { preferences_dialog.visible = false; });
 
@@ -1631,7 +1633,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
         var app = Application.get_default () as Gtk.Application;
 
-        if (is_traditional_desktop ())
+        if (!use_header_bar)
         {
             set_titlebar (null);
             menubar.visible = true;

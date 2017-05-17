@@ -56,9 +56,16 @@ private class PreferencesDialog : Gtk.Dialog
     private Gtk.Adjustment quality_adjustment;
     [GtkChild]
     private Gtk.Adjustment page_delay_adjustment;
+    [GtkChild]
+    private Gtk.Button preferences_close_button;
 
-    public PreferencesDialog (Settings settings)
+    public PreferencesDialog (Settings settings, bool use_header_bar)
     {
+        Object (use_header_bar: use_header_bar ? 1 : -1);
+
+        if (use_header_bar)
+            preferences_close_button.visible = false;
+
         this.settings = settings;
 
         Gtk.TreeIter iter;
