@@ -109,6 +109,9 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.RadioMenuItem photo_menuitem;
 
+    [GtkChild]
+    private Gtk.MenuButton menu_button;
+
     private string? missing_driver = null;
 
     private Gtk.FileChooserDialog? save_dialog;
@@ -1650,15 +1653,6 @@ public class AppWindow : Gtk.ApplicationWindow
 
             section = new Menu ();
             appmenu.append_section (null, section);
-            var menu = new Menu ();
-            section.append_submenu (_("Document"), menu);
-            menu.append (_("Reorder Pages"), "app.reorder");
-            menu.append (_("Save"), "app.save");
-            menu.append (_("Email…"), "app.email");
-            menu.append (_("Print…"), "app.print");
-
-            section = new Menu ();
-            appmenu.append_section (null, section);
             section.append (_("Preferences"), "app.preferences");
 
             section = new Menu ();
@@ -1675,6 +1669,13 @@ public class AppWindow : Gtk.ApplicationWindow
             app.add_accelerator ("<Ctrl>P", "app.print", null);
             app.add_accelerator ("F1", "app.help", null);
             app.add_accelerator ("<Ctrl>Q", "app.quit", null);
+
+            var gear_menu = new Menu ();
+            section = new Menu ();
+            gear_menu.append_section (null, section);
+            section.append (_("Reorder Pages"), "app.reorder");
+            section.append (_("Preferences"), "app.preferences");
+            menu_button.set_menu_model (gear_menu);
         }
         app.add_window (this);
 
