@@ -317,6 +317,9 @@ public class AppWindow : Gtk.ApplicationWindow
                                 _("Image Files"));
         filter.add_mime_type ("image/jpeg");
         filter.add_mime_type ("image/png");
+#if HAVE_WEBP
+        filter.add_mime_type ("image/webp");
+#endif
         filter.add_mime_type ("application/pdf");
         save_dialog.add_filter (filter);
         filter = new Gtk.FileFilter ();
@@ -345,12 +348,20 @@ public class AppWindow : Gtk.ApplicationWindow
                              0, _("PNG (lossless)"),
                              1, ".png",
                              -1);
+#if HAVE_WEBP
+        file_type_store.append (out iter);
+        file_type_store.set (iter,
+                             /* Save dialog: Label for sabing in WEBP format */
+                             0, _("WebP (compressed)"),
+                             1, ".webp",
+                             -1);
+#endif
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         box.visible = true;
         save_dialog.set_extra_widget (box);
 
-        /* Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG) */
+        /* Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP) */
         var label = new Gtk.Label (_("File format:"));
         label.visible = true;
         box.pack_start (label, false, false, 0);
@@ -396,8 +407,8 @@ public class AppWindow : Gtk.ApplicationWindow
             filename = filename + extension;
             save_dialog.set_current_name (filename);
 
-            /* Quality only applicable for JPEG */
-            quality_scale.visible = quality_label.visible = extension == ".jpg";
+            /* Quality not applicable to PNG */
+            quality_scale.visible = quality_label.visible = (extension != ".png");
         });
 
         string? uri = null;
@@ -424,7 +435,11 @@ public class AppWindow : Gtk.ApplicationWindow
             /* Check the file(s) don't already exist */
             var files = new List<File> ();
             var format = uri_to_format (uri);
+#if HAVE_WEBP
+            if (format == "jpeg" || format == "png" || format == "webp")
+#else
             if (format == "jpeg" || format == "png")
+#endif
             {
                 for (var j = 0; j < book.n_pages; j++)
                     files.append (book.make_indexed_file (uri, j));
@@ -474,6 +489,10 @@ public class AppWindow : Gtk.ApplicationWindow
             return "pdf";
         else if (uri_lower.has_suffix (".png"))
             return "png";
+#if HAVE_WEBP
+        else if (uri_lower.has_suffix (".webp"))
+            return "webp";
+#endif
         else
             return "jpeg";
     }

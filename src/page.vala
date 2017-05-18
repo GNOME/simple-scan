@@ -676,6 +676,45 @@ public class Page
                 keys[2] = null;
             writer.save (image, "png", keys, values);
         }
+#if HAVE_WEBP
+        else if (strcmp (type, "webp") == 0)
+        {
+            var webp_data = WebP.encode_rgb (image.get_pixels (),
+                                             image.get_width (),
+                                             image.get_height (),
+                                             image.get_rowstride (),
+                                             (float) quality);
+#if HAVE_COLORD
+            WebP.MuxError mux_error;
+            var mux = WebP.Mux.new_mux ();
+            uint8[] output;
+
+            mux_error = mux.set_image (webp_data, false);
+            debug ("mux.set_image: %s", mux_error.to_string ());
+
+            if (icc_profile_data != null)
+            {
+                mux_error = mux.set_chunk ("ICCP", icc_profile_data.data, false);
+                debug ("mux.set_chunk: %s", mux_error.to_string ());
+                if (mux_error != WebP.MuxError.OK)
+                    warning ("icc profile data not saved in %s", file.get_basename ());
+            }
+
+            mux_error = mux.assemble (out output);
+            debug ("mux.assemble: %s", mux_error.to_string ());
+            if (mux_error != WebP.MuxError.OK)
+                throw new FileError.FAILED (_("Unable to encode %s").printf (file.get_basename ()));
+
+            stream.write_all (output, null);
+#else
+
+            if (webp_data.length == 0)
+                throw new FileError.FAILED (_("Unable to encode %s").printf (file.get_basename ()));
+
+            stream.write_all (webp_data, null);
+#endif
+        }
+#endif
         else
             throw new FileError.INVAL ("Unknown file type: %s".printf (type));
     }

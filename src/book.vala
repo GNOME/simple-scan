@@ -569,11 +569,16 @@ public class Book
         {
         case "jpeg":
         case "png":
+#if HAVE_WEBP
+        case "webp":
+#endif
             save_multi_file (type, quality, file);
             break;
         case "pdf":
             save_pdf (file, quality);
             break;
+        default:
+            throw new FileError.INVAL ("Unknown file type: %s".printf (type));
         }
     }
 }

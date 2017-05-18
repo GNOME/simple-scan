@@ -12,7 +12,7 @@ https://launchpad.net/simple-scan
 
 Install the dependencies (on Ubuntu/Debian):
 ```
-$ sudo apt install bzr meson valac libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libsane-dev gettext itstool
+$ sudo apt install bzr meson valac libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev gettext itstool
 ```
 
 Get the source:

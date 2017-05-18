@@ -12,6 +12,10 @@ if packagekit_dep.found ()
     vala_args += [ '-D', 'HAVE_PACKAGEKIT' ]
     dependencies += packagekit_dep
 endif
+if webp_dep.found () and (not colord_dep.found () or webpmux_dep.found ()) # Webpmux only required if colord
+    vala_args += [ '-D', 'HAVE_WEBP' ]
+    dependencies += [ webp_dep, webpmux_dep ]
+endif
 
 simple_scan = executable ('simple-scan',
                           [ 'config.vapi',
