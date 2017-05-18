@@ -621,30 +621,3 @@ private class PDFWriter
         object_offsets[index - 1] = (uint)offset;
     }
 }
-
-public class PsWriter
-{
-    public Cairo.PsSurface surface;
-    public FileOutputStream stream;
-
-    public PsWriter (FileOutputStream stream)
-    {
-        this.stream = stream;
-        surface = new Cairo.PsSurface.for_stream (write_cairo_data, 0, 0);
-    }
-
-    private Cairo.Status write_cairo_data (uint8[] data)
-    {
-        try
-        {
-            stream.write_all (data, null, null);
-        }
-        catch (Error e)
-        {
-            warning ("Error writing data: %s", e.message);
-            return Cairo.Status.WRITE_ERROR;
-        }
-
-        return Cairo.Status.SUCCESS;
-    }
-}
