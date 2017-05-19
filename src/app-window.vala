@@ -90,6 +90,8 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.ToggleButton crop_button;
     [GtkChild]
+    private Gtk.Button delete_button;
+    [GtkChild]
     private Gtk.Button stop_button;
     [GtkChild]
     private Gtk.Button scan_button;
@@ -155,6 +157,7 @@ public class AppWindow : Gtk.ApplicationWindow
         {
             scanning_ = value;
             page_delete_menuitem.sensitive = !value;
+            delete_button.sensitive = !value;
             stop_scan_menuitem.sensitive = value;
             stop_toolbutton.sensitive = value;
             scan_button.visible = !value;
@@ -873,6 +876,12 @@ public class AppWindow : Gtk.ApplicationWindow
             custom_crop_menuitem.active = true;
         else
             no_crop_menuitem.active = true;
+    }
+
+    [GtkCallback]
+    private void delete_button_clicked_cb (Gtk.Button widget)
+    {
+        book_view.book.delete_page (book_view.selected_page);
     }
 
     [GtkCallback]

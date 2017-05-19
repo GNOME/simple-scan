@@ -672,7 +672,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="receives_default">False</property>
-                    <property name="tooltip_text" translatable="yes">Crop the selected page</property>
+                    <property name="tooltip_text" translatable="yes" comments="Tooltip for crop button">Crop the selected page</property>
                     <property name="use_underline">True</property>
                     <signal name="toggled" handler="crop_button_toggled_cb" swapped="no"/>
                     <child>
@@ -689,6 +689,30 @@
                   </object>
                   <packing>
                     <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="delete_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="tooltip_text" translatable="yes" comments="Tooltip for delete button">Delete the selected page</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="delete_button_clicked_cb" swapped="no"/>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon_name">edit-delete-symbolic</property>
+                        <property name="icon_size">1</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="image-button"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
