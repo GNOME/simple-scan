@@ -90,8 +90,6 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.ToggleButton crop_button;
     [GtkChild]
-    private Gtk.ToggleToolButton crop_toolbutton;
-    [GtkChild]
     private Gtk.Button stop_button;
     [GtkChild]
     private Gtk.Button scan_button;
@@ -762,7 +760,6 @@ public class AppWindow : Gtk.ApplicationWindow
 
         menuitem.active = true;
         crop_button.active = page.has_crop;
-        crop_toolbutton.active = page.has_crop;
 
         updating_page_menu = false;
     }
@@ -868,18 +865,6 @@ public class AppWindow : Gtk.ApplicationWindow
 
     [GtkCallback]
     private void crop_button_toggled_cb (Gtk.ToggleButton widget)
-    {
-        if (updating_page_menu)
-            return;
-
-        if (widget.active)
-            custom_crop_menuitem.active = true;
-        else
-            no_crop_menuitem.active = true;
-    }
-
-    [GtkCallback]
-    private void crop_toolbutton_toggled_cb (Gtk.ToggleToolButton widget)
     {
         if (updating_page_menu)
             return;
@@ -1649,7 +1634,7 @@ public class AppWindow : Gtk.ApplicationWindow
             var appmenu = new Menu ();
             var section = new Menu ();
             appmenu.append_section (null, section);
-            section.append (_("New Document"), "app.new_document");
+            section.append (_("Start Again…"), "app.new_document");
 
             section = new Menu ();
             appmenu.append_section (null, section);
@@ -1709,7 +1694,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
         book_view = new BookView (book);
         book_view.border_width = 18;
-        main_vbox.pack_end (book_view, true, true, 0);
+        main_vbox.pack_start (book_view, true, true, 0);
         book_view.page_selected.connect (page_selected_cb);
         book_view.show_page.connect (show_page_cb);
         book_view.show_menu.connect (show_page_menu_cb);

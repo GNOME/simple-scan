@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.20.0 -->
 <interface>
-  <requires lib="gtk+" version="3.10"/>
+  <requires lib="gtk+" version="3.12"/>
   <object class="GtkImage" id="email_image">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -265,8 +265,8 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="quit_menuitem_activate_cb" swapped="no"/>
-                        <accelerator key="w" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                         <accelerator key="q" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                        <accelerator key="w" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                     </child>
                   </object>
@@ -514,21 +514,6 @@
           <object class="GtkToolbar" id="toolbar">
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkToolButton" id="new_toolbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes" comments="Tooltip for new document button">Start a new document</property>
-                <property name="label" translatable="yes">New</property>
-                <property name="use_underline">True</property>
-                <property name="stock_id">gtk-new</property>
-                <signal name="clicked" handler="new_button_clicked_cb" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkMenuToolButton" id="scan_toolbutton">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -577,62 +562,6 @@
                 <property name="homogeneous">True</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkSeparatorToolItem" id="toolbutton2">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolButton" id="rotate_left_toolbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes" comments="Tooltip for rotate left (counter-clockwise) button">Rotate the page to the left (counter-clockwise)</property>
-                <property name="label" translatable="yes" comments="Label on rotate page left (anti-clockwise) item">Rotate Left</property>
-                <property name="use_underline">True</property>
-                <property name="icon_name">object-rotate-left</property>
-                <signal name="clicked" handler="rotate_left_button_clicked_cb" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolButton" id="rotate_right_toolbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes" comments="Tooltip for rotate right (clockwise) button">Rotate the page to the right (clockwise)</property>
-                <property name="label" translatable="yes" comments="Label on rotate page right (clockwise) item">Rotate Right</property>
-                <property name="use_underline">True</property>
-                <property name="icon_name">object-rotate-right</property>
-                <signal name="clicked" handler="rotate_right_button_clicked_cb" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToggleToolButton" id="crop_toolbutton">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="tooltip_text" translatable="yes">Crop the selected page</property>
-                <property name="is_important">True</property>
-                <property name="label" translatable="yes">Crop</property>
-                <property name="use_underline">True</property>
-                <property name="icon_name">object-crop</property>
-                <signal name="toggled" handler="crop_toolbutton_toggled_cb" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
             <style>
               <class name="primary-toolbar"/>
             </style>
@@ -645,6 +574,135 @@
         </child>
         <child>
           <placeholder/>
+        </child>
+        <child>
+          <object class="GtkActionBar">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkButton" id="new_toolbutton">
+                <property name="label" translatable="yes" comments="Label on new document button">Start Again…</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for new document button">Start a new document</property>
+                <signal name="clicked" handler="new_button_clicked_cb" swapped="no"/>
+                <style>
+                  <class name="text-button"/>
+                </style>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child type="center">
+              <object class="GtkBox">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="valign">center</property>
+                <property name="spacing">10</property>
+                <child>
+                  <object class="GtkBox" id="rotate_box">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <child>
+                      <object class="GtkButton" id="rotate_right_button">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="receives_default">False</property>
+                        <property name="tooltip_text" translatable="yes" comments="Tooltip for rotate right (clockwise) button">Rotate the page to the right (clockwise)</property>
+                        <property name="use_underline">True</property>
+                        <signal name="clicked" handler="rotate_right_button_clicked_cb" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="objectrotateright-button">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">object-rotate-right-symbolic</property>
+                            <property name="icon_size">1</property>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="image-button"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack_type">end</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="rotate_left_button">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="receives_default">False</property>
+                        <property name="tooltip_text" translatable="yes" comments="Tooltip for rotate left (counter-clockwise) button">Rotate the page to the left (counter-clockwise)</property>
+                        <property name="use_underline">True</property>
+                        <signal name="clicked" handler="rotate_left_button_clicked_cb" swapped="no"/>
+                        <child>
+                          <object class="GtkImage" id="objectrotateleft-button">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">object-rotate-left-symbolic</property>
+                            <property name="icon_size">1</property>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="image-button"/>
+                        </style>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="pack_type">end</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <style>
+                      <class name="linked"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="crop_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="tooltip_text" translatable="yes">Crop the selected page</property>
+                    <property name="use_underline">True</property>
+                    <signal name="toggled" handler="crop_button_toggled_cb" swapped="no"/>
+                    <child>
+                      <object class="GtkImage" id="objectcrop-button">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon_name">edit-cut-symbolic</property>
+                        <property name="icon_size">1</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="image-button"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">3</property>
+          </packing>
         </child>
       </object>
     </child>
@@ -722,6 +780,29 @@
           </object>
         </child>
         <child>
+          <object class="GtkMenuButton" id="menu_button">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="icon_name">open-menu-symbolic</property>
+                <property name="icon_size">1</property>
+              </object>
+            </child>
+            <style>
+              <class name="image-button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkButton" id="save_button">
             <property name="visible">True</property>
             <property name="sensitive">False</property>
@@ -743,147 +824,8 @@
             </style>
           </object>
           <packing>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="new_button">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes" comments="Tooltip for new document button">Start a new document</property>
-            <property name="use_underline">True</property>
-            <signal name="clicked" handler="new_button_clicked_cb" swapped="no"/>
-            <child>
-              <object class="GtkImage" id="new_image">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="icon_name">document-new-symbolic</property>
-                <property name="icon_size">1</property>
-              </object>
-            </child>
-            <style>
-              <class name="image-button"/>
-            </style>
-          </object>
-          <packing>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkMenuButton" id="menu_button">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="icon_name">open-menu-symbolic</property>
-                <property name="icon_size">1</property>
-              </object>
-            </child>
-            <style>
-              <class name="image-button"/>
-            </style>
-          </object>
-          <packing>
             <property name="pack_type">end</property>
             <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="rotate_box">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="valign">center</property>
-            <child>
-              <object class="GtkButton" id="rotate_right_button">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes" comments="Tooltip for rotate right (clockwise) button">Rotate the page to the right (clockwise)</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="rotate_right_button_clicked_cb" swapped="no"/>
-                <child>
-                  <object class="GtkImage" id="objectrotateright-button">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="icon_name">object-rotate-right-symbolic</property>
-                    <property name="icon_size">1</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="image-button"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="rotate_left_button">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes" comments="Tooltip for rotate left (counter-clockwise) button">Rotate the page to the left (counter-clockwise)</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="rotate_left_button_clicked_cb" swapped="no"/>
-                <child>
-                  <object class="GtkImage" id="objectrotateleft-button">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="icon_name">object-rotate-left-symbolic</property>
-                    <property name="icon_size">1</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="image-button"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <style>
-              <class name="linked"/>
-            </style>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="crop_button">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes">Crop the selected page</property>
-            <property name="use_underline">True</property>
-            <signal name="toggled" handler="crop_button_toggled_cb" swapped="no"/>
-            <child>
-              <object class="GtkImage" id="objectcrop-button">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="icon_name">edit-cut-symbolic</property>
-                <property name="icon_size">1</property>
-              </object>
-            </child>
-            <style>
-              <class name="image-button"/>
-            </style>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">5</property>
           </packing>
         </child>
         <style>
