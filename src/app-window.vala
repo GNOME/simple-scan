@@ -88,13 +88,13 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.ToolButton stop_toolbutton;
     [GtkChild]
-    private Gtk.ToggleButton crop_button;
-    [GtkChild]
-    private Gtk.Button delete_button;
-    [GtkChild]
     private Gtk.Button stop_button;
     [GtkChild]
     private Gtk.Button scan_button;
+    [GtkChild]
+    private Gtk.ActionBar action_bar;
+    private Gtk.ToggleButton crop_button;
+    private Gtk.Button delete_button;
 
     [GtkChild]
     private Gtk.RadioMenuItem text_button_menuitem;
@@ -877,24 +877,6 @@ public class AppWindow : Gtk.ApplicationWindow
     {
         if (widget.active)
             set_crop ("custom");
-    }
-
-    [GtkCallback]
-    private void crop_button_toggled_cb (Gtk.ToggleButton widget)
-    {
-        if (updating_page_menu)
-            return;
-
-        if (widget.active)
-            custom_crop_menuitem.active = true;
-        else
-            no_crop_menuitem.active = true;
-    }
-
-    [GtkCallback]
-    private void delete_button_clicked_cb (Gtk.Button widget)
-    {
-        book_view.book.delete_page (book_view.selected_page);
     }
 
     [GtkCallback]
@@ -1709,6 +1691,62 @@ public class AppWindow : Gtk.ApplicationWindow
                                                               _("Change _Scanner"), 1) as Gtk.Button;
         info_bar_install_button = info_bar.add_button (/* Button in error infobar to prompt user to install drivers */
                                                        _("_Install Drivers"), 2) as Gtk.Button;
+
+        /* Populate ActionBar (not supported in Glade) */
+        var button = new Gtk.Button.with_label (/* Label on new document button */
+                                               _("Start Again…"));
+        button.visible = true;
+        button.clicked.connect (new_button_clicked_cb);
+        action_bar.pack_start (button);
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
+        box.visible = true;
+        action_bar.set_center_widget (box);
+
+        var rotate_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        rotate_box.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+        rotate_box.visible = true;
+        box.pack_start (rotate_box, false, true, 0);
+
+        button = new Gtk.Button.from_icon_name ("object-rotate-left-symbolic");
+        button.visible = true;
+        /* Tooltip for rotate left (counter-clockwise) button */
+        button.tooltip_text = _("Rotate the page to the left (counter-clockwise)");
+        button.clicked.connect (rotate_left_button_clicked_cb);
+        rotate_box.pack_start (button, false, true, 0);
+
+        button = new Gtk.Button.from_icon_name ("object-rotate-right-symbolic");
+        button.visible = true;
+        /* Tooltip for rotate right (clockwise) button */
+        button.tooltip_text = _("Rotate the page to the right (clockwise)");
+        button.clicked.connect (rotate_right_button_clicked_cb);
+        rotate_box.pack_start (button, false, true, 0);
+
+        crop_button = new Gtk.ToggleButton ();
+        crop_button.visible = true;
+        var image = new Gtk.Image.from_icon_name ("edit-cut-symbolic", Gtk.IconSize.BUTTON);
+        image.visible = true;
+        crop_button.add (image);
+        /* Tooltip for crop button */
+        crop_button.tooltip_text = _("Crop the selected page");
+        crop_button.toggled.connect ((widget) =>
+        {
+            if (updating_page_menu)
+                return;
+
+            if (widget.active)
+                custom_crop_menuitem.active = true;
+            else
+                no_crop_menuitem.active = true;
+        });
+        box.pack_start (crop_button, false, true, 0);
+
+        delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic");
+        delete_button.visible = true;
+        /* Tooltip for delete button */
+        delete_button.tooltip_text = _("Delete the selected page");
+        delete_button.clicked.connect (() => { book_view.book.delete_page (book_view.selected_page); });
+        box.pack_start (delete_button, false, true, 0);
 
         var document_type = settings.get_string ("document-type");
         if (document_type != null)
