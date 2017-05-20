@@ -106,10 +106,9 @@
             <property name="orientation">vertical</property>
             <property name="spacing">30</property>
             <child>
-              <object class="GtkGrid" id="grid3">
+              <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="border_width">5</property>
                 <property name="row_spacing">10</property>
                 <property name="column_spacing">10</property>
                 <child>
@@ -440,7 +439,7 @@
       <action-widget response="1">preferences_close_button</action-widget>
     </action-widgets>
   </template>
-  <object class="GtkSizeGroup">
+  <object class="GtkSizeGroup" id="label_size_group">
     <widgets>
       <widget name="source_label"/>
       <widget name="page_side_label"/>
