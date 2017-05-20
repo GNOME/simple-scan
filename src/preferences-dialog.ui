@@ -45,11 +45,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkAdjustment" id="quality_adjustment">
-    <property name="upper">100</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
   <object class="GtkListStore" id="text_dpi_model">
     <columns>
       <!-- column-name dpi -->
@@ -362,23 +357,6 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="quality_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes" comments="Label beside quality scale">Quality</property>
-                    <property name="use_underline">True</property>
-                    <property name="mnemonic_widget">quality_scale</property>
-                    <property name="xalign">1</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">2</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkLabel" id="page_delay_label">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -392,7 +370,7 @@
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
-                    <property name="top_attach">3</property>
+                    <property name="top_attach">2</property>
                   </packing>
                 </child>
                 <child>
@@ -422,19 +400,6 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkScale" id="quality_scale">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="hexpand">True</property>
-                    <property name="adjustment">quality_adjustment</property>
-                    <property name="draw_value">False</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">2</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkScale" id="page_delay_scale">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -443,7 +408,7 @@
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="top_attach">3</property>
+                    <property name="top_attach">2</property>
                   </packing>
                 </child>
               </object>
@@ -475,7 +440,6 @@
       <widget name="photo_dpi_label"/>
       <widget name="brightness_label"/>
       <widget name="contrast_label"/>
-      <widget name="quality_label"/>
       <widget name="page_delay_label"/>
     </widgets>
   </object>

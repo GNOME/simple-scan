@@ -184,12 +184,6 @@ public class AppWindow : Gtk.ApplicationWindow
         set { preferences_dialog.set_contrast (value); }
     }
 
-    public int quality
-    {
-        get { return preferences_dialog.get_quality (); }
-        set { preferences_dialog.set_quality (value); }
-    }
-
     public int page_delay
     {
         get { return preferences_dialog.get_page_delay (); }
@@ -402,6 +396,23 @@ public class AppWindow : Gtk.ApplicationWindow
         var renderer = new Gtk.CellRendererText ();
         file_type_combo.pack_start (renderer, true);
         file_type_combo.add_attribute (renderer, "text", 0);
+        box.pack_start (file_type_combo, false, true, 0);
+
+        /* Label in save dialog beside compression slider */
+        var quality_label = new Gtk.Label (_("Compression:"));
+        box.pack_start (quality_label, false, false, 0);
+
+        var quality_adjustment = new Gtk.Adjustment (75, 0, 100, 1, 10, 0);
+        var quality_scale = new Gtk.Scale (Gtk.Orientation.HORIZONTAL, quality_adjustment);
+        quality_scale.width_request = 200;
+        quality_scale.draw_value = false;
+        quality_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
+        quality_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
+        quality_scale.add_mark (90, Gtk.PositionType.BOTTOM, null);
+        quality_scale.add_mark (100, Gtk.PositionType.BOTTOM, null);
+        quality_adjustment.value = settings.get_int ("jpeg-quality");
+        quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", (int) quality_adjustment.value); });
+        box.pack_start (quality_scale, false, false, 0);
 
         file_type_combo.set_active (0);
         file_type_combo.changed.connect (() =>
@@ -420,8 +431,10 @@ public class AppWindow : Gtk.ApplicationWindow
                 filename = filename.slice (0, extension_index);
             filename = filename + extension;
             save_dialog.set_current_name (filename);
+
+            /* Quality only applicable for JPEG */
+            quality_scale.visible = quality_label.visible = extension == ".jpg";
         });
-        box.pack_start (file_type_combo, false, false, 0);
 
         string? uri = null;
         while (true)
@@ -516,7 +529,7 @@ public class AppWindow : Gtk.ApplicationWindow
         show_progress_dialog ();
         try
         {
-            book.save (format, quality, file);
+            book.save (format, settings.get_int ("jpeg-quality"), file);
         }
         catch (Error e)
         {
@@ -776,7 +789,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
         try
         {
-            page.save ("png", quality, file);
+            page.save ("png", 0, file);
         }
         catch (Error e)
         {
@@ -1202,7 +1215,7 @@ public class AppWindow : Gtk.ApplicationWindow
                 show_progress_dialog ();
                 try
                 {
-                    book.save ("pdf", quality, file);
+                    book.save ("pdf", 0, file);
                 }
                 catch (Error e)
                 {
@@ -1227,7 +1240,7 @@ public class AppWindow : Gtk.ApplicationWindow
                 var file = File.new_for_path (path);
                 try
                 {
-                    book.get_page (i).save ("jpeg", quality, file);
+                    book.get_page (i).save ("jpeg", settings.get_int ("jpeg-quality"), file);
                 }
                 catch (Error e)
                 {

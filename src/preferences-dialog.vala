@@ -31,8 +31,6 @@ private class PreferencesDialog : Gtk.Dialog
     [GtkChild]
     private Gtk.Scale contrast_scale;
     [GtkChild]
-    private Gtk.Scale quality_scale;
-    [GtkChild]
     private Gtk.Scale page_delay_scale;
     [GtkChild]
     private Gtk.ListStore device_model;
@@ -52,8 +50,6 @@ private class PreferencesDialog : Gtk.Dialog
     private Gtk.Adjustment brightness_adjustment;
     [GtkChild]
     private Gtk.Adjustment contrast_adjustment;
-    [GtkChild]
-    private Gtk.Adjustment quality_adjustment;
     [GtkChild]
     private Gtk.Adjustment page_delay_adjustment;
     [GtkChild]
@@ -138,16 +134,6 @@ private class PreferencesDialog : Gtk.Dialog
         contrast_scale.add_mark (upper, Gtk.PositionType.BOTTOM, more_label);
         contrast_adjustment.value = settings.get_int ("contrast");
         contrast_adjustment.value_changed.connect (() => { settings.set_int ("contrast", get_contrast ()); });
-
-        lower = quality_adjustment.lower;
-        var minimum_label = "<small>%s</small>".printf (_("Minimum"));
-        upper = quality_adjustment.upper;
-        var maximum_label = "<small>%s</small>".printf (_("Maximum"));
-        quality_scale.add_mark (lower, Gtk.PositionType.BOTTOM, minimum_label);
-        quality_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
-        quality_scale.add_mark (upper, Gtk.PositionType.BOTTOM, maximum_label);
-        quality_adjustment.value = settings.get_int ("jpeg-quality");
-        quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", get_quality ()); });
 
         var paper_width = settings.get_int ("paper-width");
         var paper_height = settings.get_int ("paper-height");
@@ -405,16 +391,6 @@ private class PreferencesDialog : Gtk.Dialog
     public void set_contrast (int contrast)
     {
         contrast_adjustment.value = contrast;
-    }
-
-    public int get_quality ()
-    {
-        return (int) quality_adjustment.value;
-    }
-
-    public void set_quality (int quality)
-    {
-        quality_adjustment.value = quality;
     }
 
     public int get_page_delay ()
