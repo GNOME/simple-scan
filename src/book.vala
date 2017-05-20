@@ -197,8 +197,8 @@ public class Book
     private uint8[] compress_jpeg (Gdk.Pixbuf image, int quality, int dpi)
     {
         jpeg_data = new ByteArray ();
-        string[] keys = { "quality", "density-unit", "x-density", "y-density", null };
-        string[] values = { "%d".printf (quality), "dots-per-inch", "%d".printf (dpi), "%d".printf (dpi), null };
+        string[] keys = { "quality", "x-dpi", "y-dpi", null };
+        string[] values = { "%d".printf (quality), "%d".printf (dpi), "%d".printf (dpi), null };
         try
         {
             image.save_to_callbackv (write_pixbuf_data, "jpeg", keys, values);
