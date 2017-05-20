@@ -34,6 +34,8 @@ public class AppWindow : Gtk.ApplicationWindow
     private PreferencesDialog preferences_dialog;
 
     [GtkChild]
+    private Gtk.HeaderBar header_bar;
+    [GtkChild]
     private Gtk.MenuBar menubar;
     [GtkChild]
     private Gtk.Toolbar toolbar;
@@ -1633,6 +1635,11 @@ public class AppWindow : Gtk.ApplicationWindow
         }
         else
         {
+            /* Set HeaderBar title here because Glade doesn't keep it translated */
+            /* https://bugzilla.gnome.org/show_bug.cgi?id=782753 */
+            /* Title of scan window */
+            header_bar.title = _("Simple Scan");
+
             app.add_action_entries (action_entries, this);
 
             var appmenu = new Menu ();
@@ -1693,6 +1700,7 @@ public class AppWindow : Gtk.ApplicationWindow
                                                        _("_Install Drivers"), 2) as Gtk.Button;
 
         /* Populate ActionBar (not supported in Glade) */
+        /* https://bugzilla.gnome.org/show_bug.cgi?id=769966 */
         var button = new Gtk.Button.with_label (/* Label on new document button */
                                                _("Start Again…"));
         button.visible = true;
