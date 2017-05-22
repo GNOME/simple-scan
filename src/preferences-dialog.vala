@@ -151,12 +151,6 @@ private class PreferencesDialog : Gtk.Dialog
         page_delay_adjustment.value_changed.connect (() => { settings.set_int ("page-delay", get_page_delay ()); });
     }
 
-    public void present_device ()
-    {
-        device_combo.grab_focus ();
-        present ();
-    }
-
     public void set_scan_devices (List<ScanDevice> devices)
     {
         setting_devices = true;
@@ -241,11 +235,6 @@ private class PreferencesDialog : Gtk.Dialog
         setting_devices = false;
     }
 
-    public int get_device_count ()
-    {
-        return device_model.iter_n_children (null);
-    }
-
     public string? get_selected_device ()
     {
         Gtk.TreeIter iter;
@@ -255,6 +244,20 @@ private class PreferencesDialog : Gtk.Dialog
             string device;
             device_model.get (iter, 0, out device, -1);
             return device;
+        }
+
+        return null;
+    }
+
+    public string? get_selected_device_label ()
+    {
+        Gtk.TreeIter iter;
+
+        if (device_combo.get_active_iter (out iter))
+        {
+            string label;
+            device_model.get (iter, 1, out label, -1);
+            return label;
         }
 
         return null;

@@ -384,10 +384,9 @@ public class SimpleScan : Gtk.Application
         remove_empty_page ();
         if (error_code != Sane.Status.CANCELLED)
         {
-            app.show_error (/* Title of error dialog when scan failed */
-                            _("Failed to scan"),
-                            error_string,
-                            have_devices);
+            app.show_error_dialog (/* Title of error dialog when scan failed */
+                                   _("Failed to scan"),
+                                   error_string);
         }
     }
 

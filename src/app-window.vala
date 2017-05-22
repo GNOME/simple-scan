@@ -42,13 +42,13 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.Menu page_menu;
     [GtkChild]
+    private Gtk.Stack stack;
+    [GtkChild]
+    private Gtk.Label status_primary_label;
+    [GtkChild]
+    private Gtk.Label status_secondary_label;
+    [GtkChild]
     private Gtk.Box main_vbox;
-    private Gtk.InfoBar info_bar;
-    private Gtk.Image info_bar_image;
-    private Gtk.Label info_bar_label;
-    private Gtk.Button info_bar_close_button;
-    private Gtk.Button info_bar_change_scanner_button;
-    private Gtk.Button info_bar_install_button;
     [GtkChild]
     private Gtk.RadioMenuItem custom_crop_menuitem;
     [GtkChild]
@@ -119,11 +119,6 @@ public class AppWindow : Gtk.ApplicationWindow
     private Gtk.FileChooserDialog? save_dialog;
     private ProgressBarDialog progress_dialog;
 
-    private bool have_error;
-    private string error_title;
-    private string error_text;
-    private bool error_change_scanner_hint;
-
     public Book book { get; private set; }
     private bool book_needs_saving;
     private string? book_uri = null;
@@ -144,10 +139,6 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private BookView book_view;
     private bool updating_page_menu;
-    private int default_page_width;
-    private int default_page_height;
-    private int default_page_dpi;
-    private ScanDirection default_page_scan_direction;
 
     private string document_hint = "photo";
 
@@ -158,6 +149,7 @@ public class AppWindow : Gtk.ApplicationWindow
         set
         {
             scanning_ = value;
+            stack.set_visible_child_name ("document");
             page_delete_menuitem.sensitive = !value;
             delete_button.sensitive = !value;
             stop_scan_menuitem.sensitive = value;
@@ -235,7 +227,7 @@ public class AppWindow : Gtk.ApplicationWindow
         book.page_removed.disconnect (page_removed_cb);
     }
 
-    private void show_error_dialog (string error_title, string error_text)
+    public void show_error_dialog (string error_title, string error_text)
     {
         var dialog = new Gtk.MessageDialog (this,
                                             Gtk.DialogFlags.MODAL,
@@ -262,66 +254,35 @@ public class AppWindow : Gtk.ApplicationWindow
         password = authorize_dialog.get_password ();
     }
 
-    private void update_info_bar ()
-    {
-        Gtk.MessageType type;
-        string title, text, image_id;
-        bool show_close_button = false;
-        bool show_install_button = false;
-        bool show_change_scanner_button = false;
-
-        if (have_error)
-        {
-            type = Gtk.MessageType.ERROR;
-            image_id = "dialog-error";
-            title = error_title;
-            text = error_text;
-            show_close_button = true;
-            show_change_scanner_button = error_change_scanner_hint;
-        }
-        else if (preferences_dialog.get_device_count () == 0)
-        {
-            type = Gtk.MessageType.WARNING;
-            image_id = "dialog-warning";
-            if (missing_driver == null)
-            {
-                /* Warning displayed when no scanners are detected */
-                title = _("No scanners detected");
-                /* Hint to user on why there are no scanners detected */
-                text = _("Please check your scanner is connected and powered on");
-            }
-            else
-            {
-                /* Warning displayed when no drivers are installed but a compatible scanner is detected */
-                title = _("Additional software needed");
-                /* Instructions to install driver software */
-                text = _("You need to install driver software for your scanner.");
-                show_install_button = true;
-            }
-        }
-        else
-        {
-            info_bar.visible = false;
-            return;
-        }
-
-        info_bar.message_type = type;
-        info_bar_image.set_from_icon_name (image_id, Gtk.IconSize.DIALOG);
-        var message = "<big><b>%s</b></big>\n\n%s".printf (title, text);
-        info_bar_label.set_markup (message);
-        info_bar_close_button.visible = show_close_button;
-        info_bar_change_scanner_button.visible = show_change_scanner_button;
-        info_bar_install_button.visible = show_install_button;
-        info_bar.visible = true;
-    }
-
     public void set_scan_devices (List<ScanDevice> devices, string? missing_driver = null)
     {
         this.missing_driver = missing_driver;
 
         preferences_dialog.set_scan_devices (devices);
 
-        update_info_bar ();
+        if (devices != null)
+        {
+            status_primary_label.set_text (/* Label shown when detected a scanner */
+                                           _("Ready to Scan"));
+            status_secondary_label.set_text (preferences_dialog.get_selected_device_label ());
+            status_secondary_label.visible = true;
+        }
+        else if (missing_driver != null)
+        {
+            status_primary_label.set_text (/* Warning displayed when no drivers are installed but a compatible scanner is detected */
+                                           _("Additional software needed"));
+            /* Instructions to install driver software */
+            status_secondary_label.set_markup (_("You need to <a href=\"install-firmware\">install driver software</a> for your scanner."));
+            status_secondary_label.visible = true;
+        }
+        else
+        {
+            /* Warning displayed when no scanners are detected */
+            status_primary_label.set_text (_("No scanners detected"));
+            /* Hint to user on why there are no scanners detected */
+            status_secondary_label.set_text (_("Please check your scanner is connected and powered on"));
+            status_secondary_label.visible = true;
+        }
     }
 
     private string choose_file_location ()
@@ -537,10 +498,9 @@ public class AppWindow : Gtk.ApplicationWindow
         {
             hide_progress_dialog ();
             warning ("Error saving file: %s", e.message);
-            show_error (/* Title of error dialog when save failed */
-                        _("Failed to save file"),
-                        e.message,
-                        false);
+            show_error_dialog (/* Title of error dialog when save failed */
+                              _("Failed to save file"),
+                               e.message);
             return false;
         }
 
@@ -585,10 +545,6 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void clear_document ()
     {
-        book_view.default_page = new Page (default_page_width,
-                                           default_page_height,
-                                           default_page_dpi,
-                                           default_page_scan_direction);
         book.clear ();
         book_needs_saving = false;
         book_uri = null;
@@ -598,6 +554,9 @@ public class AppWindow : Gtk.ApplicationWindow
         save_button.sensitive = false;
         save_toolbutton.sensitive = false;
         copy_to_clipboard_menuitem.sensitive = false;
+        status_primary_label.set_text (/* Label shown when detected a scanner */
+                                       _("Ready to Scan"));
+        stack.set_visible_child_name ("startup");
     }
 
     private void new_document ()
@@ -611,6 +570,18 @@ public class AppWindow : Gtk.ApplicationWindow
         if (scanning)
             stop_scan ();
         clear_document ();
+    }
+
+    [GtkCallback]
+    private bool status_label_activate_link_cb (Gtk.Label label, string uri)
+    {
+        if (uri == "install-firmware")
+        {
+            install_drivers ();
+            return true;
+        }
+
+        return false;
     }
 
     [GtkCallback]
@@ -687,6 +658,8 @@ public class AppWindow : Gtk.ApplicationWindow
     {
         var options = make_scan_options ();
         options.type = ScanType.SINGLE;
+        status_primary_label.set_text (/* Label shown when scan started */
+                                       _("Contacting scanner…"));
         start_scan (selected_device, options);
     }
 
@@ -1382,27 +1355,6 @@ public class AppWindow : Gtk.ApplicationWindow
         }
     }
 
-    private void info_bar_response_cb (Gtk.InfoBar widget, int response_id)
-    {
-        switch (response_id)
-        {
-        /* Change scanner */
-        case 1:
-            preferences_dialog.present_device ();
-            break;
-        /* Install drivers */
-        case 2:
-            install_drivers ();
-            break;
-        default:
-            have_error = false;
-            error_title = null;
-            error_text = null;
-            update_info_bar ();
-            break;
-        }
-    }
-
     private void install_drivers ()
     {
         var message = "", instructions = "";
@@ -1565,27 +1517,8 @@ public class AppWindow : Gtk.ApplicationWindow
         return !on_quit ();
     }
 
-    private void page_size_changed_cb (Page page)
-    {
-        default_page_width = page.width;
-        default_page_height = page.height;
-        default_page_dpi = page.dpi;
-        save_state ();
-    }
-
-    private void page_scan_direction_changed_cb (Page page)
-    {
-        default_page_scan_direction = page.scan_direction;
-        save_state ();
-    }
-
     private void page_added_cb (Book book, Page page)
     {
-        page_size_changed_cb (page);
-        default_page_scan_direction = page.scan_direction;
-        page.size_changed.connect (page_size_changed_cb);
-        page.scan_direction_changed.connect (page_scan_direction_changed_cb);
-
         update_page_menu ();
     }
 
@@ -1596,9 +1529,6 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void page_removed_cb (Book book, Page page)
     {
-        page.size_changed.disconnect (page_size_changed_cb);
-        page.scan_direction_changed.disconnect (page_scan_direction_changed_cb);
-
         update_page_menu ();
     }
 
@@ -1674,30 +1604,6 @@ public class AppWindow : Gtk.ApplicationWindow
             menu_button.set_menu_model (gear_menu);
         }
         app.add_window (this);
-
-        /* Add InfoBar (not supported in Glade) */
-        info_bar = new Gtk.InfoBar ();
-        info_bar.response.connect (info_bar_response_cb);
-        main_vbox.pack_start (info_bar, false, true, 0);
-        var hbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12);
-        var content_area = info_bar.get_content_area () as Gtk.Container;
-        content_area.add (hbox);
-        hbox.visible = true;
-
-        info_bar_image = new Gtk.Image.from_icon_name ("dialog-warning", Gtk.IconSize.DIALOG);
-        hbox.pack_start (info_bar_image, false, true, 0);
-        info_bar_image.visible = true;
-
-        info_bar_label = new Gtk.Label (null);
-        info_bar_label.set_alignment (0.0f, 0.5f);
-        hbox.pack_start (info_bar_label, true, true, 0);
-        info_bar_label.visible = true;
-
-        info_bar_close_button = info_bar.add_button (_("_Close"), Gtk.ResponseType.CLOSE) as Gtk.Button;
-        info_bar_change_scanner_button = info_bar.add_button (/* Button in error infobar to open preferences dialog and change scanner */
-                                                              _("Change _Scanner"), 1) as Gtk.Button;
-        info_bar_install_button = info_bar.add_button (/* Button in error infobar to prompt user to install drivers */
-                                                       _("_Install Drivers"), 2) as Gtk.Button;
 
         /* Populate ActionBar (not supported in Glade) */
         /* https://bugzilla.gnome.org/show_bug.cgi?id=769966 */
@@ -1840,25 +1746,6 @@ public class AppWindow : Gtk.ApplicationWindow
             window_height = 400;
         window_is_maximized = state_get_boolean (f, "window", "is-maximized");
         window_is_fullscreen = state_get_boolean (f, "window", "is-fullscreen");
-        default_page_width = state_get_integer (f, "last-page", "width", 595);
-        default_page_height = state_get_integer (f, "last-page", "height", 842);
-        default_page_dpi = state_get_integer (f, "last-page", "dpi", 72);
-        switch (state_get_string (f, "last-page", "scan-direction", "top-to-bottom"))
-        {
-        default:
-        case "top-to-bottom":
-            default_page_scan_direction = ScanDirection.TOP_TO_BOTTOM;
-            break;
-        case "bottom-to-top":
-            default_page_scan_direction = ScanDirection.BOTTOM_TO_TOP;
-            break;
-        case "left-to-right":
-            default_page_scan_direction = ScanDirection.LEFT_TO_RIGHT;
-            break;
-        case "right-to-left":
-            default_page_scan_direction = ScanDirection.RIGHT_TO_LEFT;
-            break;
-        }
     }
 
     private int state_get_integer (KeyFile f, string group_name, string key, int default = 0)
@@ -1878,18 +1765,6 @@ public class AppWindow : Gtk.ApplicationWindow
         try
         {
             return f.get_boolean (group_name, key);
-        }
-        catch
-        {
-            return default;
-        }
-    }
-
-    private string state_get_string (KeyFile f, string group_name, string key, string default = "")
-    {
-        try
-        {
-            return f.get_string (group_name, key);
         }
         catch
         {
@@ -1919,24 +1794,6 @@ public class AppWindow : Gtk.ApplicationWindow
         f.set_integer ("window", "height", window_height);
         f.set_boolean ("window", "is-maximized", window_is_maximized);
         f.set_boolean ("window", "is-fullscreen", window_is_fullscreen);
-        f.set_integer ("last-page", "width", default_page_width);
-        f.set_integer ("last-page", "height", default_page_height);
-        f.set_integer ("last-page", "dpi", default_page_dpi);
-        switch (default_page_scan_direction)
-        {
-        case ScanDirection.TOP_TO_BOTTOM:
-            f.set_value ("last-page", "scan-direction", "top-to-bottom");
-            break;
-        case ScanDirection.BOTTOM_TO_TOP:
-            f.set_value ("last-page", "scan-direction", "bottom-to-top");
-            break;
-        case ScanDirection.LEFT_TO_RIGHT:
-            f.set_value ("last-page", "scan-direction", "left-to-right");
-            break;
-        case ScanDirection.RIGHT_TO_LEFT:
-            f.set_value ("last-page", "scan-direction", "right-to-left");
-            break;
-        }
         try
         {
             FileUtils.set_contents (state_filename, f.to_data ());
@@ -1975,15 +1832,6 @@ public class AppWindow : Gtk.ApplicationWindow
     public void hide_progress_dialog ()
     {
         progress_dialog.visible = false;
-    }
-
-    public void show_error (string error_title, string error_text, bool change_scanner_hint)
-    {
-        have_error = true;
-        this.error_title = error_title;
-        this.error_text = error_text;
-        error_change_scanner_hint = change_scanner_hint;
-        update_info_bar ();
     }
 
     public void start ()

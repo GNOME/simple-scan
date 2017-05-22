@@ -23,20 +23,6 @@ public class BookView : Gtk.Box
     private bool laying_out;
     private bool show_selected_page;
 
-    /* Page to show when book empty */
-    private PageView? default_page_view = null;
-    public Page default_page
-    {
-        set
-        {
-            if (value == null)
-                default_page_view = null;
-            else
-                default_page_view = new PageView (value);
-            need_layout = true;
-        }
-    }
-
     /* Currently selected page */
     private PageView? selected_page_view = null;
     public Page? selected_page
@@ -310,16 +296,8 @@ public class BookView : Gtk.Box
     private void layout_into (int width, int height, out int book_width, out int book_height)
     {
         var pages = new List<PageView> ();
-        if (book.n_pages == 0)
-        {
-            if (default_page_view != null)
-                pages.append (default_page_view);
-        }
-        else
-        {
-            for (var i = 0; i < book.n_pages; i++)
-                pages.append (get_nth_page (i));
-        }
+        for (var i = 0; i < book.n_pages; i++)
+            pages.append (get_nth_page (i));
 
         /* Get maximum page resolution */
         int max_dpi = 0;
@@ -461,16 +439,8 @@ public class BookView : Gtk.Box
         context.clip_extents (out left, out top, out right, out bottom);
 
         var pages = new List<PageView> ();
-        if (book.n_pages == 0)
-        {
-            if (default_page_view != null)
-                pages.append (default_page_view);
-        }
-        else
-        {
-            for (var i = 0; i < book.n_pages; i++)
-                pages.append (get_nth_page (i));
-        }
+        for (var i = 0; i < book.n_pages; i++)
+            pages.append (get_nth_page (i));
 
         /* Render each page */
         foreach (var page in pages)
