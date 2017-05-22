@@ -31,27 +31,33 @@ private class PreferencesDialog : Gtk.Dialog
     [GtkChild]
     private Gtk.Scale contrast_scale;
     [GtkChild]
-    private Gtk.Scale page_delay_scale;
-    [GtkChild]
     private Gtk.ListStore device_model;
+    [GtkChild]
+    private Gtk.RadioButton page_delay_3s_button;
+    [GtkChild]
+    private Gtk.RadioButton page_delay_5s_button;
+    [GtkChild]
+    private Gtk.RadioButton page_delay_7s_button;
+    [GtkChild]
+    private Gtk.RadioButton page_delay_10s_button;
+    [GtkChild]
+    private Gtk.RadioButton page_delay_15s_button;
     [GtkChild]
     private Gtk.ListStore text_dpi_model;
     [GtkChild]
     private Gtk.ListStore photo_dpi_model;
     [GtkChild]
-    private Gtk.ToggleButton front_side_button;
+    private Gtk.RadioButton front_side_button;
     [GtkChild]
-    private Gtk.ToggleButton back_side_button;
+    private Gtk.RadioButton back_side_button;
     [GtkChild]
-    private Gtk.ToggleButton both_side_button;
+    private Gtk.RadioButton both_side_button;
     [GtkChild]
     private Gtk.ListStore paper_size_model;
     [GtkChild]
     private Gtk.Adjustment brightness_adjustment;
     [GtkChild]
     private Gtk.Adjustment contrast_adjustment;
-    [GtkChild]
-    private Gtk.Adjustment page_delay_adjustment;
     [GtkChild]
     private Gtk.Button preferences_close_button;
 
@@ -81,15 +87,6 @@ private class PreferencesDialog : Gtk.Dialog
         paper_size_model.set (iter, 0, 2159, 1, 3556, 2, "Legal", -1);
         paper_size_model.append (out iter);
         paper_size_model.set (iter, 0, 1016, 1, 1524, 2, "4×6", -1);
-
-        page_delay_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (500, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (1000, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (2000, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (4000, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (6000, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (8000, Gtk.PositionType.BOTTOM, null);
-        page_delay_scale.add_mark (10000, Gtk.PositionType.BOTTOM, null);
 
         var renderer = new Gtk.CellRendererText ();
         device_combo.pack_start (renderer, true);
@@ -147,8 +144,11 @@ private class PreferencesDialog : Gtk.Dialog
         });
 
         set_page_delay (settings.get_int ("page-delay"));
-        page_delay_scale.format_value.connect ((value) => { return "%.1fs".printf (value / 1000.0); });
-        page_delay_adjustment.value_changed.connect (() => { settings.set_int ("page-delay", get_page_delay ()); });
+        page_delay_3s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 3); });
+        page_delay_5s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 5); });
+        page_delay_7s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 7); });
+        page_delay_10s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 10); });
+        page_delay_15s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 15); });
     }
 
     public void set_scan_devices (List<ScanDevice> devices)
@@ -398,12 +398,30 @@ private class PreferencesDialog : Gtk.Dialog
 
     public int get_page_delay ()
     {
-        return (int) page_delay_adjustment.value;
+        if (page_delay_15s_button.active)
+            return 15;
+        else if (page_delay_10s_button.active)
+            return 10;
+        else if (page_delay_7s_button.active)
+            return 7;
+        else if (page_delay_5s_button.active)
+            return 5;
+        else
+            return 3;
     }
 
     public void set_page_delay (int page_delay)
     {
-        page_delay_adjustment.value = page_delay;
+        if (page_delay >= 15)
+            page_delay_15s_button.active = true;
+        else if (page_delay >= 10)
+            page_delay_10s_button.active = true;
+        else if (page_delay >= 7)
+            page_delay_7s_button.active = true;
+        else if (page_delay >= 5)
+            page_delay_5s_button.active = true;
+        else
+            page_delay_3s_button.active = true;
     }
 
     private void set_dpi_combo (Gtk.ComboBox combo, int default_dpi, int current_dpi)
