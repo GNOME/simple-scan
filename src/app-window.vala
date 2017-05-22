@@ -214,6 +214,7 @@ public class AppWindow : Gtk.ApplicationWindow
             book_needs_saving = false;
         else
         {
+            stack.set_visible_child_name ("document");
             book_view.selected_page = book.get_page (0);
             book_needs_saving = true;
             book_changed_cb (book);
