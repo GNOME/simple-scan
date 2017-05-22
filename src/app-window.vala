@@ -1159,57 +1159,55 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void email_document ()
     {
-        var saved = false;
-        var command_line = "xdg-email";
+        show_progress_dialog ();
 
-        /* Save text files as PDFs */
-        if (document_hint == "text")
+        string type = (document_hint == "text") ? "pdf" : "jpeg";
+        string command_line = null;
+        string path;
+        bool file_exist = true;
+        File file = null;
+
+        do
         {
-            /* Open a temporary file */
-            var path = get_temporary_filename ("scan", "pdf");
-            if (path != null)
+
+            /* get temporary filename */
+            file_exist = false;
+            path = get_temporary_filename (/* base filename of images attached to email */
+                                           _("scan"), type);
+            file = File.new_for_path (path);
+            command_line = "xdg-email";
+
+            if (type == "pdf")
             {
-                var file = File.new_for_path (path);
-                show_progress_dialog ();
-                try
-                {
-                    book.save ("pdf", 0, file);
-                }
-                catch (Error e)
-                {
-                    hide_progress_dialog ();
-                    warning ("Unable to save email file: %s", e.message);
-                    return;
-                }
+                /* prepare command line */
                 command_line += " --attach %s".printf (path);
+            }
+            else /* (type == "jpeg") */
+            {
+                /* make sure files doesn't exist and prepare command line */
+                for (var i = 0; i < book.n_pages; i++)
+                {
+                    var indexed_file = book.make_indexed_file (file.get_uri (), i);
+                    if (indexed_file.query_exists ())
+                    {
+                        file_exist = true;
+                        break;
+                    }
+                    command_line += " --attach %s".printf (indexed_file.get_path ());
+                }
             }
         }
-        else
+        while (file_exist);
+
+        try
         {
-            for (var i = 0; i < book.n_pages; i++)
-            {
-                var path = get_temporary_filename ("scan", "jpg");
-                if (path == null)
-                {
-                    saved = false;
-                    break;
-                }
-
-                var file = File.new_for_path (path);
-                try
-                {
-                    book.get_page (i).save ("jpeg", settings.get_int ("jpeg-quality"), file);
-                }
-                catch (Error e)
-                {
-                    warning ("Unable to save email file: %s", e.message);
-                    return;
-                }
-                command_line += " --attach %s".printf (path);
-
-                if (!saved)
-                    break;
-            }
+            book.save (type, settings.get_int ("jpeg-quality"), file);
+        }
+        catch (Error e)
+        {
+            hide_progress_dialog ();
+            warning ("Unable to save email file: %s", e.message);
+            return;
         }
 
         debug ("Launching email client: %s", command_line);
