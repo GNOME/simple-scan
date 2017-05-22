@@ -1463,7 +1463,7 @@ public class AppWindow : Gtk.ApplicationWindow
             });
 #else
             instructions_label.set_text (/* Label shown to prompt user to install packages (when PackageKit not available) */
-                                         _("You need to install the %s package(s).").printf (string.joinv (", ", packages_to_install)));
+                                         ngettext ("You need to install the %s package.", "You need to install the %s packages.", packages_to_install.length).printf (string.joinv (", ", packages_to_install)));
 #endif
         }
 
