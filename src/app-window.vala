@@ -1573,11 +1573,8 @@ public class AppWindow : Gtk.ApplicationWindow
             app.add_action_entries (action_entries, this);
 
             var appmenu = new Menu ();
-            var section = new Menu ();
-            appmenu.append_section (null, section);
-            section.append (_("Start Again…"), "app.new_document");
 
-            section = new Menu ();
+            var section = new Menu ();
             appmenu.append_section (null, section);
             section.append (_("Preferences"), "app.preferences");
 
