@@ -1217,6 +1217,27 @@ public class AppWindow : Gtk.ApplicationWindow
         }
     }
 
+    private string? get_temporary_filename (string prefix, string extension)
+    {
+        /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
+         * use the filename but it appears to work in practice */
+
+        var filename = "%sXXXXXX.%s".printf (prefix, extension);
+        string path;
+        try
+        {
+            var fd = FileUtils.open_tmp (filename, out path);
+            Posix.close (fd);
+        }
+        catch (Error e)
+        {
+            warning ("Error creating temporary file: %s", e.message);
+            return null;
+        }
+
+        return path;
+    }
+
     private void print_document ()
     {
         var print = new Gtk.PrintOperation ();
