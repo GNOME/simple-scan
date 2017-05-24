@@ -758,13 +758,11 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void show_page_cb (BookView view, Page page)
     {
-        var path = get_temporary_filename ("scanned-page", "png");
-        if (path == null)
-            return;
-        var file = File.new_for_path (path);
-
+        File file;
         try
         {
+            var dir = DirUtils.make_tmp ("simple-scan-XXXXXX");
+            file = File.new_for_path (Path.build_filename (dir, "scan.png"));
             page.save ("png", 0, file);
         }
         catch (Error e)
@@ -1160,82 +1158,30 @@ public class AppWindow : Gtk.ApplicationWindow
     {
         show_progress_dialog ();
 
-        var type = (document_hint == "text") ? "pdf" : "jpeg";
-        string? command_line = null;
-        var file_exist = true;
-        File file = null;
-        do
+        try
         {
-            /* Get temporary filename */
-            file_exist = false;
-            var path = get_temporary_filename (/* Base filename of images attached to email */
-                                               _("scan"), type);
-            file = File.new_for_path (path);
-            command_line = "xdg-email";
-
+            var dir = DirUtils.make_tmp ("simple-scan-XXXXXX");
+            var type = document_hint == "text" ? "pdf" : "jpeg";
+            var file = File.new_for_path (Path.build_filename (dir, "scan." + type));
+            book.save (type, settings.get_int ("jpeg-quality"), file);
+            var command_line = "xdg-email";
             if (type == "pdf")
-            {
-                /* Prepare command line */
-                command_line += " --attach %s".printf (path);
-            }
+                command_line += "--attach %s".printf (file.get_path ());
             else
             {
-                /* make sure files doesn't exist and prepare command line */
-                for (var i = 0; i < book.n_pages; i++)
-                {
+                for (var i = 0; i < book.n_pages; i++) {
                     var indexed_file = book.make_indexed_file (file.get_uri (), i);
-                    if (indexed_file.query_exists ())
-                    {
-                        file_exist = true;
-                        break;
-                    }
                     command_line += " --attach %s".printf (indexed_file.get_path ());
                 }
             }
-        }
-        while (file_exist);
-
-        try
-        {
-            book.save (type, settings.get_int ("jpeg-quality"), file);
-        }
-        catch (Error e)
-        {
-            hide_progress_dialog ();
-            warning ("Unable to save email file: %s", e.message);
-            return;
-        }
-
-        debug ("Launching email client: %s", command_line);
-        try
-        {
             Process.spawn_command_line_async (command_line);
         }
         catch (Error e)
         {
-            warning ("Unable to start email: %s", e.message);
-        }
-    }
-
-    private string? get_temporary_filename (string prefix, string extension)
-    {
-        /* NOTE: I'm not sure if this is a 100% safe strategy to use g_file_open_tmp(), close and
-         * use the filename but it appears to work in practice */
-
-        var filename = "%sXXXXXX.%s".printf (prefix, extension);
-        string path;
-        try
-        {
-            var fd = FileUtils.open_tmp (filename, out path);
-            Posix.close (fd);
-        }
-        catch (Error e)
-        {
-            warning ("Error creating temporary file: %s", e.message);
-            return null;
+            warning ("Unable to email document: %s", e.message);
         }
 
-        return path;
+        hide_progress_dialog ();
     }
 
     private void print_document ()
