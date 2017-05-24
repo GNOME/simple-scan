@@ -1156,33 +1156,29 @@ public class AppWindow : Gtk.ApplicationWindow
         email_document ();
     }
 
-
     private void email_document ()
     {
         show_progress_dialog ();
 
-        string type = (document_hint == "text") ? "pdf" : "jpeg";
-        string command_line = null;
-        string path;
-        bool file_exist = true;
+        var type = (document_hint == "text") ? "pdf" : "jpeg";
+        string? command_line = null;
+        var file_exist = true;
         File file = null;
-
         do
         {
-
-            /* get temporary filename */
+            /* Get temporary filename */
             file_exist = false;
-            path = get_temporary_filename (/* base filename of images attached to email */
-                                           _("scan"), type);
+            var path = get_temporary_filename (/* Base filename of images attached to email */
+                                               _("scan"), type);
             file = File.new_for_path (path);
             command_line = "xdg-email";
 
             if (type == "pdf")
             {
-                /* prepare command line */
+                /* Prepare command line */
                 command_line += " --attach %s".printf (path);
             }
-            else /* (type == "jpeg") */
+            else
             {
                 /* make sure files doesn't exist and prepare command line */
                 for (var i = 0; i < book.n_pages; i++)
