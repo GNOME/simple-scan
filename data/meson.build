@@ -11,20 +11,19 @@ install_data ('org.gnome.SimpleScan.gschema.xml',
               install_dir: join_paths (datadir, 'glib-2.0', 'schemas'))
 meson.add_install_script ('meson_compile_gschema.py')
 
-# Note the keywords explicitly listed to stop the icon field being translated
-# https://bugs.launchpad.net/bugs/1624662
-custom_target ('simple-scan.desktop',
-               output: 'simple-scan.desktop',
-               input: 'simple-scan.desktop.in',
-               command: [ msgfmt, '--desktop', '--keyword=Name', '--keyword=GenericName', '--keyword=Comment', '--keyword=Keywords', '--template', '@INPUT@', '-d', podir, '-o', '@OUTPUT@' ],
-               install: true,
-               install_dir: join_paths (datadir, 'applications'))
+i18n.merge_file ('desktop-file',
+                 input: 'simple-scan.desktop.in',
+                 output: 'simple-scan.desktop',
+                 install: true,
+                 install_dir: join_paths (datadir, 'applications'),
+                 po_dir: '../po',
+                 type: 'desktop')
 
-custom_target ('simple-scan.appdata.xml',
-               output: 'simple-scan.appdata.xml',
-               input: 'simple-scan.appdata.xml.in',
-               command: [ msgfmt, '--xml', '--template', '@INPUT@', '-d', podir, '-o', '@OUTPUT@' ],
-               install: true,
-               install_dir: join_paths (datadir, 'appdata'))
+i18n.merge_file ('appdata-file',
+                 input: 'simple-scan.appdata.xml.in',
+                 output: 'simple-scan.appdata.xml',
+                 install: true,
+                 install_dir: join_paths (datadir, 'appdata'),
+                 po_dir: '../po')
 
 install_man ('simple-scan.1')
