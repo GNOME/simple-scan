@@ -509,7 +509,7 @@ public class AppWindow : Gtk.ApplicationWindow
         var format = uri_to_format (uri);
 
         var cancellable = new Cancellable ();
-        var progress_bar =  new CancellableProgressBar ("Saving", cancellable);
+        var progress_bar =  new CancellableProgressBar (_("Saving"), cancellable);
         action_bar.pack_end (progress_bar);
         progress_bar.visible = true;
         try
