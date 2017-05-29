@@ -1813,6 +1813,7 @@ private class CancellableProgressBar : Gtk.HBox
             button.visible = true;
             button.clicked.connect (() =>
             {
+                set_visible (false);
                 cancellable.cancel ();
             });
             pack_start (button);
@@ -1834,6 +1835,4 @@ private class CancellableProgressBar : Gtk.HBox
             return false;
         });
     }
-
-
 }

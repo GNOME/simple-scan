@@ -173,6 +173,7 @@ private class BookSaver
     private Mutex progression_mutex;
     private Cancellable? cancellable;
     private AsyncQueue<WriteTask> write_queue;
+    private ThreadPool<EncodeTask> encoder;
     private SourceFunc save_async_callback;
 
     /* save_async get called in the main thread to start saving. It
@@ -220,7 +221,7 @@ private class BookSaver
             encode_delegate = encode_pdf;
             break;
         }
-        var encoder = new ThreadPool<EncodeTask>.with_owned_data (encode_delegate, (int) get_num_processors (), false);
+        encoder = new ThreadPool<EncodeTask>.with_owned_data (encode_delegate, (int) get_num_processors (), false);
 
         /* Configure a writer */
         ThreadFunc<Error?>? write_delegate = null;
@@ -251,9 +252,6 @@ private class BookSaver
         /* Waiting for saving to finish */
         yield;
 
-        /* At this point, any remaining encode_task ought to remain unprocessed */
-        ThreadPool.free ((owned) encoder, true, true);
-
         /* Any error from any thread ends up here */
         var error = writer.join ();
         if (error != null)
@@ -269,9 +267,6 @@ private class BookSaver
 
     private void encode_png (owned EncodeTask encode_task)
     {
-        if (cancellable.is_cancelled ())
-            return;
-
         var page = encode_task.page;
         var icc_data = page.get_icc_data_encoded ();
         var write_task = new WriteTask ();
@@ -830,6 +825,9 @@ private class BookSaver
      * cancelled */
     private void finished_saving ()
     {
+        /* At this point, any remaining encode_task ought to remain unprocessed */
+        ThreadPool.free ((owned) encoder, true, true);
+
         /* Wake-up save_async method in main thread */
         Idle.add ((owned)save_async_callback);
     }
