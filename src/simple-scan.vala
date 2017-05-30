@@ -38,6 +38,10 @@ public class SimpleScan : Gtk.Application
 
     public SimpleScan (ScanDevice? device = null)
     {
+        /* The inhibit () method use this */
+        Object (application_id: "org.gnome.simple-scan");
+        register_session = true;
+
         default_device = device;
     }
 
@@ -390,9 +394,59 @@ public class SimpleScan : Gtk.Application
         }
     }
 
+    private uint inhibit_cookie;
+    private FreedesktopScreensaver? fdss;
+
     private void scanner_scanning_changed_cb (Scanner scanner)
     {
-        app.scanning = scanner.is_scanning ();
+        var is_scanning = scanner.is_scanning ();
+
+        if (is_scanning)
+        {
+            /* Attempt to inhibit the screensaver when scanning */
+            var reason = _("Scan in progress");
+
+            /* This should work on Gnome, Budgie, Cinnamon, Mate, Unity, ...
+             * but will not work on KDE, LXDE, XFCE, ... */
+            inhibit_cookie = inhibit (app, Gtk.ApplicationInhibitFlags.IDLE, reason);
+
+            if (!is_inhibited (Gtk.ApplicationInhibitFlags.IDLE))
+            {
+                /* If the previous method didn't work, try the one
+                 * provided by Freedesktop. It should work with KDE,
+                 * LXDE, XFCE, and maybe others as well. */
+                try
+                {
+                    if ((fdss = FreedesktopScreensaver.get_proxy ()) != null)
+                    {
+                        inhibit_cookie = fdss.inhibit ("Simple-Scan", reason);
+                    }
+                }
+                catch (IOError error) {}
+            }
+        }
+        else
+        {
+            /* When finished scanning, uninhibit if inhibit was working */
+            if (inhibit_cookie != 0)
+            {
+                if (fdss == null)
+                        uninhibit (inhibit_cookie);
+                else
+                {
+                    try
+                    {
+                        fdss.uninhibit (inhibit_cookie);
+                    }
+                    catch (IOError error) {}
+                    fdss = null;
+                }
+
+                inhibit_cookie = 0;
+            }
+        }
+
+        app.scanning = is_scanning;
     }
 
     private void scan_cb (AppWindow ui, string? device, ScanOptions options)
