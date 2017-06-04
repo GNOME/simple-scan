@@ -441,7 +441,7 @@ public class AppWindow : Gtk.ApplicationWindow
 #endif
             {
                 for (var j = 0; j < book.n_pages; j++)
-                    files.append (book.make_indexed_file (uri, j));
+                    files.append (make_indexed_file (uri, j, book.n_pages));
             }
             else
                 files.append (File.new_for_uri (uri));
@@ -1197,7 +1197,7 @@ public class AppWindow : Gtk.ApplicationWindow
             else
             {
                 for (var i = 0; i < book.n_pages; i++) {
-                    var indexed_file = book.make_indexed_file (file.get_uri (), i);
+                    var indexed_file = make_indexed_file (file.get_uri (), i, book.n_pages);
                     command_line += " --attach %s".printf (indexed_file.get_path ());
                 }
             }

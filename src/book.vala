@@ -136,26 +136,6 @@ public class Book
         return pages.index (page);
     }
 
-    public File make_indexed_file (string uri, int i)
-    {
-        if (n_pages == 1)
-            return File.new_for_uri (uri);
-
-        /* Insert index before extension */
-        var basename = Path.get_basename (uri);
-        string prefix = uri, suffix = "";
-        var extension_index = basename.last_index_of_char ('.');
-        if (extension_index >= 0)
-        {
-            suffix = basename.slice (extension_index, basename.length);
-            prefix = uri.slice (0, uri.length - suffix.length);
-        }
-        var width = n_pages.to_string().length;
-        var number_format = "%%0%dd".printf (width);
-        var filename = prefix + "-" + number_format.printf (i + 1) + suffix;
-        return File.new_for_uri (filename);
-    }
-
     public async void save_async (string t, int q, File f, ProgressionCallback? p, Cancellable? c) throws Error
     {
         var book_saver = new BookSaver ();
@@ -551,7 +531,7 @@ private class BookSaver
                 return write_task.error;
             }
 
-            var indexed_file = make_indexed_file (file.get_uri (), write_task.number);
+            var indexed_file = make_indexed_file (file.get_uri (), write_task.number, n_pages);
             try
             {
                 var stream = indexed_file.replace (null, false, FileCreateFlags.NONE);
@@ -834,26 +814,6 @@ private class BookSaver
 
     /* Utility methods */
 
-    private File make_indexed_file (string uri, int i)
-    {
-        if (n_pages == 1)
-            return File.new_for_uri (uri);
-
-        /* Insert index before extension */
-        var basename = Path.get_basename (uri);
-        string prefix = uri, suffix = "";
-        var extension_index = basename.last_index_of_char ('.');
-        if (extension_index >= 0)
-        {
-            suffix = basename.slice (extension_index, basename.length);
-            prefix = uri.slice (0, uri.length - suffix.length);
-        }
-        var width = n_pages.to_string().length;
-        var number_format = "%%0%dd".printf (width);
-        var filename = prefix + "-" + number_format.printf (i + 1) + suffix;
-        return File.new_for_uri (filename);
-    }
-
     private static uint8[]? compress_zlib (uint8[] data, uint max_size)
     {
         var stream = ZLib.DeflateStream (ZLib.Level.BEST_COMPRESSION);
@@ -965,4 +925,24 @@ private class PDFWriter
                 return i + 1;
         return 0;
     }
+}
+
+public File make_indexed_file (string uri, uint i, uint n_pages)
+{
+    if (n_pages == 1)
+        return File.new_for_uri (uri);
+
+    /* Insert index before extension */
+    var basename = Path.get_basename (uri);
+    string prefix = uri, suffix = "";
+    var extension_index = basename.last_index_of_char ('.');
+    if (extension_index >= 0)
+    {
+        suffix = basename.slice (extension_index, basename.length);
+        prefix = uri.slice (0, uri.length - suffix.length);
+    }
+    var width = n_pages.to_string().length;
+    var number_format = "%%0%dd".printf (width);
+    var filename = prefix + "-" + number_format.printf (i + 1) + suffix;
+    return File.new_for_uri (filename);
 }
