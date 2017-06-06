@@ -1585,6 +1585,7 @@ public class AppWindow : Gtk.ApplicationWindow
             var gear_menu = new Menu ();
             section = new Menu ();
             gear_menu.append_section (null, section);
+            section.append (_("Email"), "app.email");
             section.append (_("Reorder Pages"), "app.reorder");
             section.append (_("Preferences"), "app.preferences");
             menu_button.set_menu_model (gear_menu);
