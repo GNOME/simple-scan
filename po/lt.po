@@ -2,325 +2,149 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# Aurimas Černius <aurisc4@gmail.com>, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-04-16 08:54-0400\n"
-"PO-Revision-Date: 2016-11-05 18:11+0000\n"
-"Last-Translator: Moo <hazap@hotmail.com>\n"
-"Language-Team: Lithuanian <lt@li.org>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=simple-scan&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-06-06 10:27+0000\n"
+"PO-Revision-Date: 2017-06-12 23:06+0300\n"
+"Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
+"Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Launchpad (build 18361)\n"
+"X-Generator: Gtranslator 2.91.7\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#. Button to submit authorization dialog
-#: src/simple-scan.ui:24
-msgid "_Authorize"
-msgstr "Į_galioti"
+#: data/org.gnome.SimpleScan.gschema.xml:11
+msgid "Device to scan from"
+msgstr "Skenavimo įrenginys"
 
-#. Label beside username entry
-#: src/simple-scan.ui:102
-msgid "_Username for resource:"
-msgstr "Ištekliaus na_udotojo vardas:"
+#: data/org.gnome.SimpleScan.gschema.xml:12
+msgid "SANE device to acquire images from."
+msgstr "SANE įrenginys, iš kurio gauti paveikslus."
 
-#. Label beside password entry
-#: src/simple-scan.ui:117
-msgid "_Password:"
-msgstr "Sla_ptažodis:"
+#: data/org.gnome.SimpleScan.gschema.xml:20
+msgid "Type of document being scanned"
+msgstr "Skenuojamo dokumento tipas"
 
-#. Combo box label for scanning both sides of a page
-#: src/simple-scan.ui:188
-msgid "Front and Back"
-msgstr "Abi pusės"
+#: data/org.gnome.SimpleScan.gschema.xml:21
+msgid ""
+"Type of document being scanned. This setting decides on the scan resolution, "
+"colors and post-processing."
+msgstr ""
+"Skenuojamo dokumento tipas. Šis nustatymas apsprendžia skaitymo raišką, "
+"spalvas ir baigiamąjį apdorojimą."
 
-#. Combo box label for scanning the front side of a page
-#: src/simple-scan.ui:192
-msgid "Front"
-msgstr "Priekinė pusė"
+#: data/org.gnome.SimpleScan.gschema.xml:25
+msgid "Width of paper in tenths of a mm"
+msgstr "Popieriaus plotis dešimtosiomis milimetro dalimis"
 
-#. Combo box label for scanning the back side of a page
-#: src/simple-scan.ui:196
-msgid "Back"
-msgstr "Galinė pusė"
+#: data/org.gnome.SimpleScan.gschema.xml:26
+msgid ""
+"The width of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+"Popieriaus plotis dešimtosiomis milimetro dalimis (arba 0 automatiniam "
+"popieriaus aptikimui)."
+
+#: data/org.gnome.SimpleScan.gschema.xml:30
+msgid "Height of paper in tenths of a mm"
+msgstr "Popieriaus aukštis dešimtosiomis milimetro dalimis"
+
+#: data/org.gnome.SimpleScan.gschema.xml:31
+msgid ""
+"The height of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+"Popieriaus aukštis dešimtosiomis milimetro dalimis (arba 0 automatiniam "
+"popieriaus aptikimui)."
+
+#: data/org.gnome.SimpleScan.gschema.xml:35
+msgid "Brightness of scan"
+msgstr "Nuskenuoto dokumento skaistis"
+
+#: data/org.gnome.SimpleScan.gschema.xml:36
+msgid "The brightness adjustment from -100 to 100 (0 being none)."
+msgstr "Skaisčio derinimas nuo -100 iki 100 (0 nėra)."
+
+#: data/org.gnome.SimpleScan.gschema.xml:40
+msgid "Contrast of scan"
+msgstr "Nuskenuoto dokumento kontrastas"
+
+#: data/org.gnome.SimpleScan.gschema.xml:41
+msgid "The contrast adjustment from -100 to 100 (0 being none)."
+msgstr "Kontrasto reguliavimas nuo -100 iki 100 (0 nėra)."
+
+#: data/org.gnome.SimpleScan.gschema.xml:45
+msgid "Resolution for text scans"
+msgstr "Teksto skenavimo raiška"
+
+#: data/org.gnome.SimpleScan.gschema.xml:46
+msgid "The resolution in dots-per-inch to use when scanning text."
+msgstr "Raiška taškais colyje skenuojant tekstą."
+
+#: data/org.gnome.SimpleScan.gschema.xml:50
+msgid "Resolution for photo scans"
+msgstr "Nuotraukų skenavimo raiška"
+
+#: data/org.gnome.SimpleScan.gschema.xml:51
+msgid "The resolution in dots-per-inch to use when scanning photos."
+msgstr "Raiška taškais colyje skenuojant nuotraukas."
+
+#: data/org.gnome.SimpleScan.gschema.xml:55
+msgid "Page side to scan"
+msgstr "Skenuojama puslapio pusė"
+
+#: data/org.gnome.SimpleScan.gschema.xml:56
+msgid "The page side to scan."
+msgstr "Puslapio pusė, kurią skenuoti."
+
+#: data/org.gnome.SimpleScan.gschema.xml:60
+msgid "Directory to save files to"
+msgstr "Katalogas, į kurį įrašyti failus"
+
+#: data/org.gnome.SimpleScan.gschema.xml:61
+msgid ""
+"The directory to save files to. Defaults to the documents directory if unset."
+msgstr ""
+"Katalogas failams įrašyti. Jei nenustatyta, numatytoji reikšmė yra dokumentų "
+"katalogas."
+
+#: data/org.gnome.SimpleScan.gschema.xml:66
+msgid "Quality value to use for JPEG compression"
+msgstr "Kokybės reikšmė JPEG glaudinimui"
+
+#: data/org.gnome.SimpleScan.gschema.xml:67
+msgid "Quality value to use for JPEG compression."
+msgstr "Kokybės reikšmė, naudojama JPEG glaudinimui."
+
+#: data/org.gnome.SimpleScan.gschema.xml:72
+msgid "Delay in millisecond between pages"
+msgstr "Delsa tarp puslapių milisekundėmis"
+
+#: data/org.gnome.SimpleScan.gschema.xml:73
+msgid "Delay in millisecond between pages."
+msgstr "Delsa tarp puslapių milisekundėmis."
 
 #. Title of scan window
-#: src/simple-scan.ui:231 src/simple-scan.ui:815 data/simple-scan.desktop.in:3
-#: data/simple-scan.appdata.xml.in:6
+#. Set HeaderBar title here because Glade doesn't keep it translated
+#. https://bugzilla.gnome.org/show_bug.cgi?id=782753
+#. Title of scan window
+#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: src/app-window.ui:76 src/app-window.vala:1560
 msgid "Simple Scan"
 msgstr "Paprastas skenavimas"
 
-#. Label on document menu (contains actions for this document, e.g. save, print)
-#: src/simple-scan.ui:247
-msgid "_Document"
-msgstr "_Dokumentas"
-
-#. Scan menu item
-#: src/simple-scan.ui:266
-msgid "Sc_an"
-msgstr "S_kenuoti"
-
-#. Scan menu item to scan a single page from the scanner
-#. Toolbar scan menu item to scan a single page from the scanner
-#: src/simple-scan.ui:279 src/simple-scan.ui:1343 src/simple-scan.ui:1402
-msgid "Single _Page"
-msgstr "Vieną  _puslapį"
-
-#. Scan menu item to scan all pages from a document feeder
-#. Toolbar scan menu item to scan all pages from a document feeder
-#: src/simple-scan.ui:289 src/simple-scan.ui:1352 src/simple-scan.ui:1411
-msgid "All Pages From _Feeder"
-msgstr "Visus puslapius iš _padaviklio"
-
-#. Scan menu item to scan continuously from the flatbed
-#. Toolbar scan menu item to scan continuously from the flatbed
-#: src/simple-scan.ui:299 src/simple-scan.ui:1361 src/simple-scan.ui:1420
-msgid "_Multiple Pages From Flatbed"
-msgstr ""
-
-#. Menu entry to stop current scan
-#: src/simple-scan.ui:310
-msgid "_Stop Scan"
-msgstr "_Stabdyti skenavimą"
-
-#: src/simple-scan.ui:326 src/simple-scan.ui:1376 src/simple-scan.ui:1435
-msgid "Text"
-msgstr "Tekstas"
-
-#: src/simple-scan.ui:336 src/simple-scan.ui:1386 src/simple-scan.ui:1445
-msgid "Photo"
-msgstr "Nuotrauka"
-
-#. Menu item to reorder pages
-#. Title of dialog to reorder pages
-#: src/simple-scan.ui:352 src/ui.vala:1247 src/ui.vala:1891
-msgid "Reorder Pages"
-msgstr "Pakeisti puslapių tvarką"
-
-#. Label on email menu item
-#: src/simple-scan.ui:371
-msgid "_Email"
-msgstr "_Siųsti el. paštu"
-
-#. Page menu (contains action for each page, e.g. delete, crop)
-#: src/simple-scan.ui:436
-msgid "_Page"
-msgstr "_Puslapis"
-
-#. Menu item to rotate page to left (anti-clockwise)
-#: src/simple-scan.ui:446
-msgid "Rotate _Left"
-msgstr "Pasukti _kairėn"
-
-#. Menu item to rotate page to right (clockwise)
-#: src/simple-scan.ui:456
-msgid "Rotate _Right"
-msgstr "Pasukti _dešinėn"
-
-#. Label for page crop submenu
-#: src/simple-scan.ui:466
-msgid "_Crop"
-msgstr "_Apkirpti"
-
-#. Radio button for no crop
-#: src/simple-scan.ui:476
-msgid "_None"
-msgstr "_Nėra"
-
-#. Radio button for cropping page to A4 size
-#: src/simple-scan.ui:487
-msgid "A_4"
-msgstr "A_4"
-
-#. Radio button for cropping page to A5 size
-#: src/simple-scan.ui:498
-msgid "A_5"
-msgstr "A_5"
-
-#. Radio button for cropping page to A6 size
-#: src/simple-scan.ui:509
-msgid "A_6"
-msgstr "A_6"
-
-#. Radio button for cropping page to US letter size
-#: src/simple-scan.ui:520
-msgid "_Letter"
-msgstr "_Laiškas"
-
-#. Radio button for cropping to page to US legal size
-#: src/simple-scan.ui:531
-msgid "Le_gal"
-msgstr "Tei_sinis"
-
-#. Radio button for cropping page to 4x6 inch
-#: src/simple-scan.ui:542
-msgid "4×6"
-msgstr "4×6"
-
-#. Radio button for cropping to custom page size
-#: src/simple-scan.ui:553
-msgid "_Custom"
-msgstr "_Pasirinktinis"
-
-#. Menu item to rotate the crop area
-#: src/simple-scan.ui:571
-msgid "_Rotate Crop"
-msgstr "_Pasukti apkirpimą"
-
-#. Menu item to move the selected page to the left
-#: src/simple-scan.ui:584
-msgid "Move Left"
-msgstr "Perkelti kairėn"
-
-#. Menu item to move the selected page to the right
-#: src/simple-scan.ui:593
-msgid "Move Right"
-msgstr "Perkelti dešinėn"
-
-#. Label on help menu
-#: src/simple-scan.ui:630
-msgid "_Help"
-msgstr "_Žinynas"
-
-#. Help|Contents menu
-#: src/simple-scan.ui:638
-msgid "_Contents"
-msgstr "_Turinys"
-
-#. Tooltip for new document button
-#: src/simple-scan.ui:680 src/simple-scan.ui:891
-msgid "Start a new document"
-msgstr "Pradėti naują dokumentą"
-
-#: src/simple-scan.ui:681
-msgid "New"
-msgstr "Naujas"
-
-#. Tooltip for scan toolbar button
-#: src/simple-scan.ui:695 src/simple-scan.ui:842
-msgid "Scan a single page from the scanner"
-msgstr "Skenuoti vieną puslapį iš skenerio."
-
-#. Label on scan toolbar item
-#: src/simple-scan.ui:697 src/simple-scan.ui:843
-msgid "Scan"
-msgstr "Skenuoti"
-
-#. Tooltip for save toolbar button
-#: src/simple-scan.ui:713 src/simple-scan.ui:870
-msgid "Save document to a file"
-msgstr "Įrašyti dokumentą į failą"
-
-#: src/simple-scan.ui:715 src/ui.vala:1892
-msgid "Save"
-msgstr "Įrašyti"
-
-#. Tooltip for stop button
-#: src/simple-scan.ui:730 src/simple-scan.ui:830
-msgid "Stop the current scan"
-msgstr "Stabdyti esamą skenavimą"
-
-#: src/simple-scan.ui:731 src/simple-scan.ui:831
-msgid "Stop"
-msgstr "Stabdyti"
-
-#. Tooltip for rotate left (counter-clockwise) button
-#: src/simple-scan.ui:755 src/simple-scan.ui:942
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Pasukti puslapį kairėn (prieš laikrodžio rodyklę)"
-
-#. Label on rotate page left (anti-clockwise) item
-#: src/simple-scan.ui:756
-msgid "Rotate Left"
-msgstr "Pasukti kairėn"
-
-#. Tooltip for rotate right (clockwise) button
-#: src/simple-scan.ui:770 src/simple-scan.ui:920
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Pasukti puslapį dešinėn (pagal laikrodžio rodyklę)"
-
-#. Label on rotate page right (clockwise) item
-#: src/simple-scan.ui:771
-msgid "Rotate Right"
-msgstr "Pasukti dešinėn"
-
-#: src/simple-scan.ui:785 src/simple-scan.ui:969
-msgid "Crop the selected page"
-msgstr "Apkirpti pažymėtą puslapį"
-
-#: src/simple-scan.ui:787
-msgid "Crop"
-msgstr "Apkirpti"
-
-#. Title of preferences dialog
-#: src/simple-scan.ui:1003 src/ui.vala:1898
-msgid "Preferences"
-msgstr "Nuostatos"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1054
-msgid "Scan S_ource:"
-msgstr "Skenavimo š_altinis:"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1085
-msgid "_Text Resolution:"
-msgstr "_Teksto raiška:"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1101
-msgid "_Photo Resolution:"
-msgstr "_Nuotraukos raiška:"
-
-#. Label beside scan side combo box
-#: src/simple-scan.ui:1145
-msgid "Scan Side:"
-msgstr "Skenuojama pusė:"
-
-#. Label beside page size combo box
-#: src/simple-scan.ui:1175
-msgid "Page Size:"
-msgstr "Puslapio dydis:"
-
-#. Label beside brightness scale
-#: src/simple-scan.ui:1205
-msgid "Brightness:"
-msgstr "Skaistis:"
-
-#. Label beside contrast scale
-#: src/simple-scan.ui:1235
-msgid "Contrast:"
-msgstr "Kontrastas:"
-
-#. Label beside quality scale
-#: src/simple-scan.ui:1266
-msgid "Quality:"
-msgstr "Kokybė:"
-
-#. Label beside page delay scale
-#: src/simple-scan.ui:1297
-msgid "Delay between pages:"
-msgstr ""
-
-#: data/simple-scan.desktop.in:4
-msgid "Document Scanner"
-msgstr "Dokumentų skeneris"
-
-#: data/simple-scan.desktop.in:5 data/simple-scan.appdata.xml.in:7
+#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:5
 msgid "Scan Documents"
 msgstr "Skenuoti dokumentus"
-
-#: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;"
-msgstr "skenuoti;nuskaityti;adf;skaitytuvas;skeneris;plokštuminis;"
-
-#: data/simple-scan.desktop.in:8
-msgid "scanner"
-msgstr "skeneris"
 
 #: data/simple-scan.appdata.xml.in:9
 msgid ""
@@ -335,11 +159,759 @@ msgstr ""
 "įrašyti juos daugeliu paveikslų formatų."
 
 #: data/simple-scan.appdata.xml.in:14
-msgid ""
-"Simple Scan uses the SANE framework to support most existing scanners."
+msgid "Simple Scan uses the SANE framework to support most existing scanners."
 msgstr ""
 "Paprastas skenavimas naudoja SANE karkasą, kad palaikytų daugelį esamų "
 "skenerių."
+
+#: data/simple-scan.desktop.in:4
+msgid "Document Scanner"
+msgstr "Dokumentų skeneris"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/simple-scan.desktop.in:7
+msgid "scan;scanner;flatbed;adf;"
+msgstr "skenuoti;nuskaityti;adf;skaitytuvas;skeneris;plokštuminis;"
+
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/simple-scan.desktop.in:10
+msgid "scanner"
+msgstr "skeneris"
+
+#. Toolbar scan menu item to scan a single page from the scanner
+#. Scan menu item to scan a single page from the scanner
+#. Toolbar scan menu item to scan a single page from the scanner
+#: src/app-window.ui:22 src/app-window.ui:123 src/app-window.ui:820
+msgid "Single _Page"
+msgstr "Vieną  _puslapį"
+
+#. Toolbar scan menu item to scan all pages from a document feeder
+#. Scan menu item to scan all pages from a document feeder
+#. Toolbar scan menu item to scan all pages from a document feeder
+#: src/app-window.ui:31 src/app-window.ui:133 src/app-window.ui:829
+msgid "All Pages From _Feeder"
+msgstr "Visus puslapius iš _padaviklio"
+
+#. Toolbar scan menu item to scan continuously from the flatbed
+#. Scan menu item to scan continuously from the flatbed
+#. Toolbar scan menu item to scan continuously from the flatbed
+#: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:838
+msgid "_Multiple Pages From Flatbed"
+msgstr "_Daug puslapių nuo skenavimo plokštumos"
+
+#: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:853
+msgid "Text"
+msgstr "Tekstas"
+
+#: src/app-window.ui:65 src/app-window.ui:180 src/app-window.ui:863
+msgid "Photo"
+msgstr "Nuotrauka"
+
+#. Label on document menu (contains actions for this document, e.g. save, print)
+#: src/app-window.ui:91
+msgid "_Document"
+msgstr "_Dokumentas"
+
+#. Scan menu item
+#: src/app-window.ui:110
+msgid "Sc_an"
+msgstr "S_kenuoti"
+
+#. Menu entry to stop current scan
+#: src/app-window.ui:154
+msgid "_Stop Scan"
+msgstr "_Stabdyti skenavimą"
+
+#. Menu item to reorder pages
+#. Title of dialog to reorder pages
+#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1589
+msgid "Reorder Pages"
+msgstr "Pakeisti puslapių tvarką"
+
+#. Label on email menu item
+#: src/app-window.ui:215
+msgid "_Email"
+msgstr "_Siųsti el. paštu"
+
+#. Page menu (contains action for each page, e.g. delete, crop)
+#: src/app-window.ui:280
+msgid "_Page"
+msgstr "_Puslapis"
+
+#. Menu item to rotate page to left (anti-clockwise)
+#: src/app-window.ui:290
+msgid "Rotate _Left"
+msgstr "Pasukti _kairėn"
+
+#. Menu item to rotate page to right (clockwise)
+#: src/app-window.ui:300
+msgid "Rotate _Right"
+msgstr "Pasukti _dešinėn"
+
+#. Label for page crop submenu
+#: src/app-window.ui:310
+msgid "_Crop"
+msgstr "_Apkirpti"
+
+#. Radio button for no crop
+#: src/app-window.ui:320
+msgid "_None"
+msgstr "_Nėra"
+
+#. Radio button for cropping page to A4 size
+#: src/app-window.ui:331
+msgid "A_4"
+msgstr "A_4"
+
+#. Radio button for cropping page to A5 size
+#: src/app-window.ui:342
+msgid "A_5"
+msgstr "A_5"
+
+#. Radio button for cropping page to A6 size
+#: src/app-window.ui:353
+msgid "A_6"
+msgstr "A_6"
+
+#. Radio button for cropping page to US letter size
+#: src/app-window.ui:364
+msgid "_Letter"
+msgstr "_Laiškas"
+
+#. Radio button for cropping to page to US legal size
+#: src/app-window.ui:375
+msgid "Le_gal"
+msgstr "Tei_sinis"
+
+#. Radio button for cropping page to 4x6 inch
+#: src/app-window.ui:386
+msgid "4×6"
+msgstr "4×6"
+
+#. Radio button for cropping to custom page size
+#: src/app-window.ui:397
+msgid "_Custom"
+msgstr "_Pasirinktinis"
+
+#. Menu item to rotate the crop area
+#: src/app-window.ui:415
+msgid "_Rotate Crop"
+msgstr "_Pasukti apkirpimą"
+
+#. Menu item to move the selected page to the left
+#: src/app-window.ui:428
+msgid "Move Left"
+msgstr "Perkelti kairėn"
+
+#. Menu item to move the selected page to the right
+#: src/app-window.ui:437
+msgid "Move Right"
+msgstr "Perkelti dešinėn"
+
+#. Label on help menu
+#: src/app-window.ui:474
+msgid "_Help"
+msgstr "_Žinynas"
+
+#. Help|Contents menu
+#: src/app-window.ui:482
+msgid "_Contents"
+msgstr "_Turinys"
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:520 src/app-window.ui:720
+msgid "Scan a single page from the scanner"
+msgstr "Skenuoti vieną puslapį iš skenerio."
+
+#. Label on scan toolbar item
+#: src/app-window.ui:522 src/app-window.ui:716
+msgid "Scan"
+msgstr "Skenuoti"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:538 src/app-window.ui:787
+msgid "Save document to a file"
+msgstr "Įrašyti dokumentą į failą"
+
+#: src/app-window.ui:540
+msgid "Save"
+msgstr "Įrašyti"
+
+#. Tooltip for stop button
+#: src/app-window.ui:555 src/app-window.ui:700
+msgid "Stop the current scan"
+msgstr "Stabdyti esamą skenavimą"
+
+#: src/app-window.ui:556 src/app-window.ui:697
+msgid "Stop"
+msgstr "Stabdyti"
+
+#. Label shown when searching for scanners
+#: src/app-window.ui:611
+msgid "Searching for Scanners…"
+msgstr "Ieškoma skenerių"
+
+#: src/app-window.vala:237 src/app-window.vala:1380
+msgid "_Close"
+msgstr "_Užverti"
+
+#. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
+#: src/app-window.vala:246
+#, c-format
+#| msgid "Username and password required to access '%s'"
+msgid "Username and password required to access “%s”"
+msgstr "Naudotojo vardas ir slaptažodis, reikalingas prieigai prie „%s“"
+
+#. Label shown when detected a scanner
+#: src/app-window.vala:266 src/app-window.vala:584
+#| msgid "Failed to scan"
+msgid "Ready to Scan"
+msgstr "Pasiruošta skenavimui"
+
+#. Warning displayed when no drivers are installed but a compatible scanner is detected
+#: src/app-window.vala:273
+msgid "Additional software needed"
+msgstr "Reikalinga papildoma programinė įranga"
+
+#. Instructions to install driver software
+#: src/app-window.vala:275
+#| msgid "You need to install driver software for your scanner."
+msgid ""
+"You need to <a href=\"install-firmware\">install driver software</a> for "
+"your scanner."
+msgstr ""
+"Jūs turite savo skeneriui <a href=\"install-firmware\">įdiegti tvarkyklę</a>."
+
+#. Warning displayed when no scanners are detected
+#: src/app-window.vala:281
+msgid "No scanners detected"
+msgstr "Skenerių neaptikta"
+
+#. Hint to user on why there are no scanners detected
+#: src/app-window.vala:283
+msgid "Please check your scanner is connected and powered on"
+msgstr "Patikrinkite ar skeneris yra prijungtas ir įjungtas"
+
+#. Save dialog: Dialog title
+#: src/app-window.vala:298
+#| msgid "Save As..."
+msgid "Save As…"
+msgstr "Įrašyti taip…"
+
+#: src/app-window.vala:301 src/app-window.vala:471 src/app-window.vala:552
+msgid "_Cancel"
+msgstr "_Atsisakyti"
+
+#: src/app-window.vala:302 src/app-window.vala:553
+msgid "_Save"
+msgstr "Į_rašyti"
+
+#. Default filename to use when saving document
+#: src/app-window.vala:310
+msgid "Scanned Document.pdf"
+msgstr "Nuskenuotas dokumentas.pdf"
+
+#. Save dialog: Filter name to show only supported image files
+#: src/app-window.vala:316
+msgid "Image Files"
+msgstr "Paveikslų failai"
+
+#. Save dialog: Filter name to show all files
+#: src/app-window.vala:326
+msgid "All Files"
+msgstr "Visi failai"
+
+#. Save dialog: Label for saving in PDF format
+#: src/app-window.vala:335
+msgid "PDF (multi-page document)"
+msgstr "PDF (kelių puslapių dokumentas)"
+
+#. Save dialog: Label for saving in JPEG format
+#: src/app-window.vala:341
+msgid "JPEG (compressed)"
+msgstr "JPEG (suglaudintas)"
+
+#. Save dialog: Label for saving in PNG format
+#: src/app-window.vala:347
+msgid "PNG (lossless)"
+msgstr "PNG (nenuostolingasis)"
+
+#. Save dialog: Label for sabing in WEBP format
+#: src/app-window.vala:354
+#| msgid "JPEG (compressed)"
+msgid "WebP (compressed)"
+msgstr "WebP (suglaudintas)"
+
+#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
+#: src/app-window.vala:364
+msgid "File format:"
+msgstr "Failo formatas:"
+
+#. Label in save dialog beside compression slider
+#: src/app-window.vala:376
+msgid "Compression:"
+msgstr "Suspaudimas:"
+
+#. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
+#: src/app-window.vala:470
+#, c-format
+msgid "A file named “%s” already exists.  Do you want to replace it?"
+msgstr "Failas pavadinimu „%s“ jau yra.  Ar norite jį perrašyti?"
+
+#. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
+#: src/app-window.vala:473
+msgid "_Replace"
+msgstr "Per_rašyti"
+
+#: src/app-window.vala:512
+msgid "Saving"
+msgstr "Įrašoma"
+
+#. Title of error dialog when save failed
+#: src/app-window.vala:527
+msgid "Failed to save file"
+msgstr "Nepavyko įrašyti failo"
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:550
+#| msgid "If you don't save, changes will be permanently lost."
+msgid "If you don’t save, changes will be permanently lost."
+msgstr "Jeigu neįrašysite, pakeitimai bus negrįžtamai prarasti."
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:591
+msgid "Save current document?"
+msgstr "Įrašyti šį dokumentą?"
+
+#. Button in dialog to create new document and discard unsaved document
+#: src/app-window.vala:593
+msgid "Discard Changes"
+msgstr "Atmesti pakeitimus"
+
+#. Label shown when scan started
+#: src/app-window.vala:692
+#| msgid "Change _Scanner"
+msgid "Contacting scanner…"
+msgstr "Jungiamasi prie _skenerio…"
+
+#. Error message display when unable to save image for preview
+#: src/app-window.vala:800
+msgid "Unable to save image for preview"
+msgstr "Nepavyko įrašyti paveikslo peržiūrai"
+
+#. Error message display when unable to preview image
+#: src/app-window.vala:812
+msgid "Unable to open image preview application"
+msgstr "Nepavyko atverti paveikslų peržiūros programos"
+
+#. Label on button for combining sides in reordering dialog
+#: src/app-window.vala:990
+msgid "Combine sides"
+msgstr "Suskirstyti puses"
+
+#. Label on button for combining sides in reverse order in reordering dialog
+#: src/app-window.vala:1000
+msgid "Combine sides (reverse)"
+msgstr "Suskirstyti puses (atvirkščiai)"
+
+#. Label on button for reversing in reordering dialog
+#: src/app-window.vala:1010
+msgid "Reverse"
+msgstr "Atvirkščiai"
+
+#. Label on button for cancelling page reordering dialog
+#: src/app-window.vala:1020
+msgid "Keep unchanged"
+msgstr "Palikti nepakeistus"
+
+#. Error message displayed when unable to launch help browser
+#: src/app-window.vala:1250
+msgid "Unable to open help file"
+msgstr "Nepavyko atverti žinyno failo"
+
+#. The license this software is under (GPL3+)
+#: src/app-window.vala:1271
+msgid ""
+"This program is free software: you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation, either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+"Ši programa yra laisva programinė įranga: galite ją platinti ir/ar "
+"modifikuoti\n"
+"GNU bendrosios viešosios licencijos (GPL) sąlygomis, kurios paskelbtos\n"
+"Laisvosios programinės įrangos fondo (FSF), 3-osios arba\n"
+"(jūsų pasirinkimu) bet kurios vėlesnės licencijos versijos sąlygomis.\n"
+"\n"
+"Ši programa yra platinama tikintis, kad ji bus naudinga, tačiau BE JOKIŲ\n"
+"GARANTIJŲ; netgi be numanomų PERKAMUMO ar TINKAMUMO\n"
+"KONKREČIAI UŽDUOČIAI garantijų. Išsamią informaciją rasite\n"
+"GNU bendrojoje viešojoje licencijoje.\n"
+"\n"
+"Jūs turėjote gauti GNU bendrosios viešosios licencijos kopiją kartu su\n"
+"šia programa; jei negavote, žiūrėkite <http://www.gnu.org/licenses/>."
+
+#. Title of about dialog
+#: src/app-window.vala:1274
+msgid "About Simple Scan"
+msgstr "Apie Paprastą skenavimą"
+
+#. Description of program
+#: src/app-window.vala:1277
+msgid "Simple document scanning tool"
+msgstr "Paprastas dokumentų skenavimo įrankis"
+
+#: src/app-window.vala:1286
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Aurimas Fišeras https://launchpad.net/~aurimas-gmail\n"
+"  Johnsonas https://launchpad.net/~uran54\n"
+"  Launchpad Translations Administrators https://launchpad.net/~rosetta\n"
+"  Mantas Kriaučiūnas https://launchpad.net/~mantas\n"
+"  Moo https://launchpad.net/~mooo\n"
+"  Rytis Usalis https://launchpad.net/~rytis-usalis\n"
+"  Vincas Dargis https://launchpad.net/~talkless\n"
+"  romasg https://launchpad.net/~romasg"
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:1308
+msgid "Save document before quitting?"
+msgstr "Įrašyti dokumentą prieš baigiant programos darbą?"
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:1310
+msgid "Quit without Saving"
+msgstr "Baigti neįrašant"
+
+#. Message to indicate a Brother scanner has been detected
+#: src/app-window.vala:1357
+msgid "You appear to have a Brother scanner."
+msgstr "Atrodo, kad turite Brother skenerį."
+
+#. Instructions on how to install Brother scanner drivers
+#: src/app-window.vala:1359
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.brother.com"
+"\">Brother website</a>."
+msgstr ""
+"Tvarkyklės šiam įrenginiui yra prieinamos <a href=\"http://support.brother."
+"com\">Brother svetainėje</a>."
+
+#. Message to indicate a Samsung scanner has been detected
+#: src/app-window.vala:1363
+msgid "You appear to have a Samsung scanner."
+msgstr "Atrodo, kad turite Samsung skenerį."
+
+#. Instructions on how to install Samsung scanner drivers
+#: src/app-window.vala:1365
+msgid ""
+"Drivers for this are available on the <a href=\"http://samsung.com/support"
+"\">Samsung website</a>."
+msgstr ""
+"Tvarkyklės šiam įrenginiui yra prieinamos <a href=\"http://samsung.com/"
+"support\">Samsung svetainėje</a>."
+
+#. Message to indicate a HP scanner has been detected
+#: src/app-window.vala:1369
+msgid "You appear to have an HP scanner."
+msgstr "Atrodo, kad turite HP skenerį."
+
+#. Message to indicate an Epson scanner has been detected
+#: src/app-window.vala:1374
+msgid "You appear to have an Epson scanner."
+msgstr "Atrodo, kad turite Epson skenerį."
+
+#. Instructions on how to install Epson scanner drivers
+#: src/app-window.vala:1376
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.epson.com"
+"\">Epson website</a>."
+msgstr ""
+"Tvarkyklės šiam įrenginiui yra prieinamos <a href=\"http://support.epson.com"
+"\">Epson svetainėje</a>."
+
+#. Title of dialog giving instructions on how to install drivers
+#: src/app-window.vala:1380
+msgid "Install drivers"
+msgstr "Įdiegti tvarkykles"
+
+#. Message in driver install dialog
+#: src/app-window.vala:1411
+msgid "Once installed you will need to restart Simple Scan."
+msgstr "Įdiegę, turėsite iš naujo paleisti Paprastą skenavimą."
+
+#. Label shown while installing drivers
+#: src/app-window.vala:1423
+#| msgid "Installing drivers..."
+msgid "Installing drivers…"
+msgstr "Įdiegiamos tvarkyklės…"
+
+#. Label shown once drivers successfully installed
+#: src/app-window.vala:1431
+msgid "Drivers installed successfully!"
+msgstr "Tvarkyklės sėkmingai įdiegtos!"
+
+#. Label shown if failed to install drivers
+#: src/app-window.vala:1441
+#, c-format
+msgid "Failed to install drivers (error code %d)."
+msgstr "Nepavyko įdiegti tvarkyklių (klaidos kodas %d)."
+
+#. Label shown if failed to install drivers
+#: src/app-window.vala:1447
+msgid "Failed to install drivers."
+msgstr "Nepavyko įdiegti tvarkyklių."
+
+#. Label shown to prompt user to install packages (when PackageKit not available)
+#: src/app-window.vala:1454
+#, c-format
+#| msgid "You need to install the %s package(s)."
+msgid "You need to install the %s package."
+msgid_plural "You need to install the %s packages."
+msgstr[0] "Jums reikia įdiegti %s paketą."
+msgstr[1] "Jums reikia įdiegti %s paketus."
+msgstr[2] "Jums reikia įdiegti %s paketus."
+
+#. Title of preferences dialog
+#: src/app-window.vala:1568 src/app-window.vala:1590
+#: src/preferences-dialog.ui:53
+msgid "Preferences"
+msgstr "Nuostatos"
+
+#: src/app-window.vala:1572
+msgid "Help"
+msgstr "Žinynas"
+
+#: src/app-window.vala:1573
+msgid "About"
+msgstr "Apie"
+
+#: src/app-window.vala:1574
+msgid "Quit"
+msgstr "Baigti"
+
+#: src/app-window.vala:1588
+#| msgid "_Email"
+msgid "Email"
+msgstr "El. paštu"
+
+#. Populate ActionBar (not supported in Glade)
+#. https://bugzilla.gnome.org/show_bug.cgi?id=769966
+#. Label on new document button
+#: src/app-window.vala:1598
+msgid "Start Again…"
+msgstr "Pradėti iš naujo…"
+
+#. Tooltip for rotate left (counter-clockwise) button
+#: src/app-window.vala:1615
+msgid "Rotate the page to the left (counter-clockwise)"
+msgstr "Pasukti puslapį kairėn (prieš laikrodžio rodyklę)"
+
+#. Tooltip for rotate right (clockwise) button
+#: src/app-window.vala:1622
+msgid "Rotate the page to the right (clockwise)"
+msgstr "Pasukti puslapį dešinėn (pagal laikrodžio rodyklę)"
+
+#. Tooltip for crop button
+#: src/app-window.vala:1632
+msgid "Crop the selected page"
+msgstr "Apkirpti pažymėtą puslapį"
+
+#. Tooltip for delete button
+#: src/app-window.vala:1648
+#| msgid "Crop the selected page"
+msgid "Delete the selected page"
+msgstr "Ištrinti pasirinktą puslapį"
+
+#. Text of button for cancelling save
+#: src/app-window.vala:1813
+#| msgid "_Cancel"
+msgid "Cancel"
+msgstr "Atsisakyti"
+
+#. Button to submit authorization dialog
+#: src/authorize-dialog.ui:25
+msgid "_Authorize"
+msgstr "Į_galioti"
+
+#. Label beside username entry
+#: src/authorize-dialog.ui:99
+msgid "_Username for resource:"
+msgstr "Ištekliaus na_udotojo vardas:"
+
+#. Label beside password entry
+#: src/authorize-dialog.ui:112
+msgid "_Password:"
+msgstr "Sla_ptažodis:"
+
+#: src/book.vala:331 src/book.vala:337
+#, c-format
+#| msgid "Unable to open help file"
+msgid "Unable to encode page %i"
+msgstr "Nepavyko užkoduoti puslapio %i"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:113
+#| msgid "scanner"
+msgid "_Scanner"
+msgstr "_Skeneris"
+
+#. Label beside scan side combo box
+#: src/preferences-dialog.ui:143
+#| msgid "Scan Side:"
+msgid "Scan Sides"
+msgstr "Skenuoti puses"
+
+#. Label beside page size combo box
+#: src/preferences-dialog.ui:160
+#| msgid "Page Size:"
+msgid "Page Size"
+msgstr "Puslapio dydis"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:191
+msgid "Front"
+msgstr "Priekinė pusė"
+
+#. Preferences Dialog: Toggle button to select scanning on the back side of a page
+#: src/preferences-dialog.ui:206
+msgid "Back"
+msgstr "Galinė pusė"
+
+#. Preferences Dialog: Toggle button to select scanning on both sides of a page
+#: src/preferences-dialog.ui:221
+msgid "Both"
+msgstr "Abi"
+
+#. Label beside page delay scale
+#: src/preferences-dialog.ui:260
+msgid "Delay"
+msgstr "Delsa"
+
+#. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
+#: src/preferences-dialog.ui:276
+msgid "Multiple page from flatbed"
+msgstr "Daug puslapių nuo plokštumos"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:295
+msgid "3"
+msgstr "3"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:310
+msgid "5"
+msgstr "5"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:326
+msgid "7"
+msgstr "7"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:342
+msgid "10"
+msgstr "10"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:358
+msgid "15"
+msgstr "15"
+
+#. Label after page delay radio buttons
+#: src/preferences-dialog.ui:385
+msgid "Seconds"
+msgstr "Sekundžių"
+
+#. Preferences Dialog: Tab label for scanning settings
+#: src/preferences-dialog.ui:413
+#| msgid "Scan"
+msgid "Scanning"
+msgstr "Skenuojama"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:436
+#| msgid "_Text Resolution:"
+msgid "_Text Resolution"
+msgstr "_Teksto raiška"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:452
+#| msgid "_Photo Resolution:"
+msgid "_Photo Resolution"
+msgstr "_Nuotraukos raiška"
+
+#. Label beside brightness scale
+#: src/preferences-dialog.ui:505
+#| msgid "Brightness:"
+msgid "Brightness"
+msgstr "Šviesumas"
+
+#. Label beside contrast scale
+#: src/preferences-dialog.ui:521
+#| msgid "Contrast:"
+msgid "Contrast"
+msgstr "Kontrastas"
+
+#. Preferences Dialog: Tab for quality settings
+#: src/preferences-dialog.ui:576
+#| msgid "Quality:"
+msgid "Quality"
+msgstr "Kokybė"
+
+#. Combo box value for automatic paper size
+#: src/preferences-dialog.vala:77
+msgid "Automatic"
+msgstr "Automatinis"
+
+#: src/preferences-dialog.vala:116
+msgid "Darker"
+msgstr "Tamsesnis"
+
+#: src/preferences-dialog.vala:118
+msgid "Lighter"
+msgstr "Šviesesnis"
+
+#: src/preferences-dialog.vala:126
+msgid "Less"
+msgstr "Mažiau"
+
+#: src/preferences-dialog.vala:128
+msgid "More"
+msgstr "Daugiau"
+
+#. Preferences dialog: Label for default resolution in resolution list
+#: src/preferences-dialog.vala:440
+#, c-format
+msgid "%d dpi (default)"
+msgstr "%d tašk./col. (numatytoji)"
+
+#. Preferences dialog: Label for minimum resolution in resolution list
+#: src/preferences-dialog.vala:443
+#, c-format
+msgid "%d dpi (draft)"
+msgstr "%d tašk./col. (juodraštis)"
+
+#. Preferences dialog: Label for maximum resolution in resolution list
+#: src/preferences-dialog.vala:446
+#, c-format
+msgid "%d dpi (high resolution)"
+msgstr "%d tašk./col. (didelė raiška)"
+
+#. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
+#: src/preferences-dialog.vala:449
+#, c-format
+msgid "%d dpi"
+msgstr "%d tašk./col."
 
 #. Error displayed when no scanners to scan with
 #: src/scanner.vala:844
@@ -377,493 +949,77 @@ msgstr ""
 "Pataisyti PDF failus sukurtus su senesnėmis „Paprasto skenavimo“ versijomis"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:389
+#: src/simple-scan.vala:392
 msgid "Failed to scan"
 msgstr "Skenavimas nepavyko"
 
+#. Attempt to inhibit the screensaver when scanning
+#: src/simple-scan.vala:407
+msgid "Scan in progress"
+msgstr "Vykdomas skenavimas"
+
 #. Arguments and description for --help text
-#: src/simple-scan.vala:619
-msgid "[DEVICE...] - Scanning utility"
-msgstr "[ĮRENGINYS...] - Skenavimo paslaugų programa"
+#: src/simple-scan.vala:584
+#| msgid "[DEVICE...] - Scanning utility"
+msgid "[DEVICE…] — Scanning utility"
+msgstr "[ĮRENGINYS...] - Skenavimo įraknis"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:630
+#: src/simple-scan.vala:595
 #, c-format
-msgid "Run '%s --help' to see a full list of available command line options."
+#| msgid ""
+#| "Run '%s --help' to see a full list of available command line options."
+msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Norėdami pamatyti komandų eilutės parametrų sąrašą, paleiskite „%s --help“."
 
-#: src/ui.vala:332 src/ui.vala:1655 src/ui.vala:1935
-msgid "_Close"
-msgstr "_Užverti"
+#~ msgid "Front and Back"
+#~ msgstr "Abi pusės"
 
-#. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: src/ui.vala:341
-#, c-format
-msgid "Username and password required to access '%s'"
-msgstr "Naudotojo vardas ir slaptažodis, reikalingas prieigai prie „%s“"
+#~ msgid "Start a new document"
+#~ msgstr "Pradėti naują dokumentą"
 
-#. Warning displayed when no scanners are detected
-#: src/ui.vala:389
-msgid "No scanners detected"
-msgstr "Skenerių neaptikta"
+#~ msgid "New"
+#~ msgstr "Naujas"
 
-#. Hint to user on why there are no scanners detected
-#: src/ui.vala:391
-msgid "Please check your scanner is connected and powered on"
-msgstr "Patikrinkite ar skeneris yra prijungtas ir įjungtas"
+#~ msgid "Rotate Left"
+#~ msgstr "Pasukti kairėn"
 
-#. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/ui.vala:396
-msgid "Additional software needed"
-msgstr "Reikalinga papildoma programinė įranga"
+#~ msgid "Rotate Right"
+#~ msgstr "Pasukti dešinėn"
 
-#. Instructions to install driver software
-#: src/ui.vala:398
-msgid "You need to install driver software for your scanner."
-msgstr "Jūs turite savo skeneriui įdiegti tvarkyklę."
+#~ msgid "Crop"
+#~ msgstr "Apkirpti"
 
-#. Save dialog: Dialog title
-#: src/ui.vala:510
-msgid "Save As..."
-msgstr "Įrašyti kaip..."
+#~ msgid "Scan S_ource:"
+#~ msgstr "Skenavimo š_altinis:"
 
-#: src/ui.vala:513 src/ui.vala:648 src/ui.vala:723
-msgid "_Cancel"
-msgstr "_Atsisakyti"
+#~ msgid "New Document"
+#~ msgstr "Naujas dokumentas"
 
-#: src/ui.vala:514 src/ui.vala:724
-msgid "_Save"
-msgstr "Į_rašyti"
+#~ msgid "Document"
+#~ msgstr "Dokumentas"
 
-#. Default filename to use when saving document
-#: src/ui.vala:522
-msgid "Scanned Document.pdf"
-msgstr "Nuskenuotas dokumentas.pdf"
+#~ msgid "Email..."
+#~ msgstr "El. paštas..."
 
-#. Save dialog: Filter name to show only image files
-#: src/ui.vala:528
-msgid "Image Files"
-msgstr "Paveikslų failai"
+#~ msgid "Print..."
+#~ msgstr "Spausdinti..."
 
-#. Save dialog: Filter name to show all files
-#: src/ui.vala:534
-msgid "All Files"
-msgstr "Visi failai"
+#~ msgid "_Install Drivers"
+#~ msgstr "Į_diegti tvarkykles"
 
-#. Save dialog: Label for saving in PDF format
-#: src/ui.vala:543
-msgid "PDF (multi-page document)"
-msgstr "PDF (kelių puslapių dokumentas)"
+#~ msgid "Minimum"
+#~ msgstr "Žemiausia"
 
-#. Save dialog: Label for saving in JPEG format
-#: src/ui.vala:549
-msgid "JPEG (compressed)"
-msgstr "JPEG (suglaudintas)"
+#~ msgid "Maximum"
+#~ msgstr "Aukščiausia"
 
-#. Save dialog: Label for saving in PNG format
-#: src/ui.vala:555
-msgid "PNG (lossless)"
-msgstr "PNG (nenuostolingasis)"
+#~ msgid "Saving document..."
+#~ msgstr "Įrašomas dokumentas..."
 
-#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
-#: src/ui.vala:564
-msgid "File format:"
-msgstr "Failo formatas:"
-
-#. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/ui.vala:647
-#, c-format
-msgid "A file named “%s” already exists.  Do you want to replace it?"
-msgstr ""
-
-#. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/ui.vala:650
-msgid "_Replace"
-msgstr ""
-
-#. Title of error dialog when save failed
-#: src/ui.vala:698
-msgid "Failed to save file"
-msgstr "Nepavyko įrašyti failo"
-
-#. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:721
-msgid "If you don't save, changes will be permanently lost."
-msgstr "Jeigu neįrašysite, pakeitimai bus negrįžtamai prarasti."
-
-#. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:763
-msgid "Save current document?"
-msgstr "Įrašyti šį dokumentą?"
-
-#. Button in dialog to create new document and discard unsaved document
-#: src/ui.vala:765
-msgid "Discard Changes"
-msgstr "Atmesti pakeitimus"
-
-#. Error message display when unable to save image for preview
-#: src/ui.vala:1056
-msgid "Unable to save image for preview"
-msgstr "Nepavyko įrašyti paveikslo peržiūrai"
-
-#. Error message display when unable to preview image
-#: src/ui.vala:1068
-msgid "Unable to open image preview application"
-msgstr "Nepavyko atverti paveikslų peržiūros programos"
-
-#. Label on button for combining sides in reordering dialog
-#: src/ui.vala:1270
-msgid "Combine sides"
-msgstr "Suskirstyti puses"
-
-#. Label on button for combining sides in reverse order in reordering dialog
-#: src/ui.vala:1280
-msgid "Combine sides (reverse)"
-msgstr "Suskirstyti puses (atvirkščiai)"
-
-#. Label on button for reversing in reordering dialog
-#: src/ui.vala:1290
-msgid "Reverse"
-msgstr "Atvirkščiai"
-
-#. Label on button for cancelling page reordering dialog
-#: src/ui.vala:1300
-msgid "Keep unchanged"
-msgstr "Palikti nepakeistus"
-
-#. Error message displayed when unable to launch help browser
-#: src/ui.vala:1504
-msgid "Unable to open help file"
-msgstr "Nepavyko atverti žinyno failo"
-
-#. The license this software is under (GPL3+)
-#: src/ui.vala:1525
-msgid ""
-"This program is free software: you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation, either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program.  If not, see <http://www.gnu.org/licenses/>."
-msgstr ""
-"Ši programa yra laisva programinė įranga: galite ją platinti ir/ar "
-"modifikuoti\n"
-"GNU bendrosios viešosios licencijos (GPL) sąlygomis, kurios paskelbtos\n"
-"Laisvosios programinės įrangos fondo (FSF), 3-osios arba\n"
-"(jūsų pasirinkimu) bet kurios vėlesnės licencijos versijos sąlygomis.\n"
-"\n"
-"Ši programa yra platinama tikintis, kad ji bus naudinga, tačiau BE JOKIŲ\n"
-"GARANTIJŲ; netgi be numanomų PERKAMUMO ar TINKAMUMO\n"
-"KONKREČIAI UŽDUOČIAI garantijų. Išsamią informaciją rasite\n"
-"GNU bendrojoje viešojoje licencijoje.\n"
-"\n"
-"Jūs turėjote gauti GNU bendrosios viešosios licencijos kopiją kartu su\n"
-"šia programa; jei negavote, žiūrėkite <http://www.gnu.org/licenses/>."
-
-#. Title of about dialog
-#: src/ui.vala:1528
-msgid "About Simple Scan"
-msgstr "Apie Paprastą skenavimą"
-
-#. Description of program
-#: src/ui.vala:1531
-msgid "Simple document scanning tool"
-msgstr "Paprastas dokumentų skenavimo įrankis"
-
-#: src/ui.vala:1540
-msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Aurimas Fišeras https://launchpad.net/~aurimas-gmail\n"
-"  Johnsonas https://launchpad.net/~uran54\n"
-"  Launchpad Translations Administrators https://launchpad.net/~rosetta\n"
-"  Mantas Kriaučiūnas https://launchpad.net/~mantas\n"
-"  Moo https://launchpad.net/~mooo\n"
-"  Rytis Usalis https://launchpad.net/~rytis-usalis\n"
-"  Vincas Dargis https://launchpad.net/~talkless\n"
-"  romasg https://launchpad.net/~romasg"
-
-#. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:1562
-msgid "Save document before quitting?"
-msgstr "Įrašyti dokumentą prieš baigiant programos darbą?"
-
-#. Button in dialog to quit and discard unsaved document
-#: src/ui.vala:1564
-msgid "Quit without Saving"
-msgstr "Baigti neįrašant"
-
-#. Message to indicate a Brother scanner has been detected
-#: src/ui.vala:1632
-msgid "You appear to have a Brother scanner."
-msgstr "Atrodo, kad turite Brother skenerį."
-
-#. Instructions on how to install Brother scanner drivers
-#: src/ui.vala:1634
-msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.brother.com\">Brother website</a>."
-msgstr ""
-"Tvarkyklės šiam įrenginiui yra prieinamos <a "
-"href=\"http://support.brother.com\">Brother svetainėje</a>."
-
-#. Message to indicate a Samsung scanner has been detected
-#: src/ui.vala:1638
-msgid "You appear to have a Samsung scanner."
-msgstr "Atrodo, kad turite Samsung skenerį."
-
-#. Instructions on how to install Samsung scanner drivers
-#: src/ui.vala:1640
-msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://samsung.com/support\">Samsung website</a>."
-msgstr ""
-"Tvarkyklės šiam įrenginiui yra prieinamos <a "
-"href=\"http://samsung.com/support\">Samsung svetainėje</a>."
-
-#. Message to indicate a HP scanner has been detected
-#: src/ui.vala:1644
-msgid "You appear to have an HP scanner."
-msgstr "Atrodo, kad turite HP skenerį."
-
-#. Message to indicate an Epson scanner has been detected
-#: src/ui.vala:1649
-msgid "You appear to have an Epson scanner."
-msgstr "Atrodo, kad turite Epson skenerį."
-
-#. Instructions on how to install Epson scanner drivers
-#: src/ui.vala:1651
-msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.epson.com\">Epson website</a>."
-msgstr ""
-"Tvarkyklės šiam įrenginiui yra prieinamos <a "
-"href=\"http://support.epson.com\">Epson svetainėje</a>."
-
-#. Title of dialog giving instructions on how to install drivers
-#: src/ui.vala:1655
-msgid "Install drivers"
-msgstr "Įdiegti tvarkykles"
-
-#. Message in driver install dialog
-#: src/ui.vala:1686
-msgid "Once installed you will need to restart Simple Scan."
-msgstr "Įdiegę, turėsite iš naujo paleisti Paprastą skenavimą."
-
-#. Label shown while installing drivers
-#: src/ui.vala:1698
-msgid "Installing drivers..."
-msgstr "Įdiegiamos tvarkyklės..."
-
-#. Label shown once drivers successfully installed
-#: src/ui.vala:1706
-msgid "Drivers installed successfully!"
-msgstr "Tvarkyklės sėkmingai įdiegtos!"
-
-#. Label shown if failed to install drivers
-#: src/ui.vala:1716
-#, c-format
-msgid "Failed to install drivers (error code %d)."
-msgstr "Nepavyko įdiegti tvarkyklių (klaidos kodas %d)."
-
-#. Label shown if failed to install drivers
-#: src/ui.vala:1722
-msgid "Failed to install drivers."
-msgstr "Nepavyko įdiegti tvarkyklių."
-
-#. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/ui.vala:1729
-#, c-format
-msgid "You need to install the %s package(s)."
-msgstr "Jums reikia įdiegti %s paketą(-us)."
-
-#. Preferences dialog: Label for default resolution in resolution list
-#: src/ui.vala:1833
-#, c-format
-msgid "%d dpi (default)"
-msgstr "%d tašk./col. (numatytoji)"
-
-#. Preferences dialog: Label for minimum resolution in resolution list
-#: src/ui.vala:1836
-#, c-format
-msgid "%d dpi (draft)"
-msgstr "%d tašk./col. (juodraštis)"
-
-#. Preferences dialog: Label for maximum resolution in resolution list
-#: src/ui.vala:1839
-#, c-format
-msgid "%d dpi (high resolution)"
-msgstr "%d tašk./col. (didelė raiška)"
-
-#. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/ui.vala:1842
-#, c-format
-msgid "%d dpi"
-msgstr "%d tašk./col."
-
-#: src/ui.vala:1885
-msgid "New Document"
-msgstr "Naujas dokumentas"
-
-#: src/ui.vala:1890
-msgid "Document"
-msgstr "Dokumentas"
-
-#: src/ui.vala:1893
-msgid "Email..."
-msgstr "El. paštas..."
-
-#: src/ui.vala:1894
-msgid "Print..."
-msgstr "Spausdinti..."
-
-#: src/ui.vala:1902
-msgid "Help"
-msgstr "Žinynas"
-
-#: src/ui.vala:1903
-msgid "About"
-msgstr "Apie"
-
-#: src/ui.vala:1904
-msgid "Quit"
-msgstr "Baigti"
-
-#. Button in error infobar to open preferences dialog and change scanner
-#: src/ui.vala:1937
-msgid "Change _Scanner"
-msgstr "Keisti _skenerį"
-
-#. Button in error infobar to prompt user to install drivers
-#: src/ui.vala:1939
-msgid "_Install Drivers"
-msgstr "Į_diegti tvarkykles"
-
-#. Combo box value for automatic paper size
-#: src/ui.vala:1945
-msgid "Automatic"
-msgstr "Automatinis"
-
-#: src/ui.vala:1995
-msgid "Darker"
-msgstr "Tamsesnis"
-
-#: src/ui.vala:1997
-msgid "Lighter"
-msgstr "Šviesesnis"
-
-#: src/ui.vala:2005
-msgid "Less"
-msgstr "Mažiau"
-
-#: src/ui.vala:2007
-msgid "More"
-msgstr "Daugiau"
-
-#: src/ui.vala:2015
-msgid "Minimum"
-msgstr "Žemiausia"
-
-#: src/ui.vala:2017
-msgid "Maximum"
-msgstr "Aukščiausia"
-
-#: src/ui.vala:2068
-msgid "Saving document..."
-msgstr "Įrašomas dokumentas..."
-
-#: src/ui.vala:2242
-#, c-format
-msgid "Saving page %d out of %d"
-msgstr "Įrašomas puslapis %d iš %d"
+#~ msgid "Saving page %d out of %d"
+#~ msgstr "Įrašomas puslapis %d iš %d"
 
 #~ msgid "The direction of the scanner across the scanned page."
 #~ msgstr "Skaitytuvo kryptis per skaitomą puslapį."
-
-#~ msgid "Contrast of scan"
-#~ msgstr "Nuskenuoto dokumento kontrastas"
-
-#~ msgid "The brightness adjustment from -100 to 100 (0 being none)."
-#~ msgstr "Skaisčio derinimas nuo -100 iki 100 (0 nėra)."
-
-#~ msgid "Brightness of scan"
-#~ msgstr "Nuskenuoto dokumento skaistis"
-
-#~ msgid "Quality value to use for JPEG compression"
-#~ msgstr "Kokybės reikšmė JPEG glaudinimui"
-
-#~ msgid ""
-#~ "Type of document being scanned. This setting decides on the scan resolution, "
-#~ "colors and post-processing."
-#~ msgstr ""
-#~ "Skenuojamo dokumento tipas. Šis nustatymas apsprendžia skaitymo raišką, "
-#~ "spalvas ir baigiamąjį apdorojimą."
-
-#~ msgid "Type of document being scanned"
-#~ msgstr "Skenuojamo dokumento tipas"
-
-#~ msgid "Device to scan from"
-#~ msgstr "Skenavimo įrenginys"
-
-#~ msgid "Resolution for text scans"
-#~ msgstr "Teksto skenavimo raiška"
-
-#~ msgid "Resolution for photo scans"
-#~ msgstr "Nuotraukų skenavimo raiška"
-
-#~ msgid "The resolution in dots-per-inch to use when scanning text."
-#~ msgstr "Raiška taškais colyje skenuojant tekstą."
-
-#~ msgid "The resolution in dots-per-inch to use when scanning photos."
-#~ msgstr "Raiška taškais colyje skenuojant nuotraukas."
-
-#~ msgid "Page side to scan"
-#~ msgstr "Skenuojama puslapio pusė"
-
-#~ msgid "The page side to scan."
-#~ msgstr "Puslapio pusė, kurią skenuoti."
-
-#~ msgid ""
-#~ "The height of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr ""
-#~ "Popieriaus aukštis dešimtosiomis milimetro dalimis (arba 0 automatiniam "
-#~ "popieriaus aptikimui)."
-
-#~ msgid "Height of paper in tenths of a mm"
-#~ msgstr "Popieriaus aukštis dešimtosiomis milimetro dalimis"
-
-#~ msgid ""
-#~ "The width of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr ""
-#~ "Popieriaus plotis dešimtosiomis milimetro dalimis (arba 0 automatiniam "
-#~ "popieriaus aptikimui)."
-
-#~ msgid "SANE device to acquire images from."
-#~ msgstr "SANE įrenginys, iš kurio gauti paveikslus."
-
-#~ msgid "Width of paper in tenths of a mm"
-#~ msgstr "Popieriaus plotis dešimtosiomis milimetro dalimis"
-
-#~ msgid "The contrast adjustment from -100 to 100 (0 being none)."
-#~ msgstr "Kontrasto reguliavimas nuo -100 iki 100 (0 nėra)."
-
-#~ msgid ""
-#~ "The directory to save files to. Defaults to the documents directory if unset."
-#~ msgstr ""
-#~ "Katalogas failams įrašyti. Jei nenustatyta, numatytoji reikšmė yra dokumentų "
-#~ "katalogas."
-
-#~ msgid "Directory to save files to"
-#~ msgstr "Katalogas, į kurį įrašyti failus"
-
-#~ msgid "Quality value to use for JPEG compression."
-#~ msgstr "Kokybės reikšmė, naudojama JPEG glaudinimui."
