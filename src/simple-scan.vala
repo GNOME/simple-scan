@@ -39,7 +39,7 @@ public class SimpleScan : Gtk.Application
     public SimpleScan (ScanDevice? device = null)
     {
         /* The inhibit () method use this */
-        Object (application_id: "org.gnome.simple-scan");
+        Object (application_id: "org.gnome.SimpleScan");
         register_session = true;
 
         default_device = device;
