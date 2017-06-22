@@ -18,7 +18,6 @@ languages = [ 'ar',
 
 # 'delete.page'
 # 'external.page'
-# 'shortcuts.page'
 
 gnome.yelp ('simple-scan',
             sources: [ 'adf.page',

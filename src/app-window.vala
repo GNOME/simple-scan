@@ -1569,6 +1569,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
             section = new Menu ();
             appmenu.append_section (null, section);
+            section.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
             section.append (_("Help"), "app.help");
             section.append (_("About"), "app.about");
             section.append (_("Quit"), "app.quit");
