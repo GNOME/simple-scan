@@ -5,17 +5,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: simple-scan\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2016-07-29 12:47+1200\n"
-"PO-Revision-Date: 2013-12-18 12:25+0000\n"
-"Last-Translator: Tadeáš Pařík <tadeas.parik@gmail.com>\n"
-"Language-Team: Czech <cs@li.org>\n"
+"Project-Id-Version: simple-scan gnome-3.24\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=simple-scan&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-05-05 19:00+0000\n"
+"PO-Revision-Date: 2017-06-25 10:25+0100\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
+"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2016-12-19 05:08+0000\n"
-"X-Generator: Launchpad (build 18298)\n"
 
 #. Button to submit authorization dialog
 #: data/simple-scan.ui:24
@@ -25,7 +26,7 @@ msgstr "_Autorizovat"
 #. Label beside username entry
 #: data/simple-scan.ui:102
 msgid "_Username for resource:"
-msgstr "_Vlastní pojmenování zdroje:"
+msgstr "_Uživatelské jméno pro zdroj:"
 
 #. Label beside password entry
 #: data/simple-scan.ui:117
@@ -88,8 +89,9 @@ msgstr "Text"
 msgid "Photo"
 msgstr "Fotografie"
 
+#. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: ../src/ui.vala:1183 ../src/ui.vala:1841
+#: data/simple-scan.ui:336 src/ui.vala:1191 src/ui.vala:1849
 msgid "Reorder Pages"
 msgstr "Přeskupit stránky"
 
@@ -207,7 +209,7 @@ msgstr "Skenovat"
 msgid "Save document to a file"
 msgstr "Uložit dokument do souboru"
 
-#: ../src/ui.vala:1842
+#: data/simple-scan.ui:709 src/ui.vala:1850
 msgid "Save"
 msgstr "Uložit"
 
@@ -248,7 +250,8 @@ msgstr "Oříznout vybranou stránku"
 msgid "Crop"
 msgstr "Oříznout"
 
-#: ../src/ui.vala:1849
+#. Title of preferences dialog
+#: data/simple-scan.ui:997 src/ui.vala:1857
 msgid "Preferences"
 msgstr "Předvolby"
 
@@ -296,224 +299,224 @@ msgstr "Kvalita:"
 msgid "Document Scanner"
 msgstr "Skener dokumentu"
 
-#: data/simple-scan.desktop.in:5
+#: data/simple-scan.desktop.in:5 data/simple-scan.appdata.xml.in:7
 msgid "Scan Documents"
-msgstr "Naskenovat dokumenty"
+msgstr "Skenujte dokumenty"
 
 #: data/simple-scan.desktop.in:6
 msgid "scan;scanner;flatbed;adf;"
-msgstr "scan;scanner;flatbed;adf;"
+msgstr "scan;skenovat;scanner;skener;flatbed;stolní;plochý;adf;podavač dokumentů;"
 
 #: data/simple-scan.desktop.in:8
 msgid "scanner"
-msgstr ""
+msgstr "scanner"
 
-#: data/simple-scan.appdata.xml.in:8
+#: data/simple-scan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both documents and photos. You can crop out the "
 "bad parts of a photo and rotate it if it is the wrong way round. You can "
 "print your scans, export them to pdf, or save them in a range of image "
 "formats."
 msgstr ""
-"Skutečně snadné skenování dokumentů a fotek, které mimo jiné nabízí šikovné "
-"úpravy. Vystřihněte nechtěné části fotografie a přetočte ji klidně o 360 "
-"stupňů! Až budete hotovy, materiál si nechtě vytisknout, převést do pdf, "
-"nebo uložit v rozmanité škále formátů."
+"Skutečně snadné skenování dokumentů a fotek, které navíc nabízí šikovné "
+"možnosti úprav. Vystřihněte nechtěné části fotografie a očte ji, jestli je"
+"naopak. Až budete hotovi, výsledek si vytiskněte, převeďte do PDF, nebo "
+"uložte v některém z rozmanité nabídky formátů."
 
-#: data/simple-scan.appdata.xml.in:13
-msgid ""
-"Simple Scan uses the SANE framework to support most existing scanners."
+#: data/simple-scan.appdata.xml.in:14
+msgid "Simple Scan uses the SANE framework to support most existing scanners."
 msgstr ""
-"Simple Scan používá SANE framework, aby pokryl co největší množství scannerů."
+"Jednoduché skenování používá jako základ rohraní SANE, aby pokrylo co "
+"největší množství skenerů."
 
 #. Error displayed when no scanners to scan with
-#: ../src/scanner.vala:841
+#: src/scanner.vala:841
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Není k dispozici žádný skener. Připojte prosím zařízení."
 
 #. Error displayed when cannot connect to scanner
-#: ../src/scanner.vala:871
+#: src/scanner.vala:871
 msgid "Unable to connect to scanner"
 msgstr "Nelze navázat spojení se skenerem"
 
 #. Error display when unable to start scan
-#: ../src/scanner.vala:1223
+#: src/scanner.vala:1223
 msgid "Unable to start scan"
 msgstr "Nelze zahájit skenování"
 
 #. Error displayed when communication with scanner broken
-#: ../src/scanner.vala:1236 ../src/scanner.vala:1333
+#: src/scanner.vala:1236 src/scanner.vala:1333
 msgid "Error communicating with scanner"
 msgstr "Při komunikaci se skenerem došlo k chybě"
 
 #. Help string for command line --version flag
-#: ../src/simple-scan.vala:21
+#: src/simple-scan.vala:21
 msgid "Show release version"
 msgstr "Zobrazit verzi vydání"
 
 #. Help string for command line --debug flag
-#: ../src/simple-scan.vala:24
+#: src/simple-scan.vala:24
 msgid "Print debugging messages"
-msgstr "Vypisovat debugovací zprávy"
+msgstr "Vypisovat ladicí zprávy"
 
-#: ../src/simple-scan.vala:26
+#: src/simple-scan.vala:26
 msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr ""
-"Oprava PDF souborů generovaných se starší verzí nástroje Jednoduché skenování"
+"Opravit soubory PDF vygenerovaných starší verzí Jednoduchého skenování"
 
 #. Title of error dialog when scan failed
-#: ../src/simple-scan.vala:391
+#: src/simple-scan.vala:391
 msgid "Failed to scan"
 msgstr "Skenování selhalo"
 
 #. Arguments and description for --help text
-#: ../src/simple-scan.vala:621
+#: src/simple-scan.vala:621
 msgid "[DEVICE...] - Scanning utility"
-msgstr "[ZAŘÍZENÍ...] - Nástroj pro skenování"
+msgstr "[ZAŘÍZENÍ…] — Nástroj pro skenování"
 
 #. Text printed out when an unknown command-line argument provided
-#: ../src/simple-scan.vala:632
+#: src/simple-scan.vala:632
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr ""
-"Spustit příkaz „%s --help“ k zobrazení úplného seznamu dostupných přepínačů "
-"příkazové řádky."
+"Spuštěním „%s --help“ si zobrazíte úplný seznam dostupných přepínačů "
+"příkazové řádky.\n"
 
-#: ../src/ui.vala:318 ../src/ui.vala:1602 ../src/ui.vala:1887
+#: src/ui.vala:318 src/ui.vala:1610 src/ui.vala:1895
 msgid "_Close"
-msgstr "Z_avřít"
+msgstr "_Zavřít"
 
 #. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: ../src/ui.vala:327
+#: src/ui.vala:327
 #, c-format
 msgid "Username and password required to access '%s'"
-msgstr "Pro přístup k '%s' je vyžadováno uživatelské jméno a heslo"
+msgstr "Pro přístup k „%s“ je vyžadováno uživatelské jméno a heslo"
 
 #. Warning displayed when no scanners are detected
-#: ../src/ui.vala:375
+#: src/ui.vala:375
 msgid "No scanners detected"
-msgstr "Nenalezen žádný skener"
+msgstr "Nebyl nalezen žádný skener"
 
 #. Hint to user on why there are no scanners detected
-#: ../src/ui.vala:377
+#: src/ui.vala:377
 msgid "Please check your scanner is connected and powered on"
-msgstr "Zkontrolujte prosím, že je váš skener připojen a zapnut"
+msgstr "Zkontrolujte prosím, že je váš skener připojený a zapnutý"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: ../src/ui.vala:382
+#: src/ui.vala:382
 msgid "Additional software needed"
-msgstr "Jsou potřeba ovladače scaneru"
+msgstr "Jsou zapotřebí ovladače skeneru"
 
 #. Instructions to install driver software
-#: ../src/ui.vala:384
+#: src/ui.vala:384
 msgid "You need to install driver software for your scanner."
-msgstr "Jsou potřeba ovladače scaneru"
+msgstr "Potřebujete nainstalovat ovladače pro svůj skener."
 
 #. Save dialog: Dialog title
-#: ../src/ui.vala:506 ../src/ui.vala:1843
+#: src/ui.vala:514 src/ui.vala:1851
 msgid "Save As..."
-msgstr "Uložit jako..."
+msgstr "Uložit jako…"
 
-#: ../src/ui.vala:509 ../src/ui.vala:675
+#: src/ui.vala:517 src/ui.vala:683
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: ../src/ui.vala:510 ../src/ui.vala:676
+#: src/ui.vala:518 src/ui.vala:684
 msgid "_Save"
 msgstr "_Uložit"
 
 #. Default filename to use when saving document
-#: ../src/ui.vala:516
+#: src/ui.vala:524
 msgid "Scanned Document.pdf"
 msgstr "Naskenovaný dokument.pdf"
 
 #. Save dialog: Filter name to show only image files
-#: ../src/ui.vala:521
+#: src/ui.vala:529
 msgid "Image Files"
 msgstr "Soubory obrázků"
 
 #. Save dialog: Filter name to show all files
-#: ../src/ui.vala:527
+#: src/ui.vala:535
 msgid "All Files"
 msgstr "Všechny soubory"
 
 #. Save dialog: Label for saving in PDF format
-#: ../src/ui.vala:536
+#: src/ui.vala:544
 msgid "PDF (multi-page document)"
 msgstr "PDF (vícestránkový dokument)"
 
 #. Save dialog: Label for saving in JPEG format
-#: ../src/ui.vala:542
+#: src/ui.vala:550
 msgid "JPEG (compressed)"
 msgstr "JPEG (komprimovaný)"
 
 #. Save dialog: Label for saving in PNG format
-#: ../src/ui.vala:548
+#: src/ui.vala:556
 msgid "PNG (lossless)"
 msgstr "PNG (bezeztrátový)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
-#: ../src/ui.vala:557
+#: src/ui.vala:565
 msgid "File format:"
-msgstr "Typ souboru:"
+msgstr "Formát souboru:"
 
 #. Title of error dialog when save failed
-#: ../src/ui.vala:650
+#: src/ui.vala:658
 msgid "Failed to save file"
 msgstr "Uložení souboru selhalo"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:673
+#: src/ui.vala:681
 msgid "If you don't save, changes will be permanently lost."
-msgstr "Pokud neuložíte, změny budou nenávratně ztraceny."
+msgstr "Pokud dokument neuložíte, změny budou nenávratně ztraceny."
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:708
+#: src/ui.vala:716
 msgid "Save current document?"
 msgstr "Uložit stávající dokument?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: ../src/ui.vala:710
+#: src/ui.vala:718
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
 #. Error message display when unable to save image for preview
-#: ../src/ui.vala:992
+#: src/ui.vala:1000
 msgid "Unable to save image for preview"
 msgstr "Nezdařilo se uložit obrázek pro náhled"
 
 #. Error message display when unable to preview image
-#: ../src/ui.vala:1004
+#: src/ui.vala:1012
 msgid "Unable to open image preview application"
 msgstr "Nelze otevřít aplikaci s náhledem obrázku"
 
 #. Label on button for combining sides in reordering dialog
-#: ../src/ui.vala:1206
+#: src/ui.vala:1214
 msgid "Combine sides"
 msgstr "Kombinovat strany"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: ../src/ui.vala:1216
+#: src/ui.vala:1224
 msgid "Combine sides (reverse)"
 msgstr "Kombinovat strany (obráceně)"
 
 #. Label on button for reversing in reordering dialog
-#: ../src/ui.vala:1226
+#: src/ui.vala:1234
 msgid "Reverse"
 msgstr "Obrátit"
 
 #. Label on button for cancelling page reordering dialog
-#: ../src/ui.vala:1236
+#: src/ui.vala:1244
 msgid "Keep unchanged"
 msgstr "Zachovat beze změň"
 
 #. Error message displayed when unable to launch help browser
-#: ../src/ui.vala:1451
+#: src/ui.vala:1459
 msgid "Unable to open help file"
 msgstr "Nelze otevřít soubor s nápovědou"
 
 #. The license this software is under (GPL3+)
-#: ../src/ui.vala:1472
+#: src/ui.vala:1480
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -529,30 +532,30 @@ msgid ""
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 msgstr ""
 "Tento program je svobodný software: můžete jej šířit a/nebo upravovat\n"
-"podle ustanovení GNU General Public License vydané\n"
-"Free Software Foundation, buď verze 3 této licence nebo\n"
-"(dle vlastního uvážení) kterékoliv pozdější verze.\n"
+"podle ustanovení licence GNU General Public License vydané organizací\n"
+"Free Software Foundation, buď ve verzi 3 této licence nebo\n"
+"(dle vlastního uvážení) v kterékoliv novější verzi.\n"
 "\n"
 "Tento program je šířen v naději, že bude užitečný, avšak BEZ JAKÉKOLIV\n"
-"ZÁRUKY; neposkytují se ani odvozené záruky PRODEJNOSTI anebo\n"
-"VHODNOSTI PRO URČITÝ ÚČEL. Další podrobnosti hledejte\n"
-"v GNU General Public License.\n"
+"ZÁRUKY; neposkytují se ani odvozené záruky PRODEJNOSTI anebo VHODNOSTI\n"
+"PRO URČITÝ ÚČEL. Další podrobnosti hledejte v licenci GNU General\n"
+"Public License.\n"
 "\n"
-"Kopii GNU General Public License byste měli obdržet spolu s tímto "
-"programem.\n"
-"Pokud ne, přečtěte si ji na stránce <http://www.gnu.org/licenses/>."
+"Kopii GNU General Public License byste měli obdržet spolu s tímto\n"
+"programem. Pokud tomu tak není, přečtěte si ji na webové stránce\n"
+"<http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: ../src/ui.vala:1475
+#: src/ui.vala:1483
 msgid "About Simple Scan"
 msgstr "O aplikaci Jednoduché skenování"
 
 #. Description of program
-#: ../src/ui.vala:1478
+#: src/ui.vala:1486
 msgid "Simple document scanning tool"
 msgstr "Jednoduchý nástroj pro skenování dokumentů"
 
-#: ../src/ui.vala:1487
+#: src/ui.vala:1495
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -567,401 +570,200 @@ msgstr ""
 "  Vitezslav Kotrla https://launchpad.net/~vitezslav-kotrla\n"
 "  Vojtěch Trefný https://launchpad.net/~vojtech.trefny\n"
 "  Zdeněk Kopš https://launchpad.net/~zdenekkops\n"
-"  la_serpe https://launchpad.net/~tom-mil"
+"  la_serpe https://launchpad.net/~tom-mil\n"
+"  Marek Černocký <marek@manet.cz>"
 
 #. Text in dialog warning when a document is about to be lost
-#: ../src/ui.vala:1509
+#: src/ui.vala:1517
 msgid "Save document before quitting?"
 msgstr "Uložit dokument před ukončením?"
 
 #. Button in dialog to quit and discard unsaved document
-#: ../src/ui.vala:1511
+#: src/ui.vala:1519
 msgid "Quit without Saving"
 msgstr "Ukončit bez uložení"
 
 #. Message to indicate a Brother scanner has been detected
-#: ../src/ui.vala:1579
+#: src/ui.vala:1587
 msgid "You appear to have a Brother scanner."
-msgstr "Vypadá to, že máte scaner Brother"
+msgstr "Vypadá to, že máte skener Brother"
 
 #. Instructions on how to install Brother scanner drivers
-#: ../src/ui.vala:1581
+#: src/ui.vala:1589
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.brother.com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother.com"
+"\">Brother website</a>."
 msgstr ""
 "Ovladače jsou dostupné na <a href=\"http://support.brother.com\">webu "
 "výrobce</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: ../src/ui.vala:1585
+#: src/ui.vala:1593
 msgid "You appear to have a Samsung scanner."
-msgstr "Vypadá to, že máte scaner Samsung"
+msgstr "Vypadá to, že máte skener Samsung"
 
 #. Instructions on how to install Samsung scanner drivers
-#: ../src/ui.vala:1587
+#: src/ui.vala:1595
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://samsung.com/support\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"http://samsung.com/support"
+"\">Samsung website</a>."
 msgstr ""
 "Ovladače jsou dostupné na <a href=\"http://samsung.com/support\">webu "
 "výrobce</a>."
 
 #. Message to indicate a HP scanner has been detected
-#: ../src/ui.vala:1591
+#: src/ui.vala:1599
 msgid "You appear to have an HP scanner."
-msgstr "Vypadá to, že máte scaner HP."
+msgstr "Vypadá to, že máte skener HP."
 
 #. Message to indicate an Epson scanner has been detected
-#: ../src/ui.vala:1596
+#: src/ui.vala:1604
 msgid "You appear to have an Epson scanner."
-msgstr "Vypadá to, že máte scaner Epson."
+msgstr "Vypadá to, že máte skener Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: ../src/ui.vala:1598
+#: src/ui.vala:1606
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.epson.com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson.com"
+"\">Epson website</a>."
 msgstr ""
-"Ovladače jsou dostupné na <a href=\"http://support.epson.com\">webu "
-"výrobce</a>."
+"Ovladače jsou dostupné na <a href=\"http://support.epson.com\">webu výrobce</"
+"a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: ../src/ui.vala:1602
+#: src/ui.vala:1610
 msgid "Install drivers"
 msgstr "Instalace ovladačů"
 
 #. Message in driver install dialog
-#: ../src/ui.vala:1633
+#: src/ui.vala:1641
 msgid "Once installed you will need to restart Simple Scan."
-msgstr "Po instlaci je potřeba restartovat Simple Scan"
+msgstr "Po instlaci je potřeba Jednoduché skenování restartovat"
 
 #. Label shown while installing drivers
-#: ../src/ui.vala:1645
+#: src/ui.vala:1653
 msgid "Installing drivers..."
-msgstr "Instalace ovladačů..."
+msgstr "Instalují se ovladače…"
 
 #. Label shown once drivers successfully installed
-#: ../src/ui.vala:1653
+#: src/ui.vala:1661
 msgid "Drivers installed successfully!"
 msgstr "Instalace ovladačů byla úspěšná!"
 
 #. Label shown if failed to install drivers
-#: ../src/ui.vala:1663
+#: src/ui.vala:1671
 #, c-format
 msgid "Failed to install drivers (error code %d)."
-msgstr "Instalace ovladačů skončila chybou %d"
+msgstr "Instalace ovladačů selhala (kód chyby %d)"
 
 #. Label shown if failed to install drivers
-#: ../src/ui.vala:1669
+#: src/ui.vala:1677
 msgid "Failed to install drivers."
 msgstr "Instalace ovladačů se nezdařila."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: ../src/ui.vala:1676
+#: src/ui.vala:1684
 #, c-format
 msgid "You need to install the %s package(s)."
-msgstr "Je potřeba nainstalovat balík %s."
+msgstr "Je potřeba nainstalovat balíček %s."
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: ../src/ui.vala:1784
+#: src/ui.vala:1792
 #, c-format
 msgid "%d dpi (default)"
-msgstr "%d dpi (výchozí)"
+msgstr "%d dpi (výchozí)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: ../src/ui.vala:1787
+#: src/ui.vala:1795
 #, c-format
 msgid "%d dpi (draft)"
-msgstr "%d dpi (náčrt)"
+msgstr "%d dpi (náčrt)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: ../src/ui.vala:1790
+#: src/ui.vala:1798
 #, c-format
 msgid "%d dpi (high resolution)"
-msgstr "%d dpi (vysoké rozlišení)"
+msgstr "%d dpi (vysoké rozlišení)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: ../src/ui.vala:1793
+#: src/ui.vala:1801
 #, c-format
 msgid "%d dpi"
-msgstr "%d dpi"
+msgstr "%d dpi"
 
-#: ../src/ui.vala:1835
+#: src/ui.vala:1843
 msgid "New Document"
 msgstr "Nový dokument"
 
-#: ../src/ui.vala:1840
+#: src/ui.vala:1848
 msgid "Document"
 msgstr "Dokument"
 
-#: ../src/ui.vala:1844
+#: src/ui.vala:1852
 msgid "Email..."
-msgstr "Email..."
+msgstr "E-mail…"
 
-#: ../src/ui.vala:1845
+#: src/ui.vala:1853
 msgid "Print..."
 msgstr "Tisk…"
 
-#: ../src/ui.vala:1853
+#: src/ui.vala:1861
 msgid "Help"
 msgstr "Nápověda"
 
-#: ../src/ui.vala:1854
+#: src/ui.vala:1862
 msgid "About"
 msgstr "O aplikaci"
 
-#: ../src/ui.vala:1855
+#: src/ui.vala:1863
 msgid "Quit"
 msgstr "Ukončit"
 
 #. Button in error infobar to open preferences dialog and change scanner
-#: ../src/ui.vala:1889
+#: src/ui.vala:1897
 msgid "Change _Scanner"
 msgstr "Změnit _skener"
 
 #. Button in error infobar to prompt user to install drivers
-#: ../src/ui.vala:1891
+#: src/ui.vala:1899
 msgid "_Install Drivers"
 msgstr "_Instalovat ovladače"
 
 #. Combo box value for automatic paper size
-#: ../src/ui.vala:1897
+#: src/ui.vala:1905
 msgid "Automatic"
 msgstr "Automaticky"
 
-#: ../src/ui.vala:1947
+#: src/ui.vala:1955
 msgid "Darker"
 msgstr "Tmavší"
 
-#: ../src/ui.vala:1949
+#: src/ui.vala:1957
 msgid "Lighter"
 msgstr "Světlejší"
 
-#: ../src/ui.vala:1957
+#: src/ui.vala:1965
 msgid "Less"
-msgstr "Méně"
+msgstr "Menší"
 
-#: ../src/ui.vala:1959
+#: src/ui.vala:1967
 msgid "More"
-msgstr "Více"
+msgstr "Větší"
 
-#: ../src/ui.vala:1967
+#: src/ui.vala:1975
 msgid "Minimum"
 msgstr "Minimum"
 
-#: ../src/ui.vala:1969
+#: src/ui.vala:1977
 msgid "Maximum"
 msgstr "Maximum"
 
-#: ../src/ui.vala:2008
+#: src/ui.vala:2016
 msgid "Saving document..."
-msgstr "Ukládání dokumentu..."
+msgstr "Ukládá se dokument…"
 
-#: ../src/ui.vala:2173
+#: src/ui.vala:2190
 #, c-format
 msgid "Saving page %d out of %d"
-msgstr "Ukládání strany %d z %d"
+msgstr "Ukládá se stránka %d z %d"
 
-#~ msgid "4&#xD7;6"
-#~ msgstr "4&#xD7;6"
-
-#~ msgid "Please check your installation"
-#~ msgstr "Zkontrolujte prosím svoji instalaci"
-
-#~ msgid "Files missing"
-#~ msgstr "Soubory chybí"
-
-#~ msgid "Height of scanned image in pixels"
-#~ msgstr "Výška skenovaného obrázku v pixelech"
-
-#~ msgid "Direction of scan"
-#~ msgstr "Směr skenování"
-
-#~ msgid "Resolution for photo scans"
-#~ msgstr "Rozlišení pro skenování fotografií"
-
-#~ msgid "Window height in pixels"
-#~ msgstr "Výška okna v pixelech"
-
-#~ msgid "Window width in pixels"
-#~ msgstr "Šířka okna v pixelech"
-
-#~ msgid "Width of scanned image in pixels"
-#~ msgstr "Šířka skenovaného obrázku v pixelech"
-
-#~ msgid "Scanned Document"
-#~ msgstr "Skenovaný dokument"
-
-#~ msgid "TRUE if the application window is maximized"
-#~ msgstr "Nastavit na hodnotu PRAVDA, pokud má být okno maximalizované"
-
-#~ msgid "Device to scan from"
-#~ msgstr "Zařízení určené ke skenování"
-
-#~ msgid "SANE device to acquire images from."
-#~ msgstr "Zařízení SANE pro načítání obrázků."
-
-#~ msgid "Resolution for text scans"
-#~ msgstr "Rozlišení pro skenování textu"
-
-#~ msgid "Resolution of last scanned image"
-#~ msgstr "Rozlišení posledního skenovaného obrázku"
-
-#~ msgid "Directory to save files to"
-#~ msgstr "Adresář pro ukládání souborů"
-
-#~ msgid ""
-#~ "The direction of the scanner across the scanned page. It can be one of the "
-#~ "following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
-#~ msgstr ""
-#~ "Směr skenování stránky. Jsou dostupné následující možnosti: 'top-to-bottom' "
-#~ "'bottom-to-top' 'left-to-right' 'right-to-left'"
-
-#~ msgid ""
-#~ "The height of scanned image in pixels. This value is updated to what the "
-#~ "last scanned page was."
-#~ msgstr ""
-#~ "Výška skenovaného obrázku v pixelech. Tato hodnota je přizpůsobena posledně "
-#~ "skenované stránce."
-
-#~ msgid "The resolution in dots-per-inch of the previously scanned image."
-#~ msgstr "Rozlišení posledně skenovaného obrázku v bodech na palec."
-
-#~ msgid ""
-#~ "The directory to save files to. Defaults to the documents directory if unset."
-#~ msgstr ""
-#~ "Adresář pro ukládání souborů. Standardně se ukládají do adresáře Dokumenty, "
-#~ "pokud není nastaveno."
-
-#~ msgid "Type of document being scanned"
-#~ msgstr "Typ skenovaného dokumentu"
-
-#~ msgid ""
-#~ "Type of document being scanned. 'text' for text documents, 'photo' for "
-#~ "photos. This setting decides on the scan resolution, colors and post-"
-#~ "processing."
-#~ msgstr ""
-#~ "Typ skenovaného dokumentu. 'text' pro textové dokumenty, 'photo' pro "
-#~ "fotografie. Toto nastavení rozhoduje o rozlišení skenování, barvách a "
-#~ "následném zpracování."
-
-#~ msgid ""
-#~ "The width of scanned image in pixels. This value is updated to what the last "
-#~ "scanned page was."
-#~ msgstr ""
-#~ "Šířka skenovaného obrázku v pixelech. Tato hodnota je přizpůsobena posledně "
-#~ "skenované stránce."
-
-#~ msgid "The resolution in dots-per-inch to use when scanning text."
-#~ msgstr "Rozlišení v bodech na palec použité při skenování textu."
-
-#~ msgid "The resolution in dots-per-inch to use when scanning photos."
-#~ msgstr "Rozlišení v bodech na palec použité při skenování fotografií."
-
-#, c-format
-#~ msgid ""
-#~ "Help Options:\n"
-#~ "  -d, --debug                     Print debugging messages\n"
-#~ "  -v, --version                   Show release version\n"
-#~ "  -h, --help                      Show help options\n"
-#~ "  --help-all                      Show all help options\n"
-#~ "  --help-gtk                      Show GTK+ options"
-#~ msgstr ""
-#~ "Přepínače nápovědy:\n"
-#~ "  -d, --debug                     Vypisovat ladicí informace\n"
-#~ "  -v, --version                   Zobrazit verzi vydání\n"
-#~ "  -h, --help                      Zobrazit přepínače nápovědy\n"
-#~ "  --help-all                      Zobrazit všechny přepínače nápovědy\n"
-#~ "  --help-gtk                      Zobrazit přepínače GTK+"
-
-#, c-format
-#~ msgid ""
-#~ "Usage:\n"
-#~ "  %s [DEVICE...] - Scanning utility"
-#~ msgstr ""
-#~ "Použití:\n"
-#~ "  %s [ZAŘÍZENÍ...] - Skenovací nástroj"
-
-#, c-format
-#~ msgid ""
-#~ "GTK+ Options:\n"
-#~ "  --class=CLASS                   Program class as used by the window "
-#~ "manager\n"
-#~ "  --name=NAME                     Program name as used by the window "
-#~ "manager\n"
-#~ "  --screen=SCREEN                 X screen to use\n"
-#~ "  --sync                          Make X calls synchronous\n"
-#~ "  --gtk-module=MODULES            Load additional GTK+ modules\n"
-#~ "  --g-fatal-warnings              Make all warnings fatal"
-#~ msgstr ""
-#~ "Přepínače GTK+:\n"
-#~ "  --class=TŘÍDA                   Třída programu, jak je použita okenním "
-#~ "správcem\n"
-#~ "  --name=NÁZEV                    Název programu, jak je použit okenním "
-#~ "správcem\n"
-#~ "  --screen=OBRAZOVKA              Obrazovka X, která se má použít\n"
-#~ "  --sync                          Volání X budou synchronní\n"
-#~ "  --gtk-module=MODULY             Načte přídavné moduly GTK+\n"
-#~ "  --g-fatal-warnings              Všechna varování budou kritická"
-
-#~ msgid "Select File _Type"
-#~ msgstr "Zvolit _typ souboru"
-
-#~ msgid ""
-#~ "The page side to scan. It can be one of the following: 'both' 'front' 'back'"
-#~ msgstr ""
-#~ "Strana stránky ke skenování. Může to být jedna z následujících hodnot: "
-#~ "„both“ (obě), „front“ (přední), „back“ (zadní)"
-
-#~ msgid ""
-#~ "The height of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr ""
-#~ "Výška papíru v desetinách milimetru (nebo 0 pro automatické zjištění papíru)."
-
-#~ msgid "Height of paper in tenths of a mm"
-#~ msgstr "Výška papíru v desetinách milimetru"
-
-#~ msgid "Page side to scan"
-#~ msgstr "Strana stránky ke skenování"
-
-#~ msgid ""
-#~ "The width of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr ""
-#~ "Šířka papíru v desetinách milimetru (nebo 0 pro automatické zjištění papíru)."
-
-#~ msgid "Width of paper in tenths of a mm"
-#~ msgstr "Šířka papíru v desetinách milimetru"
-
-#~ msgid "The page side to scan."
-#~ msgstr "Strana stránky ke skenování."
-
-#~ msgid ""
-#~ "Type of document being scanned. This setting decides on the scan resolution, "
-#~ "colors and post-processing."
-#~ msgstr ""
-#~ "Typ skenovaného dokumentu. Toto nastavení rozhoduje o rozlišení skenování, "
-#~ "barvách a následném zpracování."
-
-#~ msgid "The direction of the scanner across the scanned page."
-#~ msgstr "Směr skenování stránky."
-
-#~ msgid "Contrast of scan"
-#~ msgstr "Kontrast skenu"
-
-#~ msgid "Brightness of scan"
-#~ msgstr "Jas skenu"
-
-#~ msgid "Quality value to use for JPEG compression."
-#~ msgstr "Hodnota kvality u JPEG komprese."
-
-#~ msgid "Quality value to use for JPEG compression"
-#~ msgstr "Hodnota kvality u JPEG komprese"
-
-#~ msgid "The contrast adjustment from -100 to 100 (0 being none)."
-#~ msgstr "Nastavení kontrastu od -100 do 100 (0 žádná hodnota)."
-
-#~ msgid "The brightness adjustment from -100 to 100 (0 being none)."
-#~ msgstr "Nastavení jasu od -100 do 100 (0 žádná hodnota)."
