@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=simple-scan&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-06 10:27+0000\n"
-"PO-Revision-Date: 2017-06-18 00:44+0300\n"
+"POT-Creation-Date: 2017-06-27 22:38+0000\n"
+"PO-Revision-Date: 2017-06-28 15:28+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -37,8 +37,8 @@ msgid ""
 "Type of document being scanned. This setting decides on the scan resolution, "
 "colors and post-processing."
 msgstr ""
-"Taranacak belgenin türü. Bu ayar tarama kalitesi, renkler ve son işlemlere "
-"göre belirlenir."
+"Taranacak belgenin türü. Bu ayar tarama niteliği, renkler ve rötuşa göre "
+"belirlenir."
 
 #: data/org.gnome.SimpleScan.gschema.xml:25
 msgid "Width of paper in tenths of a mm"
@@ -49,7 +49,7 @@ msgid ""
 "The width of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
-"Ondabirlik mm türünden kağıdın genişliği (ya da kendiliğinden kağıt tespiti "
+"Ondabirlik mm türünden kağıdın genişliği (ya da kendiliğinden kağıt sezimi "
 "için 0)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:30
@@ -61,7 +61,7 @@ msgid ""
 "The height of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
-"Ondabirlik mm türünden kağıdın yüksekliği (ya da kendiliğinden kağıt tespiti "
+"Ondabirlik mm türünden kağıdın yüksekliği (ya da kendiliğinden kağıt sezimi "
 "için 0)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:35
@@ -171,7 +171,7 @@ msgstr "Belge Tarayıcı"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:7
 msgid "scan;scanner;flatbed;adf;"
-msgstr "tara;tarayıcı;flatbed;adf;"
+msgstr "tara;tarayıcı;flatbed;düz yatak;adf;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: data/simple-scan.desktop.in:10
@@ -224,7 +224,7 @@ msgstr "_Taramayı Durdur"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1589
+#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1590
 msgid "Reorder Pages"
 msgstr "Sayfaları Yeniden Sırala"
 
@@ -435,7 +435,6 @@ msgstr "PNG (kayıpsız)"
 
 #. Save dialog: Label for sabing in WEBP format
 #: src/app-window.vala:354
-#| msgid "JPEG (compressed)"
 msgid "WebP (compressed)"
 msgstr "WebP (sıkıştırılmış)"
 
@@ -492,7 +491,7 @@ msgstr "Tarayıcıyla iletişim kuruluyor…"
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:800
 msgid "Unable to save image for preview"
-msgstr "Görüntü, önizleme için kaydedilemiyor"
+msgstr "Görüntü, ön izleme için kaydedilemiyor"
 
 #. Error message display when unable to preview image
 #: src/app-window.vala:812
@@ -687,58 +686,60 @@ msgid_plural "You need to install the %s packages."
 msgstr[0] "%s paket kurmanız gerekiyor."
 
 #. Title of preferences dialog
-#: src/app-window.vala:1568 src/app-window.vala:1590
+#: src/app-window.vala:1568 src/app-window.vala:1591
 #: src/preferences-dialog.ui:53
 msgid "Preferences"
 msgstr "Tercihler"
 
 #: src/app-window.vala:1572
+msgid "Keyboard Shortcuts"
+msgstr "Klavye Kısayolları"
+
+#: src/app-window.vala:1573
 msgid "Help"
 msgstr "Yardım"
 
-#: src/app-window.vala:1573
+#: src/app-window.vala:1574
 msgid "About"
 msgstr "Hakkında"
 
-#: src/app-window.vala:1574
+#: src/app-window.vala:1575
 msgid "Quit"
 msgstr "Çık"
 
-#: src/app-window.vala:1588
-#| msgid "_Email"
+#: src/app-window.vala:1589
 msgid "Email"
 msgstr "E-posta"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1598
+#: src/app-window.vala:1599
 msgid "Start Again…"
 msgstr "Yeniden Başlat…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1615
+#: src/app-window.vala:1616
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Sayfayı sola döndür (saat yönünün tersine)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1622
+#: src/app-window.vala:1623
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Sayfayı sağa döndür (saat yönünde)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1632
+#: src/app-window.vala:1633
 msgid "Crop the selected page"
 msgstr "Seçili sayfayı kırp"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1648
+#: src/app-window.vala:1649
 msgid "Delete the selected page"
 msgstr "Seçili sayfayı sil"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1813
-#| msgid "_Cancel"
+#: src/app-window.vala:1814
 msgid "Cancel"
 msgstr "Vazgeç"
 
@@ -759,9 +760,109 @@ msgstr "_Parola:"
 
 #: src/book.vala:331 src/book.vala:337
 #, c-format
-#| msgid "Unable to open help file"
 msgid "Unable to encode page %i"
-msgstr "Sayfa %i kodlanamıyor"
+msgstr "%i. sayfa kodlanamıyor"
+
+#: src/help-overlay.ui:12
+#| msgid "Scanning"
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Tarama"
+
+#: src/help-overlay.ui:17
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "Tek bir sayfa tara"
+
+#: src/help-overlay.ui:24
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "Belge besleyicisinden tüm sayfaları tara"
+
+#: src/help-overlay.ui:31
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "Düz yatak tarayıcıdan sürekli tara"
+
+#: src/help-overlay.ui:38
+#| msgid "Scan in progress"
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "Süren taramayı durdur"
+
+#: src/help-overlay.ui:46
+#| msgid "Document Scanner"
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Belge Değiştirme"
+
+#: src/help-overlay.ui:51
+#| msgid "Move Left"
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "Sayfayı sola taşı"
+
+#: src/help-overlay.ui:58
+#| msgid "Move Right"
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "Sayfayı sağa taşı"
+
+#: src/help-overlay.ui:65
+#| msgid "Rotate the page to the left (counter-clockwise)"
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "Sayfayı sola döndür (saat yönünün tersine)"
+
+#: src/help-overlay.ui:72
+#| msgid "Rotate the page to the right (clockwise)"
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "Sayfayı sağa döndür (saat yönünde)"
+
+#: src/help-overlay.ui:79
+#| msgid "Delay between pages"
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "Sayfayı sil"
+
+#: src/help-overlay.ui:87
+#| msgid "Document Scanner"
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Belge Yönetimi"
+
+#: src/help-overlay.ui:92
+#| msgid "Start a new document"
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "Yeni belge başlat"
+
+#: src/help-overlay.ui:99
+#| msgid "Scanned Document"
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "Taranmış belgeyi kaydet"
+
+#: src/help-overlay.ui:106
+#| msgid "Scanned Document"
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "Taranmış belgeyi e-postala"
+
+#: src/help-overlay.ui:113
+#| msgid "Scanned Document"
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "Taranmış belgeyi yazdır"
+
+#: src/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "Geçerli sayfayı panoya kopyala"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:113
@@ -861,7 +962,7 @@ msgstr "Karşıtlık"
 #. Preferences Dialog: Tab for quality settings
 #: src/preferences-dialog.ui:576
 msgid "Quality"
-msgstr "Kalite"
+msgstr "Nitelik"
 
 #. Combo box value for automatic paper size
 #: src/preferences-dialog.vala:77
@@ -949,14 +1050,13 @@ msgstr "Tarama başarısız oldu"
 
 #. Attempt to inhibit the screensaver when scanning
 #: src/simple-scan.vala:407
-#| msgid "Scan Sides"
 msgid "Scan in progress"
 msgstr "Tarama sürüyor"
 
 #. Arguments and description for --help text
 #: src/simple-scan.vala:584
 msgid "[DEVICE…] — Scanning utility"
-msgstr "[AYGIT...] — Tarama uygulaması"
+msgstr "[AYGIT…] — Tarama uygulaması"
 
 #. Text printed out when an unknown command-line argument provided
 #: src/simple-scan.vala:595
@@ -972,14 +1072,8 @@ msgstr ""
 #~ msgid "Saving page %d out of %d"
 #~ msgstr "Kaydedilen sayfa: %d / %d"
 
-#~ msgid "Delay between pages"
-#~ msgstr "Sayfalar arası gecikme"
-
 #~ msgid "Front and Back"
 #~ msgstr "Ön ve Arka taraf"
-
-#~ msgid "Start a new document"
-#~ msgstr "Yeni bir belge başlat"
 
 #~ msgid "New"
 #~ msgstr "Yeni"
@@ -1122,9 +1216,6 @@ msgstr ""
 #~ "Taranan belgenin türü. Metin belgeleri için 'metin', fotoğraflar için "
 #~ "'fotoğraf'. Bu ayar tarama çözünürlüğünü, renkleri ve  tarama sonrası "
 #~ "işlemleri belirler."
-
-#~ msgid "Scanned Document"
-#~ msgstr "Taranmış Belge"
 
 #~ msgid "Select File _Type"
 #~ msgstr "Dosya _Türünü Seç"
