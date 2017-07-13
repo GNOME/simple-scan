@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=simple-scan&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-06 10:27+0000\n"
-"PO-Revision-Date: 2017-06-10 10:42+0200\n"
+"POT-Creation-Date: 2017-07-02 21:08+0000\n"
+"PO-Revision-Date: 2017-07-13 16:29+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <>\n"
 "Language: sk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 2.0.1\n"
+"X-Generator: Poedit 2.0.2\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -106,7 +106,7 @@ msgstr "Strana stránky na skenovanie"
 
 #: data/org.gnome.SimpleScan.gschema.xml:56
 msgid "The page side to scan."
-msgstr "Strana stránky, ktorá sa má oskenovať."
+msgstr "Strana stránky, ktorá sa má naskenovať."
 
 #: data/org.gnome.SimpleScan.gschema.xml:60
 msgid "Directory to save files to"
@@ -155,7 +155,7 @@ msgid ""
 "print your scans, export them to pdf, or save them in a range of image "
 "formats."
 msgstr ""
-"Skutočne jednoduchý spôsob ako oskenovať dokumenty aj fotografie. Môžete "
+"Skutočne jednoduchý spôsob ako naskenovať dokumenty aj fotografie. Môžete "
 "orezať nevhodné časti fotografie a otočiť ich podľa potreby. Vaše oskenované "
 "dokumenty môžete vytlačiť, exportovať ich do pdf, alebo ich uložiť v rôznych "
 "formátoch obrázkov."
@@ -226,7 +226,7 @@ msgstr "_Zastaviť skenovanie"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1589
+#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1590
 msgid "Reorder Pages"
 msgstr "Zmeniť poradie stránok"
 
@@ -323,7 +323,7 @@ msgstr "_Obsah"
 #. Tooltip for scan toolbar button
 #: src/app-window.ui:520 src/app-window.ui:720
 msgid "Scan a single page from the scanner"
-msgstr "Oskenuje jednu stránku zo skeneru"
+msgstr "Naskenuje jednu stránku zo skeneru"
 
 #. Label on scan toolbar item
 #: src/app-window.ui:522 src/app-window.ui:716
@@ -375,7 +375,6 @@ msgstr "Vyžaduje sa dodatočný softvér"
 
 #. Instructions to install driver software
 #: src/app-window.vala:275
-#| msgid "You need to install driver software for your scanner."
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -395,7 +394,6 @@ msgstr "Prosím, skontrolujte, či je skener pripojený a zapnutý"
 
 #. Save dialog: Dialog title
 #: src/app-window.vala:298
-#| msgid "Save As..."
 msgid "Save As…"
 msgstr "Uloženie ako…"
 
@@ -489,7 +487,6 @@ msgstr "Zahodiť zmeny"
 
 #. Label shown when scan started
 #: src/app-window.vala:692
-#| msgid "Change _Scanner"
 msgid "Contacting scanner…"
 msgstr "Kontaktuje sa skener…"
 
@@ -650,7 +647,6 @@ msgstr ""
 
 #. Label shown while installing drivers
 #: src/app-window.vala:1423
-#| msgid "Installing drivers..."
 msgid "Installing drivers…"
 msgstr "Inštalujú sa ovládače…"
 
@@ -680,59 +676,62 @@ msgstr[1] "Musíte nainštalovať balíky %s."
 msgstr[2] "Musíte nainštalovať balíky %s."
 
 #. Title of preferences dialog
-#: src/app-window.vala:1568 src/app-window.vala:1590
+#: src/app-window.vala:1568 src/app-window.vala:1591
 #: src/preferences-dialog.ui:53
 msgid "Preferences"
 msgstr "Nastavenia"
 
 #: src/app-window.vala:1572
+msgid "Keyboard Shortcuts"
+msgstr "Klávesové skratky"
+
+#: src/app-window.vala:1573
 msgid "Help"
 msgstr "Pomocník"
 
-#: src/app-window.vala:1573
+#: src/app-window.vala:1574
 msgid "About"
 msgstr "O programe"
 
-#: src/app-window.vala:1574
+#: src/app-window.vala:1575
 msgid "Quit"
 msgstr "Ukončiť"
 
-#: src/app-window.vala:1588
-#| msgid "_Email"
+#: src/app-window.vala:1589
 msgid "Email"
 msgstr "Email"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1598
+#: src/app-window.vala:1599
 msgid "Start Again…"
 msgstr "Začať odznovu…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1615
+#: src/app-window.vala:1616
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Otočí stránku doľava (v protismere hodinových ručičiek)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1622
+#: src/app-window.vala:1623
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Otočí stránku doprava (v smere hodinových ručičiek)"
 
 # tooltip
 #. Tooltip for crop button
-#: src/app-window.vala:1632
+#: src/app-window.vala:1633
 msgid "Crop the selected page"
 msgstr "Oreže vybranú stránku"
 
 # tooltip
 #. Tooltip for delete button
-#: src/app-window.vala:1648
+#: src/app-window.vala:1649
 msgid "Delete the selected page"
 msgstr "Odstráni vybranú stránku"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1813
+#: src/app-window.vala:1814
 msgid "Cancel"
 msgstr "Zrušiť"
 
@@ -755,6 +754,92 @@ msgstr "_Heslo:"
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Nie je možné dekódovať stránku č. %i"
+
+#: src/help-overlay.ui:12
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Skenovanie"
+
+#: src/help-overlay.ui:17
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "Naskenovanie jednej stránky"
+
+#: src/help-overlay.ui:24
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "Naskenovanie všetkých stránok z podávača dokumentov"
+
+#: src/help-overlay.ui:31
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "Priebežné skenovanie z plochého skeneru"
+
+#: src/help-overlay.ui:38
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "Zastavenie prebiehajúceho skenovania"
+
+#: src/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Úprava dokumentov"
+
+#: src/help-overlay.ui:51
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "Presun stránky doľava"
+
+#: src/help-overlay.ui:58
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "Presun stránky doprava"
+
+#: src/help-overlay.ui:65
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "Otočenie stránky doľava (v protismere hodinových ručičiek)"
+
+#: src/help-overlay.ui:72
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "Otočenie stránky doprava (v smere hodinových ručičiek)"
+
+# tooltip
+#: src/help-overlay.ui:79
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "Odstránenie stránky"
+
+#: src/help-overlay.ui:87
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Správa dokumentov"
+
+#: src/help-overlay.ui:92
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "Zahájenie nového dokumentu"
+
+#: src/help-overlay.ui:99
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "Uloženie naskenovaného dokumentu"
+
+#: src/help-overlay.ui:106
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "Odoslanie naskenovaného dokumentu emailom"
+
+#: src/help-overlay.ui:113
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "Tlač naskenovaného dokumentu"
+
+#: src/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "Skopírovanie aktuálne stránky do schránky"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:113
@@ -949,7 +1034,6 @@ msgstr "Prebieha skenovanie"
 
 #. Arguments and description for --help text
 #: src/simple-scan.vala:584
-#| msgid "[DEVICE...] - Scanning utility"
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ZARIADENIE…] — Nástroj na skenovanie"
 
@@ -963,9 +1047,6 @@ msgstr ""
 
 #~ msgid "Front and Back"
 #~ msgstr "Predná a zadná strana"
-
-#~ msgid "Start a new document"
-#~ msgstr "Vytvorí nový dokument"
 
 #~ msgid "New"
 #~ msgstr "Nový"
@@ -1108,9 +1189,6 @@ msgstr ""
 
 #~ msgid "Width of scanned image in pixels"
 #~ msgstr "Šírka skenovaného obrázku v pixeloch"
-
-#~ msgid "Scanned Document"
-#~ msgstr "Oskenovaný dokument"
 
 #~ msgid "Select File _Type"
 #~ msgstr "Vybrať _typ súboru"
