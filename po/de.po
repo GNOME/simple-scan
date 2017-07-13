@@ -52,8 +52,8 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=simple-scan&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-06 10:27+0000\n"
-"PO-Revision-Date: 2017-06-09 21:15+0200\n"
+"POT-Creation-Date: 2017-07-02 21:08+0000\n"
+"PO-Revision-Date: 2017-07-13 21:00+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -93,7 +93,7 @@ msgid ""
 "The width of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
-"Seitenbreite in Zehntelmillimetern (oder 0 für automatische Papiererkennung)"
+"Seitenbreite in Zehntelmillimetern (oder 0 für automatische Papiererkennung)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:30
 msgid "Height of paper in tenths of a mm"
@@ -104,7 +104,7 @@ msgid ""
 "The height of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
-"Papierhöhe in Zehntelmillimetern (oder 0 für automatische Papiererkennung)"
+"Papierhöhe in Zehntelmillimetern (oder 0 für automatische Papiererkennung)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:35
 msgid "Brightness of scan"
@@ -128,7 +128,7 @@ msgstr "Auflösung von Text-Scans"
 
 #: data/org.gnome.SimpleScan.gschema.xml:46
 msgid "The resolution in dots-per-inch to use when scanning text."
-msgstr "Die für Text zu verwendende Auflösung in DPI (Punkte pro Zoll)"
+msgstr "Die für Text zu verwendende Auflösung in DPI (Punkte pro Zoll)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
 msgid "Resolution for photo scans"
@@ -136,7 +136,7 @@ msgstr "Auflösung von Foto-Scans"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
 msgid "The resolution in dots-per-inch to use when scanning photos."
-msgstr "Die für Fotos zu verwendende Auflösung in DPI (Punkte pro Zoll)"
+msgstr "Die für Fotos zu verwendende Auflösung in DPI (Punkte pro Zoll)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -265,7 +265,7 @@ msgstr "_Scanvorgang anhalten"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1589
+#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1590
 msgid "Reorder Pages"
 msgstr "Seiten umsortieren"
 
@@ -754,56 +754,60 @@ msgstr[0] "Sie müssen das Paket %s installieren."
 msgstr[1] "Sie müssen die Pakete %s installieren."
 
 #. Title of preferences dialog
-#: src/app-window.vala:1568 src/app-window.vala:1590
+#: src/app-window.vala:1568 src/app-window.vala:1591
 #: src/preferences-dialog.ui:53
 msgid "Preferences"
 msgstr "Einstellungen"
 
 #: src/app-window.vala:1572
+msgid "Keyboard Shortcuts"
+msgstr "Tastenkombinationen"
+
+#: src/app-window.vala:1573
 msgid "Help"
 msgstr "Hilfe"
 
-#: src/app-window.vala:1573
+#: src/app-window.vala:1574
 msgid "About"
 msgstr "Info"
 
-#: src/app-window.vala:1574
+#: src/app-window.vala:1575
 msgid "Quit"
 msgstr "Beenden"
 
-#: src/app-window.vala:1588
+#: src/app-window.vala:1589
 msgid "Email"
 msgstr "E-Mail"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1598
+#: src/app-window.vala:1599
 msgid "Start Again…"
 msgstr "Erneut starten …"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1615
+#: src/app-window.vala:1616
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Die Seite links herum drehen (gegen den Uhrzeigersinn)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1622
+#: src/app-window.vala:1623
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Die Seite rechts herum drehen (im Uhrzeigersinn)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1632
+#: src/app-window.vala:1633
 msgid "Crop the selected page"
 msgstr "Die gewählte Seite zurechtschneiden"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1648
+#: src/app-window.vala:1649
 msgid "Delete the selected page"
 msgstr "Die gewählte Seite löschen"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1813
+#: src/app-window.vala:1814
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -825,7 +829,92 @@ msgstr "_Passwort:"
 #: src/book.vala:331 src/book.vala:337
 #, c-format
 msgid "Unable to encode page %i"
-msgstr "Seite %i konnte nicht kodiert werden."
+msgstr "Seite %i konnte nicht kodiert werden"
+
+#: src/help-overlay.ui:12
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Scannen"
+
+#: src/help-overlay.ui:17
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "Eine einzelne Seite vom Scanner einscannen"
+
+#: src/help-overlay.ui:24
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "Alle Seiten aus dem Dokumenteneinzug einscannen"
+
+#: src/help-overlay.ui:31
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "Fortlaufend vom Flachbett-Scanner einscannen"
+
+#: src/help-overlay.ui:38
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "Laufenden Scanvorgang anhalten"
+
+#: src/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Dokumentbearbeitung"
+
+#: src/help-overlay.ui:51
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "Nach links schieben"
+
+#: src/help-overlay.ui:58
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "Nach rechts schieben"
+
+#: src/help-overlay.ui:65
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "Die Seite links herum drehen (gegen den Uhrzeigersinn)"
+
+#: src/help-overlay.ui:72
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "Die Seite rechts herum drehen (im Uhrzeigersinn)"
+
+#: src/help-overlay.ui:79
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "Seite löschen"
+
+#: src/help-overlay.ui:87
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Dokumentenverwaltung"
+
+#: src/help-overlay.ui:92
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "Neues Dokument beginnen"
+
+#: src/help-overlay.ui:99
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "Gescanntes Dokument speichern"
+
+#: src/help-overlay.ui:106
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "Gescanntes Dokument per E-Mail versenden"
+
+#: src/help-overlay.ui:113
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "Gescanntes Dokument drucken"
+
+#: src/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "Aktuelle Seite in die Zwischenablage kopieren"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:113
