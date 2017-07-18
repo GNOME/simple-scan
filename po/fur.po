@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=simple-scan&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-06 10:27+0000\n"
-"PO-Revision-Date: 2017-06-10 20:38+0200\n"
+"POT-Creation-Date: 2017-07-02 21:08+0000\n"
+"PO-Revision-Date: 2017-07-18 10:15+0200\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <fur@li.org>\n"
 "Language: fur\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -220,7 +220,7 @@ msgstr "_Ferme la scansion"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1589
+#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1590
 msgid "Reorder Pages"
 msgstr "Torne ordene lis pagjinis"
 
@@ -661,56 +661,60 @@ msgstr[0] "Si scugne instalâ il pachet %s."
 msgstr[1] "Si scugne instalâ i pachets %s."
 
 #. Title of preferences dialog
-#: src/app-window.vala:1568 src/app-window.vala:1590
+#: src/app-window.vala:1568 src/app-window.vala:1591
 #: src/preferences-dialog.ui:53
 msgid "Preferences"
 msgstr "Preferencis"
 
 #: src/app-window.vala:1572
+msgid "Keyboard Shortcuts"
+msgstr "Scurtis di tastiere"
+
+#: src/app-window.vala:1573
 msgid "Help"
 msgstr "Jutori"
 
-#: src/app-window.vala:1573
+#: src/app-window.vala:1574
 msgid "About"
 msgstr "Informazions"
 
-#: src/app-window.vala:1574
+#: src/app-window.vala:1575
 msgid "Quit"
 msgstr "Jes"
 
-#: src/app-window.vala:1588
+#: src/app-window.vala:1589
 msgid "Email"
 msgstr "E-mail"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1598
+#: src/app-window.vala:1599
 msgid "Start Again…"
 msgstr "Torne tache…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1615
+#: src/app-window.vala:1616
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Zire la pagjine a çampe (sens antiorari)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1622
+#: src/app-window.vala:1623
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Zire la pagjine a drete (sens orari)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1632
+#: src/app-window.vala:1633
 msgid "Crop the selected page"
 msgstr "Rifile la pagjine selezionade"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1648
+#: src/app-window.vala:1649
 msgid "Delete the selected page"
 msgstr "Elimine la pagjine selezionade"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1813
+#: src/app-window.vala:1814
 msgid "Cancel"
 msgstr "Anule"
 
@@ -733,6 +737,91 @@ msgstr "_Password:"
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Impussibil codificâ la pagjine %i"
+
+#: src/help-overlay.ui:12
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Scansion"
+
+#: src/help-overlay.ui:17
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "Scansione une singule pagjine"
+
+#: src/help-overlay.ui:24
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "Scansione dutis lis pagjinis dal alimentadôr di documents"
+
+#: src/help-overlay.ui:31
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "Scansione di un continui dal plan di scansionament"
+
+#: src/help-overlay.ui:38
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "Ferme la scansion in cors"
+
+#: src/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Modifiche document"
+
+#: src/help-overlay.ui:51
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "Sposte pagjine a çampe"
+
+#: src/help-overlay.ui:58
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "Sposte pagjine a drete"
+
+#: src/help-overlay.ui:65
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "Zire pagjine a çampe (sens antiorari)"
+
+#: src/help-overlay.ui:72
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "Zire pagjine a drete (sens orari)"
+
+#: src/help-overlay.ui:79
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "Elimine pagjine"
+
+#: src/help-overlay.ui:87
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Gjestion document"
+
+#: src/help-overlay.ui:92
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "Tache un gnûf document"
+
+#: src/help-overlay.ui:99
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "Salve document scansionât"
+
+#: src/help-overlay.ui:106
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "E-mail document scansionât"
+
+#: src/help-overlay.ui:113
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "Stampe document scansionât"
+
+#: src/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "Copie la pagjine atuâl tes notis"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:113
@@ -947,9 +1036,6 @@ msgstr ""
 #~ msgid "Front and Back"
 #~ msgstr "Denant e daûr"
 
-#~ msgid "Start a new document"
-#~ msgstr "Tache un gnûf document"
-
 #~ msgid "New"
 #~ msgstr "Gnûf"
 
@@ -964,9 +1050,6 @@ msgstr ""
 
 #~ msgid "Scan S_ource:"
 #~ msgstr "S_orzint scansion:"
-
-#~ msgid "Delay between pages:"
-#~ msgstr "Ritart tra lis pagjinis:"
 
 #~ msgid "New Document"
 #~ msgstr "Gnûf document"
