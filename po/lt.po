@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=simple-scan&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-06 10:27+0000\n"
-"PO-Revision-Date: 2017-06-12 23:06+0300\n"
+"POT-Creation-Date: 2017-07-24 08:55+0000\n"
+"PO-Revision-Date: 2017-07-24 23:12+0300\n"
 "Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
 "Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
 "Language: lt\n"
@@ -224,7 +224,7 @@ msgstr "_Stabdyti skenavimą"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1589
+#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1590
 msgid "Reorder Pages"
 msgstr "Pakeisti puslapių tvarką"
 
@@ -358,13 +358,11 @@ msgstr "_Užverti"
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
 #: src/app-window.vala:246
 #, c-format
-#| msgid "Username and password required to access '%s'"
 msgid "Username and password required to access “%s”"
 msgstr "Naudotojo vardas ir slaptažodis, reikalingas prieigai prie „%s“"
 
 #. Label shown when detected a scanner
 #: src/app-window.vala:266 src/app-window.vala:584
-#| msgid "Failed to scan"
 msgid "Ready to Scan"
 msgstr "Pasiruošta skenavimui"
 
@@ -375,7 +373,6 @@ msgstr "Reikalinga papildoma programinė įranga"
 
 #. Instructions to install driver software
 #: src/app-window.vala:275
-#| msgid "You need to install driver software for your scanner."
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -394,7 +391,6 @@ msgstr "Patikrinkite ar skeneris yra prijungtas ir įjungtas"
 
 #. Save dialog: Dialog title
 #: src/app-window.vala:298
-#| msgid "Save As..."
 msgid "Save As…"
 msgstr "Įrašyti taip…"
 
@@ -438,7 +434,6 @@ msgstr "PNG (nenuostolingasis)"
 
 #. Save dialog: Label for sabing in WEBP format
 #: src/app-window.vala:354
-#| msgid "JPEG (compressed)"
 msgid "WebP (compressed)"
 msgstr "WebP (suglaudintas)"
 
@@ -474,7 +469,6 @@ msgstr "Nepavyko įrašyti failo"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:550
-#| msgid "If you don't save, changes will be permanently lost."
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Jeigu neįrašysite, pakeitimai bus negrįžtamai prarasti."
 
@@ -490,7 +484,6 @@ msgstr "Atmesti pakeitimus"
 
 #. Label shown when scan started
 #: src/app-window.vala:692
-#| msgid "Change _Scanner"
 msgid "Contacting scanner…"
 msgstr "Jungiamasi prie _skenerio…"
 
@@ -651,7 +644,6 @@ msgstr "Įdiegę, turėsite iš naujo paleisti Paprastą skenavimą."
 
 #. Label shown while installing drivers
 #: src/app-window.vala:1423
-#| msgid "Installing drivers..."
 msgid "Installing drivers…"
 msgstr "Įdiegiamos tvarkyklės…"
 
@@ -674,7 +666,6 @@ msgstr "Nepavyko įdiegti tvarkyklių."
 #. Label shown to prompt user to install packages (when PackageKit not available)
 #: src/app-window.vala:1454
 #, c-format
-#| msgid "You need to install the %s package(s)."
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Jums reikia įdiegti %s paketą."
@@ -682,59 +673,60 @@ msgstr[1] "Jums reikia įdiegti %s paketus."
 msgstr[2] "Jums reikia įdiegti %s paketus."
 
 #. Title of preferences dialog
-#: src/app-window.vala:1568 src/app-window.vala:1590
+#: src/app-window.vala:1568 src/app-window.vala:1591
 #: src/preferences-dialog.ui:53
 msgid "Preferences"
 msgstr "Nuostatos"
 
 #: src/app-window.vala:1572
+msgid "Keyboard Shortcuts"
+msgstr "Klaviatūros trumpiniai"
+
+#: src/app-window.vala:1573
 msgid "Help"
 msgstr "Žinynas"
 
-#: src/app-window.vala:1573
+#: src/app-window.vala:1574
 msgid "About"
 msgstr "Apie"
 
-#: src/app-window.vala:1574
+#: src/app-window.vala:1575
 msgid "Quit"
 msgstr "Baigti"
 
-#: src/app-window.vala:1588
-#| msgid "_Email"
+#: src/app-window.vala:1589
 msgid "Email"
 msgstr "El. paštu"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1598
+#: src/app-window.vala:1599
 msgid "Start Again…"
 msgstr "Pradėti iš naujo…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1615
+#: src/app-window.vala:1616
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Pasukti puslapį kairėn (prieš laikrodžio rodyklę)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1622
+#: src/app-window.vala:1623
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Pasukti puslapį dešinėn (pagal laikrodžio rodyklę)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1632
+#: src/app-window.vala:1633
 msgid "Crop the selected page"
 msgstr "Apkirpti pažymėtą puslapį"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1648
-#| msgid "Crop the selected page"
+#: src/app-window.vala:1649
 msgid "Delete the selected page"
 msgstr "Ištrinti pasirinktą puslapį"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1813
-#| msgid "_Cancel"
+#: src/app-window.vala:1814
 msgid "Cancel"
 msgstr "Atsisakyti"
 
@@ -755,25 +747,122 @@ msgstr "Sla_ptažodis:"
 
 #: src/book.vala:331 src/book.vala:337
 #, c-format
-#| msgid "Unable to open help file"
 msgid "Unable to encode page %i"
 msgstr "Nepavyko užkoduoti puslapio %i"
 
+#: src/help-overlay.ui:12
+#| msgid "Scanning"
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Skenuojama"
+
+#: src/help-overlay.ui:17
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "Skenuoti vieną puslapį"
+
+#: src/help-overlay.ui:24
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "Skenuoti visus puslapius iš dokumento dėklo"
+
+#: src/help-overlay.ui:31
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "Skenuoti nenutrūkstamai nuo skenavimo plokštumos"
+
+#: src/help-overlay.ui:38
+#| msgid "Scan in progress"
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "Stabdyti skenavimą"
+
+#: src/help-overlay.ui:46
+#| msgid "Document Scanner"
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Dokumentų pakeitimas"
+
+#: src/help-overlay.ui:51
+#| msgid "Move Left"
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "Perkelti puslapį kairėn"
+
+#: src/help-overlay.ui:58
+#| msgid "Move Right"
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "Perkelti puslapį dešinėn"
+
+#: src/help-overlay.ui:65
+#| msgid "Rotate the page to the left (counter-clockwise)"
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "Pasukti puslapį kairėn (prieš laikrodžio rodyklę)"
+
+#: src/help-overlay.ui:72
+#| msgid "Rotate the page to the right (clockwise)"
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "Pasukti puslapį dešinėn (pagal laikrodžio rodyklę)"
+
+#: src/help-overlay.ui:79
+#| msgid "Delete the selected page"
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "Ištrinti puslapį"
+
+#: src/help-overlay.ui:87
+#| msgid "Document Scanner"
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Dokumento valdymas"
+
+#: src/help-overlay.ui:92
+#| msgid "Start a new document"
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "Pradėti naują dokumentą"
+
+#: src/help-overlay.ui:99
+#| msgid "Save current document?"
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "Įrašyti nuskenuotą dokumentą"
+
+#: src/help-overlay.ui:106
+#| msgid "Scanned Document.pdf"
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "Siųsti nuskenuotą dokumentą el. paštu"
+
+#: src/help-overlay.ui:113
+#| msgid "Start a new document"
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "Spausdinti nuskenuotą dokumentą"
+
+#: src/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "Kopijuoti nuskenuotą dokumentą į iškarpinę"
+
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:113
-#| msgid "scanner"
 msgid "_Scanner"
 msgstr "_Skeneris"
 
 #. Label beside scan side combo box
 #: src/preferences-dialog.ui:143
-#| msgid "Scan Side:"
 msgid "Scan Sides"
 msgstr "Skenuoti puses"
 
 #. Label beside page size combo box
 #: src/preferences-dialog.ui:160
-#| msgid "Page Size:"
 msgid "Page Size"
 msgstr "Puslapio dydis"
 
@@ -834,37 +923,31 @@ msgstr "Sekundžių"
 
 #. Preferences Dialog: Tab label for scanning settings
 #: src/preferences-dialog.ui:413
-#| msgid "Scan"
 msgid "Scanning"
 msgstr "Skenuojama"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:436
-#| msgid "_Text Resolution:"
 msgid "_Text Resolution"
 msgstr "_Teksto raiška"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:452
-#| msgid "_Photo Resolution:"
 msgid "_Photo Resolution"
 msgstr "_Nuotraukos raiška"
 
 #. Label beside brightness scale
 #: src/preferences-dialog.ui:505
-#| msgid "Brightness:"
 msgid "Brightness"
 msgstr "Šviesumas"
 
 #. Label beside contrast scale
 #: src/preferences-dialog.ui:521
-#| msgid "Contrast:"
 msgid "Contrast"
 msgstr "Kontrastas"
 
 #. Preferences Dialog: Tab for quality settings
 #: src/preferences-dialog.ui:576
-#| msgid "Quality:"
 msgid "Quality"
 msgstr "Kokybė"
 
@@ -960,24 +1043,18 @@ msgstr "Vykdomas skenavimas"
 
 #. Arguments and description for --help text
 #: src/simple-scan.vala:584
-#| msgid "[DEVICE...] - Scanning utility"
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ĮRENGINYS...] - Skenavimo įraknis"
 
 #. Text printed out when an unknown command-line argument provided
 #: src/simple-scan.vala:595
 #, c-format
-#| msgid ""
-#| "Run '%s --help' to see a full list of available command line options."
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Norėdami pamatyti komandų eilutės parametrų sąrašą, paleiskite „%s --help“."
 
 #~ msgid "Front and Back"
 #~ msgstr "Abi pusės"
-
-#~ msgid "Start a new document"
-#~ msgstr "Pradėti naują dokumentą"
 
 #~ msgid "New"
 #~ msgstr "Naujas"
