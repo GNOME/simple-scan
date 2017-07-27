@@ -17,16 +17,17 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=simple-scan&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-06-06 10:27+0000\n"
-"PO-Revision-Date: 2016-12-24 18:03+0000\n"
-"Last-Translator: Walter Garcia-Fontes <walter.garcia@upf.edu>\n"
+"POT-Creation-Date: 2017-07-24 08:55+0000\n"
+"PO-Revision-Date: 2017-07-27 08:14+0200\n"
+"Last-Translator: Jordi Mas <jmas@softcatala.org>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Launchpad (build 18361)\n"
+"X-Generator: Poedit 2.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -133,11 +134,11 @@ msgstr "Valor de la qualitat a utilitzar per la compressió JPEG."
 
 #: data/org.gnome.SimpleScan.gschema.xml:72
 msgid "Delay in millisecond between pages"
-msgstr ""
+msgstr "Retard en mil·lisegons entre pàgines"
 
 #: data/org.gnome.SimpleScan.gschema.xml:73
 msgid "Delay in millisecond between pages."
-msgstr ""
+msgstr "Retard en mil·lisegons entre pàgines."
 
 #. Title of scan window
 #. Set HeaderBar title here because Glade doesn't keep it translated
@@ -230,7 +231,7 @@ msgstr "_Atura l'escaneig"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1589
+#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1590
 msgid "Reorder Pages"
 msgstr "Reordena les pàgines"
 
@@ -355,7 +356,7 @@ msgstr "Atura"
 #. Label shown when searching for scanners
 #: src/app-window.ui:611
 msgid "Searching for Scanners…"
-msgstr ""
+msgstr "S'estan cercant escànners…"
 
 #: src/app-window.vala:237 src/app-window.vala:1380
 msgid "_Close"
@@ -363,8 +364,7 @@ msgstr "_Tanca"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
 #: src/app-window.vala:246
-#,  c-format
-#| msgid "Username and password required to access '%s'"
+#, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Cal un usuari i contrasenya per a accedir a «%s»"
 
@@ -383,7 +383,9 @@ msgstr "Cal un programari addicional"
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
-msgstr "Heu <a href=\"install-firmware\">d'instal·lar un programari controlador</a> per al vostre escàner."
+msgstr ""
+"Heu <a href=\"install-firmware\">d'instal·lar un programari controlador</a> "
+"per al vostre escàner."
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:281
@@ -451,22 +453,22 @@ msgstr "Format del fitxer:"
 #. Label in save dialog beside compression slider
 #: src/app-window.vala:376
 msgid "Compression:"
-msgstr ""
+msgstr "Compressió:"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
 #: src/app-window.vala:470
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
-msgstr ""
+msgstr "Ja existeix un fitxer amb el nom «%s». Voleu reemplaçar-lo?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
 #: src/app-window.vala:473
 msgid "_Replace"
-msgstr ""
+msgstr "_Reemplaça"
 
 #: src/app-window.vala:512
 msgid "Saving"
-msgstr ""
+msgstr "Desament"
 
 #. Title of error dialog when save failed
 #: src/app-window.vala:527
@@ -572,7 +574,9 @@ msgstr "Eina senzilla d'escaneig de documents"
 
 #: src/app-window.vala:1286
 msgid "translator-credits"
-msgstr "Launchpad contributors (2010-2016)"
+msgstr ""
+"Jordi Mas i Hernàndez (2017)\n"
+"Launchpad contributors (2010-2016)"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:1308
@@ -662,57 +666,69 @@ msgstr "Ha fallat la instal·lació dels controladors (codi d'error %d)."
 msgid "Failed to install drivers."
 msgstr "No s'han pogut instal·lar els controladors."
 
+#. Label shown to prompt user to install packages (when PackageKit not available)
+#: src/app-window.vala:1454
+#, c-format
+msgid "You need to install the %s package."
+msgid_plural "You need to install the %s packages."
+msgstr[0] "Heu d'instal·lar el paquet %s."
+msgstr[1] "Heu d'instal·lar els paquets %s."
+
 #. Title of preferences dialog
-#: src/app-window.vala:1568 src/app-window.vala:1590
+#: src/app-window.vala:1568 src/app-window.vala:1591
 #: src/preferences-dialog.ui:53
 msgid "Preferences"
 msgstr "Preferències"
 
 #: src/app-window.vala:1572
+msgid "Keyboard Shortcuts"
+msgstr "Dreceres de teclat"
+
+#: src/app-window.vala:1573
 msgid "Help"
 msgstr "Ajuda"
 
-#: src/app-window.vala:1573
+#: src/app-window.vala:1574
 msgid "About"
 msgstr "Quant a"
 
-#: src/app-window.vala:1574
+#: src/app-window.vala:1575
 msgid "Quit"
 msgstr "Surt"
 
-#: src/app-window.vala:1588
+#: src/app-window.vala:1589
 msgid "Email"
 msgstr "Correu electrònic"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1598
+#: src/app-window.vala:1599
 msgid "Start Again…"
 msgstr "Comença de nou…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1615
+#: src/app-window.vala:1616
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Gireu la pàgina cap a l'esquerra (en sentit antihorari)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1622
+#: src/app-window.vala:1623
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Gireu la pàgina cap a la dreta (en sentit horari)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1632
+#: src/app-window.vala:1633
 msgid "Crop the selected page"
 msgstr "Escapça la pàgina seleccionada"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1648
+#: src/app-window.vala:1649
 msgid "Delete the selected page"
 msgstr "Suprimeix la pàgina seleccionada"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1813
+#: src/app-window.vala:1814
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -733,9 +749,95 @@ msgstr "_Contrasenya:"
 
 #: src/book.vala:331 src/book.vala:337
 #, c-format
-#| msgid "Unable to open help file"
 msgid "Unable to encode page %i"
 msgstr "No s'ha pogut codificar la pàgina %i"
+
+#: src/help-overlay.ui:12
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Escaneig"
+
+#: src/help-overlay.ui:17
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "Escaneja una sola pàgina"
+
+#: src/help-overlay.ui:24
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "Escaneja totes les pàgines des de l'alimentador"
+
+#: src/help-overlay.ui:31
+#, fuzzy
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "Escaneja una sola pàgina de l'escàner"
+
+#: src/help-overlay.ui:38
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "Atura l'escaneig en progrés"
+
+#: src/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Modificació del document"
+
+#: src/help-overlay.ui:51
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "Mou a l'esquerra"
+
+#: src/help-overlay.ui:58
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "Mou a la dreta"
+
+#: src/help-overlay.ui:65
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "Gireu la pàgina cap a l'esquerra (en sentit antihorari)"
+
+#: src/help-overlay.ui:72
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "Gireu la pàgina cap a la dreta (en sentit horari)"
+
+#: src/help-overlay.ui:79
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "Suprimeix la pàgina"
+
+#: src/help-overlay.ui:87
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Gestió de documents"
+
+#: src/help-overlay.ui:92
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "Comença un document nou"
+
+#: src/help-overlay.ui:99
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "Desa el document escanejat"
+
+#: src/help-overlay.ui:106
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "Envia per correu el document escanejat"
+
+#: src/help-overlay.ui:113
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "Imprimeix el document escanejat"
+
+#: src/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "Copia la pàgina actual al porta-retalls"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:113
@@ -795,17 +897,17 @@ msgstr "7"
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: src/preferences-dialog.ui:342
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: src/preferences-dialog.ui:358
 msgid "15"
-msgstr ""
+msgstr "15"
 
 #. Label after page delay radio buttons
 #: src/preferences-dialog.ui:385
 msgid "Seconds"
-msgstr ""
+msgstr "Segons"
 
 #. Preferences Dialog: Tab label for scanning settings
 #: src/preferences-dialog.ui:413
@@ -925,7 +1027,7 @@ msgstr "Ha fallat l'escaneig"
 #. Attempt to inhibit the screensaver when scanning
 #: src/simple-scan.vala:407
 msgid "Scan in progress"
-msgstr ""
+msgstr "S'està escanejant"
 
 #. Arguments and description for --help text
 #: src/simple-scan.vala:584
@@ -934,6 +1036,7 @@ msgstr "[DISPOSITIU…] - Utilitat d'escaneig"
 
 #. Text printed out when an unknown command-line argument provided
 #: src/simple-scan.vala:595
+#, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Executeu «%s --help» per veure la llista completa d'opcions disponibles de "
@@ -941,9 +1044,6 @@ msgstr ""
 
 #~ msgid "Front and Back"
 #~ msgstr "Ambdues cares"
-
-#~ msgid "Start a new document"
-#~ msgstr "Comença un document nou"
 
 #~ msgid "New"
 #~ msgstr "Nou"
@@ -1106,9 +1206,6 @@ msgstr ""
 #~ "  -h, --help                      Mostra l'ajuda de les opcions\n"
 #~ "  --help-all                      Mostra l'ajuda de totes les opcions\n"
 #~ "  --help-gtk                      Mostra l'ajuda de les opcions de la GTK+"
-
-#~ msgid "Scanned Document"
-#~ msgstr "Document escanejat"
 
 #~ msgid "The direction of the scanner across the scanned page."
 #~ msgstr "La direcció de l'escànner a través de la pàgina escanejada."
