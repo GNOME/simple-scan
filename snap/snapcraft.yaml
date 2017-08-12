@@ -1,0 +1,80 @@
+name: simple-scan
+version: 3.25.90
+summary: Document Scanning Application
+description: |
+  Simple Scan allows you to get images from a scanner (e.g. a flatbed scanner)
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: classic
+
+apps:
+  simple-scan:
+    command: bin/classic-launch classic ${SNAP}/usr/bin/simple-scan
+    desktop: usr/share/applications/simple-scan.desktop
+    environment:
+      GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
+
+parts:
+  libsane:
+    after: [desktop-gtk3]
+    source: https://github.com/kkaempf/sane-backends
+    source-type: git
+    source-branch: master
+    #source-tag: 3.24.0
+    plugin: autotools
+    # workaround the issue described in https://launchpad.net/bugs/1583250
+    configflags: [--prefix=/snap/simple-scan/current/usr, --with-api-spec=no]
+    organize:
+      snap/simple-scan/current/usr: usr
+    build-packages:
+      - autotools-dev
+      - autoconf
+      - chrpath
+      - dh-systemd
+      - gettext
+      - libavahi-client-dev
+      - libcups2-dev
+      - libgphoto2-dev
+      - libieee1284-3-dev
+      - libjpeg-dev
+      - libltdl3-dev
+      - libsystemd-dev
+      - libtiff-dev
+      - libusb-1.0-0-dev
+      - pkg-config
+      - po-debconf
+      - xutils-dev
+
+  simple-scan:
+    after: [libsane]
+    source: .
+    plugin: meson
+    meson-parameters: [--prefix=/usr]
+    organize:
+      snap/simple-scan/current/usr: usr
+    install: |
+      mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
+      cp snapbuild/data/simple-scan.desktop $SNAPCRAFT_PART_INSTALL/meta/gui/
+    build-packages:
+      - desktop-file-utils
+      - gettext
+      - gnome-common
+      - intltool
+      - itstool
+      - libcairo2-dev
+      - libcolord-dev
+      - libdbus-glib-1-dev
+      - libglib2.0-dev
+      - libgtk-3-dev
+      - libgdk-pixbuf2.0-dev
+      - libgusb-dev
+      - libpackagekit-glib2-dev
+      - libsane-dev
+      - python-scour
+      - valac
+      - zlib1g-dev
+  classic-launch:
+    plugin: dump
+    source: ./snap
+    organize:
+      classic-launch: bin/classic-launch
