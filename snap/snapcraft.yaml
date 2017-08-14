@@ -17,10 +17,9 @@ apps:
 parts:
   libsane:
     after: [desktop-gtk3]
-    source: https://github.com/kkaempf/sane-backends
+    source: https://anonscm.debian.org/cgit/sane/sane-backends.git
     source-type: git
-    source-branch: master
-    #source-tag: 3.24.0
+    source-tag: RELEASE_1_0_27
     plugin: autotools
     # workaround the issue described in https://launchpad.net/bugs/1583250
     configflags: [--prefix=/snap/simple-scan/current/usr, --with-api-spec=no]
