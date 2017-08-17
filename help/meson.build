@@ -37,5 +37,4 @@ gnome.yelp ('simple-scan',
             media: [ 'figures/icon.png',
                      'figures/preferences.png',
                      'figures/scan_toolbar.png' ],
-            languages: languages,
-            symlink_media: true)
+            languages: languages)
