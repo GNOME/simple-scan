@@ -1,326 +1,149 @@
 # Latvian translation for simple-scan
 # Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
 # This file is distributed under the same license as the simple-scan package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-04-16 08:54-0400\n"
-"PO-Revision-Date: 2017-03-29 06:41+0000\n"
-"Last-Translator: Pēteris Krišjānis <pecisk@gmail.com>\n"
-"Language-Team: Latvian <lv@li.org>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=simple-"
+"scan&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2017-08-13 21:51+0000\n"
+"PO-Revision-Date: 2017-08-28 16:43+0200\n"
+"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
+"Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Launchpad (build 18361)\n"
+"X-Generator: Lokalize 2.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
+" 2);\n"
 
-#. Button to submit authorization dialog
-#: src/simple-scan.ui:24
-msgid "_Authorize"
-msgstr "_Autorizēties"
+#: data/org.gnome.SimpleScan.gschema.xml:11
+msgid "Device to scan from"
+msgstr "Ierīce, no kuras skenēt"
 
-#. Label beside username entry
-#: src/simple-scan.ui:102
-msgid "_Username for resource:"
-msgstr "Res_ursa lietotājvārds:"
+#: data/org.gnome.SimpleScan.gschema.xml:12
+msgid "SANE device to acquire images from."
+msgstr "SANE ierīce, no kuras iegūt attēlus."
 
-#. Label beside password entry
-#: src/simple-scan.ui:117
-msgid "_Password:"
-msgstr "_Parole:"
+#: data/org.gnome.SimpleScan.gschema.xml:20
+msgid "Type of document being scanned"
+msgstr "Skenējamā dokumenta veids"
 
-#. Combo box label for scanning both sides of a page
-#: src/simple-scan.ui:188
-msgid "Front and Back"
-msgstr "Priekšpuse un aizmugure"
+#: data/org.gnome.SimpleScan.gschema.xml:21
+msgid ""
+"Type of document being scanned. This setting decides on the scan resolution, "
+"colors and post-processing."
+msgstr ""
+"Skenējamā dokumenta veids. Šīs iestatījums nosaka skenēšanas izšķirtspēju, "
+"krāsas un pēcapstrādi."
 
-#. Combo box label for scanning the front side of a page
-#: src/simple-scan.ui:192
-msgid "Front"
-msgstr "Priekšpuse"
+#: data/org.gnome.SimpleScan.gschema.xml:25
+msgid "Width of paper in tenths of a mm"
+msgstr "Papīra platums mm desmitdaļās"
 
-#. Combo box label for scanning the back side of a page
-#: src/simple-scan.ui:196
-msgid "Back"
-msgstr "Aizmugure"
+#: data/org.gnome.SimpleScan.gschema.xml:26
+msgid ""
+"The width of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+"Papīra platums mm desmitdaļās (vai 0 automātiskai papīra biezuma "
+"noteikšanai)."
+
+#: data/org.gnome.SimpleScan.gschema.xml:30
+msgid "Height of paper in tenths of a mm"
+msgstr "Papīra garums mm desmitdaļās"
+
+#: data/org.gnome.SimpleScan.gschema.xml:31
+msgid ""
+"The height of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+"Papīra garums mm desmitdaļās (vai 0 automātiskai papīra biezuma noteikšanai)."
+
+#: data/org.gnome.SimpleScan.gschema.xml:35
+msgid "Brightness of scan"
+msgstr "Skenējuma gaišums"
+
+#: data/org.gnome.SimpleScan.gschema.xml:36
+msgid "The brightness adjustment from -100 to 100 (0 being none)."
+msgstr "Gaišuma pielāgojums no -100 līdz 100 (0 nozīmē nekāds)."
+
+#: data/org.gnome.SimpleScan.gschema.xml:40
+msgid "Contrast of scan"
+msgstr "Skenējuma kontrasts"
+
+#: data/org.gnome.SimpleScan.gschema.xml:41
+msgid "The contrast adjustment from -100 to 100 (0 being none)."
+msgstr "Kontrasta pielāgojums no -100 līdz 100 (0 nozīmē nekāds)."
+
+#: data/org.gnome.SimpleScan.gschema.xml:45
+msgid "Resolution for text scans"
+msgstr "Teksta skenējumu izšķirtspēja"
+
+#: data/org.gnome.SimpleScan.gschema.xml:46
+msgid "The resolution in dots-per-inch to use when scanning text."
+msgstr "Izšķirtspēja punktos/collā, skenējot tekstu."
+
+#: data/org.gnome.SimpleScan.gschema.xml:50
+msgid "Resolution for photo scans"
+msgstr "Fotogrāfiju skenējumu izšķirtspēja"
+
+#: data/org.gnome.SimpleScan.gschema.xml:51
+msgid "The resolution in dots-per-inch to use when scanning photos."
+msgstr "Izšķirtspēja punktos/collā, skenējot fotogrāfijas."
+
+#: data/org.gnome.SimpleScan.gschema.xml:55
+msgid "Page side to scan"
+msgstr "Skenējamā lapas puse"
+
+#: data/org.gnome.SimpleScan.gschema.xml:56
+msgid "The page side to scan."
+msgstr "Skenējamās lapas puse."
+
+#: data/org.gnome.SimpleScan.gschema.xml:60
+msgid "Directory to save files to"
+msgstr "Direktorija, kurā saglabāt datnes"
+
+#: data/org.gnome.SimpleScan.gschema.xml:61
+msgid ""
+"The directory to save files to. Defaults to the documents directory if unset."
+msgstr ""
+"Direktorija, kurā saglabāt datnes. Pēc noklusējuma datnes tiks glabātas "
+"dokumentu direktorijā."
+
+#: data/org.gnome.SimpleScan.gschema.xml:66
+msgid "Quality value to use for JPEG compression"
+msgstr "Kvalitātes vērtība, ko izmantot JPEG saspiešanai"
+
+#: data/org.gnome.SimpleScan.gschema.xml:67
+msgid "Quality value to use for JPEG compression."
+msgstr "Kvalitātes vērtība, ko izmantot JPEG saspiešanai."
+
+#: data/org.gnome.SimpleScan.gschema.xml:72
+msgid "Delay in millisecond between pages"
+msgstr "Aizture milisekundēs starp lappusēm"
+
+#: data/org.gnome.SimpleScan.gschema.xml:73
+msgid "Delay in millisecond between pages."
+msgstr "Aizture milisekundēs starp lappusēm."
 
 #. Title of scan window
-#: src/simple-scan.ui:231 src/simple-scan.ui:815 data/simple-scan.desktop.in:3
-#: data/simple-scan.appdata.xml.in:6
+#. Set HeaderBar title here because Glade doesn't keep it translated
+#. https://bugzilla.gnome.org/show_bug.cgi?id=782753
+#. Title of scan window
+#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: src/app-window.ui:76 src/app-window.vala:1560
 msgid "Simple Scan"
 msgstr "Vienkārša skenēšana"
 
-#. Label on document menu (contains actions for this document, e.g. save, print)
-#: src/simple-scan.ui:247
-msgid "_Document"
-msgstr "_Dokuments"
-
-#. Scan menu item
-#: src/simple-scan.ui:266
-msgid "Sc_an"
-msgstr "Sk_enēt"
-
-#. Scan menu item to scan a single page from the scanner
-#. Toolbar scan menu item to scan a single page from the scanner
-#: src/simple-scan.ui:279 src/simple-scan.ui:1343 src/simple-scan.ui:1402
-msgid "Single _Page"
-msgstr "Viena la_pa"
-
-#. Scan menu item to scan all pages from a document feeder
-#. Toolbar scan menu item to scan all pages from a document feeder
-#: src/simple-scan.ui:289 src/simple-scan.ui:1352 src/simple-scan.ui:1411
-msgid "All Pages From _Feeder"
-msgstr "Visas lapas no _padeves"
-
-#. Scan menu item to scan continuously from the flatbed
-#. Toolbar scan menu item to scan continuously from the flatbed
-#: src/simple-scan.ui:299 src/simple-scan.ui:1361 src/simple-scan.ui:1420
-msgid "_Multiple Pages From Flatbed"
-msgstr ""
-
-#. Menu entry to stop current scan
-#: src/simple-scan.ui:310
-msgid "_Stop Scan"
-msgstr "Apturēt _skenēšanu"
-
-#: src/simple-scan.ui:326 src/simple-scan.ui:1376 src/simple-scan.ui:1435
-msgid "Text"
-msgstr "Teksts"
-
-#: src/simple-scan.ui:336 src/simple-scan.ui:1386 src/simple-scan.ui:1445
-msgid "Photo"
-msgstr "Foto"
-
-#. Menu item to reorder pages
-#. Title of dialog to reorder pages
-#: src/simple-scan.ui:352 src/ui.vala:1247 src/ui.vala:1891
-msgid "Reorder Pages"
-msgstr ""
-
-#. Label on email menu item
-#: src/simple-scan.ui:371
-msgid "_Email"
-msgstr "_E-pasts"
-
-#. Page menu (contains action for each page, e.g. delete, crop)
-#: src/simple-scan.ui:436
-msgid "_Page"
-msgstr "La_pa"
-
-#. Menu item to rotate page to left (anti-clockwise)
-#: src/simple-scan.ui:446
-msgid "Rotate _Left"
-msgstr "Pagriezt pa _kreisi"
-
-#. Menu item to rotate page to right (clockwise)
-#: src/simple-scan.ui:456
-msgid "Rotate _Right"
-msgstr "Pag_riezt pa labi"
-
-#. Label for page crop submenu
-#: src/simple-scan.ui:466
-msgid "_Crop"
-msgstr "Ap_cirst"
-
-#. Radio button for no crop
-#: src/simple-scan.ui:476
-msgid "_None"
-msgstr "_Bez"
-
-#. Radio button for cropping page to A4 size
-#: src/simple-scan.ui:487
-msgid "A_4"
-msgstr "A_4"
-
-#. Radio button for cropping page to A5 size
-#: src/simple-scan.ui:498
-msgid "A_5"
-msgstr "A_5"
-
-#. Radio button for cropping page to A6 size
-#: src/simple-scan.ui:509
-msgid "A_6"
-msgstr "A_6"
-
-#. Radio button for cropping page to US letter size
-#: src/simple-scan.ui:520
-msgid "_Letter"
-msgstr "_Vēstules forma"
-
-#. Radio button for cropping to page to US legal size
-#: src/simple-scan.ui:531
-msgid "Le_gal"
-msgstr "Le_gāls"
-
-#. Radio button for cropping page to 4x6 inch
-#: src/simple-scan.ui:542
-msgid "4×6"
-msgstr "4×6"
-
-#. Radio button for cropping to custom page size
-#: src/simple-scan.ui:553
-msgid "_Custom"
-msgstr "_Pielāgots"
-
-#. Menu item to rotate the crop area
-#: src/simple-scan.ui:571
-msgid "_Rotate Crop"
-msgstr "Pag_riezt apciršanu"
-
-#. Menu item to move the selected page to the left
-#: src/simple-scan.ui:584
-msgid "Move Left"
-msgstr "Pārvietot pa kreisi"
-
-#. Menu item to move the selected page to the right
-#: src/simple-scan.ui:593
-msgid "Move Right"
-msgstr "Pārvietot pa labi"
-
-#. Label on help menu
-#: src/simple-scan.ui:630
-msgid "_Help"
-msgstr "_Palīdzība"
-
-#. Help|Contents menu
-#: src/simple-scan.ui:638
-msgid "_Contents"
-msgstr "_Saturs"
-
-#. Tooltip for new document button
-#: src/simple-scan.ui:680 src/simple-scan.ui:891
-msgid "Start a new document"
-msgstr "Sākt jaunu dokumentu"
-
-#: src/simple-scan.ui:681
-msgid "New"
-msgstr "Jauns"
-
-#. Tooltip for scan toolbar button
-#: src/simple-scan.ui:695 src/simple-scan.ui:842
-msgid "Scan a single page from the scanner"
-msgstr "Ieskenēt vienu lapu no skenera"
-
-#. Label on scan toolbar item
-#: src/simple-scan.ui:697 src/simple-scan.ui:843
-msgid "Scan"
-msgstr "Skenēt"
-
-#. Tooltip for save toolbar button
-#: src/simple-scan.ui:713 src/simple-scan.ui:870
-msgid "Save document to a file"
-msgstr "Saglabāt dokumentu datnē"
-
-#: src/simple-scan.ui:715 src/ui.vala:1892
-msgid "Save"
-msgstr "Saglabāt"
-
-#. Tooltip for stop button
-#: src/simple-scan.ui:730 src/simple-scan.ui:830
-msgid "Stop the current scan"
-msgstr "Apturēt pašreizējo skenēšanu"
-
-#: src/simple-scan.ui:731 src/simple-scan.ui:831
-msgid "Stop"
-msgstr "Apturēt"
-
-#. Tooltip for rotate left (counter-clockwise) button
-#: src/simple-scan.ui:755 src/simple-scan.ui:942
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Pagriezt lapu pa kreisi (pretēji pulksteņa rādītāja virzienam)"
-
-#. Label on rotate page left (anti-clockwise) item
-#: src/simple-scan.ui:756
-msgid "Rotate Left"
-msgstr "Pagriezt pa kreisi"
-
-#. Tooltip for rotate right (clockwise) button
-#: src/simple-scan.ui:770 src/simple-scan.ui:920
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Pagriezt lapu pa labi (pulksteņa rādītāja virzienā)"
-
-#. Label on rotate page right (clockwise) item
-#: src/simple-scan.ui:771
-msgid "Rotate Right"
-msgstr "Pagriezt pa labi"
-
-#: src/simple-scan.ui:785 src/simple-scan.ui:969
-msgid "Crop the selected page"
-msgstr "Apcirst izvēlēto lapu"
-
-#: src/simple-scan.ui:787
-msgid "Crop"
-msgstr "Apcirst"
-
-#. Title of preferences dialog
-#: src/simple-scan.ui:1003 src/ui.vala:1898
-msgid "Preferences"
-msgstr "Iestatījumi"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1054
-msgid "Scan S_ource:"
-msgstr "Skenēšanas av_ots:"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1085
-msgid "_Text Resolution:"
-msgstr "_Teksta izšķirtspēja:"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1101
-msgid "_Photo Resolution:"
-msgstr "Fotogrāfijas izšķirts_pēja:"
-
-#. Label beside scan side combo box
-#: src/simple-scan.ui:1145
-msgid "Scan Side:"
-msgstr "Skenējamā puse:"
-
-#. Label beside page size combo box
-#: src/simple-scan.ui:1175
-msgid "Page Size:"
-msgstr "Lapas izmērs:"
-
-#. Label beside brightness scale
-#: src/simple-scan.ui:1205
-msgid "Brightness:"
-msgstr "Gaišums:"
-
-#. Label beside contrast scale
-#: src/simple-scan.ui:1235
-msgid "Contrast:"
-msgstr "Kontrasts:"
-
-#. Label beside quality scale
-#: src/simple-scan.ui:1266
-msgid "Quality:"
-msgstr "Kvalitāte:"
-
-#. Label beside page delay scale
-#: src/simple-scan.ui:1297
-msgid "Delay between pages:"
-msgstr ""
-
-#: data/simple-scan.desktop.in:4
-msgid "Document Scanner"
-msgstr ""
-
-#: data/simple-scan.desktop.in:5 data/simple-scan.appdata.xml.in:7
+#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:5
 msgid "Scan Documents"
 msgstr "Skenēt dokumentus"
-
-#: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;"
-msgstr ""
-
-#: data/simple-scan.desktop.in:8
-msgid "scanner"
-msgstr ""
 
 #: data/simple-scan.appdata.xml.in:9
 msgid ""
@@ -329,11 +152,855 @@ msgid ""
 "print your scans, export them to pdf, or save them in a range of image "
 "formats."
 msgstr ""
+"Ļoti vienkāršs veids, kā skenēt dokumentus un fotogrāfijas. Jūs varat"
+" izgriezt ārā sliktās fotogrāfijas daļas un tās pagriezt, ja tās ir nepareizā"
+" virzienā. Varat izdrukāt ieskanētos dokumentus, eksportēt tos pdf formātā"
+" vai saglabāt tos dažādos attēlu formātos."
 
 #: data/simple-scan.appdata.xml.in:14
-msgid ""
-"Simple Scan uses the SANE framework to support most existing scanners."
+msgid "Simple Scan uses the SANE framework to support most existing scanners."
 msgstr ""
+"Vienkāršā skenēšana izmanto SANE ietvaru, kas atbalsta vairumu esošo skeneru."
+
+#: data/simple-scan.desktop.in:4
+msgid "Document Scanner"
+msgstr "Dokumentu skenētājs"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/simple-scan.desktop.in:7
+msgid "scan;scanner;flatbed;adf;"
+msgstr "skenēt;skeneris;plakanvirsma;adf;"
+
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/simple-scan.desktop.in:10
+msgid "scanner"
+msgstr "skeneris"
+
+#. Toolbar scan menu item to scan a single page from the scanner
+#. Scan menu item to scan a single page from the scanner
+#. Toolbar scan menu item to scan a single page from the scanner
+#: src/app-window.ui:22 src/app-window.ui:123 src/app-window.ui:820
+msgid "Single _Page"
+msgstr "Viena la_pa"
+
+#. Toolbar scan menu item to scan all pages from a document feeder
+#. Scan menu item to scan all pages from a document feeder
+#. Toolbar scan menu item to scan all pages from a document feeder
+#: src/app-window.ui:31 src/app-window.ui:133 src/app-window.ui:829
+msgid "All Pages From _Feeder"
+msgstr "Visas lapas no _padeves"
+
+#. Toolbar scan menu item to scan continuously from the flatbed
+#. Scan menu item to scan continuously from the flatbed
+#. Toolbar scan menu item to scan continuously from the flatbed
+#: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:838
+msgid "_Multiple Pages From Flatbed"
+msgstr "_Vairākas lappuses no plakanvirsmas"
+
+#: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:853
+msgid "Text"
+msgstr "Teksts"
+
+#: src/app-window.ui:65 src/app-window.ui:180 src/app-window.ui:863
+msgid "Photo"
+msgstr "Foto"
+
+#. Label on document menu (contains actions for this document, e.g. save, print)
+#: src/app-window.ui:91
+msgid "_Document"
+msgstr "_Dokuments"
+
+#. Scan menu item
+#: src/app-window.ui:110
+msgid "Sc_an"
+msgstr "Sk_enēt"
+
+#. Menu entry to stop current scan
+#: src/app-window.ui:154
+msgid "_Stop Scan"
+msgstr "Apturēt _skenēšanu"
+
+#. Menu item to reorder pages
+#. Title of dialog to reorder pages
+#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1590
+msgid "Reorder Pages"
+msgstr "Pārkārtot lapas"
+
+#. Label on email menu item
+#: src/app-window.ui:215
+msgid "_Email"
+msgstr "_E-pasts"
+
+#. Page menu (contains action for each page, e.g. delete, crop)
+#: src/app-window.ui:280
+msgid "_Page"
+msgstr "La_pa"
+
+#. Menu item to rotate page to left (anti-clockwise)
+#: src/app-window.ui:290
+msgid "Rotate _Left"
+msgstr "Pagriezt pa _kreisi"
+
+#. Menu item to rotate page to right (clockwise)
+#: src/app-window.ui:300
+msgid "Rotate _Right"
+msgstr "Pag_riezt pa labi"
+
+#. Label for page crop submenu
+#: src/app-window.ui:310
+msgid "_Crop"
+msgstr "_Kadrēt"
+
+#. Radio button for no crop
+#: src/app-window.ui:320
+msgid "_None"
+msgstr "_Bez"
+
+#. Radio button for cropping page to A4 size
+#: src/app-window.ui:331
+msgid "A_4"
+msgstr "A_4"
+
+#. Radio button for cropping page to A5 size
+#: src/app-window.ui:342
+msgid "A_5"
+msgstr "A_5"
+
+#. Radio button for cropping page to A6 size
+#: src/app-window.ui:353
+msgid "A_6"
+msgstr "A_6"
+
+#. Radio button for cropping page to US letter size
+#: src/app-window.ui:364
+msgid "_Letter"
+msgstr "_Vēstules forma"
+
+#. Radio button for cropping to page to US legal size
+#: src/app-window.ui:375
+msgid "Le_gal"
+msgstr "Le_gāls"
+
+#. Radio button for cropping page to 4x6 inch
+#: src/app-window.ui:386
+msgid "4×6"
+msgstr "4×6"
+
+#. Radio button for cropping to custom page size
+#: src/app-window.ui:397
+msgid "_Custom"
+msgstr "_Pielāgots"
+
+#. Menu item to rotate the crop area
+#: src/app-window.ui:415
+msgid "_Rotate Crop"
+msgstr "Pag_riezt kadrējumu"
+
+#. Menu item to move the selected page to the left
+#: src/app-window.ui:428
+msgid "Move Left"
+msgstr "Pārvietot pa kreisi"
+
+#. Menu item to move the selected page to the right
+#: src/app-window.ui:437
+msgid "Move Right"
+msgstr "Pārvietot pa labi"
+
+#. Label on help menu
+#: src/app-window.ui:474
+msgid "_Help"
+msgstr "_Palīdzība"
+
+#. Help|Contents menu
+#: src/app-window.ui:482
+msgid "_Contents"
+msgstr "_Saturs"
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:520 src/app-window.ui:720
+msgid "Scan a single page from the scanner"
+msgstr "Ieskenēt vienu lapu no skenera"
+
+#. Label on scan toolbar item
+#: src/app-window.ui:522 src/app-window.ui:716
+msgid "Scan"
+msgstr "Skenēt"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:538 src/app-window.ui:787
+msgid "Save document to a file"
+msgstr "Saglabāt dokumentu datnē"
+
+#: src/app-window.ui:540
+msgid "Save"
+msgstr "Saglabāt"
+
+#. Tooltip for stop button
+#: src/app-window.ui:555 src/app-window.ui:700
+msgid "Stop the current scan"
+msgstr "Apturēt pašreizējo skenēšanu"
+
+#: src/app-window.ui:556 src/app-window.ui:697
+msgid "Stop"
+msgstr "Apturēt"
+
+#. Label shown when searching for scanners
+#: src/app-window.ui:611
+msgid "Searching for Scanners…"
+msgstr "Meklē skenerus…"
+
+#: src/app-window.vala:237 src/app-window.vala:1380
+msgid "_Close"
+msgstr "_Aizvērt"
+
+#. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
+#: src/app-window.vala:246
+#, c-format
+#| msgid "Username and password required to access '%s'"
+msgid "Username and password required to access “%s”"
+msgstr "Lai piekļūtu “%s”, ir vajadzīgs lietotājvārds un parole"
+
+#. Label shown when detected a scanner
+#: src/app-window.vala:266 src/app-window.vala:584
+#| msgid "Failed to scan"
+msgid "Ready to Scan"
+msgstr "Gatavs skenēt"
+
+#. Warning displayed when no drivers are installed but a compatible scanner is detected
+#: src/app-window.vala:273
+msgid "Additional software needed"
+msgstr "Nepieciešama papildu programmatūra"
+
+#. Instructions to install driver software
+#: src/app-window.vala:275
+msgid ""
+"You need to <a href=\"install-firmware\">install driver software</a> for "
+"your scanner."
+msgstr ""
+"Vajadzēs <a href=\"install-firmware\">uzinstalēt draiveri</a> šim skenerim."
+
+#. Warning displayed when no scanners are detected
+#: src/app-window.vala:281
+msgid "No scanners detected"
+msgstr "Nav atrasts neviens skeneris"
+
+#. Hint to user on why there are no scanners detected
+#: src/app-window.vala:283
+msgid "Please check your scanner is connected and powered on"
+msgstr "Lūdzu, pārbaudiet, vai skeneris ir pievienots un ieslēgts"
+
+#. Save dialog: Dialog title
+#: src/app-window.vala:298
+#| msgid "Save As..."
+msgid "Save As…"
+msgstr "Saglabāt kā…"
+
+#: src/app-window.vala:301 src/app-window.vala:471 src/app-window.vala:552
+msgid "_Cancel"
+msgstr "At_celt"
+
+#: src/app-window.vala:302 src/app-window.vala:553
+msgid "_Save"
+msgstr "_Saglabāt"
+
+#. Default filename to use when saving document
+#: src/app-window.vala:310
+msgid "Scanned Document.pdf"
+msgstr "Ieskenēts Dokuments.pdf"
+
+#. Save dialog: Filter name to show only supported image files
+#: src/app-window.vala:316
+msgid "Image Files"
+msgstr "Attēlu datnes"
+
+#. Save dialog: Filter name to show all files
+#: src/app-window.vala:326
+msgid "All Files"
+msgstr "Visas datnes"
+
+#. Save dialog: Label for saving in PDF format
+#: src/app-window.vala:335
+msgid "PDF (multi-page document)"
+msgstr "PDF (vairāku lapu dokuments)"
+
+#. Save dialog: Label for saving in JPEG format
+#: src/app-window.vala:341
+msgid "JPEG (compressed)"
+msgstr "JPEG (saspiests)"
+
+#. Save dialog: Label for saving in PNG format
+#: src/app-window.vala:347
+msgid "PNG (lossless)"
+msgstr "PNG (bez zudumiem)"
+
+#. Save dialog: Label for sabing in WEBP format
+#: src/app-window.vala:354
+#| msgid "JPEG (compressed)"
+msgid "WebP (compressed)"
+msgstr "WebP (saspiests)"
+
+#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
+#: src/app-window.vala:364
+msgid "File format:"
+msgstr "Datnes formāts:"
+
+#. Label in save dialog beside compression slider
+#: src/app-window.vala:376
+msgid "Compression:"
+msgstr "Saspiešana:"
+
+#. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
+#: src/app-window.vala:470
+#, c-format
+msgid "A file named “%s” already exists.  Do you want to replace it?"
+msgstr "Datne ar nosaukumu “%s” jau eksistē. Vai jūs vēlaties to aizstāt?"
+
+#. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
+#: src/app-window.vala:473
+msgid "_Replace"
+msgstr "_Aizstāt"
+
+#: src/app-window.vala:512
+msgid "Saving"
+msgstr "Saglabā"
+
+#. Title of error dialog when save failed
+#: src/app-window.vala:527
+msgid "Failed to save file"
+msgstr "Neizdevās saglabāt datni"
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:550
+#| msgid "If you don't save, changes will be permanently lost."
+msgid "If you don’t save, changes will be permanently lost."
+msgstr "Ja nesaglabāsiet, izmaiņas neatgriezeniski pazudīs."
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:591
+msgid "Save current document?"
+msgstr "Saglabāt šo dokumentu?"
+
+#. Button in dialog to create new document and discard unsaved document
+#: src/app-window.vala:593
+msgid "Discard Changes"
+msgstr "Izmest izmaiņas"
+
+#. Label shown when scan started
+#: src/app-window.vala:692
+#| msgid "Change _Scanner"
+msgid "Contacting scanner…"
+msgstr "Sazinās ar skeneri…"
+
+#. Error message display when unable to save image for preview
+#: src/app-window.vala:800
+msgid "Unable to save image for preview"
+msgstr "Nevar saglabāt attēlu priekšskatīšanai"
+
+#. Error message display when unable to preview image
+#: src/app-window.vala:812
+msgid "Unable to open image preview application"
+msgstr "Neizdevās atvērt attēlu priekšskatīšanas lietotni"
+
+#. Label on button for combining sides in reordering dialog
+#: src/app-window.vala:990
+msgid "Combine sides"
+msgstr "Apvienot puses"
+
+#. Label on button for combining sides in reverse order in reordering dialog
+#: src/app-window.vala:1000
+msgid "Combine sides (reverse)"
+msgstr "Apvienot puses (apgriezti)"
+
+#. Label on button for reversing in reordering dialog
+#: src/app-window.vala:1010
+msgid "Reverse"
+msgstr "Pagriezt"
+
+#. Label on button for cancelling page reordering dialog
+#: src/app-window.vala:1020
+msgid "Keep unchanged"
+msgstr "Paturēt nemainīti"
+
+#. Error message displayed when unable to launch help browser
+#: src/app-window.vala:1250
+msgid "Unable to open help file"
+msgstr "Nevar atvērt palīdzības datni"
+
+#. The license this software is under (GPL3+)
+#: src/app-window.vala:1271
+msgid ""
+"This program is free software: you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation, either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+"Šī programma ir brīva programmatūra; jūs varat to izplatīt tālāk un/vai "
+"modificēt saskaņā ar GNU Vispārējās publiskās licences noteikumiem, ko "
+"publicējis Brīvas programmatūras fonds; izmantojiet Licences versiju 3 vai "
+"(pēc jūsu izvēles) jebkuru vēlāku versiju.Šī programma tiek izplatīta "
+"cerībā, ka tā būs noderīga, taču BEZ JEBKĀDĀM GARANTIJĀM; pat bez šķietamām "
+"KOMERCIĀLAS VĒRTĪBAS un PIEMĒROTĪBAS KONKRĒTIEM NOLŪKIEM garantijām. Sīkāku "
+"informāciju meklējiet GNU Vispārējā publiskajā licencē.Jums vajadzēja saņemt "
+"GNU Vispārējās publiskās licences kopiju kopā ar šo programmu; ja jūs to "
+"nesaņēmāt, skatiet <http://www.gnu.org/licenses/>."
+
+#. Title of about dialog
+#: src/app-window.vala:1274
+msgid "About Simple Scan"
+msgstr "Par Simple Scan"
+
+#. Description of program
+#: src/app-window.vala:1277
+msgid "Simple document scanning tool"
+msgstr "Vienkāršs dokumentu skenēšanas rīks"
+
+#: src/app-window.vala:1286
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Jānis Marks Gailis https://launchpad.net/~jeanmarc-gailis\n"
+"  Pēteris Krišjānis https://launchpad.net/~pecisk-gmail\n"
+"  Rihards Pfeifle https://launchpad.net/~spr1nt3r\n"
+"  Rūdolfs Mazurs https://launchpad.net/~rudolfs-mazurs"
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:1308
+msgid "Save document before quitting?"
+msgstr "Pirms iziešanas saglabāt dokumentu?"
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:1310
+msgid "Quit without Saving"
+msgstr "Iziet nesaglabājot"
+
+#. Message to indicate a Brother scanner has been detected
+#: src/app-window.vala:1357
+msgid "You appear to have a Brother scanner."
+msgstr "Izskatās, ka jums ir Brother skeneris."
+
+#. Instructions on how to install Brother scanner drivers
+#: src/app-window.vala:1359
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.brother.com"
+"\">Brother website</a>."
+msgstr ""
+"Tam draiveri ir pieejami <a href=\"http://support.brother.com\">Brother"
+" tīmekļa vietnē</a>."
+
+#. Message to indicate a Samsung scanner has been detected
+#: src/app-window.vala:1363
+msgid "You appear to have a Samsung scanner."
+msgstr "Izskatās, ka jums ir Samsung skeneris."
+
+#. Instructions on how to install Samsung scanner drivers
+#: src/app-window.vala:1365
+msgid ""
+"Drivers for this are available on the <a href=\"http://samsung.com/support"
+"\">Samsung website</a>."
+msgstr ""
+"Tam draiveri ir pieejami <a href=\"http://samsung.com/support\">Samsung"
+" tīmekļa vietnē</a>."
+
+#. Message to indicate a HP scanner has been detected
+#: src/app-window.vala:1369
+msgid "You appear to have an HP scanner."
+msgstr "Izskatās, ka jums ir HP skeneris."
+
+#. Message to indicate an Epson scanner has been detected
+#: src/app-window.vala:1374
+msgid "You appear to have an Epson scanner."
+msgstr "Izskatās, ka jums ir Epson skeneris."
+
+#. Instructions on how to install Epson scanner drivers
+#: src/app-window.vala:1376
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.epson.com"
+"\">Epson website</a>."
+msgstr ""
+"Tam draiveri ir pieejami <a href=\"http://support.epson.com\">Epson tīmekļa"
+" vietnē</a>."
+
+#. Title of dialog giving instructions on how to install drivers
+#: src/app-window.vala:1380
+msgid "Install drivers"
+msgstr "Instalēt draiverus"
+
+#. Message in driver install dialog
+#: src/app-window.vala:1411
+msgid "Once installed you will need to restart Simple Scan."
+msgstr "Kad tie ir instalēti, jums vajadzēs pārstartēt “Vienkāršo skenēšanu”."
+
+#. Label shown while installing drivers
+#: src/app-window.vala:1423
+msgid "Installing drivers…"
+msgstr "Instalē draiverus…"
+
+#. Label shown once drivers successfully installed
+#: src/app-window.vala:1431
+msgid "Drivers installed successfully!"
+msgstr "Draiveri ir veiksmīgi uzinstalēti!"
+
+#. Label shown if failed to install drivers
+#: src/app-window.vala:1441
+#, c-format
+msgid "Failed to install drivers (error code %d)."
+msgstr "Neizdevās uzinstalēt draiverus (kļūdas kods %d)."
+
+#. Label shown if failed to install drivers
+#: src/app-window.vala:1447
+msgid "Failed to install drivers."
+msgstr "Neizdevās uzinstalēt draiverus."
+
+#. Label shown to prompt user to install packages (when PackageKit not available)
+#: src/app-window.vala:1454
+#, c-format
+msgid "You need to install the %s package."
+msgid_plural "You need to install the %s packages."
+msgstr[0] "Jums jāuzinstalē %s pakotne."
+msgstr[1] "Jums jāuzinstalē %s pakotnes."
+msgstr[2] "Jums jāuzinstalē %s pakotņu."
+
+#. Title of preferences dialog
+#: src/app-window.vala:1568 src/app-window.vala:1591
+#: src/preferences-dialog.ui:53
+msgid "Preferences"
+msgstr "Iestatījumi"
+
+#: src/app-window.vala:1572
+msgid "Keyboard Shortcuts"
+msgstr "Tastatūras saīsnes"
+
+#: src/app-window.vala:1573
+msgid "Help"
+msgstr "Palīdzība"
+
+#: src/app-window.vala:1574
+msgid "About"
+msgstr "Par"
+
+#: src/app-window.vala:1575
+msgid "Quit"
+msgstr "Iziet"
+
+#: src/app-window.vala:1589
+#| msgid "_Email"
+msgid "Email"
+msgstr "E-pasts"
+
+#. Populate ActionBar (not supported in Glade)
+#. https://bugzilla.gnome.org/show_bug.cgi?id=769966
+#. Label on new document button
+#: src/app-window.vala:1599
+msgid "Start Again…"
+msgstr "Startēt atkal…"
+
+#. Tooltip for rotate left (counter-clockwise) button
+#: src/app-window.vala:1616
+msgid "Rotate the page to the left (counter-clockwise)"
+msgstr "Pagriezt lapu pa kreisi (pretēji pulksteņa rādītāja virzienam)"
+
+#. Tooltip for rotate right (clockwise) button
+#: src/app-window.vala:1623
+msgid "Rotate the page to the right (clockwise)"
+msgstr "Pagriezt lapu pa labi (pulksteņa rādītāja virzienā)"
+
+#. Tooltip for crop button
+#: src/app-window.vala:1633
+msgid "Crop the selected page"
+msgstr "Kadrēt izvēlēto lapu"
+
+#. Tooltip for delete button
+#: src/app-window.vala:1649
+#| msgid "Crop the selected page"
+msgid "Delete the selected page"
+msgstr "Dzēst izvēlēto lapu"
+
+#. Text of button for cancelling save
+#: src/app-window.vala:1814
+#| msgid "_Cancel"
+msgid "Cancel"
+msgstr "Atcelt"
+
+#. Button to submit authorization dialog
+#: src/authorize-dialog.ui:25
+msgid "_Authorize"
+msgstr "_Autorizēties"
+
+#. Label beside username entry
+#: src/authorize-dialog.ui:99
+msgid "_Username for resource:"
+msgstr "Res_ursa lietotājvārds:"
+
+#. Label beside password entry
+#: src/authorize-dialog.ui:112
+msgid "_Password:"
+msgstr "_Parole:"
+
+#: src/book.vala:331 src/book.vala:337
+#, c-format
+#| msgid "Unable to open help file"
+msgid "Unable to encode page %i"
+msgstr "Nevar iekodēt lapu %i"
+
+#: src/help-overlay.ui:12
+#| msgid "Scan"
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Skenēšana"
+
+#: src/help-overlay.ui:17
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "Ieskenēt vienu lapu"
+
+#: src/help-overlay.ui:24
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "Ieskenēt visas lapas no dokumentu padevēja"
+
+#: src/help-overlay.ui:31
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "Ieskenēt nepārtraukti no plakanvirsmas skenera"
+
+#: src/help-overlay.ui:38
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "Apturēt skenēšanu"
+
+#: src/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Dokumenta modifikācijas"
+
+#: src/help-overlay.ui:51
+#| msgid "Move Left"
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "Pārvietot lapu pa kreisi"
+
+#: src/help-overlay.ui:58
+#| msgid "Move Right"
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "Pārvietot lapu pa labi"
+
+#: src/help-overlay.ui:65
+#| msgid "Rotate the page to the left (counter-clockwise)"
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "Pagriezt lapu pa kreisi (pretēji pulksteņa rādītāja virzienam)"
+
+#: src/help-overlay.ui:72
+#| msgid "Rotate the page to the right (clockwise)"
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "Pagriezt lapu pa labi (pulksteņa rādītāja virzienā)"
+
+#: src/help-overlay.ui:79
+#| msgid "Crop the selected page"
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "Dzēst lapu"
+
+#: src/help-overlay.ui:87
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Dokumentu pārvaldība"
+
+#: src/help-overlay.ui:92
+#| msgid "Start a new document"
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "Sākt jaunu dokumentu"
+
+#: src/help-overlay.ui:99
+#| msgid "Scanned Document"
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "Saglabāt skenēto dokumentu"
+
+#: src/help-overlay.ui:106
+#| msgid "Scanned Document"
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "Sūtīt skenēto dokumentu pa e-pastu"
+
+#: src/help-overlay.ui:113
+#| msgid "Scanned Document"
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "Drukāt skenēto dokumentu"
+
+#: src/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "Kopēt šo lapu uz starpliktuvi"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:113
+#| msgid "Change _Scanner"
+msgid "_Scanner"
+msgstr "_Skeneris"
+
+#. Label beside scan side combo box
+#: src/preferences-dialog.ui:143
+#| msgid "Scan Side:"
+msgid "Scan Sides"
+msgstr "Skenēt puses"
+
+#. Label beside page size combo box
+#: src/preferences-dialog.ui:160
+#| msgid "Page Size:"
+msgid "Page Size"
+msgstr "Lapas izmērs"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:191
+msgid "Front"
+msgstr "Priekšpuse"
+
+#. Preferences Dialog: Toggle button to select scanning on the back side of a page
+#: src/preferences-dialog.ui:206
+msgid "Back"
+msgstr "Aizmugure"
+
+#. Preferences Dialog: Toggle button to select scanning on both sides of a page
+#: src/preferences-dialog.ui:221
+msgid "Both"
+msgstr "Abas"
+
+#. Label beside page delay scale
+#: src/preferences-dialog.ui:260
+msgid "Delay"
+msgstr "Aizture"
+
+#. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
+#: src/preferences-dialog.ui:276
+msgid "Multiple pages from flatbed"
+msgstr "Vairākas lappuses no plakanvirsmas"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:295
+msgid "3"
+msgstr "3"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:310
+msgid "5"
+msgstr "5"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:326
+msgid "7"
+msgstr "7"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:342
+msgid "10"
+msgstr "10"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:358
+msgid "15"
+msgstr "15"
+
+#. Label after page delay radio buttons
+#: src/preferences-dialog.ui:385
+msgid "Seconds"
+msgstr "Sekundes"
+
+#. Preferences Dialog: Tab label for scanning settings
+#: src/preferences-dialog.ui:413
+#| msgid "Scan"
+msgid "Scanning"
+msgstr "Skenēšana"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:436
+#| msgid "_Text Resolution:"
+msgid "_Text Resolution"
+msgstr "_Teksta izšķirtspēja"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:452
+#| msgid "_Photo Resolution:"
+msgid "_Photo Resolution"
+msgstr "Fotogrāfijas izšķirts_pēja"
+
+#. Label beside brightness scale
+#: src/preferences-dialog.ui:505
+#| msgid "Brightness:"
+msgid "Brightness"
+msgstr "Gaišums"
+
+#. Label beside contrast scale
+#: src/preferences-dialog.ui:521
+#| msgid "Contrast:"
+msgid "Contrast"
+msgstr "Kontrasts"
+
+#. Preferences Dialog: Tab for quality settings
+#: src/preferences-dialog.ui:576
+#| msgid "Quality:"
+msgid "Quality"
+msgstr "Kvalitāte"
+
+#. Combo box value for automatic paper size
+#: src/preferences-dialog.vala:77
+msgid "Automatic"
+msgstr "Automātiski"
+
+#: src/preferences-dialog.vala:116
+msgid "Darker"
+msgstr "Tumšāks"
+
+#: src/preferences-dialog.vala:118
+msgid "Lighter"
+msgstr "Gaišāks"
+
+#: src/preferences-dialog.vala:126
+msgid "Less"
+msgstr "Mazāk"
+
+#: src/preferences-dialog.vala:128
+msgid "More"
+msgstr "Vairāk"
+
+#. Preferences dialog: Label for default resolution in resolution list
+#: src/preferences-dialog.vala:440
+#, c-format
+msgid "%d dpi (default)"
+msgstr "%d dpi (noklusējuma)"
+
+#. Preferences dialog: Label for minimum resolution in resolution list
+#: src/preferences-dialog.vala:443
+#, c-format
+msgid "%d dpi (draft)"
+msgstr "%d dpi (melraksts)"
+
+#. Preferences dialog: Label for maximum resolution in resolution list
+#: src/preferences-dialog.vala:446
+#, c-format
+msgid "%d dpi (high resolution)"
+msgstr "%d dpi (augsta izšķirtspēja)"
+
+#. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
+#: src/preferences-dialog.vala:449
+#, c-format
+msgid "%d dpi"
+msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
 #: src/scanner.vala:844
@@ -370,405 +1037,75 @@ msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr "Salabot PDF datnes, kas ir veidotas ar vecākām Simple Scan versijām"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:389
+#: src/simple-scan.vala:392
 msgid "Failed to scan"
 msgstr "Neizdevās skenēt"
 
+#. Attempt to inhibit the screensaver when scanning
+#: src/simple-scan.vala:407
+msgid "Scan in progress"
+msgstr "Notiek skenēšana"
+
 #. Arguments and description for --help text
-#: src/simple-scan.vala:619
-msgid "[DEVICE...] - Scanning utility"
-msgstr "[IERĪCE...] - skenēšanas utilītprogramma"
+#: src/simple-scan.vala:584
+#| msgid "[DEVICE...] - Scanning utility"
+msgid "[DEVICE…] — Scanning utility"
+msgstr "[IERĪCE…] — skenēšanas utilītprogramma"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:630
+#: src/simple-scan.vala:595
 #, c-format
-msgid "Run '%s --help' to see a full list of available command line options."
+#| msgid ""
+#| "Run '%s --help' to see a full list of available command line options."
+msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Palaidiet “%s --help”, lai redzētu pilnu pieejamo komandrindas opciju "
 "sarakstu."
 
-#: src/ui.vala:332 src/ui.vala:1655 src/ui.vala:1935
-msgid "_Close"
-msgstr "_Aizvērt"
+#~ msgid "Front and Back"
+#~ msgstr "Priekšpuse un aizmugure"
 
-#. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: src/ui.vala:341
-#, c-format
-msgid "Username and password required to access '%s'"
-msgstr "Lai piekļūtu “%s”, ir vajadzīgs lietotājvārds un parole"
+#~ msgid "New"
+#~ msgstr "Jauns"
 
-#. Warning displayed when no scanners are detected
-#: src/ui.vala:389
-msgid "No scanners detected"
-msgstr "Nav atrasts neviens skeneris"
+#~ msgid "Rotate Left"
+#~ msgstr "Pagriezt pa kreisi"
 
-#. Hint to user on why there are no scanners detected
-#: src/ui.vala:391
-msgid "Please check your scanner is connected and powered on"
-msgstr "Lūdzu, pārbaudiet, vai skeneris ir pievienots un ieslēgts"
+#~ msgid "Rotate Right"
+#~ msgstr "Pagriezt pa labi"
 
-#. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/ui.vala:396
-msgid "Additional software needed"
-msgstr ""
+#~ msgid "Crop"
+#~ msgstr "Apcirst"
 
-#. Instructions to install driver software
-#: src/ui.vala:398
-msgid "You need to install driver software for your scanner."
-msgstr ""
+#~ msgid "Scan S_ource:"
+#~ msgstr "Skenēšanas av_ots:"
 
-#. Save dialog: Dialog title
-#: src/ui.vala:510
-msgid "Save As..."
-msgstr "Saglabāt kā..."
+#~ msgid "New Document"
+#~ msgstr "Jauns dokuments"
 
-#: src/ui.vala:513 src/ui.vala:648 src/ui.vala:723
-msgid "_Cancel"
-msgstr "At_celt"
+#~ msgid "Document"
+#~ msgstr "Dokuments"
 
-#: src/ui.vala:514 src/ui.vala:724
-msgid "_Save"
-msgstr "_Saglabāt"
+#~ msgid "Email..."
+#~ msgstr "Epasts..."
 
-#. Default filename to use when saving document
-#: src/ui.vala:522
-msgid "Scanned Document.pdf"
-msgstr "Ieskenēts Dokuments.pdf"
+#~ msgid "Print..."
+#~ msgstr "Drukāt..."
 
-#. Save dialog: Filter name to show only image files
-#: src/ui.vala:528
-msgid "Image Files"
-msgstr "Attēlu datnes"
+#~ msgid "Minimum"
+#~ msgstr "Minimums"
 
-#. Save dialog: Filter name to show all files
-#: src/ui.vala:534
-msgid "All Files"
-msgstr "Visas datnes"
+#~ msgid "Maximum"
+#~ msgstr "Maksimums"
 
-#. Save dialog: Label for saving in PDF format
-#: src/ui.vala:543
-msgid "PDF (multi-page document)"
-msgstr "PDF (vairāku lapu dokuments)"
+#~ msgid "Saving document..."
+#~ msgstr "Saglabā dokumentu..."
 
-#. Save dialog: Label for saving in JPEG format
-#: src/ui.vala:549
-msgid "JPEG (compressed)"
-msgstr "JPEG (saspiests)"
-
-#. Save dialog: Label for saving in PNG format
-#: src/ui.vala:555
-msgid "PNG (lossless)"
-msgstr "PNG (bez zudumiem)"
-
-#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
-#: src/ui.vala:564
-msgid "File format:"
-msgstr ""
-
-#. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/ui.vala:647
-#, c-format
-msgid "A file named “%s” already exists.  Do you want to replace it?"
-msgstr ""
-
-#. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/ui.vala:650
-msgid "_Replace"
-msgstr ""
-
-#. Title of error dialog when save failed
-#: src/ui.vala:698
-msgid "Failed to save file"
-msgstr "Neizdevās saglabāt datni"
-
-#. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:721
-msgid "If you don't save, changes will be permanently lost."
-msgstr "Ja nesaglabāsiet, izmaiņas neatgriezeniski pazudīs."
-
-#. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:763
-msgid "Save current document?"
-msgstr "Saglabāt šo dokumentu?"
-
-#. Button in dialog to create new document and discard unsaved document
-#: src/ui.vala:765
-msgid "Discard Changes"
-msgstr "Izmest izmaiņas"
-
-#. Error message display when unable to save image for preview
-#: src/ui.vala:1056
-msgid "Unable to save image for preview"
-msgstr "Nevar saglabāt attēlu priekšskatīšanai"
-
-#. Error message display when unable to preview image
-#: src/ui.vala:1068
-msgid "Unable to open image preview application"
-msgstr "Neizdevās atvērt attēlu priekšskatīšanas lietotni"
-
-#. Label on button for combining sides in reordering dialog
-#: src/ui.vala:1270
-msgid "Combine sides"
-msgstr ""
-
-#. Label on button for combining sides in reverse order in reordering dialog
-#: src/ui.vala:1280
-msgid "Combine sides (reverse)"
-msgstr ""
-
-#. Label on button for reversing in reordering dialog
-#: src/ui.vala:1290
-msgid "Reverse"
-msgstr "Pagriezt"
-
-#. Label on button for cancelling page reordering dialog
-#: src/ui.vala:1300
-msgid "Keep unchanged"
-msgstr "Paturēt nemainīti"
-
-#. Error message displayed when unable to launch help browser
-#: src/ui.vala:1504
-msgid "Unable to open help file"
-msgstr "Nevar atvērt palīdzības datni"
-
-#. The license this software is under (GPL3+)
-#: src/ui.vala:1525
-msgid ""
-"This program is free software: you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation, either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program.  If not, see <http://www.gnu.org/licenses/>."
-msgstr ""
-"Šī programma ir brīva programmatūra; jūs varat to izplatīt tālāk un/vai "
-"modificēt saskaņā ar GNU Vispārējās publiskās licences noteikumiem, ko "
-"publicējis Brīvas programmatūras fonds; izmantojiet Licences versiju 3 vai "
-"(pēc jūsu izvēles) jebkuru vēlāku versiju.Šī programma tiek izplatīta "
-"cerībā, ka tā būs noderīga, taču BEZ JEBKĀDĀM GARANTIJĀM; pat bez šķietamām "
-"KOMERCIĀLAS VĒRTĪBAS un PIEMĒROTĪBAS KONKRĒTIEM NOLŪKIEM garantijām. Sīkāku "
-"informāciju meklējiet GNU Vispārējā publiskajā licencē.Jums vajadzēja saņemt "
-"GNU Vispārējās publiskās licences kopiju kopā ar šo programmu; ja jūs to "
-"nesaņēmāt, skatiet <http://www.gnu.org/licenses/>."
-
-#. Title of about dialog
-#: src/ui.vala:1528
-msgid "About Simple Scan"
-msgstr "Par Simple Scan"
-
-#. Description of program
-#: src/ui.vala:1531
-msgid "Simple document scanning tool"
-msgstr "Vienkāršs dokumentu skenēšanas rīks"
-
-#: src/ui.vala:1540
-msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Jānis Marks Gailis https://launchpad.net/~jeanmarc-gailis\n"
-"  Pēteris Krišjānis https://launchpad.net/~pecisk-gmail\n"
-"  Rihards Pfeifle https://launchpad.net/~spr1nt3r\n"
-"  Rūdolfs Mazurs https://launchpad.net/~rudolfs-mazurs"
-
-#. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:1562
-msgid "Save document before quitting?"
-msgstr "Pirms iziešanas saglabāt dokumentu?"
-
-#. Button in dialog to quit and discard unsaved document
-#: src/ui.vala:1564
-msgid "Quit without Saving"
-msgstr "Iziet nesaglabājot"
-
-#. Message to indicate a Brother scanner has been detected
-#: src/ui.vala:1632
-msgid "You appear to have a Brother scanner."
-msgstr ""
-
-#. Instructions on how to install Brother scanner drivers
-#: src/ui.vala:1634
-msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.brother.com\">Brother website</a>."
-msgstr ""
-
-#. Message to indicate a Samsung scanner has been detected
-#: src/ui.vala:1638
-msgid "You appear to have a Samsung scanner."
-msgstr ""
-
-#. Instructions on how to install Samsung scanner drivers
-#: src/ui.vala:1640
-msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://samsung.com/support\">Samsung website</a>."
-msgstr ""
-
-#. Message to indicate a HP scanner has been detected
-#: src/ui.vala:1644
-msgid "You appear to have an HP scanner."
-msgstr ""
-
-#. Message to indicate an Epson scanner has been detected
-#: src/ui.vala:1649
-msgid "You appear to have an Epson scanner."
-msgstr ""
-
-#. Instructions on how to install Epson scanner drivers
-#: src/ui.vala:1651
-msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.epson.com\">Epson website</a>."
-msgstr ""
-
-#. Title of dialog giving instructions on how to install drivers
-#: src/ui.vala:1655
-msgid "Install drivers"
-msgstr ""
-
-#. Message in driver install dialog
-#: src/ui.vala:1686
-msgid "Once installed you will need to restart Simple Scan."
-msgstr ""
-
-#. Label shown while installing drivers
-#: src/ui.vala:1698
-msgid "Installing drivers..."
-msgstr ""
-
-#. Label shown once drivers successfully installed
-#: src/ui.vala:1706
-msgid "Drivers installed successfully!"
-msgstr ""
-
-#. Label shown if failed to install drivers
-#: src/ui.vala:1716
-#, c-format
-msgid "Failed to install drivers (error code %d)."
-msgstr ""
-
-#. Label shown if failed to install drivers
-#: src/ui.vala:1722
-msgid "Failed to install drivers."
-msgstr ""
-
-#. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/ui.vala:1729
-#, c-format
-msgid "You need to install the %s package(s)."
-msgstr ""
-
-#. Preferences dialog: Label for default resolution in resolution list
-#: src/ui.vala:1833
-#, c-format
-msgid "%d dpi (default)"
-msgstr "%d dpi (noklusējuma)"
-
-#. Preferences dialog: Label for minimum resolution in resolution list
-#: src/ui.vala:1836
-#, c-format
-msgid "%d dpi (draft)"
-msgstr "%d dpi (melraksts)"
-
-#. Preferences dialog: Label for maximum resolution in resolution list
-#: src/ui.vala:1839
-#, c-format
-msgid "%d dpi (high resolution)"
-msgstr "%d dpi (augsta izšķirtspēja)"
-
-#. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/ui.vala:1842
-#, c-format
-msgid "%d dpi"
-msgstr "%d dpi"
-
-#: src/ui.vala:1885
-msgid "New Document"
-msgstr "Jauns dokuments"
-
-#: src/ui.vala:1890
-msgid "Document"
-msgstr "Dokuments"
-
-#: src/ui.vala:1893
-msgid "Email..."
-msgstr "Epasts..."
-
-#: src/ui.vala:1894
-msgid "Print..."
-msgstr "Drukāt..."
-
-#: src/ui.vala:1902
-msgid "Help"
-msgstr "Palīdzība"
-
-#: src/ui.vala:1903
-msgid "About"
-msgstr "Par"
-
-#: src/ui.vala:1904
-msgid "Quit"
-msgstr "Iziet"
-
-#. Button in error infobar to open preferences dialog and change scanner
-#: src/ui.vala:1937
-msgid "Change _Scanner"
-msgstr "Mainīt _skeneri"
-
-#. Button in error infobar to prompt user to install drivers
-#: src/ui.vala:1939
-msgid "_Install Drivers"
-msgstr ""
-
-#. Combo box value for automatic paper size
-#: src/ui.vala:1945
-msgid "Automatic"
-msgstr "Automātiski"
-
-#: src/ui.vala:1995
-msgid "Darker"
-msgstr "Tumšāks"
-
-#: src/ui.vala:1997
-msgid "Lighter"
-msgstr "Gaišāks"
-
-#: src/ui.vala:2005
-msgid "Less"
-msgstr "Mazāk"
-
-#: src/ui.vala:2007
-msgid "More"
-msgstr "Vairāk"
-
-#: src/ui.vala:2015
-msgid "Minimum"
-msgstr "Minimums"
-
-#: src/ui.vala:2017
-msgid "Maximum"
-msgstr "Maksimums"
-
-#: src/ui.vala:2068
-msgid "Saving document..."
-msgstr "Saglabā dokumentu..."
-
-#: src/ui.vala:2242
-#, c-format
-msgid "Saving page %d out of %d"
-msgstr "Saglabā lapu %d no %d"
+#~ msgid "Saving page %d out of %d"
+#~ msgstr "Saglabā lapu %d no %d"
 
 #~ msgid "4&#xD7;6"
 #~ msgstr "4&#xD7;6"
-
-#~ msgid "Device to scan from"
-#~ msgstr "Ierīce, no kuras skenēt"
 
 #~ msgid "Direction of scan"
 #~ msgstr "Skenēšanas virziens"
@@ -777,8 +1114,8 @@ msgstr "Saglabā lapu %d no %d"
 #~ msgstr "Skenētā attēla augstums pikseļos"
 
 #~ msgid ""
-#~ "The width of scanned image in pixels. This value is updated to what the last "
-#~ "scanned page was."
+#~ "The width of scanned image in pixels. This value is updated to what the "
+#~ "last scanned page was."
 #~ msgstr ""
 #~ "Skenētā attēla platums pikseļos. Šī vērtība tiek atjaunināta uz pēdējās "
 #~ "skenētās lapas."
@@ -795,15 +1132,6 @@ msgstr "Saglabā lapu %d no %d"
 #~ msgid "Please check your installation"
 #~ msgstr "Lūdzu, pārbaudiet instalāciju"
 
-#~ msgid "SANE device to acquire images from."
-#~ msgstr "SANE ierīce, no kuras iegūt attēlus."
-
-#~ msgid "Resolution for photo scans"
-#~ msgstr "Fotogrāfiju skenējumu izšķirtspēja"
-
-#~ msgid "Resolution for text scans"
-#~ msgstr "Teksta skenējumu izšķirtspēja"
-
 #~ msgid "Resolution of last scanned image"
 #~ msgstr "Pēdējā skenētā attēla izšķirtspēja"
 
@@ -814,49 +1142,8 @@ msgstr "Saglabā lapu %d no %d"
 #~ "Skenētā attēla augstums pikseļos. Šī vērtība tiek atjaunināta, ņemot vērā "
 #~ "pēdējo skenēto lapu."
 
-#~ msgid "The resolution in dots-per-inch to use when scanning photos."
-#~ msgstr "Izšķirtspēja punktos/collā, skenējot fotogrāfijas."
-
-#~ msgid "The resolution in dots-per-inch to use when scanning text."
-#~ msgstr "Izšķirtspēja punktos/collā, skenējot tekstu."
-
 #~ msgid "The resolution in dots-per-inch of the previously scanned image."
 #~ msgstr "Iepriekšēji skenētā attēla izšķirtspēja punktos/collā."
-
-#~ msgid "Scanned Document"
-#~ msgstr "Skenēts dokuments"
-
-#~ msgid ""
-#~ "The height of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr ""
-#~ "Papīra garums mm desmitdaļās (vai 0 automātiskai papīra biezuma noteikšanai)."
-
-#~ msgid "Page side to scan"
-#~ msgstr "Skenējamā lapas puse"
-
-#~ msgid "Height of paper in tenths of a mm"
-#~ msgstr "Papīra garums mm desmitdaļās"
-
-#~ msgid ""
-#~ "The width of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr ""
-#~ "Papīra platums mm desmitdaļās (vai 0 automātiskai papīra biezuma "
-#~ "noteikšanai)."
-
-#~ msgid "Width of paper in tenths of a mm"
-#~ msgstr "Papīra platums mm desmitdaļās"
-
-#~ msgid "The page side to scan."
-#~ msgstr "Skenējamās lapas puse."
-
-#~ msgid ""
-#~ "Type of document being scanned. This setting decides on the scan resolution, "
-#~ "colors and post-processing."
-#~ msgstr ""
-#~ "Skenējamā dokumenta veids. Šīs iestatījums nosaka skenēšanas izšķirtspēju, "
-#~ "krāsas un pēcapstrādi."
 
 #~ msgid "The direction of the scanner across the scanned page."
 #~ msgstr "Skenera virziens pāri skenējamai lapai."
@@ -864,38 +1151,8 @@ msgstr "Saglabā lapu %d no %d"
 #~ msgid "TRUE if the application window is maximized"
 #~ msgstr "PATIESS, ja lietotnes logs ir maksimizēts"
 
-#~ msgid "Type of document being scanned"
-#~ msgstr "Skenējamā dokumenta veids"
-
-#~ msgid "Directory to save files to"
-#~ msgstr "Direktorija, kurā saglabāt datnes"
-
-#~ msgid ""
-#~ "The directory to save files to. Defaults to the documents directory if unset."
-#~ msgstr ""
-#~ "Direktorija, kurā saglabāt datnes. Pēc noklusējuma datnes tiks glabātas "
-#~ "dokumentu direktorijā."
-
 #~ msgid "Select File _Type"
 #~ msgstr "Norādīt datnes _tipu"
 
 #~ msgid "Files missing"
 #~ msgstr "Pietrūkst datņu"
-
-#~ msgid "Quality value to use for JPEG compression."
-#~ msgstr "Kvalitātes vērtība, ko izmantot JPEG saspiešanai."
-
-#~ msgid "The contrast adjustment from -100 to 100 (0 being none)."
-#~ msgstr "Kontrasta pielāgojums no -100 līdz 100 (0 nozīmē nekāds)."
-
-#~ msgid "Contrast of scan"
-#~ msgstr "Skenējuma kontrasts"
-
-#~ msgid "The brightness adjustment from -100 to 100 (0 being none)."
-#~ msgstr "Gaišuma pielāgojums no -100 līdz 100 (0 nozīmē nekāds)."
-
-#~ msgid "Brightness of scan"
-#~ msgstr "Skenējuma gaišums"
-
-#~ msgid "Quality value to use for JPEG compression"
-#~ msgstr "Kvalitātes vērtība, ko izmantot JPEG saspiešanai"
