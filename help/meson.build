@@ -12,7 +12,7 @@ languages = [ 'ar',
               'nb', 'nl',
               'pl', 'pt_BR',
               'ru',
-              'sk', 'sl', 'sr',
+              'sk', 'sl', 'sr', 'sv',
               'uk',
               'zh_TW' ]
 
