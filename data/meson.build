@@ -23,7 +23,7 @@ i18n.merge_file ('appdata-file',
                  input: 'simple-scan.appdata.xml.in',
                  output: 'simple-scan.appdata.xml',
                  install: true,
-                 install_dir: join_paths (datadir, 'appdata'),
+                 install_dir: join_paths (datadir, 'metainfo'),
                  po_dir: '../po')
 
 install_man ('simple-scan.1')
