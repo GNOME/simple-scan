@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: simple-scan\n"
+"Project-Id-Version: simple-scan 3.27.x\n"
 "Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=simple-scan&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-07-29 16:18+0000\n"
-"PO-Revision-Date: 2017-08-02 09:54+0200\n"
+"POT-Creation-Date: 2017-10-29 21:10+0000\n"
+"PO-Revision-Date: 2017-11-11 16:50+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmal <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 "X-Generator: Launchpad (build 18361)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -123,11 +123,11 @@ msgstr "Kvalitetsverdi som skal brukes til JPEG-komprimering"
 
 #: data/org.gnome.SimpleScan.gschema.xml:72
 msgid "Delay in millisecond between pages"
-msgstr ""
+msgstr "Pause mellom sider i millisekunder"
 
 #: data/org.gnome.SimpleScan.gschema.xml:73
 msgid "Delay in millisecond between pages."
-msgstr ""
+msgstr "Pause i millisekunder mellom sider."
 
 #. Title of scan window
 #. Set HeaderBar title here because Glade doesn't keep it translated
@@ -165,7 +165,7 @@ msgstr "Dokumentskanner"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:7
 msgid "scan;scanner;flatbed;adf;"
-msgstr "skan;skanner;plan;adf;"
+msgstr "skan;skanner;planskanner;adf;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: data/simple-scan.desktop.in:10
@@ -191,7 +191,7 @@ msgstr "Alle sider fra papirmater"
 #. Toolbar scan menu item to scan continuously from the flatbed
 #: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:838
 msgid "_Multiple Pages From Flatbed"
-msgstr ""
+msgstr "_Flere sider fra planskanner"
 
 #: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:853
 msgid "Text"
@@ -370,7 +370,9 @@ msgstr "Tilleggsprogram må installeres"
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
-msgstr "Du må <a href=\"install-firmware\">installere driverprogramvare for din skanner."
+msgstr ""
+"Du må <a href=\"install-firmware\">installere driverprogramvare for din "
+"skanner."
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:281
@@ -758,7 +760,7 @@ msgstr "Skann alle sider fra dokumentmateren"
 #: src/help-overlay.ui:31
 msgctxt "shortcut window"
 msgid "Scan continuously from a flatbed scanner"
-msgstr ""
+msgstr "Skann kontinuerlig fra en planskanner"
 
 #: src/help-overlay.ui:38
 msgctxt "shortcut window"
@@ -862,8 +864,8 @@ msgstr "Pause"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
 #: src/preferences-dialog.ui:276
-msgid "Multiple page from flatbed"
-msgstr ""
+msgid "Multiple pages from flatbed"
+msgstr "Flere sider fra en planskanner"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: src/preferences-dialog.ui:295
