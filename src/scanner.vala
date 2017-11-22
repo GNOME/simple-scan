@@ -1155,7 +1155,7 @@ public class Scanner
         if ((option.cap & Sane.Capability.INACTIVE) != 0)
             return;
 
-        /* Some options are unnammed (e.g. Option 0) */
+        /* Some options are unnamed (e.g. Option 0) */
         if (option.name == null)
             return;
 

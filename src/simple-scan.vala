@@ -165,7 +165,7 @@ public class SimpleScan : Gtk.Application
      * print ('{ ' + ', '.join (ids) + ' }')
      */
 
-    /* HPAIO IDs extraced using the following Python:
+    /* HPAIO IDs extracted using the following Python:
      * import sys
      * ids = []
      * for f in sys.argv:
