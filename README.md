@@ -1,3 +1,5 @@
+[![Build Status](https://gitlab.gnome.org/GNOME/simple-scan/badges/master/build.svg)](https://gitlab.gnome.org/GNOME/simple-scan/pipelines)
+
 # SIMPLE SCAN
 
 This is the source code to "Simple Scan" a simple GNOME scanning application,
