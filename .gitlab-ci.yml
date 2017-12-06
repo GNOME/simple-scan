@@ -2,7 +2,7 @@ stages:
  - build
 
 build-ubuntu-lts:
-  image: ubuntu:16.04
+  image: ubuntu:latest
   stage: build
   before_script:
     - apt-get update
@@ -12,7 +12,7 @@ build-ubuntu-lts:
     - ninja -C _build install
 
 build-ubuntu-latest:
-  image: ubuntu:17.10
+  image: ubuntu:rolling
   stage: build
   before_script:
     - apt-get update
@@ -22,10 +22,10 @@ build-ubuntu-latest:
     - ninja -C _build install
 
 build-fedora:
-  image: fedora:27
+  image: fedora:latest
   stage: build
   before_script:
-    - dnf install -y meson valac gettext itstool gtk3-devel libgusb-devel colord-devel PackageKit-glib2-devel libwebp-devel sane-backends-devel
+    - dnf install -y meson vala gettext itstool gtk3-devel libgusb-devel colord-devel PackageKit-glib-devel libwebp-devel sane-backends-devel
   script:
     - meson _build
     - ninja -C _build install
