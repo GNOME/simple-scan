@@ -31,9 +31,6 @@ There is a --debug command line switch to enable more verbose logging:
 
 Log messages can also be found in the $HOME/.cache/simple-scan folder.
 
-Simple Scan config goes to $HOME/.gconf/apps/simple-scan/%gconf.xml
-and that file is best edited with the gconf-editor tool.
-
 If you don't have a scanner ready, you can use a virtual "test" scanner:
 ```
 ./install/bin/simple-scan --debug test
