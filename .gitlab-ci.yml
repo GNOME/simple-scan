@@ -6,7 +6,7 @@ build-ubuntu:
   stage: build
   before_script:
     - apt-get update
-    - apt-get install -q -y --no-install-recommends meson valac gettext itstool libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev
+    - apt-get install -q -y --no-install-recommends meson valac gcc gettext itstool libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev
   script:
     - meson _build
     - ninja -C _build install
