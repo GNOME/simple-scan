@@ -144,11 +144,11 @@ private class PreferencesDialog : Gtk.Dialog
         });
 
         set_page_delay (settings.get_int ("page-delay"));
-        page_delay_3s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 3); });
-        page_delay_5s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 5); });
-        page_delay_7s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 7); });
-        page_delay_10s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 10); });
-        page_delay_15s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 15); });
+        page_delay_3s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 3000); });
+        page_delay_5s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 5000); });
+        page_delay_7s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 7000); });
+        page_delay_10s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 10000); });
+        page_delay_15s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 15000); });
     }
 
     public void set_scan_devices (List<ScanDevice> devices)
@@ -399,26 +399,26 @@ private class PreferencesDialog : Gtk.Dialog
     public int get_page_delay ()
     {
         if (page_delay_15s_button.active)
-            return 15;
+            return 15000;
         else if (page_delay_10s_button.active)
-            return 10;
+            return 10000;
         else if (page_delay_7s_button.active)
-            return 7;
+            return 7000;
         else if (page_delay_5s_button.active)
-            return 5;
+            return 5000;
         else
-            return 3;
+            return 3000;
     }
 
     public void set_page_delay (int page_delay)
     {
-        if (page_delay >= 15)
+        if (page_delay >= 15000)
             page_delay_15s_button.active = true;
-        else if (page_delay >= 10)
+        else if (page_delay >= 1000)
             page_delay_10s_button.active = true;
-        else if (page_delay >= 7)
+        else if (page_delay >= 7000)
             page_delay_7s_button.active = true;
-        else if (page_delay >= 5)
+        else if (page_delay >= 5000)
             page_delay_5s_button.active = true;
         else
             page_delay_3s_button.active = true;
