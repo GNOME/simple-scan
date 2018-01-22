@@ -1193,7 +1193,7 @@ public class AppWindow : Gtk.ApplicationWindow
             yield book.save_async (type, settings.get_int ("jpeg-quality"), file, null, null);
             var command_line = "xdg-email";
             if (type == "pdf")
-                command_line += "--attach %s".printf (file.get_path ());
+                command_line += " --attach %s".printf (file.get_path ());
             else
             {
                 for (var i = 0; i < book.n_pages; i++) {
