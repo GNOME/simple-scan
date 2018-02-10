@@ -1,5 +1,6 @@
 languages = [ 'ar',
               'bg',
+              'ca',
               'cs',
               'de',
               'en_GB', 'es', 'eu',
