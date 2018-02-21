@@ -4,21 +4,21 @@
 #
 # Nathan Follens <nthn@unseen.is>, 2017.
 # Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2017.
+# Justin van Steijn <jvs@fsfe.org>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product=simple-"
-"scan&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-08-07 02:27+0000\n"
-"PO-Revision-Date: 2017-08-25 12:56+0100\n"
-"Last-Translator: Hannie Dumoleyn <hannie@ubuntu-nl.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
+"POT-Creation-Date: 2017-12-06 20:21+0000\n"
+"PO-Revision-Date: 2017-12-19 22:16+0100\n"
+"Last-Translator: Justin van Steijn <jvs@fsfe.org>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Poedit 1.8.11\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -361,13 +361,11 @@ msgstr "_Sluiten"
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
 #: src/app-window.vala:246
 #, c-format
-#| msgid "Username and password required to access '%s'"
 msgid "Username and password required to access “%s”"
 msgstr "Gebruikersnaam en wachtwoord vereist om toegang te krijgen tot  ‘%s’"
 
 #. Label shown when detected a scanner
 #: src/app-window.vala:266 src/app-window.vala:584
-#| msgid "Failed to scan"
 msgid "Ready to Scan"
 msgstr "Klaar om te scannen"
 
@@ -378,13 +376,12 @@ msgstr "Extra programmatuur vereist"
 
 #. Instructions to install driver software
 #: src/app-window.vala:275
-#| msgid "You need to install driver software for your scanner."
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
 msgstr ""
-"U dient <a href=\"install-firmware\">een stuurprogramma te installeren</a>"
-" voor uw scanner."
+"U dient <a href=\"install-firmware\">een stuurprogramma te installeren</a> "
+"voor uw scanner."
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:281
@@ -398,7 +395,6 @@ msgstr "Controleer of uw scanner is aangesloten en is ingeschakeld"
 
 #. Save dialog: Dialog title
 #: src/app-window.vala:298
-#| msgid "Save As..."
 msgid "Save As…"
 msgstr "Opslaan als…"
 
@@ -442,7 +438,6 @@ msgstr "PNG (lossless)"
 
 #. Save dialog: Label for sabing in WEBP format
 #: src/app-window.vala:354
-#| msgid "JPEG (compressed)"
 msgid "WebP (compressed)"
 msgstr "WebP (gecomprimeerd)"
 
@@ -478,7 +473,6 @@ msgstr "Bestand opslaan mislukt"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:550
-#| msgid "If you don't save, changes will be permanently lost."
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Als u niet opslaat, zullen wijzigingen permanent verloren gaan."
 
@@ -494,7 +488,6 @@ msgstr "Wijzigingen negeren"
 
 #. Label shown when scan started
 #: src/app-window.vala:692
-#| msgid "Change _Scanner"
 msgid "Contacting scanner…"
 msgstr "Contact maken met _Scanner…"
 
@@ -577,6 +570,10 @@ msgstr "Eenvoudig hulpmiddel voor het scannen van documenten"
 #: src/app-window.vala:1286
 msgid "translator-credits"
 msgstr ""
+"Nathan Follens\n"
+"Justin van Steijn\n"
+"Meer info over Gnome-NL http://nl.gnome.org\n"
+"\n"
 "Launchpad Contributions:\n"
 "  Dionysos https://launchpad.net/~dionysoz\n"
 "  Elco https://launchpad.net/~eajnab\n"
@@ -596,8 +593,7 @@ msgstr ""
 "  Wouter Bolsterlee https://launchpad.net/~uws\n"
 "  cumulus007 https://launchpad.net/~cumulus-007\n"
 "  kay van der Zander https://launchpad.net/~kay20\n"
-"  rob https://launchpad.net/~rvdb\n"
-"  Nathan Follens"
+"  rob https://launchpad.net/~rvdb"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:1308
@@ -668,7 +664,6 @@ msgstr "Eenmaal geïnstalleerd, zult u Simple Scan moeten herstarten."
 
 #. Label shown while installing drivers
 #: src/app-window.vala:1423
-#| msgid "Installing drivers..."
 msgid "Installing drivers…"
 msgstr "Installeren van stuurprogramma's…"
 
@@ -691,7 +686,6 @@ msgstr "Installeren van stuurprogramma's mislukt."
 #. Label shown to prompt user to install packages (when PackageKit not available)
 #: src/app-window.vala:1454
 #, c-format
-#| msgid "You need to install the %s package(s)."
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "U dient het %s pakket te installeren."
@@ -720,7 +714,6 @@ msgid "Quit"
 msgstr "Afsluiten"
 
 #: src/app-window.vala:1589
-#| msgid "_Email"
 msgid "Email"
 msgstr "E-mail"
 
@@ -748,13 +741,11 @@ msgstr "De geselecteerde pagina bijsnijden"
 
 #. Tooltip for delete button
 #: src/app-window.vala:1649
-#| msgid "Crop the selected page"
 msgid "Delete the selected page"
 msgstr "De geselecteerde pagina verwijderen"
 
 #. Text of button for cancelling save
 #: src/app-window.vala:1814
-#| msgid "_Cancel"
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -775,30 +766,25 @@ msgstr "_Wachtwoord:"
 
 #: src/book.vala:331 src/book.vala:337
 #, c-format
-#| msgid "Unable to open help file"
 msgid "Unable to encode page %i"
 msgstr "Coderen van pagina %i mislukt"
 
 #: src/help-overlay.ui:12
-#| msgid "Scan"
 msgctxt "shortcut window"
 msgid "Scanning"
 msgstr "Scannen"
 
 #: src/help-overlay.ui:17
-#| msgid "Scan a single page from the scanner"
 msgctxt "shortcut window"
 msgid "Scan a single page"
 msgstr "Een enkele pagina scannen"
 
 #: src/help-overlay.ui:24
-#| msgid "Scan a single page from the scanner"
 msgctxt "shortcut window"
 msgid "Scan all pages from document feeder"
 msgstr "Alle pagina's van documentinvoer scannen"
 
 #: src/help-overlay.ui:31
-#| msgid "Scan a single page from the scanner"
 msgctxt "shortcut window"
 msgid "Scan continuously from a flatbed scanner"
 msgstr "Continu scannen van een flatbedscanner"
@@ -809,67 +795,56 @@ msgid "Stop scan in progress"
 msgstr "Scan in uitvoering stoppen"
 
 #: src/help-overlay.ui:46
-#| msgid "Document Scanner"
 msgctxt "shortcut window"
 msgid "Document Modification"
 msgstr "Documentwijziging"
 
 #: src/help-overlay.ui:51
-#| msgid "Move Left"
 msgctxt "shortcut window"
 msgid "Move page left"
 msgstr "Pagina naar links verplaatsen"
 
 #: src/help-overlay.ui:58
-#| msgid "Move Right"
 msgctxt "shortcut window"
 msgid "Move page right"
 msgstr "Pagina naar rechts verplaatsen"
 
 #: src/help-overlay.ui:65
-#| msgid "Rotate the page to the left (counter-clockwise)"
 msgctxt "shortcut window"
 msgid "Rotate page to the left (anti-clockwise)"
 msgstr "De pagina linksom draaien (tegen de klok in)"
 
 #: src/help-overlay.ui:72
-#| msgid "Rotate the page to the right (clockwise)"
 msgctxt "shortcut window"
 msgid "Rotate page to the right (clockwise)"
 msgstr "De pagina rechtsom draaien (met de klok mee)"
 
 #: src/help-overlay.ui:79
-#| msgid "Delay between pages:"
 msgctxt "shortcut window"
 msgid "Delete page"
 msgstr "Pagina verwijderen"
 
 #: src/help-overlay.ui:87
-#| msgid "Document Scanner"
 msgctxt "shortcut window"
 msgid "Document Management"
 msgstr "Documentbeheer"
 
 #: src/help-overlay.ui:92
-#| msgid "Start a new document"
 msgctxt "shortcut window"
 msgid "Start new document"
 msgstr "Een nieuw document beginnen"
 
 #: src/help-overlay.ui:99
-#| msgid "Scanned Document"
 msgctxt "shortcut window"
 msgid "Save scanned document"
 msgstr "Gescand document opslaan"
 
 #: src/help-overlay.ui:106
-#| msgid "Scanned Document"
 msgctxt "shortcut window"
 msgid "Email scanned document"
 msgstr "Gescand document per e-mail versturen"
 
 #: src/help-overlay.ui:113
-#| msgid "Scanned Document"
 msgctxt "shortcut window"
 msgid "Print scanned document"
 msgstr "Gescand document afdrukken"
@@ -881,19 +856,16 @@ msgstr "Huidige pagina naar het klembord kopiëren"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:113
-#| msgid "scanner"
 msgid "_Scanner"
 msgstr "_Scanner"
 
 #. Label beside scan side combo box
 #: src/preferences-dialog.ui:143
-#| msgid "Scan Side:"
 msgid "Scan Sides"
 msgstr "Zijden scannen"
 
 #. Label beside page size combo box
 #: src/preferences-dialog.ui:160
-#| msgid "Page Size:"
 msgid "Page Size"
 msgstr "Paginagrootte"
 
@@ -919,7 +891,6 @@ msgstr "Vertraging"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
 #: src/preferences-dialog.ui:276
-#| msgid "_Multiple Pages From Flatbed"
 msgid "Multiple pages from flatbed"
 msgstr "Meerdere pagina's van vlakbed"
 
@@ -955,37 +926,31 @@ msgstr "Seconden"
 
 #. Preferences Dialog: Tab label for scanning settings
 #: src/preferences-dialog.ui:413
-#| msgid "Scan"
 msgid "Scanning"
-msgstr "Bezig met scannen"
+msgstr "Scannen"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:436
-#| msgid "_Text Resolution:"
 msgid "_Text Resolution"
 msgstr "_Tekstresolutie"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:452
-#| msgid "_Photo Resolution:"
 msgid "_Photo Resolution"
 msgstr "_Fotoresolutie"
 
 #. Label beside brightness scale
 #: src/preferences-dialog.ui:505
-#| msgid "Brightness:"
 msgid "Brightness"
 msgstr "Helderheid"
 
 #. Label beside contrast scale
 #: src/preferences-dialog.ui:521
-#| msgid "Contrast:"
 msgid "Contrast"
 msgstr "Contrast"
 
 #. Preferences Dialog: Tab for quality settings
 #: src/preferences-dialog.ui:576
-#| msgid "Quality:"
 msgid "Quality"
 msgstr "Kwaliteit"
 
@@ -1084,19 +1049,16 @@ msgstr "Scan in uitvoering"
 
 #. Arguments and description for --help text
 #: src/simple-scan.vala:584
-#| msgid "[DEVICE...] - Scanning utility"
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[APPARAAT…] — Hulpmiddel voor scannen"
 
 #. Text printed out when an unknown command-line argument provided
 #: src/simple-scan.vala:595
 #, c-format
-#| msgid ""
-#| "Run '%s --help' to see a full list of available command line options."
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
-"Voer ‘%s --help’ uit om een volledige lijst van beschikbare"
-" opdrachtregelopties te zien."
+"Voer ‘%s --help’ uit om een volledige lijst van beschikbare "
+"opdrachtregelopties te zien."
 
 #~ msgid "Front and Back"
 #~ msgstr "Voor- en achterzijde"
