@@ -14,7 +14,7 @@ languages = [ 'ar',
               'ku',
               'nb', 'nl',
               'pl', 'pt_BR',
-              'ru',
+              'ro', 'ru',
               'sk', 'sl', 'sr', 'sv',
               'uk',
               'zh_TW' ]
