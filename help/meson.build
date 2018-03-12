@@ -1,24 +1,3 @@
-languages = [ 'ar',
-              'bg',
-              'ca',
-              'cs',
-              'da',
-              'de',
-              'en_GB', 'es', 'eu',
-              'fi', 'fr',
-              'gl',
-              'hr', 'hu',
-              'ia',
-              'it',
-              'ja',
-              'ku',
-              'nb', 'nl',
-              'pl', 'pt_BR',
-              'ro', 'ru',
-              'sk', 'sl', 'sr', 'sv',
-              'uk',
-              'zh_TW' ]
-
 # 'delete.page'
 # 'external.page'
 
@@ -40,5 +19,4 @@ gnome.yelp ('simple-scan',
             media: [ 'figures/icon.png',
                      'figures/preferences.png',
                      'figures/scan_toolbar.png' ],
-            languages: languages,
             symlink_media: false)
