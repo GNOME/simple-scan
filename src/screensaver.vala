@@ -18,8 +18,8 @@ public interface FreedesktopScreensaver : Object
     }
 
     [DBus (name = "Inhibit")]
-    public abstract uint32 inhibit (string application_name, string reason_for_inhibit) throws IOError;
+    public abstract uint32 inhibit (string application_name, string reason_for_inhibit) throws Error;
 
     [DBus (name = "UnInhibit")]
-    public abstract void uninhibit (uint32 cookie) throws IOError;
+    public abstract void uninhibit (uint32 cookie) throws Error;
 }

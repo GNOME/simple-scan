@@ -422,7 +422,7 @@ public class SimpleScan : Gtk.Application
                         inhibit_cookie = fdss.inhibit ("Simple-Scan", reason);
                     }
                 }
-                catch (IOError error) {}
+                catch (Error error) {}
             }
         }
         else
@@ -438,7 +438,7 @@ public class SimpleScan : Gtk.Application
                     {
                         fdss.uninhibit (inhibit_cookie);
                     }
-                    catch (IOError error) {}
+                    catch (Error error) {}
                     fdss = null;
                 }
 
