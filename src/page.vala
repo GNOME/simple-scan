@@ -86,7 +86,7 @@ public class Page
     public bool is_color { get { return n_channels > 1; } }
 
     /* Rotation of scanned data */
-    private ScanDirection scan_direction_;
+    private ScanDirection scan_direction_ = ScanDirection.TOP_TO_BOTTOM;
     public ScanDirection scan_direction
     {
         get { return scan_direction_; }
@@ -142,8 +142,6 @@ public class Page
             if (has_crop)
                 crop_changed ();
         }
-        
-        default = ScanDirection.TOP_TO_BOTTOM;
     }
 
     /* True if the page has a crop set */
