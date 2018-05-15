@@ -6,9 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?product"
-"=simple-scan&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-08-07 02:27+0000\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
+"POT-Creation-Date: 2018-03-05 15:23+0000\n"
 "PO-Revision-Date: 2017-08-10 18:02+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician\n"
@@ -356,13 +355,11 @@ msgstr "_Pechar"
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
 #: src/app-window.vala:246
 #, c-format
-#| msgid "Username and password required to access '%s'"
 msgid "Username and password required to access “%s”"
 msgstr "Requírese o nome de usuario e o contrasinal para acceder a «%s»"
 
 #. Label shown when detected a scanner
 #: src/app-window.vala:266 src/app-window.vala:584
-#| msgid "Failed to scan"
 msgid "Ready to Scan"
 msgstr "Listo para escanear"
 
@@ -373,7 +370,6 @@ msgstr "Precísase software adicional"
 
 #. Instructions to install driver software
 #: src/app-window.vala:275
-#| msgid "You need to install driver software for your scanner."
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -393,7 +389,6 @@ msgstr "Verifique que o seu escáner está conectado e aceso"
 
 #. Save dialog: Dialog title
 #: src/app-window.vala:298
-#| msgid "Save As..."
 msgid "Save As…"
 msgstr "Gardar como…"
 
@@ -437,7 +432,6 @@ msgstr "PNG (sen perdas)"
 
 #. Save dialog: Label for sabing in WEBP format
 #: src/app-window.vala:354
-#| msgid "JPEG (compressed)"
 msgid "WebP (compressed)"
 msgstr "WebP (comprimido)"
 
@@ -473,7 +467,6 @@ msgstr "Produciuse un fallo ao gardar o ficheiro"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:550
-#| msgid "If you don't save, changes will be permanently lost."
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Se non garda o ficheiro, os seus cambios perderanse permanentemente."
 
@@ -489,7 +482,6 @@ msgstr "Rexeitar os cambios"
 
 #. Label shown when scan started
 #: src/app-window.vala:692
-#| msgid "Change _Scanner"
 msgid "Contacting scanner…"
 msgstr "Contactando co escáner…"
 
@@ -646,7 +638,6 @@ msgstr "Unha vez instalados deberá reiniciar o Escáner Sinxelo."
 
 #. Label shown while installing drivers
 #: src/app-window.vala:1423
-#| msgid "Installing drivers..."
 msgid "Installing drivers…"
 msgstr "Instalando os controladores…"
 
@@ -670,7 +661,6 @@ msgstr "Produciuse un fallo na instalación dos controladores."
 #. Label shown to prompt user to install packages (when PackageKit not available)
 #: src/app-window.vala:1454
 #, c-format
-#| msgid "You need to install the %s package(s)."
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Necesita instalar o paquete %s."
@@ -699,7 +689,6 @@ msgid "Quit"
 msgstr "Saír"
 
 #: src/app-window.vala:1589
-#| msgid "_Email"
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -727,13 +716,11 @@ msgstr "Recortar a páxina seleccionada"
 
 #. Tooltip for delete button
 #: src/app-window.vala:1649
-#| msgid "Crop the selected page"
 msgid "Delete the selected page"
 msgstr "Eliminar a páxina seleccionada"
 
 #. Text of button for cancelling save
 #: src/app-window.vala:1814
-#| msgid "_Cancel"
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -754,30 +741,25 @@ msgstr "_Contrasinal:"
 
 #: src/book.vala:331 src/book.vala:337
 #, c-format
-#| msgid "Unable to open help file"
 msgid "Unable to encode page %i"
 msgstr "Non é posíbel codificar a páxina %i"
 
 #: src/help-overlay.ui:12
-#| msgid "Scan"
 msgctxt "shortcut window"
 msgid "Scanning"
 msgstr "Escaneando"
 
 #: src/help-overlay.ui:17
-#| msgid "Scan a single page from the scanner"
 msgctxt "shortcut window"
 msgid "Scan a single page"
 msgstr "Escanear unha única páxina"
 
 #: src/help-overlay.ui:24
-#| msgid "Scan a single page from the scanner"
 msgctxt "shortcut window"
 msgid "Scan all pages from document feeder"
 msgstr "Escanear todas as páxinas do alimentador de documentos"
 
 #: src/help-overlay.ui:31
-#| msgid "Scan a single page from the scanner"
 msgctxt "shortcut window"
 msgid "Scan continuously from a flatbed scanner"
 msgstr "Escanear continuamente desde o escáner"
@@ -788,67 +770,56 @@ msgid "Stop scan in progress"
 msgstr "Deter o escaneado en progreso"
 
 #: src/help-overlay.ui:46
-#| msgid "Document Scanner"
 msgctxt "shortcut window"
 msgid "Document Modification"
 msgstr "Modificación do documento"
 
 #: src/help-overlay.ui:51
-#| msgid "Move Left"
 msgctxt "shortcut window"
 msgid "Move page left"
 msgstr "Mover páxina á esquerda"
 
 #: src/help-overlay.ui:58
-#| msgid "Move Right"
 msgctxt "shortcut window"
 msgid "Move page right"
 msgstr "Mover páxina á dereita"
 
 #: src/help-overlay.ui:65
-#| msgid "Rotate the page to the left (counter-clockwise)"
 msgctxt "shortcut window"
 msgid "Rotate page to the left (anti-clockwise)"
 msgstr "Rotar a páxina á esquerda (sentido contrario ao reloxo)"
 
 #: src/help-overlay.ui:72
-#| msgid "Rotate the page to the right (clockwise)"
 msgctxt "shortcut window"
 msgid "Rotate page to the right (clockwise)"
 msgstr "Rotar a páxina á dereita (sentido do reloxo)"
 
 #: src/help-overlay.ui:79
-#| msgid "Crop the selected page"
 msgctxt "shortcut window"
 msgid "Delete page"
 msgstr "Eliminar páxina"
 
 #: src/help-overlay.ui:87
-#| msgid "Document Scanner"
 msgctxt "shortcut window"
 msgid "Document Management"
 msgstr "Xestión de documentos"
 
 #: src/help-overlay.ui:92
-#| msgid "Start a new document"
 msgctxt "shortcut window"
 msgid "Start new document"
 msgstr "Iniciar un novo documento"
 
 #: src/help-overlay.ui:99
-#| msgid "Scanned Document"
 msgctxt "shortcut window"
 msgid "Save scanned document"
 msgstr "Gardar o documento escaneado"
 
 #: src/help-overlay.ui:106
-#| msgid "Scanned Document"
 msgctxt "shortcut window"
 msgid "Email scanned document"
 msgstr "Enviar por correo-e o documento analizado "
 
 #: src/help-overlay.ui:113
-#| msgid "Scanned Document"
 msgctxt "shortcut window"
 msgid "Print scanned document"
 msgstr "Imprimir o documento analizado"
@@ -860,19 +831,16 @@ msgstr "Copiar a páxina actual ao portapapeis"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:113
-#| msgid "Change _Scanner"
 msgid "_Scanner"
 msgstr "_Escáner"
 
 #. Label beside scan side combo box
 #: src/preferences-dialog.ui:143
-#| msgid "Scan Side:"
 msgid "Scan Sides"
 msgstr "Escanear lados"
 
 #. Label beside page size combo box
 #: src/preferences-dialog.ui:160
-#| msgid "Page Size:"
 msgid "Page Size"
 msgstr "Tamaño da pantalla"
 
@@ -884,7 +852,7 @@ msgstr "Anverso"
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
 #: src/preferences-dialog.ui:206
 msgid "Back"
-msgstr "Atrás"
+msgstr "Reverso"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
 #: src/preferences-dialog.ui:221
@@ -933,37 +901,31 @@ msgstr "Segundos"
 
 #. Preferences Dialog: Tab label for scanning settings
 #: src/preferences-dialog.ui:413
-#| msgid "Scan"
 msgid "Scanning"
 msgstr "Escaneando"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:436
-#| msgid "_Text Resolution:"
 msgid "_Text Resolution"
 msgstr "Resolución de _texto"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:452
-#| msgid "_Photo Resolution:"
 msgid "_Photo Resolution"
 msgstr "Resolución _fotográfica"
 
 #. Label beside brightness scale
 #: src/preferences-dialog.ui:505
-#| msgid "Brightness:"
 msgid "Brightness"
 msgstr "Brillo"
 
 #. Label beside contrast scale
 #: src/preferences-dialog.ui:521
-#| msgid "Contrast:"
 msgid "Contrast"
 msgstr "Contraste"
 
 #. Preferences Dialog: Tab for quality settings
 #: src/preferences-dialog.ui:576
-#| msgid "Quality:"
 msgid "Quality"
 msgstr "Calidade"
 
@@ -1058,15 +1020,12 @@ msgstr "Escaneo en progreso"
 
 #. Arguments and description for --help text
 #: src/simple-scan.vala:584
-#| msgid "[DEVICE...] - Scanning utility"
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[DISPOSITIVO...] — Utilidade de escaneado"
 
 #. Text printed out when an unknown command-line argument provided
 #: src/simple-scan.vala:595
 #, c-format
-#| msgid ""
-#| "Run '%s --help' to see a full list of available command line options."
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Ejecute «%s --help» para ver unha lista completa das opcións de liña de "
