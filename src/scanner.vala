@@ -1331,6 +1331,13 @@ public class Scanner
             return;
         }
 
+        /* Some ADF scanners only return NO_DOCS after a read */
+        if (status == Sane.Status.NO_DOCS)
+        {
+            do_complete_document ();
+            return;
+        }
+
         /* Communication error */
         if (status != Sane.Status.GOOD)
         {
