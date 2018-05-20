@@ -814,9 +814,9 @@ public class AppWindow : Gtk.ApplicationWindow
         }
     }
 
-    private void show_page_menu_cb (BookView view)
+    private void show_page_menu_cb (BookView view, Gdk.Event event)
     {
-        page_menu.popup (null, null, null, 3, Gtk.get_current_event_time ());
+        page_menu.popup_at_pointer (event);
     }
 
     [GtkCallback]

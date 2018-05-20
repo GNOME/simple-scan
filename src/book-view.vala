@@ -57,7 +57,7 @@ public class BookView : Gtk.Box
 
     public signal void page_selected (Page? page);
     public signal void show_page (Page page);
-    public signal void show_menu ();
+    public signal void show_menu (Gdk.Event event);
 
     public int x_offset
     {
@@ -515,7 +515,7 @@ public class BookView : Gtk.Box
 
         /* Show pop-up menu on right click */
         if (event.button == 3)
-            show_menu ();
+            show_menu (event);
 
         return false;
     }
