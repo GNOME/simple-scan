@@ -1068,7 +1068,7 @@ public class AppWindow : Gtk.ApplicationWindow
         {
             if (items[i] == '-')
             {
-                var a = new Gtk.Arrow (Gtk.ArrowType.RIGHT, Gtk.ShadowType.NONE);
+                var a = new Gtk.Label ("➤");
                 a.visible = true;
                 box.pack_start (a, false, false, 0);
                 page_box = null;
