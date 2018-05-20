@@ -1576,12 +1576,12 @@ public class AppWindow : Gtk.ApplicationWindow
 
             app.app_menu = appmenu;
 
-            app.add_accelerator ("<Ctrl>N", "app.new_document", null);
-            app.add_accelerator ("<Ctrl>S", "app.save", null);
-            app.add_accelerator ("<Ctrl>E", "app.email", null);
-            app.add_accelerator ("<Ctrl>P", "app.print", null);
-            app.add_accelerator ("F1", "app.help", null);
-            app.add_accelerator ("<Ctrl>Q", "app.quit", null);
+            app.set_accels_for_action ("app.new_document", { "<Ctrl>N" });
+            app.set_accels_for_action ("app.save", { "<Ctrl>S" });
+            app.set_accels_for_action ("app.email", { "<Ctrl>E" });
+            app.set_accels_for_action ("app.print", { "<Ctrl>P" });
+            app.set_accels_for_action ("app.help", { "F1" });
+            app.set_accels_for_action ("app.quit", { "<Ctrl>Q" });
 
             var gear_menu = new Menu ();
             section = new Menu ();
