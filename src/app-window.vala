@@ -52,6 +52,8 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.RadioMenuItem custom_crop_menuitem;
     [GtkChild]
+    private Gtk.RadioMenuItem a3_menuitem;
+    [GtkChild]
     private Gtk.RadioMenuItem a4_menuitem;
     [GtkChild]
     private Gtk.RadioMenuItem a5_menuitem;
@@ -762,7 +764,9 @@ public class AppWindow : Gtk.ApplicationWindow
             var crop_name = page.crop_name;
             if (crop_name != null)
             {
-                if (crop_name == "A4")
+                if (crop_name == "A3")
+                    menuitem = a3_menuitem;
+                else if (crop_name == "A4")
                     menuitem = a4_menuitem;
                 else if (crop_name == "A5")
                     menuitem = a5_menuitem;
@@ -922,6 +926,13 @@ public class AppWindow : Gtk.ApplicationWindow
     {
         if (widget.active)
             set_crop ("A4");
+    }
+
+    [GtkCallback]
+    private void a3_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    {
+        if (widget.active)
+            set_crop ("A3");
     }
 
     [GtkCallback]

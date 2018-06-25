@@ -391,6 +391,17 @@
                               </object>
                             </child>
                             <child>
+                              <object class="GtkRadioMenuItem" id="a3_menuitem">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes" comments="Radio button for cropping page to A3">A_3</property>
+                                <property name="use_underline">True</property>
+                                <property name="draw_as_radio">True</property>
+                                <property name="group">no_crop_menuitem</property>
+                                <signal name="toggled" handler="a3_menuitem_toggled_cb" swapped="no"/>
+                              </object>
+                            </child>
+                            <child>
                               <object class="GtkRadioMenuItem" id="custom_crop_menuitem">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>

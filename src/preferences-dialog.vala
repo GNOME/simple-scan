@@ -82,6 +82,8 @@ private class PreferencesDialog : Gtk.Dialog
         paper_size_model.append (out iter);
         paper_size_model.set (iter, 0, 2100, 1, 2970, 2, "A4", -1);
         paper_size_model.append (out iter);
+        paper_size_model.set (iter, 0, 2970, 1, 4200, 2, "A3", -1);
+        paper_size_model.append (out iter);
         paper_size_model.set (iter, 0, 2159, 1, 2794, 2, "Letter", -1);
         paper_size_model.append (out iter);
         paper_size_model.set (iter, 0, 2159, 1, 3556, 2, "Legal", -1);

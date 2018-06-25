@@ -399,6 +399,10 @@ public class Page
         double w, h;
         switch (name)
         {
+        case "A3":
+            w = 11.7;
+            h = 16.5;
+            break;
         case "A4":
             w = 8.3;
             h = 11.7;
