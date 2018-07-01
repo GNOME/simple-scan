@@ -1572,21 +1572,6 @@ public class AppWindow : Gtk.ApplicationWindow
 
             app.add_action_entries (action_entries, this);
 
-            var appmenu = new Menu ();
-
-            var section = new Menu ();
-            appmenu.append_section (null, section);
-            section.append (_("Preferences"), "app.preferences");
-
-            section = new Menu ();
-            appmenu.append_section (null, section);
-            section.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
-            section.append (_("Help"), "app.help");
-            section.append (_("About"), "app.about");
-            section.append (_("Quit"), "app.quit");
-
-            app.app_menu = appmenu;
-
             app.set_accels_for_action ("app.new_document", { "<Ctrl>N" });
             app.set_accels_for_action ("app.save", { "<Ctrl>S" });
             app.set_accels_for_action ("app.email", { "<Ctrl>E" });
@@ -1595,11 +1580,16 @@ public class AppWindow : Gtk.ApplicationWindow
             app.set_accels_for_action ("app.quit", { "<Ctrl>Q" });
 
             var gear_menu = new Menu ();
-            section = new Menu ();
+            var section = new Menu ();
             gear_menu.append_section (null, section);
             section.append (_("Email"), "app.email");
             section.append (_("Reorder Pages"), "app.reorder");
+            section = new Menu ();
+            gear_menu.append_section (null, section);
             section.append (_("Preferences"), "app.preferences");
+            section.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
+            section.append (_("Help"), "app.help");
+            section.append (_("About"), "app.about");
             menu_button.set_menu_model (gear_menu);
         }
         app.add_window (this);
