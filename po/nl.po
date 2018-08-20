@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the simple-scan package.
 #
 # Nathan Follens <nthn@unseen.is>, 2017.
-# Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2017.
+# Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2017, 2018.
 # Justin van Steijn <jvs@fsfe.org>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2017-12-06 20:21+0000\n"
-"PO-Revision-Date: 2017-12-19 22:16+0100\n"
+"POT-Creation-Date: 2018-07-01 04:06+0000\n"
+"PO-Revision-Date: 2018-08-20 13:15+0100\n"
 "Last-Translator: Justin van Steijn <jvs@fsfe.org>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -141,7 +141,7 @@ msgstr "Vertraging tussen pagina's in milliseconden."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:76 src/app-window.vala:1560
+#: src/app-window.ui:76 src/app-window.vala:1571
 msgid "Simple Scan"
 msgstr "Scannen"
 
@@ -184,29 +184,29 @@ msgstr "scanner"
 #. Toolbar scan menu item to scan a single page from the scanner
 #. Scan menu item to scan a single page from the scanner
 #. Toolbar scan menu item to scan a single page from the scanner
-#: src/app-window.ui:22 src/app-window.ui:123 src/app-window.ui:820
+#: src/app-window.ui:22 src/app-window.ui:123 src/app-window.ui:831
 msgid "Single _Page"
 msgstr "Enkele _pagina"
 
 #. Toolbar scan menu item to scan all pages from a document feeder
 #. Scan menu item to scan all pages from a document feeder
 #. Toolbar scan menu item to scan all pages from a document feeder
-#: src/app-window.ui:31 src/app-window.ui:133 src/app-window.ui:829
+#: src/app-window.ui:31 src/app-window.ui:133 src/app-window.ui:840
 msgid "All Pages From _Feeder"
 msgstr "Alle pagina's van in_voer"
 
 #. Toolbar scan menu item to scan continuously from the flatbed
 #. Scan menu item to scan continuously from the flatbed
 #. Toolbar scan menu item to scan continuously from the flatbed
-#: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:838
+#: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:849
 msgid "_Multiple Pages From Flatbed"
 msgstr "_Meerdere pagina's van vlakbed"
 
-#: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:853
+#: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:864
 msgid "Text"
 msgstr "Tekst"
 
-#: src/app-window.ui:65 src/app-window.ui:180 src/app-window.ui:863
+#: src/app-window.ui:65 src/app-window.ui:180 src/app-window.ui:874
 msgid "Photo"
 msgstr "Foto"
 
@@ -227,7 +227,7 @@ msgstr "_Scannen staken"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1590
+#: src/app-window.ui:196 src/app-window.vala:978 src/app-window.vala:1586
 msgid "Reorder Pages"
 msgstr "Bladzijden herschikken"
 
@@ -291,91 +291,97 @@ msgstr "VS Le_gal"
 msgid "4×6"
 msgstr "4×6"
 
-#. Radio button for cropping to custom page size
+#. Radio button for cropping page to A3
 #: src/app-window.ui:397
+#| msgid "A_4"
+msgid "A_3"
+msgstr "A_3"
+
+#. Radio button for cropping to custom page size
+#: src/app-window.ui:408
 msgid "_Custom"
 msgstr "_Aangepast"
 
 #. Menu item to rotate the crop area
-#: src/app-window.ui:415
+#: src/app-window.ui:426
 msgid "_Rotate Crop"
 msgstr "Bijsnijden d_raaien"
 
 #. Menu item to move the selected page to the left
-#: src/app-window.ui:428
+#: src/app-window.ui:439
 msgid "Move Left"
 msgstr "Naar links verplaatsen"
 
 #. Menu item to move the selected page to the right
-#: src/app-window.ui:437
+#: src/app-window.ui:448
 msgid "Move Right"
 msgstr "Naar rechts verplaatsen"
 
 #. Label on help menu
-#: src/app-window.ui:474
+#: src/app-window.ui:485
 msgid "_Help"
 msgstr "_Hulp"
 
 #. Help|Contents menu
-#: src/app-window.ui:482
+#: src/app-window.ui:493
 msgid "_Contents"
 msgstr "_Inhoud"
 
 #. Tooltip for scan toolbar button
-#: src/app-window.ui:520 src/app-window.ui:720
+#: src/app-window.ui:531 src/app-window.ui:731
 msgid "Scan a single page from the scanner"
 msgstr "Een enkele pagina scannen"
 
 #. Label on scan toolbar item
-#: src/app-window.ui:522 src/app-window.ui:716
+#: src/app-window.ui:533 src/app-window.ui:727
 msgid "Scan"
 msgstr "Scannen"
 
 #. Tooltip for save toolbar button
-#: src/app-window.ui:538 src/app-window.ui:787
+#: src/app-window.ui:549 src/app-window.ui:798
 msgid "Save document to a file"
 msgstr "Document naar een bestand opslaan"
 
-#: src/app-window.ui:540
+#: src/app-window.ui:551
 msgid "Save"
 msgstr "Opslaan"
 
 #. Tooltip for stop button
-#: src/app-window.ui:555 src/app-window.ui:700
+#: src/app-window.ui:566 src/app-window.ui:711
 msgid "Stop the current scan"
 msgstr "De huidige scan stoppen"
 
-#: src/app-window.ui:556 src/app-window.ui:697
+#: src/app-window.ui:567 src/app-window.ui:708
 msgid "Stop"
 msgstr "Stoppen"
 
 #. Label shown when searching for scanners
-#: src/app-window.ui:611
+#: src/app-window.ui:622
 msgid "Searching for Scanners…"
 msgstr "Zoeken naar scanners…"
 
-#: src/app-window.vala:237 src/app-window.vala:1380
+#: src/app-window.vala:239 src/app-window.vala:1391
 msgid "_Close"
 msgstr "_Sluiten"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:246
+#: src/app-window.vala:248
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Gebruikersnaam en wachtwoord vereist om toegang te krijgen tot  ‘%s’"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:266 src/app-window.vala:584
+#: src/app-window.vala:268 src/app-window.vala:586
 msgid "Ready to Scan"
 msgstr "Klaar om te scannen"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:273
+#: src/app-window.vala:275
 msgid "Additional software needed"
 msgstr "Extra programmatuur vereist"
 
 #. Instructions to install driver software
-#: src/app-window.vala:275
+#: src/app-window.vala:277
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -384,150 +390,150 @@ msgstr ""
 "voor uw scanner."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:281
+#: src/app-window.vala:283
 msgid "No scanners detected"
 msgstr "Geen scanners gevonden"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:283
+#: src/app-window.vala:285
 msgid "Please check your scanner is connected and powered on"
 msgstr "Controleer of uw scanner is aangesloten en is ingeschakeld"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:298
+#: src/app-window.vala:300
 msgid "Save As…"
 msgstr "Opslaan als…"
 
-#: src/app-window.vala:301 src/app-window.vala:471 src/app-window.vala:552
+#: src/app-window.vala:303 src/app-window.vala:473 src/app-window.vala:554
 msgid "_Cancel"
 msgstr "_Annuleren"
 
-#: src/app-window.vala:302 src/app-window.vala:553
+#: src/app-window.vala:304 src/app-window.vala:555
 msgid "_Save"
 msgstr "_Opslaan"
 
 #. Default filename to use when saving document
-#: src/app-window.vala:310
+#: src/app-window.vala:312
 msgid "Scanned Document.pdf"
 msgstr "Gescand document.pdf"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:316
+#: src/app-window.vala:318
 msgid "Image Files"
 msgstr "Afbeeldingsbestanden"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:326
+#: src/app-window.vala:328
 msgid "All Files"
 msgstr "Alle bestanden"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:335
+#: src/app-window.vala:337
 msgid "PDF (multi-page document)"
 msgstr "PDF (document met meerdere pagina's)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:341
+#: src/app-window.vala:343
 msgid "JPEG (compressed)"
 msgstr "JPEG (gecomprimeerd)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:347
+#: src/app-window.vala:349
 msgid "PNG (lossless)"
 msgstr "PNG (lossless)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:354
+#: src/app-window.vala:356
 msgid "WebP (compressed)"
 msgstr "WebP (gecomprimeerd)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:364
+#: src/app-window.vala:366
 msgid "File format:"
 msgstr "Bestandsformaat:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:376
+#: src/app-window.vala:378
 msgid "Compression:"
 msgstr "Compressie:"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:470
+#: src/app-window.vala:472
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Het bestand ‘%s’ bestaat al. Wilt u het vervangen?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:473
+#: src/app-window.vala:475
 msgid "_Replace"
 msgstr "Ve_rvangen"
 
-#: src/app-window.vala:512
+#: src/app-window.vala:514
 msgid "Saving"
 msgstr "Bezig met opslaan"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:527
+#: src/app-window.vala:529
 msgid "Failed to save file"
 msgstr "Bestand opslaan mislukt"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:550
+#: src/app-window.vala:552
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Als u niet opslaat, zullen wijzigingen permanent verloren gaan."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:591
+#: src/app-window.vala:593
 msgid "Save current document?"
 msgstr "Huidige document opslaan?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:593
+#: src/app-window.vala:595
 msgid "Discard Changes"
 msgstr "Wijzigingen negeren"
 
 #. Label shown when scan started
-#: src/app-window.vala:692
+#: src/app-window.vala:694
 msgid "Contacting scanner…"
 msgstr "Contact maken met _Scanner…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:800
+#: src/app-window.vala:804
 msgid "Unable to save image for preview"
 msgstr "Opslaan van afbeelding voor voorvertoning mislukt"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:812
+#: src/app-window.vala:816
 msgid "Unable to open image preview application"
 msgstr "Kan toepassing voor voorvertoning van afbeelding niet openen"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:990
+#: src/app-window.vala:1001
 msgid "Combine sides"
 msgstr "Zijden samenvoegen"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1000
+#: src/app-window.vala:1011
 msgid "Combine sides (reverse)"
 msgstr "Zijden samenvoegen (omgekeerd)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1010
+#: src/app-window.vala:1021
 msgid "Reverse"
 msgstr "Omgekeerd"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1020
+#: src/app-window.vala:1031
 msgid "Keep unchanged"
 msgstr "Onveranderd laten"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1250
+#: src/app-window.vala:1261
 msgid "Unable to open help file"
 msgstr "Kon hulpbestand niet openen"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1271
+#: src/app-window.vala:1282
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -558,16 +564,16 @@ msgstr ""
 "<http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1274
+#: src/app-window.vala:1285
 msgid "About Simple Scan"
 msgstr "Info over Scanhulpmiddel"
 
 #. Description of program
-#: src/app-window.vala:1277
+#: src/app-window.vala:1288
 msgid "Simple document scanning tool"
 msgstr "Eenvoudig hulpmiddel voor het scannen van documenten"
 
-#: src/app-window.vala:1286
+#: src/app-window.vala:1297
 msgid "translator-credits"
 msgstr ""
 "Nathan Follens\n"
@@ -596,22 +602,22 @@ msgstr ""
 "  rob https://launchpad.net/~rvdb"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1308
+#: src/app-window.vala:1319
 msgid "Save document before quitting?"
 msgstr "Document opslaan voor afsluiten?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1310
+#: src/app-window.vala:1321
 msgid "Quit without Saving"
 msgstr "Afsluiten zonder opslaan"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1357
+#: src/app-window.vala:1368
 msgid "You appear to have a Brother scanner."
 msgstr "U lijkt een Brother-scanner te hebben."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1359
+#: src/app-window.vala:1370
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -620,12 +626,12 @@ msgstr ""
 "brother.com\">website van Brother</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1363
+#: src/app-window.vala:1374
 msgid "You appear to have a Samsung scanner."
 msgstr "U lijkt een Samsung-scanner te hebben."
 
 #. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1365
+#: src/app-window.vala:1376
 msgid ""
 "Drivers for this are available on the <a href=\"http://samsung.com/support"
 "\">Samsung website</a>."
@@ -634,17 +640,17 @@ msgstr ""
 "com/support\">website van Samsung</a>."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1369
+#: src/app-window.vala:1380
 msgid "You appear to have an HP scanner."
 msgstr "U lijkt een HP-scanner te hebben."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1374
+#: src/app-window.vala:1385
 msgid "You appear to have an Epson scanner."
 msgstr "U lijkt een Epson-scanner te hebben."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1376
+#: src/app-window.vala:1387
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -653,99 +659,94 @@ msgstr ""
 "epson.com\">Epson-website</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1380
+#: src/app-window.vala:1391
 msgid "Install drivers"
 msgstr "Stuurprogramma's installeren"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1411
+#: src/app-window.vala:1422
 msgid "Once installed you will need to restart Simple Scan."
 msgstr "Eenmaal geïnstalleerd, zult u Simple Scan moeten herstarten."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1423
+#: src/app-window.vala:1434
 msgid "Installing drivers…"
 msgstr "Installeren van stuurprogramma's…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1431
+#: src/app-window.vala:1442
 msgid "Drivers installed successfully!"
 msgstr "Stuurprogramma's met succes geïnstalleerd!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1441
+#: src/app-window.vala:1452
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Installeren van stuurprogramma's mislukt (foutcode %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1447
+#: src/app-window.vala:1458
 msgid "Failed to install drivers."
 msgstr "Installeren van stuurprogramma's mislukt."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1454
+#: src/app-window.vala:1465
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "U dient het %s pakket te installeren."
 msgstr[1] "U dient de %s pakketten te installeren."
 
+#: src/app-window.vala:1585
+msgid "Email"
+msgstr "E-mail"
+
 #. Title of preferences dialog
-#: src/app-window.vala:1568 src/app-window.vala:1591
-#: src/preferences-dialog.ui:53
+#: src/app-window.vala:1589 src/preferences-dialog.ui:53
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: src/app-window.vala:1572
+#: src/app-window.vala:1590
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: src/app-window.vala:1573
+#: src/app-window.vala:1591
 msgid "Help"
 msgstr "Hulp"
 
-#: src/app-window.vala:1574
+#: src/app-window.vala:1592
 msgid "About"
 msgstr "Over"
-
-#: src/app-window.vala:1575
-msgid "Quit"
-msgstr "Afsluiten"
-
-#: src/app-window.vala:1589
-msgid "Email"
-msgstr "E-mail"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1599
+#: src/app-window.vala:1600
 msgid "Start Again…"
 msgstr "Opnieuw starten…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1616
+#: src/app-window.vala:1617
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "De pagina linksom draaien (tegen de klok in)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1623
+#: src/app-window.vala:1624
 msgid "Rotate the page to the right (clockwise)"
 msgstr "De pagina rechtsom draaien (met de klok mee)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1633
+#: src/app-window.vala:1634
 msgid "Crop the selected page"
 msgstr "De geselecteerde pagina bijsnijden"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1649
+#: src/app-window.vala:1650
 msgid "Delete the selected page"
 msgstr "De geselecteerde pagina verwijderen"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1814
+#: src/app-window.vala:1815
 msgid "Cancel"
 msgstr "Annuleren"
 
@@ -959,42 +960,42 @@ msgstr "Kwaliteit"
 msgid "Automatic"
 msgstr "Automatisch"
 
-#: src/preferences-dialog.vala:116
+#: src/preferences-dialog.vala:118
 msgid "Darker"
 msgstr "Donkerder"
 
-#: src/preferences-dialog.vala:118
+#: src/preferences-dialog.vala:120
 msgid "Lighter"
 msgstr "Lichter"
 
-#: src/preferences-dialog.vala:126
+#: src/preferences-dialog.vala:128
 msgid "Less"
 msgstr "Minder"
 
-#: src/preferences-dialog.vala:128
+#: src/preferences-dialog.vala:130
 msgid "More"
 msgstr "Meer"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:440
+#: src/preferences-dialog.vala:442
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (standaard)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:443
+#: src/preferences-dialog.vala:445
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (klad)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:446
+#: src/preferences-dialog.vala:448
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (hoge resolutie)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:449
+#: src/preferences-dialog.vala:451
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
@@ -1017,7 +1018,7 @@ msgid "Unable to start scan"
 msgstr "Kan de scan niet starten"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1240 src/scanner.vala:1340
+#: src/scanner.vala:1240 src/scanner.vala:1347
 msgid "Error communicating with scanner"
 msgstr "Fout tijdens het communiceren met de scanner"
 
@@ -1059,6 +1060,9 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Voer ‘%s --help’ uit om een volledige lijst van beschikbare "
 "opdrachtregelopties te zien."
+
+#~ msgid "Quit"
+#~ msgstr "Afsluiten"
 
 #~ msgid "Front and Back"
 #~ msgstr "Voor- en achterzijde"
