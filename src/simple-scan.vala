@@ -35,6 +35,7 @@ public class SimpleScan : Gtk.Application
     private AppWindow app;
     private Scanner scanner;
     private Book book;
+    private Page scanned_page;
 
     public SimpleScan (ScanDevice? device = null)
     {
@@ -350,25 +351,24 @@ public class SimpleScan : Gtk.Application
                info.width, info.height, info.depth);
 
         /* Add a new page */
-        var page = append_page ();
-        page.set_page_info (info);
+        scanned_page = append_page ();
+        scanned_page.set_page_info (info);
 
         /* Get ICC color profile */
         /* FIXME: The ICC profile could change */
         /* FIXME: Don't do a D-bus call for each page, cache color profiles */
-        page.color_profile = get_profile_for_device (info.device);
+        scanned_page.color_profile = get_profile_for_device (info.device);
     }
 
     private void scanner_line_cb (Scanner scanner, ScanLine line)
     {
-        var page = book.get_page ((int) book.n_pages - 1);
-        page.parse_scan_line (line);
+        scanned_page.parse_scan_line (line);
     }
 
     private void scanner_page_done_cb (Scanner scanner)
     {
-        var page = book.get_page ((int) book.n_pages - 1);
-        page.finish ();
+        scanned_page.finish ();
+        scanned_page = null;
     }
 
     private void remove_empty_page ()
@@ -386,6 +386,7 @@ public class SimpleScan : Gtk.Application
     private void scanner_failed_cb (Scanner scanner, int error_code, string error_string)
     {
         remove_empty_page ();
+        scanned_page = null;
         if (error_code != Sane.Status.CANCELLED)
         {
             app.show_error_dialog (/* Title of error dialog when scan failed */
