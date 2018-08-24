@@ -45,7 +45,7 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.Label status_secondary_label;
     [GtkChild]
-    private Gtk.Box main_vbox;
+    private Gtk.Box page_box;
     [GtkChild]
     private Gtk.RadioMenuItem custom_crop_menuitem;
     [GtkChild]
@@ -101,6 +101,11 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.MenuButton menu_button;
 
+    [GtkChild]
+    private Gtk.Revealer thumbnail_revealer;
+    [GtkChild]
+    private Gtk.Box thumbnail_box;
+
     private bool have_devices = false;
     private string? missing_driver = null;
 
@@ -114,17 +119,22 @@ public class AppWindow : Gtk.ApplicationWindow
     {
         get
         {
-            return book_view.selected_page;
+            return page_view.page;
         }
         set
         {
-            book_view.selected_page = value;
+            page_view.page = value;
+            foreach (var child in thumbnail_box.get_children ())
+            {
+                var thumbnail = (ThumbnailView) child;
+                thumbnail.selected = thumbnail.page == value;
+            }
         }
     }
 
     private AutosaveManager autosave_manager;
 
-    private BookView book_view;
+    private PageView page_view;
     private bool updating_page_menu;
 
     private string document_hint = "photo";
@@ -200,7 +210,7 @@ public class AppWindow : Gtk.ApplicationWindow
         else
         {
             stack.set_visible_child_name ("document");
-            book_view.selected_page = book.get_page (0);
+            selected_page = book.get_page (0);
             book_needs_saving = true;
             book_changed_cb (book);
         }
@@ -731,7 +741,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void update_page_menu ()
     {
-        var page = book_view.selected_page;
+        var page = page_view.page;
         if (page == null)
         {
             page_move_left_menuitem.sensitive = false;
@@ -745,7 +755,7 @@ public class AppWindow : Gtk.ApplicationWindow
         }
     }
 
-    private void page_selected_cb (BookView view, Page? page)
+    /*private void page_selected_cb (BookView view, Page? page)
     {
         if (page == null)
             return;
@@ -783,9 +793,9 @@ public class AppWindow : Gtk.ApplicationWindow
         crop_button.active = page.has_crop;
 
         updating_page_menu = false;
-    }
+    }*/
 
-    private void show_page_cb (BookView view, Page page)
+    /*private void show_page_cb (BookView view, Page page)
     {
         File file;
         try
@@ -796,7 +806,7 @@ public class AppWindow : Gtk.ApplicationWindow
         }
         catch (Error e)
         {
-            show_error_dialog (/* Error message display when unable to save image for preview */
+            show_error_dialog (/* Error message display when unable to save image for preview * /
                                _("Unable to save image for preview"),
                                e.message);
             return;
@@ -808,23 +818,23 @@ public class AppWindow : Gtk.ApplicationWindow
         }
         catch (Error e)
         {
-            show_error_dialog (/* Error message display when unable to preview image */
+            show_error_dialog (/* Error message display when unable to preview image * /
                                _("Unable to open image preview application"),
                                e.message);
         }
-    }
+    }*/
 
-    private void show_page_menu_cb (BookView view, Gdk.Event event)
+    /*private void show_page_menu_cb (BookView view, Gdk.Event event)
     {
         page_menu.popup_at_pointer (event);
-    }
+    }*/
 
     [GtkCallback]
     private void rotate_left_button_clicked_cb (Gtk.Widget widget)
     {
         if (updating_page_menu)
             return;
-        var page = book_view.selected_page;
+        var page = page_view.page;
         if (page != null)
             page.rotate_left ();
     }
@@ -834,7 +844,7 @@ public class AppWindow : Gtk.ApplicationWindow
     {
         if (updating_page_menu)
             return;
-        var page = book_view.selected_page;
+        var page = page_view.page;
         if (page != null)
             page.rotate_right ();
     }
@@ -846,7 +856,7 @@ public class AppWindow : Gtk.ApplicationWindow
         if (updating_page_menu)
             return;
 
-        var page = book_view.selected_page;
+        var page = page_view.page;
         if (page == null)
         {
             warning ("Trying to set crop but no selected page");
@@ -934,7 +944,7 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkCallback]
     private void crop_rotate_menuitem_activate_cb (Gtk.Widget widget)
     {
-        var page = book_view.selected_page;
+        var page = page_view.page;
         if (page == null)
             return;
         page.rotate_crop ();
@@ -943,7 +953,7 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkCallback]
     private void page_move_left_menuitem_activate_cb (Gtk.Widget widget)
     {
-        var page = book_view.selected_page;
+        var page = page_view.page;
         var index = book.get_page_index (page);
         if (index > 0)
             book.move_page (page, index - 1);
@@ -952,7 +962,7 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkCallback]
     private void page_move_right_menuitem_activate_cb (Gtk.Widget widget)
     {
-        var page = book_view.selected_page;
+        var page = page_view.page;
         var index = book.get_page_index (page);
         if (index < book.n_pages - 1)
             book.move_page (page, book.get_page_index (page) + 1);
@@ -961,7 +971,7 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkCallback]
     private void page_delete_menuitem_activate_cb (Gtk.Widget widget)
     {
-        book_view.book.delete_page (book_view.selected_page);
+        book.delete_page (page_view.page);
     }
 
     private void reorder_document ()
@@ -1145,7 +1155,7 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkCallback]
     private void copy_to_clipboard_button_clicked_cb (Gtk.Widget widget)
     {
-        var page = book_view.selected_page;
+        var page = page_view.page;
         if (page != null)
             page.copy_to_clipboard (this);
     }
@@ -1484,16 +1494,30 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void page_added_cb (Book book, Page page)
     {
+        var view = new ThumbnailView ();
+        view.page = page;
+        view.visible = true;
+        view.selected = page == selected_page;
+        view.clicked.connect (select_page_cb);
+        thumbnail_box.pack_start (view);
+        thumbnail_revealer.reveal_child = book.n_pages > 1;
         update_page_menu ();
+    }
+
+    private void select_page_cb (ThumbnailView view)
+    {
+        selected_page = view.page;
     }
 
     private void reordered_cb (Book book)
     {
+        // FIXME: Move thumbnail
         update_page_menu ();
     }
 
     private void page_removed_cb (Book book, Page page)
     {
+        // FIXME: Remove thumbnail
         update_page_menu ();
     }
 
@@ -1545,14 +1569,6 @@ public class AppWindow : Gtk.ApplicationWindow
 
         app.add_window (this);
 
-        /* Populate ActionBar (not supported in Glade) */
-        /* https://bugzilla.gnome.org/show_bug.cgi?id=769966 */
-        var button = new Gtk.Button.with_label (/* Label on new document button */
-                                               _("Start Again…"));
-        button.visible = true;
-        button.clicked.connect (new_document_cb);
-        action_bar.pack_start (button);
-
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
         box.visible = true;
         action_bar.set_center_widget (box);
@@ -1562,7 +1578,7 @@ public class AppWindow : Gtk.ApplicationWindow
         rotate_box.visible = true;
         box.add (rotate_box);
 
-        button = new Gtk.Button.from_icon_name ("object-rotate-left-symbolic");
+        var button = new Gtk.Button.from_icon_name ("object-rotate-left-symbolic");
         button.visible = true;
         button.image.margin_start = 18;
         button.image.margin_end = 18;
@@ -1607,21 +1623,17 @@ public class AppWindow : Gtk.ApplicationWindow
         delete_button.image.margin_end = 18;
         /* Tooltip for delete button */
         delete_button.tooltip_text = _("Delete the selected page");
-        delete_button.clicked.connect (() => { book_view.book.delete_page (book_view.selected_page); });
+        delete_button.clicked.connect (() => { book.delete_page (page_view.page); });
         box.add (delete_button);
 
         var document_type = settings.get_string ("document-type");
         if (document_type != null)
             set_document_hint (document_type);
 
-        book_view = new BookView (book);
-        book_view.border_width = 18;
-        book_view.vexpand = true;
-        main_vbox.add (book_view);
-        book_view.page_selected.connect (page_selected_cb);
-        book_view.show_page.connect (show_page_cb);
-        book_view.show_menu.connect (show_page_menu_cb);
-        book_view.visible = true;
+        page_view = new PageView ();
+        page_view.margin = 18;
+        page_box.add (page_view);
+        page_view.visible = true;
 
         preferences_dialog.transient_for = this;
 

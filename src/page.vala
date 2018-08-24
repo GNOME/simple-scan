@@ -587,7 +587,7 @@ public class Page
         pixel[offset+2] = get_sample (pixels, line_offset, x, depth, n_channels, 2);
     }
 
-    public Gdk.Pixbuf get_image (bool apply_crop)
+    public Gdk.Pixbuf get_image (bool apply_crop = true)
     {
         int l, r, t, b;
         if (apply_crop && has_crop)
@@ -651,14 +651,14 @@ public class Page
     {
         var display = window.get_display ();
         var clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
-        var image = get_image (true);
+        var image = get_image ();
         clipboard.set_image (image);
     }
 
     public void save_png (File file) throws Error
     {
         var stream = file.replace (null, false, FileCreateFlags.NONE, null);
-        var image = get_image (true);
+        var image = get_image ();
 
         string? icc_profile_data = null;
         if (color_profile != null)
