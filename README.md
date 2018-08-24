@@ -8,7 +8,7 @@ application. Simple Scan allows you to capture images using [image
 scanners](https://en.wikipedia.org/wiki/Image_scanner) (e.g. flatbed
 scanners) that have suitable [SANE drivers](http://sane-project.org/) installed.
 
-## Building from source
+# Building from source
 
 Install the dependencies (first line is Ubuntu/Debian, second is Fedora):
 ```
@@ -31,7 +31,7 @@ $ ninja -C build/ all install
 $ XDG_DATA_DIRS=install/share:$XDG_DATA_DIRS ./install/bin/simple-scan
 ```
 
-## Debugging
+# Debugging
 
 There is a --debug command line switch to enable more verbose logging:
 ```
@@ -55,7 +55,7 @@ command line
 by the SANE project - these allow to to easily see and control all the
 settings your driver provides.
 
-## Contributing
+# Contributing
 
 To contribute code to Simple Scan make merge requests on
 [gitlab.gnome.org](https://gitlab.gnome.org/GNOME/simple-scan). If you
