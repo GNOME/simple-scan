@@ -3,9 +3,9 @@
 
 # Introduction
 
-This is the source code to *Simple Scan* — a simple GNOME document scanning
-application. Simple Scan allows you to capture images using [image
-scanners](https://en.wikipedia.org/wiki/Image_scanner) (e.g. flatbed
+This is the source code to *Simple Scan* — a [GNOME](https://www.gnome.org/)
+document scanning application. Simple Scan allows you to capture images using
+[image scanners](https://en.wikipedia.org/wiki/Image_scanner) (e.g. flatbed
 scanners) that have suitable [SANE drivers](http://sane-project.org/) installed.
 
 # Building from source
