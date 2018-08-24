@@ -54,6 +54,3 @@ to create a merge request on gitlab.gnome.org.
 ### Websites
 * https://gitlab.gnome.org/GNOME/simple-scan
 * https://gitlab.gnome.org/GNOME/simple-scan/issues
-
-### IRC
-* Freenode (irc.ubuntu.com): #simple-scan
