@@ -3,20 +3,17 @@
 
 # Introduction
 
-This is the source code to *Simple Scan* - a simple GNOME document scanning
+This is the source code to *Simple Scan* — a simple GNOME document scanning
 application. Simple Scan allows you to capture images using [image
 scanners](https://en.wikipedia.org/wiki/Image_scanner) (e.g. flatbed
 scanners) that have suitable [SANE drivers](http://sane-project.org/) installed.
 
 ## Building from source
 
-Install the dependencies.
-
-Ubuntu/Debian:
+Install the dependencies (first line is Ubuntu/Debian, second is Fedora):
 ```
 $ sudo apt install git meson valac libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev gettext itstool
 ```
-Fedora:
 ```
 $ sudo dnf install -y meson vala gettext itstool gtk3-devel libgusb-devel colord-devel PackageKit-glib-devel libwebp-devel sane-backends-devel
 ```
@@ -24,6 +21,7 @@ $ sudo dnf install -y meson vala gettext itstool gtk3-devel libgusb-devel colord
 Get the source:
 ```
 $ git clone https://gitlab.gnome.org/GNOME/simple-scan.git
+$ cd simple-scan
 ```
 
 Build and run:
@@ -37,20 +35,20 @@ $ XDG_DATA_DIRS=install/share:$XDG_DATA_DIRS ./install/bin/simple-scan
 
 There is a --debug command line switch to enable more verbose logging:
 ```
-simple-scan --debug
+$ simple-scan --debug
 ```
 
 Log messages can also be found in the `$HOME/.cache/simple-scan` folder.
 
 If you don't have a scanner ready, you can use a virtual "test" scanner:
 ```
-simple-scan --debug test
+$ simple-scan --debug test
 ```
 
-Simple Scan works by using the SANE API to capture images. It chooses
-the settings it thinks are appropriate for what you are trying to do.
-Drivers have many options and are of differring quality - it is useful
-to work out if any issues are caused by Simple Scan or the drivers. To
+Simple Scan works by using the [SANE API](http://sane-project.org/html/) to
+capture images. It chooses the settings it thinks are appropriate for what you
+are trying to do. Drivers have many options and are of differring quality - it
+is useful to work out if any issues are caused by Simple Scan or the drivers. To
 rule out Simple Scan you can use the graphical tool (XSane) or the
 command line
 [scanimage](http://www.sane-project.org/man/scanimage.1.html) provided
