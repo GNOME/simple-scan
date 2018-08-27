@@ -12,7 +12,7 @@ scanners) that have suitable [SANE drivers](http://sane-project.org/) installed.
 
 Install the dependencies (first line is Ubuntu/Debian, second is Fedora):
 ```
-$ sudo apt install git autoconf automake gettext itstool valac libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libsane-dev
+$ sudo apt install git autoconf automake gettext intltool itstool valac libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libsane-dev
 ```
 ```
 $ sudo dnf install -y vala gettext itstool gtk3-devel libgusb-devel colord-devel PackageKit-glib-devel sane-backends-devel
