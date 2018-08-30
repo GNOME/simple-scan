@@ -868,7 +868,7 @@ public class Scanner
 
         if (status != Sane.Status.GOOD)
         {
-            warning ("Unable to get open device: %s", Sane.strstatus (status));
+            warning ("Unable to open device: %s", Sane.strstatus (status));
             fail_scan (status,
                        /* Error displayed when cannot connect to scanner */
                        _("Unable to connect to scanner"));
