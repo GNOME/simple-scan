@@ -116,7 +116,6 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.MenuButton menu_button;
 
-    private bool have_devices = false;
     private string? missing_driver = null;
 
     private Gtk.FileChooserDialog? save_dialog;
@@ -257,22 +256,20 @@ public class AppWindow : Gtk.ApplicationWindow
         password = authorize_dialog.get_password ();
     }
 
-    private void update_scan_status ()
+    public void set_scan_devices (List<ScanDevice> devices, string? missing_driver = null)
     {
-        if (!have_devices)
-        {
-            status_primary_label.set_text (/* Label shown when searching for scanners */
-                                           _("Searching for Scanners…"));
-            status_secondary_label.visible = false;
-        }
-        else if (selected_device != null)
+        this.missing_driver = missing_driver;
+
+        preferences_dialog.set_scan_devices (devices);
+
+        if (devices != null)
         {
             status_primary_label.set_text (/* Label shown when detected a scanner */
                                            _("Ready to Scan"));
             status_secondary_label.set_text (preferences_dialog.get_selected_device_label ());
             status_secondary_label.visible = true;
         }
-        else if (this.missing_driver != null)
+        else if (missing_driver != null)
         {
             status_primary_label.set_text (/* Warning displayed when no drivers are installed but a compatible scanner is detected */
                                            _("Additional software needed"));
@@ -288,14 +285,6 @@ public class AppWindow : Gtk.ApplicationWindow
             status_secondary_label.set_text (_("Please check your scanner is connected and powered on"));
             status_secondary_label.visible = true;
         }
-    }
-
-    public void set_scan_devices (List<ScanDevice> devices, string? missing_driver = null)
-    {
-        have_devices = true;
-        this.missing_driver = missing_driver;
-        preferences_dialog.set_scan_devices (devices);
-        update_scan_status ();
     }
 
     private string choose_file_location ()
@@ -593,7 +582,8 @@ public class AppWindow : Gtk.ApplicationWindow
         save_button.sensitive = false;
         save_toolbutton.sensitive = false;
         copy_to_clipboard_menuitem.sensitive = false;
-        update_scan_status ();
+        status_primary_label.set_text (/* Label shown when detected a scanner */
+                                       _("Ready to Scan"));
         stack.set_visible_child_name ("startup");
     }
 
