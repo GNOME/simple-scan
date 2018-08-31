@@ -30,6 +30,7 @@ public class AppWindow : Gtk.ApplicationWindow
     };
 
     private Settings settings;
+    private ScanType scan_type = ScanType.SINGLE;
 
     private PreferencesDialog preferences_dialog;
 
@@ -85,9 +86,17 @@ public class AppWindow : Gtk.ApplicationWindow
     private Gtk.Button delete_button;
 
     [GtkChild]
-    private Gtk.RadioMenuItem text_button_hb_menuitem;
+    private Gtk.Image scan_options_image;
     [GtkChild]
-    private Gtk.RadioMenuItem photo_button_hb_menuitem;
+    private Gtk.RadioButton scan_single_radio;
+    [GtkChild]
+    private Gtk.RadioButton scan_adf_radio;
+    [GtkChild]
+    private Gtk.RadioButton scan_batch_radio;
+    [GtkChild]
+    private Gtk.RadioButton text_radio;
+    [GtkChild]
+    private Gtk.RadioButton photo_radio;
 
     [GtkChild]
     private Gtk.MenuButton menu_button;
@@ -601,17 +610,59 @@ public class AppWindow : Gtk.ApplicationWindow
         new_document();
     }
 
+    private void set_scan_type (ScanType scan_type)
+    {
+        this.scan_type = scan_type;
+
+        switch (scan_type)
+        {
+        case ScanType.SINGLE:
+            scan_single_radio.active = true;
+            scan_options_image.icon_name = "scanner-symbolic";
+            break;
+        case ScanType.ADF_BOTH:
+            scan_adf_radio.active = true;
+            scan_options_image.icon_name = "scan-type-adf-symbolic";
+            break;
+        case ScanType.BATCH:
+            scan_batch_radio.active = true;
+            scan_options_image.icon_name = "scan-type-batch-symbolic";
+            break;
+        }
+    }
+
+    [GtkCallback]
+    private void scan_single_radio_toggled_cb (Gtk.ToggleButton button)
+    {
+        if (button.active)
+            set_scan_type (ScanType.SINGLE);
+    }
+
+    [GtkCallback]
+    private void scan_adf_radio_toggled_cb (Gtk.ToggleButton button)
+    {
+        if (button.active)
+            set_scan_type (ScanType.ADF_BOTH);
+    }
+
+    [GtkCallback]
+    private void scan_batch_radio_toggled_cb (Gtk.ToggleButton button)
+    {
+        if (button.active)
+            set_scan_type (ScanType.BATCH);
+    }
+
     private void set_document_hint (string document_hint, bool save = false)
     {
         this.document_hint = document_hint;
 
         if (document_hint == "text")
         {
-            text_button_hb_menuitem.active = true;
+            text_radio.active = true;
         }
         else if (document_hint == "photo")
         {
-            photo_button_hb_menuitem.active = true;
+            photo_radio.active = true;
         }
 
         if (save)
@@ -619,16 +670,16 @@ public class AppWindow : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private void text_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    private void text_radio_toggled_cb (Gtk.ToggleButton button)
     {
-        if (widget.active)
+        if (button.active)
             set_document_hint ("text", true);
     }
 
     [GtkCallback]
-    private void photo_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    private void photo_radio_toggled_cb (Gtk.ToggleButton button)
     {
-        if (widget.active)
+        if (button.active)
             set_document_hint ("photo", true);
     }
 
@@ -659,7 +710,9 @@ public class AppWindow : Gtk.ApplicationWindow
     private void scan_button_clicked_cb (Gtk.Widget widget)
     {
         var options = make_scan_options ();
-        options.type = ScanType.SINGLE;
+        options.type = scan_type;
+        if (options.type == ScanType.ADF_BOTH)
+            options.type = preferences_dialog.get_page_side ();
         status_primary_label.set_text (/* Label shown when scan started */
                                        _("Contacting scanner…"));
         start_scan (selected_device, options);
@@ -669,27 +722,6 @@ public class AppWindow : Gtk.ApplicationWindow
     private void stop_scan_button_clicked_cb (Gtk.Widget widget)
     {
         stop_scan ();
-    }
-
-    [GtkCallback]
-    private void continuous_scan_button_clicked_cb (Gtk.Widget widget)
-    {
-        if (scanning)
-            stop_scan ();
-        else
-        {
-            var options = make_scan_options ();
-            options.type = preferences_dialog.get_page_side ();
-            start_scan (selected_device, options);
-        }
-    }
-
-    [GtkCallback]
-    private void batch_button_clicked_cb (Gtk.Widget widget)
-    {
-        var options = make_scan_options ();
-        options.type = ScanType.BATCH;
-        start_scan (selected_device, options);
     }
 
     private void preferences_cb ()
