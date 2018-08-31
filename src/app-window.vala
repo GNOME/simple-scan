@@ -36,10 +36,6 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.HeaderBar header_bar;
     [GtkChild]
-    private Gtk.MenuBar menubar;
-    [GtkChild]
-    private Gtk.Toolbar toolbar;
-    [GtkChild]
     private Gtk.Menu page_menu;
     [GtkChild]
     private Gtk.Stack stack;
@@ -86,11 +82,7 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.Button save_button;
     [GtkChild]
-    private Gtk.ToolButton save_toolbutton;
-    [GtkChild]
     private Gtk.MenuItem stop_scan_menuitem;
-    [GtkChild]
-    private Gtk.ToolButton stop_toolbutton;
     [GtkChild]
     private Gtk.Button stop_button;
     [GtkChild]
@@ -101,13 +93,9 @@ public class AppWindow : Gtk.ApplicationWindow
     private Gtk.Button delete_button;
 
     [GtkChild]
-    private Gtk.RadioMenuItem text_button_menuitem;
-    [GtkChild]
     private Gtk.RadioMenuItem text_button_hb_menuitem;
     [GtkChild]
     private Gtk.RadioMenuItem text_menuitem;
-    [GtkChild]
-    private Gtk.RadioMenuItem photo_button_menuitem;
     [GtkChild]
     private Gtk.RadioMenuItem photo_button_hb_menuitem;
     [GtkChild]
@@ -155,7 +143,6 @@ public class AppWindow : Gtk.ApplicationWindow
             page_delete_menuitem.sensitive = !value;
             delete_button.sensitive = !value;
             stop_scan_menuitem.sensitive = value;
-            stop_toolbutton.sensitive = value;
             scan_button.visible = !value;
             stop_button.visible = value;
         }
@@ -591,7 +578,6 @@ public class AppWindow : Gtk.ApplicationWindow
         email_menuitem.sensitive = false;
         print_menuitem.sensitive = false;
         save_button.sensitive = false;
-        save_toolbutton.sensitive = false;
         copy_to_clipboard_menuitem.sensitive = false;
         update_scan_status ();
         stack.set_visible_child_name ("startup");
@@ -643,13 +629,11 @@ public class AppWindow : Gtk.ApplicationWindow
 
         if (document_hint == "text")
         {
-            text_button_menuitem.active = true;
             text_button_hb_menuitem.active = true;
             text_menuitem.active = true;
         }
         else if (document_hint == "photo")
         {
-            photo_button_menuitem.active = true;
             photo_button_hb_menuitem.active = true;
             photo_menuitem.active = true;
         }
@@ -1548,16 +1532,13 @@ public class AppWindow : Gtk.ApplicationWindow
         email_menuitem.sensitive = true;
         print_menuitem.sensitive = true;
         save_button.sensitive = true;
-        save_toolbutton.sensitive = true;
         book_needs_saving = true;
         copy_to_clipboard_menuitem.sensitive = true;
     }
 
     private void load ()
     {
-        var use_header_bar = !is_traditional_desktop ();
-
-        preferences_dialog = new PreferencesDialog (settings, use_header_bar);
+        preferences_dialog = new PreferencesDialog (settings);
         preferences_dialog.delete_event.connect (() => { return true; });
         preferences_dialog.response.connect (() => { preferences_dialog.visible = false; });
 
@@ -1567,41 +1548,33 @@ public class AppWindow : Gtk.ApplicationWindow
 
         var app = Application.get_default () as Gtk.Application;
 
-        if (!use_header_bar)
-        {
-            set_titlebar (null);
-            menubar.visible = true;
-            toolbar.visible = true;
-        }
-        else
-        {
-            /* Set HeaderBar title here because Glade doesn't keep it translated */
-            /* https://bugzilla.gnome.org/show_bug.cgi?id=782753 */
-            /* Title of scan window */
-            header_bar.title = _("Simple Scan");
+        /* Set HeaderBar title here because Glade doesn't keep it translated */
+        /* https://bugzilla.gnome.org/show_bug.cgi?id=782753 */
+        /* Title of scan window */
+        header_bar.title = _("Simple Scan");
 
-            app.add_action_entries (action_entries, this);
+        app.add_action_entries (action_entries, this);
 
-            app.set_accels_for_action ("app.new_document", { "<Ctrl>N" });
-            app.set_accels_for_action ("app.save", { "<Ctrl>S" });
-            app.set_accels_for_action ("app.email", { "<Ctrl>E" });
-            app.set_accels_for_action ("app.print", { "<Ctrl>P" });
-            app.set_accels_for_action ("app.help", { "F1" });
-            app.set_accels_for_action ("app.quit", { "<Ctrl>Q" });
+        app.set_accels_for_action ("app.new_document", { "<Ctrl>N" });
+        app.set_accels_for_action ("app.save", { "<Ctrl>S" });
+        app.set_accels_for_action ("app.email", { "<Ctrl>E" });
+        app.set_accels_for_action ("app.print", { "<Ctrl>P" });
+        app.set_accels_for_action ("app.help", { "F1" });
+        app.set_accels_for_action ("app.quit", { "<Ctrl>Q" });
 
-            var gear_menu = new Menu ();
-            var section = new Menu ();
-            gear_menu.append_section (null, section);
-            section.append (_("Email"), "app.email");
-            section.append (_("Reorder Pages"), "app.reorder");
-            section = new Menu ();
-            gear_menu.append_section (null, section);
-            section.append (_("Preferences"), "app.preferences");
-            section.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
-            section.append (_("Help"), "app.help");
-            section.append (_("About"), "app.about");
-            menu_button.set_menu_model (gear_menu);
-        }
+        var gear_menu = new Menu ();
+        var section = new Menu ();
+        gear_menu.append_section (null, section);
+        section.append (_("Email"), "app.email");
+        section.append (_("Reorder Pages"), "app.reorder");
+        section = new Menu ();
+        gear_menu.append_section (null, section);
+        section.append (_("Preferences"), "app.preferences");
+        section.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
+        section.append (_("Help"), "app.help");
+        section.append (_("About"), "app.about");
+        menu_button.set_menu_model (gear_menu);
+
         app.add_window (this);
 
         /* Populate ActionBar (not supported in Glade) */
@@ -1691,28 +1664,6 @@ public class AppWindow : Gtk.ApplicationWindow
             debug ("Restoring window to fullscreen");
             fullscreen ();
         }
-    }
-
-    private bool is_desktop (string name)
-    {
-        var desktop_name_list = Environment.get_variable ("XDG_CURRENT_DESKTOP");
-        if (desktop_name_list == null)
-            return false;
-
-        foreach (var n in desktop_name_list.split (":"))
-            if (n == name)
-                return true;
-
-        return false;
-    }
-
-    private bool is_traditional_desktop ()
-    {
-        const string[] traditional_desktops = { "Unity", "XFCE", "MATE", "LXDE", "Cinnamon", "X-Cinnamon", "i3" };
-        foreach (var name in traditional_desktops)
-            if (is_desktop (name))
-                return true;
-        return false;
     }
 
     private string state_filename
