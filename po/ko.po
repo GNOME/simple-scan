@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2018-02-20 23:24+0000\n"
-"PO-Revision-Date: 2018-02-25 16:35+0900\n"
+"POT-Creation-Date: 2018-08-31 02:10+0000\n"
+"PO-Revision-Date: 2018-09-02 11:51+0900\n"
 "Last-Translator: DaeHyun Sung <sungdh86@gmail.com>\n"
-"Language-Team: Korean <gnome-kr@googlegroups.com>\n"
+"Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.1.1\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -133,7 +133,7 @@ msgstr "페이지 갼 지연 시간 (밀리초)."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:76 src/app-window.vala:1560
+#: src/app-window.ui:76 src/app-window.vala:1554
 msgid "Simple Scan"
 msgstr "심플 스캔"
 
@@ -176,29 +176,29 @@ msgstr "scanner"
 #. Toolbar scan menu item to scan a single page from the scanner
 #. Scan menu item to scan a single page from the scanner
 #. Toolbar scan menu item to scan a single page from the scanner
-#: src/app-window.ui:22 src/app-window.ui:123 src/app-window.ui:820
+#: src/app-window.ui:22 src/app-window.ui:123 src/app-window.ui:767
 msgid "Single _Page"
 msgstr "단일 페이지(_P)"
 
 #. Toolbar scan menu item to scan all pages from a document feeder
 #. Scan menu item to scan all pages from a document feeder
 #. Toolbar scan menu item to scan all pages from a document feeder
-#: src/app-window.ui:31 src/app-window.ui:133 src/app-window.ui:829
+#: src/app-window.ui:31 src/app-window.ui:133 src/app-window.ui:776
 msgid "All Pages From _Feeder"
 msgstr "스케너의 모든 페이지(_F)"
 
 #. Toolbar scan menu item to scan continuously from the flatbed
 #. Scan menu item to scan continuously from the flatbed
 #. Toolbar scan menu item to scan continuously from the flatbed
-#: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:838
+#: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:785
 msgid "_Multiple Pages From Flatbed"
 msgstr "평판스캐너에서 여러 장 스캔(_M)"
 
-#: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:853
+#: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:800
 msgid "Text"
 msgstr "텍스트"
 
-#: src/app-window.ui:65 src/app-window.ui:180 src/app-window.ui:863
+#: src/app-window.ui:65 src/app-window.ui:180 src/app-window.ui:810
 msgid "Photo"
 msgstr "사진"
 
@@ -219,7 +219,7 @@ msgstr "스캔 중지(_S)"
 
 #. Menu item to reorder pages
 #. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1590
+#: src/app-window.ui:196 src/app-window.vala:972 src/app-window.vala:1569
 msgid "Reorder Pages"
 msgstr "페이지 다시 정렬"
 
@@ -283,105 +283,106 @@ msgstr "미국 법정 규격(_G)"
 msgid "4×6"
 msgstr "4×6"
 
-#. Radio button for cropping to custom page size
+#. Radio button for cropping page to A3
 #: src/app-window.ui:397
+msgid "A_3"
+msgstr "A_3"
+
+#. Radio button for cropping to custom page size
+#: src/app-window.ui:408
 msgid "_Custom"
 msgstr "사용자 설정(_C)"
 
 #. Menu item to rotate the crop area
-#: src/app-window.ui:415
+#: src/app-window.ui:426
 msgid "_Rotate Crop"
 msgstr "잘라낸 영역 회전(_R)"
 
 #. Menu item to move the selected page to the left
-#: src/app-window.ui:428
+#: src/app-window.ui:439
 msgid "Move Left"
 msgstr "왼쪽으로 이동"
 
 #. Menu item to move the selected page to the right
-#: src/app-window.ui:437
+#: src/app-window.ui:448
 msgid "Move Right"
 msgstr "오른쪽으로 이동"
 
 #. Label on help menu
-#: src/app-window.ui:474
+#: src/app-window.ui:485
 msgid "_Help"
 msgstr "도움말(_H)"
 
 #. Help|Contents menu
-#: src/app-window.ui:482
+#: src/app-window.ui:493
 msgid "_Contents"
 msgstr "내용(_C)"
 
-#. Tooltip for scan toolbar button
-#: src/app-window.ui:520 src/app-window.ui:720
-msgid "Scan a single page from the scanner"
-msgstr "스캐너로부터 한 페이지 스캔"
-
-#. Label on scan toolbar item
-#: src/app-window.ui:522 src/app-window.ui:716
-msgid "Scan"
-msgstr "스캔"
-
-#. Tooltip for save toolbar button
-#: src/app-window.ui:538 src/app-window.ui:787
-msgid "Save document to a file"
-msgstr "파일로 문서 저장하기"
-
-#: src/app-window.ui:540
-msgid "Save"
-msgstr "저장"
-
-#. Tooltip for stop button
-#: src/app-window.ui:555 src/app-window.ui:700
-msgid "Stop the current scan"
-msgstr "현재 스캔 중지"
-
-#: src/app-window.ui:556 src/app-window.ui:697
+#: src/app-window.ui:644
 msgid "Stop"
 msgstr "정지"
 
-#. Label shown when searching for scanners
-#: src/app-window.ui:611
-msgid "Searching for Scanners…"
-msgstr "스캐너 검색 중…"
+#. Tooltip for stop button
+#: src/app-window.ui:647
+msgid "Stop the current scan"
+msgstr "현재 스캔 중지"
 
-#: src/app-window.vala:237 src/app-window.vala:1380
+#. Label on scan toolbar item
+#: src/app-window.ui:663
+msgid "Scan"
+msgstr "스캔"
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:667
+msgid "Scan a single page from the scanner"
+msgstr "스캐너로부터 한 페이지 스캔"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:734
+msgid "Save document to a file"
+msgstr "파일로 문서 저장하기"
+
+#: src/app-window.vala:227 src/app-window.vala:1385
 msgid "_Close"
 msgstr "닫기(_C)"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:246
+#: src/app-window.vala:236
 #, c-format
 msgid "Username and password required to access “%s”"
-msgstr "'%s'에 접근하려면 사용자 이름과 암호가 필요합니다"
+msgstr "“%s”에 접근하려면 사용자 이름과 암호가 필요합니다"
+
+#. Label shown when searching for scanners
+#: src/app-window.vala:252
+msgid "Searching for Scanners…"
+msgstr "스캐너 검색 중…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:266 src/app-window.vala:584
+#: src/app-window.vala:258
 msgid "Ready to Scan"
 msgstr "스캔 준비"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:273
+#: src/app-window.vala:265
 msgid "Additional software needed"
 msgstr "추가 소프트웨어 필요"
 
 #. Instructions to install driver software
-#: src/app-window.vala:275
+#: src/app-window.vala:267
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
 msgstr ""
-"링크 <a href=\"install-firmware\">드라이버 프로그램 설치</a> 로 스캐너용 드"
-"라이버를 설치해야 합니다."
+"링크 <a href=\"install-firmware\">드라이버 프로그램 설치</a> 로 스캐너용 드라"
+"이버를 설치해야 합니다."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:281
+#: src/app-window.vala:273
 msgid "No scanners detected"
 msgstr "감지된 스캐너 없음"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:283
+#: src/app-window.vala:275
 msgid "Please check your scanner is connected and powered on"
 msgstr "스캐너와 연결되어있는지, 전원이 켜져 있는지 확인해 주세요"
 
@@ -469,57 +470,57 @@ msgid "If you don’t save, changes will be permanently lost."
 msgstr "저장하지 않으면 바뀐 내용이 영영 사라집니다."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:591
+#: src/app-window.vala:589
 msgid "Save current document?"
 msgstr "현재 문서를 저장하시겠습니까?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:593
+#: src/app-window.vala:591
 msgid "Discard Changes"
 msgstr "바뀐 내용 버리기"
 
 #. Label shown when scan started
-#: src/app-window.vala:692
+#: src/app-window.vala:688
 msgid "Contacting scanner…"
 msgstr "스캐너 연결 중…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:800
+#: src/app-window.vala:798
 msgid "Unable to save image for preview"
 msgstr "미리 보기 그림을 저장할 수 없습니다."
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:812
+#: src/app-window.vala:810
 msgid "Unable to open image preview application"
 msgstr "그림 미리보기 프로그램을 열 수 없습니다"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:990
+#: src/app-window.vala:995
 msgid "Combine sides"
 msgstr "측면 결합"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1000
+#: src/app-window.vala:1005
 msgid "Combine sides (reverse)"
 msgstr "측면 결합(역순)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1010
+#: src/app-window.vala:1015
 msgid "Reverse"
 msgstr "역순"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1020
+#: src/app-window.vala:1025
 msgid "Keep unchanged"
 msgstr "바꾸지 않은 상태 유지"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1250
+#: src/app-window.vala:1255
 msgid "Unable to open help file"
 msgstr "도움말 파일을 열 수 없습니다"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1271
+#: src/app-window.vala:1276
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -548,18 +549,20 @@ msgstr ""
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1274
+#: src/app-window.vala:1279
 msgid "About Simple Scan"
 msgstr "심플 스캔 소개"
 
 #. Description of program
-#: src/app-window.vala:1277
+#: src/app-window.vala:1282
 msgid "Simple document scanning tool"
 msgstr "간단한 문서 스캐닝 도구"
 
-#: src/app-window.vala:1286
+#: src/app-window.vala:1291
 msgid "translator-credits"
 msgstr ""
+"GNOME Contributions:\n"
+" DaeHyun Sung https://gitlab.gnome.org/studioego\n"
 "Launchpad Contributions:\n"
 "  Bundo https://launchpad.net/~kang-bundo\n"
 "  Jung-Kyu Park https://launchpad.net/~bagjunggyu\n"
@@ -573,22 +576,22 @@ msgstr ""
 "  atto https://launchpad.net/~kpsman"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1308
+#: src/app-window.vala:1313
 msgid "Save document before quitting?"
 msgstr "종료하기 전에 문서를 저장하시겠습니까?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1310
+#: src/app-window.vala:1315
 msgid "Quit without Saving"
 msgstr "저장하지 않고 종료"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1357
+#: src/app-window.vala:1362
 msgid "You appear to have a Brother scanner."
 msgstr "브라더 스캐너를 가지고 계신 것 같습니다."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1359
+#: src/app-window.vala:1364
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -597,12 +600,12 @@ msgstr ""
 "website</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1363
+#: src/app-window.vala:1368
 msgid "You appear to have a Samsung scanner."
 msgstr "삼성 스캐너를 가지고 계신 것 같습니다."
 
 #. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1365
+#: src/app-window.vala:1370
 msgid ""
 "Drivers for this are available on the <a href=\"http://samsung.com/support"
 "\">Samsung website</a>."
@@ -611,17 +614,17 @@ msgstr ""
 "website</a>."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1369
+#: src/app-window.vala:1374
 msgid "You appear to have an HP scanner."
 msgstr "HP 스캐너를 가지고 계신 것 같습니다."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1374
+#: src/app-window.vala:1379
 msgid "You appear to have an Epson scanner."
 msgstr "Epson 스캐너를 가지고 계신 것 같습니다."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1376
+#: src/app-window.vala:1381
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -630,98 +633,93 @@ msgstr ""
 "website</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1380
+#: src/app-window.vala:1385
 msgid "Install drivers"
 msgstr "드라이버 설치"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1411
+#: src/app-window.vala:1416
 msgid "Once installed you will need to restart Simple Scan."
 msgstr "드라이버 설치 후엔 심플 스캔을 다시 시작해야 합니다."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1423
+#: src/app-window.vala:1428
 msgid "Installing drivers…"
 msgstr "드라이버를 설치하고 있습니다…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1431
+#: src/app-window.vala:1436
 msgid "Drivers installed successfully!"
 msgstr "드라이버를 설치했습니다!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1441
+#: src/app-window.vala:1446
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "드라이버 설치 실패 (에러 코드 %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1447
+#: src/app-window.vala:1452
 msgid "Failed to install drivers."
 msgstr "드라이버 설치에 실패했습니다."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1454
+#: src/app-window.vala:1459
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "%s 패키지를 꼭 설치해야 합니다."
 
+#: src/app-window.vala:1568
+msgid "Email"
+msgstr "전자메일"
+
 #. Title of preferences dialog
-#: src/app-window.vala:1568 src/app-window.vala:1591
-#: src/preferences-dialog.ui:53
+#: src/app-window.vala:1572 src/preferences-dialog.ui:53
 msgid "Preferences"
 msgstr "기본 설정"
 
-#: src/app-window.vala:1572
+#: src/app-window.vala:1573
 msgid "Keyboard Shortcuts"
 msgstr "키보드 바로 가기"
 
-#: src/app-window.vala:1573
+#: src/app-window.vala:1574
 msgid "Help"
 msgstr "도움말"
 
-#: src/app-window.vala:1574
+#: src/app-window.vala:1575
 msgid "About"
 msgstr "정보"
-
-#: src/app-window.vala:1575
-msgid "Quit"
-msgstr "끝내기"
-
-#: src/app-window.vala:1589
-msgid "Email"
-msgstr "전자메일"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1599
+#: src/app-window.vala:1583
 msgid "Start Again…"
 msgstr "다시 시작…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1616
+#: src/app-window.vala:1600
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "페이지를 왼쪽으로 회전 (시계 반대 방향)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1623
+#: src/app-window.vala:1607
 msgid "Rotate the page to the right (clockwise)"
 msgstr "페이지를 오른쪽으로 회전 (시계 방향)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1633
+#: src/app-window.vala:1617
 msgid "Crop the selected page"
 msgstr "선택한 페이지 자르기"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1649
+#: src/app-window.vala:1633
 msgid "Delete the selected page"
 msgstr "선택한 페이지 삭제"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1814
+#: src/app-window.vala:1776
 msgid "Cancel"
 msgstr "취소"
 
@@ -831,146 +829,146 @@ msgid "Copy current page to clipboard"
 msgstr "현재 페이지를 클립보드로 복사"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:113
+#: src/preferences-dialog.ui:85
 msgid "_Scanner"
 msgstr "스캐너(_S)"
 
 #. Label beside scan side combo box
-#: src/preferences-dialog.ui:143
+#: src/preferences-dialog.ui:115
 msgid "Scan Sides"
 msgstr "가장자리 스캔"
 
 #. Label beside page size combo box
-#: src/preferences-dialog.ui:160
+#: src/preferences-dialog.ui:132
 msgid "Page Size"
 msgstr "페이지 크기"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:191
+#: src/preferences-dialog.ui:163
 msgid "Front"
 msgstr "앞면"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:206
+#: src/preferences-dialog.ui:178
 msgid "Back"
 msgstr "뒷면"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:221
+#: src/preferences-dialog.ui:193
 msgid "Both"
 msgstr "양면"
 
 #. Label beside page delay scale
-#: src/preferences-dialog.ui:260
+#: src/preferences-dialog.ui:232
 msgid "Delay"
 msgstr "지연"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:276
+#: src/preferences-dialog.ui:248
 msgid "Multiple pages from flatbed"
 msgstr "평판스캐너로 여러 페이지를 스캔"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:295
+#: src/preferences-dialog.ui:267
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:310
+#: src/preferences-dialog.ui:282
 msgid "5"
 msgstr "5"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:326
+#: src/preferences-dialog.ui:298
 msgid "7"
 msgstr "7"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:342
+#: src/preferences-dialog.ui:314
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:358
+#: src/preferences-dialog.ui:330
 msgid "15"
 msgstr "15"
 
 #. Label after page delay radio buttons
-#: src/preferences-dialog.ui:385
+#: src/preferences-dialog.ui:357
 msgid "Seconds"
 msgstr "초"
 
 #. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:413
+#: src/preferences-dialog.ui:385
 msgid "Scanning"
 msgstr "스캔"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:436
+#: src/preferences-dialog.ui:408
 msgid "_Text Resolution"
 msgstr "텍스트 해상도(_T)"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:452
+#: src/preferences-dialog.ui:424
 msgid "_Photo Resolution"
 msgstr "사진 해상도(_P)"
 
 #. Label beside brightness scale
-#: src/preferences-dialog.ui:505
+#: src/preferences-dialog.ui:477
 msgid "Brightness"
 msgstr "밝기"
 
 #. Label beside contrast scale
-#: src/preferences-dialog.ui:521
+#: src/preferences-dialog.ui:493
 msgid "Contrast"
 msgstr "명암"
 
 #. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:576
+#: src/preferences-dialog.ui:548
 msgid "Quality"
 msgstr "품질"
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:77
+#: src/preferences-dialog.vala:72
 msgid "Automatic"
 msgstr "자동 설정"
 
-#: src/preferences-dialog.vala:116
+#: src/preferences-dialog.vala:113
 msgid "Darker"
 msgstr "어둡게"
 
-#: src/preferences-dialog.vala:118
+#: src/preferences-dialog.vala:115
 msgid "Lighter"
 msgstr "밝게"
 
-#: src/preferences-dialog.vala:126
+#: src/preferences-dialog.vala:123
 msgid "Less"
 msgstr "적게"
 
-#: src/preferences-dialog.vala:128
+#: src/preferences-dialog.vala:125
 msgid "More"
 msgstr "많이"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:440
+#: src/preferences-dialog.vala:437
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (기본값)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:443
+#: src/preferences-dialog.vala:440
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (초안)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:446
+#: src/preferences-dialog.vala:443
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (고해상도)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:449
+#: src/preferences-dialog.vala:446
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
@@ -991,7 +989,7 @@ msgid "Unable to start scan"
 msgstr "스캔을 시작할 수 없음"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1240 src/scanner.vala:1340
+#: src/scanner.vala:1240 src/scanner.vala:1347
 msgid "Error communicating with scanner"
 msgstr "스캐너와의 통신 에러"
 
@@ -1010,25 +1008,31 @@ msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr "이전 버전의 심플 스캔으로 만든 PDF 파일 고치기"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:392
+#: src/simple-scan.vala:393
 msgid "Failed to scan"
 msgstr "스캔 실패"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:407
+#: src/simple-scan.vala:408
 msgid "Scan in progress"
 msgstr "스캔 진행 중"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:584
+#: src/simple-scan.vala:585
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[장치...] - 스캔 도구"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:595
+#: src/simple-scan.vala:596
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
-msgstr "사용 가능한 모든 선택의 목록을 보려면 '%s --help' 명령을 실행하십시오."
+msgstr "사용 가능한 모든 선택의 목록을 보려면 “%s --help” 명령을 실행하십시오."
+
+#~ msgid "Save"
+#~ msgstr "저장"
+
+#~ msgid "Quit"
+#~ msgstr "끝내기"
 
 #~ msgid "Front and Back"
 #~ msgstr "앞뒤"
