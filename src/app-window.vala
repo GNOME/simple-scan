@@ -1596,6 +1596,8 @@ public class AppWindow : Gtk.ApplicationWindow
 
         button = new Gtk.Button.from_icon_name ("object-rotate-left-symbolic");
         button.visible = true;
+        button.image.margin_start = 18;
+        button.image.margin_end = 18;
         /* Tooltip for rotate left (counter-clockwise) button */
         button.tooltip_text = _("Rotate the page to the left (counter-clockwise)");
         button.clicked.connect (rotate_left_button_clicked_cb);
@@ -1603,6 +1605,8 @@ public class AppWindow : Gtk.ApplicationWindow
 
         button = new Gtk.Button.from_icon_name ("object-rotate-right-symbolic");
         button.visible = true;
+        button.image.margin_start = 18;
+        button.image.margin_end = 18;
         /* Tooltip for rotate right (clockwise) button */
         button.tooltip_text = _("Rotate the page to the right (clockwise)");
         button.clicked.connect (rotate_right_button_clicked_cb);
@@ -1612,6 +1616,8 @@ public class AppWindow : Gtk.ApplicationWindow
         crop_button.visible = true;
         var image = new Gtk.Image.from_icon_name ("edit-cut-symbolic", Gtk.IconSize.BUTTON);
         image.visible = true;
+        image.margin_start = 18;
+        image.margin_end = 18;
         crop_button.add (image);
         /* Tooltip for crop button */
         crop_button.tooltip_text = _("Crop the selected page");
@@ -1629,6 +1635,8 @@ public class AppWindow : Gtk.ApplicationWindow
 
         delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic");
         delete_button.visible = true;
+        delete_button.image.margin_start = 18;
+        delete_button.image.margin_end = 18;
         /* Tooltip for delete button */
         delete_button.tooltip_text = _("Delete the selected page");
         delete_button.clicked.connect (() => { book_view.book.delete_page (book_view.selected_page); });
