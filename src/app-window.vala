@@ -1295,7 +1295,7 @@ public class AppWindow : Gtk.ApplicationWindow
                                "logo-icon-name", "scanner",
                                "authors", authors,
                                "translator-credits", _("translator-credits"),
-                               "website", "https://launchpad.net/simple-scan",
+                               "website", "https://gitlab.gnome.org/GNOME/simple-scan",
                                "copyright", "Copyright © 2009-2018 Canonical Ltd.",
                                "license", license,
                                "wrap-license", true,
