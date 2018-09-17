@@ -115,6 +115,21 @@ public class Book
         changed ();
     }
 
+    public void duplicate_page (Page page)
+    {
+        var duplicated_page = new Page.from_data (page.scan_width, page.scan_height, page.rowstride,
+                                                  page.n_channels, page.depth, page.dpi,
+                                                  page.scan_direction,
+                                                  page.color_profile,
+                                                  page.get_pixels (),
+                                                  page.has_crop,
+                                                  page.crop_name,
+                                                  page.crop_x, page.crop_y, page.crop_width, page.crop_height);
+        pages.insert (duplicated_page, pages.index (page) + 1);
+        page_added (duplicated_page);
+        changed ();
+    }
+
     public void delete_page (Page page)
     {
         page.pixels_changed.disconnect (page_changed_cb);

@@ -82,6 +82,7 @@ public class AppWindow : Gtk.ApplicationWindow
     private Gtk.Button scan_button;
     [GtkChild]
     private Gtk.ActionBar action_bar;
+    private Gtk.Button duplicate_button;
     private Gtk.ToggleButton crop_button;
     private Gtk.Button delete_button;
 
@@ -1595,6 +1596,15 @@ public class AppWindow : Gtk.ApplicationWindow
         button.tooltip_text = _("Rotate the page to the right (clockwise)");
         button.clicked.connect (rotate_right_button_clicked_cb);
         rotate_box.add (button);
+
+        duplicate_button = new Gtk.Button.from_icon_name ("edit-copy-symbolic");
+        duplicate_button.visible = true;
+        duplicate_button.image.margin_start = 18;
+        duplicate_button.image.margin_end = 18;
+        /* Tooltip for duplicate button */
+        duplicate_button.tooltip_text = _("Duplicate the selected page");
+        duplicate_button.clicked.connect (() => { book.duplicate_page (page_view.page); });
+        box.pack_start (duplicate_button, false, true, 0);
 
         crop_button = new Gtk.ToggleButton ();
         crop_button.visible = true;
