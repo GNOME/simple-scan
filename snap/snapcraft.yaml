@@ -5,26 +5,62 @@ description: |
   Simple Scan allows you to get images from a scanner (e.g. a flatbed scanner)
 
 grade: stable # must be 'stable' to release into candidate/stable channels
-confinement: classic
+confinement: strict
 
+plugs:
+  gnome-3-26-1604:
+    interface: content
+    target: $SNAP/gnome-platform
+    default-provider: gnome-3-26-1604
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/data-dir/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/data-dir/sounds
+    default-provider: gtk-common-themes
+
+slots:
+  # for GtkApplication registration
+  simple-scan:
+    interface: dbus
+    bus: session
+    name: org.gnome.SimpleScan
+ 
 apps:
   simple-scan:
-    command: bin/classic-launch classic ${SNAP}/usr/bin/simple-scan
+    plugs:
+      - desktop
+      - desktop-legacy
+      - network
+      - home
+      - gsettings
+      - hardware-observe
+      - system-observe
+      - io-ports-control
+      - raw-usb
+      - unity7
+    command: bin/desktop-launch ${SNAP}/usr/bin/simple-scan
     desktop: usr/share/applications/simple-scan.desktop
     environment:
       GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
 
 parts:
   libsane:
-    after: [desktop-gtk3]
-    source: https://anonscm.debian.org/cgit/sane/sane-backends.git
+    after: [desktop-gnome-platform]
+    source: https://salsa.debian.org/debian/sane-backends.git
     source-type: git
-    source-tag: RELEASE_1_0_27
+    source-tag: upstream/1.0.27
     plugin: autotools
-    # workaround the issue described in https://launchpad.net/bugs/1583250
     configflags: [--prefix=/snap/simple-scan/current/usr, --with-api-spec=no]
     organize:
       snap/simple-scan/current/usr: usr
+    build-attributes: ['no-system-libraries']
     build-packages:
       - autotools-dev
       - autoconf
@@ -47,13 +83,13 @@ parts:
   simple-scan:
     after: [libsane]
     source: .
+    source-type: git
+    #source-tag: 3.30.0
     plugin: meson
     meson-parameters: [--prefix=/usr]
     organize:
       snap/simple-scan/current/usr: usr
-    install: |
-      mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
-      cp snapbuild/data/simple-scan.desktop $SNAPCRAFT_PART_INSTALL/meta/gui/
+    build-attributes: ['no-system-libraries']
     build-packages:
       - desktop-file-utils
       - gettext
@@ -72,8 +108,9 @@ parts:
       - python-scour
       - valac
       - zlib1g-dev
-  classic-launch:
-    plugin: dump
-    source: ./snap
-    organize:
-      classic-launch: bin/classic-launch
+  libs:
+    plugin: nil
+    stage-packages:
+      - libgusb2
+      - libpackagekit-glib2-18
+      - libieee1284-3
