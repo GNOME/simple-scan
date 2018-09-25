@@ -563,7 +563,7 @@ public class PageView
     private CropLocation get_crop_location (int x, int y)
     {
         if (!page.has_crop)
-            return 0;
+            return CropLocation.None;
 
         var cx = page.crop_x;
         var cy = page.crop_y;
@@ -575,6 +575,19 @@ public class PageView
         var dh = page_to_screen_y (ch);
         var ix = x - dx;
         var iy = y - dy;
+
+        var d = Math.pow (ix, 2) + Math.pow (iy, 2);
+        if (d < 20*20)
+            return CropLocation.TOP_LEFT;
+        d = Math.pow (ix - dw, 2) + Math.pow (iy, 2);
+        if (d < 20*20)
+            return CropLocation.TOP_RIGHT;
+        d = Math.pow (ix, 2) + Math.pow (iy - dh, 2);
+        if (d < 20*20)
+            return CropLocation.BOTTOM_LEFT;
+        d = Math.pow (ix - dw, 2) + Math.pow (iy - dh, 2);
+        if (d < 20*20)
+            return CropLocation.BOTTOM_RIGHT;
 
         if (ix < 0 || ix > dw || iy < 0 || iy > dh)
             return CropLocation.NONE;
@@ -936,7 +949,7 @@ public class PageView
             context.new_sub_path ();
             context.rectangle (dx, dy, dw, dh);
             context.set_fill_rule (Cairo.FillRule.EVEN_ODD);
-            context.set_source_rgba (0.25, 0.25, 0.25, 0.2);
+            context.set_source_rgba (0.25, 0.25, 0.25, 0.4);
             context.fill ();
 
             /* Show new edge */
@@ -946,6 +959,17 @@ public class PageView
             context.rectangle (dx - 0.5, dy - 0.5, dw + 1, dh + 1);
             context.set_source_rgb (0.0, 0.0, 0.0);
             context.stroke ();
+
+            /* Draw crop corners */
+            context.set_source_rgba (0.0, 0.0, 1.0, 0.25);
+            context.arc (dx, dy, 20, 0, 2 * Math.PI);
+            context.fill ();
+            context.arc (dx + dw, dy, 20, 0, 2 * Math.PI);
+            context.fill ();
+            context.arc (dx, dy + dh, 20, 0, 2 * Math.PI);
+            context.fill ();
+            context.arc (dx + dw, dy + dh, 20, 0, 2 * Math.PI);
+            context.fill ();
         }
     }
 
