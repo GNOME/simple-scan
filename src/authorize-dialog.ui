@@ -3,7 +3,6 @@
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <template class="AuthorizeDialog" parent="GtkDialog">
-    <property name="can_focus">False</property>
     <property name="border_width">12</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
@@ -12,13 +11,11 @@
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">12</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area1">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="authorize_button">
@@ -37,14 +34,12 @@
         <child>
           <object class="GtkBox" id="vbox5">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
             <property name="border_width">5</property>
             <property name="orientation">vertical</property>
             <property name="spacing">12</property>
             <child>
               <object class="GtkLabel" id="authorize_label">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="vexpand">True</property>
                 <property name="label" comments="This label is set dynamically and is not translated">To connect to ? you need to authorize</property>
               </object>
@@ -52,7 +47,6 @@
             <child>
               <object class="GtkGrid" id="grid2">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="row_spacing">6</property>
                 <property name="column_spacing">6</property>
                 <child>
@@ -83,7 +77,6 @@
                 <child>
                   <object class="GtkLabel" id="username_label">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="label" translatable="yes" comments="Label beside username entry">_Username for resource:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">username_entry</property>
@@ -96,7 +89,6 @@
                 <child>
                   <object class="GtkLabel" id="password_label">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="label" translatable="yes" comments="Label beside password entry">_Password:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">password_entry</property>

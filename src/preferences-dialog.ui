@@ -49,7 +49,6 @@
     </columns>
   </object>
   <template class="PreferencesDialog" parent="GtkDialog">
-    <property name="can_focus">False</property>
     <property name="title" translatable="yes" comments="Title of preferences dialog">Preferences</property>
     <property name="resizable">False</property>
     <property name="icon_name">scanner</property>
@@ -57,7 +56,6 @@
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox2">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
@@ -68,20 +66,17 @@
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="border_width">30</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">30</property>
                 <child>
                   <object class="GtkGrid">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="row_spacing">15</property>
                     <property name="column_spacing">10</property>
                     <child>
                       <object class="GtkLabel" id="source_label">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes" comments="Label beside scan source combo box">_Scanner</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">device_combo</property>
@@ -98,7 +93,6 @@
                     <child>
                       <object class="GtkComboBox" id="device_combo">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
                         <property name="model">device_model</property>
                         <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
@@ -111,7 +105,6 @@
                     <child>
                       <object class="GtkLabel" id="page_side_label">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes" comments="Label beside scan side combo box">Scan Sides</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">scan_side_box</property>
@@ -128,7 +121,6 @@
                     <child>
                       <object class="GtkLabel" id="paper_size_label">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes" comments="Label beside page size combo box">Page Size</property>
                         <property name="use_underline">True</property>
                         <property name="xalign">1</property>
@@ -144,7 +136,6 @@
                     <child>
                       <object class="GtkComboBox" id="paper_size_combo">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
                         <property name="model">paper_size_model</property>
                       </object>
@@ -156,7 +147,6 @@
                     <child>
                       <object class="GtkBox" id="scan_side_box">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="homogeneous">True</property>
                         <child>
                           <object class="GtkRadioButton" id="front_side_button">
@@ -202,13 +192,11 @@
                 <child>
                   <object class="GtkGrid">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="row_spacing">15</property>
                     <property name="column_spacing">10</property>
                     <child>
                       <object class="GtkLabel" id="page_delay_label">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes" comments="Label beside page delay scale">Delay</property>
                         <property name="use_underline">True</property>
                         <property name="xalign">1</property>
@@ -224,7 +212,6 @@
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes" comments="Preferences dialog: Label above settings for scanning multiple pages from a flatbed">Multiple pages from flatbed</property>
                         <property name="xalign">0</property>
                         <attributes>
@@ -240,7 +227,6 @@
                     <child>
                       <object class="GtkBox">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="homogeneous">True</property>
                         <child>
                           <object class="GtkRadioButton" id="page_delay_3s_button">
@@ -308,7 +294,6 @@
                     <child>
                       <object class="GtkLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes" comments="Label after page delay radio buttons">Seconds</property>
                         <property name="use_underline">True</property>
                         <property name="xalign">1</property>
@@ -331,7 +316,6 @@
             <child type="tab">
               <object class="GtkLabel">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes" comments="Preferences Dialog: Tab label for scanning settings">Scanning</property>
               </object>
               <packing>
@@ -341,20 +325,17 @@
             <child>
               <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="border_width">30</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">30</property>
                 <child>
                   <object class="GtkGrid">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="row_spacing">14</property>
                     <property name="column_spacing">10</property>
                     <child>
                       <object class="GtkLabel" id="text_dpi_label">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes" comments="Label beside scan source combo box">_Text Resolution</property>
                         <property name="use_underline">True</property>
                         <property name="xalign">1</property>
@@ -370,7 +351,6 @@
                     <child>
                       <object class="GtkLabel" id="photo_dpi_label">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes" comments="Label beside scan source combo box">_Photo Resolution</property>
                         <property name="use_underline">True</property>
                         <property name="xalign">1</property>
@@ -386,7 +366,6 @@
                     <child>
                       <object class="GtkComboBox" id="text_dpi_combo">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
                         <property name="model">text_dpi_model</property>
                       </object>
@@ -398,7 +377,6 @@
                     <child>
                       <object class="GtkComboBox" id="photo_dpi_combo">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
                         <property name="model">photo_dpi_model</property>
                       </object>
@@ -412,13 +390,11 @@
                 <child>
                   <object class="GtkGrid">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="row_spacing">15</property>
                     <property name="column_spacing">10</property>
                     <child>
                       <object class="GtkLabel" id="brightness_label">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes" comments="Label beside brightness scale">Brightness</property>
                         <property name="use_underline">True</property>
                         <property name="xalign">1</property>
@@ -434,7 +410,6 @@
                     <child>
                       <object class="GtkLabel" id="contrast_label">
                         <property name="visible">True</property>
-                        <property name="can_focus">False</property>
                         <property name="label" translatable="yes" comments="Label beside contrast scale">Contrast</property>
                         <property name="use_underline">True</property>
                         <property name="xalign">1</property>
@@ -483,7 +458,6 @@
             <child type="tab">
               <object class="GtkLabel">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
                 <property name="label" translatable="yes" comments="Preferences Dialog: Tab for quality settings">Quality</property>
               </object>
               <packing>
