@@ -2,15 +2,200 @@
 <!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
-  <object class="GtkImage" id="email_image">
+  <object class="GtkMenu" id="page_menu">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="icon_name">mail-send</property>
-  </object>
-  <object class="GtkImage" id="help_image">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="stock">gtk-help</property>
+    <child>
+      <object class="GtkMenuItem" id="rotate_left_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes" comments="Menu item to rotate page to left (anti-clockwise)">Rotate _Left</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="rotate_left_button_clicked_cb" swapped="no"/>
+        <accelerator key="bracketleft" signal="activate"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="rotate_right_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes" comments="Menu item to rotate page to right (clockwise)">Rotate _Right</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="rotate_right_button_clicked_cb" swapped="no"/>
+        <accelerator key="bracketright" signal="activate"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="crop_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes" comments="Label for page crop submenu">_Crop</property>
+        <property name="use_underline">True</property>
+        <child type="submenu">
+          <object class="GtkMenu" id="crop_menu">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkRadioMenuItem" id="no_crop_menuitem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes" comments="Radio button for no crop">_None</property>
+                <property name="use_underline">True</property>
+                <property name="active">True</property>
+                <property name="draw_as_radio">True</property>
+                <signal name="toggled" handler="no_crop_menuitem_toggled_cb" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioMenuItem" id="a4_menuitem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes" comments="Radio button for cropping page to A4 size">A_4</property>
+                <property name="use_underline">True</property>
+                <property name="draw_as_radio">True</property>
+                <property name="group">no_crop_menuitem</property>
+                <signal name="toggled" handler="a4_menuitem_toggled_cb" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioMenuItem" id="a5_menuitem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes" comments="Radio button for cropping page to A5 size">A_5</property>
+                <property name="use_underline">True</property>
+                <property name="draw_as_radio">True</property>
+                <property name="group">no_crop_menuitem</property>
+                <signal name="toggled" handler="a5_menuitem_toggled_cb" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioMenuItem" id="a6_menuitem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes" comments="Radio button for cropping page to A6 size">A_6</property>
+                <property name="use_underline">True</property>
+                <property name="draw_as_radio">True</property>
+                <property name="group">no_crop_menuitem</property>
+                <signal name="toggled" handler="a6_menuitem_toggled_cb" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioMenuItem" id="letter_menuitem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes" comments="Radio button for cropping page to US letter size">_Letter</property>
+                <property name="use_underline">True</property>
+                <property name="draw_as_radio">True</property>
+                <property name="group">no_crop_menuitem</property>
+                <signal name="toggled" handler="letter_menuitem_toggled_cb" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioMenuItem" id="legal_menuitem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes" comments="Radio button for cropping to page to US legal size">Le_gal</property>
+                <property name="use_underline">True</property>
+                <property name="draw_as_radio">True</property>
+                <property name="group">no_crop_menuitem</property>
+                <signal name="toggled" handler="legal_menuitem_toggled_cb" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioMenuItem" id="four_by_six_menuitem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes" comments="Radio button for cropping page to 4x6 inch">4×6</property>
+                <property name="use_underline">True</property>
+                <property name="draw_as_radio">True</property>
+                <property name="group">no_crop_menuitem</property>
+                <signal name="toggled" handler="four_by_six_menuitem_toggled_cb" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioMenuItem" id="a3_menuitem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes" comments="Radio button for cropping page to A3">A_3</property>
+                <property name="use_underline">True</property>
+                <property name="draw_as_radio">True</property>
+                <property name="group">no_crop_menuitem</property>
+                <signal name="toggled" handler="a3_menuitem_toggled_cb" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioMenuItem" id="custom_crop_menuitem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes" comments="Radio button for cropping to custom page size">_Custom</property>
+                <property name="use_underline">True</property>
+                <property name="draw_as_radio">True</property>
+                <property name="group">no_crop_menuitem</property>
+                <signal name="toggled" handler="custom_crop_menuitem_toggled_cb" swapped="no"/>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparatorMenuItem" id="crop_sep_menuitem">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="crop_rotate_menuitem">
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes" comments="Menu item to rotate the crop area">_Rotate Crop</property>
+                <property name="use_underline">True</property>
+                <signal name="activate" handler="crop_rotate_menuitem_activate_cb" swapped="no"/>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="page_move_left_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes" comments="Menu item to move the selected page to the left">Move Left</property>
+        <signal name="activate" handler="page_move_left_menuitem_activate_cb" swapped="no"/>
+        <accelerator key="less" signal="activate"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="page_move_right_menuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes" comments="Menu item to move the selected page to the right">Move Right</property>
+        <property name="use_underline">True</property>
+        <signal name="activate" handler="page_move_right_menuitem_activate_cb" swapped="no"/>
+        <accelerator key="greater" signal="activate"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="copy_to_clipboard_menuitem">
+        <property name="label">gtk-copy</property>
+        <property name="visible">True</property>
+        <property name="sensitive">False</property>
+        <property name="can_focus">False</property>
+        <property name="use_underline">True</property>
+        <property name="use_stock">True</property>
+        <signal name="activate" handler="copy_to_clipboard_button_clicked_cb" swapped="no"/>
+        <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImageMenuItem" id="page_delete_menuitem">
+        <property name="label">gtk-delete</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="use_underline">True</property>
+        <property name="use_stock">True</property>
+        <signal name="activate" handler="page_delete_menuitem_activate_cb" swapped="no"/>
+        <accelerator key="Delete" signal="activate"/>
+      </object>
+    </child>
   </object>
   <object class="GtkMenu" id="scan_button_hb_menu">
     <property name="visible">True</property>
@@ -81,446 +266,6 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkMenuBar" id="menubar">
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkMenuItem" id="document_menuitem">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes" comments="Label on document menu (contains actions for this document, e.g. save, print)">_Document</property>
-                <property name="use_underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu" id="document_menu">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkImageMenuItem" id="new_menuitem">
-                        <property name="label">gtk-new</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="new_button_clicked_cb" swapped="no"/>
-                        <accelerator key="n" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="scan_menuitem">
-                        <property name="label" translatable="yes" comments="Scan menu item">Sc_an</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">False</property>
-                        <child type="submenu">
-                          <object class="GtkMenu" id="scan_menu">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <child>
-                              <object class="GtkMenuItem" id="scan_single_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Scan menu item to scan a single page from the scanner">Single _Page</property>
-                                <property name="use_underline">True</property>
-                                <signal name="activate" handler="scan_button_clicked_cb" swapped="no"/>
-                                <accelerator key="1" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkMenuItem" id="scan_all_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Scan menu item to scan all pages from a document feeder">All Pages From _Feeder</property>
-                                <property name="use_underline">True</property>
-                                <signal name="activate" handler="continuous_scan_button_clicked_cb" swapped="no"/>
-                                <accelerator key="f" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkMenuItem" id="batch_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Scan menu item to scan continuously from the flatbed">_Multiple Pages From Flatbed</property>
-                                <property name="use_underline">True</property>
-                                <signal name="activate" handler="batch_button_clicked_cb" swapped="no"/>
-                                <accelerator key="m" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkMenuItem" id="stop_scan_menuitem">
-                                <property name="visible">True</property>
-                                <property name="sensitive">False</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Menu entry to stop current scan">_Stop Scan</property>
-                                <property name="use_underline">True</property>
-                                <signal name="activate" handler="stop_scan_button_clicked_cb" swapped="no"/>
-                                <accelerator key="Escape" signal="activate"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkSeparatorMenuItem" id="menuitem2">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="text_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Text</property>
-                                <property name="use_underline">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <signal name="toggled" handler="text_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="photo_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Photo</property>
-                                <property name="use_underline">True</property>
-                                <property name="active">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <property name="group">text_menuitem</property>
-                                <signal name="toggled" handler="photo_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkMenuItem" id="reorder_menuitem">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Menu item to reorder pages">Reorder Pages</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="reorder_menuitem_activate_cb" swapped="no"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="save_menuitem">
-                        <property name="label">gtk-save</property>
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="save_file_button_clicked_cb" swapped="no"/>
-                        <accelerator key="s" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="email_menuitem">
-                        <property name="label" translatable="yes" comments="Label on email menu item">_Email</property>
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="image">email_image</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="email_button_clicked_cb" swapped="no"/>
-                        <accelerator key="e" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="print_menuitem">
-                        <property name="label">gtk-print</property>
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="print_button_clicked_cb" swapped="no"/>
-                        <accelerator key="p" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSeparatorMenuItem" id="document_sep_menuitem">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="preferences_menuitem">
-                        <property name="label">gtk-preferences</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="preferences_button_clicked_cb" swapped="no"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkSeparatorMenuItem" id="separatormenuitem1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="quit_menuitem">
-                        <property name="label">gtk-quit</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="quit_menuitem_activate_cb" swapped="no"/>
-                        <accelerator key="w" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                        <accelerator key="q" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkMenuItem" id="page_menuitem">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes" comments="Page menu (contains action for each page, e.g. delete, crop)">_Page</property>
-                <property name="use_underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu" id="page_menu">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkMenuItem" id="rotate_left_menuitem">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Menu item to rotate page to left (anti-clockwise)">Rotate _Left</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="rotate_left_button_clicked_cb" swapped="no"/>
-                        <accelerator key="bracketleft" signal="activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkMenuItem" id="rotate_right_menuitem">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Menu item to rotate page to right (clockwise)">Rotate _Right</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="rotate_right_button_clicked_cb" swapped="no"/>
-                        <accelerator key="bracketright" signal="activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkMenuItem" id="crop_menuitem">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Label for page crop submenu">_Crop</property>
-                        <property name="use_underline">True</property>
-                        <child type="submenu">
-                          <object class="GtkMenu" id="crop_menu">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="no_crop_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Radio button for no crop">_None</property>
-                                <property name="use_underline">True</property>
-                                <property name="active">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <signal name="toggled" handler="no_crop_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="a4_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Radio button for cropping page to A4 size">A_4</property>
-                                <property name="use_underline">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <property name="group">no_crop_menuitem</property>
-                                <signal name="toggled" handler="a4_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="a5_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Radio button for cropping page to A5 size">A_5</property>
-                                <property name="use_underline">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <property name="group">no_crop_menuitem</property>
-                                <signal name="toggled" handler="a5_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="a6_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Radio button for cropping page to A6 size">A_6</property>
-                                <property name="use_underline">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <property name="group">no_crop_menuitem</property>
-                                <signal name="toggled" handler="a6_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="letter_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Radio button for cropping page to US letter size">_Letter</property>
-                                <property name="use_underline">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <property name="group">no_crop_menuitem</property>
-                                <signal name="toggled" handler="letter_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="legal_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Radio button for cropping to page to US legal size">Le_gal</property>
-                                <property name="use_underline">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <property name="group">no_crop_menuitem</property>
-                                <signal name="toggled" handler="legal_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="four_by_six_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Radio button for cropping page to 4x6 inch">4×6</property>
-                                <property name="use_underline">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <property name="group">no_crop_menuitem</property>
-                                <signal name="toggled" handler="four_by_six_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="a3_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Radio button for cropping page to A3">A_3</property>
-                                <property name="use_underline">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <property name="group">no_crop_menuitem</property>
-                                <signal name="toggled" handler="a3_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkRadioMenuItem" id="custom_crop_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Radio button for cropping to custom page size">_Custom</property>
-                                <property name="use_underline">True</property>
-                                <property name="draw_as_radio">True</property>
-                                <property name="group">no_crop_menuitem</property>
-                                <signal name="toggled" handler="custom_crop_menuitem_toggled_cb" swapped="no"/>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkSeparatorMenuItem" id="crop_sep_menuitem">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkMenuItem" id="crop_rotate_menuitem">
-                                <property name="visible">True</property>
-                                <property name="sensitive">False</property>
-                                <property name="can_focus">False</property>
-                                <property name="label" translatable="yes" comments="Menu item to rotate the crop area">_Rotate Crop</property>
-                                <property name="use_underline">True</property>
-                                <signal name="activate" handler="crop_rotate_menuitem_activate_cb" swapped="no"/>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkMenuItem" id="page_move_left_menuitem">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Menu item to move the selected page to the left">Move Left</property>
-                        <signal name="activate" handler="page_move_left_menuitem_activate_cb" swapped="no"/>
-                        <accelerator key="less" signal="activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkMenuItem" id="page_move_right_menuitem">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Menu item to move the selected page to the right">Move Right</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="page_move_right_menuitem_activate_cb" swapped="no"/>
-                        <accelerator key="greater" signal="activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="copy_to_clipboard_menuitem">
-                        <property name="label">gtk-copy</property>
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="copy_to_clipboard_button_clicked_cb" swapped="no"/>
-                        <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="page_delete_menuitem">
-                        <property name="label">gtk-delete</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="page_delete_menuitem_activate_cb" swapped="no"/>
-                        <accelerator key="Delete" signal="activate"/>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="GtkMenuItem" id="help_menuitem">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes" comments="Label on help menu">_Help</property>
-                <property name="use_underline">True</property>
-                <child type="submenu">
-                  <object class="GtkMenu" id="help_menu">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkImageMenuItem" id="help_contents_menuitem">
-                        <property name="label" translatable="yes" comments="Help|Contents menu">_Contents</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="image">help_image</property>
-                        <property name="use_stock">False</property>
-                        <signal name="activate" handler="help_contents_menuitem_activate_cb" swapped="no"/>
-                        <accelerator key="F1" signal="activate"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem" id="about_menuitem">
-                        <property name="label">gtk-about</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="about_menuitem_activate_cb" swapped="no"/>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
         <child>
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>

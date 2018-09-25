@@ -18,15 +18,15 @@ public class AppWindow : Gtk.ApplicationWindow
 {
     private const GLib.ActionEntry[] action_entries =
     {
-        { "new_document", new_document_activate_cb },
-        { "reorder", reorder_document_activate_cb },
+        { "new_document", new_document_cb },
+        { "reorder", reorder_document_cb },
         { "save", save_document_activate_cb },
-        { "email", email_document_activate_cb },
-        { "print", print_document_activate_cb },
-        { "preferences", preferences_activate_cb },
-        { "help", help_contents_activate_cb },
-        { "about", about_activate_cb },
-        { "quit", quit_activate_cb }
+        { "email", email_document_cb },
+        { "print", print_document_cb },
+        { "preferences", preferences_cb },
+        { "help", help_cb },
+        { "about", about_cb },
+        { "quit", quit_cb }
     };
 
     private Settings settings;
@@ -72,17 +72,9 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.MenuItem crop_rotate_menuitem;
     [GtkChild]
-    private Gtk.MenuItem save_menuitem;
-    [GtkChild]
-    private Gtk.MenuItem email_menuitem;
-    [GtkChild]
-    private Gtk.MenuItem print_menuitem;
-    [GtkChild]
     private Gtk.MenuItem copy_to_clipboard_menuitem;
     [GtkChild]
     private Gtk.Button save_button;
-    [GtkChild]
-    private Gtk.MenuItem stop_scan_menuitem;
     [GtkChild]
     private Gtk.Button stop_button;
     [GtkChild]
@@ -95,11 +87,7 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.RadioMenuItem text_button_hb_menuitem;
     [GtkChild]
-    private Gtk.RadioMenuItem text_menuitem;
-    [GtkChild]
     private Gtk.RadioMenuItem photo_button_hb_menuitem;
-    [GtkChild]
-    private Gtk.RadioMenuItem photo_menuitem;
 
     [GtkChild]
     private Gtk.MenuButton menu_button;
@@ -142,7 +130,6 @@ public class AppWindow : Gtk.ApplicationWindow
             stack.set_visible_child_name ("document");
             page_delete_menuitem.sensitive = !value;
             delete_button.sensitive = !value;
-            stop_scan_menuitem.sensitive = value;
             scan_button.visible = !value;
             stop_button.visible = value;
         }
@@ -574,9 +561,6 @@ public class AppWindow : Gtk.ApplicationWindow
         book.clear ();
         book_needs_saving = false;
         book_uri = null;
-        save_menuitem.sensitive = false;
-        email_menuitem.sensitive = false;
-        print_menuitem.sensitive = false;
         save_button.sensitive = false;
         copy_to_clipboard_menuitem.sensitive = false;
         update_scan_status ();
@@ -612,13 +596,7 @@ public class AppWindow : Gtk.ApplicationWindow
         return false;
     }
 
-    [GtkCallback]
-    private void new_button_clicked_cb (Gtk.Widget widget)
-    {
-        new_document();
-    }
-
-    public void new_document_activate_cb ()
+    private void new_document_cb ()
     {
         new_document();
     }
@@ -630,12 +608,10 @@ public class AppWindow : Gtk.ApplicationWindow
         if (document_hint == "text")
         {
             text_button_hb_menuitem.active = true;
-            text_menuitem.active = true;
         }
         else if (document_hint == "photo")
         {
             photo_button_hb_menuitem.active = true;
-            photo_menuitem.active = true;
         }
 
         if (save)
@@ -716,13 +692,7 @@ public class AppWindow : Gtk.ApplicationWindow
         start_scan (selected_device, options);
     }
 
-    [GtkCallback]
-    private void preferences_button_clicked_cb (Gtk.Widget widget)
-    {
-        preferences_dialog.present ();
-    }
-
-    public void preferences_activate_cb ()
+    private void preferences_cb ()
     {
         preferences_dialog.present ();
     }
@@ -1033,13 +1003,7 @@ public class AppWindow : Gtk.ApplicationWindow
         dialog.present ();
     }
 
-    public void reorder_document_activate_cb ()
-    {
-        reorder_document ();
-    }
-
-    [GtkCallback]
-    private void reorder_menuitem_activate_cb (Gtk.Widget widget)
+    private void reorder_document_cb ()
     {
         reorder_document ();
     }
@@ -1177,13 +1141,7 @@ public class AppWindow : Gtk.ApplicationWindow
         context.paint ();
     }
 
-    [GtkCallback]
-    private void email_button_clicked_cb (Gtk.Widget widget)
-    {
-        email_document_async.begin ();
-    }
-
-    public void email_document_activate_cb ()
+    private void email_document_cb ()
     {
         email_document_async.begin ();
     }
@@ -1232,13 +1190,7 @@ public class AppWindow : Gtk.ApplicationWindow
         print.draw_page.disconnect (draw_page);
     }
 
-    [GtkCallback]
-    private void print_button_clicked_cb (Gtk.Widget widget)
-    {
-        print_document ();
-    }
-
-    public void print_document_activate_cb ()
+    private void print_document_cb ()
     {
         print_document ();
     }
@@ -1257,13 +1209,7 @@ public class AppWindow : Gtk.ApplicationWindow
         }
     }
 
-    [GtkCallback]
-    private void help_contents_menuitem_activate_cb (Gtk.Widget widget)
-    {
-        launch_help ();
-    }
-
-    public void help_contents_activate_cb ()
+    private void help_cb ()
     {
         launch_help ();
     }
@@ -1296,13 +1242,7 @@ public class AppWindow : Gtk.ApplicationWindow
                                null);
     }
 
-    [GtkCallback]
-    private void about_menuitem_activate_cb (Gtk.Widget widget)
-    {
-        show_about ();
-    }
-
-    public void about_activate_cb ()
+    private void about_cb ()
     {
         show_about ();
     }
@@ -1326,13 +1266,7 @@ public class AppWindow : Gtk.ApplicationWindow
         });
     }
 
-    [GtkCallback]
-    private void quit_menuitem_activate_cb (Gtk.Widget widget)
-    {
-        on_quit ();
-    }
-
-    public void quit_activate_cb ()
+    private void quit_cb ()
     {
         on_quit ();
     }
@@ -1528,9 +1462,6 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void book_changed_cb (Book book)
     {
-        save_menuitem.sensitive = true;
-        email_menuitem.sensitive = true;
-        print_menuitem.sensitive = true;
         save_button.sensitive = true;
         book_needs_saving = true;
         copy_to_clipboard_menuitem.sensitive = true;
@@ -1582,7 +1513,7 @@ public class AppWindow : Gtk.ApplicationWindow
         var button = new Gtk.Button.with_label (/* Label on new document button */
                                                _("Start Again…"));
         button.visible = true;
-        button.clicked.connect (new_button_clicked_cb);
+        button.clicked.connect (new_document_cb);
         action_bar.pack_start (button);
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
