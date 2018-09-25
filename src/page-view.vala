@@ -563,7 +563,7 @@ public class PageView
     private CropLocation get_crop_location (int x, int y)
     {
         if (!page.has_crop)
-            return 0;
+            return CropLocation.NONE;
 
         var cx = page.crop_x;
         var cy = page.crop_y;
