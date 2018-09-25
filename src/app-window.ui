@@ -281,6 +281,19 @@
               </object>
             </child>
             <child>
+              <object class="GtkButton" id="cancel_crop_button">
+                <property name="visible">False</property>
+                <property name="label" translatable="yes">Cancel</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for cancel crop button">Cancel the current crop</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="cancel_crop_clicked_cb" swapped="no"/>
+                <style>
+                  <class name="text-button"/>
+                </style>
+              </object>
+            </child>
+            <child>
               <object class="GtkButton" id="scan_button">
                 <property name="label" translatable="yes" comments="Label on scan toolbar item">Scan</property>
                 <property name="visible">True</property>
@@ -295,7 +308,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkMenuButton">
+              <object class="GtkMenuButton" id="scan_options_button">
                 <property name="visible">True</property>
                 <property name="receives_default">False</property>
                 <property name="popover">scan_options_popover</property>
@@ -361,6 +374,23 @@
             </child>
             <style>
               <class name="image-button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="pack_type">end</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="apply_crop_button">
+            <property name="visible">False</property>
+            <property name="receives_default">False</property>
+            <property name="label" translatable="yes" comments="Label on crop button">Crop</property>
+            <property name="tooltip_text" translatable="yes" comments="Tooltip for crop button">Crop page</property>
+            <property name="use_underline">True</property>
+            <signal name="clicked" handler="apply_crop_button_clicked_cb" swapped="no"/>
+            <style>
+              <class name="text-button"/>
+              <class name="suggested-action"/>
             </style>
           </object>
           <packing>

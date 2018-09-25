@@ -81,8 +81,15 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.Button scan_button;
     [GtkChild]
+    private Gtk.Button scan_options_button;
+    [GtkChild]
+    private Gtk.Button cancel_crop_button;
+    [GtkChild]
+    private Gtk.Button apply_crop_button;
+    [GtkChild]
     private Gtk.ActionBar action_bar;
-    private Gtk.ToggleButton crop_button;
+    private Gtk.Button start_again_button;
+    private Gtk.Button crop_button;
     private Gtk.Button delete_button;
 
     [GtkChild]
@@ -780,7 +787,6 @@ public class AppWindow : Gtk.ApplicationWindow
         }
 
         menuitem.active = true;
-        crop_button.active = page.has_crop;
 
         updating_page_menu = false;
     }
@@ -1547,11 +1553,11 @@ public class AppWindow : Gtk.ApplicationWindow
 
         /* Populate ActionBar (not supported in Glade) */
         /* https://bugzilla.gnome.org/show_bug.cgi?id=769966 */
-        var button = new Gtk.Button.with_label (/* Label on new document button */
-                                               _("Start Again…"));
-        button.visible = true;
-        button.clicked.connect (new_document_cb);
-        action_bar.pack_start (button);
+        start_again_button = new Gtk.Button.with_label (/* Label on new document button */
+                                                        _("Start Again…"));
+        start_again_button.visible = true;
+        start_again_button.clicked.connect (new_document_cb);
+        action_bar.pack_start (start_again_button);
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
         box.visible = true;
@@ -1562,7 +1568,7 @@ public class AppWindow : Gtk.ApplicationWindow
         rotate_box.visible = true;
         box.add (rotate_box);
 
-        button = new Gtk.Button.from_icon_name ("object-rotate-left-symbolic");
+        var button = new Gtk.Button.from_icon_name ("object-rotate-left-symbolic");
         button.visible = true;
         button.image.margin_start = 18;
         button.image.margin_end = 18;
@@ -1580,24 +1586,23 @@ public class AppWindow : Gtk.ApplicationWindow
         button.clicked.connect (rotate_right_button_clicked_cb);
         rotate_box.add (button);
 
-        crop_button = new Gtk.ToggleButton ();
+        crop_button = new Gtk.Button.from_icon_name ("edit-cut-symbolic");
         crop_button.visible = true;
-        var image = new Gtk.Image.from_icon_name ("edit-cut-symbolic", Gtk.IconSize.BUTTON);
-        image.visible = true;
-        image.margin_start = 18;
-        image.margin_end = 18;
-        crop_button.add (image);
+        crop_button.image.margin_start = 18;
+        crop_button.image.margin_end = 18;
         /* Tooltip for crop button */
         crop_button.tooltip_text = _("Crop the selected page");
-        crop_button.toggled.connect ((widget) =>
+        crop_button.clicked.connect ((widget) =>
         {
-            if (updating_page_menu)
-                return;
-
-            if (widget.active)
-                custom_crop_menuitem.active = true;
-            else
-                no_crop_menuitem.active = true;
+            header_bar.title = _("Crop Page");
+            scan_button.visible = false;
+            scan_options_button.visible = false;
+            save_button.visible = false;
+            stop_button.visible = false;
+            menu_button.visible = false;
+            start_again_button.visible = false;
+            cancel_crop_button.visible = true;
+            apply_crop_button.visible = true;
         });
         box.add (crop_button);
 
