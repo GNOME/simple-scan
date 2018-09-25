@@ -359,18 +359,18 @@ public class AppWindow : Gtk.ApplicationWindow
         /* Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP) */
         var label = new Gtk.Label (_("File format:"));
         label.visible = true;
-        box.pack_start (label, false, false, 0);
+        box.add (label);
 
         var file_type_combo = new Gtk.ComboBox.with_model (file_type_store);
         file_type_combo.visible = true;
         var renderer = new Gtk.CellRendererText ();
         file_type_combo.pack_start (renderer, true);
         file_type_combo.add_attribute (renderer, "text", 0);
-        box.pack_start (file_type_combo, false, true, 0);
+        box.add (file_type_combo);
 
         /* Label in save dialog beside compression slider */
         var quality_label = new Gtk.Label (_("Compression:"));
-        box.pack_start (quality_label, false, false, 0);
+        box.add (quality_label);
 
         var quality_adjustment = new Gtk.Adjustment (75, 0, 100, 1, 10, 0);
         var quality_scale = new Gtk.Scale (Gtk.Orientation.HORIZONTAL, quality_adjustment);
@@ -382,7 +382,7 @@ public class AppWindow : Gtk.ApplicationWindow
         quality_scale.add_mark (100, Gtk.PositionType.BOTTOM, null);
         quality_adjustment.value = settings.get_int ("jpeg-quality");
         quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", (int) quality_adjustment.value); });
-        box.pack_start (quality_scale, false, false, 0);
+        box.add (quality_scale);
 
         file_type_combo.set_active (0);
         file_type_combo.changed.connect (() =>
@@ -1050,11 +1050,13 @@ public class AppWindow : Gtk.ApplicationWindow
 
         var label = new Gtk.Label (text);
         label.visible = true;
-        vbox.pack_start (label, true, true, 0);
+        label.vexpand = true;
+        vbox.add (label);
 
         var rb = make_reorder_box (items);
         rb.visible = true;
-        vbox.pack_start (rb, true, true, 0);
+        rb.vexpand = true;
+        vbox.add (rb);
 
         return b;
     }
@@ -1071,7 +1073,7 @@ public class AppWindow : Gtk.ApplicationWindow
             {
                 var a = new Gtk.Label ("➤");
                 a.visible = true;
-                box.pack_start (a, false, false, 0);
+                box.add (a);
                 page_box = null;
                 continue;
             }
@@ -1086,7 +1088,7 @@ public class AppWindow : Gtk.ApplicationWindow
             {
                 page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
                 page_box.visible = true;
-                box.pack_start (page_box, false, false, 0);
+                box.add (page_box);
             }
 
             /* Get colours for each page (from Tango palette) */
@@ -1123,7 +1125,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
             var icon = new PageIcon ("%c".printf (items[i]), r, g, b);
             icon.visible = true;
-            page_box.pack_start (icon, false, false, 0);
+            page_box.add (icon);
         }
 
         return box;
@@ -1355,14 +1357,16 @@ public class AppWindow : Gtk.ApplicationWindow
         var label = new Gtk.Label (message);
         label.visible = true;
         label.xalign = 0f;
-        dialog.get_content_area ().pack_start (label, true, true, 0);
+        label.vexpand = true;
+        dialog.get_content_area ().add (label);
 
         var instructions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         instructions_box.visible = true;
-        dialog.get_content_area ().pack_start (instructions_box, true, true, 0);
+        instructions_box.vexpand = true;
+        dialog.get_content_area ().add (instructions_box);
 
         var stack = new Gtk.Stack ();
-        instructions_box.pack_start (stack, false, false, 0);
+        instructions_box.add (stack);
 
         var spinner = new Gtk.Spinner ();
         spinner.visible = true;
@@ -1376,14 +1380,15 @@ public class AppWindow : Gtk.ApplicationWindow
         instructions_label.visible = true;
         instructions_label.xalign = 0f;
         instructions_label.use_markup = true;
-        instructions_box.pack_start (instructions_label, false, false, 0);
+        instructions_box.add (instructions_label);
 
         label = new Gtk.Label (/* Message in driver install dialog */
                                _("Once installed you will need to restart Simple Scan."));
         label.visible = true;
         label.xalign = 0f;
+        label.vexpand = true;
         dialog.get_content_area ().border_width = 12;
-        dialog.get_content_area ().pack_start (label, true, true, 0);
+        dialog.get_content_area ().add (label);
 
         if (packages_to_install.length > 0)
         {
@@ -1555,7 +1560,7 @@ public class AppWindow : Gtk.ApplicationWindow
         var rotate_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         rotate_box.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
         rotate_box.visible = true;
-        box.pack_start (rotate_box, false, true, 0);
+        box.add (rotate_box);
 
         button = new Gtk.Button.from_icon_name ("object-rotate-left-symbolic");
         button.visible = true;
@@ -1564,7 +1569,7 @@ public class AppWindow : Gtk.ApplicationWindow
         /* Tooltip for rotate left (counter-clockwise) button */
         button.tooltip_text = _("Rotate the page to the left (counter-clockwise)");
         button.clicked.connect (rotate_left_button_clicked_cb);
-        rotate_box.pack_start (button, false, true, 0);
+        rotate_box.add (button);
 
         button = new Gtk.Button.from_icon_name ("object-rotate-right-symbolic");
         button.visible = true;
@@ -1573,7 +1578,7 @@ public class AppWindow : Gtk.ApplicationWindow
         /* Tooltip for rotate right (clockwise) button */
         button.tooltip_text = _("Rotate the page to the right (clockwise)");
         button.clicked.connect (rotate_right_button_clicked_cb);
-        rotate_box.pack_start (button, false, true, 0);
+        rotate_box.add (button);
 
         crop_button = new Gtk.ToggleButton ();
         crop_button.visible = true;
@@ -1594,7 +1599,7 @@ public class AppWindow : Gtk.ApplicationWindow
             else
                 no_crop_menuitem.active = true;
         });
-        box.pack_start (crop_button, false, true, 0);
+        box.add (crop_button);
 
         delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic");
         delete_button.visible = true;
@@ -1603,7 +1608,7 @@ public class AppWindow : Gtk.ApplicationWindow
         /* Tooltip for delete button */
         delete_button.tooltip_text = _("Delete the selected page");
         delete_button.clicked.connect (() => { book_view.book.delete_page (book_view.selected_page); });
-        box.pack_start (delete_button, false, true, 0);
+        box.add (delete_button);
 
         var document_type = settings.get_string ("document-type");
         if (document_type != null)
@@ -1611,7 +1616,8 @@ public class AppWindow : Gtk.ApplicationWindow
 
         book_view = new BookView (book);
         book_view.border_width = 18;
-        main_vbox.pack_start (book_view, true, true, 0);
+        book_view.vexpand = true;
+        main_vbox.add (book_view);
         book_view.page_selected.connect (page_selected_cb);
         book_view.show_page.connect (show_page_cb);
         book_view.show_menu.connect (show_page_menu_cb);

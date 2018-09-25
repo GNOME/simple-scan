@@ -211,6 +211,7 @@
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="vexpand">True</property>
             <child>
               <object class="GtkAlignment">
                 <property name="visible">True</property>
@@ -232,11 +233,6 @@
                         <property name="icon_name">scanner-symbolic</property>
                         <property name="icon_size">6</property>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="status_primary_label">
@@ -250,11 +246,6 @@
                           <class name="dim-label"/>
                         </style>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkLabel" id="status_secondary_label">
@@ -266,11 +257,6 @@
                           <class name="dim-label"/>
                         </style>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
                     </child>
                   </object>
                 </child>
@@ -285,32 +271,20 @@
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <placeholder/>
-                </child>
-                <child>
                   <object class="GtkActionBar" id="action_bar">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
                     <property name="pack_type">end</property>
-                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="name">document</property>
-                <property name="position">1</property>
               </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
         </child>
       </object>
     </child>
@@ -338,11 +312,6 @@
                   <class name="destructive-action"/>
                 </style>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
               <object class="GtkButton" id="scan_button">
@@ -358,11 +327,6 @@
                   <class name="suggested-action"/>
                 </style>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
             </child>
             <child>
               <object class="GtkMenuButton">
@@ -389,11 +353,6 @@
                   </object>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
             </child>
             <style>
               <class name="linked"/>
@@ -420,7 +379,6 @@
           </object>
           <packing>
             <property name="pack_type">end</property>
-            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -446,7 +404,6 @@
           </object>
           <packing>
             <property name="pack_type">end</property>
-            <property name="position">3</property>
           </packing>
         </child>
         <style>

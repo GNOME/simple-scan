@@ -99,11 +99,12 @@ public class BookView : Gtk.Box
         drawing_area.set_size_request (200, 100);
         drawing_area.can_focus = true;
         drawing_area.events = Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK | Gdk.EventMask.FOCUS_CHANGE_MASK | Gdk.EventMask.STRUCTURE_MASK | Gdk.EventMask.SCROLL_MASK;
-        pack_start (drawing_area, true, true, 0);
+        drawing_area.vexpand = true;
+        add (drawing_area);
 
         scroll = new Gtk.Scrollbar (Gtk.Orientation.HORIZONTAL, null);
         adjustment = scroll.adjustment;
-        pack_start (scroll, false, true, 0);
+        add (scroll);
 
         drawing_area.configure_event.connect (configure_cb);
         drawing_area.draw.connect (draw_cb);
