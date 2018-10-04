@@ -1540,7 +1540,7 @@ public class AppWindow : Gtk.ApplicationWindow
         section.append (_("Preferences"), "app.preferences");
         section.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
         section.append (_("Help"), "app.help");
-        section.append (_("About"), "app.about");
+        section.append (_("About Simple Scan"), "app.about");
         menu_button.set_menu_model (gear_menu);
 
         app.add_window (this);
