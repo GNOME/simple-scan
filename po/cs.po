@@ -9,16 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2018-07-01 04:06+0000\n"
-"PO-Revision-Date: 2018-08-15 10:32+0200\n"
+"POT-Creation-Date: 2018-10-04 20:47+0000\n"
+"PO-Revision-Date: 2018-10-12 13:43+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
-"Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -135,7 +136,7 @@ msgstr "Prodleva v milisekundách, která se má ponechat mezi stránkami."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:76 src/app-window.vala:1571
+#: src/app-window.ui:181 src/app-window.vala:1266 src/app-window.vala:1522
 msgid "Simple Scan"
 msgstr "Jednoduché skenování"
 
@@ -176,206 +177,152 @@ msgstr ""
 msgid "scanner"
 msgstr "scanner"
 
-#. Toolbar scan menu item to scan a single page from the scanner
-#. Scan menu item to scan a single page from the scanner
-#. Toolbar scan menu item to scan a single page from the scanner
-#: src/app-window.ui:22 src/app-window.ui:123 src/app-window.ui:831
-msgid "Single _Page"
-msgstr "Jedna _stránka"
-
-#. Toolbar scan menu item to scan all pages from a document feeder
-#. Scan menu item to scan all pages from a document feeder
-#. Toolbar scan menu item to scan all pages from a document feeder
-#: src/app-window.ui:31 src/app-window.ui:133 src/app-window.ui:840
-msgid "All Pages From _Feeder"
-msgstr "Všechny stránky z _podavače"
-
-#. Toolbar scan menu item to scan continuously from the flatbed
-#. Scan menu item to scan continuously from the flatbed
-#. Toolbar scan menu item to scan continuously from the flatbed
-#: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:849
-msgid "_Multiple Pages From Flatbed"
-msgstr "_Více ručně podávaných stránek"
-
-#: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:864
-msgid "Text"
-msgstr "Text"
-
-#: src/app-window.ui:65 src/app-window.ui:180 src/app-window.ui:874
-msgid "Photo"
-msgstr "Fotografie"
-
-#. Label on document menu (contains actions for this document, e.g. save, print)
-#: src/app-window.ui:91
-msgid "_Document"
-msgstr "_Dokument"
-
-#. Scan menu item
-#: src/app-window.ui:110
-msgid "Sc_an"
-msgstr "Sk_enovat"
-
-#. Menu entry to stop current scan
-#: src/app-window.ui:154
-msgid "_Stop Scan"
-msgstr "_Zastavit skenování"
-
-#. Menu item to reorder pages
-#. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:978 src/app-window.vala:1586
-msgid "Reorder Pages"
-msgstr "Přeskupit stránky"
-
-#. Label on email menu item
-#: src/app-window.ui:215
-msgid "_Email"
-msgstr "_E-mail"
-
-#. Page menu (contains action for each page, e.g. delete, crop)
-#: src/app-window.ui:280
-msgid "_Page"
-msgstr "_Stránka"
-
 #. Menu item to rotate page to left (anti-clockwise)
-#: src/app-window.ui:290
+#: src/app-window.ui:10
 msgid "Rotate _Left"
 msgstr "Otočit do_leva"
 
 #. Menu item to rotate page to right (clockwise)
-#: src/app-window.ui:300
+#: src/app-window.ui:19
 msgid "Rotate _Right"
 msgstr "Otočit dop_rava"
 
 #. Label for page crop submenu
-#: src/app-window.ui:310
+#: src/app-window.ui:28
 msgid "_Crop"
 msgstr "_Oříznout"
 
 #. Radio button for no crop
-#: src/app-window.ui:320
+#: src/app-window.ui:36
 msgid "_None"
 msgstr "Žád_né"
 
 #. Radio button for cropping page to A4 size
-#: src/app-window.ui:331
+#: src/app-window.ui:46
 msgid "A_4"
 msgstr "A_4"
 
 #. Radio button for cropping page to A5 size
-#: src/app-window.ui:342
+#: src/app-window.ui:56
 msgid "A_5"
 msgstr "A_5"
 
 #. Radio button for cropping page to A6 size
-#: src/app-window.ui:353
+#: src/app-window.ui:66
 msgid "A_6"
 msgstr "A_6"
 
 #. Radio button for cropping page to US letter size
-#: src/app-window.ui:364
+#: src/app-window.ui:76
 msgid "_Letter"
 msgstr "_Letter"
 
 #. Radio button for cropping to page to US legal size
-#: src/app-window.ui:375
+#: src/app-window.ui:86
 msgid "Le_gal"
 msgstr "Le_gal"
 
 #. Radio button for cropping page to 4x6 inch
-#: src/app-window.ui:386
+#: src/app-window.ui:96
 msgid "4×6"
 msgstr "4×6"
 
 #. Radio button for cropping page to A3
-#: src/app-window.ui:397
+#: src/app-window.ui:106
 msgid "A_3"
 msgstr "A_3"
 
 #. Radio button for cropping to custom page size
-#: src/app-window.ui:408
+#: src/app-window.ui:116
 msgid "_Custom"
 msgstr "_Vlastní"
 
 #. Menu item to rotate the crop area
-#: src/app-window.ui:426
+#: src/app-window.ui:132
 msgid "_Rotate Crop"
 msgstr "_Otočit ořez"
 
 #. Menu item to move the selected page to the left
-#: src/app-window.ui:439
+#: src/app-window.ui:144
 msgid "Move Left"
 msgstr "Posunout doleva"
 
 #. Menu item to move the selected page to the right
-#: src/app-window.ui:448
+#: src/app-window.ui:152
 msgid "Move Right"
 msgstr "Posunout doprava"
 
-#. Label on help menu
-#: src/app-window.ui:485
-msgid "_Help"
-msgstr "_Nápověda"
-
-#. Help|Contents menu
-#: src/app-window.ui:493
-msgid "_Contents"
-msgstr "_Obsah"
-
-#. Tooltip for scan toolbar button
-#: src/app-window.ui:531 src/app-window.ui:731
-msgid "Scan a single page from the scanner"
-msgstr "Naskenovat jednu stránku ze skeneru"
-
-#. Label on scan toolbar item
-#: src/app-window.ui:533 src/app-window.ui:727
-msgid "Scan"
-msgstr "Skenovat"
-
-#. Tooltip for save toolbar button
-#: src/app-window.ui:549 src/app-window.ui:798
-msgid "Save document to a file"
-msgstr "Uložit dokument do souboru"
-
-#: src/app-window.ui:551
-msgid "Save"
-msgstr "Uložit"
-
-#. Tooltip for stop button
-#: src/app-window.ui:566 src/app-window.ui:711
-msgid "Stop the current scan"
-msgstr "Zastavit probíhající skenování"
-
-#: src/app-window.ui:567 src/app-window.ui:708
+#: src/app-window.ui:272
 msgid "Stop"
 msgstr "Zastavit"
 
-#. Label shown when searching for scanners
-#: src/app-window.ui:622
-msgid "Searching for Scanners…"
-msgstr "Vyhledávají se skenery…"
+#. Tooltip for stop button
+#: src/app-window.ui:274
+msgid "Stop the current scan"
+msgstr "Zastavit probíhající skenování"
 
-#: src/app-window.vala:239 src/app-window.vala:1391
+#. Label on scan toolbar item
+#: src/app-window.ui:285
+msgid "Scan"
+msgstr "Skenovat"
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:288
+msgid "Scan a single page from the scanner"
+msgstr "Naskenovat jednu stránku ze skeneru"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:352
+msgid "Save document to a file"
+msgstr "Uložit dokument do souboru"
+
+#: src/app-window.ui:405
+msgid "_Single Page"
+msgstr "Jedna _stránka"
+
+#: src/app-window.ui:436
+msgid "All Pages From _Feeder"
+msgstr "Všechny stránky z _podavače"
+
+#: src/app-window.ui:467
+msgid "_Multiple Pages From Flatbed"
+msgstr "_Více ručně podávaných stránek"
+
+#: src/app-window.ui:498
+msgid "_Text"
+msgstr "_Text"
+
+#: src/app-window.ui:529
+msgid "_Image"
+msgstr "_Obrázek"
+
+#: src/app-window.vala:223 src/app-window.vala:1353
 msgid "_Close"
 msgstr "Z_avřít"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:248
+#: src/app-window.vala:232
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Pro přístup k „%s“ je vyžadováno uživatelské jméno a heslo"
 
+#. Label shown when searching for scanners
+#: src/app-window.vala:248
+msgid "Searching for Scanners…"
+msgstr "Vyhledávají se skenery…"
+
 #. Label shown when detected a scanner
-#: src/app-window.vala:268 src/app-window.vala:586
+#: src/app-window.vala:254
 msgid "Ready to Scan"
 msgstr "Připraveno ke skenování"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:275
+#: src/app-window.vala:261
 msgid "Additional software needed"
 msgstr "Jsou zapotřebí ovladače skeneru"
 
 #. Instructions to install driver software
-#: src/app-window.vala:277
+#: src/app-window.vala:263
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -384,150 +331,155 @@ msgstr ""
 "skener."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:283
+#: src/app-window.vala:269
 msgid "No scanners detected"
 msgstr "Nebyl nalezen žádný skener"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:285
+#: src/app-window.vala:271
 msgid "Please check your scanner is connected and powered on"
 msgstr "Zkontrolujte prosím, že je váš skener připojený a zapnutý"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:300
+#: src/app-window.vala:294
 msgid "Save As…"
 msgstr "Uložit jako…"
 
-#: src/app-window.vala:303 src/app-window.vala:473 src/app-window.vala:554
+#: src/app-window.vala:297 src/app-window.vala:467 src/app-window.vala:548
 msgid "_Cancel"
 msgstr "_Zrušit"
 
-#: src/app-window.vala:304 src/app-window.vala:555
+#: src/app-window.vala:298 src/app-window.vala:549
 msgid "_Save"
 msgstr "_Uložit"
 
 #. Default filename to use when saving document
-#: src/app-window.vala:312
+#: src/app-window.vala:306
 msgid "Scanned Document.pdf"
 msgstr "Naskenovaný dokument.pdf"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:318
+#: src/app-window.vala:312
 msgid "Image Files"
 msgstr "Soubory obrázků"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:328
+#: src/app-window.vala:322
 msgid "All Files"
 msgstr "Všechny soubory"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:337
+#: src/app-window.vala:331
 msgid "PDF (multi-page document)"
 msgstr "PDF (vícestránkový dokument)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:343
+#: src/app-window.vala:337
 msgid "JPEG (compressed)"
 msgstr "JPEG (komprimovaný)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:349
+#: src/app-window.vala:343
 msgid "PNG (lossless)"
 msgstr "PNG (bezeztrátový)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:356
+#: src/app-window.vala:350
 msgid "WebP (compressed)"
 msgstr "WebP (komprimovaný)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:366
+#: src/app-window.vala:360
 msgid "File format:"
 msgstr "Formát souboru:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:378
+#: src/app-window.vala:372
 msgid "Compression:"
 msgstr "Komprimace:"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:472
+#: src/app-window.vala:466
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Soubor s názvem „%s“ již existuje. Chcete jej nahradit?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:475
+#: src/app-window.vala:469
 msgid "_Replace"
 msgstr "Nah_radit"
 
-#: src/app-window.vala:514
+#: src/app-window.vala:508
 msgid "Saving"
 msgstr "Ukládá se"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:529
+#: src/app-window.vala:523
 msgid "Failed to save file"
 msgstr "Uložení souboru selhalo"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:552
+#: src/app-window.vala:546
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Pokud dokument neuložíte, změny budou nenávratně ztraceny."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:593
+#: src/app-window.vala:582
 msgid "Save current document?"
 msgstr "Uložit stávající dokument?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:595
+#: src/app-window.vala:584
 msgid "Discard Changes"
 msgstr "Zahodit změny"
 
 #. Label shown when scan started
-#: src/app-window.vala:694
+#: src/app-window.vala:717
 msgid "Contacting scanner…"
 msgstr "Kontaktuje se skener…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:804
+#: src/app-window.vala:800
 msgid "Unable to save image for preview"
 msgstr "Nezdařilo se uložit obrázek pro náhled"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:816
+#: src/app-window.vala:812
 msgid "Unable to open image preview application"
 msgstr "Nelze otevřít aplikaci s náhledem obrázku"
 
+#. Title of dialog to reorder pages
+#: src/app-window.vala:974 src/app-window.vala:1537
+msgid "Reorder Pages"
+msgstr "Přeskupit stránky"
+
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1001
+#: src/app-window.vala:997
 msgid "Combine sides"
 msgstr "Kombinovat strany"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1011
+#: src/app-window.vala:1007
 msgid "Combine sides (reverse)"
 msgstr "Kombinovat strany (obráceně)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1021
+#: src/app-window.vala:1017
 msgid "Reverse"
 msgstr "Obrátit"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1031
+#: src/app-window.vala:1027
 msgid "Keep unchanged"
 msgstr "Zachovat beze změn"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1261
+#: src/app-window.vala:1241
 msgid "Unable to open help file"
 msgstr "Nelze otevřít soubor s nápovědou"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1282
+#: src/app-window.vala:1256
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -557,16 +509,16 @@ msgstr ""
 "<http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1285
+#: src/app-window.vala:1259 src/app-window.vala:1543
 msgid "About Simple Scan"
 msgstr "O aplikaci Jednoduché skenování"
 
 #. Description of program
-#: src/app-window.vala:1288
+#: src/app-window.vala:1262
 msgid "Simple document scanning tool"
 msgstr "Jednoduchý nástroj pro skenování dokumentů"
 
-#: src/app-window.vala:1297
+#: src/app-window.vala:1271
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -585,22 +537,22 @@ msgstr ""
 "  Marek Černocký <marek@manet.cz>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1319
+#: src/app-window.vala:1287
 msgid "Save document before quitting?"
 msgstr "Uložit dokument před ukončením?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1321
+#: src/app-window.vala:1289
 msgid "Quit without Saving"
 msgstr "Ukončit bez uložení"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1368
+#: src/app-window.vala:1330
 msgid "You appear to have a Brother scanner."
 msgstr "Vypadá to, že máte skener Brother"
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1370
+#: src/app-window.vala:1332
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -609,12 +561,12 @@ msgstr ""
 "výrobce</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1374
+#: src/app-window.vala:1336
 msgid "You appear to have a Samsung scanner."
 msgstr "Vypadá to, že máte skener Samsung"
 
 #. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1376
+#: src/app-window.vala:1338
 msgid ""
 "Drivers for this are available on the <a href=\"http://samsung.com/support"
 "\">Samsung website</a>."
@@ -623,17 +575,17 @@ msgstr ""
 "výrobce</a>."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1380
+#: src/app-window.vala:1342
 msgid "You appear to have an HP scanner."
 msgstr "Vypadá to, že máte skener HP."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1385
+#: src/app-window.vala:1347
 msgid "You appear to have an Epson scanner."
 msgstr "Vypadá to, že máte skener Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1387
+#: src/app-window.vala:1349
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -642,38 +594,38 @@ msgstr ""
 "a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1391
+#: src/app-window.vala:1353
 msgid "Install drivers"
 msgstr "Instalace ovladačů"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1422
+#: src/app-window.vala:1386
 msgid "Once installed you will need to restart Simple Scan."
 msgstr "Po instlaci je potřeba Jednoduché skenování restartovat"
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1434
+#: src/app-window.vala:1399
 msgid "Installing drivers…"
 msgstr "Instalují se ovladače…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1442
+#: src/app-window.vala:1407
 msgid "Drivers installed successfully!"
 msgstr "Instalace ovladačů byla úspěšná!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1452
+#: src/app-window.vala:1417
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Instalace ovladačů selhala (kód chyby %d)"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1458
+#: src/app-window.vala:1423
 msgid "Failed to install drivers."
 msgstr "Instalace ovladačů se nezdařila."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1465
+#: src/app-window.vala:1430
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
@@ -681,71 +633,67 @@ msgstr[0] "Je potřeba nainstalovat balíček %s."
 msgstr[1] "Je potřeba nainstalovat balíčky %s."
 msgstr[2] "Je potřeba nainstalovat balíčky %s."
 
-#: src/app-window.vala:1585
+#: src/app-window.vala:1536
 msgid "Email"
 msgstr "E-mail"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1589 src/preferences-dialog.ui:53
+#: src/app-window.vala:1540 src/preferences-dialog.ui:52
 msgid "Preferences"
 msgstr "Předvolby"
 
-#: src/app-window.vala:1590
+#: src/app-window.vala:1541
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové zkratky"
 
-#: src/app-window.vala:1591
+#: src/app-window.vala:1542
 msgid "Help"
 msgstr "Nápověda"
-
-#: src/app-window.vala:1592
-msgid "About"
-msgstr "O aplikaci"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1600
+#: src/app-window.vala:1551
 msgid "Start Again…"
 msgstr "Spustit znovu…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1617
+#: src/app-window.vala:1570
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Otočit stránku doleva (proti směru hodinových ručiček)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1624
+#: src/app-window.vala:1579
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Otočit stránku doprava (po směru hodinových ručiček)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1634
+#: src/app-window.vala:1591
 msgid "Crop the selected page"
 msgstr "Oříznout vybranou stránku"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1650
+#: src/app-window.vala:1609
 msgid "Delete the selected page"
 msgstr "Smazat vybranou stránku"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1815
+#: src/app-window.vala:1753
 msgid "Cancel"
 msgstr "Zrušit"
 
 #. Button to submit authorization dialog
-#: src/authorize-dialog.ui:25
+#: src/authorize-dialog.ui:22
 msgid "_Authorize"
 msgstr "_Autorizovat"
 
 #. Label beside username entry
-#: src/authorize-dialog.ui:99
+#: src/authorize-dialog.ui:80
 msgid "_Username for resource:"
 msgstr "_Uživatelské jméno pro zdroj:"
 
 #. Label beside password entry
-#: src/authorize-dialog.ui:112
+#: src/authorize-dialog.ui:92
 msgid "_Password:"
 msgstr "_Heslo:"
 
@@ -840,146 +788,146 @@ msgid "Copy current page to clipboard"
 msgstr "Zkopírovat aktuální stránku do schránky"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:113
+#: src/preferences-dialog.ui:80
 msgid "_Scanner"
 msgstr "_Skener"
 
 #. Label beside scan side combo box
-#: src/preferences-dialog.ui:143
+#: src/preferences-dialog.ui:108
 msgid "Scan Sides"
 msgstr "Skenovat strany"
 
 #. Label beside page size combo box
-#: src/preferences-dialog.ui:160
+#: src/preferences-dialog.ui:124
 msgid "Page Size"
 msgstr "Velikost stránky:"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:191
+#: src/preferences-dialog.ui:153
 msgid "Front"
 msgstr "Přední"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:206
+#: src/preferences-dialog.ui:163
 msgid "Back"
 msgstr "Zadní"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:221
+#: src/preferences-dialog.ui:173
 msgid "Both"
 msgstr "Obě"
 
 #. Label beside page delay scale
-#: src/preferences-dialog.ui:260
+#: src/preferences-dialog.ui:200
 msgid "Delay"
 msgstr "Prodleva"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:276
+#: src/preferences-dialog.ui:215
 msgid "Multiple pages from flatbed"
 msgstr "Více ručně podávaných stránek"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:295
+#: src/preferences-dialog.ui:233
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:310
+#: src/preferences-dialog.ui:243
 msgid "5"
 msgstr "5"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:326
+#: src/preferences-dialog.ui:254
 msgid "7"
 msgstr "7"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:342
+#: src/preferences-dialog.ui:265
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:358
+#: src/preferences-dialog.ui:276
 msgid "15"
 msgstr "15"
 
 #. Label after page delay radio buttons
-#: src/preferences-dialog.ui:385
+#: src/preferences-dialog.ui:297
 msgid "Seconds"
 msgstr "sekund"
 
 #. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:413
+#: src/preferences-dialog.ui:319
 msgid "Scanning"
 msgstr "Skenování"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:436
+#: src/preferences-dialog.ui:339
 msgid "_Text Resolution"
 msgstr "Rozlišení _textu"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:452
+#: src/preferences-dialog.ui:354
 msgid "_Photo Resolution"
 msgstr "Rozlišení _fotografie"
 
 #. Label beside brightness scale
-#: src/preferences-dialog.ui:505
+#: src/preferences-dialog.ui:398
 msgid "Brightness"
 msgstr "Jas"
 
 #. Label beside contrast scale
-#: src/preferences-dialog.ui:521
+#: src/preferences-dialog.ui:413
 msgid "Contrast"
 msgstr "Kontrast"
 
 #. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:576
+#: src/preferences-dialog.ui:461
 msgid "Quality"
 msgstr "Kvalita"
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:77
+#: src/preferences-dialog.vala:72
 msgid "Automatic"
 msgstr "Automaticky"
 
-#: src/preferences-dialog.vala:118
+#: src/preferences-dialog.vala:113
 msgid "Darker"
 msgstr "Tmavší"
 
-#: src/preferences-dialog.vala:120
+#: src/preferences-dialog.vala:115
 msgid "Lighter"
 msgstr "Světlejší"
 
-#: src/preferences-dialog.vala:128
+#: src/preferences-dialog.vala:123
 msgid "Less"
 msgstr "Menší"
 
-#: src/preferences-dialog.vala:130
+#: src/preferences-dialog.vala:125
 msgid "More"
 msgstr "Větší"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:442
+#: src/preferences-dialog.vala:437
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (výchozí)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:445
+#: src/preferences-dialog.vala:440
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (náčrt)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:448
+#: src/preferences-dialog.vala:443
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (vysoké rozlišení)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:451
+#: src/preferences-dialog.vala:446
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
@@ -1019,22 +967,22 @@ msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr "Opravit soubory PDF vygenerovaných starší verzí Jednoduchého skenování"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:392
+#: src/simple-scan.vala:393
 msgid "Failed to scan"
 msgstr "Skenování selhalo"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:407
+#: src/simple-scan.vala:408
 msgid "Scan in progress"
 msgstr "Skenování probíhá"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:584
+#: src/simple-scan.vala:585
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ZAŘÍZENÍ…] — Nástroj pro skenování"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:595
+#: src/simple-scan.vala:596
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
