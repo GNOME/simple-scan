@@ -104,7 +104,7 @@ public class AppWindow : Gtk.ApplicationWindow
     private bool have_devices = false;
     private string? missing_driver = null;
 
-    private Gtk.FileChooserDialog? save_dialog;
+    private Gtk.FileChooserNative? save_dialog;
 
     public Book book { get; private set; }
     private bool book_needs_saving;
@@ -290,13 +290,12 @@ public class AppWindow : Gtk.ApplicationWindow
         if (directory == null || directory == "")
             directory = Environment.get_user_special_dir (UserDirectory.DOCUMENTS);
 
-        save_dialog = new Gtk.FileChooserDialog (/* Save dialog: Dialog title */
+        save_dialog = new Gtk.FileChooserNative (/* Save dialog: Dialog title */
                                                  _("Save As…"),
                                                  this,
                                                  Gtk.FileChooserAction.SAVE,
-                                                 _("_Cancel"), Gtk.ResponseType.CANCEL,
-                                                 _("_Save"), Gtk.ResponseType.ACCEPT,
-                                                 null);
+                                                 _("_Save"),
+                                                 _("_Cancel"));
         save_dialog.local_only = false;
         if (book_uri != null)
             save_dialog.set_uri (book_uri);
@@ -442,7 +441,7 @@ public class AppWindow : Gtk.ApplicationWindow
             else
                 files.append (File.new_for_uri (uri));
 
-            if (check_overwrite (save_dialog, files))
+            if (check_overwrite (save_dialog.transient_for, files))
                 break;
         }
 
