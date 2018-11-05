@@ -105,7 +105,7 @@ public class SimpleScan : Gtk.Application
 
     private void update_scan_devices_cb (Scanner scanner, List<ScanDevice> devices)
     {
-        var devices_copy = devices.copy ();
+        var devices_copy = devices.copy_deep ((CopyFunc) Object.ref);
 
         /* If the default device is not detected add it to the list */
         if (default_device != null)
