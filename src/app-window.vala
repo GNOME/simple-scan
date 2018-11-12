@@ -1509,8 +1509,6 @@ public class AppWindow : Gtk.ApplicationWindow
         preferences_dialog.delete_event.connect (() => { return true; });
         preferences_dialog.response.connect (() => { preferences_dialog.visible = false; });
 
-        Gtk.IconTheme.get_default ().append_search_path (ICON_DIR);
-
         Gtk.Window.set_default_icon_name ("scanner");
 
         var app = Application.get_default () as Gtk.Application;

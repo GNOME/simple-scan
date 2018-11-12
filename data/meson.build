@@ -1,12 +1,3 @@
-foreach size: [ '16x16', '22x22', '24x24', '32x32', '48x48', 'scalable' ]
-    suffix = 'png'
-    if size == 'scalable'
-        suffix = 'svg'
-    endif
-    install_data (join_paths ('icons', size , 'object-crop.' + suffix),
-                  install_dir: join_paths (icondir, 'hicolor', size, 'actions'))
-endforeach
-
 install_data ('org.gnome.SimpleScan.gschema.xml',
               install_dir: join_paths (datadir, 'glib-2.0', 'schemas'))
 meson.add_install_script ('meson_compile_gschema.py')

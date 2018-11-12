@@ -35,7 +35,6 @@ simple_scan = executable ('simple-scan',
                           c_args: [ '-DVERSION="@0@"'.format (meson.project_version ()),
                                     '-DGETTEXT_PACKAGE="simple-scan"',
                                     '-DLOCALE_DIR="@0@"'.format (localedir),
-                                    '-DICON_DIR="@0@"'.format (icondir),
                                     '-DI_KNOW_THE_PACKAGEKIT_GLIB2_API_IS_SUBJECT_TO_CHANGE' ],
                           link_args: [ '-lm' ],
                           install: true )
