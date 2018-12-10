@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
-  <id>simple-scan.desktop</id>
+  <id>org.gnome.SimpleScan</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+ and CC-BY-SA-3.0</project_license>
   <name>Simple Scan</name>
@@ -15,10 +15,21 @@
       Simple Scan uses the SANE framework to support most existing scanners.
     </p>
   </description>
+  <provides>
+    <binary>simple-scan</binary>
+  </provides>
   <screenshots>
     <screenshot type="default">https://launchpadlibrarian.net/203209644/simple-scan.png</screenshot>
   </screenshots>
+  <releases>
+    <release version="3.31.3" date="2018-12-09"/>
+    <release version="3.31.2" date="2018-11-11"/>
+  </releases>
   <url type="homepage">https://gitlab.gnome.org/GNOME/simple-scan</url>
+  <url type="bugtracker">https://gitlab.gnome.org/GNOME/simple-scan/issues</url>
+  <developer_name>The GNOME Project</developer_name>
+  <project_group>GNOME</project_group>
   <update_contact>robert.ancell_AT_canonical.com</update_contact>
+  <launchable type="desktop-id">org.gnome.SimpleScan.desktop</launchable>
   <translation type="gettext">simple-scan</translation>
 </component>
