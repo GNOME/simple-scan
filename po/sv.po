@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2018-07-01 04:06+0000\n"
-"PO-Revision-Date: 2018-08-09 21:41+0200\n"
+"POT-Creation-Date: 2018-10-04 20:47+0000\n"
+"PO-Revision-Date: 2018-12-28 20:56+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -136,7 +136,7 @@ msgstr "Fördröjning i millisekunder mellan sidor."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:76 src/app-window.vala:1571
+#: src/app-window.ui:181 src/app-window.vala:1266 src/app-window.vala:1522
 msgid "Simple Scan"
 msgstr "Enkel bildläsning"
 
@@ -176,207 +176,152 @@ msgstr "scan;scanner;flatbädd;adf;skan;skanner;bildläsare;"
 msgid "scanner"
 msgstr "scanner"
 
-#. Toolbar scan menu item to scan a single page from the scanner
-#. Scan menu item to scan a single page from the scanner
-#. Toolbar scan menu item to scan a single page from the scanner
-#: src/app-window.ui:22 src/app-window.ui:123 src/app-window.ui:831
-msgid "Single _Page"
-msgstr "Enkel _sida"
-
-#. Toolbar scan menu item to scan all pages from a document feeder
-#. Scan menu item to scan all pages from a document feeder
-#. Toolbar scan menu item to scan all pages from a document feeder
-#: src/app-window.ui:31 src/app-window.ui:133 src/app-window.ui:840
-msgid "All Pages From _Feeder"
-msgstr "Alla sidor från _matare"
-
-#. Toolbar scan menu item to scan continuously from the flatbed
-#. Scan menu item to scan continuously from the flatbed
-#. Toolbar scan menu item to scan continuously from the flatbed
-#: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:849
-msgid "_Multiple Pages From Flatbed"
-msgstr "_Flera sidor från flatbädd"
-
-#: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:864
-msgid "Text"
-msgstr "Text"
-
-#: src/app-window.ui:65 src/app-window.ui:180 src/app-window.ui:874
-msgid "Photo"
-msgstr "Foto"
-
-#. Label on document menu (contains actions for this document, e.g. save, print)
-#: src/app-window.ui:91
-msgid "_Document"
-msgstr "_Dokument"
-
-#. Scan menu item
-#: src/app-window.ui:110
-msgid "Sc_an"
-msgstr "Skann_a"
-
-#. Menu entry to stop current scan
-#: src/app-window.ui:154
-msgid "_Stop Scan"
-msgstr "_Stoppa skanning"
-
-#. Menu item to reorder pages
-#. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:978 src/app-window.vala:1586
-msgid "Reorder Pages"
-msgstr "Ändra sidordning"
-
-#. Label on email menu item
-#: src/app-window.ui:215
-msgid "_Email"
-msgstr "_E-post"
-
-#. Page menu (contains action for each page, e.g. delete, crop)
-#: src/app-window.ui:280
-msgid "_Page"
-msgstr "_Sida"
-
 #. Menu item to rotate page to left (anti-clockwise)
-#: src/app-window.ui:290
+#: src/app-window.ui:10
 msgid "Rotate _Left"
 msgstr "Rotera åt _vänster"
 
 #. Menu item to rotate page to right (clockwise)
-#: src/app-window.ui:300
+#: src/app-window.ui:19
 msgid "Rotate _Right"
 msgstr "Rotera åt _höger"
 
 #. Label for page crop submenu
-#: src/app-window.ui:310
+#: src/app-window.ui:28
 msgid "_Crop"
 msgstr "_Beskär"
 
 #. Radio button for no crop
-#: src/app-window.ui:320
+#: src/app-window.ui:36
 msgid "_None"
 msgstr "_Ingen"
 
 #. Radio button for cropping page to A4 size
-#: src/app-window.ui:331
+#: src/app-window.ui:46
 msgid "A_4"
 msgstr "A_4"
 
 #. Radio button for cropping page to A5 size
-#: src/app-window.ui:342
+#: src/app-window.ui:56
 msgid "A_5"
 msgstr "A_5"
 
 #. Radio button for cropping page to A6 size
-#: src/app-window.ui:353
+#: src/app-window.ui:66
 msgid "A_6"
 msgstr "A_6"
 
 #. Radio button for cropping page to US letter size
-#: src/app-window.ui:364
+#: src/app-window.ui:76
 msgid "_Letter"
 msgstr "_Letter"
 
 #. Radio button for cropping to page to US legal size
-#: src/app-window.ui:375
+#: src/app-window.ui:86
 msgid "Le_gal"
 msgstr "Le_gal"
 
 #. Radio button for cropping page to 4x6 inch
-#: src/app-window.ui:386
+#: src/app-window.ui:96
 msgid "4×6"
 msgstr "4×6"
 
 #. Radio button for cropping page to A3
-#: src/app-window.ui:397
-#| msgid "A_4"
+#: src/app-window.ui:106
 msgid "A_3"
 msgstr "A_3"
 
 #. Radio button for cropping to custom page size
-#: src/app-window.ui:408
+#: src/app-window.ui:116
 msgid "_Custom"
 msgstr "An_passad"
 
 #. Menu item to rotate the crop area
-#: src/app-window.ui:426
+#: src/app-window.ui:132
 msgid "_Rotate Crop"
 msgstr "_Rotera beskärning"
 
 #. Menu item to move the selected page to the left
-#: src/app-window.ui:439
+#: src/app-window.ui:144
 msgid "Move Left"
 msgstr "Flytta åt vänster"
 
 #. Menu item to move the selected page to the right
-#: src/app-window.ui:448
+#: src/app-window.ui:152
 msgid "Move Right"
 msgstr "Flytta åt höger"
 
-#. Label on help menu
-#: src/app-window.ui:485
-msgid "_Help"
-msgstr "_Hjälp"
-
-#. Help|Contents menu
-#: src/app-window.ui:493
-msgid "_Contents"
-msgstr "_Innehåll"
-
-#. Tooltip for scan toolbar button
-#: src/app-window.ui:531 src/app-window.ui:731
-msgid "Scan a single page from the scanner"
-msgstr "Skanna in en enstaka sida från bildläsaren"
-
-#. Label on scan toolbar item
-#: src/app-window.ui:533 src/app-window.ui:727
-msgid "Scan"
-msgstr "Skanna"
-
-#. Tooltip for save toolbar button
-#: src/app-window.ui:549 src/app-window.ui:798
-msgid "Save document to a file"
-msgstr "Spara dokument till en fil"
-
-#: src/app-window.ui:551
-msgid "Save"
-msgstr "Spara"
-
-#. Tooltip for stop button
-#: src/app-window.ui:566 src/app-window.ui:711
-msgid "Stop the current scan"
-msgstr "Stoppa den aktuella skanningen"
-
-#: src/app-window.ui:567 src/app-window.ui:708
+#: src/app-window.ui:272
 msgid "Stop"
 msgstr "Stoppa"
 
-#. Label shown when searching for scanners
-#: src/app-window.ui:622
-msgid "Searching for Scanners…"
-msgstr "Söker efter bildläsare…"
+#. Tooltip for stop button
+#: src/app-window.ui:274
+msgid "Stop the current scan"
+msgstr "Stoppa den aktuella skanningen"
 
-#: src/app-window.vala:239 src/app-window.vala:1391
+#. Label on scan toolbar item
+#: src/app-window.ui:285
+msgid "Scan"
+msgstr "Skanna"
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:288
+msgid "Scan a single page from the scanner"
+msgstr "Skanna in en enstaka sida från bildläsaren"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:352
+msgid "Save document to a file"
+msgstr "Spara dokument till en fil"
+
+#: src/app-window.ui:405
+msgid "_Single Page"
+msgstr "_Enkel sida"
+
+#: src/app-window.ui:436
+msgid "All Pages From _Feeder"
+msgstr "Alla sidor från _matare"
+
+#: src/app-window.ui:467
+msgid "_Multiple Pages From Flatbed"
+msgstr "_Flera sidor från flatbädd"
+
+#: src/app-window.ui:498
+msgid "_Text"
+msgstr "_Text"
+
+#: src/app-window.ui:529
+msgid "_Image"
+msgstr "_Bild"
+
+#: src/app-window.vala:223 src/app-window.vala:1353
 msgid "_Close"
 msgstr "_Stäng"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:248
+#: src/app-window.vala:232
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Användarnamn och lösenord krävs för åtkomst till ”%s”"
 
+#. Label shown when searching for scanners
+#: src/app-window.vala:248
+msgid "Searching for Scanners…"
+msgstr "Söker efter bildläsare…"
+
 #. Label shown when detected a scanner
-#: src/app-window.vala:268 src/app-window.vala:586
+#: src/app-window.vala:254
 msgid "Ready to Scan"
 msgstr "Redo att skanna"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:275
+#: src/app-window.vala:261
 msgid "Additional software needed"
 msgstr "Ytterligare programvara behövs"
 
 #. Instructions to install driver software
-#: src/app-window.vala:277
+#: src/app-window.vala:263
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -385,150 +330,155 @@ msgstr ""
 "bildläsare."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:283
+#: src/app-window.vala:269
 msgid "No scanners detected"
 msgstr "Ingen bildläsare hittades"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:285
+#: src/app-window.vala:271
 msgid "Please check your scanner is connected and powered on"
 msgstr "Kontrollera att din bildläsare är ansluten och påslagen"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:300
+#: src/app-window.vala:294
 msgid "Save As…"
 msgstr "Spara som…"
 
-#: src/app-window.vala:303 src/app-window.vala:473 src/app-window.vala:554
+#: src/app-window.vala:297 src/app-window.vala:467 src/app-window.vala:548
 msgid "_Cancel"
 msgstr "_Avbryt"
 
-#: src/app-window.vala:304 src/app-window.vala:555
+#: src/app-window.vala:298 src/app-window.vala:549
 msgid "_Save"
 msgstr "_Spara"
 
 #. Default filename to use when saving document
-#: src/app-window.vala:312
+#: src/app-window.vala:306
 msgid "Scanned Document.pdf"
 msgstr "Skannat dokument.pdf"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:318
+#: src/app-window.vala:312
 msgid "Image Files"
 msgstr "Bildfiler"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:328
+#: src/app-window.vala:322
 msgid "All Files"
 msgstr "Alla filer"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:337
+#: src/app-window.vala:331
 msgid "PDF (multi-page document)"
 msgstr "PDF (flersidigt dokument)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:343
+#: src/app-window.vala:337
 msgid "JPEG (compressed)"
 msgstr "JPEG (komprimerad)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:349
+#: src/app-window.vala:343
 msgid "PNG (lossless)"
 msgstr "PNG (förlustfri)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:356
+#: src/app-window.vala:350
 msgid "WebP (compressed)"
 msgstr "WebP (komprimerad)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:366
+#: src/app-window.vala:360
 msgid "File format:"
 msgstr "Filformat:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:378
+#: src/app-window.vala:372
 msgid "Compression:"
 msgstr "Komprimering:"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:472
+#: src/app-window.vala:466
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "En fil med namnet ”%s” finns redan.  Vill du ersätta den?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:475
+#: src/app-window.vala:469
 msgid "_Replace"
 msgstr "E_rsätt"
 
-#: src/app-window.vala:514
+#: src/app-window.vala:508
 msgid "Saving"
 msgstr "Sparar"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:529
+#: src/app-window.vala:523
 msgid "Failed to save file"
 msgstr "Misslyckades med att spara filen"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:552
+#: src/app-window.vala:546
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Om du inte sparar så kommer ändringarna att gå förlorade."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:593
+#: src/app-window.vala:582
 msgid "Save current document?"
 msgstr "Spara aktuellt dokument?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:595
+#: src/app-window.vala:584
 msgid "Discard Changes"
 msgstr "Förkasta ändringar"
 
 #. Label shown when scan started
-#: src/app-window.vala:694
+#: src/app-window.vala:717
 msgid "Contacting scanner…"
 msgstr "Kontaktar bildläsare…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:804
+#: src/app-window.vala:800
 msgid "Unable to save image for preview"
 msgstr "Kunde inte spara bild för förhandsvisning"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:816
+#: src/app-window.vala:812
 msgid "Unable to open image preview application"
 msgstr "Kunde inte öppna förhandsvisningsprogrammet för bilder"
 
+#. Title of dialog to reorder pages
+#: src/app-window.vala:974 src/app-window.vala:1537
+msgid "Reorder Pages"
+msgstr "Ändra sidordning"
+
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1001
+#: src/app-window.vala:997
 msgid "Combine sides"
 msgstr "Kombinera sidor"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1011
+#: src/app-window.vala:1007
 msgid "Combine sides (reverse)"
 msgstr "Kombinera sidor (omvänt)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1021
+#: src/app-window.vala:1017
 msgid "Reverse"
 msgstr "Omvänt"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1031
+#: src/app-window.vala:1027
 msgid "Keep unchanged"
 msgstr "Behåll oförändrad"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1261
+#: src/app-window.vala:1241
 msgid "Unable to open help file"
 msgstr "Kunde inte öppna hjälpfilen"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1282
+#: src/app-window.vala:1256
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -558,16 +508,16 @@ msgstr ""
 "med detta program. Om inte, se <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1285
+#: src/app-window.vala:1259 src/app-window.vala:1543
 msgid "About Simple Scan"
 msgstr "Om Enkel bildläsning"
 
 #. Description of program
-#: src/app-window.vala:1288
+#: src/app-window.vala:1262
 msgid "Simple document scanning tool"
 msgstr "Enkelt verktyg för att skanna dokument"
 
-#: src/app-window.vala:1297
+#: src/app-window.vala:1271
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -585,22 +535,22 @@ msgstr ""
 "deactivatedaccount"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1319
+#: src/app-window.vala:1287
 msgid "Save document before quitting?"
 msgstr "Spara dokument innan du avslutar?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1321
+#: src/app-window.vala:1289
 msgid "Quit without Saving"
 msgstr "Avsluta utan att spara"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1368
+#: src/app-window.vala:1330
 msgid "You appear to have a Brother scanner."
 msgstr "Du verkar ha en bildläsare från Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1370
+#: src/app-window.vala:1332
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -609,12 +559,12 @@ msgstr ""
 "webbplats</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1374
+#: src/app-window.vala:1336
 msgid "You appear to have a Samsung scanner."
 msgstr "Du verkar ha en bildläsare från Samsung."
 
 #. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1376
+#: src/app-window.vala:1338
 msgid ""
 "Drivers for this are available on the <a href=\"http://samsung.com/support"
 "\">Samsung website</a>."
@@ -623,17 +573,17 @@ msgstr ""
 "webbplats</a>."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1380
+#: src/app-window.vala:1342
 msgid "You appear to have an HP scanner."
 msgstr "Du verkar ha en bildläsare från HP."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1385
+#: src/app-window.vala:1347
 msgid "You appear to have an Epson scanner."
 msgstr "Du verkar ha en bildläsare från Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1387
+#: src/app-window.vala:1349
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -642,109 +592,105 @@ msgstr ""
 "webbplats</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1391
+#: src/app-window.vala:1353
 msgid "Install drivers"
 msgstr "Installera drivrutiner"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1422
+#: src/app-window.vala:1386
 msgid "Once installed you will need to restart Simple Scan."
 msgstr "Efter installation kan du behöva starta om Enkel bildläsning."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1434
+#: src/app-window.vala:1399
 msgid "Installing drivers…"
 msgstr "Installerar drivrutiner…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1442
+#: src/app-window.vala:1407
 msgid "Drivers installed successfully!"
 msgstr "Drivrutinerna installerades!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1452
+#: src/app-window.vala:1417
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Kunde inte installera drivrutiner (felkod %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1458
+#: src/app-window.vala:1423
 msgid "Failed to install drivers."
 msgstr "Kunde inte installera drivrutiner."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1465
+#: src/app-window.vala:1430
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Du behöver installera paketet %s."
 msgstr[1] "Du behöver installera paketen %s."
 
-#: src/app-window.vala:1585
+#: src/app-window.vala:1536
 msgid "Email"
 msgstr "E-post"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1589 src/preferences-dialog.ui:53
+#: src/app-window.vala:1540 src/preferences-dialog.ui:52
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: src/app-window.vala:1590
+#: src/app-window.vala:1541
 msgid "Keyboard Shortcuts"
 msgstr "Tangentbordsgenvägar"
 
-#: src/app-window.vala:1591
+#: src/app-window.vala:1542
 msgid "Help"
 msgstr "Hjälp"
-
-#: src/app-window.vala:1592
-msgid "About"
-msgstr "Om"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1600
+#: src/app-window.vala:1551
 msgid "Start Again…"
 msgstr "Starta igen…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1617
+#: src/app-window.vala:1570
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Rotera sidan åt vänster (motsols)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1624
+#: src/app-window.vala:1579
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Rotera sidan åt höger (medsols)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1634
+#: src/app-window.vala:1591
 msgid "Crop the selected page"
 msgstr "Beskär den valda sidan"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1650
+#: src/app-window.vala:1609
 msgid "Delete the selected page"
 msgstr "Radera den valda sidan"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1815
+#: src/app-window.vala:1753
 msgid "Cancel"
 msgstr "Avbryt"
 
 #. Button to submit authorization dialog
-#: src/authorize-dialog.ui:25
+#: src/authorize-dialog.ui:22
 msgid "_Authorize"
 msgstr "A_uktorisera"
 
 #. Label beside username entry
-#: src/authorize-dialog.ui:99
+#: src/authorize-dialog.ui:80
 msgid "_Username for resource:"
 msgstr "_Användarnamn för källa:"
 
 #. Label beside password entry
-#: src/authorize-dialog.ui:112
+#: src/authorize-dialog.ui:92
 msgid "_Password:"
 msgstr "_Lösenord:"
 
@@ -839,146 +785,146 @@ msgid "Copy current page to clipboard"
 msgstr "Kopiera aktuell sida till urklipp"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:113
+#: src/preferences-dialog.ui:80
 msgid "_Scanner"
 msgstr "_Bildläsare"
 
 #. Label beside scan side combo box
-#: src/preferences-dialog.ui:143
+#: src/preferences-dialog.ui:108
 msgid "Scan Sides"
 msgstr "Inläsningssida"
 
 #. Label beside page size combo box
-#: src/preferences-dialog.ui:160
+#: src/preferences-dialog.ui:124
 msgid "Page Size"
 msgstr "Sidstorlek"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:191
+#: src/preferences-dialog.ui:153
 msgid "Front"
 msgstr "Framsida"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:206
+#: src/preferences-dialog.ui:163
 msgid "Back"
 msgstr "Baksida"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:221
+#: src/preferences-dialog.ui:173
 msgid "Both"
 msgstr "Båda"
 
 #. Label beside page delay scale
-#: src/preferences-dialog.ui:260
+#: src/preferences-dialog.ui:200
 msgid "Delay"
 msgstr "Fördröjning"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:276
+#: src/preferences-dialog.ui:215
 msgid "Multiple pages from flatbed"
 msgstr "Flera sidor från flatbädd"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:295
+#: src/preferences-dialog.ui:233
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:310
+#: src/preferences-dialog.ui:243
 msgid "5"
 msgstr "5"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:326
+#: src/preferences-dialog.ui:254
 msgid "7"
 msgstr "7"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:342
+#: src/preferences-dialog.ui:265
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:358
+#: src/preferences-dialog.ui:276
 msgid "15"
 msgstr "15"
 
 #. Label after page delay radio buttons
-#: src/preferences-dialog.ui:385
+#: src/preferences-dialog.ui:297
 msgid "Seconds"
 msgstr "Sekunder"
 
 #. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:413
+#: src/preferences-dialog.ui:319
 msgid "Scanning"
 msgstr "Skanna"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:436
+#: src/preferences-dialog.ui:339
 msgid "_Text Resolution"
 msgstr "_Textupplösning"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:452
+#: src/preferences-dialog.ui:354
 msgid "_Photo Resolution"
 msgstr "_Fotoupplösning"
 
 #. Label beside brightness scale
-#: src/preferences-dialog.ui:505
+#: src/preferences-dialog.ui:398
 msgid "Brightness"
 msgstr "Ljusstyrka"
 
 #. Label beside contrast scale
-#: src/preferences-dialog.ui:521
+#: src/preferences-dialog.ui:413
 msgid "Contrast"
 msgstr "Kontrast"
 
 #. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:576
+#: src/preferences-dialog.ui:461
 msgid "Quality"
 msgstr "Kvalitet"
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:77
+#: src/preferences-dialog.vala:72
 msgid "Automatic"
 msgstr "Automatisk"
 
-#: src/preferences-dialog.vala:118
+#: src/preferences-dialog.vala:113
 msgid "Darker"
 msgstr "Mörkare"
 
-#: src/preferences-dialog.vala:120
+#: src/preferences-dialog.vala:115
 msgid "Lighter"
 msgstr "Ljusare"
 
-#: src/preferences-dialog.vala:128
+#: src/preferences-dialog.vala:123
 msgid "Less"
 msgstr "Lägre"
 
-#: src/preferences-dialog.vala:130
+#: src/preferences-dialog.vala:125
 msgid "More"
 msgstr "Högre"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:442
+#: src/preferences-dialog.vala:437
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (standard)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:445
+#: src/preferences-dialog.vala:440
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (utkast)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:448
+#: src/preferences-dialog.vala:443
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (hög upplösning)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:451
+#: src/preferences-dialog.vala:446
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
@@ -1018,26 +964,56 @@ msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr "Laga PDF-filer som skapades med äldre versioner av Enkel bildläsning"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:392
+#: src/simple-scan.vala:393
 msgid "Failed to scan"
 msgstr "Misslyckades med att skanna"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:407
+#: src/simple-scan.vala:408
 msgid "Scan in progress"
 msgstr "Inläsning pågår"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:584
+#: src/simple-scan.vala:585
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ENHET…] — Bildläsarverktyg"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:595
+#: src/simple-scan.vala:596
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Kör ”%s --help” för en komplett lista över tillgängliga kommandoradsflaggor."
+
+#~ msgid "Photo"
+#~ msgstr "Foto"
+
+#~ msgid "_Document"
+#~ msgstr "_Dokument"
+
+#~ msgid "Sc_an"
+#~ msgstr "Skann_a"
+
+#~ msgid "_Stop Scan"
+#~ msgstr "_Stoppa skanning"
+
+#~ msgid "_Email"
+#~ msgstr "_E-post"
+
+#~ msgid "_Page"
+#~ msgstr "_Sida"
+
+#~ msgid "_Help"
+#~ msgstr "_Hjälp"
+
+#~ msgid "_Contents"
+#~ msgstr "_Innehåll"
+
+#~ msgid "Save"
+#~ msgstr "Spara"
+
+#~ msgid "About"
+#~ msgstr "Om"
 
 #~ msgid "Quit"
 #~ msgstr "Avsluta"
