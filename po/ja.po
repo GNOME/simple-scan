@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-04-16 08:54-0400\n"
-"PO-Revision-Date: 2014-11-20 05:14+0000\n"
-"Last-Translator: Kentaro Kazuhama <Unknown>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
+"POT-Creation-Date: 2018-11-12 23:15+0000\n"
+"PO-Revision-Date: 2019-01-03 11:01+0900\n"
+"Last-Translator: Hideki Yamane <henrich@debian.org>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -17,310 +17,127 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 "X-Generator: Launchpad (build 18361)\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#. Button to submit authorization dialog
-#: src/simple-scan.ui:24
-msgid "_Authorize"
-msgstr "認証(_A)"
+#: data/org.gnome.SimpleScan.gschema.xml:11
+msgid "Device to scan from"
+msgstr "スキャンするデバイス"
 
-#. Label beside username entry
-#: src/simple-scan.ui:102
-msgid "_Username for resource:"
-msgstr "リソースに対するユーザ名(_U):"
+#: data/org.gnome.SimpleScan.gschema.xml:12
+msgid "SANE device to acquire images from."
+msgstr "画像を取得する SANE デバイスです。"
 
-#. Label beside password entry
-#: src/simple-scan.ui:117
-msgid "_Password:"
-msgstr "パスワード(_P):"
+#: data/org.gnome.SimpleScan.gschema.xml:20
+msgid "Type of document being scanned"
+msgstr "スキャンするドキュメントの種類"
 
-#. Combo box label for scanning both sides of a page
-#: src/simple-scan.ui:188
-msgid "Front and Back"
-msgstr "表面と裏面"
+#: data/org.gnome.SimpleScan.gschema.xml:21
+msgid ""
+"Type of document being scanned. This setting decides on the scan resolution, "
+"colors and post-processing."
+msgstr ""
+"スキャンされる文書の種類。この設定により、画像の解像度、色の深度、事後処理が"
+"決定されます。"
 
-#. Combo box label for scanning the front side of a page
-#: src/simple-scan.ui:192
-msgid "Front"
-msgstr "表面"
+#: data/org.gnome.SimpleScan.gschema.xml:25
+msgid "Width of paper in tenths of a mm"
+msgstr "10mm単位での紙の幅"
 
-#. Combo box label for scanning the back side of a page
-#: src/simple-scan.ui:196
-msgid "Back"
-msgstr "戻る"
+#: data/org.gnome.SimpleScan.gschema.xml:26
+msgid ""
+"The width of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr "10mm単位の用紙の幅 (または自動用紙検知の場合は 0)"
+
+#: data/org.gnome.SimpleScan.gschema.xml:30
+msgid "Height of paper in tenths of a mm"
+msgstr "10mm単位の用紙の高さ"
+
+#: data/org.gnome.SimpleScan.gschema.xml:31
+msgid ""
+"The height of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr "10mm単位の紙の高さ (または 0 で自動紙検知)"
+
+#: data/org.gnome.SimpleScan.gschema.xml:35
+msgid "Brightness of scan"
+msgstr "スキャンの明るさ"
+
+#: data/org.gnome.SimpleScan.gschema.xml:36
+msgid "The brightness adjustment from -100 to 100 (0 being none)."
+msgstr "-100から100までの範囲で明るさを調節する (0は無調整)。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:40
+msgid "Contrast of scan"
+msgstr "スキャンのコントラスト"
+
+#: data/org.gnome.SimpleScan.gschema.xml:41
+msgid "The contrast adjustment from -100 to 100 (0 being none)."
+msgstr "-100から100までの範囲でコントラストを調節する (0は無調整)。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:45
+msgid "Resolution for text scans"
+msgstr "テキストスキャンの解像度"
+
+#: data/org.gnome.SimpleScan.gschema.xml:46
+msgid "The resolution in dots-per-inch to use when scanning text."
+msgstr "テキストをスキャンするときの解像度(DPI)です。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:50
+msgid "Resolution for photo scans"
+msgstr "写真スキャンの解像度"
+
+#: data/org.gnome.SimpleScan.gschema.xml:51
+msgid "The resolution in dots-per-inch to use when scanning photos."
+msgstr "写真をスキャンするときの解像度(DPI)です。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:55
+msgid "Page side to scan"
+msgstr "スキャンする面"
+
+#: data/org.gnome.SimpleScan.gschema.xml:56
+msgid "The page side to scan."
+msgstr "スキャンされる面"
+
+#: data/org.gnome.SimpleScan.gschema.xml:60
+msgid "Directory to save files to"
+msgstr "ファイルを保存するディレクトリ"
+
+#: data/org.gnome.SimpleScan.gschema.xml:61
+msgid ""
+"The directory to save files to. Defaults to the documents directory if unset."
+msgstr ""
+"ファイルを保存するディレクトリです。設定されていない場合、標準でドキュメント"
+"ディレクトリに保存されます。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:66
+msgid "Quality value to use for JPEG compression"
+msgstr "JPEGの圧縮に使用する品質の値"
+
+#: data/org.gnome.SimpleScan.gschema.xml:67
+msgid "Quality value to use for JPEG compression."
+msgstr "JPEGの圧縮に使用する品質の値です。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:72
+msgid "Delay in millisecond between pages"
+msgstr "ページ間におけるミリ秒単位の遅延時間"
+
+#: data/org.gnome.SimpleScan.gschema.xml:73
+msgid "Delay in millisecond between pages."
+msgstr "ページ間におけるミリ秒単位の遅延時間です。"
 
 #. Title of scan window
-#: src/simple-scan.ui:231 src/simple-scan.ui:815 data/simple-scan.desktop.in:3
-#: data/simple-scan.appdata.xml.in:6
+#. Set HeaderBar title here because Glade doesn't keep it translated
+#. https://bugzilla.gnome.org/show_bug.cgi?id=782753
+#. Title of scan window
+#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: src/app-window.ui:181 src/app-window.vala:1265 src/app-window.vala:1519
 msgid "Simple Scan"
 msgstr "シンプルスキャン"
 
-#. Label on document menu (contains actions for this document, e.g. save, print)
-#: src/simple-scan.ui:247
-msgid "_Document"
-msgstr "ドキュメント(_D)"
-
-#. Scan menu item
-#: src/simple-scan.ui:266
-msgid "Sc_an"
-msgstr "スキャン(_A)"
-
-#. Scan menu item to scan a single page from the scanner
-#. Toolbar scan menu item to scan a single page from the scanner
-#: src/simple-scan.ui:279 src/simple-scan.ui:1343 src/simple-scan.ui:1402
-msgid "Single _Page"
-msgstr "一枚のページ(_P)"
-
-#. Scan menu item to scan all pages from a document feeder
-#. Toolbar scan menu item to scan all pages from a document feeder
-#: src/simple-scan.ui:289 src/simple-scan.ui:1352 src/simple-scan.ui:1411
-msgid "All Pages From _Feeder"
-msgstr "フィーダより全てのページ(_F)"
-
-#. Scan menu item to scan continuously from the flatbed
-#. Toolbar scan menu item to scan continuously from the flatbed
-#: src/simple-scan.ui:299 src/simple-scan.ui:1361 src/simple-scan.ui:1420
-msgid "_Multiple Pages From Flatbed"
-msgstr ""
-
-#. Menu entry to stop current scan
-#: src/simple-scan.ui:310
-msgid "_Stop Scan"
-msgstr "スキャン停止(_S)"
-
-#: src/simple-scan.ui:326 src/simple-scan.ui:1376 src/simple-scan.ui:1435
-msgid "Text"
-msgstr "テキスト"
-
-#: src/simple-scan.ui:336 src/simple-scan.ui:1386 src/simple-scan.ui:1445
-msgid "Photo"
-msgstr "写真"
-
-#. Menu item to reorder pages
-#. Title of dialog to reorder pages
-#: src/simple-scan.ui:352 src/ui.vala:1247 src/ui.vala:1891
-msgid "Reorder Pages"
-msgstr "ページを再整列"
-
-#. Label on email menu item
-#: src/simple-scan.ui:371
-msgid "_Email"
-msgstr "電子メール(_E)"
-
-#. Page menu (contains action for each page, e.g. delete, crop)
-#: src/simple-scan.ui:436
-msgid "_Page"
-msgstr "ページ(_P)"
-
-#. Menu item to rotate page to left (anti-clockwise)
-#: src/simple-scan.ui:446
-msgid "Rotate _Left"
-msgstr "左へ回転(_L)"
-
-#. Menu item to rotate page to right (clockwise)
-#: src/simple-scan.ui:456
-msgid "Rotate _Right"
-msgstr "右へ回転(_R)"
-
-#. Label for page crop submenu
-#: src/simple-scan.ui:466
-msgid "_Crop"
-msgstr "切り抜き(_C)"
-
-#. Radio button for no crop
-#: src/simple-scan.ui:476
-msgid "_None"
-msgstr "なし(_N)"
-
-#. Radio button for cropping page to A4 size
-#: src/simple-scan.ui:487
-msgid "A_4"
-msgstr "A_4"
-
-#. Radio button for cropping page to A5 size
-#: src/simple-scan.ui:498
-msgid "A_5"
-msgstr "A_5"
-
-#. Radio button for cropping page to A6 size
-#: src/simple-scan.ui:509
-msgid "A_6"
-msgstr "A_6"
-
-#. Radio button for cropping page to US letter size
-#: src/simple-scan.ui:520
-msgid "_Letter"
-msgstr "US レター(_L)"
-
-#. Radio button for cropping to page to US legal size
-#: src/simple-scan.ui:531
-msgid "Le_gal"
-msgstr "US リーガル(_G)"
-
-#. Radio button for cropping page to 4x6 inch
-#: src/simple-scan.ui:542
-msgid "4×6"
-msgstr "4×6"
-
-#. Radio button for cropping to custom page size
-#: src/simple-scan.ui:553
-msgid "_Custom"
-msgstr "カスタム(_C)"
-
-#. Menu item to rotate the crop area
-#: src/simple-scan.ui:571
-msgid "_Rotate Crop"
-msgstr "切り抜きを回転(_R)"
-
-#. Menu item to move the selected page to the left
-#: src/simple-scan.ui:584
-msgid "Move Left"
-msgstr "左へ移動"
-
-#. Menu item to move the selected page to the right
-#: src/simple-scan.ui:593
-msgid "Move Right"
-msgstr "右へ移動"
-
-#. Label on help menu
-#: src/simple-scan.ui:630
-msgid "_Help"
-msgstr "ヘルプ(_H)"
-
-#. Help|Contents menu
-#: src/simple-scan.ui:638
-msgid "_Contents"
-msgstr "コンテンツ(_C)"
-
-#. Tooltip for new document button
-#: src/simple-scan.ui:680 src/simple-scan.ui:891
-msgid "Start a new document"
-msgstr "新規ドキュメントの作成"
-
-#: src/simple-scan.ui:681
-msgid "New"
-msgstr "新規"
-
-#. Tooltip for scan toolbar button
-#: src/simple-scan.ui:695 src/simple-scan.ui:842
-msgid "Scan a single page from the scanner"
-msgstr "一枚のページをスキャンします"
-
-#. Label on scan toolbar item
-#: src/simple-scan.ui:697 src/simple-scan.ui:843
-msgid "Scan"
-msgstr "スキャン"
-
-#. Tooltip for save toolbar button
-#: src/simple-scan.ui:713 src/simple-scan.ui:870
-msgid "Save document to a file"
-msgstr "ドキュメントをファイルに保存"
-
-#: src/simple-scan.ui:715 src/ui.vala:1892
-msgid "Save"
-msgstr "保存"
-
-#. Tooltip for stop button
-#: src/simple-scan.ui:730 src/simple-scan.ui:830
-msgid "Stop the current scan"
-msgstr "スキャンを停止します"
-
-#: src/simple-scan.ui:731 src/simple-scan.ui:831
-msgid "Stop"
-msgstr "停止"
-
-#. Tooltip for rotate left (counter-clockwise) button
-#: src/simple-scan.ui:755 src/simple-scan.ui:942
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "ページを左回転 (反時計回り)"
-
-#. Label on rotate page left (anti-clockwise) item
-#: src/simple-scan.ui:756
-msgid "Rotate Left"
-msgstr "左へ回転"
-
-#. Tooltip for rotate right (clockwise) button
-#: src/simple-scan.ui:770 src/simple-scan.ui:920
-msgid "Rotate the page to the right (clockwise)"
-msgstr "ページを右回転 (時計回り)"
-
-#. Label on rotate page right (clockwise) item
-#: src/simple-scan.ui:771
-msgid "Rotate Right"
-msgstr "右へ回転"
-
-#: src/simple-scan.ui:785 src/simple-scan.ui:969
-msgid "Crop the selected page"
-msgstr "選択した範囲の切り抜き"
-
-#: src/simple-scan.ui:787
-msgid "Crop"
-msgstr "切り抜き"
-
-#. Title of preferences dialog
-#: src/simple-scan.ui:1003 src/ui.vala:1898
-msgid "Preferences"
-msgstr "設定"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1054
-msgid "Scan S_ource:"
-msgstr "スキャンする対象(_O):"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1085
-msgid "_Text Resolution:"
-msgstr "テキストの画素数(_T):"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1101
-msgid "_Photo Resolution:"
-msgstr "写真の画素数(_P):"
-
-#. Label beside scan side combo box
-#: src/simple-scan.ui:1145
-msgid "Scan Side:"
-msgstr "スキャン面:"
-
-#. Label beside page size combo box
-#: src/simple-scan.ui:1175
-msgid "Page Size:"
-msgstr "ページサイズ:"
-
-#. Label beside brightness scale
-#: src/simple-scan.ui:1205
-msgid "Brightness:"
-msgstr "明るさ:"
-
-#. Label beside contrast scale
-#: src/simple-scan.ui:1235
-msgid "Contrast:"
-msgstr "コントラスト:"
-
-#. Label beside quality scale
-#: src/simple-scan.ui:1266
-msgid "Quality:"
-msgstr "品質:"
-
-#. Label beside page delay scale
-#: src/simple-scan.ui:1297
-msgid "Delay between pages:"
-msgstr ""
-
-#: data/simple-scan.desktop.in:4
-msgid "Document Scanner"
-msgstr "ドキュメントスキャナ―"
-
-#: data/simple-scan.desktop.in:5 data/simple-scan.appdata.xml.in:7
+#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:5
 msgid "Scan Documents"
 msgstr "ドキュメントをスキャンします"
-
-#: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;"
-msgstr "scan;scanner;flatbed;adf;スキャン;スキャナー;フラットベッド;オートドキュメントフィーダ;自動給紙装置;"
-
-#: data/simple-scan.desktop.in:8
-msgid "scanner"
-msgstr ""
 
 #: data/simple-scan.appdata.xml.in:9
 msgid ""
@@ -329,210 +146,331 @@ msgid ""
 "print your scans, export them to pdf, or save them in a range of image "
 "formats."
 msgstr ""
-"ドキュメントや写真を本当に簡単な方法でスキャンします。写真の不要な部分を切り取ったり、間違った方向に向いている場合は回転できます。スキャンしたものを印刷、"
-"PDFへのエクスポート、多くの画像フォーマットに保存することができます。"
+"ドキュメントや写真を本当に簡単な方法でスキャンします。写真の不要な部分を切り"
+"取ったり、間違った方向に向いている場合は回転できます。スキャンしたものを印"
+"刷、PDFへのエクスポート、多くの画像フォーマットに保存することができます。"
 
 #: data/simple-scan.appdata.xml.in:14
-msgid ""
-"Simple Scan uses the SANE framework to support most existing scanners."
-msgstr "シンプル スキャンはSANE フレームワークを採用しており、多数の既存スキャナに対応しています。"
+msgid "Simple Scan uses the SANE framework to support most existing scanners."
+msgstr "シンプルスキャンはSANEフレームワークを採用しており、多数の既存スキャナーに対応しています。"
 
-#. Error displayed when no scanners to scan with
-#: src/scanner.vala:844
-msgid "No scanners available.  Please connect a scanner."
-msgstr "利用可能なスキャナがありません。スキャナを接続してください。"
+#: data/simple-scan.desktop.in:4
+msgid "Document Scanner"
+msgstr "ドキュメントスキャナー"
 
-#. Error displayed when cannot connect to scanner
-#: src/scanner.vala:874
-msgid "Unable to connect to scanner"
-msgstr "スキャナに接続できません"
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/simple-scan.desktop.in:7
+msgid "scan;scanner;flatbed;adf;"
+msgstr ""
+"scan;scanner;flatbed;adf;スキャン;スキャナー;フラットベッド;オートドキュメン"
+"トフィーダ;自動給紙装置;"
 
-#. Error display when unable to start scan
-#: src/scanner.vala:1227
-msgid "Unable to start scan"
-msgstr "スキャンを開始できません"
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/simple-scan.desktop.in:10
+msgid "scanner"
+msgstr "scanner"
 
-#. Error displayed when communication with scanner broken
-#: src/scanner.vala:1240 src/scanner.vala:1340
-msgid "Error communicating with scanner"
-msgstr "スキャナとの通信に失敗しました"
+#. Menu item to rotate page to left (anti-clockwise)
+#: src/app-window.ui:10
+msgid "Rotate _Left"
+msgstr "左へ回転(_L)"
 
-#. Help string for command line --version flag
-#: src/simple-scan.vala:21
-msgid "Show release version"
-msgstr "リリースバージョンを表示"
+#. Menu item to rotate page to right (clockwise)
+#: src/app-window.ui:19
+msgid "Rotate _Right"
+msgstr "右へ回転(_R)"
 
-#. Help string for command line --debug flag
-#: src/simple-scan.vala:24
-msgid "Print debugging messages"
-msgstr "デバッグメッセージを表示"
+#. Label for page crop submenu
+#: src/app-window.ui:28
+msgid "_Crop"
+msgstr "切り抜き(_C)"
 
-#: src/simple-scan.vala:26
-msgid "Fix PDF files generated with older versions of Simple Scan"
-msgstr "古いバージョンの Simple Scan によって生成されたPDFファイルを修復する"
+#. Radio button for no crop
+#: src/app-window.ui:36
+msgid "_None"
+msgstr "なし(_N)"
 
-#. Title of error dialog when scan failed
-#: src/simple-scan.vala:389
-msgid "Failed to scan"
-msgstr "スキャンに失敗しました"
+#. Radio button for cropping page to A4 size
+#: src/app-window.ui:46
+msgid "A_4"
+msgstr "A_4"
 
-#. Arguments and description for --help text
-#: src/simple-scan.vala:619
-msgid "[DEVICE...] - Scanning utility"
-msgstr "[デバイス...] - スキャンユーティリティ"
+#. Radio button for cropping page to A5 size
+#: src/app-window.ui:56
+msgid "A_5"
+msgstr "A_5"
 
-#. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:630
-#, c-format
-msgid "Run '%s --help' to see a full list of available command line options."
-msgstr "'%s --help' を実行すると利用可能なすべてのコマンドラインオプションの一覧が表示されます"
+#. Radio button for cropping page to A6 size
+#: src/app-window.ui:66
+msgid "A_6"
+msgstr "A_6"
 
-#: src/ui.vala:332 src/ui.vala:1655 src/ui.vala:1935
+#. Radio button for cropping page to US letter size
+#: src/app-window.ui:76
+msgid "_Letter"
+msgstr "USレター(_L)"
+
+#. Radio button for cropping to page to US legal size
+#: src/app-window.ui:86
+msgid "Le_gal"
+msgstr "USリーガル(_G)"
+
+#. Radio button for cropping page to 4x6 inch
+#: src/app-window.ui:96
+msgid "4×6"
+msgstr "4×6"
+
+#. Radio button for cropping page to A3
+#: src/app-window.ui:106
+msgid "A_3"
+msgstr "A_3"
+
+#. Radio button for cropping to custom page size
+#: src/app-window.ui:116
+msgid "_Custom"
+msgstr "カスタム(_C)"
+
+#. Menu item to rotate the crop area
+#: src/app-window.ui:132
+msgid "_Rotate Crop"
+msgstr "切り抜きを回転(_R)"
+
+#. Menu item to move the selected page to the left
+#: src/app-window.ui:144
+msgid "Move Left"
+msgstr "左へ移動"
+
+#. Menu item to move the selected page to the right
+#: src/app-window.ui:152
+msgid "Move Right"
+msgstr "右へ移動"
+
+#: src/app-window.ui:272
+msgid "Stop"
+msgstr "停止"
+
+#. Tooltip for stop button
+#: src/app-window.ui:274
+msgid "Stop the current scan"
+msgstr "スキャンを停止します"
+
+#. Label on scan toolbar item
+#: src/app-window.ui:285
+msgid "Scan"
+msgstr "スキャン"
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:288
+msgid "Scan a single page from the scanner"
+msgstr "一枚のページをスキャンします"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:352
+msgid "Save document to a file"
+msgstr "ドキュメントをファイルに保存"
+
+#: src/app-window.ui:405
+msgid "_Single Page"
+msgstr "一枚のページ(_S)"
+
+#: src/app-window.ui:436
+msgid "All Pages From _Feeder"
+msgstr "フィーダーからすべてのページ(_F)"
+
+#: src/app-window.ui:467
+msgid "_Multiple Pages From Flatbed"
+msgstr "フラットベッドから複数のページ(_M)"
+
+#: src/app-window.ui:498
+msgid "_Text"
+msgstr "テキスト(_T)"
+
+#: src/app-window.ui:529
+msgid "_Image"
+msgstr "画像(_I)"
+
+#: src/app-window.vala:223 src/app-window.vala:1352
 msgid "_Close"
 msgstr "閉じる(_C)"
 
-#. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: src/ui.vala:341
+#. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
+#: src/app-window.vala:232
 #, c-format
-msgid "Username and password required to access '%s'"
-msgstr "'%s' にアクセスするにはユーザ名とパスワードが必要です"
+msgid "Username and password required to access “%s”"
+msgstr "“%s”へのアクセスに必要なユーザー名とパスワード"
 
-#. Warning displayed when no scanners are detected
-#: src/ui.vala:389
-msgid "No scanners detected"
-msgstr "スキャナが検出されていません"
+#. Label shown when searching for scanners
+#: src/app-window.vala:248
+msgid "Searching for Scanners…"
+msgstr "スキャナーを検索中…"
 
-#. Hint to user on why there are no scanners detected
-#: src/ui.vala:391
-msgid "Please check your scanner is connected and powered on"
-msgstr "スキャナが接続されて電源が入っているか確認してください"
+#. Label shown when detected a scanner
+#: src/app-window.vala:254
+msgid "Ready to Scan"
+msgstr "スキャン準備完了"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/ui.vala:396
+#: src/app-window.vala:261
 msgid "Additional software needed"
 msgstr "追加ソフトウェアが必要です"
 
 #. Instructions to install driver software
-#: src/ui.vala:398
-msgid "You need to install driver software for your scanner."
-msgstr "スキャナに対応したドライバー ソフトウェアをインストールする必要があります。"
+#: src/app-window.vala:263
+msgid ""
+"You need to <a href=\"install-firmware\">install driver software</a> for "
+"your scanner."
+msgstr "スキャナーの<a href=\"install-firmware\">ドライバーソフトウェアをインストール</a>する必要があります。"
+
+#. Warning displayed when no scanners are detected
+#: src/app-window.vala:269
+msgid "No scanners detected"
+msgstr "スキャナーが検出されていません"
+
+#. Hint to user on why there are no scanners detected
+#: src/app-window.vala:271
+msgid "Please check your scanner is connected and powered on"
+msgstr "スキャナーが接続されて電源が入っているか確認してください"
 
 #. Save dialog: Dialog title
-#: src/ui.vala:510
-msgid "Save As..."
-msgstr "名前を付けて保存..."
+#: src/app-window.vala:294
+msgid "Save As…"
+msgstr "名前を付けて保存…"
 
-#: src/ui.vala:513 src/ui.vala:648 src/ui.vala:723
-msgid "_Cancel"
-msgstr "キャンセル(_C)"
-
-#: src/ui.vala:514 src/ui.vala:724
+#: src/app-window.vala:297 src/app-window.vala:548
 msgid "_Save"
 msgstr "保存(_S)"
 
+#: src/app-window.vala:298 src/app-window.vala:466 src/app-window.vala:547
+msgid "_Cancel"
+msgstr "キャンセル(_C)"
+
 #. Default filename to use when saving document
-#: src/ui.vala:522
+#: src/app-window.vala:305
 msgid "Scanned Document.pdf"
 msgstr "スキャンされたドキュメント.pdf"
 
-#. Save dialog: Filter name to show only image files
-#: src/ui.vala:528
+#. Save dialog: Filter name to show only supported image files
+#: src/app-window.vala:311
 msgid "Image Files"
 msgstr "画像ファイル"
 
 #. Save dialog: Filter name to show all files
-#: src/ui.vala:534
+#: src/app-window.vala:321
 msgid "All Files"
 msgstr "すべてのファイル"
 
 #. Save dialog: Label for saving in PDF format
-#: src/ui.vala:543
+#: src/app-window.vala:330
 msgid "PDF (multi-page document)"
 msgstr "PDF (複数ページ)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/ui.vala:549
+#: src/app-window.vala:336
 msgid "JPEG (compressed)"
 msgstr "JPEG (圧縮済み)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/ui.vala:555
+#: src/app-window.vala:342
 msgid "PNG (lossless)"
 msgstr "PNG (ロスレス)"
 
-#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
-#: src/ui.vala:564
+#. Save dialog: Label for sabing in WEBP format
+#: src/app-window.vala:349
+msgid "WebP (compressed)"
+msgstr "WebP (圧縮済み)"
+
+#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
+#: src/app-window.vala:359
 msgid "File format:"
 msgstr "ファイルフォーマット:"
 
+#. Label in save dialog beside compression slider
+#: src/app-window.vala:371
+msgid "Compression:"
+msgstr "圧縮率:"
+
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/ui.vala:647
+#: src/app-window.vala:465
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
-msgstr ""
+msgstr "“%s”はすでに存在します。上書きしてもよろしいですか?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/ui.vala:650
+#: src/app-window.vala:468
 msgid "_Replace"
-msgstr ""
+msgstr "上書き(_R)"
+
+#: src/app-window.vala:507
+msgid "Saving"
+msgstr "保存中"
 
 #. Title of error dialog when save failed
-#: src/ui.vala:698
+#: src/app-window.vala:522
 msgid "Failed to save file"
 msgstr "ファイルの保存に失敗しました"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:721
-msgid "If you don't save, changes will be permanently lost."
-msgstr "保存しない場合、変更点は失われます。"
+#: src/app-window.vala:545
+msgid "If you don’t save, changes will be permanently lost."
+msgstr "保存しない場合、変更は永久に失われます。"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:763
+#: src/app-window.vala:581
 msgid "Save current document?"
 msgstr "現在のドキュメントを保存しますか?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/ui.vala:765
+#: src/app-window.vala:583
 msgid "Discard Changes"
 msgstr "変更を破棄"
 
+#. Label shown when scan started
+#: src/app-window.vala:716
+msgid "Contacting scanner…"
+msgstr "スキャナーと通信中…"
+
 #. Error message display when unable to save image for preview
-#: src/ui.vala:1056
+#: src/app-window.vala:799
 msgid "Unable to save image for preview"
 msgstr "プレビュー用の画像を保存できません"
 
 #. Error message display when unable to preview image
-#: src/ui.vala:1068
+#: src/app-window.vala:811
 msgid "Unable to open image preview application"
 msgstr "画像プレビューアプリケーションを開けませんでした"
 
+#. Title of dialog to reorder pages
+#: src/app-window.vala:973 src/app-window.vala:1534
+msgid "Reorder Pages"
+msgstr "ページを再整列"
+
 #. Label on button for combining sides in reordering dialog
-#: src/ui.vala:1270
+#: src/app-window.vala:996
 msgid "Combine sides"
 msgstr "面を結合"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/ui.vala:1280
+#: src/app-window.vala:1006
 msgid "Combine sides (reverse)"
-msgstr "面を結合(逆順)"
+msgstr "面を結合 (逆順)"
 
 #. Label on button for reversing in reordering dialog
-#: src/ui.vala:1290
+#: src/app-window.vala:1016
 msgid "Reverse"
 msgstr "逆順"
 
 #. Label on button for cancelling page reordering dialog
-#: src/ui.vala:1300
+#: src/app-window.vala:1026
 msgid "Keep unchanged"
 msgstr "無変更を維持"
 
 #. Error message displayed when unable to launch help browser
-#: src/ui.vala:1504
+#: src/app-window.vala:1240
 msgid "Unable to open help file"
 msgstr "ヘルプファイルを開くことができません"
 
 #. The license this software is under (GPL3+)
-#: src/ui.vala:1525
+#: src/app-window.vala:1255
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -561,16 +499,16 @@ msgstr ""
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/ui.vala:1528
+#: src/app-window.vala:1258 src/app-window.vala:1540
 msgid "About Simple Scan"
-msgstr "Simple Scan について"
+msgstr "シンプルスキャンについて"
 
 #. Description of program
-#: src/ui.vala:1531
+#: src/app-window.vala:1261
 msgid "Simple document scanning tool"
 msgstr "ドキュメントのスキャンを行うシンプルなツールです"
 
-#: src/ui.vala:1540
+#: src/app-window.vala:1270
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -582,202 +520,542 @@ msgstr ""
 "  Kentaro Kazuhama https://launchpad.net/~kazken3\n"
 "  Koichi Akabe https://launchpad.net/~vbkaisetsu\n"
 "  MANABE Akinari https://launchpad.net/~maaanaari\n"
+"  Shinichirou Yamada https://launchpad.net/~yamada-strong-yamada-nice-64bit\n"
 "  Shushi Kurose https://launchpad.net/~kuromabo\n"
 "  Tosiki Iga https://launchpad.net/~tosiki-iga\n"
+"  Hideki Yamane https://launchpad.net/~henrich\n"
+"  id:sicklylifehttps://launchpad.net/~sicklylife\n"
 "  kaneisland https://launchpad.net/~kaneisland"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:1562
+#: src/app-window.vala:1286
 msgid "Save document before quitting?"
 msgstr "終了する前にドキュメントを保存しますか?"
 
-#. Button in dialog to quit and discard unsaved document
-#: src/ui.vala:1564
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:1288
 msgid "Quit without Saving"
 msgstr "保存せずに終了"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/ui.vala:1632
+#: src/app-window.vala:1329
 msgid "You appear to have a Brother scanner."
 msgstr "ブラザー製スキャナーを見つけました。"
 
 #. Instructions on how to install Brother scanner drivers
-#: src/ui.vala:1634
+#: src/app-window.vala:1331
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.brother.com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother.com"
+"\">Brother website</a>."
 msgstr ""
-"このスキャナーのドライバーは、<a "
-"href=\"http://support.brother.com\">Brotherのウェブサイト</a>から入手できます。"
+"このスキャナーのドライバーは、<a href=\"http://support.brother.com\">Brother"
+"のウェブサイト</a>から入手できます。"
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/ui.vala:1638
+#: src/app-window.vala:1335
 msgid "You appear to have a Samsung scanner."
 msgstr "Samsung製スキャナーを見つけました。"
 
 #. Instructions on how to install Samsung scanner drivers
-#: src/ui.vala:1640
+#: src/app-window.vala:1337
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://samsung.com/support\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"http://samsung.com/support"
+"\">Samsung website</a>."
 msgstr ""
-"このスキャナーのドライバーは、<a href=\"http://samsung.com/support\">Samsungのウェブサイト</a> "
-"から入手できます。"
+"このスキャナーのドライバーは、<a href=\"http://samsung.com/support\">Samsung"
+"のウェブサイト</a> から入手できます。"
 
 #. Message to indicate a HP scanner has been detected
-#: src/ui.vala:1644
+#: src/app-window.vala:1341
 msgid "You appear to have an HP scanner."
 msgstr "HP製スキャナーを見つけました。"
 
 #. Message to indicate an Epson scanner has been detected
-#: src/ui.vala:1649
+#: src/app-window.vala:1346
 msgid "You appear to have an Epson scanner."
 msgstr "エプソン製スキャナーを見つけました。"
 
 #. Instructions on how to install Epson scanner drivers
-#: src/ui.vala:1651
+#: src/app-window.vala:1348
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.epson.com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson.com"
+"\">Epson website</a>."
 msgstr ""
-"このスキャナーのドライバーは、<a href=\"http://support.epson.com\">Epsonウェブサイト</a>から入手できます。"
+"このスキャナーのドライバーは、<a href=\"http://support.epson.com\">Epsonのウェ"
+"ブサイト</a>から入手できます。"
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/ui.vala:1655
+#: src/app-window.vala:1352
 msgid "Install drivers"
 msgstr "ドライバーのインストール手順"
 
 #. Message in driver install dialog
-#: src/ui.vala:1686
+#: src/app-window.vala:1385
 msgid "Once installed you will need to restart Simple Scan."
-msgstr "ドライバーのインストール後、シンプル スキャンを再起動する必要があります。"
+msgstr ""
+"ドライバーのインストール後、シンプルスキャンを再起動する必要があります。"
 
 #. Label shown while installing drivers
-#: src/ui.vala:1698
-msgid "Installing drivers..."
-msgstr "ドライバーをインストールしています..."
+#: src/app-window.vala:1398
+msgid "Installing drivers…"
+msgstr "ドライバーをインストールしています…"
 
 #. Label shown once drivers successfully installed
-#: src/ui.vala:1706
+#: src/app-window.vala:1406
 msgid "Drivers installed successfully!"
 msgstr "ドライバーのインストールに成功しました!"
 
 #. Label shown if failed to install drivers
-#: src/ui.vala:1716
+#: src/app-window.vala:1416
 #, c-format
 msgid "Failed to install drivers (error code %d)."
-msgstr "ドライバーのインストールに失敗しました(エラーコード %d)。"
+msgstr "ドライバーのインストールに失敗しました (エラーコード %d)。"
 
 #. Label shown if failed to install drivers
-#: src/ui.vala:1722
+#: src/app-window.vala:1422
 msgid "Failed to install drivers."
 msgstr "ドライバーのインストールに失敗しました。"
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/ui.vala:1729
+#: src/app-window.vala:1429
 #, c-format
-msgid "You need to install the %s package(s)."
-msgstr "%s パッケージをインストールする必要があります。"
+msgid "You need to install the %s package."
+msgid_plural "You need to install the %s packages."
+msgstr[0] "%sパッケージをインストールする必要があります。"
+
+#: src/app-window.vala:1533
+msgid "Email"
+msgstr "メール"
+
+#. Title of preferences dialog
+#: src/app-window.vala:1537 src/preferences-dialog.ui:52
+msgid "Preferences"
+msgstr "設定"
+
+#: src/app-window.vala:1538
+msgid "Keyboard Shortcuts"
+msgstr "キーボードショートカット"
+
+#: src/app-window.vala:1539
+msgid "Help"
+msgstr "ヘルプ"
+
+#. Populate ActionBar (not supported in Glade)
+#. https://bugzilla.gnome.org/show_bug.cgi?id=769966
+#. Label on new document button
+#: src/app-window.vala:1548
+msgid "Start Again…"
+msgstr "再開…"
+
+#. Tooltip for rotate left (counter-clockwise) button
+#: src/app-window.vala:1567
+msgid "Rotate the page to the left (counter-clockwise)"
+msgstr "ページを左回転 (反時計回り)"
+
+#. Tooltip for rotate right (clockwise) button
+#: src/app-window.vala:1576
+msgid "Rotate the page to the right (clockwise)"
+msgstr "ページを右回転 (時計回り)"
+
+#. Tooltip for crop button
+#: src/app-window.vala:1588
+msgid "Crop the selected page"
+msgstr "選択した範囲の切り抜き"
+
+#. Tooltip for delete button
+#: src/app-window.vala:1606
+msgid "Delete the selected page"
+msgstr "選択したページを削除"
+
+#. Text of button for cancelling save
+#: src/app-window.vala:1750
+msgid "Cancel"
+msgstr "キャンセル"
+
+#. Button to submit authorization dialog
+#: src/authorize-dialog.ui:22
+msgid "_Authorize"
+msgstr "認証(_A)"
+
+#. Label beside username entry
+#: src/authorize-dialog.ui:80
+msgid "_Username for resource:"
+msgstr "リソースに対するユーザ名(_U):"
+
+#. Label beside password entry
+#: src/authorize-dialog.ui:92
+msgid "_Password:"
+msgstr "パスワード(_P):"
+
+#: src/book.vala:331 src/book.vala:337
+#, c-format
+msgid "Unable to encode page %i"
+msgstr "%iをエンコードできません"
+
+#: src/help-overlay.ui:12
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "スキャン"
+
+#: src/help-overlay.ui:17
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "一枚のページをスキャンする"
+
+#: src/help-overlay.ui:24
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "ドキュメントフィーダーからすべてのページをスキャンする"
+
+#: src/help-overlay.ui:31
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "フラットベッドスキャナーから連続でスキャンする"
+
+#: src/help-overlay.ui:38
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "作業中のスキャンを停止する"
+
+#: src/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "ドキュメントの変更"
+
+#: src/help-overlay.ui:51
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "ページを左に移動する"
+
+#: src/help-overlay.ui:58
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "ページを右に移動する"
+
+#: src/help-overlay.ui:65
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "ページを左に回転する (反時計回り)"
+
+#: src/help-overlay.ui:72
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "ページを右に回転する (時計回り)"
+
+#: src/help-overlay.ui:79
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "ページを削除する"
+
+#: src/help-overlay.ui:87
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "ドキュメント管理"
+
+#: src/help-overlay.ui:92
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "新しいドキュメントをスキャンする"
+
+#: src/help-overlay.ui:99
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "スキャンしたドキュメントを保存する"
+
+#: src/help-overlay.ui:106
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "スキャンしたドキュメントをメールで送る"
+
+#: src/help-overlay.ui:113
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "スキャンしたドキュメントを印刷する"
+
+#: src/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "現在のページをクリップボードにコピーする"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:80
+msgid "_Scanner"
+msgstr "スキャナー(_S)"
+
+#. Label beside scan side combo box
+#: src/preferences-dialog.ui:108
+msgid "Scan Sides"
+msgstr "スキャン面"
+
+#. Label beside page size combo box
+#: src/preferences-dialog.ui:124
+msgid "Page Size"
+msgstr "ページサイズ"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:153
+msgid "Front"
+msgstr "表面"
+
+#. Preferences Dialog: Toggle button to select scanning on the back side of a page
+#: src/preferences-dialog.ui:163
+msgid "Back"
+msgstr "裏面"
+
+#. Preferences Dialog: Toggle button to select scanning on both sides of a page
+#: src/preferences-dialog.ui:173
+msgid "Both"
+msgstr "両面"
+
+#. Label beside page delay scale
+#: src/preferences-dialog.ui:200
+msgid "Delay"
+msgstr "遅延"
+
+#. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
+#: src/preferences-dialog.ui:215
+msgid "Multiple pages from flatbed"
+msgstr "フラットベッドから複数のページ"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:233
+msgid "3"
+msgstr "3"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:243
+msgid "5"
+msgstr "5"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:254
+msgid "7"
+msgstr "7"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:265
+msgid "10"
+msgstr "10"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:276
+msgid "15"
+msgstr "15"
+
+#. Label after page delay radio buttons
+#: src/preferences-dialog.ui:297
+msgid "Seconds"
+msgstr "秒"
+
+#. Preferences Dialog: Tab label for scanning settings
+#: src/preferences-dialog.ui:319
+msgid "Scanning"
+msgstr "スキャン"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:339
+msgid "_Text Resolution"
+msgstr "テキストの解像度(_T)"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:354
+msgid "_Photo Resolution"
+msgstr "写真の解像度(_P)"
+
+#. Label beside brightness scale
+#: src/preferences-dialog.ui:398
+msgid "Brightness"
+msgstr "明るさ"
+
+#. Label beside contrast scale
+#: src/preferences-dialog.ui:413
+msgid "Contrast"
+msgstr "コントラスト"
+
+#. Preferences Dialog: Tab for quality settings
+#: src/preferences-dialog.ui:461
+msgid "Quality"
+msgstr "品質"
+
+#. Combo box value for automatic paper size
+#: src/preferences-dialog.vala:72
+msgid "Automatic"
+msgstr "自動"
+
+#: src/preferences-dialog.vala:113
+msgid "Darker"
+msgstr "暗く"
+
+#: src/preferences-dialog.vala:115
+msgid "Lighter"
+msgstr "明るく"
+
+#: src/preferences-dialog.vala:123
+msgid "Less"
+msgstr "弱く"
+
+#: src/preferences-dialog.vala:125
+msgid "More"
+msgstr "強く"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/ui.vala:1833
+#: src/preferences-dialog.vala:437
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (標準)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/ui.vala:1836
+#: src/preferences-dialog.vala:440
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (ドラフト)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/ui.vala:1839
+#: src/preferences-dialog.vala:443
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (高解像度)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/ui.vala:1842
+#: src/preferences-dialog.vala:446
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
-#: src/ui.vala:1885
-msgid "New Document"
-msgstr "新しいドキュメント"
+#. Error displayed when no scanners to scan with
+#: src/scanner.vala:844
+msgid "No scanners available.  Please connect a scanner."
+msgstr "利用可能なスキャナーがありません。スキャナーを接続してください。"
 
-#: src/ui.vala:1890
-msgid "Document"
-msgstr "ドキュメント"
+#. Error displayed when cannot connect to scanner
+#: src/scanner.vala:874
+msgid "Unable to connect to scanner"
+msgstr "スキャナーに接続できません"
 
-#: src/ui.vala:1893
-msgid "Email..."
-msgstr "メール..."
+#. Error display when unable to start scan
+#: src/scanner.vala:1227
+msgid "Unable to start scan"
+msgstr "スキャンを開始できません"
 
-#: src/ui.vala:1894
-msgid "Print..."
-msgstr "印刷..."
+#. Error displayed when communication with scanner broken
+#: src/scanner.vala:1240 src/scanner.vala:1347
+msgid "Error communicating with scanner"
+msgstr "スキャナーとの通信に失敗しました"
 
-#: src/ui.vala:1902
-msgid "Help"
-msgstr "ヘルプ"
+#. Help string for command line --version flag
+#: src/simple-scan.vala:21
+msgid "Show release version"
+msgstr "リリースバージョンを表示"
 
-#: src/ui.vala:1903
-msgid "About"
-msgstr "このプログラムについて"
+#. Help string for command line --debug flag
+#: src/simple-scan.vala:24
+msgid "Print debugging messages"
+msgstr "デバッグメッセージを表示"
 
-#: src/ui.vala:1904
-msgid "Quit"
-msgstr "終了"
+#: src/simple-scan.vala:26
+msgid "Fix PDF files generated with older versions of Simple Scan"
+msgstr "古いバージョンのシンプルスキャンによって生成されたPDFファイルを修復する"
 
-#. Button in error infobar to open preferences dialog and change scanner
-#: src/ui.vala:1937
-msgid "Change _Scanner"
-msgstr "スキャナを変更(_S)"
+#. Title of error dialog when scan failed
+#: src/simple-scan.vala:393
+msgid "Failed to scan"
+msgstr "スキャンに失敗しました"
 
-#. Button in error infobar to prompt user to install drivers
-#: src/ui.vala:1939
-msgid "_Install Drivers"
-msgstr "ドライバーをインストール (_I)"
+#. Attempt to inhibit the screensaver when scanning
+#: src/simple-scan.vala:408
+msgid "Scan in progress"
+msgstr "スキャン実行中"
 
-#. Combo box value for automatic paper size
-#: src/ui.vala:1945
-msgid "Automatic"
-msgstr "自動"
+#. Arguments and description for --help text
+#: src/simple-scan.vala:585
+msgid "[DEVICE…] — Scanning utility"
+msgstr "[デバイス…] — スキャンユーティリティ"
 
-#: src/ui.vala:1995
-msgid "Darker"
-msgstr "暗く"
-
-#: src/ui.vala:1997
-msgid "Lighter"
-msgstr "明るく"
-
-#: src/ui.vala:2005
-msgid "Less"
-msgstr "弱く"
-
-#: src/ui.vala:2007
-msgid "More"
-msgstr "強く"
-
-#: src/ui.vala:2015
-msgid "Minimum"
-msgstr "最小"
-
-#: src/ui.vala:2017
-msgid "Maximum"
-msgstr "最大"
-
-#: src/ui.vala:2068
-msgid "Saving document..."
-msgstr "ドキュメントを保存しています..."
-
-#: src/ui.vala:2242
+#. Text printed out when an unknown command-line argument provided
+#: src/simple-scan.vala:596
 #, c-format
-msgid "Saving page %d out of %d"
-msgstr "%2$dページ中%1$dページを保存しています"
+msgid "Run “%s --help” to see a full list of available command line options."
+msgstr ""
+"“%s --help”を実行すると利用可能なすべてのコマンドラインオプションの一覧が表"
+"示されます。"
+
+#~ msgid "Photo"
+#~ msgstr "写真"
+
+#~ msgid "_Document"
+#~ msgstr "ドキュメント(_D)"
+
+#~ msgid "Sc_an"
+#~ msgstr "スキャン(_A)"
+
+#~ msgid "_Stop Scan"
+#~ msgstr "スキャン停止(_S)"
+
+#~ msgid "_Email"
+#~ msgstr "電子メール(_E)"
+
+#~ msgid "_Page"
+#~ msgstr "ページ(_P)"
+
+#~ msgid "_Help"
+#~ msgstr "ヘルプ(_H)"
+
+#~ msgid "_Contents"
+#~ msgstr "コンテンツ(_C)"
+
+#~ msgid "Save"
+#~ msgstr "保存"
+
+#~ msgid "About"
+#~ msgstr "このプログラムについて"
+
+#~ msgid "Front and Back"
+#~ msgstr "表面と裏面"
+
+#~ msgid "New"
+#~ msgstr "新規"
+
+#~ msgid "Rotate Left"
+#~ msgstr "左へ回転"
+
+#~ msgid "Rotate Right"
+#~ msgstr "右へ回転"
+
+#~ msgid "Crop"
+#~ msgstr "切り抜き"
+
+#~ msgid "Scan S_ource:"
+#~ msgstr "スキャンする対象(_O):"
+
+#~ msgid "New Document"
+#~ msgstr "新しいドキュメント"
+
+#~ msgid "Document"
+#~ msgstr "ドキュメント"
+
+#~ msgid "Email..."
+#~ msgstr "メール..."
+
+#~ msgid "Print..."
+#~ msgstr "印刷..."
+
+#~ msgid "Quit"
+#~ msgstr "終了"
+
+#~ msgid "_Install Drivers"
+#~ msgstr "ドライバーをインストール (_I)"
+
+#~ msgid "Minimum"
+#~ msgstr "最小"
+
+#~ msgid "Maximum"
+#~ msgstr "最大"
+
+#~ msgid "Saving document..."
+#~ msgstr "ドキュメントを保存しています..."
+
+#~ msgid "Saving page %d out of %d"
+#~ msgstr "%2$dページ中%1$dページを保存しています"
 
 #~ msgid "4&#xD7;6"
 #~ msgstr "4&#xD7;6"
@@ -788,7 +1066,6 @@ msgstr "%2$dページ中%1$dページを保存しています"
 #~ msgid "Please check your installation"
 #~ msgstr "インストールされているか確認してください"
 
-#, c-format
 #~ msgid ""
 #~ "Usage:\n"
 #~ "  %s [DEVICE...] - Scanning utility"
@@ -805,53 +1082,25 @@ msgstr "%2$dページ中%1$dページを保存しています"
 #~ msgid "Select File _Type"
 #~ msgstr "ファイルタイプの選択(_T)"
 
-#~ msgid "Type of document being scanned"
-#~ msgstr "スキャンするドキュメントの種類"
-
-#~ msgid "Page side to scan"
-#~ msgstr "スキャンする面"
-
-#~ msgid "Directory to save files to"
-#~ msgstr "ファイルを保存するディレクトリ"
-
-#~ msgid "Height of paper in tenths of a mm"
-#~ msgstr "10mm単位の用紙の高さ"
-
-#~ msgid "Device to scan from"
-#~ msgstr "スキャンするデバイス"
-
 #~ msgid ""
-#~ "The page side to scan. It can be one of the following: 'both' 'front' 'back'"
-#~ msgstr "スキャンする面のことです。次のうちから 1 つ選択できます: '両面' '表面' '裏面'"
+#~ "The page side to scan. It can be one of the following: 'both' 'front' "
+#~ "'back'"
+#~ msgstr ""
+#~ "スキャンする面のことです。次のうちから 1 つ選択できます: '両面' '表面' '裏"
+#~ "面'"
 
 #~ msgid ""
 #~ "The height of scanned image in pixels. This value is updated to what the "
 #~ "last scanned page was."
-#~ msgstr "ピクセル単位のスキャンされたイメージの高さです。この値は最後にスキャンしたページのものに更新されます。"
-
-#~ msgid ""
-#~ "The height of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr "10mm単位の紙の高さ (または 0 で自動紙検知)"
+#~ msgstr ""
+#~ "ピクセル単位のスキャンされたイメージの高さです。この値は最後にスキャンした"
+#~ "ページのものに更新されます。"
 
 #~ msgid "TRUE if the application window is maximized"
 #~ msgstr "アプリケーションのウィンドウを最大化するには TRUE にします"
 
-#~ msgid "SANE device to acquire images from."
-#~ msgstr "画像を取得する SANE デバイスです。"
-
-#~ msgid "Resolution for text scans"
-#~ msgstr "テキストスキャンの解像度"
-
-#~ msgid "Resolution for photo scans"
-#~ msgstr "写真スキャンの解像度"
-
 #~ msgid "Resolution of last scanned image"
 #~ msgstr "最後にスキャンした画像の解像度"
-
-#~ msgid ""
-#~ "The directory to save files to. Defaults to the documents directory if unset."
-#~ msgstr "ファイルを保存するディレクトリです。設定されていない場合、標準でドキュメントディレクトリに保存されます。"
 
 #~ msgid "Window height in pixels"
 #~ msgstr "ウィンドウの高さ(ピクセル)"
@@ -862,51 +1111,8 @@ msgstr "%2$dページ中%1$dページを保存しています"
 #~ msgid "The resolution in dots-per-inch of the previously scanned image."
 #~ msgstr "前にスキャンした画像の解像度(DPI)です。"
 
-#~ msgid "The resolution in dots-per-inch to use when scanning text."
-#~ msgstr "テキストをスキャンするときの解像度(DPI)です。"
-
-#~ msgid "The resolution in dots-per-inch to use when scanning photos."
-#~ msgstr "写真をスキャンするときの解像度(DPI)です。"
-
-#~ msgid "Width of paper in tenths of a mm"
-#~ msgstr "10mm単位での紙の幅"
-
 #~ msgid "Width of scanned image in pixels"
 #~ msgstr "スキャン画像の幅(ピクセル)"
 
-#~ msgid ""
-#~ "The width of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr "10mm単位の用紙の幅 (または自動用紙検知の場合は 0)"
-
-#~ msgid "The page side to scan."
-#~ msgstr "スキャンされる面"
-
 #~ msgid "The direction of the scanner across the scanned page."
 #~ msgstr "スキャナの走査方向"
-
-#~ msgid ""
-#~ "Type of document being scanned. This setting decides on the scan resolution, "
-#~ "colors and post-processing."
-#~ msgstr "スキャンされる文書の種類。この設定により、画像の解像度、色の深度、事後処理が決定されます。"
-
-#~ msgid "The contrast adjustment from -100 to 100 (0 being none)."
-#~ msgstr "-100から100までの範囲でコントラストを調節する (0は無調整)。"
-
-#~ msgid "Contrast of scan"
-#~ msgstr "スキャンのコントラスト"
-
-#~ msgid "The brightness adjustment from -100 to 100 (0 being none)."
-#~ msgstr "-100から100までの範囲で明るさを調節する (0は無調整)。"
-
-#~ msgid "Brightness of scan"
-#~ msgstr "スキャンの明るさ"
-
-#~ msgid "Quality value to use for JPEG compression."
-#~ msgstr "JPEGの圧縮に使用する品質の値です。"
-
-#~ msgid "Quality value to use for JPEG compression"
-#~ msgstr "JPEGの圧縮に使用する品質の値"
-
-#~ msgid "Scanned Document"
-#~ msgstr "スキャン済みドキュメント"
