@@ -1039,6 +1039,24 @@ public class Scanner
                     set_bool_option (handle, option, index, job.type == ScanType.ADF_BOTH, null);
             }
 
+            /* Non-standard Epson GT-S50 ADF options */
+            option = get_option_by_name (handle, "adf-mode", out index);
+            if (option != null)
+            {
+                string[] adf_duplex_modes =
+                {
+                    "Duplex"
+                };
+                if (job.type == ScanType.ADF_BOTH)
+                    set_constrained_string_option (handle, option, index, adf_duplex_modes, null);
+            }
+            option = get_option_by_name (handle, "adf-auto-scan", out index);
+            if (option != null)
+            {
+                if (option.type == Sane.ValueType.BOOL)
+                    set_bool_option (handle, option, index, true, null);
+            }
+
             /* Multi-page options */
             option = get_option_by_name (handle, "batch-scan", out index);
             if (option != null)
