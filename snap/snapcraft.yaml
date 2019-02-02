@@ -9,7 +9,7 @@ confinement: classic
 
 apps:
   simple-scan:
-    command: bin/classic-launch classic ${SNAP}/usr/bin/simple-scan
+    command: bin/desktop-launch simple-scan
     desktop: usr/share/applications/simple-scan.desktop
     environment:
       GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
@@ -17,14 +17,15 @@ apps:
 parts:
   libsane:
     after: [desktop-gtk3]
-    source: https://anonscm.debian.org/cgit/sane/sane-backends.git
+    source: https://salsa.debian.org/debian/sane-backends.git
     source-type: git
-    source-tag: RELEASE_1_0_27
+    source-tag: upstream/1.0.27
     plugin: autotools
     # workaround the issue described in https://launchpad.net/bugs/1583250
     configflags: [--prefix=/snap/simple-scan/current/usr, --with-api-spec=no]
     organize:
       snap/simple-scan/current/usr: usr
+    build-attributes: [no-system-libraries]
     build-packages:
       - autotools-dev
       - autoconf
@@ -47,6 +48,7 @@ parts:
   simple-scan:
     after: [libsane]
     source: .
+    source-type: git
     plugin: meson
     meson-parameters: [--prefix=/usr]
     organize:
@@ -54,6 +56,7 @@ parts:
     install: |
       mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
       cp snapbuild/data/simple-scan.desktop $SNAPCRAFT_PART_INSTALL/meta/gui/
+    build-attributes: [no-system-libraries]
     build-packages:
       - desktop-file-utils
       - gettext
@@ -72,8 +75,3 @@ parts:
       - python-scour
       - valac
       - zlib1g-dev
-  classic-launch:
-    plugin: dump
-    source: ./snap
-    organize:
-      classic-launch: bin/classic-launch
