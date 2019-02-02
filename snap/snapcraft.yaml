@@ -6,12 +6,13 @@ description: |
 
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict
+base: core18
 
 plugs:
-  gnome-3-26-1604:
+  gnome-3-28-1804:
     interface: content
     target: $SNAP/gnome-platform
-    default-provider: gnome-3-26-1604
+    default-provider: gnome-3-28-1804
   gtk-3-themes:
     interface: content
     target: $SNAP/data-dir/themes
@@ -53,6 +54,18 @@ apps:
       GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
 
 parts:
+  desktop-gnome-platform:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: gtk
+    plugin: make
+    make-parameters: ["FLAVOR=gtk3"]
+    build-packages:
+      - build-essential
+      - libgtk-3-dev
+    override-build: |
+      snapcraftctl build
+      mkdir -pv $SNAPCRAFT_PART_INSTALL/gnome-platform
+
   libsane:
     after: [desktop-gnome-platform]
     source: https://salsa.debian.org/debian/sane-backends.git
@@ -62,7 +75,6 @@ parts:
     configflags: [--prefix=/snap/simple-scan/current/usr, --with-api-spec=no]
     organize:
       snap/simple-scan/current/usr: usr
-    build-attributes: ['no-system-libraries']
     build-packages:
       - autotools-dev
       - autoconf
@@ -86,12 +98,10 @@ parts:
     after: [libsane]
     source: .
     source-type: git
-    #source-tag: 3.30.0
     plugin: meson
     meson-parameters: [--prefix=/usr]
     organize:
       snap/simple-scan/current/usr: usr
-    build-attributes: ['no-system-libraries']
     build-packages:
       - desktop-file-utils
       - gettext
