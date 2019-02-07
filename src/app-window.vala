@@ -970,7 +970,7 @@ public class AppWindow : Gtk.ApplicationWindow
         dialog.modal = true;
         dialog.border_width = 12;
         /* Title of dialog to reorder pages */
-        dialog.title = _("Reorder Pages");
+        dialog.title = C_("dialog title", "Reorder Pages");
         dialog.set_transient_for (this);
         dialog.key_press_event.connect ((e) =>
         {
@@ -1531,7 +1531,7 @@ public class AppWindow : Gtk.ApplicationWindow
         var section = new Menu ();
         gear_menu.append_section (null, section);
         section.append (_("Email"), "app.email");
-        section.append (_("Reorder Pages"), "app.reorder");
+        section.append (C_("menu", "Reorder Pages"), "app.reorder");
         section = new Menu ();
         gear_menu.append_section (null, section);
         section.append (_("Preferences"), "app.preferences");
