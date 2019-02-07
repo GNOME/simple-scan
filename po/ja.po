@@ -7,16 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2018-11-12 23:15+0000\n"
-"PO-Revision-Date: 2019-01-03 11:01+0900\n"
-"Last-Translator: Hideki Yamane <henrich@debian.org>\n"
+"POT-Creation-Date: 2019-02-07 01:56+0000\n"
+"PO-Revision-Date: 2019-02-08 00:45+0900\n"
+"Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Launchpad (build 18361)\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -152,7 +150,9 @@ msgstr ""
 
 #: data/simple-scan.appdata.xml.in:14
 msgid "Simple Scan uses the SANE framework to support most existing scanners."
-msgstr "シンプルスキャンはSANEフレームワークを採用しており、多数の既存スキャナーに対応しています。"
+msgstr ""
+"シンプルスキャンはSANEフレームワークを採用しており、多数の既存スキャナーに対"
+"応しています。"
 
 #: data/simple-scan.desktop.in:4
 msgid "Document Scanner"
@@ -319,7 +319,9 @@ msgstr "追加ソフトウェアが必要です"
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
-msgstr "スキャナーの<a href=\"install-firmware\">ドライバーソフトウェアをインストール</a>する必要があります。"
+msgstr ""
+"スキャナーの<a href=\"install-firmware\">ドライバーソフトウェアをインストール"
+"</a>する必要があります。"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:269
@@ -440,7 +442,8 @@ msgid "Unable to open image preview application"
 msgstr "画像プレビューアプリケーションを開けませんでした"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:973 src/app-window.vala:1534
+#: src/app-window.vala:973
+msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "ページを再整列"
 
@@ -581,8 +584,8 @@ msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
 msgstr ""
-"このスキャナーのドライバーは、<a href=\"http://support.epson.com\">Epsonのウェ"
-"ブサイト</a>から入手できます。"
+"このスキャナーのドライバーは、<a href=\"http://support.epson.com\">Epsonの"
+"ウェブサイト</a>から入手できます。"
 
 #. Title of dialog giving instructions on how to install drivers
 #: src/app-window.vala:1352
@@ -626,6 +629,11 @@ msgstr[0] "%sパッケージをインストールする必要があります。"
 #: src/app-window.vala:1533
 msgid "Email"
 msgstr "メール"
+
+#: src/app-window.vala:1534
+msgctxt "menu"
+msgid "Reorder Pages"
+msgstr "ページを再整列"
 
 #. Title of preferences dialog
 #: src/app-window.vala:1537 src/preferences-dialog.ui:52
@@ -933,12 +941,12 @@ msgid "Unable to connect to scanner"
 msgstr "スキャナーに接続できません"
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1227
+#: src/scanner.vala:1251
 msgid "Unable to start scan"
 msgstr "スキャンを開始できません"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1240 src/scanner.vala:1347
+#: src/scanner.vala:1264 src/scanner.vala:1371
 msgid "Error communicating with scanner"
 msgstr "スキャナーとの通信に失敗しました"
 
@@ -954,7 +962,8 @@ msgstr "デバッグメッセージを表示"
 
 #: src/simple-scan.vala:26
 msgid "Fix PDF files generated with older versions of Simple Scan"
-msgstr "古いバージョンのシンプルスキャンによって生成されたPDFファイルを修復する"
+msgstr ""
+"古いバージョンのシンプルスキャンによって生成されたPDFファイルを修復する"
 
 #. Title of error dialog when scan failed
 #: src/simple-scan.vala:393
@@ -976,8 +985,8 @@ msgstr "[デバイス…] — スキャンユーティリティ"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
-"“%s --help”を実行すると利用可能なすべてのコマンドラインオプションの一覧が表"
-"示されます。"
+"“%s --help”を実行すると利用可能なすべてのコマンドラインオプションの一覧が表示"
+"されます。"
 
 #~ msgid "Photo"
 #~ msgstr "写真"
