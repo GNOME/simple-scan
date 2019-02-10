@@ -23,7 +23,7 @@ public enum CropLocation
     BOTTOM_RIGHT
 }
 
-public class PageView
+public class PageView : Object
 {
     /* Page being rendered */
     public Page page { get; private set; }

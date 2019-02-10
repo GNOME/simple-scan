@@ -11,7 +11,7 @@
 
 public delegate void ProgressionCallback (double fraction);
 
-public class Book
+public class Book : Object
 {
     private List<Page> pages;
 
