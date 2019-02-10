@@ -17,7 +17,7 @@ public enum ScanDirection
     RIGHT_TO_LEFT
 }
 
-public class Page
+public class Page : Object
 {
     /* Width of the page in pixels after rotation applied */
     public int width

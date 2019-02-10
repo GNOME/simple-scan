@@ -11,13 +11,13 @@
 
 /* TODO: Could indicate the start of the next page immediately after the last page is received (i.e. before the sane_cancel()) */
 
-public class ScanDevice
+public class ScanDevice : Object
 {
     public string name;
     public string label;
 }
 
-public class ScanPageInfo
+public class ScanPageInfo : Object
 {
     /* Width, height in pixels */
     public int width;
@@ -36,7 +36,7 @@ public class ScanPageInfo
     public string device;
 }
 
-public class ScanLine
+public class ScanLine : Object
 {
     /* Line number */
     public int number;
@@ -73,7 +73,7 @@ public enum ScanType
     BATCH
 }
 
-public class ScanOptions
+public class ScanOptions : Object
 {
     public int dpi;
     public ScanMode scan_mode;
@@ -86,7 +86,7 @@ public class ScanOptions
     public int page_delay;
 }
 
-private class ScanJob
+private class ScanJob : Object
 {
     public int id;
     public string device;
@@ -208,7 +208,7 @@ private class NotifyGotLine : Notify
     }
 }
 
-public class Scanner
+public class Scanner : Object
 {
     /* Singleton object */
     private static Scanner scanner_object = null;
@@ -292,7 +292,7 @@ public class Scanner
         return false;
     }
 
-    private void notify (Notify notification)
+    private void notify_event (Notify notification)
     {
         notify_queue.push (notification);
         Idle.add (notify_idle_cb);
@@ -303,7 +303,7 @@ public class Scanner
         if ((scanning && !is_scanning) || (!scanning && is_scanning))
         {
             scanning = is_scanning;
-            notify (new NotifyScanningChanged ());
+            notify_event (new NotifyScanningChanged ());
         }
     }
 
@@ -382,7 +382,7 @@ public class Scanner
         else
             default_device = null;
 
-        notify (new NotifyUpdateDevices ((owned) devices));
+        notify_event (new NotifyUpdateDevices ((owned) devices));
     }
 
     private int scale_int (int source_min, int source_max, Sane.OptionDescriptor option, int value)
@@ -743,7 +743,7 @@ public class Scanner
 
     private static void authorization_cb (string resource, char[] username, char[] password)
     {
-        scanner_object.notify (new NotifyRequestAuthorization (resource));
+        scanner_object.notify_event (new NotifyRequestAuthorization (resource));
 
         var credentials = scanner_object.authorize_queue.pop ();
         for (var i = 0; credentials.username[i] != '\0' && i < Sane.MAX_USERNAME_LEN; i++)
@@ -783,7 +783,7 @@ public class Scanner
     {
         close_device ();
         state = ScanState.IDLE;
-        notify (new NotifyScanFailed (error_code, error_string));
+        notify_event (new NotifyScanFailed (error_code, error_string));
     }
 
     private bool handle_requests ()
@@ -1227,7 +1227,7 @@ public class Scanner
         /* Trigger timeout to close */
         // TODO
 
-        notify (new NotifyDocumentDone ());
+        notify_event (new NotifyDocumentDone ());
         set_scanning (false);
     }
 
@@ -1235,7 +1235,7 @@ public class Scanner
     {
         Sane.Status status;
 
-        notify (new NotifyExpectPage ());
+        notify_event (new NotifyExpectPage ());
 
         status = Sane.start (handle);
         debug ("sane_start (page=%d, pass=%d) -> %s", page_number, pass_number, Sane.status_to_string (status));
@@ -1289,7 +1289,7 @@ public class Scanner
 
         if (page_number != notified_page)
         {
-            notify (new NotifyGotPageInfo (job.id, info));
+            notify_event (new NotifyGotPageInfo (job.id, info));
             notified_page = page_number;
         }
 
@@ -1306,7 +1306,7 @@ public class Scanner
     {
         var job = (ScanJob) job_queue.data;
 
-        notify (new NotifyPageDone (job.id));
+        notify_event (new NotifyPageDone (job.id));
 
         /* If multi-pass then scan another page */
         if (!parameters.last_frame)
@@ -1324,7 +1324,7 @@ public class Scanner
 
             page_number++;
             pass_number = 0;
-            notify (new NotifyPageDone (job.id));
+            notify_event (new NotifyPageDone (job.id));
             state = ScanState.START;
             return;
         }
@@ -1472,7 +1472,7 @@ public class Scanner
                 line.data_length = (line.width * 2 + 7) / 8;
             }
 
-            notify (new NotifyGotLine (job.id, line));
+            notify_event (new NotifyGotLine (job.id, line));
         }
     }
 
