@@ -507,6 +507,7 @@ public class AppWindow : Gtk.ApplicationWindow
         var progress_bar =  new CancellableProgressBar (_("Saving"), cancellable);
         action_bar.pack_end (progress_bar);
         progress_bar.visible = true;
+        save_button.sensitive = false;
         try
         {
             yield book.save_async (format, settings.get_int ("jpeg-quality"), file, (fraction) =>
@@ -516,6 +517,7 @@ public class AppWindow : Gtk.ApplicationWindow
         }
         catch (Error e)
         {
+            save_button.sensitive = true;
             progress_bar.destroy ();
             warning ("Error saving file: %s", e.message);
             show_error_dialog (/* Title of error dialog when save failed */
@@ -523,6 +525,7 @@ public class AppWindow : Gtk.ApplicationWindow
                                e.message);
             return false;
         }
+        save_button.sensitive = true;
         progress_bar.destroy_with_delay (500);
 
         book_needs_saving = false;
