@@ -104,8 +104,6 @@ public class AppWindow : Gtk.ApplicationWindow
     private bool have_devices = false;
     private string? missing_driver = null;
 
-    private Gtk.FileChooserNative? save_dialog;
-
     public Book book { get; private set; }
     private bool book_needs_saving;
     private string? book_uri = null;
@@ -281,7 +279,7 @@ public class AppWindow : Gtk.ApplicationWindow
         update_scan_status ();
     }
 
-    private string choose_file_location ()
+    private string? choose_file_location ()
     {
         /* Get directory to save to */
         string? directory = null;
@@ -290,12 +288,12 @@ public class AppWindow : Gtk.ApplicationWindow
         if (directory == null || directory == "")
             directory = Environment.get_user_special_dir (UserDirectory.DOCUMENTS);
 
-        save_dialog = new Gtk.FileChooserNative (/* Save dialog: Dialog title */
-                                                 _("Save As…"),
-                                                 this,
-                                                 Gtk.FileChooserAction.SAVE,
-                                                 _("_Save"),
-                                                 _("_Cancel"));
+        var save_dialog = new Gtk.FileChooserNative (/* Save dialog: Dialog title */
+                                                     _("Save As…"),
+                                                     this,
+                                                     Gtk.FileChooserAction.SAVE,
+                                                     _("_Save"),
+                                                     _("_Cancel"));
         save_dialog.local_only = false;
         if (book_uri != null)
             save_dialog.set_uri (book_uri);
@@ -405,12 +403,14 @@ public class AppWindow : Gtk.ApplicationWindow
             quality_scale.visible = quality_label.visible = (extension != ".png");
         });
 
-        string? uri = null;
         while (true)
         {
             var response = save_dialog.run ();
             if (response != Gtk.ResponseType.ACCEPT)
-                break;
+            {
+                save_dialog.destroy ();
+                return null;
+            }
 
             var extension = "";
             Gtk.TreeIter i;
@@ -424,7 +424,7 @@ public class AppWindow : Gtk.ApplicationWindow
             if (extension_index < 0)
                 path += extension;
 
-            uri = File.new_for_path (path).get_uri ();
+            var uri = File.new_for_path (path).get_uri ();
 
             /* Check the file(s) don't already exist */
             var files = new List<File> ();
@@ -442,17 +442,13 @@ public class AppWindow : Gtk.ApplicationWindow
                 files.append (File.new_for_uri (uri));
 
             if (check_overwrite (save_dialog.transient_for, files))
-                break;
-            else
-                uri = null;
+            {
+                settings.set_string ("save-directory", save_dialog.get_current_folder ());
+                save_dialog.destroy ();
+                return uri;
+            }
         }
 
-        settings.set_string ("save-directory", save_dialog.get_current_folder ());
-
-        save_dialog.destroy ();
-        save_dialog = null;
-
-        return uri;
     }
 
     private bool check_overwrite (Gtk.Window parent, List<File> files)
