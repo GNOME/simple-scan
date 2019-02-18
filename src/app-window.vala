@@ -525,6 +525,7 @@ public class AppWindow : Gtk.ApplicationWindow
                                e.message);
             return false;
         }
+        save_button.sensitive = true;
         progress_bar.destroy_with_delay (500);
 
         book_needs_saving = false;
