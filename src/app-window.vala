@@ -443,6 +443,8 @@ public class AppWindow : Gtk.ApplicationWindow
 
             if (check_overwrite (save_dialog.transient_for, files))
                 break;
+            else
+                uri = null;
         }
 
         settings.set_string ("save-directory", save_dialog.get_current_folder ());
