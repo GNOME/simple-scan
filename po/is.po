@@ -1,0 +1,1012 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Sveinn í Felli <sv1@fellsnet.is>, 2019.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
+"POT-Creation-Date: 2019-02-07 14:04+0000\n"
+"PO-Revision-Date: 2019-02-21 18:21+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
+"Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
+"Language: is\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: data/org.gnome.SimpleScan.gschema.xml:11
+msgid "Device to scan from"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:12
+msgid "SANE device to acquire images from."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:20
+msgid "Type of document being scanned"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:21
+msgid ""
+"Type of document being scanned. This setting decides on the scan resolution, "
+"colors and post-processing."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:25
+msgid "Width of paper in tenths of a mm"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:26
+msgid ""
+"The width of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:30
+msgid "Height of paper in tenths of a mm"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:31
+msgid ""
+"The height of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:35
+msgid "Brightness of scan"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:36
+msgid "The brightness adjustment from -100 to 100 (0 being none)."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:40
+msgid "Contrast of scan"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:41
+msgid "The contrast adjustment from -100 to 100 (0 being none)."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:45
+msgid "Resolution for text scans"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:46
+msgid "The resolution in dots-per-inch to use when scanning text."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:50
+msgid "Resolution for photo scans"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:51
+msgid "The resolution in dots-per-inch to use when scanning photos."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:55
+msgid "Page side to scan"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:56
+msgid "The page side to scan."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:60
+msgid "Directory to save files to"
+msgstr "Mappan sem vista á skrár í"
+
+#: data/org.gnome.SimpleScan.gschema.xml:61
+msgid ""
+"The directory to save files to. Defaults to the documents directory if unset."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:66
+msgid "Quality value to use for JPEG compression"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:67
+msgid "Quality value to use for JPEG compression."
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:72
+msgid "Delay in millisecond between pages"
+msgstr ""
+
+#: data/org.gnome.SimpleScan.gschema.xml:73
+msgid "Delay in millisecond between pages."
+msgstr ""
+
+#. Title of scan window
+#. Set HeaderBar title here because Glade doesn't keep it translated
+#. https://bugzilla.gnome.org/show_bug.cgi?id=782753
+#. Title of scan window
+#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: src/app-window.ui:76 src/app-window.vala:1571
+msgid "Simple Scan"
+msgstr "Einfalt skönnunarforrit"
+
+#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:5
+msgid "Scan Documents"
+msgstr "Skanna skjöl"
+
+#: data/simple-scan.appdata.xml.in:9
+msgid ""
+"A really easy way to scan both documents and photos. You can crop out the "
+"bad parts of a photo and rotate it if it is the wrong way round. You can "
+"print your scans, export them to pdf, or save them in a range of image "
+"formats."
+msgstr ""
+
+#: data/simple-scan.appdata.xml.in:14
+msgid "Simple Scan uses the SANE framework to support most existing scanners."
+msgstr ""
+
+#: data/simple-scan.desktop.in:4
+msgid "Document Scanner"
+msgstr "Skjalaskanni"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/simple-scan.desktop.in:7
+msgid "scan;scanner;flatbed;adf;"
+msgstr ""
+
+#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+#: data/simple-scan.desktop.in:10
+msgid "scanner"
+msgstr "scanner"
+
+#. Toolbar scan menu item to scan a single page from the scanner
+#. Scan menu item to scan a single page from the scanner
+#. Toolbar scan menu item to scan a single page from the scanner
+#: src/app-window.ui:22 src/app-window.ui:123 src/app-window.ui:831
+msgid "Single _Page"
+msgstr "_Ein síða"
+
+#. Toolbar scan menu item to scan all pages from a document feeder
+#. Scan menu item to scan all pages from a document feeder
+#. Toolbar scan menu item to scan all pages from a document feeder
+#: src/app-window.ui:31 src/app-window.ui:133 src/app-window.ui:840
+msgid "All Pages From _Feeder"
+msgstr "_Allar síður úr síðumatara"
+
+#. Toolbar scan menu item to scan continuously from the flatbed
+#. Scan menu item to scan continuously from the flatbed
+#. Toolbar scan menu item to scan continuously from the flatbed
+#: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:849
+msgid "_Multiple Pages From Flatbed"
+msgstr "_Margar síður úr flatskanna"
+
+#: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:864
+msgid "Text"
+msgstr "Texti"
+
+#: src/app-window.ui:65 src/app-window.ui:180 src/app-window.ui:874
+msgid "Photo"
+msgstr "Ljósmynd"
+
+#. Label on document menu (contains actions for this document, e.g. save, print)
+#: src/app-window.ui:91
+msgid "_Document"
+msgstr "S_kjal"
+
+#. Scan menu item
+#: src/app-window.ui:110
+msgid "Sc_an"
+msgstr "Sk_anna"
+
+#. Menu entry to stop current scan
+#: src/app-window.ui:154
+msgid "_Stop Scan"
+msgstr "_Stöðva skönnun"
+
+#. Menu item to reorder pages
+#. Title of dialog to reorder pages
+#: src/app-window.ui:196 src/app-window.vala:978 src/app-window.vala:1586
+msgid "Reorder Pages"
+msgstr "Endurraða síðum"
+
+#. Label on email menu item
+#: src/app-window.ui:215
+msgid "_Email"
+msgstr "_Tölvupóstur"
+
+#. Page menu (contains action for each page, e.g. delete, crop)
+#: src/app-window.ui:280
+msgid "_Page"
+msgstr "_Síða"
+
+#. Menu item to rotate page to left (anti-clockwise)
+#: src/app-window.ui:290
+msgid "Rotate _Left"
+msgstr "Snúa til _vinstri"
+
+#. Menu item to rotate page to right (clockwise)
+#: src/app-window.ui:300
+msgid "Rotate _Right"
+msgstr "Snúa til _hægri"
+
+#. Label for page crop submenu
+#: src/app-window.ui:310
+msgid "_Crop"
+msgstr "_Utansníða"
+
+#. Radio button for no crop
+#: src/app-window.ui:320
+msgid "_None"
+msgstr "_Ekkert"
+
+#. Radio button for cropping page to A4 size
+#: src/app-window.ui:331
+msgid "A_4"
+msgstr "A_4"
+
+#. Radio button for cropping page to A5 size
+#: src/app-window.ui:342
+msgid "A_5"
+msgstr "A_5"
+
+#. Radio button for cropping page to A6 size
+#: src/app-window.ui:353
+msgid "A_6"
+msgstr "A_6"
+
+#. Radio button for cropping page to US letter size
+#: src/app-window.ui:364
+msgid "_Letter"
+msgstr "_Bréfsefni"
+
+#. Radio button for cropping to page to US legal size
+#: src/app-window.ui:375
+msgid "Le_gal"
+msgstr "_Löggilt"
+
+#. Radio button for cropping page to 4x6 inch
+#: src/app-window.ui:386
+msgid "4×6"
+msgstr "4×6"
+
+#. Radio button for cropping page to A3
+#: src/app-window.ui:397
+msgid "A_3"
+msgstr "A_3"
+
+#. Radio button for cropping to custom page size
+#: src/app-window.ui:408
+msgid "_Custom"
+msgstr "Sérs_niðið"
+
+#. Menu item to rotate the crop area
+#: src/app-window.ui:426
+msgid "_Rotate Crop"
+msgstr ""
+
+#. Menu item to move the selected page to the left
+#: src/app-window.ui:439
+msgid "Move Left"
+msgstr "Færa til vinstri"
+
+#. Menu item to move the selected page to the right
+#: src/app-window.ui:448
+msgid "Move Right"
+msgstr "Færa til hægri"
+
+#. Label on help menu
+#: src/app-window.ui:485
+msgid "_Help"
+msgstr "_Hjálp"
+
+#. Help|Contents menu
+#: src/app-window.ui:493
+msgid "_Contents"
+msgstr "_Efni"
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:531 src/app-window.ui:731
+msgid "Scan a single page from the scanner"
+msgstr "Skanna eina síðu úr skannanum"
+
+#. Label on scan toolbar item
+#: src/app-window.ui:533 src/app-window.ui:727
+msgid "Scan"
+msgstr "Skanna"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:549 src/app-window.ui:798
+msgid "Save document to a file"
+msgstr "Vista skjal sem skrá"
+
+#: src/app-window.ui:551
+msgid "Save"
+msgstr "Vista"
+
+#. Tooltip for stop button
+#: src/app-window.ui:566 src/app-window.ui:711
+msgid "Stop the current scan"
+msgstr "Stöðva skönnun sem er í gangi"
+
+#: src/app-window.ui:567 src/app-window.ui:708
+msgid "Stop"
+msgstr "Stöðva"
+
+#. Label shown when searching for scanners
+#: src/app-window.ui:622
+msgid "Searching for Scanners…"
+msgstr "Leita að skönnum…"
+
+#: src/app-window.vala:239 src/app-window.vala:1391
+msgid "_Close"
+msgstr "_Loka"
+
+#. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
+#: src/app-window.vala:248
+#, c-format
+msgid "Username and password required to access “%s”"
+msgstr "Notandanafn og lykilorð þarf til að fá aðgang að “%s”"
+
+#. Label shown when detected a scanner
+#: src/app-window.vala:268 src/app-window.vala:586
+msgid "Ready to Scan"
+msgstr "Tilbúið til skönnunar"
+
+#. Warning displayed when no drivers are installed but a compatible scanner is detected
+#: src/app-window.vala:275
+msgid "Additional software needed"
+msgstr "Viðbótarhugbúnaður er nauðsynlegur"
+
+#. Instructions to install driver software
+#: src/app-window.vala:277
+msgid ""
+"You need to <a href=\"install-firmware\">install driver software</a> for "
+"your scanner."
+msgstr ""
+
+#. Warning displayed when no scanners are detected
+#: src/app-window.vala:283
+msgid "No scanners detected"
+msgstr "Engir skannar fundust"
+
+#. Hint to user on why there are no scanners detected
+#: src/app-window.vala:285
+msgid "Please check your scanner is connected and powered on"
+msgstr ""
+
+#. Save dialog: Dialog title
+#: src/app-window.vala:300
+msgid "Save As…"
+msgstr "Vista sem…"
+
+#: src/app-window.vala:303 src/app-window.vala:473 src/app-window.vala:554
+msgid "_Cancel"
+msgstr "_Hætta við"
+
+#: src/app-window.vala:304 src/app-window.vala:555
+msgid "_Save"
+msgstr "Vi_sta"
+
+#. Default filename to use when saving document
+#: src/app-window.vala:312
+msgid "Scanned Document.pdf"
+msgstr "Skannað skjal.pdf"
+
+#. Save dialog: Filter name to show only supported image files
+#: src/app-window.vala:318
+msgid "Image Files"
+msgstr "Myndskrár"
+
+#. Save dialog: Filter name to show all files
+#: src/app-window.vala:328
+msgid "All Files"
+msgstr "Allar skrár"
+
+#. Save dialog: Label for saving in PDF format
+#: src/app-window.vala:337
+msgid "PDF (multi-page document)"
+msgstr "PDF (margsíðna skjal)"
+
+#. Save dialog: Label for saving in JPEG format
+#: src/app-window.vala:343
+msgid "JPEG (compressed)"
+msgstr "JPEG (þjappað)"
+
+#. Save dialog: Label for saving in PNG format
+#: src/app-window.vala:349
+msgid "PNG (lossless)"
+msgstr "PNG (taplaust)"
+
+#. Save dialog: Label for sabing in WEBP format
+#: src/app-window.vala:356
+msgid "WebP (compressed)"
+msgstr "WebP (þjappað)"
+
+#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
+#: src/app-window.vala:366
+msgid "File format:"
+msgstr "Skráasnið:"
+
+#. Label in save dialog beside compression slider
+#: src/app-window.vala:378
+msgid "Compression:"
+msgstr "Þjöppun:"
+
+#. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
+#: src/app-window.vala:472
+#, c-format
+msgid "A file named “%s” already exists.  Do you want to replace it?"
+msgstr "Það er þegar til skrá sem heitir '%s'. Viltu skipta henni út?"
+
+#. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
+#: src/app-window.vala:475
+msgid "_Replace"
+msgstr "Ski_pta út"
+
+#: src/app-window.vala:514
+msgid "Saving"
+msgstr "Vista"
+
+#. Title of error dialog when save failed
+#: src/app-window.vala:529
+msgid "Failed to save file"
+msgstr "Tókst ekki að vista skrá"
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:552
+msgid "If you don’t save, changes will be permanently lost."
+msgstr "Ef þú vistar ekki munu allar breytingar glatast."
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:593
+msgid "Save current document?"
+msgstr "Vista þetta skjal?"
+
+#. Button in dialog to create new document and discard unsaved document
+#: src/app-window.vala:595
+msgid "Discard Changes"
+msgstr "Henda breytingum"
+
+#. Label shown when scan started
+#: src/app-window.vala:694
+msgid "Contacting scanner…"
+msgstr "Hef samband við skanna…"
+
+#. Error message display when unable to save image for preview
+#: src/app-window.vala:804
+msgid "Unable to save image for preview"
+msgstr "Ekki tókst að vista mynd fyrir forskoðun"
+
+#. Error message display when unable to preview image
+#: src/app-window.vala:816
+msgid "Unable to open image preview application"
+msgstr ""
+
+#. Label on button for combining sides in reordering dialog
+#: src/app-window.vala:1001
+msgid "Combine sides"
+msgstr "Sameina hliðar"
+
+#. Label on button for combining sides in reverse order in reordering dialog
+#: src/app-window.vala:1011
+msgid "Combine sides (reverse)"
+msgstr "Sameina hliðar (öfugt)"
+
+#. Label on button for reversing in reordering dialog
+#: src/app-window.vala:1021
+msgid "Reverse"
+msgstr "Snúa við"
+
+#. Label on button for cancelling page reordering dialog
+#: src/app-window.vala:1031
+msgid "Keep unchanged"
+msgstr "Halda óbreyttu"
+
+#. Error message displayed when unable to launch help browser
+#: src/app-window.vala:1261
+msgid "Unable to open help file"
+msgstr "Get ekki opnað hjálparskrána"
+
+#. The license this software is under (GPL3+)
+#: src/app-window.vala:1282
+msgid ""
+"This program is free software: you can redistribute it and/or modify\n"
+"it under the terms of the GNU General Public License as published by\n"
+"the Free Software Foundation, either version 3 of the License, or\n"
+"(at your option) any later version.\n"
+"\n"
+"This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with this program.  If not, see <http://www.gnu.org/licenses/>."
+msgstr ""
+"Þetta forrit er frjáls hugbúnaður; þú mátt endurrita hann og/eða breyta "
+"samkvæmt skilmálum \"GNU General Public License\" eins og það er útgefið af "
+"\"Free Software Foundation;\"; annað hvort útgáfa 3 af leyfinu, eða (að þínu "
+"vali) einhver síðari útgáfa.\n"
+"\n"
+"Þessu forriti er dreift í þeirri von að það sé gagnlegt, en ÁN NOKKURAR "
+"ÁBYRGÐAR; einnig án óbeinnar SÖLUÁBYRGÐAR eða HÆFNI TIL NOKKURS HLUTAR. Sjá "
+"nánar í \"GNU General Public License\" leyfinu.\n"
+"\n"
+"Þú ættir að hafa fengið afrit af \"GNU General Public License\" með þessu "
+"forriti; ef ekki, skrifaðu til Free Software Foundation, Inc., 51 Franklin "
+"Street, Fifth Floor, Boston, MA 02110-1301, USA <http://www.gnu.org/licenses/"
+">."
+
+#. Title of about dialog
+#: src/app-window.vala:1285
+msgid "About Simple Scan"
+msgstr "Um einfalda skönnunarforritið Simple Scan"
+
+#. Description of program
+#: src/app-window.vala:1288
+msgid "Simple document scanning tool"
+msgstr "Einfalt verkfæri til skönnunar á skjölum"
+
+#: src/app-window.vala:1297
+msgid "translator-credits"
+msgstr "Sveinn í Felli, sv1@fellsnet.is"
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:1319
+msgid "Save document before quitting?"
+msgstr "Vista breytingar á skjalinu áður en þú hættir?"
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:1321
+msgid "Quit without Saving"
+msgstr "Hætta án þess að vista"
+
+#. Message to indicate a Brother scanner has been detected
+#: src/app-window.vala:1368
+msgid "You appear to have a Brother scanner."
+msgstr "Það lítur út fyrir að þú sért með Brother-skanna."
+
+#. Instructions on how to install Brother scanner drivers
+#: src/app-window.vala:1370
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.brother.com"
+"\">Brother website</a>."
+msgstr ""
+"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a"
+" href=\"http://support.brother.com\">Brother vefsvæðinu</a>."
+
+#. Message to indicate a Samsung scanner has been detected
+#: src/app-window.vala:1374
+msgid "You appear to have a Samsung scanner."
+msgstr "Það lítur út fyrir að þú sért með Samsung-skanna."
+
+#. Instructions on how to install Samsung scanner drivers
+#: src/app-window.vala:1376
+msgid ""
+"Drivers for this are available on the <a href=\"http://samsung.com/support"
+"\">Samsung website</a>."
+msgstr ""
+"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a"
+" href=\"http://samsung.com/support\">Samsung vefsvæðinu</a>."
+
+#. Message to indicate a HP scanner has been detected
+#: src/app-window.vala:1380
+msgid "You appear to have an HP scanner."
+msgstr "Það lítur út fyrir að þú sért með HP-skanna."
+
+#. Message to indicate an Epson scanner has been detected
+#: src/app-window.vala:1385
+msgid "You appear to have an Epson scanner."
+msgstr "Það lítur út fyrir að þú sért með Epson-skanna."
+
+#. Instructions on how to install Epson scanner drivers
+#: src/app-window.vala:1387
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.epson.com"
+"\">Epson website</a>."
+msgstr ""
+"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a"
+" href=\"http://support.epson.com\">Epson vefsvæðinu</a>."
+
+#. Title of dialog giving instructions on how to install drivers
+#: src/app-window.vala:1391
+msgid "Install drivers"
+msgstr "Setja upp vélbúnaðarrekla"
+
+#. Message in driver install dialog
+#: src/app-window.vala:1422
+msgid "Once installed you will need to restart Simple Scan."
+msgstr ""
+"Þegar uppsetningu er lokið, verður þú að endurræsa Simple Scan"
+" skönnunarforritið."
+
+#. Label shown while installing drivers
+#: src/app-window.vala:1434
+msgid "Installing drivers…"
+msgstr "Set inn rekla…"
+
+#. Label shown once drivers successfully installed
+#: src/app-window.vala:1442
+msgid "Drivers installed successfully!"
+msgstr "Uppsetningu rekla er lokið!"
+
+#. Label shown if failed to install drivers
+#: src/app-window.vala:1452
+#, c-format
+msgid "Failed to install drivers (error code %d)."
+msgstr "Mistókst að setja inn vélbúnaðarrekla (villukóði %d)."
+
+#. Label shown if failed to install drivers
+#: src/app-window.vala:1458
+msgid "Failed to install drivers."
+msgstr "Mistókst að setja inn vélbúnaðarrekla."
+
+#. Label shown to prompt user to install packages (when PackageKit not available)
+#: src/app-window.vala:1465
+#, c-format
+msgid "You need to install the %s package."
+msgid_plural "You need to install the %s packages."
+msgstr[0] "Þú þarft að setja upp %s pakkann."
+msgstr[1] "Þú þarft að setja upp %s pakkana."
+
+#: src/app-window.vala:1585
+msgid "Email"
+msgstr "Tölvupóstur"
+
+#. Title of preferences dialog
+#: src/app-window.vala:1589 src/preferences-dialog.ui:53
+msgid "Preferences"
+msgstr "Kjörstillingar"
+
+#: src/app-window.vala:1590
+msgid "Keyboard Shortcuts"
+msgstr "Flýtileiðir á lyklaborði"
+
+#: src/app-window.vala:1591
+msgid "Help"
+msgstr "Hjálp"
+
+#: src/app-window.vala:1592
+msgid "About"
+msgstr "Um hugbúnaðinn"
+
+#. Populate ActionBar (not supported in Glade)
+#. https://bugzilla.gnome.org/show_bug.cgi?id=769966
+#. Label on new document button
+#: src/app-window.vala:1600
+msgid "Start Again…"
+msgstr "Byrja aftur…"
+
+#. Tooltip for rotate left (counter-clockwise) button
+#: src/app-window.vala:1617
+msgid "Rotate the page to the left (counter-clockwise)"
+msgstr "Snúa síðunni til vinstri (rangsælis)"
+
+#. Tooltip for rotate right (clockwise) button
+#: src/app-window.vala:1624
+msgid "Rotate the page to the right (clockwise)"
+msgstr "Snúa síðunni til hægri (réttsælis)"
+
+#. Tooltip for crop button
+#: src/app-window.vala:1634
+msgid "Crop the selected page"
+msgstr "Skera utan af valinni síðu"
+
+#. Tooltip for delete button
+#: src/app-window.vala:1650
+msgid "Delete the selected page"
+msgstr "Eyða valinni síðu"
+
+#. Text of button for cancelling save
+#: src/app-window.vala:1815
+msgid "Cancel"
+msgstr "Hætta við"
+
+#. Button to submit authorization dialog
+#: src/authorize-dialog.ui:25
+msgid "_Authorize"
+msgstr "Heimil_a"
+
+#. Label beside username entry
+#: src/authorize-dialog.ui:99
+msgid "_Username for resource:"
+msgstr "Notandanafn fyrir tilfan_gið:"
+
+#. Label beside password entry
+#: src/authorize-dialog.ui:112
+msgid "_Password:"
+msgstr "_Lykilorð:"
+
+#: src/book.vala:331 src/book.vala:337
+#, c-format
+msgid "Unable to encode page %i"
+msgstr "Tókst ekki að kóða síðu %i"
+
+#: src/help-overlay.ui:12
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Skönnun"
+
+#: src/help-overlay.ui:17
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "Skanna eina síðu"
+
+#: src/help-overlay.ui:24
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "Skanna allar síður úr síðumatara"
+
+#: src/help-overlay.ui:31
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "Skanna margendurtekið úr flatskanna"
+
+#: src/help-overlay.ui:38
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "Stöðva skönnun sem er í gangi"
+
+#: src/help-overlay.ui:46
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Breytingar á skjölum"
+
+#: src/help-overlay.ui:51
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "Færa síðu til vinstri"
+
+#: src/help-overlay.ui:58
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "Færa síðu til hægri"
+
+#: src/help-overlay.ui:65
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "Snúa síðu til vinstri (rangsælis)"
+
+#: src/help-overlay.ui:72
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "Snúa síðu til hægri (réttsælis)"
+
+#: src/help-overlay.ui:79
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "Eyða síðu"
+
+#: src/help-overlay.ui:87
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Skjalastjórnun"
+
+#: src/help-overlay.ui:92
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "Byrja nýtt skjal"
+
+#: src/help-overlay.ui:99
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "Vista skannað skjal"
+
+#: src/help-overlay.ui:106
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "Tölvupóstsenda skannað skjal"
+
+#: src/help-overlay.ui:113
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "Prenta skannað skjal"
+
+#: src/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "Afrita valda síðu á klippispjald"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:113
+msgid "_Scanner"
+msgstr "_Skanni"
+
+#. Label beside scan side combo box
+#: src/preferences-dialog.ui:143
+msgid "Scan Sides"
+msgstr "Skannaðar hliðar"
+
+#. Label beside page size combo box
+#: src/preferences-dialog.ui:160
+msgid "Page Size"
+msgstr "Blaðsíðustærð"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:191
+msgid "Front"
+msgstr "Framhlið"
+
+#. Preferences Dialog: Toggle button to select scanning on the back side of a page
+#: src/preferences-dialog.ui:206
+msgid "Back"
+msgstr "Bakhlið"
+
+#. Preferences Dialog: Toggle button to select scanning on both sides of a page
+#: src/preferences-dialog.ui:221
+msgid "Both"
+msgstr "Bæði"
+
+#. Label beside page delay scale
+#: src/preferences-dialog.ui:260
+msgid "Delay"
+msgstr "Seinkun"
+
+#. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
+#: src/preferences-dialog.ui:276
+msgid "Multiple pages from flatbed"
+msgstr "Margar síður úr flatskanna"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:295
+msgid "3"
+msgstr "3"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:310
+msgid "5"
+msgstr "5"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:326
+msgid "7"
+msgstr "7"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:342
+msgid "10"
+msgstr "10"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:358
+msgid "15"
+msgstr "15"
+
+#. Label after page delay radio buttons
+#: src/preferences-dialog.ui:385
+msgid "Seconds"
+msgstr "sekúndur"
+
+#. Preferences Dialog: Tab label for scanning settings
+#: src/preferences-dialog.ui:413
+msgid "Scanning"
+msgstr "Skönnun"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:436
+msgid "_Text Resolution"
+msgstr "Upplausn _texta"
+
+#. Label beside scan source combo box
+#: src/preferences-dialog.ui:452
+msgid "_Photo Resolution"
+msgstr "U_pplausn ljósmyndar"
+
+#. Label beside brightness scale
+#: src/preferences-dialog.ui:505
+msgid "Brightness"
+msgstr "Birtustig"
+
+#. Label beside contrast scale
+#: src/preferences-dialog.ui:521
+msgid "Contrast"
+msgstr "Birtuskil"
+
+#. Preferences Dialog: Tab for quality settings
+#: src/preferences-dialog.ui:576
+msgid "Quality"
+msgstr "Gæði"
+
+#. Combo box value for automatic paper size
+#: src/preferences-dialog.vala:77
+msgid "Automatic"
+msgstr "Sjálfvirkt"
+
+#: src/preferences-dialog.vala:118
+msgid "Darker"
+msgstr "Dekkra"
+
+#: src/preferences-dialog.vala:120
+msgid "Lighter"
+msgstr "Ljósara"
+
+#: src/preferences-dialog.vala:128
+msgid "Less"
+msgstr "Minna"
+
+#: src/preferences-dialog.vala:130
+msgid "More"
+msgstr "Meira"
+
+#. Preferences dialog: Label for default resolution in resolution list
+#: src/preferences-dialog.vala:442
+#, c-format
+msgid "%d dpi (default)"
+msgstr "%d pát (sjálfgefið)"
+
+#. Preferences dialog: Label for minimum resolution in resolution list
+#: src/preferences-dialog.vala:445
+#, c-format
+msgid "%d dpi (draft)"
+msgstr "%d pát (uppkast)"
+
+#. Preferences dialog: Label for maximum resolution in resolution list
+#: src/preferences-dialog.vala:448
+#, c-format
+msgid "%d dpi (high resolution)"
+msgstr "%d pát (háupplausn)"
+
+#. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
+#: src/preferences-dialog.vala:451
+#, c-format
+msgid "%d dpi"
+msgstr "%d pát"
+
+#. Error displayed when no scanners to scan with
+#: src/scanner.vala:844
+msgid "No scanners available.  Please connect a scanner."
+msgstr "Engir skannar fundust. Tengdu skanna við tölvuna."
+
+#. Error displayed when cannot connect to scanner
+#: src/scanner.vala:874
+msgid "Unable to connect to scanner"
+msgstr "Ekki tókst að tengjast skanna"
+
+#. Error display when unable to start scan
+#: src/scanner.vala:1227
+msgid "Unable to start scan"
+msgstr "Get ekki ræst skönnun"
+
+#. Error displayed when communication with scanner broken
+#: src/scanner.vala:1240 src/scanner.vala:1347
+msgid "Error communicating with scanner"
+msgstr "Villa í samskiptum við skanna"
+
+#. Help string for command line --version flag
+#: src/simple-scan.vala:21
+msgid "Show release version"
+msgstr "Sýna útgáfunúmer"
+
+#. Help string for command line --debug flag
+#: src/simple-scan.vala:24
+msgid "Print debugging messages"
+msgstr "Birta villgreiningarboð"
+
+#: src/simple-scan.vala:26
+msgid "Fix PDF files generated with older versions of Simple Scan"
+msgstr ""
+
+#. Title of error dialog when scan failed
+#: src/simple-scan.vala:393
+msgid "Failed to scan"
+msgstr "Mistókst að skanna"
+
+#. Attempt to inhibit the screensaver when scanning
+#: src/simple-scan.vala:408
+msgid "Scan in progress"
+msgstr "Skönnun í gangi"
+
+#. Arguments and description for --help text
+#: src/simple-scan.vala:585
+msgid "[DEVICE…] — Scanning utility"
+msgstr "[DEVICE…] — Skönnunartól"
+
+#. Text printed out when an unknown command-line argument provided
+#: src/simple-scan.vala:596
+#, c-format
+msgid "Run “%s --help” to see a full list of available command line options."
+msgstr ""
+"Keyrðu '%s --help' til að sjá lista með öllum mögulegum valkostum"
+" skipanalínunnar."
+
+
