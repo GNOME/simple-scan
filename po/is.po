@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
 "POT-Creation-Date: 2019-02-07 14:04+0000\n"
-"PO-Revision-Date: 2019-02-21 18:21+0000\n"
+"PO-Revision-Date: 2019-02-22 07:55+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
 "Language: is\n"
@@ -19,81 +19,87 @@ msgstr ""
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
-msgstr ""
+msgstr "Tæki til að skanna með"
 
 #: data/org.gnome.SimpleScan.gschema.xml:12
 msgid "SANE device to acquire images from."
-msgstr ""
+msgstr "SANE-tæki til að ná í mynd frá."
 
 #: data/org.gnome.SimpleScan.gschema.xml:20
 msgid "Type of document being scanned"
-msgstr ""
+msgstr "Tegund skjals sem verið er að skanna"
 
 #: data/org.gnome.SimpleScan.gschema.xml:21
 msgid ""
 "Type of document being scanned. This setting decides on the scan resolution, "
 "colors and post-processing."
 msgstr ""
+"Tegund skjals sem verið er að skanna. Þessi stilling ákvarðar upplausn"
+" skönnunar, liti og eftirvinnsluferli"
 
 #: data/org.gnome.SimpleScan.gschema.xml:25
 msgid "Width of paper in tenths of a mm"
-msgstr ""
+msgstr "Breidd pappírs í tíundu hlutum úr millímetra"
 
 #: data/org.gnome.SimpleScan.gschema.xml:26
 msgid ""
 "The width of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
+"Breidd pappírsins í tíundu hlutum úr millímetra (eða 0 til að greina"
+" pappírsstærð sjálfvirkt)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:30
 msgid "Height of paper in tenths of a mm"
-msgstr ""
+msgstr "Hæð pappírs í tíundu hlutum úr millímetra"
 
 #: data/org.gnome.SimpleScan.gschema.xml:31
 msgid ""
 "The height of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
+"Hæð pappírsins í tíundu hlutum úr millímetra (eða 0 til að greina"
+" pappírsstærð sjálfvirkt)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:35
 msgid "Brightness of scan"
-msgstr ""
+msgstr "Birtustig skönnunar"
 
 #: data/org.gnome.SimpleScan.gschema.xml:36
 msgid "The brightness adjustment from -100 to 100 (0 being none)."
-msgstr ""
+msgstr "Aðlögun birtustigs, frá -100 til 100 (0 er ekkert)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:40
 msgid "Contrast of scan"
-msgstr ""
+msgstr "Birtuskil skönnunar"
 
 #: data/org.gnome.SimpleScan.gschema.xml:41
 msgid "The contrast adjustment from -100 to 100 (0 being none)."
-msgstr ""
+msgstr "Aðlögun birtuskila, frá -100 til 100 (0 er ekkert)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:45
 msgid "Resolution for text scans"
-msgstr ""
+msgstr "Upplausn fyrir skönnun texta"
 
 #: data/org.gnome.SimpleScan.gschema.xml:46
 msgid "The resolution in dots-per-inch to use when scanning text."
-msgstr ""
+msgstr "Upplausn í mynddílum-á-tommu sem á að nota við að skanna texta."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
 msgid "Resolution for photo scans"
-msgstr ""
+msgstr "Upplausn fyrir skönnun ljósmynda"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
 msgid "The resolution in dots-per-inch to use when scanning photos."
-msgstr ""
+msgstr "Upplausn í mynddílum-á-tommu sem á að nota við að skanna ljósmyndir."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
-msgstr ""
+msgstr "Hlið síðu sem á að skanna"
 
 #: data/org.gnome.SimpleScan.gschema.xml:56
 msgid "The page side to scan."
-msgstr ""
+msgstr "Hlið síðunnar sem á að skanna."
 
 #: data/org.gnome.SimpleScan.gschema.xml:60
 msgid "Directory to save files to"
@@ -103,22 +109,23 @@ msgstr "Mappan sem vista á skrár í"
 msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
 msgstr ""
+"Mappan sem vista á skrár í. Ef ekki er stillt, verður sjálfgefin skjalamappa."
 
 #: data/org.gnome.SimpleScan.gschema.xml:66
 msgid "Quality value to use for JPEG compression"
-msgstr ""
+msgstr "Gæðastilling sem á að nota við JPEG-þjöppun"
 
 #: data/org.gnome.SimpleScan.gschema.xml:67
 msgid "Quality value to use for JPEG compression."
-msgstr ""
+msgstr "Gæðastilling sem á að nota við JPEG-þjöppun."
 
 #: data/org.gnome.SimpleScan.gschema.xml:72
 msgid "Delay in millisecond between pages"
-msgstr ""
+msgstr "Töf milli síðna í millísekúndum"
 
 #: data/org.gnome.SimpleScan.gschema.xml:73
 msgid "Delay in millisecond between pages."
-msgstr ""
+msgstr "Töf milli síðna í millísekúndum."
 
 #. Title of scan window
 #. Set HeaderBar title here because Glade doesn't keep it translated
@@ -140,10 +147,15 @@ msgid ""
 "print your scans, export them to pdf, or save them in a range of image "
 "formats."
 msgstr ""
+"Mjög einföld leið til að skanna bæði skjöl og ljósmyndir. Þú getur skorið af"
+" óþarfa hluta mynda og snúið þeim ef þörf er á. Þú getur prentað það sem þú"
+" skannar, flutt það út í PDF-skrár, eða vistað það sem ýmsar gerðir myndskráa."
 
 #: data/simple-scan.appdata.xml.in:14
 msgid "Simple Scan uses the SANE framework to support most existing scanners."
 msgstr ""
+"Einfalda skönnunarforritið Simple Scan notar SANE-kerfið til stuðnings"
+" flestum þeim skönnum sem eru í umferð."
 
 #: data/simple-scan.desktop.in:4
 msgid "Document Scanner"
@@ -152,7 +164,7 @@ msgstr "Skjalaskanni"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:7
 msgid "scan;scanner;flatbed;adf;"
-msgstr ""
+msgstr "skanna;skanni;flatskanni;adf;matari;"
 
 #. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 #: data/simple-scan.desktop.in:10
@@ -282,7 +294,7 @@ msgstr "Sérs_niðið"
 #. Menu item to rotate the crop area
 #: src/app-window.ui:426
 msgid "_Rotate Crop"
-msgstr ""
+msgstr "Snúa utansku_rði"
 
 #. Menu item to move the selected page to the left
 #: src/app-window.ui:439
@@ -363,6 +375,8 @@ msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
 msgstr ""
+"Þú þarft að <a href=\"install-firmware\">setja upp hugbúnað með"
+" vélbúnaðarreklum</a> fyrir skannann þinn."
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:283
@@ -373,6 +387,7 @@ msgstr "Engir skannar fundust"
 #: src/app-window.vala:285
 msgid "Please check your scanner is connected and powered on"
 msgstr ""
+"Gakktu úr skugga um að skanninn þinn sé tengdur og að kveikt sé á honum"
 
 #. Save dialog: Dialog title
 #: src/app-window.vala:300
@@ -480,7 +495,7 @@ msgstr "Ekki tókst að vista mynd fyrir forskoðun"
 #. Error message display when unable to preview image
 #: src/app-window.vala:816
 msgid "Unable to open image preview application"
-msgstr ""
+msgstr "Ekki tókst að opna forskoðunarforrit"
 
 #. Label on button for combining sides in reordering dialog
 #: src/app-window.vala:1001
@@ -985,6 +1000,8 @@ msgstr "Birta villgreiningarboð"
 #: src/simple-scan.vala:26
 msgid "Fix PDF files generated with older versions of Simple Scan"
 msgstr ""
+"Laga PDF-skrár sem útbúnar hafa verið með eldri útgáfum einfalda"
+" skönnunarforritsins Simple Scan"
 
 #. Title of error dialog when scan failed
 #: src/simple-scan.vala:393
