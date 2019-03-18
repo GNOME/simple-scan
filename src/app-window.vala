@@ -1266,7 +1266,7 @@ public class AppWindow : Gtk.ApplicationWindow
                                "program-name", _("Simple Scan"),
                                "version", VERSION,
                                "comments", description,
-                               "logo-icon-name", "scanner",
+                               "logo-icon-name", "org.gnome.SimpleScan",
                                "authors", authors,
                                "translator-credits", _("translator-credits"),
                                "website", "https://gitlab.gnome.org/GNOME/simple-scan",
@@ -1510,7 +1510,7 @@ public class AppWindow : Gtk.ApplicationWindow
         preferences_dialog.delete_event.connect (() => { return true; });
         preferences_dialog.response.connect (() => { preferences_dialog.visible = false; });
 
-        Gtk.Window.set_default_icon_name ("scanner");
+        Gtk.Window.set_default_icon_name ("org.gnome.SimpleScan");
 
         var app = Application.get_default () as Gtk.Application;
 
