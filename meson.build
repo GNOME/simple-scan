@@ -10,6 +10,8 @@ project ('simple-scan', ['vala', 'c'],
 gnome = import ('gnome')
 i18n = import ('i18n')
 
+app_id = 'org.gnome.SimpleScan'
+
 # Paths
 mandir = join_paths (get_option ('prefix'), get_option ('mandir'))
 localedir = join_paths (get_option ('prefix'), get_option ('localedir'))

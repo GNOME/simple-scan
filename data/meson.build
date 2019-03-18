@@ -1,3 +1,9 @@
+install_data (join_paths ('icons', 'hicolor', 'scalable', '@0@.svg'.format(app_id)),
+              install_dir: join_paths (datadir, 'icons', 'hicolor', 'scalable', 'apps'))
+
+install_data (join_paths ('icons', 'hicolor', 'symbolic', '@0@-symbolic.svg'.format(app_id)),
+              install_dir: join_paths (datadir, 'icons', 'hicolor', 'symbolic', 'apps'))
+
 install_data ('org.gnome.SimpleScan.gschema.xml',
               install_dir: join_paths (datadir, 'glib-2.0', 'schemas'))
 meson.add_install_script ('meson_compile_gschema.py')
