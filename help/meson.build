@@ -16,7 +16,7 @@ gnome.yelp ('simple-scan',
                        'save.page',
                        'scanner.page',
                        'scanning.page' ],
-            media: [ 'figures/icon.png',
+            media: [ 'figures/icon.svg',
                      'figures/preferences.png',
                      'figures/scan_toolbar.png' ],
             symlink_media: false)
