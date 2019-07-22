@@ -83,7 +83,7 @@ public class SimpleScan : Gtk.Application
 
             device_list.append (default_device);
             app.set_scan_devices (device_list);
-            app.selected_device = default_device.name;
+            app.set_selected_device (default_device.name);
         }
     }
 
