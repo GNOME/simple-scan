@@ -411,7 +411,7 @@ private class PreferencesDialog : Gtk.Dialog
     {
         if (page_delay >= 15000)
             page_delay_15s_button.active = true;
-        else if (page_delay >= 1000)
+        else if (page_delay >= 10000)
             page_delay_10s_button.active = true;
         else if (page_delay >= 7000)
             page_delay_7s_button.active = true;
