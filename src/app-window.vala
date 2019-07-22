@@ -19,6 +19,9 @@ public class AppWindow : Gtk.ApplicationWindow
     private const GLib.ActionEntry[] action_entries =
     {
         { "new_document", new_document_cb },
+        { "scan_single", scan_single_cb },
+        { "scan_adf", scan_adf_cb },
+        { "scan_batch", scan_batch_cb },
         { "reorder", reorder_document_cb },
         { "save", save_document_activate_cb },
         { "email", email_document_cb },
@@ -607,7 +610,36 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void new_document_cb ()
     {
-        new_document();
+        new_document ();
+    }
+
+    private void scan (ScanOptions options)
+    {
+        status_primary_label.set_text (/* Label shown when scan started */
+                                       _("Contacting scanner…"));
+        start_scan (selected_device, options);
+    }
+
+    private void scan_single_cb ()
+    {
+        var options = make_scan_options ();
+        options.type = ScanType.SINGLE;
+        scan (options);
+    }
+
+    private void scan_adf_cb ()
+    {
+        var options = make_scan_options ();
+        options.type = ScanType.ADF_BOTH;
+        options.type = preferences_dialog.get_page_side ();
+        scan (options);
+    }
+
+    private void scan_batch_cb ()
+    {
+        var options = make_scan_options ();
+        options.type = ScanType.BATCH;
+        scan (options);
     }
 
     private void set_scan_type (ScanType scan_type)
@@ -713,9 +745,7 @@ public class AppWindow : Gtk.ApplicationWindow
         options.type = scan_type;
         if (options.type == ScanType.ADF_BOTH)
             options.type = preferences_dialog.get_page_side ();
-        status_primary_label.set_text (/* Label shown when scan started */
-                                       _("Contacting scanner…"));
-        start_scan (selected_device, options);
+        scan (options);
     }
 
     [GtkCallback]
@@ -1522,6 +1552,9 @@ public class AppWindow : Gtk.ApplicationWindow
         app.add_action_entries (action_entries, this);
 
         app.set_accels_for_action ("app.new_document", { "<Ctrl>N" });
+        app.set_accels_for_action ("app.scan_single", { "<Ctrl>1" });
+        app.set_accels_for_action ("app.scan_adf", { "<Ctrl>F" });
+        app.set_accels_for_action ("app.scan_batch", { "<Ctrl>M" });
         app.set_accels_for_action ("app.save", { "<Ctrl>S" });
         app.set_accels_for_action ("app.email", { "<Ctrl>E" });
         app.set_accels_for_action ("app.print", { "<Ctrl>P" });
