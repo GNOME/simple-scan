@@ -22,6 +22,7 @@ public class AppWindow : Gtk.ApplicationWindow
         { "scan_single", scan_single_cb },
         { "scan_adf", scan_adf_cb },
         { "scan_batch", scan_batch_cb },
+        { "scan_stop", scan_stop_cb },
         { "reorder", reorder_document_cb },
         { "save", save_document_activate_cb },
         { "email", email_document_cb },
@@ -640,6 +641,11 @@ public class AppWindow : Gtk.ApplicationWindow
         var options = make_scan_options ();
         options.type = ScanType.BATCH;
         scan (options);
+    }
+
+    private void scan_stop_cb ()
+    {
+        stop_scan ();
     }
 
     private void set_scan_type (ScanType scan_type)
@@ -1555,6 +1561,7 @@ public class AppWindow : Gtk.ApplicationWindow
         app.set_accels_for_action ("app.scan_single", { "<Ctrl>1" });
         app.set_accels_for_action ("app.scan_adf", { "<Ctrl>F" });
         app.set_accels_for_action ("app.scan_batch", { "<Ctrl>M" });
+        app.set_accels_for_action ("app.scan_stop", { "Escape" });
         app.set_accels_for_action ("app.save", { "<Ctrl>S" });
         app.set_accels_for_action ("app.email", { "<Ctrl>E" });
         app.set_accels_for_action ("app.print", { "<Ctrl>P" });
