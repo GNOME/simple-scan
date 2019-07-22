@@ -38,6 +38,9 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private PreferencesDialog preferences_dialog;
 
+    private bool setting_devices;
+    private bool user_selected_device;
+
     [GtkChild]
     private Gtk.HeaderBar header_bar;
     [GtkChild]
@@ -46,6 +49,10 @@ public class AppWindow : Gtk.ApplicationWindow
     private Gtk.Stack stack;
     [GtkChild]
     private Gtk.Label status_primary_label;
+    [GtkChild]
+    private Gtk.ListStore device_model;
+    [GtkChild]
+    private Gtk.ComboBox device_combo;
     [GtkChild]
     private Gtk.Label status_secondary_label;
     [GtkChild]
@@ -173,18 +180,17 @@ public class AppWindow : Gtk.ApplicationWindow
         set { preferences_dialog.set_page_delay (value); }
     }
 
-    public string? selected_device
-    {
-        owned get { return preferences_dialog.get_selected_device (); }
-        set { preferences_dialog.set_selected_device (value); }
-    }
-
     public signal void start_scan (string? device, ScanOptions options);
     public signal void stop_scan ();
 
     public AppWindow ()
     {
         settings = new Settings ("org.gnome.SimpleScan");
+
+        var renderer = new Gtk.CellRendererText ();
+        renderer.set_property ("xalign", 0.5);
+        device_combo.pack_start (renderer, true);
+        device_combo.add_attribute (renderer, "text", 1);
 
         book = new Book ();
         book.page_added.connect (page_added_cb);
@@ -238,13 +244,15 @@ public class AppWindow : Gtk.ApplicationWindow
             status_primary_label.set_text (/* Label shown when searching for scanners */
                                            _("Searching for Scanners…"));
             status_secondary_label.visible = false;
+            device_combo.visible = false;
         }
-        else if (selected_device != null)
+        else if (get_selected_device () != null)
         {
             status_primary_label.set_text (/* Label shown when detected a scanner */
                                            _("Ready to Scan"));
-            status_secondary_label.set_text (preferences_dialog.get_selected_device_label ());
-            status_secondary_label.visible = true;
+            status_secondary_label.set_text (get_selected_device_label ());
+            status_secondary_label.visible = false;
+            device_combo.visible = true;
         }
         else if (this.missing_driver != null)
         {
@@ -253,6 +261,7 @@ public class AppWindow : Gtk.ApplicationWindow
             /* Instructions to install driver software */
             status_secondary_label.set_markup (_("You need to <a href=\"install-firmware\">install driver software</a> for your scanner."));
             status_secondary_label.visible = true;
+            device_combo.visible = false;
         }
         else
         {
@@ -261,6 +270,7 @@ public class AppWindow : Gtk.ApplicationWindow
             /* Hint to user on why there are no scanners detected */
             status_secondary_label.set_text (_("Please check your scanner is connected and powered on"));
             status_secondary_label.visible = true;
+            device_combo.visible = false;
         }
     }
 
@@ -268,7 +278,88 @@ public class AppWindow : Gtk.ApplicationWindow
     {
         have_devices = true;
         this.missing_driver = missing_driver;
-        preferences_dialog.set_scan_devices (devices);
+
+        setting_devices = true;
+
+        /* If the user hasn't chosen a scanner choose the best available one */
+        var have_selection = false;
+        if (user_selected_device)
+            have_selection = device_combo.active >= 0;
+
+        /* Add new devices */
+        int index = 0;
+        Gtk.TreeIter iter;
+        foreach (var device in devices)
+        {
+            int n_delete = -1;
+
+            /* Find if already exists */
+            if (device_model.iter_nth_child (out iter, null, index))
+            {
+                int i = 0;
+                do
+                {
+                    string name;
+                    bool matched;
+
+                    device_model.get (iter, 0, out name, -1);
+                    matched = name == device.name;
+
+                    if (matched)
+                    {
+                        n_delete = i;
+                        break;
+                    }
+                    i++;
+                } while (device_model.iter_next (ref iter));
+            }
+
+            /* If exists, remove elements up to this one */
+            if (n_delete >= 0)
+            {
+                int i;
+
+                /* Update label */
+                device_model.set (iter, 1, device.label, -1);
+
+                for (i = 0; i < n_delete; i++)
+                {
+                    device_model.iter_nth_child (out iter, null, index);
+#if VALA_0_36
+                    device_model.remove (ref iter);
+#else
+                    device_model.remove (iter);
+#endif
+                }
+            }
+            else
+            {
+                device_model.insert (out iter, index);
+                device_model.set (iter, 0, device.name, 1, device.label, -1);
+            }
+            index++;
+        }
+
+        /* Remove any remaining devices */
+        while (device_model.iter_nth_child (out iter, null, index))
+#if VALA_0_36
+            device_model.remove (ref iter);
+#else
+            device_model.remove (iter);
+#endif
+
+        /* Select the previously selected device or the first available device */
+        if (!have_selection)
+        {
+            var device = settings.get_string ("selected-device");
+            if (device != null && find_scan_device (device, out iter))
+                device_combo.set_active_iter (iter);
+            else
+                device_combo.set_active (0);
+        }
+
+        setting_devices = false;
+
         update_scan_status ();
     }
 
@@ -284,6 +375,63 @@ public class AppWindow : Gtk.ApplicationWindow
         var response = dialog.run ();
         dialog.destroy ();
         return response == Gtk.ResponseType.YES;
+    }
+
+    private string? get_selected_device ()
+    {
+        Gtk.TreeIter iter;
+
+        if (device_combo.get_active_iter (out iter))
+        {
+            string device;
+            device_model.get (iter, 0, out device, -1);
+            return device;
+        }
+
+        return null;
+    }
+
+    private string? get_selected_device_label ()
+    {
+        Gtk.TreeIter iter;
+
+        if (device_combo.get_active_iter (out iter))
+        {
+            string label;
+            device_model.get (iter, 1, out label, -1);
+            return label;
+        }
+
+        return null;
+    }
+
+    public void set_selected_device (string device)
+    {
+        user_selected_device = true;
+
+        Gtk.TreeIter iter;
+        if (!find_scan_device (device, out iter))
+            return;
+
+        device_combo.set_active_iter (iter);
+    }
+
+    private bool find_scan_device (string device, out Gtk.TreeIter iter)
+    {
+        bool have_iter = false;
+
+        if (device_model.get_iter_first (out iter))
+        {
+            do
+            {
+                string d;
+                device_model.get (iter, 0, out d, -1);
+                if (d == device)
+                    have_iter = true;
+            } while (!have_iter && device_model.iter_next (ref iter));
+        }
+
+        return have_iter;
     }
 
     private string? choose_file_location ()
@@ -621,7 +769,7 @@ public class AppWindow : Gtk.ApplicationWindow
     {
         status_primary_label.set_text (/* Label shown when scan started */
                                        _("Contacting scanner…"));
-        start_scan (selected_device, options);
+        start_scan (get_selected_device (), options);
     }
 
     private void scan_single_cb ()
@@ -753,6 +901,16 @@ public class AppWindow : Gtk.ApplicationWindow
         options.page_delay = page_delay;
 
         return options;
+    }
+
+    [GtkCallback]
+    private void device_combo_changed_cb (Gtk.Widget widget)
+    {
+        if (setting_devices)
+            return;
+        user_selected_device = true;
+        if (get_selected_device () != null)
+            settings.set_string ("selected-device", get_selected_device ());
     }
 
     [GtkCallback]

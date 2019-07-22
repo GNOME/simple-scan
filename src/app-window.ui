@@ -197,6 +197,14 @@
       </object>
     </child>
   </object>
+  <object class="GtkListStore" id="device_model">
+    <columns>
+      <!-- column-name device_name -->
+      <column type="gchararray"/>
+      <!-- column-name label -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkPopover" id="scan_options_popover">
     <property name="can_focus">False</property>
     <child>
@@ -779,6 +787,13 @@
                         <property name="fill">True</property>
                         <property name="position">2</property>
                       </packing>
+                    </child>
+                    <child>
+                      <object class="GtkComboBox" id="device_combo">
+                        <property name="visible">False</property>
+                        <property name="model">device_model</property>
+                        <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
+                      </object>
                     </child>
                   </object>
                 </child>

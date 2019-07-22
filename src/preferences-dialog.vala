@@ -15,11 +15,6 @@ private class PreferencesDialog : Gtk.Dialog
 {
     private Settings settings;
 
-    private bool setting_devices;
-    private bool user_selected_device;
-
-    [GtkChild]
-    private Gtk.ComboBox device_combo;
     [GtkChild]
     private Gtk.ComboBox text_dpi_combo;
     [GtkChild]
@@ -30,8 +25,6 @@ private class PreferencesDialog : Gtk.Dialog
     private Gtk.Scale brightness_scale;
     [GtkChild]
     private Gtk.Scale contrast_scale;
-    [GtkChild]
-    private Gtk.ListStore device_model;
     [GtkChild]
     private Gtk.RadioButton page_delay_3s_button;
     [GtkChild]
@@ -85,10 +78,6 @@ private class PreferencesDialog : Gtk.Dialog
         paper_size_model.append (out iter);
         paper_size_model.set (iter, 0, 1016, 1, 1524, 2, "4×6", -1);
 
-        var renderer = new Gtk.CellRendererText ();
-        device_combo.pack_start (renderer, true);
-        device_combo.add_attribute (renderer, "text", 1);
-
         var dpi = settings.get_int ("text-dpi");
         if (dpi <= 0)
             dpi = DEFAULT_TEXT_DPI;
@@ -105,7 +94,7 @@ private class PreferencesDialog : Gtk.Dialog
         back_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanType.ADF_BACK); });
         both_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanType.ADF_BOTH); });
 
-        renderer = new Gtk.CellRendererText ();
+        var renderer = new Gtk.CellRendererText ();
         paper_size_combo.pack_start (renderer, true);
         paper_size_combo.add_attribute (renderer, "text", 2);
 
@@ -146,147 +135,6 @@ private class PreferencesDialog : Gtk.Dialog
         page_delay_7s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 7000); });
         page_delay_10s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 10000); });
         page_delay_15s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 15000); });
-    }
-
-    public void set_scan_devices (List<ScanDevice> devices)
-    {
-        setting_devices = true;
-
-        /* If the user hasn't chosen a scanner choose the best available one */
-        var have_selection = false;
-        if (user_selected_device)
-            have_selection = device_combo.active >= 0;
-
-        /* Add new devices */
-        int index = 0;
-        Gtk.TreeIter iter;
-        foreach (var device in devices)
-        {
-            int n_delete = -1;
-
-            /* Find if already exists */
-            if (device_model.iter_nth_child (out iter, null, index))
-            {
-                int i = 0;
-                do
-                {
-                    string name;
-                    bool matched;
-
-                    device_model.get (iter, 0, out name, -1);
-                    matched = name == device.name;
-
-                    if (matched)
-                    {
-                        n_delete = i;
-                        break;
-                    }
-                    i++;
-                } while (device_model.iter_next (ref iter));
-            }
-
-            /* If exists, remove elements up to this one */
-            if (n_delete >= 0)
-            {
-                int i;
-
-                /* Update label */
-                device_model.set (iter, 1, device.label, -1);
-
-                for (i = 0; i < n_delete; i++)
-                {
-                    device_model.iter_nth_child (out iter, null, index);
-#if VALA_0_36
-                    device_model.remove (ref iter);
-#else
-                    device_model.remove (iter);
-#endif
-                }
-            }
-            else
-            {
-                device_model.insert (out iter, index);
-                device_model.set (iter, 0, device.name, 1, device.label, -1);
-            }
-            index++;
-        }
-
-        /* Remove any remaining devices */
-        while (device_model.iter_nth_child (out iter, null, index))
-#if VALA_0_36
-            device_model.remove (ref iter);
-#else
-            device_model.remove (iter);
-#endif
-
-        /* Select the previously selected device or the first available device */
-        if (!have_selection)
-        {
-            var device = settings.get_string ("selected-device");
-            if (device != null && find_scan_device (device, out iter))
-                device_combo.set_active_iter (iter);
-            else
-                device_combo.set_active (0);
-        }
-
-        setting_devices = false;
-    }
-
-    public string? get_selected_device ()
-    {
-        Gtk.TreeIter iter;
-
-        if (device_combo.get_active_iter (out iter))
-        {
-            string device;
-            device_model.get (iter, 0, out device, -1);
-            return device;
-        }
-
-        return null;
-    }
-
-    public string? get_selected_device_label ()
-    {
-        Gtk.TreeIter iter;
-
-        if (device_combo.get_active_iter (out iter))
-        {
-            string label;
-            device_model.get (iter, 1, out label, -1);
-            return label;
-        }
-
-        return null;
-    }
-
-    public void set_selected_device (string device)
-    {
-        user_selected_device = true;
-
-        Gtk.TreeIter iter;
-        if (!find_scan_device (device, out iter))
-            return;
-
-        device_combo.set_active_iter (iter);
-    }
-
-    private bool find_scan_device (string device, out Gtk.TreeIter iter)
-    {
-        bool have_iter = false;
-
-        if (device_model.get_iter_first (out iter))
-        {
-            do
-            {
-                string d;
-                device_model.get (iter, 0, out d, -1);
-                if (d == device)
-                    have_iter = true;
-            } while (!have_iter && device_model.iter_next (ref iter));
-        }
-
-        return have_iter;
     }
 
     private void set_page_side (ScanType page_side)
@@ -452,16 +300,6 @@ private class PreferencesDialog : Gtk.Dialog
             if (dpi == current_dpi)
                 combo.set_active_iter (iter);
         }
-    }
-
-    [GtkCallback]
-    private void device_combo_changed_cb (Gtk.Widget widget)
-    {
-        if (setting_devices)
-            return;
-        user_selected_device = true;
-        if (get_selected_device () != null)
-            settings.set_string ("selected-device", get_selected_device ());
     }
 }
 
