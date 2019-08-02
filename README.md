@@ -3,10 +3,9 @@
 
 # Introduction
 
-This is the source code to *Simple Scan* — a [GNOME](https://www.gnome.org/)
-document scanning application. Simple Scan allows you to capture images using
-[image scanners](https://en.wikipedia.org/wiki/Image_scanner) (e.g. flatbed
-scanners) that have suitable [SANE drivers](http://sane-project.org/) installed.
+*Document Scanner* is a document scanning application for [GNOME](https://www.gnome.org/)
+It allows you to capture images using [image scanners](https://en.wikipedia.org/wiki/Image_scanner)
+(e.g. flatbed scanners) that have suitable [SANE drivers](http://sane-project.org/) installed.
 
 # Building from source
 
@@ -45,11 +44,11 @@ If you don't have a scanner ready, you can use a virtual "test" scanner:
 $ simple-scan --debug test
 ```
 
-Simple Scan works by using the [SANE API](http://sane-project.org/html/) to
+This app works by using the [SANE API](http://sane-project.org/html/) to
 capture images. It chooses the settings it thinks are appropriate for what you
 are trying to do. Drivers have many options and are of differring quality - it
-is useful to work out if any issues are caused by Simple Scan or the drivers. To
-rule out Simple Scan you can use the graphical tool (XSane) or the
+is useful to work out if any issues are caused by the app or the drivers. To
+confirm it is a driver issue you can use the graphical tool (XSane) or the
 command line
 [scanimage](http://www.sane-project.org/man/scanimage.1.html) provided
 by the SANE project - these allow to to easily see and control all the
@@ -57,6 +56,6 @@ settings your driver provides.
 
 # Contributing
 
-To contribute code to Simple Scan make merge requests on
+To contribute code create merge requests on
 [gitlab.gnome.org](https://gitlab.gnome.org/GNOME/simple-scan). If you
 find issues please [report them](https://gitlab.gnome.org/GNOME/simple-scan/issues).
