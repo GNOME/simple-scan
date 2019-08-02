@@ -23,7 +23,7 @@ public class SimpleScan : Gtk.Application
           /* Help string for command line --debug flag */
           N_("Print debugging messages"), null},
         { "fix-pdf", 0, 0, OptionArg.STRING, ref fix_pdf_filename,
-          N_("Fix PDF files generated with older versions of Simple Scan"), "FILENAME…"},
+          N_("Fix PDF files generated with older versions of this app"), "FILENAME…"},
         { null }
     };
     private static Timer log_timer;
@@ -635,7 +635,7 @@ public class SimpleScan : Gtk.Application
         log_file = FileStream.open (path, "w");
         Log.set_default_handler (log_cb);
 
-        debug ("Starting Simple Scan %s, PID=%i", VERSION, Posix.getpid ());
+        debug ("Starting %s %s, PID=%i", args[0], VERSION, Posix.getpid ());
 
         Gtk.init (ref args);
 
