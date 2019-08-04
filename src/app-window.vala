@@ -1292,14 +1292,14 @@ public class AppWindow : Gtk.ApplicationWindow
         string license = _("This program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.");
 
         /* Title of about dialog */
-        string title = _("About Simple Scan");
+        string title = _("About Document Scanner");
 
         /* Description of program */
         string description = _("Simple document scanning tool");
 
         Gtk.show_about_dialog (this,
                                "title", title,
-                               "program-name", _("Simple Scan"),
+                               "program-name", _("Document Scanner"),
                                "version", VERSION,
                                "comments", description,
                                "logo-icon-name", "org.gnome.SimpleScan",
@@ -1419,7 +1419,7 @@ public class AppWindow : Gtk.ApplicationWindow
         instructions_box.add (instructions_label);
 
         label = new Gtk.Label (/* Message in driver install dialog */
-                               _("Once installed you will need to restart Simple Scan."));
+                               _("Once installed you will need to restart this app."));
         label.visible = true;
         label.xalign = 0f;
         label.vexpand = true;
@@ -1553,7 +1553,7 @@ public class AppWindow : Gtk.ApplicationWindow
         /* Set HeaderBar title here because Glade doesn't keep it translated */
         /* https://bugzilla.gnome.org/show_bug.cgi?id=782753 */
         /* Title of scan window */
-        header_bar.title = _("Simple Scan");
+        header_bar.title = _("Document Scanner");
 
         app.add_action_entries (action_entries, this);
 
@@ -1578,7 +1578,7 @@ public class AppWindow : Gtk.ApplicationWindow
         section.append (_("Preferences"), "app.preferences");
         section.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
         section.append (_("Help"), "app.help");
-        section.append (_("About Simple Scan"), "app.about");
+        section.append (_("About Document Scanner"), "app.about");
         menu_button.set_menu_model (gear_menu);
 
         app.add_window (this);
