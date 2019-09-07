@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2019-03-11 08:58+0000\n"
-"PO-Revision-Date: 2019-03-24 20:11+0100\n"
+"POT-Creation-Date: 2019-08-04 22:16+0000\n"
+"PO-Revision-Date: 2019-09-07 16:08+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: slovenčina <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Gtranslator 3.30.1\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0\n"
+"X-Generator: Poedit 2.2.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -139,11 +139,11 @@ msgstr "Oneskorenie medzi stránkami v milisekundách."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:181 src/app-window.vala:1266 src/app-window.vala:1520
-msgid "Simple Scan"
-msgstr "Jednoduché skenovanie"
+#: src/app-window.ui:181 src/app-window.vala:1302 src/app-window.vala:1556
+msgid "Document Scanner"
+msgstr "Skener dokumentov"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:5
+#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Scan Documents"
 msgstr "Skenuje dokumenty"
 
@@ -160,24 +160,15 @@ msgstr ""
 "formátoch obrázkov."
 
 #: data/simple-scan.appdata.xml.in:14
-msgid "Simple Scan uses the SANE framework to support most existing scanners."
+msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
-"Aplikácia Jednoduché skenovanie využíva rozhranie SANE, kvôli podpore "
-"väčšiny existujúcich skenerov."
-
-#: data/simple-scan.desktop.in:4
-msgid "Document Scanner"
-msgstr "Skener dokumentov"
+"Táto aplikácia využíva rozhranie SANE, kvôli podpore väčšiny existujúcich "
+"skenerov."
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/simple-scan.desktop.in:7
+#: data/simple-scan.desktop.in:6
 msgid "scan;scanner;flatbed;adf;"
 msgstr "skenovanie;skenovať;skener;plochý;adf;"
-
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/simple-scan.desktop.in:10
-msgid "scanner"
-msgstr "scanner"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: src/app-window.ui:10
@@ -279,7 +270,6 @@ msgid "Save document to a file"
 msgstr "Uloží dokument do súboru"
 
 #: src/app-window.ui:405
-#| msgid "Single _Page"
 msgid "_Single Page"
 msgstr "_Jedna stránka"
 
@@ -292,7 +282,6 @@ msgid "_Multiple Pages From Flatbed"
 msgstr "_Viacero stránok z plochého skenera"
 
 #: src/app-window.ui:498
-#| msgid "Text"
 msgid "_Text"
 msgstr "_Text"
 
@@ -300,33 +289,33 @@ msgstr "_Text"
 msgid "_Image"
 msgstr "O_brázok"
 
-#: src/app-window.vala:221 src/app-window.vala:1353
+#: src/app-window.vala:225 src/app-window.vala:1389
 msgid "_Close"
 msgstr "_Zavrieť"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:230
+#: src/app-window.vala:234
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Meno používateľa a heslo je vyžadované pre prístup k „%s“"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:246
+#: src/app-window.vala:250
 msgid "Searching for Scanners…"
 msgstr "Vyhľadávajú sa skenery…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:252
+#: src/app-window.vala:256
 msgid "Ready to Scan"
 msgstr "Skenovanie pripravené"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:259
+#: src/app-window.vala:263
 msgid "Additional software needed"
 msgstr "Vyžaduje sa dodatočný softvér"
 
 #. Instructions to install driver software
-#: src/app-window.vala:261
+#: src/app-window.vala:265
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -335,157 +324,156 @@ msgstr ""
 "váš skener."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:267
+#: src/app-window.vala:271
 msgid "No scanners detected"
 msgstr "Nezistili sa žiadne skenery"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:269
+#: src/app-window.vala:273
 msgid "Please check your scanner is connected and powered on"
 msgstr "Prosím, skontrolujte, či je skener pripojený a zapnutý"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:292
+#: src/app-window.vala:296
 msgid "Save As…"
 msgstr "Uloženie ako…"
 
-#: src/app-window.vala:295 src/app-window.vala:549
+#: src/app-window.vala:299 src/app-window.vala:553
 msgid "_Save"
 msgstr "_Uložiť"
 
-#: src/app-window.vala:296 src/app-window.vala:464 src/app-window.vala:548
+#: src/app-window.vala:300 src/app-window.vala:468 src/app-window.vala:552
 msgid "_Cancel"
 msgstr "Z_rušiť"
 
 #. Default filename to use when saving document
-#: src/app-window.vala:303
+#: src/app-window.vala:307
 msgid "Scanned Document.pdf"
 msgstr "Naskenovaný dokument.pdf"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:309
+#: src/app-window.vala:313
 msgid "Image Files"
 msgstr "Súbory obrázkov"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:319
+#: src/app-window.vala:323
 msgid "All Files"
 msgstr "Všetky súbory"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:328
+#: src/app-window.vala:332
 msgid "PDF (multi-page document)"
 msgstr "PDF (dokument s viacerými stránkami)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:334
+#: src/app-window.vala:338
 msgid "JPEG (compressed)"
 msgstr "JPEG (komprimovaný)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:340
+#: src/app-window.vala:344
 msgid "PNG (lossless)"
 msgstr "PNG (bezstratový)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:347
+#: src/app-window.vala:351
 msgid "WebP (compressed)"
 msgstr "WebP (komprimovaný)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:357
+#: src/app-window.vala:361
 msgid "File format:"
 msgstr "Formát súboru:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:369
+#: src/app-window.vala:373
 msgid "Compression:"
 msgstr "Komprimácia:"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:463
+#: src/app-window.vala:467
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Súbor s názvom „%s“ už existuje. Chcete ho nahradiť?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:466
+#: src/app-window.vala:470
 msgid "_Replace"
 msgstr "_Nahradiť"
 
-#: src/app-window.vala:505
+#: src/app-window.vala:509
 msgid "Saving"
 msgstr "Ukladá sa"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:522
+#: src/app-window.vala:526
 msgid "Failed to save file"
 msgstr "Ukladanie súboru zlyhalo"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:546
+#: src/app-window.vala:550
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Ak dokument neuložíte, zmeny budú natrvalo stratené."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:582
+#: src/app-window.vala:586
 msgid "Save current document?"
 msgstr "Uložiť aktuálny dokument?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:584
+#: src/app-window.vala:588
 msgid "Discard Changes"
 msgstr "Zahodiť zmeny"
 
 #. Label shown when scan started
-#: src/app-window.vala:717
+#: src/app-window.vala:620
 msgid "Contacting scanner…"
 msgstr "Kontaktuje sa skener…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:800
+#: src/app-window.vala:836
 msgid "Unable to save image for preview"
 msgstr "Nepodarilo sa uložiť obraz na náhľad"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:812
+#: src/app-window.vala:848
 msgid "Unable to open image preview application"
 msgstr "Nie je možné otvoriť aplikáciu na náhľad obrázku"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:974
-#| msgid "Reorder Pages"
+#: src/app-window.vala:1010
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Zmena poradia stránok"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:997
+#: src/app-window.vala:1033
 msgid "Combine sides"
 msgstr "Kombinovať strany"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1007
+#: src/app-window.vala:1043
 msgid "Combine sides (reverse)"
 msgstr "Kombinovať strany (obrátene)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1017
+#: src/app-window.vala:1053
 msgid "Reverse"
 msgstr "Obrátiť"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1027
+#: src/app-window.vala:1063
 msgid "Keep unchanged"
 msgstr "Ponechať nezmenené"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1241
+#: src/app-window.vala:1277
 msgid "Unable to open help file"
 msgstr "Nie je možné otvoriť súbor pomocníka"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1256
+#: src/app-window.vala:1292
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -515,16 +503,16 @@ msgstr ""
 "licencie GNU. Ak sa tak nestalo, navštívte <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1259 src/app-window.vala:1541
-msgid "About Simple Scan"
-msgstr "O programe Jednoduché skenovanie"
+#: src/app-window.vala:1295 src/app-window.vala:1581
+msgid "About Document Scanner"
+msgstr "O aplikácii Skener dokumentov"
 
 #. Description of program
-#: src/app-window.vala:1262
+#: src/app-window.vala:1298
 msgid "Simple document scanning tool"
 msgstr "Nástroj na jednoduché skenovanie dokumentov"
 
-#: src/app-window.vala:1271
+#: src/app-window.vala:1307
 msgid "translator-credits"
 msgstr ""
 "Prispievatelia zo služby Launchpad:\n"
@@ -537,22 +525,22 @@ msgstr ""
 "  Robert Ancell https://launchpad.net/~robert-ancell"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1287
+#: src/app-window.vala:1323
 msgid "Save document before quitting?"
 msgstr "Uložiť dokument pred ukončením?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1289
+#: src/app-window.vala:1325
 msgid "Quit without Saving"
 msgstr "Ukončiť bez uloženia"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1330
+#: src/app-window.vala:1366
 msgid "You appear to have a Brother scanner."
 msgstr "Zdá sa, že máte skener značky Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1332
+#: src/app-window.vala:1368
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -561,12 +549,12 @@ msgstr ""
 "b/countrytop.aspx?c=cz&lang=cs\">Brother website</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1336
+#: src/app-window.vala:1372
 msgid "You appear to have a Samsung scanner."
 msgstr "Zdá sa, že máte skener značky Samsung."
 
 #. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1338
+#: src/app-window.vala:1374
 msgid ""
 "Drivers for this are available on the <a href=\"http://samsung.com/support"
 "\">Samsung website</a>."
@@ -575,17 +563,17 @@ msgstr ""
 "\">Samsung website</a>."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1342
+#: src/app-window.vala:1378
 msgid "You appear to have an HP scanner."
 msgstr "Zdá sa, že máte skener značky HP."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1347
+#: src/app-window.vala:1383
 msgid "You appear to have an Epson scanner."
 msgstr "Zdá sa, že máte skener značky Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1349
+#: src/app-window.vala:1385
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -594,39 +582,38 @@ msgstr ""
 "viewcon/corporatesite/support\">webovej stránke výrobcu Epson</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1353
+#: src/app-window.vala:1389
 msgid "Install drivers"
 msgstr "Inštalácia ovládačov"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1386
-msgid "Once installed you will need to restart Simple Scan."
-msgstr ""
-"Po inštalácii budete musieť aplikáciu Jednoduché skenovanie reštartovať."
+#: src/app-window.vala:1422
+msgid "Once installed you will need to restart this app."
+msgstr "Po inštalácii budete musieť túto aplikáciu reštartovať."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1399
+#: src/app-window.vala:1435
 msgid "Installing drivers…"
 msgstr "Inštalujú sa ovládače…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1407
+#: src/app-window.vala:1443
 msgid "Drivers installed successfully!"
 msgstr "Ovládače boli úspešne nainštalované!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1417
+#: src/app-window.vala:1453
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Zlyhala inštalácia ovládačov (kód chyby %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1423
+#: src/app-window.vala:1459
 msgid "Failed to install drivers."
 msgstr "Zlyhala inštalácia ovládačov."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1430
+#: src/app-window.vala:1466
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
@@ -634,60 +621,59 @@ msgstr[0] "Musíte nainštalovať balík %s."
 msgstr[1] "Musíte nainštalovať balíky %s."
 msgstr[2] "Musíte nainštalovať balíky %s."
 
-#: src/app-window.vala:1534
+#: src/app-window.vala:1574
 msgid "Email"
 msgstr "Email"
 
-#: src/app-window.vala:1535
-#| msgid "Reorder Pages"
+#: src/app-window.vala:1575
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "Zmeniť poradie stránok"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1538 src/preferences-dialog.ui:52
+#: src/app-window.vala:1578 src/preferences-dialog.ui:52
 msgid "Preferences"
 msgstr "Nastavenia"
 
-#: src/app-window.vala:1539
+#: src/app-window.vala:1579
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové skratky"
 
-#: src/app-window.vala:1540
+#: src/app-window.vala:1580
 msgid "Help"
 msgstr "Pomocník"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1549
+#: src/app-window.vala:1589
 msgid "Start Again…"
 msgstr "Začať odznovu…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1568
+#: src/app-window.vala:1608
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Otočí stránku doľava (v protismere hodinových ručičiek)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1577
+#: src/app-window.vala:1617
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Otočí stránku doprava (v smere hodinových ručičiek)"
 
 # tooltip
 #. Tooltip for crop button
-#: src/app-window.vala:1589
+#: src/app-window.vala:1629
 msgid "Crop the selected page"
 msgstr "Oreže vybranú stránku"
 
 # tooltip
 #. Tooltip for delete button
-#: src/app-window.vala:1607
+#: src/app-window.vala:1647
 msgid "Delete the selected page"
 msgstr "Odstráni vybranú stránku"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1751
+#: src/app-window.vala:1791
 msgid "Cancel"
 msgstr "Zrušiť"
 
@@ -973,10 +959,8 @@ msgid "Print debugging messages"
 msgstr "Vypíše správy ladenia"
 
 #: src/simple-scan.vala:26
-msgid "Fix PDF files generated with older versions of Simple Scan"
-msgstr ""
-"Opraviť .pdf súbory vytvorené staršími verziami programu Jednoduché "
-"skenovanie"
+msgid "Fix PDF files generated with older versions of this app"
+msgstr "Opraviť súbory PDF vytvorené staršími verziami tejto aplikácie"
 
 #. Title of error dialog when scan failed
 #: src/simple-scan.vala:393
@@ -1000,6 +984,15 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Zoznam všetkých dostupných volieb príkazového riadka zobrazíte spustením „%s "
 "--help“."
+
+#~ msgid "Simple Scan"
+#~ msgstr "Jednoduché skenovanie"
+
+#~ msgid "scanner"
+#~ msgstr "scanner"
+
+#~ msgid "About Simple Scan"
+#~ msgstr "O programe Jednoduché skenovanie"
 
 #~ msgid "Photo"
 #~ msgstr "Fotografia"
