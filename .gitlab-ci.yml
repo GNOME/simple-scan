@@ -14,3 +14,11 @@ build-fedora:
   script:
     - meson _build
     - ninja -C _build install
+
+build-arch:
+  image: archlinux/base:latest
+  before_script:
+    - pacman -Syu --noconfirm meson vala gettext itstool gtk3 libgusb colord libwebp sane
+  script:
+    - meson _build
+    - ninja -C _build install
