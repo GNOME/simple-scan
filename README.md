@@ -9,22 +9,25 @@ It allows you to capture images using [image scanners](https://en.wikipedia.org/
 
 # Building from source
 
-Install the dependencies (first line is Ubuntu/Debian, second is Fedora):
-```
+Install the dependencies (first line is Ubuntu/Debian, second is Fedora, third is Arch Linux):
+```console
 $ sudo apt install git meson valac libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev gettext itstool
 ```
-```
+```console
 $ sudo dnf install -y meson vala gettext itstool gtk3-devel libgusb-devel colord-devel PackageKit-glib-devel libwebp-devel sane-backends-devel
+```
+```console
+$ sudo pacman -Syu --noconfirm meson vala gettext itstool gtk3 libgusb colord libwebp sane
 ```
 
 Get the source:
-```
+```console
 $ git clone https://gitlab.gnome.org/GNOME/simple-scan.git
 $ cd simple-scan
 ```
 
 Build and run:
-```
+```console
 $ meson --prefix $PWD/install build/
 $ ninja -C build/ all install
 $ XDG_DATA_DIRS=install/share:$XDG_DATA_DIRS ./install/bin/simple-scan
@@ -33,14 +36,14 @@ $ XDG_DATA_DIRS=install/share:$XDG_DATA_DIRS ./install/bin/simple-scan
 # Debugging
 
 There is a --debug command line switch to enable more verbose logging:
-```
+```console
 $ simple-scan --debug
 ```
 
 Log messages can also be found in the `$HOME/.cache/simple-scan` folder.
 
 If you don't have a scanner ready, you can use a virtual "test" scanner:
-```
+```console
 $ simple-scan --debug test
 ```
 
