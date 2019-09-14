@@ -61,9 +61,7 @@ namespace WebP
         [CCode (cname = "vala_set_image")]
         public MuxError set_image (uint8[] bitstream, bool copy_data)
         {
-                Data data;
-                data.bytes = bitstream;
-                data.size = bitstream.length;
+                Data data = { bitstream, bitstream.length };
                 return _set_image (data, copy_data);
         }
 
@@ -89,9 +87,7 @@ namespace WebP
         public MuxError set_chunk (string fourcc, uint8[] chunk_data, bool copy_data)
         requires (fourcc.length == 4)
         {
-            Data data;
-            data.bytes = chunk_data;
-            data.size = chunk_data.length;
+            Data data = { chunk_data ,chunk_data.length };
             return _set_chunk ((uchar[]) fourcc, data, copy_data);
         }
 
