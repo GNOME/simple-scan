@@ -9,16 +9,16 @@ install_data ('org.gnome.SimpleScan.gschema.xml',
 meson.add_install_script ('meson_compile_gschema.py')
 
 i18n.merge_file ('desktop-file',
-                 input: 'simple-scan.desktop.in',
-                 output: 'simple-scan.desktop',
+                 input: 'org.gnome.SimpleScan.desktop.in',
+                 output: 'org.gnome.SimpleScan.desktop',
                  install: true,
                  install_dir: join_paths (datadir, 'applications'),
                  po_dir: '../po',
                  type: 'desktop')
 
 i18n.merge_file ('appdata-file',
-                 input: 'simple-scan.appdata.xml.in',
-                 output: 'simple-scan.appdata.xml',
+                 input: 'org.gnome.SimpleScan.appdata.xml.in',
+                 output: 'org.gnome.SimpleScan.appdata.xml',
                  install: true,
                  install_dir: join_paths (datadir, 'metainfo'),
                  po_dir: '../po')
