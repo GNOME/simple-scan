@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan gnome-3-26\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2019-08-04 22:16+0000\n"
-"PO-Revision-Date: 2019-09-04 08:46+0000\n"
+"POT-Creation-Date: 2019-10-08 11:44+0000\n"
+"PO-Revision-Date: 2019-10-19 14:49+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
-msgstr "دستگاه برای پویش کردن از"
+msgstr "دستگاه برای پویش"
 
 #: data/org.gnome.SimpleScan.gschema.xml:12
 msgid "SANE device to acquire images from."
@@ -29,33 +29,33 @@ msgstr "دستگاه SANE برای دریافت تصاویر از طریق آن.
 
 #: data/org.gnome.SimpleScan.gschema.xml:20
 msgid "Type of document being scanned"
-msgstr "نوع نوشتار در حال پویش"
+msgstr "گونهٔ نوشتار در حال پویش"
 
 #: data/org.gnome.SimpleScan.gschema.xml:21
 msgid ""
 "Type of document being scanned. This setting decides on the scan resolution, "
 "colors and post-processing."
 msgstr ""
-"نوع نوشتار درحال پویش شدن. این تنظیمات بر روی وضوح پویش، رنگ‌ها و پردازش پس از "
+"گونهٔ نوشتار درحال پویش شدن. این تنظیمات  روی وضوح پویش، رنگ‌ها و پردازش پس از "
 "پویش اعمال می‌شود."
 
 #: data/org.gnome.SimpleScan.gschema.xml:25
 msgid "Width of paper in tenths of a mm"
-msgstr "عرض کاغذ در دهم میلی‌متر"
+msgstr "پهنای کاغذ به دهم میلی‌متر"
 
 #: data/org.gnome.SimpleScan.gschema.xml:26
 msgid ""
 "The width of the paper in tenths of a mm (or 0 for automatic paper detection)."
-msgstr "عرض کاغذ در دهم میلی‌متر (یا 0 برای تشخیص اتوماتیک کاغذ)."
+msgstr "پهنای کاغذ به دهم میلی‌متر (یا ۰ برای تشخیص خودکار کاغذ)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:30
 msgid "Height of paper in tenths of a mm"
-msgstr "ارتفاع کاغذ در دهم میلی‌متر"
+msgstr "بلندای کاغذ به دهم میلی‌متر"
 
 #: data/org.gnome.SimpleScan.gschema.xml:31
 msgid ""
 "The height of the paper in tenths of a mm (or 0 for automatic paper detection)."
-msgstr "ارتفاع کاغذ در دهم میلی‌متر (یا 0 برای تشخیص اتوماتیک کاغذ)."
+msgstr "بلندای کاغذ به دهم میلی‌متر (یا ۰ برای تشخیص خودکار کاغذ)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:35
 msgid "Brightness of scan"
@@ -63,7 +63,7 @@ msgstr "روشنایی پویش"
 
 #: data/org.gnome.SimpleScan.gschema.xml:36
 msgid "The brightness adjustment from -100 to 100 (0 being none)."
-msgstr "تنظیم روشنایی از -۱۰۰ تا ۱۰۰ (0 هیچ‌کدام)."
+msgstr "تنظیم روشنایی از -۱۰۰ تا ۱۰۰ (۰ هیچ است)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:40
 msgid "Contrast of scan"
@@ -71,7 +71,7 @@ msgstr "سایه روشن پویش"
 
 #: data/org.gnome.SimpleScan.gschema.xml:41
 msgid "The contrast adjustment from -100 to 100 (0 being none)."
-msgstr "تنظیم کنتراست از -۱۰۰ تا ۱۰۰ (۰ هیچ کدام)"
+msgstr "تنظیم کنتراست از -۱۰۰ تا ۱۰۰ (۰ هیچ است)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:45
 msgid "Resolution for text scans"
@@ -149,6 +149,10 @@ msgstr ""
 #: data/simple-scan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "این کاره از چهارچوب SANE برای پشتیبانی از پویشگرهای موجود استفاده می‌کند."
+
+#: data/simple-scan.appdata.xml.in:24
+msgid "The GNOME Project"
+msgstr "پروژهٔ گنوم"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
@@ -501,10 +505,10 @@ msgstr "یک پویشگر ساده برای اسناد"
 #: src/app-window.vala:1307
 msgid "translator-credits"
 msgstr ""
-"Arash Mousavi <mousavi.arash@gmail.com>\n"
-"Danial Behzadi <dani.behzi@ubuntu.com>\n"
-"goudarz jafari <goudarz.jafari@gmail.com>\n"
-"ssshojaei <shojaeisaleh@gmail.com>"
+"آرش موسوی <mousavi.arash@gmail.com>\n"
+"دانیال بهزادی<dani.behzi@ubuntu.com>\n"
+"گودرز جعفری<goudarz.jafari@gmail.com>\n"
+"صالح شجاعی<shojaeisaleh@gmail.com>"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:1323
