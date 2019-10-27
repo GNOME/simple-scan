@@ -450,14 +450,8 @@ public class Page : Object
         crop_width = (int) (w * dpi + 0.5);
         crop_height = (int) (h * dpi + 0.5);
 
-        if (crop_width < pw)
-            crop_x = (pw - crop_width) / 2;
-        else
-            crop_x = 0;
-        if (crop_height < ph)
-            crop_y = (ph - crop_height) / 2;
-        else
-            crop_y = 0;
+        /* named crops should start at (0,0) */
+        crop_x = crop_y = 0;
         crop_changed ();
     }
 
