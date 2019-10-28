@@ -2,22 +2,22 @@
 # Copyright (c) 2017, 2019 The Free Software Foundation, inc.
 # This file is distributed under the same license as the simple-scan package.
 #
-# Gabor Kelemen <kelemeng at ubuntu dot com>, 2017.
+# Gabor Kelemen <kelemeng at ubuntu dot com>, 2017, 2019.
 # Balázs Úr <ur.balazs at fsf dot hu>, 2017, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2019-08-04 22:16+0000\n"
-"PO-Revision-Date: 2019-08-24 23:32+0200\n"
-"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"POT-Creation-Date: 2019-10-19 14:50+0000\n"
+"PO-Revision-Date: 2019-10-28 14:03+0100\n"
+"Last-Translator: Gabor Kelemen <kelemeng at ubuntu dot com>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Lokalize 18.12.3\n"
+"X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -136,7 +136,7 @@ msgstr "A lapok közti késleltetés ezredmásodpercben."
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: src/app-window.ui:181 src/app-window.vala:1302 src/app-window.vala:1556
 msgid "Document Scanner"
-msgstr "Dokumentumbeolvasó"
+msgstr "Szkenner"
 
 #: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Scan Documents"
@@ -154,12 +154,14 @@ msgstr ""
 "vagy számos képformátumba is exportálhatja a szkennelt dokumentumokat."
 
 #: data/simple-scan.appdata.xml.in:14
-#| msgid ""
-#| "Simple Scan uses the SANE framework to support most existing scanners."
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Ez az alkalmazás a SANE keretrendszert használja a legtöbb létező szkenner "
 "támogatása érdekében."
+
+#: data/simple-scan.appdata.xml.in:24
+msgid "The GNOME Project"
+msgstr "A GNOME projekt"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
@@ -498,9 +500,8 @@ msgstr ""
 
 #. Title of about dialog
 #: src/app-window.vala:1295 src/app-window.vala:1581
-#| msgid "Document Scanner"
 msgid "About Document Scanner"
-msgstr "A dokumentumbeolvasó névjegye"
+msgstr "A Szkenner névjegye"
 
 #. Description of program
 #: src/app-window.vala:1298
@@ -589,7 +590,6 @@ msgstr "Illesztőprogramok telepítése"
 
 #. Message in driver install dialog
 #: src/app-window.vala:1422
-#| msgid "Once installed you will need to restart Simple Scan."
 msgid "Once installed you will need to restart this app."
 msgstr "A telepítés után újra kell indítania ezt az alkalmazást."
 
@@ -957,7 +957,6 @@ msgid "Print debugging messages"
 msgstr "Hibakeresési üzenetek kiírása"
 
 #: src/simple-scan.vala:26
-#| msgid "Fix PDF files generated with older versions of Simple Scan"
 msgid "Fix PDF files generated with older versions of this app"
 msgstr "Ezen alkalmazás régebbi verzióival készült PDF fájlok javítása"
 
@@ -982,3 +981,5 @@ msgstr "[ESZKÖZ…] – Szkennelő segédprogram"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Futtassa a(z) „%s --help” parancsot a parancssori kapcsolók listájáért."
+
+
