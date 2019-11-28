@@ -193,19 +193,6 @@ public class AppWindow : Gtk.ApplicationWindow
         load ();
 
         clear_document ();
-        autosave_manager = new AutosaveManager ();
-        autosave_manager.book = book;
-        autosave_manager.load ();
-
-        if (book.n_pages == 0)
-            book_needs_saving = false;
-        else
-        {
-            stack.set_visible_child_name ("document");
-            book_view.selected_page = book.get_page (0);
-            book_needs_saving = true;
-            book_changed_cb (book);
-        }
     }
 
     ~AppWindow ()
@@ -281,6 +268,20 @@ public class AppWindow : Gtk.ApplicationWindow
         this.missing_driver = missing_driver;
         preferences_dialog.set_scan_devices (devices);
         update_scan_status ();
+    }
+
+    private bool prompt_to_load_autosaved_book ()
+    {
+        var dialog = new Gtk.MessageDialog (this,
+                                            Gtk.DialogFlags.MODAL,
+                                            Gtk.MessageType.QUESTION,
+                                            Gtk.ButtonsType.YES_NO,
+                                            /* Contents of dialog that shows if autosaved book should be loaded. */
+                                            _("An autosaved book exists. Do you want to open it?"));
+        dialog.set_default_response(Gtk.ResponseType.YES);
+        var response = dialog.run ();
+        dialog.destroy ();
+        return response == Gtk.ResponseType.YES;
     }
 
     private string? choose_file_location ()
@@ -1769,6 +1770,21 @@ public class AppWindow : Gtk.ApplicationWindow
     public void start ()
     {
         visible = true;
+        autosave_manager = new AutosaveManager ();
+        autosave_manager.book = book;
+
+        if (autosave_manager.exists () && prompt_to_load_autosaved_book ())
+            autosave_manager.load ();
+
+        if (book.n_pages == 0)
+            book_needs_saving = false;
+        else
+        {
+            stack.set_visible_child_name ("document");
+            book_view.selected_page = book.get_page (0);
+            book_needs_saving = true;
+            book_changed_cb (book);
+        }
     }
 }
 

@@ -59,6 +59,12 @@ public class AutosaveManager
         page_filenames = new HashTable<Page, string> (direct_hash, direct_equal);
     }
 
+    public bool exists ()
+    {
+        var file = File.new_for_path (AUTOSAVE_PATH);
+        return file.query_exists ();
+    }
+
     public void load ()
     {
         debug ("Loading autosave information");
