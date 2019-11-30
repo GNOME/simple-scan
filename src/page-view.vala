@@ -845,39 +845,6 @@ public class PageView : Object
         Gdk.cairo_set_source_pixbuf (context, image, 0, 0);
         context.paint ();
 
-        /* Draw throbber */
-        if (page.is_scanning && !page.has_data)
-        {
-            double outer_radius;
-            if (w > h)
-                outer_radius = 0.15 * w;
-            else
-                outer_radius = 0.15 * h;
-            var arc = Math.PI / animate_n_segments;
-
-            /* Space circles */
-            var x = outer_radius * Math.sin (arc);
-            var y = outer_radius * (Math.cos (arc) - 1.0);
-            var inner_radius = 0.6 * Math.sqrt (x*x + y*y);
-
-            double offset = 0.0;
-            for (var i = 0; i < animate_n_segments; i++, offset += arc * 2)
-            {
-                x = w / 2 + outer_radius * Math.sin (offset);
-                y = h / 2 - outer_radius * Math.cos (offset);
-                context.arc (x, y, inner_radius, 0, 2 * Math.PI);
-
-                if (i == animate_segment)
-                {
-                    context.set_source_rgb (0.75, 0.75, 0.75);
-                    context.fill_preserve ();
-                }
-
-                context.set_source_rgb (0.5, 0.5, 0.5);
-                context.stroke ();
-            }
-        }
-
         /* Draw scan line */
         if (page.is_scanning && page.scan_line > 0)
         {

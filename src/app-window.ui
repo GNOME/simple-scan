@@ -382,7 +382,7 @@
                   <object class="GtkImage">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="icon_name">text-x-generic-symbolic</property>
+                    <property name="icon_name">x-office-document-symbolic</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -503,12 +503,43 @@
             <property name="valign">center</property>
             <child>
               <object class="GtkButton" id="stop_button">
-                <property name="label" translatable="yes">Stop</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>
                 <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="stop_scan_button_clicked_cb" swapped="no"/>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkSpinner" id="stop_button_spinner">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="active">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">S_top</property>
+                        <property name="use_underline">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
                 <style>
                   <class name="text-button"/>
                   <class name="destructive-action"/>
@@ -522,13 +553,45 @@
             </child>
             <child>
               <object class="GtkButton" id="scan_button">
-                <property name="label" translatable="yes" comments="Label on scan toolbar item">Scan</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>
                 <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button">Scan a single page from the scanner</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="scan_button_clicked_cb" swapped="no"/>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="GtkImage" id="scan_options_image">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="icon_name">scanner-symbolic</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_right">1</property>
+                        <property name="label" translatable="yes">_Scan</property>
+                        <property name="use_underline">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
                 <style>
                   <class name="text-button"/>
                   <class name="suggested-action"/>
@@ -552,10 +615,10 @@
                     <property name="can_focus">False</property>
                     <property name="spacing">6</property>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="scan_hint_image">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="icon_name">pan-down-symbolic</property>
+                        <property name="icon_name">x-office-document-symbolic</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -564,10 +627,10 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkImage" id="scan_options_image">
+                      <object class="GtkImage">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="icon_name">scanner-symbolic</property>
+                        <property name="icon_name">pan-down-symbolic</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>

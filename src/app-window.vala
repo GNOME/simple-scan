@@ -92,6 +92,8 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.Image scan_options_image;
     [GtkChild]
+    private Gtk.Image scan_hint_image;
+    [GtkChild]
     private Gtk.RadioButton scan_single_radio;
     [GtkChild]
     private Gtk.RadioButton scan_adf_radio;
@@ -698,10 +700,12 @@ public class AppWindow : Gtk.ApplicationWindow
         if (document_hint == "text")
         {
             text_radio.active = true;
+            scan_hint_image.icon_name = "x-office-document-symbolic";
         }
         else if (document_hint == "photo")
         {
             photo_radio.active = true;
+            scan_hint_image.icon_name = "image-x-generic-symbolic";
         }
 
         if (save)
