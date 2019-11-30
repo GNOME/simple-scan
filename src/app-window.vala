@@ -722,6 +722,12 @@ public class AppWindow : Gtk.ApplicationWindow
             set_document_hint ("photo", true);
     }
 
+    [GtkCallback]
+    private void preferences_button_clicked_cb (Gtk.Button button)
+    {
+        preferences_dialog.present ();
+    }
+
     private ScanOptions make_scan_options ()
     {
         var options = new ScanOptions ();
