@@ -758,6 +758,8 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkCallback]
     private void scan_button_clicked_cb (Gtk.Widget widget)
     {
+        scan_button.visible = false;
+        stop_button.visible = true;
         var options = make_scan_options ();
         options.type = scan_type;
         if (options.type == ScanType.ADF_BOTH)
@@ -768,6 +770,8 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkCallback]
     private void stop_scan_button_clicked_cb (Gtk.Widget widget)
     {
+        scan_button.visible = true;
+        stop_button.visible = false;
         stop_scan ();
     }
 
