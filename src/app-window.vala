@@ -1882,6 +1882,20 @@ public class AppWindow : Gtk.ApplicationWindow
             window_height = 400;
         window_is_maximized = state_get_boolean (f, "window", "is-maximized");
         window_is_fullscreen = state_get_boolean (f, "window", "is-fullscreen");
+        scan_type = Scanner.type_from_string(state_get_string (f, "scanner", "scan-type", "single"));
+        set_scan_type (scan_type);
+    }
+
+    private string state_get_string (KeyFile f, string group_name, string key, string default)
+    {
+        try
+        {
+            return f.get_string (group_name, key);
+        }
+        catch
+        {
+            return default;
+        }
     }
 
     private int state_get_integer (KeyFile f, string group_name, string key, int default = 0)
@@ -1930,6 +1944,7 @@ public class AppWindow : Gtk.ApplicationWindow
         f.set_integer ("window", "height", window_height);
         f.set_boolean ("window", "is-maximized", window_is_maximized);
         f.set_boolean ("window", "is-fullscreen", window_is_fullscreen);
+        f.set_string ("scanner", "scan-type", Scanner.type_to_string(scan_type));
         try
         {
             FileUtils.set_contents (state_filename, f.to_data ());

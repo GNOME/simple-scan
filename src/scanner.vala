@@ -1587,22 +1587,42 @@ public class Scanner : Object
         }
     }
 
-    private string get_scan_type_string (ScanType type)
+    public static string type_to_string (ScanType type)
     {
         switch (type)
         {
         case ScanType.SINGLE:
-            return "ScanType.SINGLE";
-        case ScanType.ADF_FRONT:
-            return "ScanType.ADF_FRONT";
-        case ScanType.ADF_BACK:
-            return "ScanType.ADF_BACK";
-        case ScanType.ADF_BOTH:
-            return "ScanType.ADF_BOTH";
+            return "single";
         case ScanType.BATCH:
-            return "ScanType.BATCH";
+            return "batch";
+        case ScanType.ADF_FRONT:
+            return "adf-front";
+        case ScanType.ADF_BACK:
+            return "adf-back";
+        case ScanType.ADF_BOTH:
+            return "adf-both";
         default:
             return "%d".printf (type);
+        }
+    }
+
+    public static ScanType type_from_string (string type)
+    {
+        switch (type)
+        {
+        case "single":
+            return ScanType.SINGLE;
+        case "batch":
+            return ScanType.BATCH;
+        case "adf-front":
+            return ScanType.ADF_FRONT;
+        case "adf-back":
+            return ScanType.ADF_BACK;
+        case "adf-both":
+            return ScanType.ADF_BOTH;
+        default:
+            warning ("Unknown ScanType: %s. Please report this error.", type);
+            return ScanType.SINGLE;
         }
     }
 
@@ -1610,7 +1630,7 @@ public class Scanner : Object
     {
         debug ("Scanner.scan (\"%s\", dpi=%d, scan_mode=%s, depth=%d, type=%s, paper_width=%d, paper_height=%d, brightness=%d, contrast=%d, delay=%dms)",
                device != null ? device : "(null)", options.dpi, get_scan_mode_string (options.scan_mode), options.depth,
-               get_scan_type_string (options.type), options.paper_width, options.paper_height,
+               type_to_string (options.type), options.paper_width, options.paper_height,
                options.brightness, options.contrast, options.page_delay);
         var request = new RequestStartScan ();
         request.job = new ScanJob ();
