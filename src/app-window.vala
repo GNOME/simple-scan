@@ -1587,10 +1587,11 @@ public class AppWindow : Gtk.ApplicationWindow
         var section = new Menu ();
         gear_menu.append_section (null, section);
         section.append (_("Email"), "app.email");
+        section.append (_("Print"), "app.print");
         section.append (C_("menu", "Reorder Pages"), "app.reorder");
+        section.append (_("Preferences"), "app.preferences");
         section = new Menu ();
         gear_menu.append_section (null, section);
-        section.append (_("Preferences"), "app.preferences");
         section.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
         section.append (_("Help"), "app.help");
         section.append (_("About Document Scanner"), "app.about");
