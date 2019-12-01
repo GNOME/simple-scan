@@ -1634,7 +1634,7 @@ public class Scanner : Object
             thread.join ();
             thread = null;
         }
-        
+
         Sane.exit ();
         debug ("sane_exit ()");
     }

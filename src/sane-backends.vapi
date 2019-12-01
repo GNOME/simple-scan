@@ -48,7 +48,7 @@ namespace Sane {
         NO_MEM,
         ACCESS_DENIED
     }
-     
+
     public static string status_to_string (Status status)
     {
         switch (status)
@@ -88,7 +88,7 @@ namespace Sane {
         SET_VALUE,
         SET_AUTO
     }
-    
+
     public enum Frame
     {
         GRAY,
@@ -154,7 +154,7 @@ namespace Sane {
         PERCENT,
         MICROSECOND
     }
-    
+
     [CCode (cname = "SANE_Constraint_Type", cprefix = "SANE_CONSTRAINT_")]
     public enum ConstraintType
     {
@@ -163,7 +163,7 @@ namespace Sane {
         WORD_LIST,
         STRING_LIST
     }
-    
+
     public class Range
     {
         public Word min;
@@ -225,7 +225,7 @@ namespace Sane {
     public int VERSION_MINOR (Int code);
     [CCode (cname = "SANE_VERSION_BUILD")]
     public int VERSION_BUILD (Int code);
-    
+
     [CCode (cname = "SANE_FIX")]
     public Fixed FIX (double d);
     [CCode (cname = "SANE_UNFIX")]

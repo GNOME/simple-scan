@@ -36,7 +36,7 @@ public class PageView : Object
     public bool selected
     {
         get { return selected_; }
-        set    
+        set
         {
             if ((this.selected && selected) || (!this.selected && !selected))
                 return;

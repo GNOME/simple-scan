@@ -34,7 +34,7 @@ public class BookView : Gtk.Box
             else
                 return null;
         }
-        set 
+        set
         {
             if (selected_page == value)
                 return;
