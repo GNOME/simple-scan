@@ -66,8 +66,8 @@ environment variable:
 $ export SANE_DEBUG_DLL=255
 ```
 
-With such set, loading of Sane backends will be displayed, during *Simple Scan*
-run.
+When set, SANE backends will show informational messages while
+*Document Scanner* is running
 
 Example:
 
@@ -89,3 +89,10 @@ shared library, during loading `smfp` prioprietary backend:
 To contribute code create merge requests on
 [gitlab.gnome.org](https://gitlab.gnome.org/GNOME/simple-scan). If you
 find issues please [report them](https://gitlab.gnome.org/GNOME/simple-scan/issues).
+
+## Translation
+
+A lot of information about translation process can be found at
+[GNOME TranslationProject](https://wiki.gnome.org/TranslationProject/).
+The translation files for *Document Scanner* User Interface and User Guide,
+are available [here](https://l10n.gnome.org/module/simple-scan/).
