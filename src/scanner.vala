@@ -1175,10 +1175,6 @@ public class Scanner : Object
         if (option.type == Sane.ValueType.GROUP)
             return;
 
-        /* Option disabled */
-        if ((option.cap & Sane.Capability.INACTIVE) != 0)
-            return;
-
         /* Some options are unnamed (e.g. Option 0) */
         if (option.name == null)
             return;
@@ -1205,7 +1201,18 @@ public class Scanner : Object
         if (index == 0)
             return null;
 
-        return Sane.get_option_descriptor (handle, index);
+        var option_descriptor = Sane.get_option_descriptor (handle, index);
+        /*
+        The Sane.Capability.INACTIVE capability indicates that
+        the option is not currently active (e.g., because it's meaningful
+        only if another option is set to some other value).
+        */
+        if ((option_descriptor.cap & Sane.Capability.INACTIVE) != 0)
+        {
+            warning ("The option %s (%d) is inactive and can't be set, please file a bug", name, index);
+            return null;
+        }
+        return option_descriptor;
     }
 
     private void do_complete_document ()
