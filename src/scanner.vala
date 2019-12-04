@@ -530,7 +530,11 @@ public class Scanner : Object
             return;
 
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &option.range.max, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, option.range.max) -> (%s)", (int) option_index, Sane.status_to_string (status));
+
+        if (option.type == Sane.ValueType.FIXED)
+            debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, option.range.max=%f) -> (%s)", (int) option_index, Sane.UNFIX (option.range.max), Sane.status_to_string (status));
+        else
+            debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, option.range.max=%d) -> (%s)", (int) option_index, (int) option.range.max, Sane.status_to_string (status));
     }
 
     private bool set_string_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, string value, out string result)
