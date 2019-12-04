@@ -539,7 +539,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private async bool prompt_to_save_async (string title, string discard_label)
     {
-        if (!book_needs_saving)
+        if (!book_needs_saving || (book.n_pages == 0))
             return true;
 
         var dialog = new Gtk.MessageDialog (this,
