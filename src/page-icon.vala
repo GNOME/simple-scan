@@ -10,7 +10,7 @@
  * license.
  */
 
-private class PageIcon : Gtk.DrawingArea
+public class PageIcon : Gtk.DrawingArea
 {
     private string text;
     private double r;
