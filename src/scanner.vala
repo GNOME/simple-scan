@@ -1146,40 +1146,34 @@ public class Scanner : Object
             option = get_option_by_name (handle, Sane.NAME_BRIGHTNESS, out index);
             if (option != null)
             {
-                if (job.brightness != 0)
+                if (option.type == Sane.ValueType.FIXED)
                 {
-                    if (option.type == Sane.ValueType.FIXED)
-                    {
-                        var brightness = scale_fixed (-100, 100, option, job.brightness);
-                        set_fixed_option (handle, option, index, brightness, null);
-                    }
-                    else if (option.type == Sane.ValueType.INT)
-                    {
-                        var brightness = scale_int (-100, 100, option, job.brightness);
-                        set_int_option (handle, option, index, brightness, null);
-                    }
-                    else
-                        warning ("Unable to set brightness, please file a bug");
+                    var brightness = scale_fixed (-100, 100, option, job.brightness);
+                    set_fixed_option (handle, option, index, brightness, null);
                 }
+                else if (option.type == Sane.ValueType.INT)
+                {
+                    var brightness = scale_int (-100, 100, option, job.brightness);
+                    set_int_option (handle, option, index, brightness, null);
+                }
+                else
+                    warning ("Unable to set brightness, please file a bug");
             }
             option = get_option_by_name (handle, Sane.NAME_CONTRAST, out index);
             if (option != null)
             {
-                if (job.contrast != 0)
+                if (option.type == Sane.ValueType.FIXED)
                 {
-                    if (option.type == Sane.ValueType.FIXED)
-                    {
-                        var contrast = scale_fixed (-100, 100, option, job.contrast);
-                        set_fixed_option (handle, option, index, contrast, null);
-                    }
-                    else if (option.type == Sane.ValueType.INT)
-                    {
-                        var contrast = scale_int (-100, 100, option, job.contrast);
-                        set_int_option (handle, option, index, contrast, null);
-                    }
-                    else
-                        warning ("Unable to set contrast, please file a bug");
+                    var contrast = scale_fixed (-100, 100, option, job.contrast);
+                    set_fixed_option (handle, option, index, contrast, null);
                 }
+                else if (option.type == Sane.ValueType.INT)
+                {
+                    var contrast = scale_int (-100, 100, option, job.contrast);
+                    set_int_option (handle, option, index, contrast, null);
+                }
+                else
+                    warning ("Unable to set contrast, please file a bug");
             }
 
             /* Test scanner options (hoping will not effect other scanners...) */
