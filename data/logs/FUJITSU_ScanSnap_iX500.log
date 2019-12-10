@@ -1,0 +1,325 @@
+[+0.00s] DEBUG: simple-scan.vala:674: Starting Simple Scan 3.20.0, PID=5543
+[+0.14s] DEBUG: scanner.vala:1447: sane_init () -> SANE_STATUS_GOOD
+[+0.14s] DEBUG: scanner.vala:1453: SANE version 1.0.25
+[+0.14s] DEBUG: scanner.vala:1514: Requesting redetection of scan devices
+[+0.14s] DEBUG: scanner.vala:803: Processing request
+[+0.17s] DEBUG: autosave-manager.vala:281: Autosaving book information
+
+
+[+5.78s] DEBUG: scanner.vala:338: sane_get_devices () -> SANE_STATUS_GOOD
+[+5.78s] DEBUG: scanner.vala:350: Device: name="net:localhost:fujitsu:ScanSnap iX500:1501132" vendor="FUJITSU" model="ScanSnap iX500" type="scanner"
+[+21.13s] DEBUG: simple-scan.vala:404: Requesting scan at 150 dpi from device 'net:localhost:fujitsu:ScanSnap iX500:1501132'
+[+21.13s] DEBUG: scanner.vala:1560: Scanner.scan ("net:localhost:fujitsu:ScanSnap iX500:1501132", dpi=150, scan_mode=ScanMode.GRAY, depth=2, type=ScanType.SINGLE, paper_width=0, paper_height=0, brightness=0, contrast=0)
+[+21.13s] DEBUG: scanner.vala:803: Processing request
+[+21.21s] DEBUG: scanner.vala:864: sane_open ("net:localhost:fujitsu:ScanSnap iX500:1501132") -> SANE_STATUS_GOOD
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (0)
+[+21.21s] DEBUG: scanner.vala:735: Option 0: title='Number of options' type=int size=4 cap=soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Read-only option that specifies how many options a specific devices supports.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (1)
+[+21.21s] DEBUG: scanner.vala:735: Option 1: name='standard' title='Standard' type=group size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Source, mode and resolution options
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (2)
+[+21.21s] DEBUG: scanner.vala:735: Option 2: name='source' title='Scan source' type=string size=11 values=["ADF Front", "ADF Back", "ADF Duplex"] cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Selects the scan source (such as a document-feeder).
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (3)
+[+21.21s] DEBUG: scanner.vala:735: Option 3: name='mode' title='Scan mode' type=string size=8 values=["Lineart", "Gray", "Color"] cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Selects the scan mode (e.g., lineart, monochrome, or color).
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (4)
+[+21.21s] DEBUG: scanner.vala:735: Option 4: name='resolution' title='Scan resolution' type=int size=4 unit=dpi min=50, max=600, quant=1 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Sets the resolution of the scanned image.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (5)
+[+21.21s] DEBUG: scanner.vala:735: Option 5: name='geometry' title='Geometry' type=group size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Scan area and media size options
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (6)
+[+21.21s] DEBUG: scanner.vala:735: Option 6: name='page-width' title='Page width' type=fixed size=4 unit=mm min=0.000000, max=221.120850, quant=1387 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Specifies the width of the media.  Required for automatic centering of sheet-fed scans.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (7)
+[+21.21s] DEBUG: scanner.vala:735: Option 7: name='page-height' title='Page height' type=fixed size=4 unit=mm min=0.000000, max=876.695068, quant=1387 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Specifies the height of the media.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (8)
+[+21.21s] DEBUG: scanner.vala:735: Option 8: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0.000000, max=215.872192, quant=1387 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Top-left x position of scan area.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (9)
+[+21.21s] DEBUG: scanner.vala:735: Option 9: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0.000000, max=279.364014, quant=1387 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Top-left y position of scan area.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (10)
+[+21.21s] DEBUG: scanner.vala:735: Option 10: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=0.000000, max=215.872192, quant=1387 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Bottom-right x position of scan area.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (11)
+[+21.21s] DEBUG: scanner.vala:735: Option 11: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=0.000000, max=279.364014, quant=1387 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Bottom-right y position of scan area.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (12)
+[+21.21s] DEBUG: scanner.vala:735: Option 12: name='enhancement' title='Enhancement' type=group size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Image modification options
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (13)
+[+21.21s] DEBUG: scanner.vala:735: Option 13: name='brightness' title='Brightness' type=int size=4 min=-127, max=127, quant=1 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Controls the brightness of the acquired image.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (14)
+[+21.21s] DEBUG: scanner.vala:735: Option 14: name='contrast' title='Contrast' type=int size=4 min=-127, max=127, quant=1 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Controls the contrast of the acquired image.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (15)
+[+21.21s] DEBUG: scanner.vala:735: Option 15: name='gamma' title='Gamma function exponent' type=fixed size=4 min=0.299988, max=5.000000, quant=655 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Changes intensity of midtones
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (16)
+[+21.21s] DEBUG: scanner.vala:735: Option 16: name='threshold' title='Threshold' type=int size=4 min=0, max=255, quant=1 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Select minimum-brightness to get a white point
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (17)
+[+21.21s] DEBUG: scanner.vala:735: Option 17: name='rif' title='RIF' type=bool size=4 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Reverse image format
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (18)
+[+21.21s] DEBUG: scanner.vala:735: Option 18: name='ht-type' title='Halftone type' type=string size=10 values=["Default", "Dither", "Diffusion"] cap=soft-select,soft-detect,inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Control type of halftone filter
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (19)
+[+21.21s] DEBUG: scanner.vala:735: Option 19: name='ht-pattern' title='Halftone pattern' type=int size=4 min=0, max=3, quant=1 cap=soft-select,soft-detect,inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Control pattern of halftone filter
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (20)
+[+21.21s] DEBUG: scanner.vala:735: Option 20: name='outline' title='Outline' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Perform outline extraction
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (21)
+[+21.21s] DEBUG: scanner.vala:735: Option 21: name='emphasis' title='Emphasis' type=int size=4 min=-128, max=127, quant=1 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Negative to smooth or positive to sharpen image
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (22)
+[+21.21s] DEBUG: scanner.vala:735: Option 22: name='separation' title='Separation' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Enable automatic separation of image and text
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (23)
+[+21.21s] DEBUG: scanner.vala:735: Option 23: name='mirroring' title='Mirroring' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Reflect output image horizontally
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (24)
+[+21.21s] DEBUG: scanner.vala:735: Option 24: name='wl-follow' title='White level follower' type=string size=8 values=["Default", "On", "Off"] cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Control white level follower
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (25)
+[+21.21s] DEBUG: scanner.vala:735: Option 25: name='ipc-mode' title='IPC mode' type=string size=8 values=["Default", "SDTC"] cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Image processing mode, enables additional options
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (26)
+[+21.21s] DEBUG: scanner.vala:735: Option 26: name='bp-filter' title='BP filter' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Improves quality of high resolution ball-point pen text
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (27)
+[+21.21s] DEBUG: scanner.vala:735: Option 27: name='smoothing' title='Smoothing' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Enable smoothing for improved OCR
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (28)
+[+21.21s] DEBUG: scanner.vala:735: Option 28: name='gamma-curve' title='Gamma curve' type=int size=4 min=0, max=3, quant=1 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Gamma curve, from light to dark, but upper two may not work
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (29)
+[+21.21s] DEBUG: scanner.vala:735: Option 29: name='threshold-curve' title='Threshold curve' type=int size=4 min=0, max=7, quant=1 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Threshold curve, from light to dark, but upper two may not be linear
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (30)
+[+21.21s] DEBUG: scanner.vala:735: Option 30: name='threshold-white' title='Threshold white' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Set pixels equal to threshold to white instead of black
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (31)
+[+21.21s] DEBUG: scanner.vala:735: Option 31: name='noise-removal' title='Noise removal' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Noise removal
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (32)
+[+21.21s] DEBUG: scanner.vala:735: Option 32: name='matrix-5x5' title='Matrix 5x5' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Remove 5 pixel square noise
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (33)
+[+21.21s] DEBUG: scanner.vala:735: Option 33: name='matrix-4x4' title='Matrix 4x4' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Remove 4 pixel square noise
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (34)
+[+21.21s] DEBUG: scanner.vala:735: Option 34: name='matrix-3x3' title='Matrix 3x3' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Remove 3 pixel square noise
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (35)
+[+21.21s] DEBUG: scanner.vala:735: Option 35: name='matrix-2x2' title='Matrix 2x2' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Remove 2 pixel square noise
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (36)
+[+21.21s] DEBUG: scanner.vala:735: Option 36: name='variance' title='Variance' type=int size=4 min=0, max=255, quant=1 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Set SDTC variance rate (sensitivity), 0 equals 127
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (37)
+[+21.21s] DEBUG: scanner.vala:735: Option 37: name='advanced' title='Advanced' type=group size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Hardware specific options
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (38)
+[+21.21s] DEBUG: scanner.vala:735: Option 38: name='awd' title='Auto width detection' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Scanner detects paper sides. May reduce scanning speed.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (39)
+[+21.21s] DEBUG: scanner.vala:735: Option 39: name='ald' title='Auto length detection' type=bool size=4 cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Scanner detects paper lower edge. May confuse some frontends.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (40)
+[+21.21s] DEBUG: scanner.vala:735: Option 40: name='compression' title='Compression' type=string size=5 values=["None"] cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Enable compressed data. May crash your front-end program
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (41)
+[+21.21s] DEBUG: scanner.vala:735: Option 41: name='compression-arg' title='Compression argument' type=int size=4 min=0, max=7, quant=1 cap=soft-select,soft-detect,inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Level of JPEG compression. 1 is small file, 7 is large file. 0 (default) is same as 4
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (42)
+[+21.21s] DEBUG: scanner.vala:735: Option 42: name='df-action' title='DF action' type=string size=9 values=["Default", "Continue", "Stop"] cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Action following double feed error
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (43)
+[+21.21s] DEBUG: scanner.vala:735: Option 43: name='df-skew' title='DF skew' type=bool size=4 cap=soft-select,soft-detect,inactive,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Enable double feed error due to skew
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (44)
+[+21.21s] DEBUG: scanner.vala:735: Option 44: name='df-thickness' title='DF thickness' type=bool size=4 cap=soft-select,soft-detect,inactive,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Enable double feed error due to paper thickness
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (45)
+[+21.21s] DEBUG: scanner.vala:735: Option 45: name='df-length' title='DF length' type=bool size=4 cap=soft-select,soft-detect,inactive,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Enable double feed error due to paper length
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (46)
+[+21.21s] DEBUG: scanner.vala:735: Option 46: name='df-diff' title='DF length difference' type=string size=8 values=["Default", "10mm", "15mm", "20mm"] cap=soft-select,soft-detect,inactive,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Difference in page length to trigger double feed error
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (47)
+[+21.21s] DEBUG: scanner.vala:735: Option 47: name='df-recovery' title='DF recovery mode' type=string size=8 values=["Default", "Off", "On"] cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request scanner to reverse feed on paper jam
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (48)
+[+21.21s] DEBUG: scanner.vala:735: Option 48: name='paper-protect' title='Paper protection' type=string size=8 values=["Default", "Off", "On"] cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request scanner to predict jams in the ADF
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (49)
+[+21.21s] DEBUG: scanner.vala:735: Option 49: name='adv-paper-protect' title='Advanced paper protection' type=string size=8 values=["Default", "Off", "On"] cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request scanner to predict jams in the ADF using improved sensors
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (50)
+[+21.21s] DEBUG: scanner.vala:735: Option 50: name='staple-detect' title='Staple detection' type=string size=8 values=["Default", "Off", "On"] cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request scanner to detect jams in the ADF caused by staples
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (51)
+[+21.21s] DEBUG: scanner.vala:735: Option 51: name='bgcolor' title='Background color' type=string size=8 values=["Default", "White", "Black"] cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Set color of background for scans. May conflict with overscan option
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (52)
+[+21.21s] DEBUG: scanner.vala:735: Option 52: name='dropoutcolor' title='Dropout color' type=string size=8 values=["Default", "Red", "Green", "Blue"] cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: One-pass scanners use only one color during gray or binary scanning, useful for colored paper or ink
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (53)
+[+21.21s] DEBUG: scanner.vala:735: Option 53: name='buffermode' title='Buffer mode' type=string size=8 values=["Default", "Off", "On"] cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request scanner to read pages quickly from ADF into internal memory
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (54)
+[+21.21s] DEBUG: scanner.vala:735: Option 54: name='prepick' title='Prepick' type=string size=8 values=["Default", "Off", "On"] cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request scanner to grab next page from ADF
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (55)
+[+21.21s] DEBUG: scanner.vala:735: Option 55: name='overscan' title='Overscan' type=string size=8 values=["Default", "Off", "On"] cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Collect a few mm of background on top side of scan, before paper enters ADF, and increase maximum scan area beyond paper size, to allow collection on remaining sides. May conflict with bgcolor option
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (56)
+[+21.21s] DEBUG: scanner.vala:735: Option 56: name='sleeptimer' title='Sleep timer' type=int size=4 min=0, max=60, quant=1 cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Time in minutes until the internal power supply switches to sleep mode
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (57)
+[+21.21s] DEBUG: scanner.vala:735: Option 57: name='offtimer' title='Off timer' type=int size=4 min=0, max=960, quant=1 cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Time in minutes until the internal power supply switches the scanner off. Will be rounded to nearest 15 minutes. Zero means never power off.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (58)
+[+21.21s] DEBUG: scanner.vala:735: Option 58: name='duplexoffset' title='Duplex offset' type=int size=4 min=-16, max=16, quant=1 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Adjust front/back offset
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (59)
+[+21.21s] DEBUG: scanner.vala:735: Option 59: name='greenoffset' title='Green offset' type=int size=4 min=-16, max=16, quant=1 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Adjust green/red offset
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (60)
+[+21.21s] DEBUG: scanner.vala:735: Option 60: name='blueoffset' title='Blue offset' type=int size=4 min=-16, max=16, quant=1 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Adjust blue/red offset
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (61)
+[+21.21s] DEBUG: scanner.vala:735: Option 61: name='lowmemory' title='Low Memory' type=bool size=4 cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Limit driver memory usage for use in embedded systems. Causes some duplex transfers to alternate sides on each call to sane_read. Value of option 'side' can be used to determine correct image. This option should only be used with custom front-end software.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (62)
+[+21.21s] DEBUG: scanner.vala:735: Option 62: name='side' title='Duplex side' type=bool size=4 cap=soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Tells which side (0=front, 1=back) of a duplex scan the next call to sane_read will return.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (63)
+[+21.21s] DEBUG: scanner.vala:735: Option 63: name='hwdeskewcrop' title='Hardware deskew and crop' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request scanner to rotate and crop pages digitally.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (64)
+[+21.21s] DEBUG: scanner.vala:735: Option 64: name='swdeskew' title='Software deskew' type=bool size=4 cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request driver to rotate skewed pages digitally.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (65)
+[+21.21s] DEBUG: scanner.vala:735: Option 65: name='swdespeck' title='Software despeckle diameter' type=int size=4 min=0, max=9, quant=1 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Maximum diameter of lone dots to remove from scan.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (66)
+[+21.21s] DEBUG: scanner.vala:735: Option 66: name='swcrop' title='Software crop' type=bool size=4 cap=soft-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request driver to remove border from pages digitally.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (67)
+[+21.21s] DEBUG: scanner.vala:735: Option 67: name='swskip' title='Software blank skip percentage' type=fixed size=4 unit=percent min=0.000000, max=100.000000, quant=6554 cap=soft-select,soft-detect
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request driver to discard pages with low percentage of dark pixels
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (68)
+[+21.21s] DEBUG: scanner.vala:735: Option 68: name='halt-on-cancel' title='Halt on Cancel' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Request driver to halt the paper feed instead of eject during a cancel.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (69)
+[+21.21s] DEBUG: scanner.vala:735: Option 69: name='endorser-options' title='Endorser Options' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Controls for endorser unit
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (70)
+[+21.21s] DEBUG: scanner.vala:735: Option 70: name='endorser' title='Endorser' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Enable endorser unit
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (71)
+[+21.21s] DEBUG: scanner.vala:735: Option 71: name='endorser-bits' title='Endorser bits' type=int size=4 min=16, max=24, quant=8 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Determines maximum endorser counter value.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (72)
+[+21.21s] DEBUG: scanner.vala:735: Option 72: name='endorser-val' title='Endorser value' type=int size=4 min=0, max=65535, quant=1 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Initial endorser counter value.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (73)
+[+21.21s] DEBUG: scanner.vala:735: Option 73: name='endorser-step' title='Endorser step' type=int size=4 min=-2, max=2, quant=1 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Change endorser counter value by this much for each page.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (74)
+[+21.21s] DEBUG: scanner.vala:735: Option 74: name='endorser-y' title='Endorser Y' type=fixed size=4 unit=mm min=0.000000, max=279.364014, quant=1387 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Endorser print offset from top of paper.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (75)
+[+21.21s] DEBUG: scanner.vala:735: Option 75: name='endorser-font' title='Endorser font' type=string size=18 values=["Horizontal", "Horizontal bold", "Horizontal narrow", "Vertical", "Vertical bold"] cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Endorser printing font.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (76)
+[+21.21s] DEBUG: scanner.vala:735: Option 76: name='endorser-dir' title='Endorser direction' type=string size=14 values=["Top to bottom", "Bottom to top"] cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Endorser printing direction.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (77)
+[+21.21s] DEBUG: scanner.vala:735: Option 77: name='endorser-side' title='Endorser side' type=string size=6 values=["Front", "Back"] cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Endorser printing side, requires hardware support to change
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (78)
+[+21.21s] DEBUG: scanner.vala:735: Option 78: name='endorser-string' title='Endorser string' type=string size=1 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Endorser alphanumeric print format. %05ud or %08ud at the end will be replaced by counter value.
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (79)
+[+21.21s] DEBUG: scanner.vala:735: Option 79: name='sensors' title='Sensors' type=group size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Scanner sensors and buttons
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (80)
+[+21.21s] DEBUG: scanner.vala:735: Option 80: name='top-edge' title='Top edge' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Paper is pulled partly into adf
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (81)
+[+21.21s] DEBUG: scanner.vala:735: Option 81: name='a3-paper' title='A3 paper' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: A3 paper detected
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (82)
+[+21.21s] DEBUG: scanner.vala:735: Option 82: name='b4-paper' title='B4 paper' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: B4 paper detected
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (83)
+[+21.21s] DEBUG: scanner.vala:735: Option 83: name='a4-paper' title='A4 paper' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: A4 paper detected
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (84)
+[+21.21s] DEBUG: scanner.vala:735: Option 84: name='b5-paper' title='B5 paper' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: B5 paper detected
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (85)
+[+21.21s] DEBUG: scanner.vala:735: Option 85: name='page-loaded' title='Page loaded' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Page loaded
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (86)
+[+21.21s] DEBUG: scanner.vala:735: Option 86: name='omr-df' title='OMR or DF' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: OMR or double feed detected
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (87)
+[+21.21s] DEBUG: scanner.vala:735: Option 87: name='cover-open' title='Cover open' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Cover open
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (88)
+[+21.21s] DEBUG: scanner.vala:735: Option 88: name='power-save' title='Power saving' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Scanner in power saving mode
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (89)
+[+21.21s] DEBUG: scanner.vala:735: Option 89: name='email' title='Email button' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Email button
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (90)
+[+21.21s] DEBUG: scanner.vala:735: Option 90: name='manual-feed' title='Manual feed' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Manual feed selected
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (91)
+[+21.21s] DEBUG: scanner.vala:735: Option 91: name='scan' title='Scan button' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Scan button
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (92)
+[+21.21s] DEBUG: scanner.vala:735: Option 92: name='function' title='Function' type=int size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Function character on screen
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (93)
+[+21.21s] DEBUG: scanner.vala:735: Option 93: name='ink-low' title='Ink low' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Imprinter ink running low
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (94)
+[+21.21s] DEBUG: scanner.vala:735: Option 94: name='double-feed' title='Double feed' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Double feed detected
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (95)
+[+21.21s] DEBUG: scanner.vala:735: Option 95: name='error-code' title='Error code' type=int size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Hardware error code
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (96)
+[+21.21s] DEBUG: scanner.vala:735: Option 96: name='skew-angle' title='Skew angle' type=int size=4 cap=hard-select,soft-detect,advanced
+[+21.21s] DEBUG: scanner.vala:738:   Description: Requires black background for scanning
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (97)
+[+21.21s] DEBUG: scanner.vala:735: Option 97: name='ink-remain' title='Ink remaining' type=int size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Imprinter ink level
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (98)
+[+21.21s] DEBUG: scanner.vala:735: Option 98: name='duplex' title='Duplex switch' type=bool size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Duplex switch
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (99)
+[+21.21s] DEBUG: scanner.vala:735: Option 99: name='density' title='Density' type=int size=4 cap=inactive
+[+21.21s] DEBUG: scanner.vala:738:   Description: Density dial
+[+21.21s] DEBUG: scanner.vala:885: sane_get_option_descriptor (100)
+[+21.21s] WARNING: scanner.vala:950: Unable to set single page source, please file a bug
+
+[+21.25s] DEBUG: scanner.vala:546: sane_control_option (3, SANE_ACTION_SET_VALUE, "Gray") -> (SANE_STATUS_GOOD, "Gray")
+[+21.29s] DEBUG: scanner.vala:462: sane_control_option (4, SANE_ACTION_SET_VALUE, 150) -> (SANE_STATUS_GOOD, 150)
+[+21.29s] DEBUG: scanner.vala:530: sane_control_option (10, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+21.29s] DEBUG: scanner.vala:530: sane_control_option (11, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+22.14s] DEBUG: scanner.vala:1213: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+22.65s] DEBUG: scanner.vala:1230: sane_get_parameters () -> SANE_STATUS_GOOD
+[+22.65s] DEBUG: scanner.vala:1242: Parameters: format=SANE_FRAME_GRAY last_frame=SANE_TRUE bytes_per_line=1274 pixels_per_line=1274 lines=1650 depth=8
+[+22.65s] DEBUG: scanner.vala:1314: sane_read (1275) -> (SANE_STATUS_GOOD, 1275)

@@ -1,0 +1,157 @@
+[+0.06s] DEBUG: Starting Simple Scan 0.9.6, PID=2024
+[+0.51s] DEBUG: sane_init () -> SANE_STATUS_GOOD
+[+0.51s] DEBUG: SANE version 1.0.20
+[+0.51s] DEBUG: Requesting redetection of scan devices
+[+0.51s] DEBUG: Processing request
+[+4.33s] DEBUG: sane_get_devices () -> SANE_STATUS_GOOD
+[+4.33s] DEBUG: Device: name="v4l:/dev/video0" vendor="Noname" model="Hauppauge WinTV PVR-150" type="virtual device"
+[+4.33s] DEBUG: Device: name="plustek:libusb:004:002" vendor="Canon" model="CanoScan N1220U" type="flatbed scanner"
+[+11.88s] DEBUG: Requesting scan of type text at 150 dpi from device 'plustek:libusb:004:002'
+[+11.88s] DEBUG: scanner_scan ("plustek:libusb:004:002", 150, FALSE)
+[+11.88s] DEBUG: Processing request
+[+11.91s] DEBUG: sane_open ("plustek:libusb:004:002") -> SANE_STATUS_GOOD
+[+11.91s] DEBUG: sane_get_option_descriptor (0)
+[+11.91s] DEBUG: Option 0: name='' title='Number of options' type=int size=4 cap=soft-detect
+[+11.91s] DEBUG:   Description: Read-only option that specifies how many options a specific devices supports.
+[+11.91s] DEBUG: sane_get_option_descriptor (1)
+[+11.91s] DEBUG: Option 1: title='Scan Mode' type=group size=4
+[+11.91s] DEBUG:   Description:
+[+11.91s] DEBUG: sane_get_option_descriptor (2)
+[+11.91s] DEBUG: Option 2: name='mode' title='Scan mode' type=string size=8 values=["Lineart", "Gray", "Color"] cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Selects the scan mode (e.g., lineart, monochrome, or color).
+[+11.91s] DEBUG: sane_control_option (2, SANE_ACTION_SET_VALUE, "Lineart") -> SANE_STATUS_GOOD
+[+11.91s] DEBUG: sane_get_option_descriptor (3)
+[+11.91s] DEBUG: Option 3: name='depth' title='Bit depth' type=int size=4 unit=bits values=[8, 14] cap=soft-select,soft-detect,inactive
+[+11.91s] DEBUG:   Description: Number of bits per sample, typical values are 1 for "line-art" and 8 for multibit scans.
+[+11.91s] DEBUG: sane_get_option_descriptor (4)
+[+11.91s] DEBUG: Option 4: name='source' title='Scan source' type=string size=13 values=["Normal", "Transparency", "Negative"] cap=soft-select,soft-detect,inactive
+[+11.91s] DEBUG:   Description: Selects the scan source (such as a document-feeder).
+[+11.91s] DEBUG: sane_get_option_descriptor (5)
+[+11.91s] DEBUG: Option 5: name='resolution' title='Scan resolution' type=int size=4 unit=dpi min=50, max=2400, quant=0 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Sets the resolution of the scanned image.
+[+11.91s] DEBUG: sane_control_option (5, SANE_ACTION_SET_VALUE, 150) -> SANE_STATUS_GOOD
+[+11.91s] DEBUG: sane_get_option_descriptor (6)
+[+11.91s] DEBUG: Option 6: name='preview' title='Preview' type=bool size=4 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Request a preview-quality scan.
+[+11.91s] DEBUG: sane_get_option_descriptor (7)
+[+11.91s] DEBUG: Option 7: title='Geometry' type=group size=4 cap=advanced
+[+11.91s] DEBUG:   Description:
+[+11.91s] DEBUG: sane_get_option_descriptor (8)
+[+11.91s] DEBUG: Option 8: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0.000000, max=215.000000, quant=0 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Top-left x position of scan area.
+[+11.91s] DEBUG: sane_get_option_descriptor (9)
+[+11.91s] DEBUG: Option 9: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0.000000, max=297.000000, quant=0 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Top-left y position of scan area.
+[+11.91s] DEBUG: sane_get_option_descriptor (10)
+[+11.91s] DEBUG: Option 10: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=0.000000, max=215.000000, quant=0 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Bottom-right x position of scan area.
+[+11.91s] DEBUG: sane_control_option (10, SANE_ACTION_SET_VALUE, 215.000000) -> SANE_STATUS_GOOD
+[+11.91s] DEBUG: sane_get_option_descriptor (11)
+[+11.91s] DEBUG: Option 11: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=0.000000, max=297.000000, quant=0 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Bottom-right y position of scan area.
+[+11.91s] DEBUG: sane_control_option (11, SANE_ACTION_SET_VALUE, 297.000000) -> SANE_STATUS_GOOD
+[+11.91s] DEBUG: sane_get_option_descriptor (12)
+[+11.91s] DEBUG: Option 12: title='Enhancement' type=group size=4
+[+11.91s] DEBUG:   Description:
+[+11.91s] DEBUG: sane_get_option_descriptor (13)
+[+11.91s] DEBUG: Option 13: name='brightness' title='Brightness' type=fixed size=4 unit=percent min=-100.000000, max=100.000000, quant=65536 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Controls the brightness of the acquired image.
+[+11.91s] DEBUG: sane_get_option_descriptor (14)
+[+11.91s] DEBUG: Option 14: name='contrast' title='Contrast' type=fixed size=4 unit=percent min=-100.000000, max=100.000000, quant=65536 cap=soft-select,soft-detect,inactive
+[+11.91s] DEBUG:   Description: Controls the contrast of the acquired image.
+[+11.91s] DEBUG: sane_get_option_descriptor (15)
+[+11.91s] DEBUG: Option 15: name='custom-gamma' title='Use custom gamma table' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+11.91s] DEBUG:   Description: Determines whether a builtin or a custom gamma-table should be used.
+[+11.91s] DEBUG: sane_get_option_descriptor (16)
+[+11.91s] DEBUG: Option 16: name='gamma-table' title='Image intensity' type=int size=16384 min=0, max=255, quant=0 cap=soft-select,soft-detect,inactive
+[+11.91s] DEBUG:   Description: Gamma-correction table.  In color mode this option equally affects the red, green, and blue channels simultaneously (i.e., it is an intensity gamma table).
+[+11.91s] DEBUG: sane_get_option_descriptor (17)
+[+11.91s] DEBUG: Option 17: name='red-gamma-table' title='Red intensity' type=int size=16384 min=0, max=255, quant=0 cap=soft-select,soft-detect,inactive
+[+11.91s] DEBUG:   Description: Gamma-correction table for the red band.
+[+11.91s] DEBUG: sane_get_option_descriptor (18)
+[+11.91s] DEBUG: Option 18: name='green-gamma-table' title='Green intensity' type=int size=16384 min=0, max=255, quant=0 cap=soft-select,soft-detect,inactive
+[+11.91s] DEBUG:   Description: Gamma-correction table for the green band.
+[+11.91s] DEBUG: sane_get_option_descriptor (19)
+[+11.91s] DEBUG: Option 19: name='blue-gamma-table' title='Blue intensity' type=int size=16384 min=0, max=255, quant=0 cap=soft-select,soft-detect,inactive
+[+11.91s] DEBUG:   Description: Gamma-correction table for the blue band.
+[+11.91s] DEBUG: sane_get_option_descriptor (20)
+[+11.91s] DEBUG: Option 20: title='Device-Settings' type=group size=4
+[+11.91s] DEBUG:   Description:
+[+11.91s] DEBUG: sane_get_option_descriptor (21)
+[+11.91s] DEBUG: Option 21: name='lamp-switch' title='Lampswitch' type=bool size=4 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Manually switching the lamp(s).
+[+11.91s] DEBUG: sane_get_option_descriptor (22)
+[+11.91s] DEBUG: Option 22: name='lampoff-time' title='Lampoff-time' type=int size=4 min=0, max=999, quant=1 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Lampoff-time in seconds.
+[+11.91s] DEBUG: sane_get_option_descriptor (23)
+[+11.91s] DEBUG: Option 23: name='lamp-off-at-exit' title='Lamp off at exit' type=bool size=4 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Turn off lamp when program exits
+[+11.91s] DEBUG: sane_get_option_descriptor (24)
+[+11.91s] DEBUG: Option 24: name='warmup-time' title='Warmup-time' type=int size=4 min=-1, max=999, quant=1 cap=soft-select,soft-detect,inactive
+[+11.91s] DEBUG:   Description: Warmup-time in seconds.
+[+11.91s] DEBUG: sane_get_option_descriptor (25)
+[+11.91s] DEBUG: Option 25: name='lamp-off-during-dcal' title='Lamp off during dark calibration' type=bool size=4 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Always switches lamp off when doing dark calibration.
+[+11.91s] DEBUG: sane_get_option_descriptor (26)
+[+11.91s] DEBUG: Option 26: name='calibration-cache' title='Calibration data cache' type=bool size=4 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Enables or disables calibration data cache.
+[+11.91s] DEBUG: sane_get_option_descriptor (27)
+[+11.91s] DEBUG: Option 27: name='speedup-switch' title='Speedup sensor' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+11.91s] DEBUG:   Description: Enables or disables speeding up sensor movement.
+[+11.91s] DEBUG: sane_get_option_descriptor (28)
+[+11.91s] DEBUG: Option 28: name='calibrate' title='Calibrate' type=button size=4 cap=soft-select,soft-detect,automatic,inactive
+[+11.91s] DEBUG:   Description: Performs calibration
+[+11.91s] DEBUG: sane_get_option_descriptor (29)
+[+11.91s] DEBUG: Option 29: title='Analog frontend' type=group size=4 cap=advanced
+[+11.91s] DEBUG:   Description:
+[+11.91s] DEBUG: sane_get_option_descriptor (30)
+[+11.91s] DEBUG: Option 30: name='red-gain' title='Red gain' type=int size=4 min=-1, max=63, quant=1 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Red gain value of the AFE
+[+11.91s] DEBUG: sane_get_option_descriptor (31)
+[+11.91s] DEBUG: Option 31: name='green-gain' title='Green gain' type=int size=4 min=-1, max=63, quant=1 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Green gain value of the AFE
+[+11.91s] DEBUG: sane_get_option_descriptor (32)
+[+11.91s] DEBUG: Option 32: name='blue-gain' title='Blue gain' type=int size=4 min=-1, max=63, quant=1 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Blue gain value of the AFE
+[+11.91s] DEBUG: sane_get_option_descriptor (33)
+[+11.91s] DEBUG: Option 33: name='red-offset' title='Red offset' type=int size=4 min=-1, max=63, quant=1 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Red offset value of the AFE
+[+11.91s] DEBUG: sane_get_option_descriptor (34)
+[+11.91s] DEBUG: Option 34: name='green-offset' title='Green offset' type=int size=4 min=-1, max=63, quant=1 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Green offset value of the AFE
+[+11.91s] DEBUG: sane_get_option_descriptor (35)
+[+11.91s] DEBUG: Option 35: name='blue-offset' title='Blue offset' type=int size=4 min=-1, max=63, quant=1 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Blue offset value of the AFE
+[+11.91s] DEBUG: sane_get_option_descriptor (36)
+[+11.91s] DEBUG: Option 36: name='redlamp-off' title='Red lamp off' type=int size=4 min=-1, max=16363, quant=1 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Defines red lamp off parameter
+[+11.91s] DEBUG: sane_get_option_descriptor (37)
+[+11.91s] DEBUG: Option 37: name='greenlamp-off' title='Green lamp off' type=int size=4 min=-1, max=16363, quant=1 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Defines green lamp off parameter
+[+11.91s] DEBUG: sane_get_option_descriptor (38)
+[+11.91s] DEBUG: Option 38: name='bluelamp-off' title='Blue lamp off' type=int size=4 min=-1, max=16363, quant=1 cap=soft-select,soft-detect
+[+11.91s] DEBUG:   Description: Defines blue lamp off parameter
+[+11.91s] DEBUG: sane_get_option_descriptor (39)
+[+11.91s] DEBUG: Option 39: title='Buttons' type=group size=4 cap=advanced
+[+11.91s] DEBUG:   Description:
+[+11.91s] DEBUG: sane_get_option_descriptor (40)
+[+11.91s] DEBUG: Option 40: name='button 0' title='Scanner button 0' type=bool size=4 cap=hard-select,soft-detect,advanced
+[+11.91s] DEBUG:   Description: This option reflects the status of the scanner buttons.
+[+11.91s] DEBUG: sane_get_option_descriptor (41)
+[+11.91s] DEBUG: Option 41: name='button 1' title='Scanner button 1' type=bool size=4 cap=hard-select,soft-detect,inactive,advanced
+[+11.91s] DEBUG:   Description: This option reflects the status of the scanner buttons.
+[+11.91s] DEBUG: sane_get_option_descriptor (42)
+[+11.91s] DEBUG: Option 42: name='button 2' title='Scanner button 2' type=bool size=4 cap=hard-select,soft-detect,inactive,advanced
+[+11.91s] DEBUG:   Description: This option reflects the status of the scanner buttons.
+[+11.91s] DEBUG: sane_get_option_descriptor (43)
+[+11.91s] DEBUG: Option 43: name='button 3' title='Scanner button 3' type=bool size=4 cap=hard-select,soft-detect,inactive,advanced
+[+11.91s] DEBUG:   Description: This option reflects the status of the scanner buttons.
+[+11.91s] DEBUG: sane_get_option_descriptor (44)
+[+11.91s] DEBUG: Option 44: name='button 4' title='Scanner button 4' type=bool size=4 cap=hard-select,soft-detect,inactive,advanced
+[+11.91s] DEBUG:   Description: This option reflects the status of the scanner buttons.
+[+11.91s] DEBUG: sane_get_option_descriptor (45)
+[+11.93s] DEBUG: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+11.93s] DEBUG: sane_get_parameters () -> SANE_STATUS_GOOD
+[+11.93s] DEBUG: Parameters: format=SANE_FRAME_GRAY last_frame=SANE_TRUE bytes_per_line=159 pixels_per_line=1272 lines=1753 depth=1
+[+11.93s] DEBUG: Page is 1272 pixels wide, 1753 pixels high, 1 bits per pixel
+[+27.88s] DEBUG: sane_read (10000) -> (SANE_STATUS_GOOD, 4929)

@@ -1,0 +1,59 @@
+[+0.21s] DEBUG: scanner.vala:1485: sane_init () -> SANE_STATUS_GOOD
+[+0.21s] DEBUG: scanner.vala:1491: SANE version 1.0.28
+[+0.21s] DEBUG: scanner.vala:1552: Requesting redetection of scan devices
+[+0.21s] DEBUG: scanner.vala:806: Processing request
+[+7.34s] DEBUG: scanner.vala:341: sane_get_devices () -> SANE_STATUS_GOOD
+[+7.34s] DEBUG: scanner.vala:353: Device: name="brother4:net1;dev0" vendor="Brother" model="*Brother_MFC_L2712DW" type="MFC-L2712DW"
+[+9.87s] DEBUG: simple-scan.vala:455: Requesting scan at 1200 dpi from device 'brother4:net1;dev0'
+[+9.87s] DEBUG: scanner.vala:1600: Scanner.scan ("brother4:net1;dev0", dpi=1200, scan_mode=ScanMode.COLOR, depth=8, type=ScanType.SINGLE, paper_width=0, paper_height=0, brightness=0, contrast=0, delay=3000ms)
+[+9.87s] DEBUG: scanner.vala:806: Processing request
+[+11.28s] DEBUG: scanner.vala:867: sane_open ("brother4:net1;dev0") -> SANE_STATUS_GOOD
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (0)
+[+11.28s] DEBUG: scanner.vala:738: Option 0: name='(null)' title='Number of options' type=bool size=4 cap=soft-detect
+[+11.28s] DEBUG: scanner.vala:741:   Description: Read-only option that specifies how many options a specific devices supports.
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (1)
+[+11.28s] DEBUG: scanner.vala:738: Option 1: name='(null)' title='Mode' type=group size=4 cap=advanced
+[+11.28s] DEBUG: scanner.vala:741:   Description:
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (2)
+[+11.28s] DEBUG: scanner.vala:738: Option 2: name='mode' title='Scan mode' type=string size=30 values=["Black & White", "Gray[Error Diffusion]", "True Gray", "24bit Color", "24bit Color[Fast]"] cap=soft-select,soft-detect
+[+11.28s] DEBUG: scanner.vala:741:   Description: Select the scan mode
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (3)
+[+11.28s] DEBUG: scanner.vala:738: Option 3: name='resolution' title='Scan resolution' type=int size=4 unit=dpi values=[100, 150, 200, 300, 400, 600, 1200, 2400, 4800, 9600] cap=soft-select,soft-detect
+[+11.28s] DEBUG: scanner.vala:741:   Description: Sets the resolution of the scanned image.
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (4)
+[+11.28s] DEBUG: scanner.vala:738: Option 4: name='source' title='Scan source' type=string size=64 values=["FlatBed", "Automatic Document Feeder(left aligned)", "Automatic Document Feeder(left aligned,Duplex)", "Automatic Document Feeder(centrally aligned)", "Automatic Document Feeder(centrally aligned,Duplex)"] cap=soft-select,soft-detect
+[+11.28s] DEBUG: scanner.vala:741:   Description: Selects the scan source (such as a document-feeder).
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (5)
+[+11.28s] DEBUG: scanner.vala:738: Option 5: name='brightness' title='Brightness' type=fixed size=4 unit=percent min=-50.000000, max=50.000000, quant=65536 cap=soft-select,soft-detect,inactive
+[+11.28s] DEBUG: scanner.vala:741:   Description: Controls the brightness of the acquired image.
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (6)
+[+11.28s] DEBUG: scanner.vala:738: Option 6: name='contrast' title='Contrast' type=fixed size=4 unit=percent min=-50.000000, max=50.000000, quant=65536 cap=soft-select,soft-detect,inactive
+[+11.28s] DEBUG: scanner.vala:741:   Description: Controls the contrast of the acquired image.
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (7)
+[+11.28s] DEBUG: scanner.vala:738: Option 7: name='(null)' title='Geometry' type=group size=4 cap=advanced
+[+11.28s] DEBUG: scanner.vala:741:   Description:
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (8)
+[+11.28s] DEBUG: scanner.vala:738: Option 8: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=6553 cap=soft-select,soft-detect
+[+11.28s] DEBUG: scanner.vala:741:   Description: Top-left x position of scan area.
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (9)
+[+11.28s] DEBUG: scanner.vala:738: Option 9: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0.000000, max=355.599991, quant=6553 cap=soft-select,soft-detect
+[+11.28s] DEBUG: scanner.vala:741:   Description: Top-left y position of scan area.
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (10)
+[+11.28s] DEBUG: scanner.vala:738: Option 10: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=6553 cap=soft-select,soft-detect
+[+11.28s] DEBUG: scanner.vala:741:   Description: Bottom-right x position of scan area.
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (11)
+[+11.28s] DEBUG: scanner.vala:738: Option 11: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=0.000000, max=355.599991, quant=6553 cap=soft-select,soft-detect
+[+11.28s] DEBUG: scanner.vala:741:   Description: Bottom-right y position of scan area.
+[+11.28s] DEBUG: scanner.vala:888: sane_get_option_descriptor (12)
+[+11.28s] DEBUG: scanner.vala:549: sane_control_option (4, SANE_ACTION_SET_VALUE, "FlatBed") -> (SANE_STATUS_GOOD, "FlatBed")
+[+11.28s] DEBUG: scanner.vala:549: sane_control_option (2, SANE_ACTION_SET_VALUE, "24bit Color") -> (SANE_STATUS_GOOD, "24bit Color")
+[+11.28s] DEBUG: scanner.vala:465: sane_control_option (3, SANE_ACTION_SET_VALUE, 1200) -> (SANE_STATUS_GOOD, 1200)
+[+11.28s] DEBUG: scanner.vala:533: sane_control_option (10, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+11.28s] DEBUG: scanner.vala:533: sane_control_option (11, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+16.22s] DEBUG: scanner.vala:1241: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+16.22s] DEBUG: scanner.vala:1258: sane_get_parameters () -> SANE_STATUS_GOOD
+[+16.22s] DEBUG: scanner.vala:1270: Parameters: format=SANE_FRAME_RGB last_frame=SANE_TRUE bytes_per_line=29712 pixels_per_line=9904 lines=13748 depth=8
+[+16.22s] DEBUG: simple-scan.vala:350: Page is 9904 pixels wide, 13748 pixels high, 8 bits per pixel
+[+16.34s] DEBUG: simple-scan.vala:284: Getting color profile for device brother4:net1;dev0
+[New Thread 0x7fffdcd8e700 (LWP 34573)]
+[+16.34s] DEBUG: simple-scan.vala:304: Unable to find colord device brother4:net1;dev0: property match 'Serial'='sane:brother4:net1;dev0' does not exist

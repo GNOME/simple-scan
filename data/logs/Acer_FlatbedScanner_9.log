@@ -1,0 +1,136 @@
+[+0,02s] DEBUG: simple-scan.vala:596: Starting Simple Scan 3.12.1, PID=3058
+[+0,36s] DEBUG: scanner.vala:1443: sane_init () -> SANE_STATUS_GOOD
+[+0,36s] DEBUG: scanner.vala:1449: SANE version 1.0.23
+[+0,36s] DEBUG: scanner.vala:1510: Requesting redetection of scan devices
+[+0,36s] DEBUG: scanner.vala:802: Processing request
+[+2,97s] DEBUG: scanner.vala:338: sane_get_devices () -> SANE_STATUS_GOOD
+[+2,97s] DEBUG: scanner.vala:350: Device: name="snapscan:/dev/sg0" vendor="Acer" model="FlatbedScanner_9" type="flatbed scanner"
+[+29,84s] DEBUG: simple-scan.vala:310: Requesting scan at 300 dpi from device 'snapscan:/dev/sg0'
+[+29,84s] DEBUG: scanner.vala:1556: Scanner.scan ("snapscan:/dev/sg0", dpi=300, scan_mode=ScanMode.GRAY, depth=2, type=ScanType.SINGLE, paper_width=0, paper_height=0, brightness=-100, contrast=-100)
+[+29,84s] DEBUG: scanner.vala:802: Processing request
+[+29,86s] DEBUG: scanner.vala:863: sane_open ("snapscan:/dev/sg0") -> SANE_STATUS_GOOD
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (0)
+[+29,86s] DEBUG: scanner.vala:734: Option 0: title='Number of options' type=int size=4 min=36, max=36, quant=0 cap=,soft-detect
+[+29,86s] DEBUG: scanner.vala:737:   Description: Read-only option that specifies how many options a specific devices supports.
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (1)
+[+29,86s] DEBUG: scanner.vala:734: Option 1: name='(null)' title='Scan Mode' type=group size=0
+[+29,86s] DEBUG: scanner.vala:737:   Description:
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (2)
+[+29,86s] DEBUG: scanner.vala:734: Option 2: name='resolution' title='Scan resolution' type=int size=4 unit=dpi values=[50, 75, 100, 150, 200, 300, 450, 600] cap=,soft-select,soft-detect,automatic
+[+29,86s] DEBUG: scanner.vala:737:   Description: Sets the resolution of the scanned image.
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (3)
+[+29,86s] DEBUG: scanner.vala:734: Option 3: name='preview' title='Preview' type=bool size=4 cap=,soft-select,soft-detect,automatic
+[+29,86s] DEBUG: scanner.vala:737:   Description: Request a preview-quality scan.
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (4)
+[+29,86s] DEBUG: scanner.vala:734: Option 4: name='mode' title='Scan mode' type=string size=32 values=["Color", "Halftone", "Gray", "Lineart"] cap=,soft-select,soft-detect,automatic
+[+29,86s] DEBUG: scanner.vala:737:   Description: Selects the scan mode (e.g., lineart, monochrome, or color).
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (5)
+[+29,86s] DEBUG: scanner.vala:734: Option 5: name='preview-mode' title='Preview mode' type=string size=32 values=["Auto", "Color", "Halftone", "Gray", "Lineart"] cap=,soft-select,soft-detect,automatic,advanced
+[+29,86s] DEBUG: scanner.vala:737:   Description: Select the mode for previews. Greyscale previews usually give the best combination of speed and detail.
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (6)
+[+29,86s] DEBUG: scanner.vala:734: Option 6: name='high-quality' title='Quality scan' type=bool size=4 cap=,soft-select,soft-detect,automatic
+[+29,86s] DEBUG: scanner.vala:737:   Description: Highest quality but lower speed
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (7)
+[+29,86s] DEBUG: scanner.vala:734: Option 7: name='source' title='Scan source' type=string size=8 values=["Flatbed"] cap=,soft-select,soft-detect,automatic,inactive
+[+29,86s] DEBUG: scanner.vala:737:   Description: Selects the scan source (such as a document-feeder).
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (8)
+[+29,86s] DEBUG: scanner.vala:734: Option 8: name='(null)' title='Geometry' type=group size=0 cap=,advanced
+[+29,86s] DEBUG: scanner.vala:737:   Description:
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (9)
+[+29,86s] DEBUG: scanner.vala:734: Option 9: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0,000000, max=216,000000, quant=0 cap=,soft-select,soft-detect,automatic
+[+29,86s] DEBUG: scanner.vala:737:   Description: Top-left x position of scan area.
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (10)
+[+29,86s] DEBUG: scanner.vala:734: Option 10: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0,000000, max=297,000000, quant=0 cap=,soft-select,soft-detect,automatic
+[+29,86s] DEBUG: scanner.vala:737:   Description: Top-left y position of scan area.
+[+29,86s] DEBUG: scanner.vala:884: sane_get_option_descriptor (11)
+[+29,86s] DEBUG: scanner.vala:734: Option 11: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=0,000000, max=216,000000, quant=0 cap=,soft-select,soft-detect,automatic
+[+29,86s] DEBUG: scanner.vala:737:   Description: Bottom-right x position of scan area.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (12)
+[+29,87s] DEBUG: scanner.vala:734: Option 12: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=0,000000, max=297,000000, quant=0 cap=,soft-select,soft-detect,automatic
+[+29,87s] DEBUG: scanner.vala:737:   Description: Bottom-right y position of scan area.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (13)
+[+29,87s] DEBUG: scanner.vala:734: Option 13: name='predef-window' title='Predefined settings' type=string size=32 values=["None", "6x4 (inch)", "8x10 (inch)", "8.5x11 (inch)"] cap=,soft-select,soft-detect
+[+29,87s] DEBUG: scanner.vala:737:   Description: Provides standard scanning areas for photographs, printed pages and the like.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (14)
+[+29,87s] DEBUG: scanner.vala:734: Option 14: name='(null)' title='Enhancement' type=group size=0
+[+29,87s] DEBUG: scanner.vala:737:   Description:
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (15)
+[+29,87s] DEBUG: scanner.vala:734: Option 15: name='depth' title='Bit depth' type=int size=4 unit=bits values=[8] cap=,soft-select,soft-detect,inactive
+[+29,87s] DEBUG: scanner.vala:737:   Description: Number of bits per sample, typical values are 1 for "line-art" and 8 for multibit scans.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (16)
+[+29,87s] DEBUG: scanner.vala:734: Option 16: name='quality-cal' title='Quality calibration' type=bool size=4 cap=,soft-select,soft-detect
+[+29,87s] DEBUG: scanner.vala:737:   Description: Do a quality white-calibration
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (17)
+[+29,87s] DEBUG: scanner.vala:734: Option 17: name='halftoning' title='Halftoning' type=bool size=4 cap=,soft-select,soft-detect,inactive
+[+29,87s] DEBUG: scanner.vala:737:   Description: Selects whether the acquired image should be halftoned (dithered).
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (18)
+[+29,87s] DEBUG: scanner.vala:734: Option 18: name='halftone-pattern' title='Halftone pattern' type=string size=32 values=["DispersedDot8x8", "DispersedDot16x16"] cap=,soft-select,soft-detect,inactive
+[+29,87s] DEBUG: scanner.vala:737:   Description: Defines the halftoning (dithering) pattern for scanning halftoned images.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (19)
+[+29,87s] DEBUG: scanner.vala:734: Option 19: name='custom-gamma' title='Use custom gamma table' type=bool size=4 cap=,soft-select,soft-detect
+[+29,87s] DEBUG: scanner.vala:737:   Description: Determines whether a builtin or a custom gamma-table should be used.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (20)
+[+29,87s] DEBUG: scanner.vala:734: Option 20: name='analog-gamma-bind' title='Bind analog gamma' type=bool size=4 cap=,soft-select,soft-detect
+[+29,87s] DEBUG: scanner.vala:737:   Description: In RGB-mode use same values for each color
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (21)
+[+29,87s] DEBUG: scanner.vala:734: Option 21: name='analog-gamma' title='Analog gamma correction' type=fixed size=4 min=0,000000, max=4,000000, quant=0 cap=,soft-select,soft-detect,inactive
+[+29,87s] DEBUG: scanner.vala:737:   Description: Analog gamma-correction
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (22)
+[+29,87s] DEBUG: scanner.vala:734: Option 22: name='analog-gamma-r' title='Analog gamma red' type=fixed size=4 min=0,000000, max=4,000000, quant=0 cap=,soft-select,soft-detect
+[+29,87s] DEBUG: scanner.vala:737:   Description: Analog gamma-correction for red
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (23)
+[+29,87s] DEBUG: scanner.vala:734: Option 23: name='analog-gamma-g' title='Analog gamma green' type=fixed size=4 min=0,000000, max=4,000000, quant=0 cap=,soft-select,soft-detect
+[+29,87s] DEBUG: scanner.vala:737:   Description: Analog gamma-correction for green
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (24)
+[+29,87s] DEBUG: scanner.vala:734: Option 24: name='analog-gamma-b' title='Analog gamma blue' type=fixed size=4 min=0,000000, max=4,000000, quant=0 cap=,soft-select,soft-detect
+[+29,87s] DEBUG: scanner.vala:737:   Description: Analog gamma-correction for blue
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (25)
+[+29,87s] DEBUG: scanner.vala:734: Option 25: name='gamma-table' title='Image intensity' type=int size=4096 min=0, max=65535, quant=1 cap=,soft-select,soft-detect,inactive
+[+29,87s] DEBUG: scanner.vala:737:   Description: Gamma-correction table.  In color mode this option equally affects the red, green, and blue channels simultaneously (i.e., it is an intensity gamma table).
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (26)
+[+29,87s] DEBUG: scanner.vala:734: Option 26: name='red-gamma-table' title='Red intensity' type=int size=4096 min=0, max=65535, quant=1 cap=,soft-select,soft-detect,inactive
+[+29,87s] DEBUG: scanner.vala:737:   Description: Gamma-correction table for the red band.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (27)
+[+29,87s] DEBUG: scanner.vala:734: Option 27: name='green-gamma-table' title='Green intensity' type=int size=4096 min=0, max=65535, quant=1 cap=,soft-select,soft-detect,inactive
+[+29,87s] DEBUG: scanner.vala:737:   Description: Gamma-correction table for the green band.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (28)
+[+29,87s] DEBUG: scanner.vala:734: Option 28: name='blue-gamma-table' title='Blue intensity' type=int size=4096 min=0, max=65535, quant=1 cap=,soft-select,soft-detect,inactive
+[+29,87s] DEBUG: scanner.vala:737:   Description: Gamma-correction table for the blue band.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (29)
+[+29,87s] DEBUG: scanner.vala:734: Option 29: name='negative' title='Negative' type=bool size=4 cap=,soft-select,soft-detect,automatic,inactive
+[+29,87s] DEBUG: scanner.vala:737:   Description: Swap black and white
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (30)
+[+29,87s] DEBUG: scanner.vala:734: Option 30: name='threshold' title='Threshold' type=fixed size=4 unit=percent min=0,000000, max=100,000000, quant=65536 cap=,soft-select,soft-detect,inactive
+[+29,87s] DEBUG: scanner.vala:737:   Description: Select minimum-brightness to get a white point
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (31)
+[+29,87s] DEBUG: scanner.vala:734: Option 31: name='brightness' title='Brightness' type=fixed size=4 unit=percent min=-400,000000, max=400,000000, quant=65536 cap=,soft-select,soft-detect
+[+29,87s] DEBUG: scanner.vala:737:   Description: Controls the brightness of the acquired image.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (32)
+[+29,87s] DEBUG: scanner.vala:734: Option 32: name='contrast' title='Contrast' type=fixed size=4 unit=percent min=-100,000000, max=400,000000, quant=65536 cap=,soft-select,soft-detect
+[+29,87s] DEBUG: scanner.vala:737:   Description: Controls the contrast of the acquired image.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (33)
+[+29,87s] DEBUG: scanner.vala:734: Option 33: name='(null)' title='Advanced' type=group size=0 cap=,advanced
+[+29,87s] DEBUG: scanner.vala:737:   Description:
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (34)
+[+29,87s] DEBUG: scanner.vala:734: Option 34: name='rgb-lpr' title='Colour lines per read' type=int size=4 min=1, max=50, quant=1 cap=,soft-select,soft-detect,automatic,advanced
+[+29,87s] DEBUG: scanner.vala:737:   Description: Number of scan lines to request in a SCSI read. Changing this parameter allows you to tune the speed at which data is read from the scanner during scans. If this is set too low, the scanner will have to stop periodically in the middle of a scan; if it's set too high, X-based frontends may stop responding to X events and your system could bog down.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (35)
+[+29,87s] DEBUG: scanner.vala:734: Option 35: name='gs-lpr' title='Greyscale lines per read' type=int size=4 min=1, max=50, quant=1 cap=,soft-select,soft-detect,automatic,inactive,advanced
+[+29,87s] DEBUG: scanner.vala:737:   Description: Number of scan lines to request in a SCSI read. Changing this parameter allows you to tune the speed at which data is read from the scanner during scans. If this is set too low, the scanner will have to stop periodically in the middle of a scan; if it's set too high, X-based frontends may stop responding to X events and your system could bog down.
+[+29,87s] DEBUG: scanner.vala:884: sane_get_option_descriptor (36)
+[+29,87s] DEBUG: scanner.vala:895: SCAN_SOURCE not available, trying alternative "doc-source"
+[+29,87s] DEBUG: scanner.vala:546: sane_control_option (4, SANE_ACTION_SET_VALUE, "Gray") -> (SANE_STATUS_GOOD, "Gray")
+[+29,87s] DEBUG: scanner.vala:462: sane_control_option (2, SANE_ACTION_SET_VALUE, 300) -> (SANE_STATUS_GOOD, 300)
+[+29,87s] DEBUG: scanner.vala:530: sane_control_option (11, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+29,87s] DEBUG: scanner.vala:530: sane_control_option (12, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+29,87s] CRITICAL: scanner_scale_int: assertion '_tmp2_ == SANE_TYPE_INT' failed
+[+29,87s] CRITICAL: scanner_set_int_option: assertion '_tmp1_ == SANE_TYPE_INT' failed
+[+29,87s] CRITICAL: scanner_scale_int: assertion '_tmp2_ == SANE_TYPE_INT' failed
+[+29,87s] CRITICAL: scanner_set_int_option: assertion '_tmp1_ == SANE_TYPE_INT' failed
+[+31,68s] DEBUG: scanner.vala:1209: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+31,68s] DEBUG: scanner.vala:1226: sane_get_parameters () -> SANE_STATUS_GOOD
+[+31,68s] DEBUG: scanner.vala:1238: Parameters: format=SANE_FRAME_GRAY last_frame=SANE_TRUE bytes_per_line=2551 pixels_per_line=2551 lines=3492 depth=8
+[+31,68s] DEBUG: simple-scan.vala:254: Page is 2551 pixels wide, 3492 pixels high, 2 bits per pixel
+[+31,69s] DEBUG: simple-scan.vala:188: Getting color profile for device snapscan:/dev/sg0
+[+31,71s] DEBUG: simple-scan.vala:208: Unable to find colord device snapscan:/dev/sg0: property match 'Serial'='sane:snapscan:/dev/sg0' does not exist
+[+32,12s] DEBUG: scanner.vala:1310: sane_read (2552) -> (SANE_STATUS_GOOD, 2552)

@@ -1,0 +1,56 @@
+[+0,00s] DEBUG: simple-scan.vala:637: Starting Simple Scan 3.28.0, PID=13582
+[+0,16s] DEBUG: scanner.vala:1454: sane_init () -> SANE_STATUS_GOOD
+[+0,16s] DEBUG: scanner.vala:1460: SANE version 1.0.27
+[+0,16s] DEBUG: scanner.vala:1521: Requesting redetection of scan devices
+[+0,16s] DEBUG: scanner.vala:806: Processing request
+[+6,05s] DEBUG: simple-scan.vala:454: Requesting scan at 300 dpi from device '(null)'
+[+6,05s] DEBUG: scanner.vala:1569: Scanner.scan ("(null)", dpi=300, scan_mode=ScanMode.COLOR, depth=8, type=ScanType.SINGLE, paper_width=0, paper_height=0, brightness=0, contrast=0, delay=10000ms)
+[+7,60s] DEBUG: scanner.vala:341: sane_get_devices () -> SANE_STATUS_GOOD
+[+7,60s] DEBUG: scanner.vala:353: Device: name="smfp:usb;04e8;3469;ZF5RB8KK8D00CFJ" vendor="Samsung" model="M2070 Series on USB" type="Scanner"
+[+7,60s] DEBUG: scanner.vala:806: Processing request
+[+7,86s] DEBUG: scanner.vala:867: sane_open ("smfp:usb;04e8;3469;ZF5RB8KK8D00CFJ") -> SANE_STATUS_GOOD
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (0)
+[+7,86s] DEBUG: scanner.vala:738: Option 0: title='Number of options' type=int size=4 cap=soft-detect
+[+7,86s] DEBUG: scanner.vala:741:   Description: Specifies how many options the device supports
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (1)
+[+7,86s] DEBUG: scanner.vala:738: Option 1: name='preview' title='Preview' type=bool size=4 cap=soft-select,soft-detect
+[+7,86s] DEBUG: scanner.vala:741:   Description: Request a preview-quality scan
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (2)
+[+7,86s] DEBUG: scanner.vala:738: Option 2: name='(null)' title='Image Quality' type=group size=0
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (3)
+[+7,86s] DEBUG: scanner.vala:738: Option 3: name='mode' title='Color Composition' type=string size=32 values=["Color - 16 Million Colors", "Grayscale - 256 Levels", "Black and White - Halftone", "Black and White - Line Art"] cap=soft-select,soft-detect
+[+7,86s] DEBUG: scanner.vala:741:   Description: Set the color composition mode of the scanned image
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (4)
+[+7,86s] DEBUG: scanner.vala:738: Option 4: name='resolution' title='Resolution' type=int size=4 unit=dpi values=[75, 100, 150, 200, 300, 600, 1200] cap=soft-select,soft-detect
+[+7,86s] DEBUG: scanner.vala:741:   Description: Set the resolution of the scanned image
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (5)
+[+7,86s] DEBUG: scanner.vala:738: Option 5: name='(null)' title='Scan Area' type=group size=0
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (6)
+[+7,86s] DEBUG: scanner.vala:738: Option 6: name='page-format' title='Page Format' type=string size=64 values=["Stateme", "Stateme", "A5", "A5(Rota", "B5(JIS)", "Executi", "A4", "Letter", "Custom"] cap=soft-select,soft-detect
+[+7,86s] DEBUG: scanner.vala:741:   Description: Set the paper format of the scanned page
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (7)
+[+7,86s] DEBUG: scanner.vala:738: Option 7: name='tl-x' title='Left' type=int size=4 unit=mm min=0, max=216, quant=0 cap=soft-select,soft-detect
+[+7,86s] DEBUG: scanner.vala:741:   Description: Set left position of the scan area
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (8)
+[+7,86s] DEBUG: scanner.vala:738: Option 8: name='tl-y' title='Top' type=int size=4 unit=mm min=0, max=297, quant=0 cap=soft-select,soft-detect
+[+7,86s] DEBUG: scanner.vala:741:   Description: Set top position of the scan area
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (9)
+[+7,86s] DEBUG: scanner.vala:738: Option 9: name='br-x' title='Right' type=int size=4 unit=mm min=0, max=216, quant=0 cap=soft-select,soft-detect
+[+7,86s] DEBUG: scanner.vala:741:   Description: Set right position of the scan area
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (10)
+[+7,86s] DEBUG: scanner.vala:738: Option 10: name='br-y' title='Bottom' type=int size=4 unit=mm min=0, max=297, quant=0 cap=soft-select,soft-detect
+[+7,86s] DEBUG: scanner.vala:741:   Description: Set bottom position of the scan area
+[+7,86s] DEBUG: scanner.vala:888: sane_get_option_descriptor (11)
+[+7,86s] DEBUG: scanner.vala:899: SCAN_SOURCE not available, trying alternative "doc-source"
+[+7,86s] DEBUG: scanner.vala:549: sane_control_option (3, SANE_ACTION_SET_VALUE, "Color - 16 Million Colors") -> (SANE_STATUS_GOOD, "Color - 16 Million Colors")
+[+7,86s] DEBUG: scanner.vala:465: sane_control_option (4, SANE_ACTION_SET_VALUE, 300) -> (SANE_STATUS_GOOD, 300)
+[+7,86s] DEBUG: scanner.vala:533: sane_control_option (9, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+7,86s] DEBUG: scanner.vala:533: sane_control_option (10, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+8,08s] DEBUG: scanner.vala:1217: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+8,08s] DEBUG: scanner.vala:1234: sane_get_parameters () -> SANE_STATUS_GOOD
+[+8,08s] DEBUG: scanner.vala:1246: Parameters: format=SANE_FRAME_RGB last_frame=SANE_TRUE bytes_per_line=7650 pixels_per_line=2550 lines=3507 depth=8
+[+8,08s] DEBUG: simple-scan.vala:349: Page is 2550 pixels wide, 3507 pixels high, 8 bits per pixel
+[+8,10s] DEBUG: simple-scan.vala:283: Getting color profile for device smfp:usb;04e8;3469;ZF5RB8KK8D00CFJ
+[+8,11s] DEBUG: simple-scan.vala:303: Unable to find colord device smfp:usb;04e8;3469;ZF5RB8KK8D00CFJ: property match 'Serial'='sane:smfp:usb;04e8;3469;ZF5RB8KK8D00CFJ' does not exist
+[+9,70s] DEBUG: scanner.vala:1321: sane_read (7651) -> (SANE_STATUS_GOOD, 7651)
+[+9,70s] DEBUG: scanner.vala:1321: sane_read (15300) -> (SANE_STATUS_GOOD, 15300)

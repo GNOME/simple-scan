@@ -1,0 +1,60 @@
+[+0.00s] DEBUG: simple-scan.vala:638: Starting simple-scan 3.34.2, PID=2683
+[+0.20s] DEBUG: scanner.vala:1485: sane_init () -> SANE_STATUS_GOOD
+[+0.20s] DEBUG: scanner.vala:1491: SANE version 1.0.28
+[+0.20s] DEBUG: scanner.vala:1552: Requesting redetection of scan devices
+[+0.20s] DEBUG: scanner.vala:806: Processing request
+[+0.23s] DEBUG: scanner.vala:341: sane_get_devices () -> SANE_STATUS_GOOD
+[+0.23s] DEBUG: scanner.vala:353: Device: name="brother4:net1;dev0" vendor="Brother" model="*Brother" type="DCP-1622WE"
+[+2.70s] DEBUG: simple-scan.vala:455: Requesting scan at 300 dpi from device 'brother4:net1;dev0'
+[+2.70s] DEBUG: scanner.vala:1600: Scanner.scan ("brother4:net1;dev0", dpi=300, scan_mode=ScanMode.COLOR, depth=8, type=ScanType.SINGLE, paper_width=2100, paper_height=2970, brightness=0, contrast=0, delay=3000ms)
+[+2.70s] DEBUG: scanner.vala:806: Processing request
+[+10.70s] DEBUG: scanner.vala:867: sane_open ("brother4:net1;dev0") -> SANE_STATUS_GOOD
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (0)
+[+10.70s] DEBUG: scanner.vala:738: Option 0: name='(null)' title='Number of options' type=bool size=4 cap=soft-detect
+[+10.70s] DEBUG: scanner.vala:741:   Description: Read-only option that specifies how many options a specific devices supports.
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (1)
+[+10.70s] DEBUG: scanner.vala:738: Option 1: name='(null)' title='Mode' type=group size=4 cap=advanced
+[+10.70s] DEBUG: scanner.vala:741:   Description:
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (2)
+[+10.70s] DEBUG: scanner.vala:738: Option 2: name='mode' title='Scan mode' type=string size=30 values=["Black & White", "Gray[Error Diffusion]", "True Gray", "24bit Color", "24bit Color[Fast]"] cap=soft-select,soft-detect
+[+10.70s] DEBUG: scanner.vala:741:   Description: Select the scan mode
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (3)
+[+10.70s] DEBUG: scanner.vala:738: Option 3: name='resolution' title='Scan resolution' type=int size=4 unit=dpi values=[100, 150, 200, 300, 400, 600, 1200, 2400, 4800, 9600] cap=soft-select,soft-detect
+[+10.70s] DEBUG: scanner.vala:741:   Description: Sets the resolution of the scanned image.
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (4)
+[+10.70s] DEBUG: scanner.vala:738: Option 4: name='source' title='Scan source' type=string size=64 values=["FlatBed", "Automatic Document Feeder(left aligned)", "Automatic Document Feeder(left aligned,Duplex)", "Automatic Document Feeder(centrally aligned)", "Automatic Document Feeder(centrally aligned,Duplex)"] cap=soft-select,soft-detect
+[+10.70s] DEBUG: scanner.vala:741:   Description: Selects the scan source (such as a document-feeder).
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (5)
+[+10.70s] DEBUG: scanner.vala:738: Option 5: name='brightness' title='Brightness' type=fixed size=4 unit=percent min=-50.000000, max=50.000000, quant=65536 cap=soft-select,soft-detect,inactive
+[+10.70s] DEBUG: scanner.vala:741:   Description: Controls the brightness of the acquired image.
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (6)
+[+10.70s] DEBUG: scanner.vala:738: Option 6: name='contrast' title='Contrast' type=fixed size=4 unit=percent min=-50.000000, max=50.000000, quant=65536 cap=soft-select,soft-detect,inactive
+[+10.70s] DEBUG: scanner.vala:741:   Description: Controls the contrast of the acquired image.
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (7)
+[+10.70s] DEBUG: scanner.vala:738: Option 7: name='(null)' title='Geometry' type=group size=4 cap=advanced
+[+10.70s] DEBUG: scanner.vala:741:   Description:
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (8)
+[+10.70s] DEBUG: scanner.vala:738: Option 8: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=6553 cap=soft-select,soft-detect
+[+10.70s] DEBUG: scanner.vala:741:   Description: Top-left x position of scan area.
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (9)
+[+10.70s] DEBUG: scanner.vala:738: Option 9: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0.000000, max=355.599991, quant=6553 cap=soft-select,soft-detect
+[+10.70s] DEBUG: scanner.vala:741:   Description: Top-left y position of scan area.
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (10)
+[+10.70s] DEBUG: scanner.vala:738: Option 10: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=6553 cap=soft-select,soft-detect
+[+10.70s] DEBUG: scanner.vala:741:   Description: Bottom-right x position of scan area.
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (11)
+[+10.70s] DEBUG: scanner.vala:738: Option 11: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=0.000000, max=355.599991, quant=6553 cap=soft-select,soft-detect
+[+10.70s] DEBUG: scanner.vala:741:   Description: Bottom-right y position of scan area.
+[+10.70s] DEBUG: scanner.vala:888: sane_get_option_descriptor (12)
+[+10.70s] DEBUG: scanner.vala:549: sane_control_option (4, SANE_ACTION_SET_VALUE, "FlatBed") -> (SANE_STATUS_GOOD, "FlatBed")
+[+10.70s] DEBUG: scanner.vala:549: sane_control_option (2, SANE_ACTION_SET_VALUE, "24bit Color") -> (SANE_STATUS_GOOD, "24bit Color")
+[+10.70s] DEBUG: scanner.vala:465: sane_control_option (3, SANE_ACTION_SET_VALUE, 300) -> (SANE_STATUS_GOOD, 300)
+[+10.70s] DEBUG: scanner.vala:505: sane_control_option (10, SANE_ACTION_SET_VALUE, 210.000000) -> (SANE_STATUS_GOOD, 209.980774)
+[+10.70s] DEBUG: scanner.vala:505: sane_control_option (11, SANE_ACTION_SET_VALUE, 297.000000) -> (SANE_STATUS_GOOD, 296.972809)
+[+15.87s] DEBUG: scanner.vala:1241: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+15.87s] DEBUG: scanner.vala:1258: sane_get_parameters () -> SANE_STATUS_GOOD
+[+15.87s] DEBUG: scanner.vala:1270: Parameters: format=SANE_FRAME_RGB last_frame=SANE_TRUE bytes_per_line=7440 pixels_per_line=2480 lines=3437 depth=8
+[+15.87s] DEBUG: simple-scan.vala:350: Page is 2480 pixels wide, 3437 pixels high, 8 bits per pixel
+[+15.89s] DEBUG: simple-scan.vala:284: Getting color profile for device brother4:net1;dev0
+[+15.90s] DEBUG: simple-scan.vala:304: Unable to find colord device brother4:net1;dev0: property match 'Serial'='sane:brother4:net1;dev0' does not exist
+[+16.49s] DEBUG: scanner.vala:1345: sane_read (7441) -> (SANE_STATUS_GOOD, 7441)

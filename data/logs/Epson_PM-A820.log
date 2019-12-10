@@ -1,0 +1,175 @@
+[+0.07s] DEBUG: Starting Simple Scan 0.9.10, PID=1872
+[+0.33s] DEBUG: sane_init () -> SANE_STATUS_GOOD
+[+0.33s] DEBUG: SANE version 1.0.20
+[+0.33s] DEBUG: Requesting redetection of scan devices
+[+0.33s] DEBUG: Processing request
+[+2.92s] DEBUG: sane_get_devices () -> SANE_STATUS_GOOD
+[+2.92s] DEBUG: Device: name="epkowa:libusb:001:006" vendor="Epson" model="PM-A820" type="flatbed scanner"
+[+10.95s] DEBUG: Requesting scan at 300 dpi from device 'epkowa:libusb:001:006'
+[+10.95s] DEBUG: scanner_scan ("epkowa:libusb:001:006", 300, SCAN_SINGLE)
+[+10.95s] DEBUG: Processing request
+[+10.95s] DEBUG: sane_open ("epkowa:libusb:001:006") -> SANE_STATUS_GOOD
+[+10.95s] DEBUG: sane_get_option_descriptor (0)
+[+10.95s] DEBUG: Option 0: title='Number of options' type=int size=4 cap=soft-detect
+[+10.95s] DEBUG:   Description: Read-only option that specifies how many options a specific devices supports.
+[+10.95s] DEBUG: sane_get_option_descriptor (1)
+[+10.95s] DEBUG: Option 1: title='Scan Mode' type=group size=4
+[+10.95s] DEBUG:   Description:
+[+10.95s] DEBUG: sane_get_option_descriptor (2)
+[+10.95s] DEBUG: Option 2: name='mode' title='Scan mode' type=string size=7 values=["Binary", "Gray", "Color"] cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Selects the scan mode (e.g., lineart, monochrome, or color).
+[+10.95s] DEBUG: sane_control_option (2, SANE_ACTION_SET_VALUE, "Color") -> (SANE_STATUS_GOOD, "Color")
+[+10.95s] DEBUG: sane_get_option_descriptor (3)
+[+10.95s] DEBUG: Option 3: name='depth' title='Bit depth' type=int size=4 values=[8] cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Number of bits per sample, typical values are 1 for "line-art" and 8 for multibit scans.
+[+10.95s] DEBUG: sane_get_option_descriptor (4)
+[+10.95s] DEBUG: Option 4: name='halftoning' title='Halftoning' type=string size=26 values=["None", "Halftone A (Hard Tone)", "Halftone B (Soft Tone)", "Halftone C (Net Screen)", "Dither A (4x4 Bayer)", "Dither B (4x4 Spiral)", "Dither C (4x4 Net Screen)", "Dither D (8x4 Net Screen)", "Text Enhanced Technology", "Download pattern A", "Download pattern B"] cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Selects the halftone.
+[+10.95s] DEBUG: sane_get_option_descriptor (5)
+[+10.95s] DEBUG: Option 5: name='dropout' title='Dropout' type=string size=6 values=["None", "Red", "Green", "Blue"] cap=soft-select,soft-detect,inactive,advanced
+[+10.95s] DEBUG:   Description: Selects the dropout.
+[+10.95s] DEBUG: sane_get_option_descriptor (6)
+[+10.95s] DEBUG: Option 6: name='brightness' title='Brightness' type=int size=4 min=0, max=0, quant=0 cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Selects the brightness.
+[+10.95s] DEBUG: sane_get_option_descriptor (7)
+[+10.95s] DEBUG: Option 7: name='sharpness' title='Sharpness' type=int size=4 min=-2, max=2, quant=0 cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description:
+[+10.95s] DEBUG: sane_get_option_descriptor (8)
+[+10.95s] DEBUG: Option 8: name='gamma-correction' title='Gamma Correction' type=string size=25 values=["User defined (Gamma=1.0)", "User defined (Gamma=1.8)"] cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Selects the gamma correction value from a list of pre-defined devices or the user defined table, which can be downloaded to the scanner
+[+10.95s] DEBUG: sane_get_option_descriptor (9)
+[+10.95s] DEBUG: Option 9: name='color-correction' title='Color correction' type=string size=13 values=["User defined"] cap=soft-select,soft-detect,inactive,advanced
+[+10.95s] DEBUG:   Description: Sets the color correction table for the selected output device.
+[+10.95s] DEBUG: sane_get_option_descriptor (10)
+[+10.95s] DEBUG: Option 10: name='resolution' title='Scan resolution' type=int size=4 unit=dpi values=[75, 300, 600, 1200] cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Sets the resolution of the scanned image.
+[+10.95s] DEBUG: sane_control_option (10, SANE_ACTION_SET_VALUE, 300) -> (SANE_STATUS_GOOD, 300)
+[+10.95s] DEBUG: sane_get_option_descriptor (11)
+[+10.95s] DEBUG: Option 11: name='threshold' title='Threshold' type=int size=4 min=0, max=255, quant=0 cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Select minimum-brightness to get a white point
+[+10.95s] DEBUG: sane_get_option_descriptor (12)
+[+10.95s] DEBUG: Option 12: title='Advanced' type=group size=4 cap=advanced
+[+10.95s] DEBUG:   Description:
+[+10.95s] DEBUG: sane_get_option_descriptor (13)
+[+10.95s] DEBUG: Option 13: name='mirror' title='Mirror image' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Mirror the image.
+[+10.95s] DEBUG: sane_get_option_descriptor (14)
+[+10.95s] DEBUG: Option 14: name='speed' title='Scan speed' type=bool size=4 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Determines the speed at which the scan proceeds.
+[+10.95s] DEBUG: sane_get_option_descriptor (15)
+[+10.95s] DEBUG: Option 15: name='auto-area-segmentation' title='Auto area segmentation' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description:
+[+10.95s] DEBUG: sane_get_option_descriptor (16)
+[+10.95s] DEBUG: Option 16: name='short-resolution' title='Short resolution list' type=bool size=4 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Display short resolution list
+[+10.95s] DEBUG: sane_get_option_descriptor (17)
+[+10.95s] DEBUG: Option 17: name='force short-resolution list' title='Force short resolution list' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Force short resolution list
+[+10.95s] DEBUG: sane_get_option_descriptor (18)
+[+10.95s] DEBUG: Option 18: name='zoom' title='Zoom' type=int size=4 min=50, max=200, quant=0 cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Defines the zoom factor the scanner will use
+[+10.95s] DEBUG: sane_get_option_descriptor (19)
+[+10.95s] DEBUG: Option 19: name='red-gamma-table' title='Red intensity' type=int size=1024 min=0, max=255, quant=0 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Gamma-correction table for the red band.
+[+10.95s] DEBUG: sane_get_option_descriptor (20)
+[+10.95s] DEBUG: Option 20: name='green-gamma-table' title='Green intensity' type=int size=1024 min=0, max=255, quant=0 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Gamma-correction table for the green band.
+[+10.95s] DEBUG: sane_get_option_descriptor (21)
+[+10.95s] DEBUG: Option 21: name='blue-gamma-table' title='Blue intensity' type=int size=1024 min=0, max=255, quant=0 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Gamma-correction table for the blue band.
+[+10.95s] DEBUG: sane_get_option_descriptor (22)
+[+10.95s] DEBUG: Option 22: name='wait-for-button' title='Wait for Button' type=bool size=4 cap=soft-select,soft-detect,inactive,advanced
+[+10.95s] DEBUG:   Description: After sending the scan command, wait until the button on the scanner is pressed to actually start the scan process.
+[+10.95s] DEBUG: sane_get_option_descriptor (23)
+[+10.95s] DEBUG: Option 23: name='monitor-button' title='Monitor Button' type=bool size=4 cap=soft-select,soft-detect,inactive,advanced
+[+10.95s] DEBUG:   Description: Indicates whether a button on the scanner has been pressed (read-only option).
+[+10.95s] DEBUG: sane_get_option_descriptor (24)
+[+10.95s] DEBUG: Option 24: title='Color correction coefficients' type=group size=4 cap=advanced
+[+10.95s] DEBUG:   Description: Matrix multiplication of RGB
+[+10.95s] DEBUG: sane_get_option_descriptor (25)
+[+10.95s] DEBUG: Option 25: name='cct-1' title='Red' type=fixed size=4 min=-2.000000, max=2.000000, quant=0 cap=soft-select,soft-detect,advanced
+[+10.95s] DEBUG:   Description: Controls red level
+[+10.95s] DEBUG: sane_get_option_descriptor (26)
+[+10.95s] DEBUG: Option 26: name='cct-2' title='Shift green to red' type=fixed size=4 min=-2.000000, max=2.000000, quant=0 cap=soft-select,soft-detect,advanced
+[+10.95s] DEBUG:   Description: Adds to red based on green level
+[+10.95s] DEBUG: sane_get_option_descriptor (27)
+[+10.95s] DEBUG: Option 27: name='cct-3' title='Shift blue to red' type=fixed size=4 min=-2.000000, max=2.000000, quant=0 cap=soft-select,soft-detect,advanced
+[+10.95s] DEBUG:   Description: Adds to red based on blue level
+[+10.95s] DEBUG: sane_get_option_descriptor (28)
+[+10.95s] DEBUG: Option 28: name='cct-4' title='Shift red to green' type=fixed size=4 min=-2.000000, max=2.000000, quant=0 cap=soft-select,soft-detect,advanced
+[+10.95s] DEBUG:   Description: Adds to green based on red level
+[+10.95s] DEBUG: sane_get_option_descriptor (29)
+[+10.95s] DEBUG: Option 29: name='cct-5' title='Green' type=fixed size=4 min=-2.000000, max=2.000000, quant=0 cap=soft-select,soft-detect,advanced
+[+10.95s] DEBUG:   Description: Controls green level
+[+10.95s] DEBUG: sane_get_option_descriptor (30)
+[+10.95s] DEBUG: Option 30: name='cct-6' title='Shift blue to green' type=fixed size=4 min=-2.000000, max=2.000000, quant=0 cap=soft-select,soft-detect,advanced
+[+10.95s] DEBUG:   Description: Adds to green based on blue level
+[+10.95s] DEBUG: sane_get_option_descriptor (31)
+[+10.95s] DEBUG: Option 31: name='cct-7' title='Shift red to blue' type=fixed size=4 min=-2.000000, max=2.000000, quant=0 cap=soft-select,soft-detect,advanced
+[+10.95s] DEBUG:   Description: Adds to blue based on red level
+[+10.95s] DEBUG: sane_get_option_descriptor (32)
+[+10.95s] DEBUG: Option 32: name='cct-8' title='Shift green to blue' type=fixed size=4 min=-2.000000, max=2.000000, quant=0 cap=soft-select,soft-detect,advanced
+[+10.95s] DEBUG:   Description: Adds to blue based on green level
+[+10.95s] DEBUG: sane_get_option_descriptor (33)
+[+10.95s] DEBUG: Option 33: name='cct-9' title='Blue' type=fixed size=4 min=-2.000000, max=2.000000, quant=0 cap=soft-select,soft-detect,advanced
+[+10.95s] DEBUG:   Description: Control blue level
+[+10.95s] DEBUG: sane_get_option_descriptor (34)
+[+10.95s] DEBUG: Option 34: title='Preview' type=group size=4 cap=advanced
+[+10.95s] DEBUG:   Description:
+[+10.95s] DEBUG: sane_get_option_descriptor (35)
+[+10.95s] DEBUG: Option 35: name='preview' title='Preview' type=bool size=4 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Request a preview-quality scan.
+[+10.95s] DEBUG: sane_get_option_descriptor (36)
+[+10.95s] DEBUG: Option 36: name='preview-speed' title='Speed' type=bool size=4 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description:
+[+10.95s] DEBUG: sane_get_option_descriptor (37)
+[+10.95s] DEBUG: Option 37: title='Geometry' type=group size=4 cap=advanced
+[+10.95s] DEBUG:   Description:
+[+10.95s] DEBUG: sane_get_option_descriptor (38)
+[+10.95s] DEBUG: Option 38: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=0 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Top-left x position of scan area.
+[+10.95s] DEBUG: sane_get_option_descriptor (39)
+[+10.95s] DEBUG: Option 39: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0.000000, max=297.179993, quant=0 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Top-left y position of scan area.
+[+10.95s] DEBUG: sane_get_option_descriptor (40)
+[+10.95s] DEBUG: Option 40: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=0 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Bottom-right x position of scan area.
+[+10.95s] DEBUG: sane_control_option (40, SANE_ACTION_SET_VALUE, 215.899994) -> (SANE_STATUS_GOOD, 215.899994)
+[+10.95s] DEBUG: sane_get_option_descriptor (41)
+[+10.95s] DEBUG: Option 41: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=0.000000, max=297.179993, quant=0 cap=soft-select,soft-detect
+[+10.95s] DEBUG:   Description: Bottom-right y position of scan area.
+[+10.95s] DEBUG: sane_control_option (41, SANE_ACTION_SET_VALUE, 297.179993) -> (SANE_STATUS_GOOD, 297.179993)
+[+10.95s] DEBUG: sane_get_option_descriptor (42)
+[+10.95s] DEBUG: Option 42: name='quick-format' title='Quick format' type=string size=13 values=["CD", "A5 portrait", "A5 landscape", "Letter", "A4", "Max"] cap=soft-select,soft-detect,advanced
+[+10.95s] DEBUG:   Description:
+[+10.95s] DEBUG: sane_get_option_descriptor (43)
+[+10.95s] DEBUG: Option 43: title='Optional equipment' type=group size=4 cap=advanced
+[+10.95s] DEBUG:   Description:
+[+10.95s] DEBUG: sane_get_option_descriptor (44)
+[+10.95s] DEBUG: Option 44: name='source' title='Scan source' type=string size=8 values=["Flatbed"] cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Selects the scan source (such as a document-feeder).
+[+10.95s] DEBUG: sane_get_option_descriptor (45)
+[+10.95s] DEBUG: Option 45: name='auto-eject' title='Auto eject' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Eject document after scanning
+[+10.95s] DEBUG: sane_get_option_descriptor (46)
+[+10.95s] DEBUG: Option 46: name='film-type' title='Film type' type=string size=14 values=["Positive Film", "Negative Film"] cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description:
+[+10.95s] DEBUG: sane_get_option_descriptor (47)
+[+10.95s] DEBUG: Option 47: name='focus-position' title='Focus Position' type=string size=24 values=["Focus on glass", "Focus 2.5mm above glass"] cap=soft-select,soft-detect,inactive,advanced
+[+10.95s] DEBUG:   Description: Sets the focus position to either the glass or 2.5mm above the glass
+[+10.95s] DEBUG: sane_get_option_descriptor (48)
+[+10.95s] DEBUG: Option 48: name='bay' title='Bay' type=string size=4 values=[" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 "] cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Select bay to scan
+[+10.95s] DEBUG: sane_get_option_descriptor (49)
+[+10.95s] DEBUG: Option 49: name='eject' title='Eject' type=button size=4 cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Eject the sheet in the ADF
+[+10.95s] DEBUG: sane_get_option_descriptor (50)
+[+10.95s] DEBUG: Option 50: name='adf_mode' title='ADF Mode' type=string size=8 values=["Simplex", "Duplex"] cap=soft-select,soft-detect,inactive
+[+10.95s] DEBUG:   Description: Selects the ADF mode (simplex/duplex)
+[+10.95s] DEBUG: sane_get_option_descriptor (51)
+[+11.05s] DEBUG: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+11.05s] DEBUG: sane_get_parameters () -> SANE_STATUS_GOOD
+[+11.05s] DEBUG: Parameters: format=SANE_FRAME_RGB last_frame=SANE_TRUE bytes_per_line=7632 pixels_per_line=2544 lines=3509 depth=8
+[+11.05s] DEBUG: Page is 2544 pixels wide, 3509 pixels high, 8 bits per pixel
+[+11.16s] DEBUG: The request failed: The name org.gnome.ColorManager was not provided by any .service files
+[+13.63s] DEBUG: sane_read (7633) -> (SANE_STATUS_GOOD, 7633)

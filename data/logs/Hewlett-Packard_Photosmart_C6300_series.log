@@ -1,0 +1,84 @@
+[+0.02s] DEBUG: simple-scan.vala:594: Starting Simple Scan 3.16.0, PID=10898
+[+0.43s] DEBUG: scanner.vala:1446: sane_init () -> SANE_STATUS_GOOD
+[+0.43s] DEBUG: scanner.vala:1452: SANE version 1.0.24
+[+0.43s] DEBUG: scanner.vala:1513: Requesting redetection of scan devices
+[+0.43s] DEBUG: scanner.vala:802: Processing request
+
+[+4.35s] DEBUG: scanner.vala:338: sane_get_devices () -> SANE_STATUS_GOOD
+[+4.35s] DEBUG: scanner.vala:350: Device: name="hpaio:/usb/Photosmart_C6300_series?serial=MY93K9F0R10544" vendor="Hewlett-Packard" model="Photosmart_C6300_series" type="all-in-one"
+[+7.38s] DEBUG: autosave-manager.vala:259: Waiting to autosave...
+[+7.48s] DEBUG: autosave-manager.vala:281: Autosaving book information
+
+[+9.27s] DEBUG: simple-scan.vala:310: Requesting scan at 300 dpi from device 'hpaio:/usb/Photosmart_C6300_series?serial=MY93K9F0R10544'
+[+9.27s] DEBUG: scanner.vala:1559: Scanner.scan ("hpaio:/usb/Photosmart_C6300_series?serial=MY93K9F0R10544", dpi=300, scan_mode=ScanMode.COLOR, depth=8, type=ScanType.SINGLE, paper_width=0, paper_height=0, brightness=0, contrast=0)
+[+9.27s] DEBUG: scanner.vala:802: Processing request
+[+11.31s] DEBUG: scanner.vala:863: sane_open ("hpaio:/usb/Photosmart_C6300_series?serial=MY93K9F0R10544") -> SANE_STATUS_GOOD
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (0)
+[+11.31s] DEBUG: scanner.vala:734: Option 0: title='Number of options' type=int size=4 cap=,soft-detect
+[+11.31s] DEBUG: scanner.vala:737:   Description: Read-only option that specifies how many options a specific devices supports.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (1)
+[+11.31s] DEBUG: scanner.vala:734: Option 1: name='(null)' title='Scan mode' type=group size=0
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (2)
+[+11.31s] DEBUG: scanner.vala:734: Option 2: name='mode' title='Scan mode' type=string size=20 values=["Lineart", "Gray", "Color"] cap=,soft-select,soft-detect
+[+11.31s] DEBUG: scanner.vala:737:   Description: Selects the scan mode (e.g., lineart, monochrome, or color).
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (3)
+[+11.31s] DEBUG: scanner.vala:734: Option 3: name='resolution' title='Scan resolution' type=int size=4 unit=dpi values=[75, 100, 150, 200, 300, 600, 1200, 2400, 4800] cap=,soft-select,soft-detect
+[+11.31s] DEBUG: scanner.vala:737:   Description: Sets the resolution of the scanned image.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (4)
+[+11.31s] DEBUG: scanner.vala:734: Option 4: name='(null)' title='Advanced' type=group size=0 cap=,advanced
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (5)
+[+11.31s] DEBUG: scanner.vala:734: Option 5: name='contrast' title='Contrast' type=int size=4 min=-127, max=127, quant=0 cap=,soft-select,soft-detect,advanced
+[+11.31s] DEBUG: scanner.vala:737:   Description: Controls the contrast of the acquired image.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (6)
+[+11.31s] DEBUG: scanner.vala:734: Option 6: name='brightness' title='Brightness' type=int size=4 min=-127, max=127, quant=0 cap=,soft-select,soft-detect,advanced
+[+11.31s] DEBUG: scanner.vala:737:   Description: Controls the brightness of the acquired image.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (7)
+[+11.31s] DEBUG: scanner.vala:734: Option 7: name='compression' title='Compression' type=string size=20 values=["None", "JPEG"] cap=,soft-select,soft-detect,advanced
+[+11.31s] DEBUG: scanner.vala:737:   Description: Selects the scanner compression method for faster scans, possibly at the expense of image quality.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (8)
+[+11.31s] DEBUG: scanner.vala:734: Option 8: name='jpeg-quality' title='JPEG compression factor' type=int size=4 min=0, max=100, quant=0 cap=,soft-select,soft-detect,advanced
+[+11.31s] DEBUG: scanner.vala:737:   Description: Sets the scanner JPEG compression factor. Larger numbers mean better compression, and smaller numbers mean better image quality.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (9)
+[+11.31s] DEBUG: scanner.vala:734: Option 9: name='batch-scan' title='Batch scan' type=bool size=4 cap=,soft-select,soft-detect,advanced
+[+11.31s] DEBUG: scanner.vala:737:   Description: Enables continuous scanning with automatic document feeder (ADF).
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (10)
+[+11.31s] DEBUG: scanner.vala:734: Option 10: name='source' title='Scan source' type=string size=20 values=["Flatbed"] cap=,soft-select,soft-detect,advanced
+[+11.31s] DEBUG: scanner.vala:737:   Description: Selects the scan source (such as a document-feeder).
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (11)
+[+11.31s] DEBUG: scanner.vala:734: Option 11: name='duplex' title='Duplex' type=bool size=4 cap=,soft-select,soft-detect,inactive,advanced
+[+11.31s] DEBUG: scanner.vala:737:   Description: Enables scanning on both sides of the page.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (12)
+[+11.31s] DEBUG: scanner.vala:734: Option 12: name='(null)' title='Geometry' type=group size=0 cap=,advanced
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (13)
+[+11.31s] DEBUG: scanner.vala:734: Option 13: name='length-measurement' title='Length measurement' type=string size=20 values=["Unknown", "Approximate", "Padded"] cap=,soft-select,soft-detect,advanced
+[+11.31s] DEBUG: scanner.vala:737:   Description: Selects how the scanned image length is measured and reported, which is impossible to know in advance for scrollfed scans.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (14)
+[+11.31s] DEBUG: scanner.vala:734: Option 14: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=0 cap=,soft-select,soft-detect
+[+11.31s] DEBUG: scanner.vala:737:   Description: Top-left x position of scan area.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (15)
+[+11.31s] DEBUG: scanner.vala:734: Option 15: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0.000000, max=296.925995, quant=0 cap=,soft-select,soft-detect
+[+11.31s] DEBUG: scanner.vala:737:   Description: Top-left y position of scan area.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (16)
+[+11.31s] DEBUG: scanner.vala:734: Option 16: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=0 cap=,soft-select,soft-detect
+[+11.31s] DEBUG: scanner.vala:737:   Description: Bottom-right x position of scan area.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (17)
+[+11.31s] DEBUG: scanner.vala:734: Option 17: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=0.000000, max=296.925995, quant=0 cap=,soft-select,soft-detect
+[+11.31s] DEBUG: scanner.vala:737:   Description: Bottom-right y position of scan area.
+[+11.31s] DEBUG: scanner.vala:884: sane_get_option_descriptor (18)
+[+11.31s] DEBUG: scanner.vala:546: sane_control_option (10, SANE_ACTION_SET_VALUE, "Flatbed") -> (SANE_STATUS_GOOD, "Flatbed")
+[+11.31s] DEBUG: scanner.vala:546: sane_control_option (2, SANE_ACTION_SET_VALUE, "Color") -> (SANE_STATUS_GOOD, "Color")
+[+11.31s] DEBUG: scanner.vala:425: sane_control_option (9, SANE_ACTION_SET_VALUE, SANE_FALSE) -> (SANE_STATUS_GOOD, SANE_FALSE)
+[+11.31s] DEBUG: scanner.vala:546: sane_control_option (7, SANE_ACTION_SET_VALUE, "None") -> (SANE_STATUS_GOOD, "None")
+[+11.31s] DEBUG: scanner.vala:462: sane_control_option (3, SANE_ACTION_SET_VALUE, 300) -> (SANE_STATUS_GOOD, 300)
+[+11.31s] DEBUG: scanner.vala:530: sane_control_option (16, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+11.31s] DEBUG: scanner.vala:530: sane_control_option (17, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+19.32s] DEBUG: scanner.vala:1212: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+19.32s] DEBUG: scanner.vala:1229: sane_get_parameters () -> SANE_STATUS_GOOD
+[+19.32s] DEBUG: scanner.vala:1241: Parameters: format=SANE_FRAME_RGB last_frame=SANE_TRUE bytes_per_line=7647 pixels_per_line=2549 lines=3506 depth=8
+[+19.32s] DEBUG: scanner.vala:1313: sane_read (7648) -> (SANE_STATUS_GOOD, 7648)
+[+19.32s] DEBUG: simple-scan.vala:254: Page is 2549 pixels wide, 3506 pixels high, 8 bits per pixel
+[+19.32s] DEBUG: scanner.vala:1313: sane_read (15294) -> (SANE_STATUS_GOOD, 7646)
+[+19.32s] DEBUG: scanner.vala:1313: sane_read (15295) -> (SANE_STATUS_GOOD, 15294)
+[+19.33s] DEBUG: simple-scan.vala:188: Getting color profile for device hpaio:/usb/Photosmart_C6300_series?serial=MY93K9F0R10544
+[+19.33s] DEBUG: simple-scan.vala:208: Unable to find colord device hpaio:/usb/Photosmart_C6300_series?serial=MY93K9F0R10544: The name org.freedesktop.ColorManager was not provided by any .service files
+[+19.37s] DEBUG: scanner.vala:1313: sane_read (15295) -> (SANE_STATUS_GOOD, 15294)
