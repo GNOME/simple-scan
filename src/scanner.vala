@@ -982,6 +982,7 @@ public class Scanner : Object
                 {
                     Sane.VALUE_SCAN_MODE_COLOR,
                     "Color",
+                    "24bit Color[Fast]", /* brother4 driver, Brother DCP-1622WE, #134 */
                     "24bit Color", /* Seen in the proprietary brother3 driver */
                     "24-bit Color", /* #161 Lexmark CX310dn */
                     "Color - 16 Million Colors" /* Samsung unified driver. LP: 892915 */
