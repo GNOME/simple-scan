@@ -1002,6 +1002,7 @@ public class Scanner : Object
                 {
                     Sane.VALUE_SCAN_MODE_COLOR,
                     "Color",
+                    "24bit Color[Fast]", /* brother4 driver, Brother DCP-1622WE, #134 */
                     "24bit Color", /* Seen in the proprietary brother3 driver */
                     "Color - 16 Million Colors" /* Samsung unified driver. LP: 892915 */
                 };
