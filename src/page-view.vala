@@ -45,7 +45,9 @@ public class PageView : Object
         }
     }
 
-    private int border_width = 1;
+    private int ruler_width = 8;
+
+    private int border_width = 2;
 
     /* True if image needs to be regenerated */
     private bool update_image = true;
@@ -508,12 +510,12 @@ public class PageView : Object
 
     private int get_preview_width ()
     {
-        return width_ - border_width * 2;
+        return width_ - (border_width + ruler_width) * 2;
     }
 
     private int get_preview_height ()
     {
-        return height_ - border_width * 2;
+        return height_ - (border_width + ruler_width) * 2;
     }
 
     private void update_page_view ()
@@ -569,10 +571,10 @@ public class PageView : Object
         var cy = page.crop_y;
         var cw = page.crop_width;
         var ch = page.crop_height;
-        var dx = page_to_screen_x (cx);
-        var dy = page_to_screen_y (cy);
-        var dw = page_to_screen_x (cw);
-        var dh = page_to_screen_y (ch);
+        var dx = page_to_screen_x (cx) + border_width + ruler_width;
+        var dy = page_to_screen_y (cy) + border_width + ruler_width;
+        var dw = page_to_screen_x (cw) + border_width + ruler_width;
+        var dh = page_to_screen_y (ch) + border_width + ruler_width;
         var ix = x - dx;
         var iy = y - dy;
 
@@ -633,7 +635,7 @@ public class PageView : Object
             selected_crop_x = page.crop_x;
             selected_crop_y = page.crop_y;
             selected_crop_w = page.crop_width;
-            selected_crop_h = page.crop_height;;
+            selected_crop_h = page.crop_height;
         }
     }
 
@@ -831,19 +833,79 @@ public class PageView : Object
         context.set_line_width (1);
         context.translate (x_offset, y_offset);
 
+        /* Draw image */
+        context.translate (border_width + ruler_width, border_width + ruler_width);
+        Gdk.cairo_set_source_pixbuf (context, image, 0, 0);
+        context.paint ();
+
         /* Draw page border */
         context.set_source_rgb (0, 0, 0);
         context.set_line_width (border_width);
-        context.rectangle ((double)border_width / 2,
-                           (double)border_width / 2,
-                           width_ - border_width,
-                           height_ - border_width);
+
+        context.rectangle (0,
+                           0.0,
+                           w,
+                           h);
         context.stroke ();
 
-        /* Draw image */
-        context.translate (border_width, border_width);
-        Gdk.cairo_set_source_pixbuf (context, image, 0, 0);
-        context.paint ();
+        /* Draw horizontal ruler */
+        context.set_line_width (1);
+        var ruler_tick = 0;
+        var line = 0.0;
+        var big_ruler_tick = 5;
+
+        while (ruler_tick <= page.width)
+        {
+            line = page_to_screen_x (ruler_tick) + 0.5;
+            if (big_ruler_tick == 5)
+            {
+                context.move_to (line, 0);
+                context.line_to (line, -ruler_width);
+                context.move_to (line, h);
+                context.line_to (line, h + ruler_width);
+                big_ruler_tick = 0;
+            }
+            else
+            {
+                context.move_to (line, -2);
+                context.line_to (line, -5);
+                context.move_to (line, h + 2);
+                context.line_to (line, h + 5);
+            }
+            ruler_tick = ruler_tick + page.dpi/5;
+            big_ruler_tick = big_ruler_tick + 1;
+        }
+        context.stroke ();
+
+        /* Draw vertical ruler */
+        ruler_tick = 0;
+        line = 0.0;
+        big_ruler_tick = 5;
+        while (ruler_tick <= page.height)
+        {
+            line = page_to_screen_y (ruler_tick) + 0.5;
+
+            if (big_ruler_tick == 5)
+            {
+                context.move_to (0, line);
+                context.line_to (-ruler_width, line);
+
+                context.move_to (w, line);
+                context.line_to (w + ruler_width, line);
+                big_ruler_tick = 0;
+            }
+            else
+            {
+                context.move_to (-2, line);
+                context.line_to (-5, line);
+
+                context.move_to (w + 2, line);
+                context.line_to (w + 5, line);
+            }
+            ruler_tick = ruler_tick + page.dpi/5;
+            big_ruler_tick = big_ruler_tick + 1;
+        }
+        context.stroke ();
 
         /* Draw scan line */
         if (page.is_scanning && page.scan_line > 0)
@@ -907,9 +969,19 @@ public class PageView : Object
             context.fill ();
 
             /* Show new edge */
-            context.rectangle (dx - 1.5, dy - 1.5, dw + 3, dh + 3);
             context.set_source_rgb (1.0, 1.0, 1.0);
+            context.move_to (-border_width, dy - 1.5);
+            context.line_to (border_width + w, dy - 1.5);
+            context.move_to (-border_width, dy + dh + 1.5);
+            context.line_to (border_width + w, dy + dh + 1.5);
             context.stroke ();
+
+            context.move_to (dx - 1.5, -border_width);
+            context.line_to (dx - 1.5, border_width + h);
+            context.move_to (dx + dw + 1.5, -border_width);
+            context.line_to (dx + dw + 1.5, border_width + h);
+            context.stroke ();
+
             context.rectangle (dx - 0.5, dy - 0.5, dw + 1, dh + 1);
             context.set_source_rgb (0.0, 0.0, 0.0);
             context.stroke ();
