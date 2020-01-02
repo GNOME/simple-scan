@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2019-12-10 20:51+0000\n"
+"POT-Creation-Date: 2019-12-30 11:54+0000\n"
 "PO-Revision-Date: 2019-12-27 18:04+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
@@ -94,13 +94,12 @@ msgstr ""
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
 msgid "Resolution for photo scans"
-msgstr "Fotoğraf taramaları için çözünürlük"
+msgstr "Resim taramaları için çözünürlük"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
 msgid "The resolution in dots-per-inch to use when scanning photos."
 msgstr ""
-"Fotoğrafları tararken kullanılacak inç başına nokta sayısı türünden "
-"çözünürlük."
+"Resimleri tararken kullanılacak inç başına nokta sayısı türünden çözünürlük."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -157,10 +156,9 @@ msgid ""
 "print your scans, export them to pdf, or save them in a range of image "
 "formats."
 msgstr ""
-"Hem belge hem fotoğraf taramanın çok kolay bir yolu. Bir fotoğrafın kötü "
-"tarafını kırpabilir ve eğer yanlış yönde ise onu döndürebilirsiniz. "
-"Taramalarınızı yazdırabilir, pdfʼye aktarabilir veya resim biçimlerinde "
-"kaydedebilirsiniz."
+"Hem metin hem resim taramanın çok kolay bir yolu. Bir resmin kötü tarafını "
+"kırpabilir ve eğer yanlış yönde ise onu döndürebilirsiniz. Taramalarınızı "
+"yazdırabilir, pdfʼye aktarabilir veya resim biçimlerinde kaydedebilirsiniz."
 
 #: data/simple-scan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
@@ -211,11 +209,13 @@ msgstr "A_5"
 msgid "A_6"
 msgstr "A_6"
 
+# Amerikan mektup boyutu
 #. Radio button for cropping page to US letter size
 #: src/app-window.ui:86
 msgid "_Letter"
-msgstr "_Harf"
+msgstr "_Mektup"
 
+# Amerikan resmi yazışma boyutu
 #. Radio button for cropping to page to US legal size
 #: src/app-window.ui:97
 msgid "Le_gal"
@@ -257,7 +257,7 @@ msgstr "_Tek Sayfa"
 
 #: src/app-window.ui:303
 msgid "All Pages From _Feeder"
-msgstr "_Kaynaktaki Tüm Sayfalar"
+msgstr "_Besleyicideki Tüm Sayfalar"
 
 #: src/app-window.ui:354
 msgid "_Multiple Pages From Flatbed"
@@ -609,7 +609,7 @@ msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
 msgstr ""
-"Bunun sürücüleri <a href=\"http://samsung.com/support\">Epson web sitesinde</"
+"Bunun sürücüleri <a href=\"http://support.epson.com\">Epson web sitesinde</"
 "a> bulunabilir."
 
 #. Title of dialog giving instructions on how to install drivers
@@ -885,13 +885,13 @@ msgstr "Tarama"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:303
-msgid "_Text Resolution"
-msgstr "_Metin Çözünürlüğü"
+msgid "Text Resolution"
+msgstr "Metin Çözünürlüğü"
 
 #. Label beside scan source combo box
 #: src/preferences-dialog.ui:318
-msgid "_Photo Resolution"
-msgstr "_Fotoğraf Çözünürlüğü"
+msgid "Photo Resolution"
+msgstr "Resim Çözünürlüğü"
 
 #. Label beside brightness scale
 #: src/preferences-dialog.ui:362
@@ -954,27 +954,27 @@ msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:848
+#: src/scanner.vala:866
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Kullanılabilir tarayıcı yok. Lütfen bir tarayıcı bağlayın."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:878
+#: src/scanner.vala:896
 msgid "Unable to connect to scanner"
 msgstr "Tarayıcıya bağlanılamadı"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1261
+#: src/scanner.vala:1300
 msgid "Document feeder empty"
 msgstr "Belge besleyici boş"
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1268
+#: src/scanner.vala:1307
 msgid "Unable to start scan"
 msgstr "Tarama başlatılamadı"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1281 src/scanner.vala:1388
+#: src/scanner.vala:1320 src/scanner.vala:1427
 msgid "Error communicating with scanner"
 msgstr "Tarayıcı ile iletişim kurulamıyor"
 
