@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2019-10-08 11:44+0000\n"
-"PO-Revision-Date: 2019-10-28 13:11+0700\n"
-"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
+"POT-Creation-Date: 2019-12-28 11:02+0000\n"
+"PO-Revision-Date: 2020-01-04 22:22+0700\n"
+"Last-Translator: Andika Triwidada <atriwidada@gnome.org>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=2; plural= n!=1;\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -134,7 +134,7 @@ msgstr "Tundaan dalam mili detik antar halaman."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:181 src/app-window.vala:1302 src/app-window.vala:1556
+#: src/app-window.ui:498 src/app-window.vala:1475 src/app-window.vala:1729
 msgid "Document Scanner"
 msgstr "Pelarik Dokumen"
 
@@ -169,151 +169,154 @@ msgid "scan;scanner;flatbed;adf;"
 msgstr "scan;scanner;pelarik;pemindai;flatbed;adf;"
 
 #. Menu item to rotate page to left (anti-clockwise)
-#: src/app-window.ui:10
+#: src/app-window.ui:12
 msgid "Rotate _Left"
 msgstr "Putar _Kiri"
 
 #. Menu item to rotate page to right (clockwise)
-#: src/app-window.ui:19
+#: src/app-window.ui:22
 msgid "Rotate _Right"
 msgstr "Putar Ka_nan"
 
 #. Label for page crop submenu
-#: src/app-window.ui:28
+#: src/app-window.ui:32
 msgid "_Crop"
 msgstr "_Potong"
 
 #. Radio button for no crop
-#: src/app-window.ui:36
+#: src/app-window.ui:42
 msgid "_None"
 msgstr "_Nihil"
 
 #. Radio button for cropping page to A4 size
-#: src/app-window.ui:46
+#: src/app-window.ui:53
 msgid "A_4"
 msgstr "A_4"
 
 #. Radio button for cropping page to A5 size
-#: src/app-window.ui:56
+#: src/app-window.ui:64
 msgid "A_5"
 msgstr "A_5"
 
 #. Radio button for cropping page to A6 size
-#: src/app-window.ui:66
+#: src/app-window.ui:75
 msgid "A_6"
 msgstr "A_6"
 
 #. Radio button for cropping page to US letter size
-#: src/app-window.ui:76
+#: src/app-window.ui:86
 msgid "_Letter"
 msgstr "_Letter"
 
 #. Radio button for cropping to page to US legal size
-#: src/app-window.ui:86
+#: src/app-window.ui:97
 msgid "Le_gal"
 msgstr "Le_gal"
 
 #. Radio button for cropping page to 4x6 inch
-#: src/app-window.ui:96
+#: src/app-window.ui:108
 msgid "4×6"
 msgstr "4x6"
 
 #. Radio button for cropping page to A3
-#: src/app-window.ui:106
+#: src/app-window.ui:119
 msgid "A_3"
 msgstr "A_3"
 
 #. Radio button for cropping to custom page size
-#: src/app-window.ui:116
+#: src/app-window.ui:130
 msgid "_Custom"
 msgstr "_Ubahan"
 
 #. Menu item to rotate the crop area
-#: src/app-window.ui:132
+#: src/app-window.ui:148
 msgid "_Rotate Crop"
 msgstr "Puta_r dan Potong"
 
 #. Menu item to move the selected page to the left
-#: src/app-window.ui:144
+#: src/app-window.ui:161
 msgid "Move Left"
 msgstr "Pindah Ke Kiri"
 
 #. Menu item to move the selected page to the right
-#: src/app-window.ui:152
+#: src/app-window.ui:170
 msgid "Move Right"
 msgstr "Pindah Ke Kanan"
 
-#: src/app-window.ui:272
-msgid "Stop"
-msgstr "Stop"
-
-#. Tooltip for stop button
-#: src/app-window.ui:274
-msgid "Stop the current scan"
-msgstr "Hentikan pemindaian"
-
-#. Label on scan toolbar item
-#: src/app-window.ui:285
-msgid "Scan"
-msgstr "Pindai"
-
-#. Tooltip for scan toolbar button
-#: src/app-window.ui:288
-msgid "Scan a single page from the scanner"
-msgstr "Pindai sebuah halaman dari pemindai"
-
-#. Tooltip for save toolbar button
-#: src/app-window.ui:352
-msgid "Save document to a file"
-msgstr "Simpan hasil dalam berkas"
-
-#: src/app-window.ui:405
+#: src/app-window.ui:252
 msgid "_Single Page"
 msgstr "_Satu Halaman"
 
-#: src/app-window.ui:436
+#: src/app-window.ui:303
 msgid "All Pages From _Feeder"
 msgstr "Semua Halaman Dari _Feeder"
 
-#: src/app-window.ui:467
+#: src/app-window.ui:354
 msgid "_Multiple Pages From Flatbed"
 msgstr "Beberapa Hala_man Dari Flatbed"
 
-#: src/app-window.ui:498
+#: src/app-window.ui:405
 msgid "_Text"
 msgstr "_Teks"
 
-#: src/app-window.ui:529
+#: src/app-window.ui:456
 msgid "_Image"
 msgstr "_Gambar"
 
-#: src/app-window.vala:225 src/app-window.vala:1389
+#: src/app-window.ui:476
+msgid "_Preferences"
+msgstr "_Preferensi"
+
+#. Tooltip for stop button
+#: src/app-window.ui:516
+msgid "Stop the current scan"
+msgstr "Hentikan pemindaian"
+
+#: src/app-window.ui:540
+msgid "S_top"
+msgstr "Berhen_ti"
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:569
+msgid "Scan a single page from the scanner"
+msgstr "Pindai sebuah halaman dari pemindai"
+
+#: src/app-window.ui:594
+msgid "_Scan"
+msgstr "_Pindai"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:696
+msgid "Save document to a file"
+msgstr "Simpan hasil dalam berkas"
+
+#: src/app-window.vala:220 src/app-window.vala:1562
 msgid "_Close"
 msgstr "_Tutup"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:234
+#: src/app-window.vala:229
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Nama pengguna dan kata sandi dibutuhkan untuk mengakses \"%s\""
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:250
+#: src/app-window.vala:245
 msgid "Searching for Scanners…"
 msgstr "Mencari Pemindai…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:256
+#: src/app-window.vala:252
 msgid "Ready to Scan"
 msgstr "Siap Memindai"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:263
+#: src/app-window.vala:260
 msgid "Additional software needed"
 msgstr "Perlu perangkat lunak tambahan"
 
 #. Instructions to install driver software
-#: src/app-window.vala:265
+#: src/app-window.vala:262
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -322,156 +325,161 @@ msgstr ""
 "a> bagi pemindai Anda."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:271
+#: src/app-window.vala:269
 msgid "No scanners detected"
 msgstr "Tidak ada pemindai yang terdeteksi"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:273
+#: src/app-window.vala:271
 msgid "Please check your scanner is connected and powered on"
 msgstr "Mohon periksa apakah pemindai Anda terhubung dan dalam keadaan menyala"
 
+#. Contents of dialog that shows if autosaved book should be loaded.
+#: src/app-window.vala:373
+msgid "An autosaved book exists. Do you want to open it?"
+msgstr "Ada sebuah buku yang tersimpan otomats. Apakah Anda ingin membukanya?"
+
 #. Save dialog: Dialog title
-#: src/app-window.vala:296
+#: src/app-window.vala:447
 msgid "Save As…"
 msgstr "Simpan Sebagai…"
 
-#: src/app-window.vala:299 src/app-window.vala:553
+#: src/app-window.vala:450 src/app-window.vala:704
 msgid "_Save"
 msgstr "_Simpan"
 
-#: src/app-window.vala:300 src/app-window.vala:468 src/app-window.vala:552
+#: src/app-window.vala:451 src/app-window.vala:619 src/app-window.vala:703
 msgid "_Cancel"
 msgstr "_Batal"
 
 #. Default filename to use when saving document
-#: src/app-window.vala:307
+#: src/app-window.vala:458
 msgid "Scanned Document.pdf"
 msgstr "Dokumen Hasil Pindai.pdf"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:313
+#: src/app-window.vala:464
 msgid "Image Files"
 msgstr "Berkas Citra"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:323
+#: src/app-window.vala:474
 msgid "All Files"
 msgstr "Semua Berkas"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:332
+#: src/app-window.vala:483
 msgid "PDF (multi-page document)"
 msgstr "PDF (dokumen multi-halaman)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:338
+#: src/app-window.vala:489
 msgid "JPEG (compressed)"
 msgstr "JPEG (terkompresi)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:344
+#: src/app-window.vala:495
 msgid "PNG (lossless)"
 msgstr "PNG (lossless)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:351
+#: src/app-window.vala:502
 msgid "WebP (compressed)"
 msgstr "WebP (terkompresi)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:361
+#: src/app-window.vala:512
 msgid "File format:"
 msgstr "Format berkas:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:373
+#: src/app-window.vala:524
 msgid "Compression:"
 msgstr "Kompresi:"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:467
+#: src/app-window.vala:618
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Berkas dengan nama \"%s\" sudah ada. Apakah Anda ingin menimpanya?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:470
+#: src/app-window.vala:621
 msgid "_Replace"
 msgstr "_Timpa"
 
-#: src/app-window.vala:509
+#: src/app-window.vala:660
 msgid "Saving"
 msgstr "Menyimpan"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:526
+#: src/app-window.vala:677
 msgid "Failed to save file"
 msgstr "Gagal menyimpan berkas"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:550
+#: src/app-window.vala:701
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Jika Anda tidak menyimpan, perubahan akan hilang secara permanen."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:586
+#: src/app-window.vala:737
 msgid "Save current document?"
 msgstr "Simpan dokumen saat ini?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:588
+#: src/app-window.vala:739
 msgid "Discard Changes"
 msgstr "Buang Perubahan"
 
 #. Label shown when scan started
-#: src/app-window.vala:620
+#: src/app-window.vala:771
 msgid "Contacting scanner…"
 msgstr "Menghubungi pemindai…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:836
+#: src/app-window.vala:1009
 msgid "Unable to save image for preview"
 msgstr "Tak dapat menyimpan gambar untuk pratinjau"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:848
+#: src/app-window.vala:1021
 msgid "Unable to open image preview application"
 msgstr "Tidak dapat membuka aplikasi pratinjau gambar"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1010
+#: src/app-window.vala:1183
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Atur Ulang Halaman"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1033
+#: src/app-window.vala:1206
 msgid "Combine sides"
 msgstr "Kombinasikan sisi-sisi"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1043
+#: src/app-window.vala:1216
 msgid "Combine sides (reverse)"
 msgstr "Kombinasikan sisi-sisi (balik)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1053
+#: src/app-window.vala:1226
 msgid "Reverse"
 msgstr "Balikkan"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1063
+#: src/app-window.vala:1236
 msgid "Keep unchanged"
 msgstr "Biarkan tak berubah"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1277
+#: src/app-window.vala:1450
 msgid "Unable to open help file"
 msgstr "Tak dapat membuka berkas bantuan"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1292
+#: src/app-window.vala:1465
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -499,19 +507,20 @@ msgstr ""
 "bersama program ini. Bila tidak, lihat <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1295 src/app-window.vala:1581
+#: src/app-window.vala:1468 src/app-window.vala:1755
 msgid "About Document Scanner"
 msgstr "Tentang Pemindai Dokumen"
 
 #. Description of program
-#: src/app-window.vala:1298
+#: src/app-window.vala:1471
 msgid "Simple document scanning tool"
 msgstr "Alat pemindai dokumen sederhana"
 
-#: src/app-window.vala:1307
+#: src/app-window.vala:1480
 msgid "translator-credits"
 msgstr ""
 "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017, 2018, 2019.\n"
+"Andika Triwidada <atriwidada@gnome.org>, 2019.\n"
 "\n"
 "Launchpad Contributions:\n"
 "  Abdul Munif Hanafi https://launchpad.net/~nafica-coroz\n"
@@ -529,22 +538,22 @@ msgstr ""
 "  jemmy surya https://launchpad.net/~jemmy"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1323
+#: src/app-window.vala:1496
 msgid "Save document before quitting?"
 msgstr "Simpan dokumen sebelum keluar?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1325
+#: src/app-window.vala:1498
 msgid "Quit without Saving"
 msgstr "Keluar tanpa menyimpan"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1366
+#: src/app-window.vala:1539
 msgid "You appear to have a Brother scanner."
 msgstr "Nampaknya Anda punya pemindai Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1368
+#: src/app-window.vala:1541
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -553,12 +562,12 @@ msgstr ""
 "web Brother</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1372
+#: src/app-window.vala:1545
 msgid "You appear to have a Samsung scanner."
 msgstr "Nampaknya Anda punya pemindai Samsung."
 
 #. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1374
+#: src/app-window.vala:1547
 msgid ""
 "Drivers for this are available on the <a href=\"http://samsung.com/support"
 "\">Samsung website</a>."
@@ -567,17 +576,17 @@ msgstr ""
 "web Samsung</a>."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1378
+#: src/app-window.vala:1551
 msgid "You appear to have an HP scanner."
 msgstr "Nampaknya Anda punya pemindai HP."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1383
+#: src/app-window.vala:1556
 msgid "You appear to have an Epson scanner."
 msgstr "Nampaknya Anda punya pemindai Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1385
+#: src/app-window.vala:1558
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -586,95 +595,99 @@ msgstr ""
 "web Epson</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1389
+#: src/app-window.vala:1562
 msgid "Install drivers"
 msgstr "Pasang penggerak"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1422
+#: src/app-window.vala:1595
 msgid "Once installed you will need to restart this app."
 msgstr "Sekali terpasang Anda perlu memulai ulang aplikasi ini."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1435
+#: src/app-window.vala:1608
 msgid "Installing drivers…"
 msgstr "Memasang penggerak…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1443
+#: src/app-window.vala:1616
 msgid "Drivers installed successfully!"
 msgstr "Penggerak sukses terpasang!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1453
+#: src/app-window.vala:1626
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Gagal memasang penggerak (kode kesalahan %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1459
+#: src/app-window.vala:1632
 msgid "Failed to install drivers."
 msgstr "Gagal memasang penggerak."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1466
+#: src/app-window.vala:1639
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Anda perlu memasang paket %s."
 msgstr[1] "Anda perlu memasang paket %s."
 
-#: src/app-window.vala:1574
+#: src/app-window.vala:1747
 msgid "Email"
 msgstr "Surel"
 
-#: src/app-window.vala:1575
+#: src/app-window.vala:1748
+msgid "Print"
+msgstr "Cetak"
+
+#: src/app-window.vala:1749
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "Atur Ulang Halaman"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1578 src/preferences-dialog.ui:52
+#: src/app-window.vala:1750 src/preferences-dialog.ui:44
 msgid "Preferences"
 msgstr "Preferensi"
 
-#: src/app-window.vala:1579
+#: src/app-window.vala:1753
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan Papan Tik"
 
-#: src/app-window.vala:1580
+#: src/app-window.vala:1754
 msgid "Help"
 msgstr "Bantuan"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1589
+#: src/app-window.vala:1763
 msgid "Start Again…"
 msgstr "Mulai lagi…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1608
+#: src/app-window.vala:1782
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Putar halaman ke kiri (berlawanan arah jarum jam)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1617
+#: src/app-window.vala:1791
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Putar halaman ke kanan (searah jarum jam)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1629
+#: src/app-window.vala:1803
 msgid "Crop the selected page"
 msgstr "Potong halaman yang dipilih"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1647
+#: src/app-window.vala:1821
 msgid "Delete the selected page"
 msgstr "Hapus halaman yang dipilih"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1791
+#: src/app-window.vala:1995
 msgid "Cancel"
 msgstr "Batal"
 
@@ -783,168 +796,168 @@ msgctxt "shortcut window"
 msgid "Copy current page to clipboard"
 msgstr "Salin halaman ini ke papan klip"
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:80
-msgid "_Scanner"
-msgstr "_Pemindai"
-
 #. Label beside scan side combo box
-#: src/preferences-dialog.ui:108
+#: src/preferences-dialog.ui:72
 msgid "Scan Sides"
 msgstr "Bidang Pindai"
 
 #. Label beside page size combo box
-#: src/preferences-dialog.ui:124
+#: src/preferences-dialog.ui:88
 msgid "Page Size"
 msgstr "Ukuran Halaman"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:153
+#: src/preferences-dialog.ui:117
 msgid "Front"
 msgstr "Depan"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:163
+#: src/preferences-dialog.ui:127
 msgid "Back"
 msgstr "Belakang"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:173
+#: src/preferences-dialog.ui:137
 msgid "Both"
 msgstr "Keduanya"
 
 #. Label beside page delay scale
-#: src/preferences-dialog.ui:200
+#: src/preferences-dialog.ui:164
 msgid "Delay"
 msgstr "Tunda"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:215
+#: src/preferences-dialog.ui:179
 msgid "Multiple pages from flatbed"
 msgstr "Beberapa halaman dari flatbed"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:233
+#: src/preferences-dialog.ui:197
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:243
+#: src/preferences-dialog.ui:207
 msgid "5"
 msgstr "5"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:254
+#: src/preferences-dialog.ui:218
 msgid "7"
 msgstr "7"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:265
+#: src/preferences-dialog.ui:229
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:276
+#: src/preferences-dialog.ui:240
 msgid "15"
 msgstr "15"
 
 #. Label after page delay radio buttons
-#: src/preferences-dialog.ui:297
+#: src/preferences-dialog.ui:261
 msgid "Seconds"
 msgstr "Detik"
 
 #. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:319
+#: src/preferences-dialog.ui:283
 msgid "Scanning"
 msgstr "Memindai"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:339
-msgid "_Text Resolution"
-msgstr "Resolusi _Teks"
+#: src/preferences-dialog.ui:303
+msgid "Text Resolution"
+msgstr "Resolusi Teks"
 
 #. Label beside scan source combo box
-#: src/preferences-dialog.ui:354
-msgid "_Photo Resolution"
-msgstr "Resolusi _Foto"
+#: src/preferences-dialog.ui:318
+msgid "Photo Resolution"
+msgstr "Resolusi Foto"
 
 #. Label beside brightness scale
-#: src/preferences-dialog.ui:398
+#: src/preferences-dialog.ui:362
 msgid "Brightness"
 msgstr "Kecerahan"
 
 #. Label beside contrast scale
-#: src/preferences-dialog.ui:413
+#: src/preferences-dialog.ui:377
 msgid "Contrast"
 msgstr "Kontras"
 
 #. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:461
+#: src/preferences-dialog.ui:425
 msgid "Quality"
 msgstr "Kualitas"
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:72
+#: src/preferences-dialog.vala:65
 msgid "Automatic"
 msgstr "Otomatis"
 
-#: src/preferences-dialog.vala:113
+#: src/preferences-dialog.vala:102
 msgid "Darker"
 msgstr "Lebih Gelap"
 
-#: src/preferences-dialog.vala:115
+#: src/preferences-dialog.vala:104
 msgid "Lighter"
 msgstr "Lebih Terang"
 
-#: src/preferences-dialog.vala:123
+#: src/preferences-dialog.vala:112
 msgid "Less"
 msgstr "Kurang"
 
-#: src/preferences-dialog.vala:125
+#: src/preferences-dialog.vala:114
 msgid "More"
 msgstr "Lebih"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:437
+#: src/preferences-dialog.vala:285
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (default)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:440
+#: src/preferences-dialog.vala:288
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (draft)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:443
+#: src/preferences-dialog.vala:291
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (resolusi tinggi)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:446
+#: src/preferences-dialog.vala:294
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:844
+#: src/scanner.vala:866
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Tidak ada pemindai yang tersedia. Mohon hubungkan pemindai."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:874
+#: src/scanner.vala:896
 msgid "Unable to connect to scanner"
 msgstr "Tak dapat terhubung ke pemindai"
 
+#. Error displayed when no documents at the start of scanning
+#: src/scanner.vala:1300
+msgid "Document feeder empty"
+msgstr "Pengumpan dokumen kosong"
+
 #. Error display when unable to start scan
-#: src/scanner.vala:1251
+#: src/scanner.vala:1307
 msgid "Unable to start scan"
 msgstr "Tak dapat memulai pemindaian"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1264 src/scanner.vala:1371
+#: src/scanner.vala:1320 src/scanner.vala:1427
 msgid "Error communicating with scanner"
 msgstr "Galat saat berhubungan dengan pemindai"
 
@@ -983,45 +996,3 @@ msgstr "[PERANGKAT...] — Utilitas pemindaian"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Jalankan \"%s --help\" untuk melihat daftar lengkap opsi yang tersedia."
-
-#~ msgid "Simple Scan"
-#~ msgstr "Pemindai Ringkas"
-
-#~ msgid "scanner"
-#~ msgstr "scanner"
-
-#~ msgid "About Simple Scan"
-#~ msgstr "Tentang Simple Scan"
-
-#~ msgid "Photo"
-#~ msgstr "Foto"
-
-#~ msgid "_Document"
-#~ msgstr "_Dokumen"
-
-#~ msgid "Sc_an"
-#~ msgstr "Pind_ai"
-
-#~ msgid "_Stop Scan"
-#~ msgstr "Berhenti _Memindai"
-
-#~ msgid "_Email"
-#~ msgstr "Sur_el"
-
-#~ msgid "_Page"
-#~ msgstr "_Halaman"
-
-#~ msgid "_Help"
-#~ msgstr "Ba_ntuan"
-
-#~ msgid "_Contents"
-#~ msgstr "_Isi"
-
-#~ msgid "Save"
-#~ msgstr "Simpan"
-
-#~ msgid "About"
-#~ msgstr "Perihal"
-
-#~ msgid "Quit"
-#~ msgstr "Keluar"
