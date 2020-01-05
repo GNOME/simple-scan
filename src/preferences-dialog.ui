@@ -69,9 +69,9 @@
                     <child>
                       <object class="GtkLabel" id="page_side_label">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes" comments="Label beside scan side combo box">Scan Sides</property>
+                        <property name="label" translatable="yes" comments="Label beside scan side combo box">Scan _Sides</property>
                         <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">scan_side_box</property>
+                        <property name="mnemonic_widget">front_side_button</property>
                         <property name="xalign">1</property>
                         <style>
                           <class name="dim-label"/>
@@ -85,8 +85,9 @@
                     <child>
                       <object class="GtkLabel" id="paper_size_label">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes" comments="Label beside page size combo box">Page Size</property>
+                        <property name="label" translatable="yes" comments="Label beside page size combo box">_Page Size</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">paper_size_combo</property>
                         <property name="xalign">1</property>
                         <style>
                           <class name="dim-label"/>
@@ -161,8 +162,9 @@
                     <child>
                       <object class="GtkLabel" id="page_delay_label">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes" comments="Label beside page delay scale">Delay</property>
+                        <property name="label" translatable="yes" comments="Label beside page delay scale">_Delay</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">page_delay_3s_button</property>
                         <property name="xalign">1</property>
                         <style>
                           <class name="dim-label"/>
@@ -280,7 +282,8 @@
             <child type="tab">
               <object class="GtkLabel">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="Preferences Dialog: Tab label for scanning settings">Scanning</property>
+                <property name="label" translatable="yes" comments="Preferences Dialog: Tab label for scanning settings">_Scanning</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="tab_fill">False</property>
@@ -300,8 +303,9 @@
                     <child>
                       <object class="GtkLabel" id="text_dpi_label">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes" comments="Label beside scan resolution combo box">Text Resolution</property>
+                        <property name="label" translatable="yes" comments="Label beside scan resolution combo box">_Text Resolution</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">text_dpi_combo</property>
                         <property name="xalign">1</property>
                         <style>
                           <class name="dim-label"/>
@@ -315,8 +319,9 @@
                     <child>
                       <object class="GtkLabel" id="photo_dpi_label">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes" comments="Label beside scan resolution combo box">Photo Resolution</property>
+                        <property name="label" translatable="yes" comments="Label beside scan resolution combo box">_Photo Resolution</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">photo_dpi_combo</property>
                         <property name="xalign">1</property>
                         <style>
                           <class name="dim-label"/>
@@ -359,8 +364,9 @@
                     <child>
                       <object class="GtkLabel" id="brightness_label">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes" comments="Label beside brightness scale">Brightness</property>
+                        <property name="label" translatable="yes" comments="Label beside brightness scale">_Brightness</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">brightness_scale</property>
                         <property name="xalign">1</property>
                         <style>
                           <class name="dim-label"/>
@@ -374,8 +380,9 @@
                     <child>
                       <object class="GtkLabel" id="contrast_label">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes" comments="Label beside contrast scale">Contrast</property>
+                        <property name="label" translatable="yes" comments="Label beside contrast scale">_Contrast</property>
                         <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">contrast_scale</property>
                         <property name="xalign">1</property>
                         <style>
                           <class name="dim-label"/>
@@ -422,7 +429,8 @@
             <child type="tab">
               <object class="GtkLabel">
                 <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="Preferences Dialog: Tab for quality settings">Quality</property>
+                <property name="label" translatable="yes" comments="Preferences Dialog: Tab for quality settings">_Quality</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="tab_fill">False</property>
