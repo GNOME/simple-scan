@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the simple-scan package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 # Rodrigo <rodhos92@gmail.com>, 2018.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2017-2019.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2017-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-10-28 15:50+0000\n"
-"PO-Revision-Date: 2019-11-05 15:27+0100\n"
+"POT-Creation-Date: 2020-01-06 01:17+0000\n"
+"PO-Revision-Date: 2020-01-08 09:16+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgctxt "_"
 msgid "translator-credits"
 msgstr ""
-"Daniel Mustieles <daniel.mustieles@gmail.com>, 2017 - 2019\n"
+"Daniel Mustieles <daniel.mustieles@gmail.com>, 2017 - 2020\n"
 "Rodrigo Lledó <rodhos92@gmail.com>, 2018\n"
 "\n"
 "Launchpad Contributions:\n"
@@ -93,13 +93,17 @@ msgstr "Elija «Todas las páginas del alimentador»."
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/adf.page:38 C/scanning.page:20
+#| msgctxt "_"
+#| msgid ""
+#| "external ref='figures/scan_toolbar.png' "
+#| "md5='4d351a0cdd40bebe78b82da62265f3bd'"
 msgctxt "_"
 msgid ""
 "external ref='figures/scan_toolbar.png' "
-"md5='4d351a0cdd40bebe78b82da62265f3bd'"
+"md5='3380688dc798b45b3ecb724fc973b74a'"
 msgstr ""
 "external ref='figures/scan_toolbar.png' "
-"md5='4d351a0cdd40bebe78b82da62265f3bd'"
+"md5='3380688dc798b45b3ecb724fc973b74a'"
 
 #. (itstool) path: note/p
 #: C/adf.page:44
@@ -118,7 +122,7 @@ msgstr ""
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/adf.page:48 C/dpi.page:16 C/scanner.page:14
+#: C/adf.page:48 C/scanner.page:14
 msgctxt "_"
 msgid ""
 "external ref='figures/preferences.png' md5='b1e0d97b547076f20a7d34b0dc4fba57'"
@@ -127,21 +131,45 @@ msgstr ""
 
 #. (itstool) path: page/title
 #: C/brightness-contrast.page:9
-msgid "Setting brightness and Contrast"
+#| msgid "Setting brightness and Contrast"
+msgid "Setting Brightness and Contrast"
 msgstr "Establecer el brillo y el contraste"
 
 #. (itstool) path: page/p
 #: C/brightness-contrast.page:11
+#| msgid ""
+#| "Some scanners allow the user to adjust the brightness and contrast when "
+#| "scanning. If your scans come out too dark or too light you can adjust "
+#| "these settings from the <guiseq><gui>Document</gui><gui>Preferences</"
+#| "gui></guiseq> menu."
 msgid ""
 "Some scanners allow the user to adjust the brightness and contrast when "
 "scanning. If your scans come out too dark or too light you can adjust these "
-"settings from the <guiseq><gui>Document</gui><gui>Preferences</gui></guiseq> "
-"menu."
+"settings from the <guiseq><gui>Document</gui><gui>Preferences</"
+"gui><gui>Quality</gui></guiseq> menu."
 msgstr ""
 "Algunos escáneres permite al usuario ajustar el brillo y el contraste al "
 "escanear. Si sus escaneos resultan demasiado oscuros o demasiado claros "
 "puede ajustar estos parámetros desde el menú <guiseq><gui>Documento</"
-"gui><gui>Preferencias</gui></guiseq>."
+"gui><gui>Calidad</gui></guiseq>."
+
+#. (itstool) path: page/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/brightness-contrast.page:16 C/dpi.page:16
+#| msgctxt "_"
+#| msgid ""
+#| "external ref='figures/preferences.png' "
+#| "md5='b1e0d97b547076f20a7d34b0dc4fba57'"
+msgctxt "_"
+msgid ""
+"external ref='figures/preferences_quality.png' "
+"md5='b859f1804a68d2807e750c310566c0d5'"
+msgstr ""
+"external ref='figures/preferences_quality.png' "
+"md5='b859f1804a68d2807e750c310566c0d5'"
 
 #. (itstool) path: page/title
 #: C/crop.page:9
@@ -150,13 +178,6 @@ msgstr "Recorte"
 
 #. (itstool) path: page/p
 #: C/crop.page:11
-#| msgid ""
-#| "The cropping feature in <app>Simple Scan</app> allows you to use only a "
-#| "part of a scanned image. You can enable crop either before or after "
-#| "scanning a page, and you can always change the dimensions of the crop "
-#| "frame. When crop is enabled, a mask will appear over the current page "
-#| "with the area not being used shown in gray. You can enable crop and "
-#| "choose the desired dimensions via one of the following methods:"
 msgid ""
 "The cropping feature allows you to use only a part of a scanned image. You "
 "can enable crop either before or after scanning a page, and you can always "
@@ -253,21 +274,29 @@ msgstr "Configurar la resolución del escaneo"
 
 #. (itstool) path: page/p
 #: C/dpi.page:11
+#| msgid ""
+#| "The default resolution for document type <gui><em>Text</em></gui> is 150 "
+#| "dpi (dots per inch) and for document type <gui><em>Photo</em></gui> is "
+#| "300 dpi. You can change these settings from the <guiseq><gui>Document</"
+#| "gui><gui>Preferences</gui></guiseq> menu."
 msgid ""
 "The default resolution for document type <gui><em>Text</em></gui> is 150 dpi "
-"(dots per inch) and for document type <gui><em>Photo</em></gui> is 300 dpi. "
+"(dots per inch) and for document type <gui><em>Image</em></gui> is 300 dpi. "
 "You can change these settings from the <guiseq><gui>Document</"
-"gui><gui>Preferences</gui></guiseq> menu."
+"gui><gui>Preferences</gui><gui>Quality</gui></guiseq> menu."
 msgstr ""
 "La resolución predeterminada para el documento de tipo <gui><em>Texto</em></"
 "gui> es 150 ppp (puntos por pulgada) y para el documento de tipo "
 "<gui><em>Foto</em></gui> es 300 ppp. Puede cambiar estas configuraciones "
-"desde el menú <guiseq><gui>Documento</gui><gui>Preferencias</gui></guiseq>."
+"desde el menú <guiseq><gui>Documento</gui><gui>Calidad</gui></guiseq>."
 
 #. (itstool) path: page/p
 #: C/dpi.page:18
+#| msgid ""
+#| "The available scanning resolutions for both document types (Text and "
+#| "Photo) are the same and are listed in the following table:"
 msgid ""
-"The available scanning resolutions for both document types (Text and Photo) "
+"The available scanning resolutions for both document types (Text and Image) "
 "are the same and are listed in the following table:"
 msgstr ""
 "Las resoluciones de escaneo disponibles para ambos tipos de documentos "
@@ -280,8 +309,9 @@ msgstr "<em>Resolución de texto</em>"
 
 #. (itstool) path: td/p
 #: C/dpi.page:24
-msgid "<em>Photo Resolution</em>"
-msgstr "<em>Resolución de fotos</em>"
+#| msgid "<em>Text Resolution</em>"
+msgid "<em>Image Resolution</em>"
+msgstr "<em>Resolución de foto</em>"
 
 #. (itstool) path: td/p
 #: C/dpi.page:27 C/dpi.page:28
@@ -325,9 +355,13 @@ msgstr "2400 ppp"
 
 #. (itstool) path: note/p
 #: C/dpi.page:52
+#| msgid ""
+#| "<gui><em>Text</em></gui> documents are always scanned in black and white, "
+#| "while <gui><em>Photo</em></gui> documents are always scanned in color, at "
+#| "any resolution!"
 msgid ""
 "<gui><em>Text</em></gui> documents are always scanned in black and white, "
-"while <gui><em>Photo</em></gui> documents are always scanned in color, at "
+"while <gui><em>Image</em></gui> documents are always scanned in color, at "
 "any resolution!"
 msgstr ""
 "Los documentos de <gui><em>Texto</em></gui> siempre se escanean en blanco y "
@@ -355,9 +389,13 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/email.page:16
+#| msgid ""
+#| "If the document type was set to \"Text\" the email will have a PDF "
+#| "attachment for each page. Conversely, if the document type was set to "
+#| "\"Photo\", the email will have a JPEG attachment for each page."
 msgid ""
 "If the document type was set to \"Text\" the email will have a PDF "
-"attachment for each page. Conversely, if the document type was set to \"Photo"
+"attachment for each page. Conversely, if the document type was set to \"Image"
 "\", the email will have a JPEG attachment for each page."
 msgstr ""
 "Si el tipo de documento se estableció en «Texto», el correo electrónico "
@@ -430,11 +468,6 @@ msgstr "Imprimir"
 
 #. (itstool) path: page/p
 #: C/print.page:11
-#| msgid ""
-#| "<app>Simple Scan</app> allows you print a scanned document directly from "
-#| "the its interface, without having to save the document first. This "
-#| "feature makes <app>Simple Scan</app> a very convenient tool for making "
-#| "copies of documents or photos."
 msgid ""
 "You are able to print a scanned document directly without having to save the "
 "document first. This is convenient for making copies of documents or photos."
@@ -527,10 +560,6 @@ msgstr "Rotar una página"
 
 #. (itstool) path: page/p
 #: C/rotate.page:11
-#| msgid ""
-#| "In <app>Simple Scan</app>, you can change the rotation of a page either "
-#| "before or after scanning the page. Currently, there are four ways to "
-#| "rotate a page:"
 msgid ""
 "You can change the rotation of a page either before or after scanning the "
 "page. Currently, there are four ways to rotate a page:"
@@ -778,12 +807,6 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/scanner.page:15
-#| msgid ""
-#| "Your local scanners are automatically detected each time you start "
-#| "<app>Simple Scan</app> and each time you plug in a USB scanner. If you "
-#| "connect a network scanner while <app>Simple Scan</app> is running, you "
-#| "will need to restart <app>Simple Scan</app> for the scanner to be "
-#| "detected."
 msgid ""
 "Local scanners are automatically detected each time <app>Document Scanner</"
 "app> starts and each time you plug in a USB scanner. If you connect a "
@@ -818,18 +841,20 @@ msgstr "Conecte el escáner a su equipo y enciéndalo."
 
 #. (itstool) path: item/p
 #: C/scanning.page:17
-#| msgid "Open <app>Simple Scan</app>."
 msgid "Open <app>Document Scanner</app>."
 msgstr "Abra el <app>Escáner de documentos</app>."
 
 #. (itstool) path: item/p
 #: C/scanning.page:18
+#| msgid ""
+#| "Click the arrow to the right of the \"Scan\" button and choose the type "
+#| "of document you are scanning: <em>Photo</em> or <em>Text</em>."
 msgid ""
 "Click the arrow to the right of the \"Scan\" button and choose the type of "
-"document you are scanning: <em>Photo</em> or <em>Text</em>."
+"document you are scanning: <em>Image</em> or <em>Text</em>."
 msgstr ""
-"Pulse en la flecha a la izquierda del botón «Escanear» y seleccione el tipo "
-"de documento que está escaneando: <em>Foto</em> o <em>Texto</em>."
+"Pulse en la flecha a la derecha del botón «Escanear» y seleccione el tipo de "
+"documento que está escaneando: <em>Foto</em> o <em>Texto</em>."
 
 #. (itstool) path: item/p
 #: C/scanning.page:21
@@ -853,19 +878,28 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/scanning.page:29
+#| msgid ""
+#| "The document type can be also be changed from the <guiseq><gui>Document</"
+#| "gui> <gui>Scan</gui></guiseq> menu. Choose <gui><em>Text</em></gui> if "
+#| "you want the document to be quickly scanned in black and white; choose "
+#| "<gui><em>Photo</em></gui> for a high resolution color scan. See <link "
+#| "xref=\"dpi\"/> for more details and more options."
 msgid ""
 "The document type can be also be changed from the <guiseq><gui>Document</"
 "gui> <gui>Scan</gui></guiseq> menu. Choose <gui><em>Text</em></gui> if you "
 "want the document to be quickly scanned in black and white; choose "
-"<gui><em>Photo</em></gui> for a high resolution color scan. See <link xref="
+"<gui><em>Image</em></gui> for a high resolution color scan. See <link xref="
 "\"dpi\"/> for more details and more options."
 msgstr ""
 "El tipo de documento también se puede cambiar desde el menú "
 "<guiseq><gui>Documento</gui> <gui>Escanear</gui></guiseq>. Elija "
 "<gui><em>Texto</em></gui> si quiere que el documento se escanee rápidamente "
 "en blanco y negro; elija <gui><em>Foto</em></gui> para un escaneo en color "
-"de alta resolución. Consulte <link xref=\"dpi\"/> para más detalles y más "
-"opciones."
+"de alta resolución. Consulte la sección <link xref=\"dpi\"/> para más "
+"detalles y más opciones."
+
+#~ msgid "<em>Photo Resolution</em>"
+#~ msgstr "<em>Resolución de fotos</em>"
 
 #~ msgctxt "_"
 #~ msgid ""
