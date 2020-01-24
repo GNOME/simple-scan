@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-01-04 22:48+0000\n"
-"PO-Revision-Date: 2020-01-04 23:08-0300\n"
+"POT-Creation-Date: 2020-01-13 15:53+0000\n"
+"PO-Revision-Date: 2020-01-24 07:07-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -90,18 +90,20 @@ msgstr "Resolução para digitalização de textos"
 #: data/org.gnome.SimpleScan.gschema.xml:46
 msgid "The resolution in dots-per-inch to use when scanning text."
 msgstr ""
-"A resolução em pontos por polegada (dpi) a ser usada na digitalização e "
+"A resolução em pontos por polegada (dpi) a ser usada na digitalização de "
 "textos."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
-msgid "Resolution for photo scans"
-msgstr "Resolução para digitalização de fotos"
+#| msgid "Resolution for text scans"
+msgid "Resolution for image scans"
+msgstr "Resolução para digitalização de imagens"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
-msgid "The resolution in dots-per-inch to use when scanning photos."
+#| msgid "The resolution in dots-per-inch to use when scanning text."
+msgid "The resolution in dots-per-inch to use when scanning images."
 msgstr ""
-"A resolução em pontos por polegadas (dpi) a ser usada na digitalização de "
-"fotos."
+"A resolução em pontos por polegada (dpi) a ser usada na digitalização de "
+"imagens."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -152,16 +154,20 @@ msgid "Scan Documents"
 msgstr "Digitalização de documentos"
 
 #: data/simple-scan.appdata.xml.in:9
+#| msgid ""
+#| "A really easy way to scan both documents and photos. You can crop out the "
+#| "bad parts of a photo and rotate it if it is the wrong way round. You can "
+#| "print your scans, export them to pdf, or save them in a range of image "
+#| "formats."
 msgid ""
-"A really easy way to scan both documents and photos. You can crop out the "
-"bad parts of a photo and rotate it if it is the wrong way round. You can "
-"print your scans, export them to pdf, or save them in a range of image "
-"formats."
+"A really easy way to scan both text and images. You can crop out the bad "
+"parts of an image and rotate it if it is the wrong way round. You can print "
+"your scans, export them to pdf, or save them in a range of image formats."
 msgstr ""
-"Uma forma realmente fácil de digitalizar tanto documentos como fotos. Você "
-"pode recortar as partes ruins de uma foto e fazer rotação, caso esteja do "
-"lado errado. Você pode imprimir as suas digitalizações, exportá-las em pdf "
-"ou salvá-las em uma variedade de formatos de imagem."
+"Uma forma realmente fácil de digitalizar tanto textos como imagens. Você "
+"pode recortar as partes ruins de uma imagem e fazer rotação dela, caso "
+"esteja do lado errado. Você pode imprimir as suas digitalizações, exportá-"
+"las em pdf ou salvá-las em uma variedade de formatos de imagem."
 
 #: data/simple-scan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
@@ -278,7 +284,6 @@ msgid "_Image"
 msgstr "_Imagem"
 
 #: src/app-window.ui:476
-#| msgid "Preferences"
 msgid "_Preferences"
 msgstr "_Preferências"
 
@@ -297,7 +302,6 @@ msgid "Scan a single page from the scanner"
 msgstr "Digitaliza uma única página no scanner"
 
 #: src/app-window.ui:594
-#| msgid "Scan"
 msgid "_Scan"
 msgstr "_Digitalizar"
 
@@ -352,7 +356,6 @@ msgstr "Por favor, verifique se o seu scanner está conectado e ligado"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:373
-#| msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Um livro salvo automaticamente já existe. Você deseja substituí-lo?"
 
@@ -670,7 +673,6 @@ msgid "Email"
 msgstr "E-mail"
 
 #: src/app-window.vala:1749
-#| msgid "Print…"
 msgid "Print"
 msgstr "Imprimir"
 
@@ -840,114 +842,119 @@ msgid "Show help"
 msgstr "Mostra a ajuda"
 
 #: src/help-overlay.ui:140
-#| msgid "Keyboard Shortcuts"
 msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Atalhos de teclado"
 
 #: src/help-overlay.ui:147
-#| msgid "Quit"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Sai"
 
 #. Label beside scan side combo box
 #: src/preferences-dialog.ui:72
-msgid "Scan Sides"
-msgstr "Lados a digitalizar"
+#| msgid "Scan Sides"
+msgid "Scan _Sides"
+msgstr "_Lados a digitalizar"
 
 #. Label beside page size combo box
 #: src/preferences-dialog.ui:88
-msgid "Page Size"
-msgstr "Tamanho da página"
+#| msgid "Page Size"
+msgid "_Page Size"
+msgstr "_Tamanho da página"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:117
+#: src/preferences-dialog.ui:118
 msgid "Front"
 msgstr "Frente"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:127
+#: src/preferences-dialog.ui:128
 msgid "Back"
 msgstr "Verso"
 
 # Ambos lados, e não ambas páginas
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:137
+#: src/preferences-dialog.ui:138
 msgid "Both"
 msgstr "Ambos"
 
 #. Label beside page delay scale
-#: src/preferences-dialog.ui:164
-msgid "Delay"
-msgstr "Atraso"
+#: src/preferences-dialog.ui:165
+#| msgid "Delay"
+msgid "_Delay"
+msgstr "_Atraso"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:179
+#: src/preferences-dialog.ui:181
 msgid "Multiple pages from flatbed"
 msgstr "Múltiplas páginas a partir do vidro do scanner"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:197
+#: src/preferences-dialog.ui:199
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:207
+#: src/preferences-dialog.ui:209
 msgid "5"
 msgstr "5"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:218
+#: src/preferences-dialog.ui:220
 msgid "7"
 msgstr "7"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:229
+#: src/preferences-dialog.ui:231
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:240
+#: src/preferences-dialog.ui:242
 msgid "15"
 msgstr "15"
 
 #. Label after page delay radio buttons
-#: src/preferences-dialog.ui:261
+#: src/preferences-dialog.ui:263
 msgid "Seconds"
 msgstr "Segundos"
 
 #. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:283
-msgid "Scanning"
-msgstr "Digitalização"
+#: src/preferences-dialog.ui:285
+#| msgid "Scanning"
+msgid "_Scanning"
+msgstr "_Digitalização"
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:303
-#| msgid "_Text Resolution"
-msgid "Text Resolution"
-msgstr "Resolução do texto"
+#. Label beside scan resolution combo box
+#: src/preferences-dialog.ui:306
+#| msgid "Text Resolution"
+msgid "_Text Resolution"
+msgstr "Resolução do _texto"
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:318
-#| msgid "_Photo Resolution"
-msgid "Photo Resolution"
-msgstr "Resolução da foto"
+#. Label beside scan resolution combo box
+#: src/preferences-dialog.ui:322
+#| msgid "Text Resolution"
+msgid "_Image Resolution"
+msgstr "Resolução da _imagem"
 
 #. Label beside brightness scale
-#: src/preferences-dialog.ui:362
-msgid "Brightness"
-msgstr "Brilho"
+#: src/preferences-dialog.ui:367
+#| msgid "Brightness"
+msgid "_Brightness"
+msgstr "_Brilho"
 
 #. Label beside contrast scale
-#: src/preferences-dialog.ui:377
-msgid "Contrast"
-msgstr "Contraste"
+#: src/preferences-dialog.ui:383
+#| msgid "Contrast"
+msgid "_Contrast"
+msgstr "_Contraste"
 
 #. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:425
-msgid "Quality"
-msgstr "Qualidade"
+#: src/preferences-dialog.ui:432
+#| msgid "Quality"
+msgid "_Quality"
+msgstr "_Qualidade"
 
 #. Combo box value for automatic paper size
 #: src/preferences-dialog.vala:65
@@ -1055,6 +1062,18 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Execute “%s --help” para ver a lista completa de opções disponíveis para "
 "linha de comando."
+
+#~ msgid "Resolution for photo scans"
+#~ msgstr "Resolução para digitalização de fotos"
+
+#~ msgid "The resolution in dots-per-inch to use when scanning photos."
+#~ msgstr ""
+#~ "A resolução em pontos por polegadas (dpi) a ser usada na digitalização de "
+#~ "fotos."
+
+#~| msgid "_Photo Resolution"
+#~ msgid "Photo Resolution"
+#~ msgstr "Resolução da foto"
 
 #~ msgid "Stop"
 #~ msgstr "Parar"
