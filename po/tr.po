@@ -4,15 +4,15 @@
 # This file is distributed under the same license as the simple-scan package.
 #
 # Muhammet Kara <muhammetk@gnome.org>, 2017-2018.
-# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2018.
 # Sabri Ünal <libreajans@gmail.com>, 2019.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2017-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-01-02 15:09+0000\n"
-"PO-Revision-Date: 2020-01-02 18:41+0300\n"
+"POT-Creation-Date: 2020-01-18 23:24+0000\n"
+"PO-Revision-Date: 2020-01-27 19:34+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
@@ -93,13 +93,15 @@ msgstr ""
 "Metin tararken kullanılacak inç başına nokta sayısı türünden çözünürlük."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
-msgid "Resolution for photo scans"
+#| msgid "Resolution for text scans"
+msgid "Resolution for image scans"
 msgstr "Resim taramaları için çözünürlük"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
-msgid "The resolution in dots-per-inch to use when scanning photos."
+#| msgid "The resolution in dots-per-inch to use when scanning text."
+msgid "The resolution in dots-per-inch to use when scanning images."
 msgstr ""
-"Resimleri tararken kullanılacak inç başına nokta sayısı türünden çözünürlük."
+"Resim tararken kullanılacak inç başına nokta sayısı türünden çözünürlük."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -150,14 +152,18 @@ msgid "Scan Documents"
 msgstr "Belgeleri Tara"
 
 #: data/simple-scan.appdata.xml.in:9
+#| msgid ""
+#| "A really easy way to scan both documents and photos. You can crop out the "
+#| "bad parts of a photo and rotate it if it is the wrong way round. You can "
+#| "print your scans, export them to pdf, or save them in a range of image "
+#| "formats."
 msgid ""
-"A really easy way to scan both documents and photos. You can crop out the "
-"bad parts of a photo and rotate it if it is the wrong way round. You can "
-"print your scans, export them to pdf, or save them in a range of image "
-"formats."
+"A really easy way to scan both text and images. You can crop out the bad "
+"parts of an image and rotate it if it is the wrong way round. You can print "
+"your scans, export them to pdf, or save them in a range of image formats."
 msgstr ""
-"Belge ve resim taramanın çok kolay yolu. Bir resmin kötü tarafını kırpabilir "
-"ve eğer yanlış yönde ise onu döndürebilirsiniz. Taramalarınızı yazdırabilir, "
+"Metin ve resim taramanın çok kolay yolu. Resmin kötü tarafını kırpabilir "
+"ve yanlış yöndeyse döndürebilirsiniz. Taramalarınızı yazdırabilir, "
 "pdf’ye aktarabilir veya resim biçimlerinde kaydedebilirsiniz."
 
 #: data/simple-scan.appdata.xml.in:14
@@ -516,7 +522,7 @@ msgstr ""
 "Eğer almadıysanız bile şuraya bakınız: <http://www.gnu.org/licenses/>"
 
 #. Title of about dialog
-#: src/app-window.vala:1468 src/app-window.vala:1755
+#: src/app-window.vala:1468 src/app-window.vala:1756
 msgid "About Document Scanner"
 msgstr "Belge Tarayıcı Hakkında"
 
@@ -650,61 +656,61 @@ msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "%s paket kurmanız gerekiyor."
 
-#: src/app-window.vala:1747
+#: src/app-window.vala:1748
 msgid "Email"
 msgstr "E-posta"
 
-#: src/app-window.vala:1748
+#: src/app-window.vala:1749
 msgid "Print"
 msgstr "Yazdır"
 
-#: src/app-window.vala:1749
+#: src/app-window.vala:1750
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "Sayfaları Yeniden Sırala"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1750 src/preferences-dialog.ui:44
+#: src/app-window.vala:1751 src/preferences-dialog.ui:44
 msgid "Preferences"
 msgstr "Tercihler"
 
-#: src/app-window.vala:1753
+#: src/app-window.vala:1754
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
-#: src/app-window.vala:1754
+#: src/app-window.vala:1755
 msgid "Help"
 msgstr "Yardım"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1763
+#: src/app-window.vala:1764
 msgid "Start Again…"
 msgstr "Yeniden Başlat…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1782
+#: src/app-window.vala:1783
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Sayfayı sola döndür (saat yönünün tersine)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1791
+#: src/app-window.vala:1792
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Sayfayı sağa döndür (saat yönünde)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1803
+#: src/app-window.vala:1804
 msgid "Crop the selected page"
 msgstr "Seçili sayfayı kırp"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1821
+#: src/app-window.vala:1822
 msgid "Delete the selected page"
 msgstr "Seçili sayfayı sil"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1995
+#: src/app-window.vala:1996
 msgid "Cancel"
 msgstr "Vazgeç"
 
@@ -813,100 +819,131 @@ msgctxt "shortcut window"
 msgid "Copy current page to clipboard"
 msgstr "Geçerli sayfayı panoya kopyala"
 
+#: src/help-overlay.ui:128
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Genel"
+
+#: src/help-overlay.ui:133
+msgctxt "shortcut window"
+msgid "Show help"
+msgstr "Yardımı göster"
+
+#: src/help-overlay.ui:140
+#| msgid "Keyboard Shortcuts"
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Klavye kısayolları"
+
+#: src/help-overlay.ui:147
+#| msgid "Quit"
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Çık"
+
 #. Label beside scan side combo box
 #: src/preferences-dialog.ui:72
-msgid "Scan Sides"
-msgstr "Tarama Yüzleri"
+#| msgid "Scan Sides"
+msgid "Scan _Sides"
+msgstr "Tarama _Yüzleri"
 
 #. Label beside page size combo box
 #: src/preferences-dialog.ui:88
-msgid "Page Size"
-msgstr "Sayfa Boyutu"
+#| msgid "Page Size"
+msgid "_Page Size"
+msgstr "_Sayfa Boyutu"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:117
+#: src/preferences-dialog.ui:118
 msgid "Front"
 msgstr "Ön"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:127
+#: src/preferences-dialog.ui:128
 msgid "Back"
 msgstr "Arka"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:137
+#: src/preferences-dialog.ui:138
 msgid "Both"
 msgstr "Her İkisi"
 
 #. Label beside page delay scale
-#: src/preferences-dialog.ui:164
-msgid "Delay"
-msgstr "Gecikme"
+#: src/preferences-dialog.ui:165
+#| msgid "Delay"
+msgid "_Delay"
+msgstr "_Gecikme"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:179
+#: src/preferences-dialog.ui:181
 msgid "Multiple pages from flatbed"
 msgstr "Düz yataktan çoklu sayfa"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:197
+#: src/preferences-dialog.ui:199
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:207
+#: src/preferences-dialog.ui:209
 msgid "5"
 msgstr "5"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:218
+#: src/preferences-dialog.ui:220
 msgid "7"
 msgstr "7"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:229
+#: src/preferences-dialog.ui:231
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:240
+#: src/preferences-dialog.ui:242
 msgid "15"
 msgstr "15"
 
 #. Label after page delay radio buttons
-#: src/preferences-dialog.ui:261
+#: src/preferences-dialog.ui:263
 msgid "Seconds"
 msgstr "Saniye"
 
 #. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:283
-msgid "Scanning"
-msgstr "Tarama"
+#: src/preferences-dialog.ui:285
+#| msgid "Scanning"
+msgid "_Scanning"
+msgstr "_Tarama"
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:303
-msgid "Text Resolution"
-msgstr "Metin Çözünürlüğü"
+#. Label beside scan resolution combo box
+#: src/preferences-dialog.ui:306
+#| msgid "Text Resolution"
+msgid "_Text Resolution"
+msgstr "_Metin Çözünürlüğü"
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:318
-msgid "Photo Resolution"
-msgstr "Resim Çözünürlüğü"
+#. Label beside scan resolution combo box
+#: src/preferences-dialog.ui:322
+#| msgid "Text Resolution"
+msgid "_Image Resolution"
+msgstr "_Resim Çözünürlüğü"
 
 #. Label beside brightness scale
-#: src/preferences-dialog.ui:362
-msgid "Brightness"
-msgstr "Parlaklık"
+#: src/preferences-dialog.ui:367
+#| msgid "Brightness"
+msgid "_Brightness"
+msgstr "_Parlaklık"
 
 #. Label beside contrast scale
-#: src/preferences-dialog.ui:377
-msgid "Contrast"
-msgstr "Karşıtlık"
+#: src/preferences-dialog.ui:383
+#| msgid "Contrast"
+msgid "_Contrast"
+msgstr "_Karşıtlık"
 
 #. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:425
-msgid "Quality"
-msgstr "Nitelik"
+#: src/preferences-dialog.ui:432
+#| msgid "Quality"
+msgid "_Quality"
+msgstr "_Nitelik"
 
 #. Combo box value for automatic paper size
 #: src/preferences-dialog.vala:65
@@ -1015,6 +1052,17 @@ msgstr ""
 "Kullanılabilir komut satırı seçeneklerinin tam listesini görmek için “%s --"
 "help” komutunu çalıştırın."
 
+#~ msgid "Resolution for photo scans"
+#~ msgstr "Resim taramaları için çözünürlük"
+
+#~ msgid "The resolution in dots-per-inch to use when scanning photos."
+#~ msgstr ""
+#~ "Resimleri tararken kullanılacak inç başına nokta sayısı türünden "
+#~ "çözünürlük."
+
+#~ msgid "Photo Resolution"
+#~ msgstr "Resim Çözünürlüğü"
+
 #~ msgid "Stop"
 #~ msgstr "Durdur"
 
@@ -1059,9 +1107,6 @@ msgstr ""
 
 #~ msgid "About"
 #~ msgstr "Hakkında"
-
-#~ msgid "Quit"
-#~ msgstr "Çık"
 
 #~ msgid "Saving document…"
 #~ msgstr "Belge kaydediliyor…"
