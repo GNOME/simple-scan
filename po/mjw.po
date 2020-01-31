@@ -1,22 +1,22 @@
 # Karbi translation for simple-scan.
 # Copyright (C) 2019 simple-scan's Free Software Foundation, Inc.
 # This file is distributed under the same license as the simple-scan package.
-# Jor Teron <jor.teron@gmail.com>, 2019.
+# Jor Teron <jor.teron@gmail.com>, 2019, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2019-08-04 22:22+0000\n"
-"PO-Revision-Date: 2019-08-05 00:23+0530\n"
+"POT-Creation-Date: 2020-01-31 02:43+0000\n"
+"PO-Revision-Date: 2020-01-31 15:27+0530\n"
 "Last-Translator: Jor Teron <jor.teron@gmail.com>\n"
-"Language-Team: Karbi <mjw@li.org>\n"
+"Language-Team: Karbi <karbi.translation@gmail.com>\n"
 "Language: mjw\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2 ; plural=( n != 1 );\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -81,11 +81,11 @@ msgid "The resolution in dots-per-inch to use when scanning text."
 msgstr ""
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
-msgid "Resolution for photo scans"
+msgid "Resolution for image scans"
 msgstr ""
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
-msgid "The resolution in dots-per-inch to use when scanning photos."
+msgid "The resolution in dots-per-inch to use when scanning images."
 msgstr ""
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
@@ -126,7 +126,7 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:181 src/app-window.vala:1302 src/app-window.vala:1556
+#: src/app-window.ui:498 src/app-window.vala:1475 src/app-window.vala:1729
 msgid "Document Scanner"
 msgstr "Document Scanner"
 
@@ -136,15 +136,18 @@ msgstr "Scan Documents"
 
 #: data/simple-scan.appdata.xml.in:9
 msgid ""
-"A really easy way to scan both documents and photos. You can crop out the "
-"bad parts of a photo and rotate it if it is the wrong way round. You can "
-"print your scans, export them to pdf, or save them in a range of image "
-"formats."
+"A really easy way to scan both text and images. You can crop out the bad "
+"parts of an image and rotate it if it is the wrong way round. You can print "
+"your scans, export them to pdf, or save them in a range of image formats."
 msgstr ""
 
 #: data/simple-scan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
+
+#: data/simple-scan.appdata.xml.in:24
+msgid "The GNOME Project"
+msgstr "GNOME Project"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
@@ -152,307 +155,315 @@ msgid "scan;scanner;flatbed;adf;"
 msgstr "scan;scanner;flatbed;adf;"
 
 #. Menu item to rotate page to left (anti-clockwise)
-#: src/app-window.ui:10
+#: src/app-window.ui:12
 msgid "Rotate _Left"
 msgstr "Arvi tewar"
 
 #. Menu item to rotate page to right (clockwise)
-#: src/app-window.ui:19
+#: src/app-window.ui:22
 msgid "Rotate _Right"
 msgstr "Ar-eh tewar"
 
 #. Label for page crop submenu
-#: src/app-window.ui:28
+#: src/app-window.ui:32
 msgid "_Crop"
 msgstr "Kethum"
 
 #. Radio button for no crop
-#: src/app-window.ui:36
+#: src/app-window.ui:42
 msgid "_None"
 msgstr "_None"
 
 #. Radio button for cropping page to A4 size
-#: src/app-window.ui:46
+#: src/app-window.ui:53
 msgid "A_4"
 msgstr "A_4"
 
 #. Radio button for cropping page to A5 size
-#: src/app-window.ui:56
+#: src/app-window.ui:64
 msgid "A_5"
 msgstr "A_5"
 
 #. Radio button for cropping page to A6 size
-#: src/app-window.ui:66
+#: src/app-window.ui:75
 msgid "A_6"
 msgstr "A_6"
 
 #. Radio button for cropping page to US letter size
-#: src/app-window.ui:76
+#: src/app-window.ui:86
 msgid "_Letter"
 msgstr "_Letter"
 
 #. Radio button for cropping to page to US legal size
-#: src/app-window.ui:86
+#: src/app-window.ui:97
 msgid "Le_gal"
 msgstr "Le_gal"
 
 #. Radio button for cropping page to 4x6 inch
-#: src/app-window.ui:96
+#: src/app-window.ui:108
 msgid "4×6"
 msgstr "4×6"
 
 #. Radio button for cropping page to A3
-#: src/app-window.ui:106
+#: src/app-window.ui:119
 msgid "A_3"
 msgstr "A_3"
 
 #. Radio button for cropping to custom page size
-#: src/app-window.ui:116
+#: src/app-window.ui:130
 msgid "_Custom"
 msgstr "_Custom"
 
 #. Menu item to rotate the crop area
-#: src/app-window.ui:132
+#: src/app-window.ui:148
 msgid "_Rotate Crop"
 msgstr "Kethum tewar"
 
 #. Menu item to move the selected page to the left
-#: src/app-window.ui:144
+#: src/app-window.ui:161
 msgid "Move Left"
 msgstr "Ar-vi terek"
 
 #. Menu item to move the selected page to the right
-#: src/app-window.ui:152
+#: src/app-window.ui:170
 msgid "Move Right"
 msgstr "Ar-eh terek"
 
-#: src/app-window.ui:272
-msgid "Stop"
-msgstr "Pasang"
-
-#. Tooltip for stop button
-#: src/app-window.ui:274
-msgid "Stop the current scan"
-msgstr "Scam bom pasang noi"
-
-#. Label on scan toolbar item
-#: src/app-window.ui:285
-msgid "Scan"
-msgstr "Scan"
-
-#. Tooltip for scan toolbar button
-#: src/app-window.ui:288
-msgid "Scan a single page from the scanner"
-msgstr ""
-
-#. Tooltip for save toolbar button
-#: src/app-window.ui:352
-msgid "Save document to a file"
-msgstr ""
-
-#: src/app-window.ui:405
+#: src/app-window.ui:252
 msgid "_Single Page"
 msgstr "Page I_si"
 
-#: src/app-window.ui:436
+#: src/app-window.ui:303
 msgid "All Pages From _Feeder"
 msgstr "_Feeder long kado-kawe page"
 
-#: src/app-window.ui:467
+#: src/app-window.ui:354
 msgid "_Multiple Pages From Flatbed"
 msgstr "Flatbed long pen kado-kado page"
 
-#: src/app-window.ui:498
+#: src/app-window.ui:405
 msgid "_Text"
 msgstr "Amek-akhor"
 
-#: src/app-window.ui:529
+#: src/app-window.ui:456
 msgid "_Image"
 msgstr "Arjan"
 
-#: src/app-window.vala:225 src/app-window.vala:1389
+#: src/app-window.ui:476
+msgid "_Preferences"
+msgstr ""
+
+#. Tooltip for stop button
+#: src/app-window.ui:516
+msgid "Stop the current scan"
+msgstr "Scam bom pasang noi"
+
+#: src/app-window.ui:540
+msgid "S_top"
+msgstr ""
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:569
+msgid "Scan a single page from the scanner"
+msgstr ""
+
+#: src/app-window.ui:594
+msgid "_Scan"
+msgstr "_Scan"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:696
+msgid "Save document to a file"
+msgstr ""
+
+#: src/app-window.vala:220 src/app-window.vala:1562
 msgid "_Close"
 msgstr ""
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:234
+#: src/app-window.vala:229
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr ""
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:250
+#: src/app-window.vala:245
 msgid "Searching for Scanners…"
 msgstr "Scanner ri bomlo…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:256
+#: src/app-window.vala:252
 msgid "Ready to Scan"
 msgstr "Scan phan chesik ding lo"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:263
+#: src/app-window.vala:260
 msgid "Additional software needed"
 msgstr ""
 
 #. Instructions to install driver software
-#: src/app-window.vala:265
+#: src/app-window.vala:262
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
 msgstr ""
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:271
+#: src/app-window.vala:269
 msgid "No scanners detected"
 msgstr "Scanners thek longle"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:273
+#: src/app-window.vala:271
 msgid "Please check your scanner is connected and powered on"
 msgstr ""
 
+#. Contents of dialog that shows if autosaved book should be loaded.
+#: src/app-window.vala:373
+msgid "An autosaved book exists. Do you want to open it?"
+msgstr ""
+
 #. Save dialog: Dialog title
-#: src/app-window.vala:296
+#: src/app-window.vala:447
 msgid "Save As…"
 msgstr ""
 
-#: src/app-window.vala:299 src/app-window.vala:553
+#: src/app-window.vala:450 src/app-window.vala:704
 msgid "_Save"
 msgstr ""
 
-#: src/app-window.vala:300 src/app-window.vala:468 src/app-window.vala:552
+#: src/app-window.vala:451 src/app-window.vala:619 src/app-window.vala:703
 msgid "_Cancel"
 msgstr "_Cancel"
 
 #. Default filename to use when saving document
-#: src/app-window.vala:307
+#: src/app-window.vala:458
 msgid "Scanned Document.pdf"
 msgstr "Scan-tang-document.pdf"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:313
+#: src/app-window.vala:464
 msgid "Image Files"
 msgstr "Arjan Files"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:323
+#: src/app-window.vala:474
 msgid "All Files"
 msgstr ""
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:332
+#: src/app-window.vala:483
 msgid "PDF (multi-page document)"
 msgstr "PDF (multi-page document)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:338
+#: src/app-window.vala:489
 msgid "JPEG (compressed)"
 msgstr "JPEG (compressed)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:344
+#: src/app-window.vala:495
 msgid "PNG (lossless)"
 msgstr "PNG (lossless)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:351
+#: src/app-window.vala:502
 msgid "WebP (compressed)"
 msgstr "WebP (compressed)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:361
+#: src/app-window.vala:512
 msgid "File format:"
 msgstr "File format:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:373
+#: src/app-window.vala:524
 msgid "Compression:"
 msgstr ""
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:467
+#: src/app-window.vala:618
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr ""
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:470
+#: src/app-window.vala:621
 msgid "_Replace"
 msgstr ""
 
-#: src/app-window.vala:509
+#: src/app-window.vala:660
 msgid "Saving"
 msgstr ""
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:526
+#: src/app-window.vala:677
 msgid "Failed to save file"
 msgstr "File save un-eh"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:550
+#: src/app-window.vala:701
 msgid "If you don’t save, changes will be permanently lost."
 msgstr ""
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:586
+#: src/app-window.vala:737
 msgid "Save current document?"
 msgstr ""
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:588
+#: src/app-window.vala:739
 msgid "Discard Changes"
 msgstr ""
 
 #. Label shown when scan started
-#: src/app-window.vala:620
+#: src/app-window.vala:771
 msgid "Contacting scanner…"
 msgstr ""
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:836
+#: src/app-window.vala:1009
 msgid "Unable to save image for preview"
 msgstr ""
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:848
+#: src/app-window.vala:1021
 msgid "Unable to open image preview application"
 msgstr ""
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1010
+#: src/app-window.vala:1183
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr ""
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1033
+#: src/app-window.vala:1206
 msgid "Combine sides"
 msgstr ""
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1043
+#: src/app-window.vala:1216
 msgid "Combine sides (reverse)"
 msgstr ""
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1053
+#: src/app-window.vala:1226
 msgid "Reverse"
 msgstr "Pacherui"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1063
+#: src/app-window.vala:1236
 msgid "Keep unchanged"
 msgstr ""
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1277
+#: src/app-window.vala:1450
 msgid "Unable to open help file"
 msgstr ""
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1292
+#: src/app-window.vala:1465
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -469,36 +480,36 @@ msgid ""
 msgstr ""
 
 #. Title of about dialog
-#: src/app-window.vala:1295 src/app-window.vala:1581
+#: src/app-window.vala:1468 src/app-window.vala:1756
 msgid "About Document Scanner"
 msgstr "Document Scanner _Aputhak"
 
 #. Description of program
-#: src/app-window.vala:1298
+#: src/app-window.vala:1471
 msgid "Simple document scanning tool"
 msgstr "Joike pen document scan ason"
 
-#: src/app-window.vala:1307
+#: src/app-window.vala:1480
 msgid "translator-credits"
 msgstr "Jor Teron <jor.teron@gmail.com>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1323
+#: src/app-window.vala:1496
 msgid "Save document before quitting?"
 msgstr ""
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1325
+#: src/app-window.vala:1498
 msgid "Quit without Saving"
 msgstr ""
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1366
+#: src/app-window.vala:1539
 msgid "You appear to have a Brother scanner."
 msgstr "Nangli scanner amen Brother ason."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1368
+#: src/app-window.vala:1541
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -507,12 +518,12 @@ msgstr ""
 "website</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1372
+#: src/app-window.vala:1545
 msgid "You appear to have a Samsung scanner."
 msgstr "Nangli scanner amen Samsung ason."
 
 #. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1374
+#: src/app-window.vala:1547
 msgid ""
 "Drivers for this are available on the <a href=\"http://samsung.com/support"
 "\">Samsung website</a>."
@@ -521,17 +532,17 @@ msgstr ""
 "website</a>."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1378
+#: src/app-window.vala:1551
 msgid "You appear to have an HP scanner."
 msgstr "Nangli scanner amen HP ason."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1383
+#: src/app-window.vala:1556
 msgid "You appear to have an Epson scanner."
 msgstr "Nangli scanner amen Epson ason."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1385
+#: src/app-window.vala:1558
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -540,95 +551,99 @@ msgstr ""
 "a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1389
+#: src/app-window.vala:1562
 msgid "Install drivers"
 msgstr "Drivers kethap"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1422
+#: src/app-window.vala:1595
 msgid "Once installed you will need to restart this app."
 msgstr "Thap det aphi laso app inghap-ingpu thu nangji."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1435
+#: src/app-window.vala:1608
 msgid "Installing drivers…"
 msgstr "Drivers kethap lo…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1443
+#: src/app-window.vala:1616
 msgid "Drivers installed successfully!"
 msgstr "Drivers thap chok pame lo!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1453
+#: src/app-window.vala:1626
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Drivers thap un-eh det (error code %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1459
+#: src/app-window.vala:1632
 msgid "Failed to install drivers."
 msgstr "Drivers thap un-eh det ."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1466
+#: src/app-window.vala:1639
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/app-window.vala:1574
+#: src/app-window.vala:1748
 msgid "Email"
 msgstr "Email kelo"
 
-#: src/app-window.vala:1575
+#: src/app-window.vala:1749
+msgid "Print"
+msgstr ""
+
+#: src/app-window.vala:1750
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr ""
 
 #. Title of preferences dialog
-#: src/app-window.vala:1578 src/preferences-dialog.ui:52
+#: src/app-window.vala:1751 src/preferences-dialog.ui:44
 msgid "Preferences"
 msgstr ""
 
-#: src/app-window.vala:1579
+#: src/app-window.vala:1754
 msgid "Keyboard Shortcuts"
 msgstr "Keyboard Shortcuts"
 
-#: src/app-window.vala:1580
+#: src/app-window.vala:1755
 msgid "Help"
 msgstr "Help"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1589
+#: src/app-window.vala:1764
 msgid "Start Again…"
 msgstr "Pangcheng thu…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1608
+#: src/app-window.vala:1783
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr ""
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1617
+#: src/app-window.vala:1792
 msgid "Rotate the page to the right (clockwise)"
 msgstr ""
 
 #. Tooltip for crop button
-#: src/app-window.vala:1629
+#: src/app-window.vala:1804
 msgid "Crop the selected page"
 msgstr ""
 
 #. Tooltip for delete button
-#: src/app-window.vala:1647
+#: src/app-window.vala:1822
 msgid "Delete the selected page"
 msgstr ""
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1791
+#: src/app-window.vala:1996
 msgid "Cancel"
 msgstr ""
 
@@ -737,168 +752,188 @@ msgctxt "shortcut window"
 msgid "Copy current page to clipboard"
 msgstr ""
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:80
-msgid "_Scanner"
-msgstr "_Scanner"
+#: src/help-overlay.ui:128
+msgctxt "shortcut window"
+msgid "General"
+msgstr ""
+
+#: src/help-overlay.ui:133
+msgctxt "shortcut window"
+msgid "Show help"
+msgstr ""
+
+#: src/help-overlay.ui:140
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Keyboard Shortcuts"
+
+#: src/help-overlay.ui:147
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr ""
 
 #. Label beside scan side combo box
-#: src/preferences-dialog.ui:108
-msgid "Scan Sides"
+#: src/preferences-dialog.ui:72
+msgid "Scan _Sides"
 msgstr ""
 
 #. Label beside page size combo box
-#: src/preferences-dialog.ui:124
-msgid "Page Size"
+#: src/preferences-dialog.ui:88
+msgid "_Page Size"
 msgstr ""
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:153
+#: src/preferences-dialog.ui:118
 msgid "Front"
 msgstr "Aphrang"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:163
+#: src/preferences-dialog.ui:128
 msgid "Back"
 msgstr "Aphi"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:173
+#: src/preferences-dialog.ui:138
 msgid "Both"
 msgstr "Hin-hin"
 
 #. Label beside page delay scale
-#: src/preferences-dialog.ui:200
-msgid "Delay"
+#: src/preferences-dialog.ui:165
+msgid "_Delay"
 msgstr ""
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:215
+#: src/preferences-dialog.ui:181
 msgid "Multiple pages from flatbed"
 msgstr ""
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:233
+#: src/preferences-dialog.ui:199
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:243
+#: src/preferences-dialog.ui:209
 msgid "5"
 msgstr "5"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:254
+#: src/preferences-dialog.ui:220
 msgid "7"
 msgstr "7"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:265
+#: src/preferences-dialog.ui:231
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:276
+#: src/preferences-dialog.ui:242
 msgid "15"
 msgstr "15"
 
 #. Label after page delay radio buttons
-#: src/preferences-dialog.ui:297
+#: src/preferences-dialog.ui:263
 msgid "Seconds"
 msgstr "Seconds"
 
 #. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:319
-msgid "Scanning"
-msgstr "Scan bom"
+#: src/preferences-dialog.ui:285
+msgid "_Scanning"
+msgstr "_Scan bom"
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:339
+#. Label beside scan resolution combo box
+#: src/preferences-dialog.ui:306
 msgid "_Text Resolution"
 msgstr "Amek apun"
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:354
-msgid "_Photo Resolution"
-msgstr "Arjan A_pun"
+#. Label beside scan resolution combo box
+#: src/preferences-dialog.ui:322
+msgid "_Image Resolution"
+msgstr "Amek apun"
 
 #. Label beside brightness scale
-#: src/preferences-dialog.ui:398
-msgid "Brightness"
+#: src/preferences-dialog.ui:367
+msgid "_Brightness"
 msgstr "Atur"
 
 #. Label beside contrast scale
-#: src/preferences-dialog.ui:413
-msgid "Contrast"
-msgstr ""
+#: src/preferences-dialog.ui:383
+msgid "_Contrast"
+msgstr "_Contrast"
 
 #. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:461
-msgid "Quality"
+#: src/preferences-dialog.ui:432
+msgid "_Quality"
 msgstr "Angkrin (Quality)"
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:72
+#: src/preferences-dialog.vala:65
 msgid "Automatic"
 msgstr ""
 
-#: src/preferences-dialog.vala:113
+#: src/preferences-dialog.vala:102
 msgid "Darker"
 msgstr "Ik-su"
 
-#: src/preferences-dialog.vala:115
+#: src/preferences-dialog.vala:104
 msgid "Lighter"
 msgstr "The-ang dung"
 
-#: src/preferences-dialog.vala:123
+#: src/preferences-dialog.vala:112
 msgid "Less"
 msgstr "Sapso"
 
-#: src/preferences-dialog.vala:125
+#: src/preferences-dialog.vala:114
 msgid "More"
 msgstr "Keong"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:437
+#: src/preferences-dialog.vala:285
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (default)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:440
+#: src/preferences-dialog.vala:288
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (draft)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:443
+#: src/preferences-dialog.vala:291
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (high resolution)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:446
+#: src/preferences-dialog.vala:294
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:844
+#: src/scanner.vala:866
 msgid "No scanners available.  Please connect a scanner."
 msgstr ""
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:874
+#: src/scanner.vala:896
 msgid "Unable to connect to scanner"
 msgstr ""
 
+#. Error displayed when no documents at the start of scanning
+#: src/scanner.vala:1300
+msgid "Document feeder empty"
+msgstr ""
+
 #. Error display when unable to start scan
-#: src/scanner.vala:1251
+#: src/scanner.vala:1307
 msgid "Unable to start scan"
 msgstr "Scan pangcheng un-eh"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1264 src/scanner.vala:1371
+#: src/scanner.vala:1320 src/scanner.vala:1427
 msgid "Error communicating with scanner"
 msgstr ""
 
@@ -936,6 +971,15 @@ msgstr ""
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
+
+#~ msgid "Stop"
+#~ msgstr "Pasang"
+
+#~ msgid "_Scanner"
+#~ msgstr "_Scanner"
+
+#~ msgid "_Photo Resolution"
+#~ msgstr "Arjan A_pun"
 
 #~ msgid "Simple Scan"
 #~ msgstr "Simple Scan"
