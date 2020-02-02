@@ -23,6 +23,12 @@ public class AppWindow : Gtk.ApplicationWindow
         { "scan_adf", scan_adf_cb },
         { "scan_batch", scan_batch_cb },
         { "scan_stop", scan_stop_cb },
+        { "rotate_left", rotate_left_cb },
+        { "rotate_right", rotate_right_cb },
+        { "move_left", move_left_cb },
+        { "move_right", move_right_cb },
+        { "copy_page", copy_page_cb },
+        { "delete_page", delete_page_cb },
         { "reorder", reorder_document_cb },
         { "save", save_document_activate_cb },
         { "email", email_document_cb },
@@ -799,6 +805,36 @@ public class AppWindow : Gtk.ApplicationWindow
         stop_scan ();
     }
 
+    private void rotate_left_cb ()
+    {
+        rotate_left_button_clicked_cb ();
+    }
+
+    private void rotate_right_cb ()
+    {
+        rotate_right_button_clicked_cb ();
+    }
+
+    private void move_left_cb ()
+    {
+        page_move_left_menuitem_activate_cb ();
+    }
+
+    private void move_right_cb ()
+    {
+        page_move_right_menuitem_activate_cb ();
+    }
+
+    private void copy_page_cb ()
+    {
+        copy_to_clipboard_button_clicked_cb ();
+    }
+
+    private void delete_page_cb ()
+    {
+        page_delete_menuitem_activate_cb ();
+    }
+
     private void set_scan_type (ScanType scan_type)
     {
         this.scan_type = scan_type;
@@ -1029,7 +1065,7 @@ public class AppWindow : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private void rotate_left_button_clicked_cb (Gtk.Widget widget)
+    private void rotate_left_button_clicked_cb ()
     {
         if (updating_page_menu)
             return;
@@ -1039,7 +1075,7 @@ public class AppWindow : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private void rotate_right_button_clicked_cb (Gtk.Widget widget)
+    private void rotate_right_button_clicked_cb ()
     {
         if (updating_page_menu)
             return;
@@ -1141,7 +1177,7 @@ public class AppWindow : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private void crop_rotate_menuitem_activate_cb (Gtk.Widget widget)
+    private void crop_rotate_menuitem_activate_cb ()
     {
         var page = book_view.selected_page;
         if (page == null)
@@ -1150,7 +1186,7 @@ public class AppWindow : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private void page_move_left_menuitem_activate_cb (Gtk.Widget widget)
+    private void page_move_left_menuitem_activate_cb ()
     {
         var page = book_view.selected_page;
         var index = book.get_page_index (page);
@@ -1159,7 +1195,7 @@ public class AppWindow : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private void page_move_right_menuitem_activate_cb (Gtk.Widget widget)
+    private void page_move_right_menuitem_activate_cb ()
     {
         var page = book_view.selected_page;
         var index = book.get_page_index (page);
@@ -1168,7 +1204,7 @@ public class AppWindow : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private void page_delete_menuitem_activate_cb (Gtk.Widget widget)
+    private void page_delete_menuitem_activate_cb ()
     {
         book_view.book.delete_page (book_view.selected_page);
     }
@@ -1352,7 +1388,7 @@ public class AppWindow : Gtk.ApplicationWindow
     }
 
     [GtkCallback]
-    private void copy_to_clipboard_button_clicked_cb (Gtk.Widget widget)
+    private void copy_to_clipboard_button_clicked_cb ()
     {
         var page = book_view.selected_page;
         if (page != null)
@@ -1735,6 +1771,12 @@ public class AppWindow : Gtk.ApplicationWindow
         app.set_accels_for_action ("app.scan_adf", { "<Ctrl>F" });
         app.set_accels_for_action ("app.scan_batch", { "<Ctrl>M" });
         app.set_accels_for_action ("app.scan_stop", { "Escape" });
+        app.set_accels_for_action ("app.rotate_left", { "bracketleft" });
+        app.set_accels_for_action ("app.rotate_right", { "bracketright" });
+        app.set_accels_for_action ("app.move_left", { "less" });
+        app.set_accels_for_action ("app.move_right", { "greater" });
+        app.set_accels_for_action ("app.copy_page", { "<Ctrl>C" });
+        app.set_accels_for_action ("app.delete_page", { "Delete" });
         app.set_accels_for_action ("app.save", { "<Ctrl>S" });
         app.set_accels_for_action ("app.email", { "<Ctrl>E" });
         app.set_accels_for_action ("app.print", { "<Ctrl>P" });
