@@ -1,0 +1,142 @@
+[+0.00s] DEBUG: simple-scan.vala:638: Starting simple-scan 3.34.2, PID=3795008
+[+0.01s] DEBUG: _g_io_module_get_default: Found default implementation dconf (DConfSettingsBackend) for ‘gsettings-backend’
+[+0.04s] DEBUG: app-window.vala:1670: Restoring window to 656x400 pixels
+[+0.04s] DEBUG: autosave-manager.vala:64: Loading autosave information
+[+0.04s] DEBUG: autosave-manager.vala:259: Waiting to autosave...
+[sanei_debug] Setting debug level of dll to 255.
+[dll] add_backend: adding backend `imagescan'
+[dll] add_backend: adding backend `net'
+[+0.08s] DEBUG: scanner.vala:1485: sane_init () -> SANE_STATUS_GOOD
+[+0.08s] DEBUG: scanner.vala:1491: SANE version 1.0.28
+[+0.08s] DEBUG: scanner.vala:1552: Requesting redetection of scan devices
+[+0.08s] DEBUG: scanner.vala:806: Processing request
+[dll] load: searching backend `net' in `/usr/lib64/sane'
+[dll] load: trying to load `/usr/lib64/sane/libsane-net.so.1'
+[dll] load: dlopen()ing `/usr/lib64/sane/libsane-net.so.1'
+[dll] init: initializing backend `net'
+[dll] init: backend `net' is version 1.0.28
+[dll] load: searching backend `imagescan' in `/usr/lib64/sane'
+[dll] load: trying to load `/usr/lib64/sane/libsane-imagescan.so.1'
+[dll] load: dlopen()ing `/usr/lib64/sane/libsane-imagescan.so.1'
+[dll] init: initializing backend `imagescan'
+[dll] init: backend `imagescan' is version 1.1.0
+[+0.14s] DEBUG: autosave-manager.vala:281: Autosaving book information
+[+0.20s] DEBUG: scanner.vala:341: sane_get_devices () -> SANE_STATUS_GOOD
+[+0.20s] DEBUG: scanner.vala:353: Device: name="imagescan:esci:networkscan://192.168.151.137" vendor="Epson" model="ET-3760" type=""
+[+1.29s] DEBUG: simple-scan.vala:455: Requesting scan at 300 dpi from device 'imagescan:esci:networkscan://192.168.151.137'
+[+1.29s] DEBUG: scanner.vala:1600: Scanner.scan ("imagescan:esci:networkscan://192.168.151.137", dpi=300, scan_mode=ScanMode.COLOR, depth=8, type=ScanType.SINGLE, paper_width=0, paper_height=0, brightness=0, contrast=0, delay=3000ms)
+[+1.29s] DEBUG: scanner.vala:806: Processing request
+[+3.65s] DEBUG: scanner.vala:867: sane_open ("imagescan:esci:networkscan://192.168.151.137") -> SANE_STATUS_GOOD
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (0)
+[+3.65s] DEBUG: scanner.vala:738: Option 0: type=int size=4 cap=soft-detect,advanced
+[+3.65s] DEBUG: scanner.vala:741:   Description:
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (1)
+[+3.65s] DEBUG: scanner.vala:738: Option 1: name='device-02-general' title='General' type=group size=0 cap=inactive
+[+3.65s] DEBUG: scanner.vala:741:   Description: Basic options.
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (2)
+[+3.65s] DEBUG: scanner.vala:738: Option 2: name='source' title='Document Source' type=string size=15 values=["ADF", "Document Table"] cap=soft-select,soft-detect
+[+3.65s] DEBUG: scanner.vala:741:   Description: Document Source
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (3)
+[+3.65s] DEBUG: scanner.vala:738: Option 3: name='enable-resampling' title='Enable Resampling' type=bool size=4 cap=soft-detect,inactive,advanced
+[+3.65s] DEBUG: scanner.vala:741:   Description: This option provides the user with a wider range of supported resolutions.  Resolutions not supported by the hardware will be achieved through image processing methods.
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (4)
+[+3.65s] DEBUG: scanner.vala:738: Option 4: name='resolution' title='Resolution' type=int size=4 unit=dpi min=50, max=1200, quant=0 cap=soft-select,soft-detect
+[+3.65s] DEBUG: scanner.vala:741:   Description: Resolution
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (5)
+[+3.65s] DEBUG: scanner.vala:738: Option 5: name='resolution-bind' title='Bind X and Y resolutions' type=bool size=4 cap=soft-select,soft-detect,advanced
+[+3.65s] DEBUG: scanner.vala:741:   Description: Bind X and Y resolutions
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (6)
+[+3.65s] DEBUG: scanner.vala:738: Option 6: name='x-resolution' title='X Resolution' type=int size=4 unit=dpi min=50, max=1200, quant=0 cap=soft-detect,advanced
+[+3.65s] DEBUG: scanner.vala:741:   Description: X Resolution
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (7)
+[+3.65s] DEBUG: scanner.vala:738: Option 7: name='y-resolution' title='Y Resolution' type=int size=4 unit=dpi min=50, max=1200, quant=0 cap=soft-detect,advanced
+[+3.65s] DEBUG: scanner.vala:741:   Description: Y Resolution
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (8)
+[+3.65s] DEBUG: scanner.vala:738: Option 8: name='scan-area' title='Scan Area' type=string size=19 values=["Executive/Portrait", "ISO/A4/Portrait", "ISO/A5/Portrait", "ISO/A5/Landscape", "ISO/A6/Portrait", "ISO/A6/Landscape", "JIS/B5/Portrait", "JIS/B6/Portrait", "JIS/B6/Landscape", "Letter/Portrait", "Manual", "Maximum"] cap=soft-select,soft-detect
+[+3.65s] DEBUG: scanner.vala:741:   Description: Scan Area
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (9)
+[+3.65s] DEBUG: scanner.vala:738: Option 9: name='mode' title='Image Type' type=string size=11 values=["Monochrome", "Grayscale", "Color"] cap=soft-select,soft-detect,emulated
+[+3.65s] DEBUG: scanner.vala:741:   Description: Image Type
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (10)
+[+3.65s] DEBUG: scanner.vala:738: Option 10: name='device-03-geometry' title='Geometry' type=group size=0 cap=inactive
+[+3.65s] DEBUG: scanner.vala:741:   Description: Scan area and image size related options.
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (11)
+[+3.65s] DEBUG: scanner.vala:738: Option 11: name='br-x' title='Bottom Right X' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=0 cap=soft-select,soft-detect
+[+3.65s] DEBUG: scanner.vala:741:   Description: Bottom Right X
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (12)
+[+3.65s] DEBUG: scanner.vala:738: Option 12: name='br-y' title='Bottom Right Y' type=fixed size=4 unit=mm min=0.000000, max=297.179993, quant=0 cap=soft-select,soft-detect
+[+3.65s] DEBUG: scanner.vala:741:   Description: Bottom Right Y
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (13)
+[+3.65s] DEBUG: scanner.vala:738: Option 13: name='tl-x' title='Top Left X' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=0 cap=soft-select,soft-detect
+[+3.65s] DEBUG: scanner.vala:741:   Description: Top Left X
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (14)
+[+3.65s] DEBUG: scanner.vala:738: Option 14: name='tl-y' title='Top Left Y' type=fixed size=4 unit=mm min=0.000000, max=297.179993, quant=0 cap=soft-select,soft-detect
+[+3.65s] DEBUG: scanner.vala:741:   Description: Top Left Y
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (15)
+[+3.65s] DEBUG: scanner.vala:738: Option 15: name='device-04-enhancement' title='Enhancement' type=group size=0 cap=inactive
+[+3.65s] DEBUG: scanner.vala:741:   Description: Image modification options.
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (16)
+[+3.65s] DEBUG: scanner.vala:738: Option 16: name='rotate' title='Rotate' type=string size=12 values=["0 degrees", "90 degrees", "180 degrees", "270 degrees", "Auto"] cap=soft-select,soft-detect,emulated
+[+3.65s] DEBUG: scanner.vala:741:   Description: Rotate
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (17)
+[+3.65s] DEBUG: scanner.vala:738: Option 17: name='blank-threshold' title='Skip Blank Pages Settings' type=fixed size=4 min=0.000000, max=100.000000, quant=0 cap=soft-select,soft-detect,emulated
+[+3.65s] DEBUG: scanner.vala:741:   Description: Skip Blank Pages Settings
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (18)
+[+3.65s] DEBUG: scanner.vala:738: Option 18: name='brightness' title='Brightness' type=int size=4 min=-100, max=100, quant=0 cap=soft-select,soft-detect,emulated
+[+3.65s] DEBUG: scanner.vala:741:   Description: Change brightness of the acquired image.
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (19)
+[+3.65s] DEBUG: scanner.vala:738: Option 19: name='contrast' title='Contrast' type=int size=4 min=-100, max=100, quant=0 cap=soft-select,soft-detect,emulated
+[+3.65s] DEBUG: scanner.vala:741:   Description: Change contrast of the acquired image.
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (20)
+[+3.65s] DEBUG: scanner.vala:738: Option 20: name='threshold' title='Threshold' type=int size=4 min=0, max=255, quant=0 cap=soft-select,soft-detect,emulated
+[+3.65s] DEBUG: scanner.vala:741:   Description: Threshold
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (21)
+[+3.65s] DEBUG: scanner.vala:738: Option 21: name='device--' title='Other' type=group size=0 cap=inactive
+[+3.65s] DEBUG: scanner.vala:741:   Description:
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (22)
+[+3.65s] DEBUG: scanner.vala:738: Option 22: name='gamma' title='Gamma' type=string size=4 values=["1.0", "1.8"] cap=soft-select,soft-detect,advanced
+[+3.65s] DEBUG: scanner.vala:741:   Description: Gamma
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (23)
+[+3.65s] DEBUG: scanner.vala:738: Option 23: name='image-count' title='Image Count' type=int size=4 min=0, max=999, quant=0 cap=soft-select,soft-detect,inactive,advanced
+[+3.65s] DEBUG: scanner.vala:741:   Description: Image Count
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (24)
+[+3.65s] DEBUG: scanner.vala:738: Option 24: name='jpeg-quality' title='JPEG Quality' type=int size=4 min=1, max=100, quant=0 cap=soft-select,soft-detect,advanced
+[+3.65s] DEBUG: scanner.vala:741:   Description: JPEG Quality
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (25)
+[+3.65s] DEBUG: scanner.vala:738: Option 25: name='transfer-format' title='Transfer Format' type=string size=5 values=["JPEG", "RAW"] cap=soft-select,soft-detect
+[+3.65s] DEBUG: scanner.vala:741:   Description: Selecting a compressed format such as JPEG normally results in faster device side processing.
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (26)
+[+3.65s] DEBUG: scanner.vala:738: Option 26: name='transfer-size' title='Transfer Size' type=int size=4 min=1, max=268435455, quant=0 cap=soft-select,soft-detect,advanced
+[+3.65s] DEBUG: scanner.vala:741:   Description: Transfer Size
+[+3.65s] DEBUG: scanner.vala:888: sane_get_option_descriptor (27)
+[+3.65s] WARNING: scanner.vala:954: Unable to set single page source, please file a bug
+[+3.65s] DEBUG: scanner.vala:549: sane_control_option (9, SANE_ACTION_SET_VALUE, "Color") -> (SANE_STATUS_GOOD, "Color")
+[+3.65s] DEBUG: scanner.vala:465: sane_control_option (4, SANE_ACTION_SET_VALUE, 300) -> (SANE_STATUS_GOOD, 300)
+[+3.65s] DEBUG: scanner.vala:533: sane_control_option (11, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+3.65s] DEBUG: scanner.vala:533: sane_control_option (12, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+8.11s] DEBUG: scanner.vala:1241: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+8.11s] DEBUG: scanner.vala:1258: sane_get_parameters () -> SANE_STATUS_GOOD
+[+8.11s] DEBUG: scanner.vala:1270: Parameters: format=SANE_FRAME_RGB last_frame=SANE_TRUE bytes_per_line=7647 pixels_per_line=2549 lines=3509 depth=8
+[+8.11s] DEBUG: simple-scan.vala:350: Page is 2549 pixels wide, 3509 pixels high, 8 bits per pixel
+[+8.12s] DEBUG: simple-scan.vala:284: Getting color profile for device imagescan:esci:networkscan://192.168.151.137
+[+8.12s] DEBUG: simple-scan.vala:304: Unable to find colord device imagescan:esci:networkscan://192.168.151.137: property match 'Serial'='sane:imagescan:esci:networkscan://192.168.151.137' does not exist
+[+82.83s] DEBUG: scanner.vala:1345: sane_read (7648) -> (SANE_STATUS_GOOD, 7648)
+[+82.83s] DEBUG: scanner.vala:1345: sane_read (15294) -> (SANE_STATUS_GOOD, 544)
+[+82.83s] DEBUG: scanner.vala:1345: sane_read (14750) -> (SANE_STATUS_GOOD, 8192)
+[+82.83s] DEBUG: scanner.vala:1345: sane_read (14205) -> (SANE_STATUS_GOOD, 8192)
+[+82.83s] DEBUG: scanner.vala:1345: sane_read (13660) -> (SANE_STATUS_GOOD, 8192)
+...
+[+82.92s] DEBUG: scanner.vala:1345: sane_read (13806) -> (SANE_STATUS_GOOD, 8192)
+[+82.92s] DEBUG: scanner.vala:1345: sane_read (13261) -> (SANE_STATUS_GOOD, 8192)
+[+82.92s] DEBUG: scanner.vala:1345: sane_read (12716) -> (SANE_STATUS_GOOD, 8192)
+[+82.92s] DEBUG: scanner.vala:1345: sane_read (12171) -> (SANE_STATUS_GOOD, 4523)
+[+82.92s] DEBUG: scanner.vala:1345: sane_read (15295) -> (SANE_STATUS_EOF, 0)
+[+82.92s] DEBUG: scanner.vala:1214: sane_cancel ()
+[+83.02s] DEBUG: autosave-manager.vala:281: Autosaving book information
+[+83.02s] DEBUG: autosave-manager.vala:298: Autosaving page page-0
+[+89.30s] DEBUG: autosave-manager.vala:195: Deleting autosave records
+[+89.32s] DEBUG: scanner.vala:1628: Stopping scan thread
+[+89.32s] DEBUG: scanner.vala:806: Processing request
+[+89.32s] DEBUG: scanner.vala:768: sane_cancel ()
+[+89.32s] DEBUG: scanner.vala:771: sane_close ()
+[+89.32s] DEBUG: scanner.vala:1639: sane_exit ()
