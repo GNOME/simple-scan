@@ -1094,22 +1094,6 @@ public class Scanner : Object
                     set_bool_option (handle, option, index, (job.type != ScanType.SINGLE) && (job.type != ScanType.BATCH), null);
             }
 
-            /* Disable compression, we will compress after scanning */
-            option = get_option_by_name (handle, "compression", out index);
-            if (option != null)
-            {
-                string[] disable_compression_names =
-                {
-                    Sane.I18N ("None"),
-                    Sane.I18N ("none"),
-                    "None",
-                    "none"
-                };
-
-                if (!set_constrained_string_option (handle, option, index, disable_compression_names, null))
-                    warning ("Unable to disable compression, please file a bug");
-            }
-
             /* Set resolution and bit depth */
             option = get_option_by_name (handle, Sane.NAME_SCAN_RESOLUTION, out index);
             if (option != null)
