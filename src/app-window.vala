@@ -1834,7 +1834,7 @@ public class AppWindow : Gtk.ApplicationWindow
         app.set_accels_for_action ("app.print", { "<Ctrl>P" });
         app.set_accels_for_action ("app.help", { "F1" });
         app.set_accels_for_action ("app.quit", { "<Ctrl>Q" });
-        app.set_accels_for_action ("win.show-help-overlay", { "<Ctrl>F1" });
+        app.set_accels_for_action ("win.show-help-overlay", { "<Ctrl>question" });
 
         var gear_menu = new Menu ();
         var section = new Menu ();
