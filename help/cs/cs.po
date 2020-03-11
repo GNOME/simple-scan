@@ -1,11 +1,11 @@
 #
-# Marek Černocký <marek@manet.cz>, 2017, 2019.
+# Marek Černocký <marek@manet.cz>, 2017, 2019, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
-"POT-Creation-Date: 2019-08-04 22:16+0000\n"
-"PO-Revision-Date: 2019-08-16 10:59+0200\n"
+"POT-Creation-Date: 2020-03-06 12:47+0000\n"
+"PO-Revision-Date: 2020-03-10 11:06+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -21,12 +21,12 @@ msgid "translator-credits"
 msgstr "Marek Černocký <marek@manet.cz>"
 
 #. (itstool) path: page/title
-#: C/adf.page:9
+#: C/adf.page:19
 msgid "Using an Automatic Document Feeder"
 msgstr "Používání automatického podavače"
 
 #. (itstool) path: page/p
-#: C/adf.page:11
+#: C/adf.page:21
 msgid ""
 "If your scanner features an Automatic Document Feeder (ADF) you can scan all "
 "the pages from the feeder via one of following methods:"
@@ -36,76 +36,85 @@ msgstr ""
 "následujících postupů:"
 
 #. (itstool) path: steps/title
-#: C/adf.page:16
+#: C/adf.page:26
 msgid "Use a Keyboard Shortcut"
 msgstr "Použití klávesové zkratky"
 
 #. (itstool) path: item/p
-#: C/adf.page:18
+#: C/adf.page:28
 msgid "Press <keyseq><key>Ctrl</key><key>F</key></keyseq>"
 msgstr "Zmáčkněte <keyseq><key>Ctrl</key><key>F</key></keyseq>"
 
 #. (itstool) path: steps/title
-#: C/adf.page:23 C/crop.page:27 C/rotate.page:28
-msgid "Use a Menu"
-msgstr "Použití nabídky"
+#: C/adf.page:33 C/crop.page:39 C/rotate.page:27
+msgid "Use the Toolbar"
+msgstr "Použití nástrojové lišty"
 
 #. (itstool) path: item/p
-#: C/adf.page:25
+#: C/adf.page:35 C/scanning.page:29
 msgid ""
-"Navigate to <guiseq><gui>Document</gui> <gui>Scan</gui><gui>All Pages From "
-"Feeder</gui></guiseq>."
-msgstr ""
-"Přejděte na <guiseq><gui>Dokument</gui><gui>Skenovat</gui><gui>Všechny "
-"stránky z podavače</gui></guiseq>."
-
-#. (itstool) path: steps/title
-#: C/adf.page:32
-msgid "Use the Toolbar Buttons"
-msgstr "Použití tlačítek z nástrojové lišty"
+"Click the arrow to the right of the <gui style=\"button\">Scan</gui> button."
+msgstr "Klikněte na šipku vedle tlačítka <gui style=\"button\">Skenovat</gui>."
 
 #. (itstool) path: item/p
-#: C/adf.page:34
-msgid "Click on the arrow to the right of the \"Scan\" button."
-msgstr "Klikněte na šipku vedle tlačítka <gui>Skenovat</gui>."
-
-#. (itstool) path: item/p
-#: C/adf.page:37
-msgid "Choose \"All Pages From Feeder\"."
-msgstr "Zvolte „Všechny stránky z podavače“."
+#: C/adf.page:38
+msgid "Select <gui style=\"button\">All Pages From Feeder</gui>."
+msgstr "Vyberte <gui style=\"button\">Všechny stránky z podavače</gui>."
 
 #. (itstool) path: item/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/adf.page:38 C/scanning.page:20
+#: C/adf.page:39 C/scanning.page:31
 msgctxt "_"
 msgid ""
 "external ref='figures/scan_toolbar.png' "
-"md5='4d351a0cdd40bebe78b82da62265f3bd'"
+"md5='22ed3eed519db31aa827728dbf3a867b'"
 msgstr ""
 "external ref='figures/scan_toolbar.png' "
-"md5='4d351a0cdd40bebe78b82da62265f3bd'"
+"md5='22ed3eed519db31aa827728dbf3a867b'"
 
-#. (itstool) path: note/p
-#: C/adf.page:44
+#. (itstool) path: page/p
+#: C/adf.page:43
 msgid ""
-"By default, both sides of a sheet will scan if your scanner has this "
-"capability. You can choose single side scanning from the "
-"<guiseq><gui>Document</gui><gui>Preferences</gui></guiseq> menu."
+"By default, both sides of a page will be scanned if your scanner has this "
+"capability. To scan only a single side:"
 msgstr ""
-"Standardně se při použití této funkce naskenují obě strany listu. Skenování "
-"jen jedné strany můžete navolit v nabídce <guiseq><gui>Dokument</"
-"gui><gui>Předvolby</gui></guiseq>."
+"Standardně se při použití této funkce naskenují obě strany listu, za "
+"předpokladu, že to skener umí. Když chcete naskenovat jen jednu stranu:"
 
-#. (itstool) path: note/media
+#. (itstool) path: item/p
+#: C/adf.page:49 C/brightness-contrast.page:28 C/dpi.page:28 C/scanner.page:26
+msgid ""
+"Press the menu button in the top-right corner of the window and select <gui "
+"style=\"menuitem\">Preferences</gui>."
+msgstr ""
+"Zmáčkněte tlačítko nabídky v pravém horním rohu okna a vyberte <gui style="
+"\"menuitem\">Předvolby</gui>."
+
+#. (itstool) path: item/p
+#: C/adf.page:53 C/scanner.page:30
+msgid "Select <gui style=\"tab\">Scanning</gui>."
+msgstr "Vyberte <gui style=\"tab\">Skenování</gui>."
+
+#. (itstool) path: item/p
+#: C/adf.page:56
+msgid "Change the <gui>Scan Sides</gui> value."
+msgstr "Změňte hodnotu <gui>Skenovat strany</gui>."
+
+#. (itstool) path: item/p
+#: C/adf.page:59 C/brightness-contrast.page:38 C/dpi.page:38 C/scanner.page:36
+msgid "Close the dialog."
+msgstr "Zavřete dialogové okno."
+
+#. (itstool) path: item/media
 #. (itstool) path: page/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/adf.page:48 C/dpi.page:16 C/scanner.page:14
+#: C/adf.page:60 C/scanner.page:41
 msgctxt "_"
 msgid ""
 "external ref='figures/preferences.png' md5='b1e0d97b547076f20a7d34b0dc4fba57'"
@@ -113,30 +122,38 @@ msgstr ""
 "external ref='figures/preferences.png' md5='b1e0d97b547076f20a7d34b0dc4fba57'"
 
 #. (itstool) path: page/title
-#: C/brightness-contrast.page:9
-msgid "Setting brightness and Contrast"
+#: C/brightness-contrast.page:19
+msgid "Setting Brightness and Contrast"
 msgstr "Nastavení jasu a kontrastu"
 
 #. (itstool) path: page/p
-#: C/brightness-contrast.page:11
+#: C/brightness-contrast.page:21
 msgid ""
 "Some scanners allow the user to adjust the brightness and contrast when "
 "scanning. If your scans come out too dark or too light you can adjust these "
-"settings from the <guiseq><gui>Document</gui><gui>Preferences</gui></guiseq> "
-"menu."
+"settings:"
 msgstr ""
 "Některé skenery umožňují během skenování přizpůsobit jas a kontrast. Pokud "
 "jsou naskenované stránky příliš tmavé nebo příliš světlé, můžete si upravit "
-"nastavení přes nabídku <guiseq><gui>Dokument</gui><gui>Předvolby</gui></"
-"guiseq>."
+"nastavení:"
+
+#. (itstool) path: item/p
+#: C/brightness-contrast.page:32 C/dpi.page:32
+msgid "Select <gui style=\"tab\">Quality</gui>."
+msgstr "Vyberte <gui style=\"tab\">Kvalita</gui>."
+
+#. (itstool) path: item/p
+#: C/brightness-contrast.page:35
+msgid "Drag the <gui>Brightness</gui> and/or <gui>Contrast</gui> sliders."
+msgstr "Posuňte táhla <gui>Jas</gui> a/nebo <gui>Kontrast</gui>."
 
 #. (itstool) path: page/title
-#: C/crop.page:9
+#: C/crop.page:19
 msgid "Cropping"
 msgstr "Ořezávání"
 
 #. (itstool) path: page/p
-#: C/crop.page:11
+#: C/crop.page:21
 msgid ""
 "The cropping feature allows you to use only a part of a scanned image. You "
 "can enable crop either before or after scanning a page, and you can always "
@@ -152,18 +169,22 @@ msgstr ""
 "a nastavit požadované rozměry můžete následujícími způsoby:"
 
 #. (itstool) path: steps/title
-#: C/crop.page:19
-msgid "Use a Right Click"
-msgstr "Použití pravého tlačítka"
+#: C/crop.page:29 C/rotate.page:32
+msgid "Use Right Click"
+msgstr "Použití pravého kliknutí"
 
 #. (itstool) path: item/p
-#: C/crop.page:20
-msgid "Right click anywhere on the image area and select \"Crop\"."
-msgstr ""
-"Klikněte pravým tlačítkem kdekoliv v oblasti obrázku a vyberte „Oříznout“."
+#: C/crop.page:30
+msgid "Right click anywhere on the page."
+msgstr "Klikněte pravým tlačítkem kdekoliv na stránce."
 
 #. (itstool) path: item/p
-#: C/crop.page:21
+#: C/crop.page:31
+msgid "Select <gui style=\"menuitem\">Crop</gui>."
+msgstr "Vyberte <gui style=\"menuitem\">Ořezat</gui>."
+
+#. (itstool) path: item/p
+#: C/crop.page:32
 msgid ""
 "Choose one of the fixed crop frames, or select \"Custom\" to manually set "
 "the crop frame's dimensions by dragging its borders."
@@ -172,38 +193,28 @@ msgstr ""
 "nastavte si jeho rozměry ručně tažením jeho okrajů."
 
 #. (itstool) path: item/p
-#: C/crop.page:23 C/crop.page:30
-msgid "Click and hold the frame, then move it to the desired position."
+#: C/crop.page:34 C/crop.page:43
+msgid "Click and hold the frame to move it to the desired position."
 msgstr ""
 "Klikněte na rám, zůstaňte tlačítko držet a přesuňte rám na požadované místo."
 
 #. (itstool) path: item/p
-#: C/crop.page:28
-msgid "Navigate to the <guiseq><gui>Page</gui><gui>Crop</gui></guiseq> menu."
+#: C/crop.page:35 C/crop.page:44
+msgid "Drag the borders of the frame to set the desired dimensions."
 msgstr ""
-"Přejděte do nabídky <guiseq><gui>Stránka</gui><gui>Oříznout</gui></guiseq>."
+"Přetáhněte okraje rámu tak, abyste dosáhli požadovaných rozměrů a umístění."
 
 #. (itstool) path: item/p
-#: C/crop.page:29
+#: C/crop.page:40
 msgid ""
-"Choose one of the fixed crop frames, or select \"Custom\" to manually adjust "
-"the frame's dimensions by dragging its borders."
-msgstr ""
-"Zvolte jeden z pevně daných ořezových rámů, nebo vyberte „Vlastní“ a "
-"přizpůsobte si jeho rozměry ručně tažením jeho okrajů."
-
-#. (itstool) path: steps/title
-#: C/crop.page:34
-msgid "Use the Toolbar"
-msgstr "Použití nástrojové lišty"
-
-#. (itstool) path: item/p
-#: C/crop.page:35
-msgid "Click the \"<gui>Crop</gui>\" button in the toolbar."
-msgstr "Klikněte na tlačítko <gui>Oříznout</gui> na nástrojové liště."
+"Press the <gui style=\"button\">Crop the selected page</gui> button in the "
+"toolbar."
+msgstr 
+"Zmáčkněte na nástrojové liště tlačítko <gui style=\"button\">Oříznout "
+"vybranou stránku</gui>."
 
 #. (itstool) path: note/p
-#: C/crop.page:36
+#: C/crop.page:41
 msgid ""
 "This is the same as choosing \"Custom\" in step 2 of the aforementioned "
 "methods."
@@ -211,168 +222,144 @@ msgstr ""
 "Je to to stejné, jako když u shora zmíněných metod zvolíte v kroku 2 "
 "„Vlastní“."
 
-#. (itstool) path: item/p
-#: C/crop.page:38
-msgid ""
-"Drag the borders of the frame to set the desired dimensions and position."
-msgstr ""
-"Přetáhněte okraje rámu tak, abyste dosáhli požadovaných rozměrů a umístění."
-
 #. (itstool) path: note/p
-#: C/crop.page:42
+#: C/crop.page:47
 msgid "Each new scanned page will use the previous crop."
 msgstr "Nově naskenované stránky vždy použijí předchozí ořezání."
 
 #. (itstool) path: page/title
-#: C/dpi.page:9
+#: C/dpi.page:19
 msgid "Setting the Scan Resolution"
 msgstr "Nastavení rozlišení skeneru"
 
 #. (itstool) path: page/p
-#: C/dpi.page:11
+#: C/dpi.page:21
 msgid ""
 "The default resolution for document type <gui><em>Text</em></gui> is 150 dpi "
-"(dots per inch) and for document type <gui><em>Photo</em></gui> is 300 dpi. "
-"You can change these settings from the <guiseq><gui>Document</"
-"gui><gui>Preferences</gui></guiseq> menu."
+"(dots per inch) and for document type <gui><em>Image</em></gui> is 300 dpi. "
+"To change these settings:"
 msgstr ""
 "Výchozí rozlišení pro dokument typu <gui><em>Text</em></gui> je 150 dpi "
-"(bodů na palec) a pro dokument typu <gui><em>Fotografie</em></gui> 300 dpi. "
-"Toto nastavení můžete změnit přes nabídku <guiseq><gui>Dokument</"
-"gui><gui>Předvolby</gui></guiseq>."
+"(bodů na palec) a pro dokument typu <gui><em>Obrázek</em></gui> 300 dpi. "
+"Pokud chcete toto nastavení změnit:"
+
+#. (itstool) path: item/p
+#: C/dpi.page:35
+msgid ""
+"Change the <gui>Text Resolution</gui> or <gui>Image Resolution</gui> value."
+msgstr ""
+"Změňte hodnotu <gui>Rozlišení textu</gui> a/nebo <gui>Rozlišení obrázku</gui>."
 
 #. (itstool) path: page/p
-#: C/dpi.page:18
+#: C/dpi.page:42
 msgid ""
-"The available scanning resolutions for both document types (Text and Photo) "
+"The available scanning resolutions for both document types (Text and Image) "
 "are the same and are listed in the following table:"
 msgstr ""
-"Dostupná rozlišení skenování pro oba typy dokumentů (text a fotografie) jsou "
+"Dostupná rozlišení skenování pro oba typy dokumentů (texty a obrázky) jsou "
 "stejná a jsou uvedená v následující tabulce:"
 
 #. (itstool) path: td/p
-#: C/dpi.page:23
+#: C/dpi.page:47
 msgid "<em>Text Resolution</em>"
 msgstr "<em>Rozlišení textu</em>"
 
 #. (itstool) path: td/p
-#: C/dpi.page:24
-msgid "<em>Photo Resolution</em>"
-msgstr "<em>Rozlišení fotografie</em>"
+#: C/dpi.page:48
+msgid "<em>Image Resolution</em>"
+msgstr "<em>Rozlišení obrázku</em>"
 
 #. (itstool) path: td/p
-#: C/dpi.page:27 C/dpi.page:28
+#: C/dpi.page:51 C/dpi.page:52
 msgid "75 dpi (draft)"
 msgstr "75 dpi (náčrt)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:31
+#: C/dpi.page:55
 msgid "150 dpi (default)"
 msgstr "150 dpi (výchozí)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:32
+#: C/dpi.page:56
 msgid "150 dpi"
 msgstr "150 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:35
+#: C/dpi.page:59
 msgid "300 dpi"
 msgstr "300 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:36
+#: C/dpi.page:60
 msgid "300 dpi (default)"
 msgstr "300 dpi (výchozí)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:39 C/dpi.page:40
+#: C/dpi.page:63 C/dpi.page:64
 msgid "600 dpi"
 msgstr "600 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:43 C/dpi.page:44
+#: C/dpi.page:67 C/dpi.page:68
 msgid "1200 dpi (high resolution)"
 msgstr "1200 dpi (vysoké rozlišení)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:47 C/dpi.page:48
+#: C/dpi.page:71 C/dpi.page:72
 msgid "2400 dpi"
 msgstr "2400 dpi"
 
 #. (itstool) path: note/p
-#: C/dpi.page:52
+#: C/dpi.page:76
 msgid ""
 "<gui><em>Text</em></gui> documents are always scanned in black and white, "
-"while <gui><em>Photo</em></gui> documents are always scanned in color, at "
+"while <gui><em>Image</em></gui> documents are always scanned in color, at "
 "any resolution!"
 msgstr ""
 "Dokumenty typu <gui><em>Text</em></gui> jsou vždy skenované v odstínech "
-"šedé, zatímco dokumenty typu <gui><em>Fotografie</em></gui> jsou vždy "
+"šedé, zatímco dokumenty typu <gui><em>Obrázek</em></gui> jsou vždy "
 "skenované v barvách. To platí pro kterékoliv rozlišení."
 
 #. (itstool) path: page/title
-#: C/email.page:9
+#: C/email.page:19
 msgid "Sending via Email"
 msgstr "Odeslání přes e-mail"
 
 #. (itstool) path: page/p
-#: C/email.page:11
+#: C/email.page:21
 msgid ""
-"To email the current document use the <guiseq><gui>Document</gui><gui>Email</"
-"gui></guiseq> menu (<keyseq><key>Ctrl</key><key>E</key></keyseq>). Your "
-"email program will be opened with a new message containing the scanned "
-"document as an attachment."
+"To email the current document, press the menu button in the top-right corner "
+"of the window and select <gui style=\"menuitem\">Email</gui>. Alternatively, "
+"press <keyseq><key>Ctrl</key><key>E</key></keyseq>. Your email program will "
+"be opened with a new message containing the scanned document as an "
+"attachment."
 msgstr ""
-"Pro odeslání aktuálního dokumentu e-mailem použijte nabídku "
-"<guiseq><gui>Dokument</gui><gui>E-mail</gui></guiseq> (<keyseq><key>Ctrl</"
-"key><key>E</key></keyseq>). Otevře se poštovní program s novou zprávou, "
-"která bude obsahovat naskenovaný dokument jako přílohu."
+"Pro odeslání aktuálního dokumentu e-mailem zmáčkněte tlačítko nabídky v "
+"pravém horním rohu okna a vyberte <gui style=\"menuitem\">E-mail</gui>. "
+"Případně zmáčkněte kombinaci kláves <keyseq><key>Ctrl</key><key>E</key>"
+"</keyseq>. Otevře se poštovní program s novou zprávou, která bude obsahovat "
+"naskenovaný dokument jako přílohu."
 
 #. (itstool) path: page/p
-#: C/email.page:16
+#: C/email.page:27
 msgid ""
 "If the document type was set to \"Text\" the email will have a PDF "
-"attachment for each page. Conversely, if the document type was set to \"Photo"
+"attachment for each page. Conversely, if the document type was set to \"Image"
 "\", the email will have a JPEG attachment for each page."
 msgstr ""
 "Pokud byl typ dokumentu nastaven na „Text“, bude mít e-mail jednu přílohu "
 "PDF pro všechny stránky. Naopak, pokud byl typ dokumentu nastaven na "
-"„Fotografie“, bude mít e-mail jednotlivé přílohy JPEG pro každou ze stránek."
+"„Obrázek“, bude mít e-mail jednotlivé přílohy JPEG pro každou ze stránek."
 
 #. (itstool) path: page/p
-#: C/email.page:21
+#: C/email.page:32
 msgid "See <link xref=\"save\"/> for more information about file formats."
 msgstr "Více o souborových formátech viz <link xref=\"save\"/>."
 
-#. (itstool) path: credit/name
-#: C/index.page:7
-msgid "Robert Ancell"
-msgstr "Robert Ancell"
-
-#. (itstool) path: credit/name
-#: C/index.page:11
-msgid "Ali Shtarbanov"
-msgstr "Ali Shtarbanov"
-
-#. (itstool) path: title/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/index.page:17
-msgctxt "_"
-msgid "external ref='figures/icon.svg' md5='e0fbd536ef08711877b65373c0e0173a'"
-msgstr "external ref='figures/icon.svg' md5='e0fbd536ef08711877b65373c0e0173a'"
-
 #. (itstool) path: page/title
 #: C/index.page:17
-msgid ""
-"<media type=\"image\" src=\"figures/icon.svg\" height=\"32px\"/>Document "
-"Scanner Manual"
-msgstr ""
-"<media type=\"image\" src=\"figures/icon.png\"/> Příručka ke Skenování "
-"dokumentů"
+msgid "<_:media-1/>Document Scanner Manual"
+msgstr "<_:media-1/>Příručka ke skenování dokumentů"
 
 #. (itstool) path: section/title
 #: C/index.page:20
@@ -411,12 +398,12 @@ msgstr ""
 "podmínek, které si sami zvolíte, bez dalších omezení."
 
 #. (itstool) path: page/title
-#: C/print.page:9
+#: C/print.page:19
 msgid "Printing"
 msgstr "Tisk"
 
 #. (itstool) path: page/p
-#: C/print.page:11
+#: C/print.page:21
 msgid ""
 "You are able to print a scanned document directly without having to save the "
 "document first. This is convenient for making copies of documents or photos."
@@ -425,37 +412,48 @@ msgstr ""
 "uložit. Díky tomu se vám budou snadno pořizovat kopie dokumentů a fotografií."
 
 #. (itstool) path: steps/title
-#: C/print.page:16
+#: C/print.page:26
 msgid "To Print a Document"
 msgstr "Když chcete vytisknout dokument"
 
 #. (itstool) path: item/p
-#: C/print.page:18
+#: C/print.page:28
 msgid ""
-"Go to the <guiseq><gui>Document</gui><gui>Print</gui> </guiseq> menu or use "
-"the keyboard shortcut <keyseq><key>Ctrl</key><key>P</key></keyseq>. This "
-"will open the \"Print\" dialog box."
+"Press the menu button in the top-right corner of the window and select <gui "
+"style=\"menuitem\">Print</gui>. Alternatively, press <keyseq><key>Ctrl</"
+"key><key>P</key></keyseq>."
 msgstr ""
-"Přejděte do nabídky <guiseq><gui>Dokument</gui><gui>Tisk</gui></guiseq> nebo "
-"použijte klávesovou zkratku <keyseq><key>Ctrl</key><key>P</key></keyseq>. "
-"Tím se otevře dialogové okno „Tisk“."
+"Zmáčkněte tlačítko nabídky v pravém horním rohu okna a vyberte <gui style="
+"\"menuitem\">Tisk</gui>. Případně zmáčkněte kombinaci kláves <keyseq><key>"
+"Ctrl</key><key>P</key></keyseq>."
 
 #. (itstool) path: item/p
-#: C/print.page:24
+#: C/print.page:34
 msgid ""
-"From the \"Print\" dialog box choose your desired printing settings and/or "
-"Print Preview the document, then press the \"Print\" button."
+"Choose your desired printing settings and/or preview the document, then "
+"press <gui style=\"button\">Print</gui>."
 msgstr ""
-"V dialogovém okně „Tisk“ vyberte požadované nastavení tisku, případně se "
-"podívejte na náhled tisku, a pak zmáčkněte tlačítko <gui>Tisk</gui>."
+"Vyberte požadované nastavení tisku, případně se podívejte na náhled tisku, a "
+"pak zmáčkněte tlačítko <gui style=\"button\">Tisk</gui>."
+
+#. (itstool) path: note/p
+#: C/print.page:37
+msgid ""
+"See <link xref=\"help:gnome-help/printing\" href=\"https://help.gnome.org/"
+"users/gnome-help/stable/printing\">the desktop help</link> for general "
+"information on printing."
+msgstr ""
+"Obecné informace o tisku viz <link xref=\"help:gnome-help/printing\" href=\""
+"https://help.gnome.org/users/gnome-help/stable/printing\">the desktop help"
+"</link>"
 
 #. (itstool) path: page/title
-#: C/quality.page:9
+#: C/quality.page:18
 msgid "Setting the Image Quality"
 msgstr "Nastavení kvality obrázku"
 
 #. (itstool) path: page/p
-#: C/quality.page:11
+#: C/quality.page:20
 msgid ""
 "You can adjust the image quality that is used when the scan is converted to "
 "a file by changing this setting in the save dialog. Using a low quality will "
@@ -474,38 +472,36 @@ msgstr ""
 "%C3%A1_komprese\">stránce Wikipedie o ztrátové komprimaci</link>."
 
 #. (itstool) path: page/title
-#: C/reorder.page:9
+#: C/reorder.page:19
 msgid "Reordering Pages"
 msgstr "Uspořádání stránek"
 
 #. (itstool) path: page/p
-#: C/reorder.page:11
+#: C/reorder.page:21
 msgid ""
-"To move a page, right click on it and choose <gui><em>Move Left</em></gui> "
-"or <gui><em>Move Right</em></gui>."
+"To move a page, right click on it and choose <gui style=\"menuitem\">Move "
+"Left</gui> or <gui style=\"menuitem\">Move Right</gui>."
 msgstr ""
-"Když chcete stránku přesunout, klikněte na ni pravým tlačítkem a zvolte "
-"<gui><em>Posunout doleva</em></gui> nebo <gui><em>Posunout doprava</em></"
-"gui>."
+"Když chcete stránku přesunout, klikněte na ni pravým tlačítkem a zvolte <gui "
+"style=\"menuitem\"Posunout doleva</gui> nebo <gui style=\"menuitem\">Posunout "
+"doprava</gui>."
 
 #. (itstool) path: page/p
-#: C/reorder.page:16
+#: C/reorder.page:26
 msgid ""
-"Alternatively, you can move a page by first selecting it and then choosing "
-"<gui><em>Move Left</em></gui> or <gui><em>Move Right</em></gui> from the "
-"\"Page\" menu."
+"Alternatively, press the menu button in the top-right corner of the window "
+"and select <gui style=\"menuitem\">Reorder Pages</gui>."
 msgstr ""
-"Případně můžete stránku nejprve vybrat a pak v nabídce <gui>Stránka</gui> "
-"zvolit <gui><em>Posunout doprava</em></gui> nebo <gui><em>Posunout doleva</"
-"em></gui>."
+"Případně zmáčkněte tlačítko nabídky v pravém hornínm rohu okna a vyberte <gui "
+"style=\"menuitem\">Přeskupit stránky</gui>."
 
 #. (itstool) path: page/title
-#: C/rotate.page:9
+#: C/rotate.page:19
 msgid "Rotating a Page"
 msgstr "Otočení stránky"
 
 #. (itstool) path: page/p
-#: C/rotate.page:11
+#: C/rotate.page:21
 msgid ""
 "You can change the rotation of a page either before or after scanning the "
 "page. Currently, there are four ways to rotate a page:"
@@ -513,18 +509,13 @@ msgstr ""
 "Otočení stránky můžete změnit buď před jejím naskenováním, nebo až po něm. V "
 "současnosti existují čtyři způsoby, jak stránku otočit:"
 
-#. (itstool) path: steps/title
-#: C/rotate.page:17
-msgid "Use Toolbar Buttons"
-msgstr "Použití tlačítek na nástrojové liště"
-
 #. (itstool) path: item/p
-#: C/rotate.page:18 C/rotate.page:29 C/rotate.page:35
+#: C/rotate.page:28 C/rotate.page:40
 msgid "Select the page you want to rotate by clicking on it once."
 msgstr "Vyberte stránku, kterou chcete otočit tím, že na ni jednou kliknete."
 
 #. (itstool) path: item/p
-#: C/rotate.page:19
+#: C/rotate.page:29
 msgid ""
 "Press one of the arrows on the toolbar to rotate the page in the desired "
 "direction."
@@ -532,130 +523,126 @@ msgstr ""
 "Zmáčkněte jednu ze šipek na nástrojové liště pro otočení stránky ve směru "
 "šipky."
 
-#. (itstool) path: steps/title
-#: C/rotate.page:22
-msgid "Use Right Click"
-msgstr "Použití pravého kliknutí"
-
 #. (itstool) path: item/p
-#: C/rotate.page:23
+#: C/rotate.page:33
 msgid "Right click on the page you want to rotate."
 msgstr "Klikněte pravým tlačítkem na stránku, kterou chcete otočit."
 
 #. (itstool) path: item/p
-#: C/rotate.page:24
-msgid "From the context menu choose \"Rotate Left\" or \"Rotate Right\"."
-msgstr "V kontextové nabídce vyberte „Otočit doleva“ nebo „Otočit doprava“."
-
-#. (itstool) path: item/p
-#: C/rotate.page:30
-msgid "Click the \"Page\" menu and select \"Rotate Left\" or \"Rotate Right\"."
+#: C/rotate.page:34
+msgid ""
+"Select <gui style=\"menuitem\">Rotate Left</gui> or <gui style=\"menuitem"
+"\">Rotate Right</gui>."
 msgstr ""
-"Klikněte na nabídku „Stránka“ a vyberte „Otočit doleva“ nebo „Otočit "
-"doprava“."
+"Vyberte <gui style=\"menuitem\">Otočit doleva</gui> nebo <gui style=\"menuitem"
+"\">Otočit doprava</gui>."
 
 #. (itstool) path: steps/title
-#: C/rotate.page:34
+#: C/rotate.page:39
 msgid "Use Shortcuts"
 msgstr "Použití klávesových zkratek"
 
 #. (itstool) path: item/p
-#: C/rotate.page:36
+#: C/rotate.page:41
 msgid "Press one of the following shortcut keys:"
 msgstr "Zmáčkněte jednu z následujících klávesových zkratek:"
 
 #. (itstool) path: td/p
-#: C/rotate.page:39
+#: C/rotate.page:44
 msgid "<em>Command</em>"
 msgstr "<em>Příkaz</em>"
 
 #. (itstool) path: td/p
-#: C/rotate.page:40
+#: C/rotate.page:45
 msgid "<em>Shortcut Key</em>"
 msgstr "<em>Klávesová zkratka</em>"
 
 #. (itstool) path: td/p
-#: C/rotate.page:43
+#: C/rotate.page:48
 msgid "Rotate Left"
 msgstr "otočit doleva"
 
 #. (itstool) path: td/p
-#: C/rotate.page:44
+#: C/rotate.page:49
 msgid "<key>[</key> (left bracket)"
 msgstr "<key>[</key> (levá hranatá závorka)"
 
 #. (itstool) path: td/p
-#: C/rotate.page:47
+#: C/rotate.page:52
 msgid "Rotate Right"
 msgstr "otočit doprava"
 
 #. (itstool) path: td/p
-#: C/rotate.page:48
+#: C/rotate.page:53
 msgid "<key>]</key> (right bracket)"
 msgstr "<key>]</key> (pravá hranatá závorka)"
 
 #. (itstool) path: note/p
-#: C/rotate.page:54
+#: C/rotate.page:59
 msgid "Each new scanned page will use the previous rotation."
 msgstr "Nově naskenované stránky vždy použijí předchozí otočení."
 
 #. (itstool) path: page/title
-#: C/save.page:9
+#: C/save.page:19
 msgid "Saving to a File"
 msgstr "Uložení do souboru"
 
 #. (itstool) path: item/p
-#: C/save.page:13
-msgid ""
-"Navigate to the <guiseq><gui>Document</gui><gui>Save As</gui></guiseq> menu "
-"(or press <keyseq><key>Shift</key><key>Ctrl</key><key>S</key></keyseq>)."
-msgstr ""
-"Přejděte do nabídky <guiseq><gui>Dokument</gui><gui>Uložit jako</gui></"
-"guiseq> (nebo zmáčkněte <keyseq><key>Shift</key><key>Ctrl</key><key>S</key></"
-"keyseq>)."
-
-#. (itstool) path: item/p
-#: C/save.page:18
-msgid ""
-"From the \"Save As\" dialog box, choose one of the supported file types, or "
-"simply change the extension in the \"Name\" field."
-msgstr ""
-"V dialogovém okně vyberte jeden z podporovaných typů souborů, nebo jen "
-"změňte příponu v poli <gui>Název</gui>."
-
-#. (itstool) path: item/p
 #: C/save.page:23
-msgid "Press the \"Save\" button."
-msgstr "Zmáčkněte tlačítko <gui>Uložit</gui>."
+msgid ""
+"Press the <gui style=\"button\">Save document to a file</gui> button in the "
+"top bar of the window (or press <keyseq><key>Ctrl</key><key>S</key></"
+"keyseq>)."
+msgstr ""
+"Zmáčkněte na horní liště okna tlačítko <gui style=\"button\">Uložit dokument "
+"do souboru</gui> (nebo zmáčkněte kombinaci kláves <keyseq><key>Ctrl</key><key>"
+"S</key></keyseq>"
+
+"Klikněte na tlačítko „Skenovat“ na nástrojové liště (nebo zmáčkněte "
+"<keyseq><key>Ctrl</key><key>1</key></keyseq>)."
+
+#. (itstool) path: item/p
+#: C/save.page:28
+msgid ""
+"Choose one of the supported file types, or change the file extension in the "
+"<gui>Name</gui> field."
+msgstr ""
+"Vyberte jeden z podporovaných typů souborů, nebo jen změňte příponu v poli "
+"<gui>Název</gui>."
+
+#. (itstool) path: item/p
+#: C/save.page:33
+msgid "Press the <gui style=\"button\">Save</gui> button."
+msgstr "Zmáčkněte tlačítko <gui style=\"button\">Uložit</gui>."
 
 #. (itstool) path: table/title
-#: C/save.page:29
+#: C/save.page:39
 msgid "Supported File Types"
 msgstr "Podporované typy souborů"
 
 #. (itstool) path: td/p
-#: C/save.page:31
+#: C/save.page:41
 msgid "<em>Type</em>"
 msgstr "<em>Typ</em>"
 
 #. (itstool) path: td/p
-#: C/save.page:32
+#: C/save.page:42
 msgid "<em>Brief Description</em>"
 msgstr "<em>Stručný popis</em>"
 
 #. (itstool) path: td/p
-#: C/save.page:35
+#: C/save.page:45
 msgid "PDF"
 msgstr "PDF"
 
 #. (itstool) path: td/p
-#: C/save.page:36
+#: C/save.page:46
 msgid ""
 "A PDF can contain multiple pages, like a book, and is easy to distribute. "
 "Only a small number of linux programs can modify PDF documents, so this "
 "format is recommended primarily for archiving. The size of the PDF document "
 "is affected by the <link xref=\"quality\">image quality</link>. See the "
-"<link href=\"http://en.wikipedia.org/wiki/pdf\">PDF Wikipedia page</link> "
+"<link href=\"https://en.wikipedia.org/wiki/PDF\">PDF Wikipedia page</link> "
 "for more information."
 msgstr ""
 "PDF může obsahovat více stránek, podobně jako kniha, a jednoduše se tak "
@@ -666,12 +653,12 @@ msgstr ""
 "Portable_Document_Format\">stránce Wikipedie o formátu PDF</link>."
 
 #. (itstool) path: td/p
-#: C/save.page:43
+#: C/save.page:53
 msgid "JPEG"
 msgstr "JPEG"
 
 #. (itstool) path: td/p
-#: C/save.page:44
+#: C/save.page:54
 msgid ""
 "JPEG is the file format used by digital cameras to save pictures. A JPEG "
 "file is relatively small, very easy to distribute, and suitable for "
@@ -679,8 +666,8 @@ msgid ""
 "JPEG editor by default. If you have scanned multiple pages, a JPEG file will "
 "be created for each page. Use this file type if you want to modify or upload "
 "the scanned images. The size of the JPEG file is affected by the <link xref="
-"\"quality\">image quality</link>. See the <link href=\"http://en.wikipedia."
-"org/wiki/jpeg\">JPEG Wikipedia page</link> for more information."
+"\"quality\">image quality</link>. See the <link href=\"https://en.wikipedia."
+"org/wiki/JPEG\">JPEG Wikipedia page</link> for more information."
 msgstr ""
 "JPEG je formát souboru používaný digitálními fotoaparáty k ukládání obrázků. "
 "Soubory JPEG jsou relativně malé, snadno se předávají ostatním a jsou vhodné "
@@ -694,110 +681,93 @@ msgstr ""
 "formátu JPEG</link>."
 
 #. (itstool) path: td/p
-#: C/save.page:53
+#: C/save.page:63
 msgid "PNG"
 msgstr "PNG"
 
 #. (itstool) path: td/p
-#: C/save.page:54
+#: C/save.page:64
 msgid ""
-"PNG files contain the raw data from the scanner. This makes them very large "
+"PNG files support lossless data compression. This can make files very large "
 "and not suitable for distributing. If you have scanned multiple pages, a PNG "
-"file will be created for each page. See the <link href=\"http://en.wikipedia."
-"org/wiki/Portable_Network_Graphics\">PNG Wikipedia page</link> for more "
-"information."
+"file will be created for each page. See the <link href=\"https://en."
+"wikipedia.org/wiki/Portable_Network_Graphics\">PNG Wikipedia page</link> for "
+"more information."
 msgstr ""
-"Soubory PNG obsahují surová data ze skeneru. Tím pádem jsou velké a nevhodné "
-"pro šíření, ale za to vám zachovají původní kvalitu naskenovaného obrázku. "
-"Když skenujete více stránek, vytvoří se pro každou z nich samostatný soubor "
-"PNG. Více informací najdete na <link href=\"https://cs.wikipedia.org/wiki/"
-"Portable_Network_Graphics\">stránce Wikipedie o formátu PNG</link>."
-
-#. (itstool) path: td/p
-#: C/save.page:61
-msgid "TIFF"
-msgstr "TIFF"
-
-#. (itstool) path: td/p
-#: C/save.page:62
-msgid ""
-"TIFF files contain the raw data from the scanner. This makes them very large "
-"and not suitable for distributing. If you have scanned multipe pages, a TIFF "
-"file will be created for each page. See the <link href=\"http://en.wikipedia."
-"org/wiki/Tagged_Image_File_Format\">TIFF Wikipedia page</link> for more "
-"information."
-msgstr ""
-"Soubory TIFF obsahují surová data ze skeneru. Tím pádem jsou velké a "
-"nevhodné pro šíření, ale za to vám zachovají původní kvalitu naskenovaného "
-"obrázku. Když skenujete více stránek, vytvoří se pro každou z nich "
-"samostatný soubor TIFF. Více informací najdete na <link href=\"https://cs."
-"wikipedia.org/wiki/Tagged_Image_File_Format\">stránce Wikipedie o formátu "
-"TIFF</link>."
+"Soubory PNG obsahují surová data ze skeneru. To může vést velké soubory, "
+"které jsou nevhodné pro šíření, ale za to vám zachovají původní kvalitu "
+"naskenovaného obrázku. Když skenujete více stránek, vytvoří se pro každou z "
+"nich samostatný soubor PNG. Více informací najdete na <link href=\"https://cs."
+"wikipedia.org/wiki/Portable_Network_Graphics\">stránce Wikipedie o formátu "
+"PNG</link>."
 
 #. (itstool) path: page/title
-#: C/scanner.page:9
+#: C/scanner.page:19
 msgid "Selecting a Scanner"
 msgstr "Výběr skeneru"
 
 #. (itstool) path: page/p
-#: C/scanner.page:11
+#: C/scanner.page:21
 msgid ""
-"If you have multiple scanning devices you can change the selected device "
-"from the <guiseq><gui>Document</gui><gui>Preferences</gui></guiseq> menu."
+"If you have multiple scanning devices you can change the selected device:"
 msgstr ""
-"V případě, že máte více skenovacích zařízení, můžete změnit výběr přes "
-"nabídku <guiseq><gui>Dokument</gui><gui>Předvolby</gui></guiseq>."
+"V případě, že máte více skenovacích zařízení, můžete změnit vybrané zařízení:"
+
+#. (itstool) path: item/p
+#: C/scanner.page:33
+msgid "Change the <gui>Scanner</gui> value."
+msgstr "Změňte položku <gui>Skener</gui>."
 
 #. (itstool) path: page/p
-#: C/scanner.page:15
+#: C/scanner.page:42
 msgid ""
 "Local scanners are automatically detected each time <app>Document Scanner</"
 "app> starts and each time you plug in a USB scanner. If you connect a "
 "network scanner you will need to restart <app>Document Scanner</app> for the "
 "scanner to be detected."
 msgstr ""
-"Místní skenery se vyhledají automaticky při každém spuštění aplikace <app>"
-"Skenování dokumentů</app> a skenery USB při každém jejich připojení. Pokud "
-"ale nově připojíte síťový skener, musíte aplikaci <app>Skenování dokumentů"
-"</app> restartovat, aby skener objevila."
+"Místní skenery se vyhledají automaticky při každém spuštění aplikace "
+"<app>Skenování dokumentů</app> a skenery USB při každém jejich připojení. "
+"Pokud ale nově připojíte síťový skener, musíte aplikaci <app>Skenování "
+"dokumentů</app> restartovat, aby skener objevila."
 
 #. (itstool) path: info/title
-#: C/scanning.page:6
+#: C/scanning.page:7
 msgctxt "sort"
 msgid "0"
 msgstr "0"
 
 #. (itstool) path: page/title
-#: C/scanning.page:10
+#: C/scanning.page:21
 msgid "Scanning a Page"
 msgstr "Skenování stránky"
 
 #. (itstool) path: page/p
-#: C/scanning.page:12
+#: C/scanning.page:23
 msgid "To scan a document from your scanner:"
 msgstr "Když chcete skenerem naskenovat dokument:"
 
 #. (itstool) path: item/p
-#: C/scanning.page:16
+#: C/scanning.page:27
 msgid "Connect the scanner to your computer and power it on."
 msgstr "Připojte skener ke svému počítači a zapněte jej."
 
 #. (itstool) path: item/p
-#: C/scanning.page:17
+#: C/scanning.page:28
 msgid "Open <app>Document Scanner</app>."
 msgstr "Otevřete aplikaci <app>Skenování dokumentů</app>."
 
 #. (itstool) path: item/p
-#: C/scanning.page:18
+#: C/scanning.page:30
 msgid ""
-"Click the arrow to the right of the \"Scan\" button and choose the type of "
-"document you are scanning: <em>Photo</em> or <em>Text</em>."
+"Select the type of document you are scanning: <gui style=\"button\">Text</"
+"gui> or <gui style=\"button\">Image</gui>."
 msgstr ""
-"Klikněte na šipku vedle tlačítka „Skenovat“ a zvolte typ dokumentu, který "
-"skenujete: <em>Fotografie</em> nebo <em>Text</em>."
+"Vyberte typ dokumentu, který skenujete: <gui style=\"button\">Text</gui> nebo "
+"<gui style=\"button\">Obrázek</gui>."
 
 #. (itstool) path: item/p
-#: C/scanning.page:21
+#: C/scanning.page:32
 msgid ""
 "Click the \"Scan\" button on the toolbar (or press <keyseq><key>Ctrl</"
 "key><key>1</key></keyseq>)."
@@ -806,7 +776,7 @@ msgstr ""
 "<keyseq><key>Ctrl</key><key>1</key></keyseq>)."
 
 #. (itstool) path: note/p
-#: C/scanning.page:24
+#: C/scanning.page:35
 msgid ""
 "The page will be shown as it is scanned. To stop the scan at any time press "
 "the <key>Esc</key> key on the keyboard. Each page you scan is placed at the "
@@ -817,16 +787,6 @@ msgstr ""
 "stránka je vždy umístěna na konec dokumentu."
 
 #. (itstool) path: page/p
-#: C/scanning.page:29
-msgid ""
-"The document type can be also be changed from the <guiseq><gui>Document</"
-"gui> <gui>Scan</gui></guiseq> menu. Choose <gui><em>Text</em></gui> if you "
-"want the document to be quickly scanned in black and white; choose "
-"<gui><em>Photo</em></gui> for a high resolution color scan. See <link xref="
-"\"dpi\"/> for more details and more options."
-msgstr ""
-"Typ dokumentu se dá změnit také přes nabídku <guiseq><gui>Dokument</"
-"gui><gui>Skenovat</gui></guiseq>. Pro rychlé skenování v odstínech šedi "
-"vyberte <gui><em>Text</em></gui>, pro skenování ve vysoké kvalitě a barvě "
-"pak <gui><em>Fotografie</em></gui>. Více podrobností a dalších voleb viz "
-"<link xref=\"dpi\"/>."
+#: C/scanning.page:40
+msgid "To change the quality of a scanned page, see <link xref=\"dpi\"/>."
+msgstr "Jak změnit kvalitu skenované stránky popisuje <link xref=\"dpi\"/>."
