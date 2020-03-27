@@ -959,6 +959,7 @@ public class Scanner : Object
                 string[] adf_duplex_sources =
                 {
                     "ADF Duplex",
+                    "Duplex ADF", /* Brother DS-720, #157 */
                     Sane.I18N ("ADF Duplex"),
                     "ADF Duplex - Long-Edge Binding", /* Samsung unified driver. LP: # 892915 */
                     "ADF Duplex - Short-Edge Binding",
