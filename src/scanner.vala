@@ -932,7 +932,7 @@ public class Scanner : Object
                     "FlatBed",
                     "Normal",
                     Sane.I18N ("Normal"),
-                    "Document Table" /* Epson scanners, eg. ET-3760 */ 
+                    "Document Table" /* Epson scanners, eg. ET-3760 */
                 };
 
                 string[] adf_sources =
@@ -948,8 +948,7 @@ public class Scanner : Object
                 string[] adf_front_sources =
                 {
                     "ADF Front",
-                    Sane.I18N ("ADF Front"),
-                    "ADF"
+                    Sane.I18N ("ADF Front")
                 };
 
                 string[] adf_back_sources =
