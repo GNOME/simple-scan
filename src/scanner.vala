@@ -931,7 +931,8 @@ public class Scanner : Object
                     Sane.I18N ("Flatbed"),
                     "FlatBed",
                     "Normal",
-                    Sane.I18N ("Normal")
+                    Sane.I18N ("Normal"),
+                    "Document Table" /* Epson scanners, eg. ET-3760 */ 
                 };
 
                 string[] adf_sources =
