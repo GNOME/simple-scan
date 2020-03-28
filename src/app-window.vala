@@ -422,6 +422,27 @@ public class AppWindow : Gtk.ApplicationWindow
         device_combo.set_active_iter (iter);
     }
 
+    private int find_file_format (string extension, Gtk.ListStore? file_type_store)
+    {
+        Gtk.TreeIter it;
+        if (file_type_store.get_iter_first (out it))
+        {
+            int combo_index = 0;
+
+            do
+            {
+                string ext;
+                file_type_store.get (it, 1, out ext, -1);
+                if (ext == extension)
+                {
+                    return combo_index;
+                }
+                combo_index = combo_index + 1;
+            } while (file_type_store.iter_next (ref it));
+        }
+        return -1;
+    }
+
     private bool find_scan_device (string device, out Gtk.TreeIter iter)
     {
         bool have_iter = false;
@@ -456,12 +477,15 @@ public class AppWindow : Gtk.ApplicationWindow
                                                      _("_Save"),
                                                      _("_Cancel"));
         save_dialog.local_only = false;
+
+        var read_extension = settings.get_string ("file-format-extension");
         if (book_uri != null)
             save_dialog.set_uri (book_uri);
         else {
             save_dialog.set_current_folder (directory);
-            /* Default filename to use when saving document */
-            save_dialog.set_current_name (_("Scanned Document.pdf"));
+            /* Default filename to use when saving document. */
+            /* To that filename the extension will be added, eg. "Scanned Document.pdf" */
+            save_dialog.set_current_name (_("Scanned Document") + read_extension);
         }
 
         /* Filter to only show images by default */
@@ -542,13 +566,24 @@ public class AppWindow : Gtk.ApplicationWindow
         quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", (int) quality_adjustment.value); });
         box.add (quality_scale);
 
-        file_type_combo.set_active (0);
+        int combo_index = find_file_format (read_extension, file_type_store);
+        if (combo_index < 0)
+            file_type_combo.set_active (0);
+        else
+            file_type_combo.set_active (combo_index);
+
+        /* Quality not applicable to PNG */
+        quality_scale.visible = quality_label.visible = (read_extension != ".png");
+
         file_type_combo.changed.connect (() =>
         {
             var extension = "";
             Gtk.TreeIter i;
             if (file_type_combo.get_active_iter (out i))
+            {
                 file_type_store.get (i, 1, out extension, -1);
+                settings.set_string ("file-format-extension", extension);
+            }
 
             var path = save_dialog.get_filename ();
             var filename = Path.get_basename (path);
