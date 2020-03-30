@@ -948,7 +948,8 @@ public class Scanner : Object
                 string[] adf_front_sources =
                 {
                     "ADF Front",
-                    Sane.I18N ("ADF Front")
+                    Sane.I18N ("ADF Front"),
+                    "ADF"
                 };
 
                 string[] adf_back_sources =
