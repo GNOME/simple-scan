@@ -422,27 +422,6 @@ public class AppWindow : Gtk.ApplicationWindow
         device_combo.set_active_iter (iter);
     }
 
-    private int find_file_format (string extension, Gtk.ListStore? file_type_store)
-    {
-        Gtk.TreeIter it;
-        if (file_type_store.get_iter_first (out it))
-        {
-            int combo_index = 0;
-
-            do
-            {
-                string ext;
-                file_type_store.get (it, 1, out ext, -1);
-                if (ext == extension)
-                {
-                    return combo_index;
-                }
-                combo_index = combo_index + 1;
-            } while (file_type_store.iter_next (ref it));
-        }
-        return -1;
-    }
-
     private bool find_scan_device (string device, out Gtk.TreeIter iter)
     {
         bool have_iter = false;
@@ -478,14 +457,14 @@ public class AppWindow : Gtk.ApplicationWindow
                                                      _("_Cancel"));
         save_dialog.local_only = false;
 
-        var read_extension = settings.get_string ("file-format-extension");
+        var save_format = settings.get_string ("save-format");
         if (book_uri != null)
             save_dialog.set_uri (book_uri);
         else {
             save_dialog.set_current_folder (directory);
             /* Default filename to use when saving document. */
             /* To that filename the extension will be added, eg. "Scanned Document.pdf" */
-            save_dialog.set_current_name (_("Scanned Document") + read_extension);
+            save_dialog.set_current_name (_("Scanned Document") + "." + mime_type_to_extension (save_format));
         }
 
         /* Filter to only show images by default */
@@ -511,26 +490,26 @@ public class AppWindow : Gtk.ApplicationWindow
         file_type_store.set (iter,
                              /* Save dialog: Label for saving in PDF format */
                              0, _("PDF (multi-page document)"),
-                             1, ".pdf",
+                             1, "application/pdf",
                              -1);
         file_type_store.append (out iter);
         file_type_store.set (iter,
                              /* Save dialog: Label for saving in JPEG format */
                              0, _("JPEG (compressed)"),
-                             1, ".jpg",
+                             1, "image/jpeg",
                              -1);
         file_type_store.append (out iter);
         file_type_store.set (iter,
                              /* Save dialog: Label for saving in PNG format */
                              0, _("PNG (lossless)"),
-                             1, ".png",
+                             1, "image/png",
                              -1);
 #if HAVE_WEBP
         file_type_store.append (out iter);
         file_type_store.set (iter,
                              /* Save dialog: Label for sabing in WEBP format */
                              0, _("WebP (compressed)"),
-                             1, ".webp",
+                             1, "image/webp",
                              -1);
 #endif
 
@@ -550,6 +529,17 @@ public class AppWindow : Gtk.ApplicationWindow
         file_type_combo.add_attribute (renderer, "text", 0);
         box.add (file_type_combo);
 
+        if (file_type_store.get_iter_first (out iter))
+        {
+            do
+            {
+                string mime_type;
+                file_type_store.get (iter, 1, out mime_type, -1);
+                if (mime_type == save_format)
+                    file_type_combo.set_active_iter (iter);
+            } while (file_type_store.iter_next (ref iter));
+        }
+
         /* Label in save dialog beside compression slider */
         var quality_label = new Gtk.Label (_("Compression:"));
         box.add (quality_label);
@@ -566,23 +556,17 @@ public class AppWindow : Gtk.ApplicationWindow
         quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", (int) quality_adjustment.value); });
         box.add (quality_scale);
 
-        int combo_index = find_file_format (read_extension, file_type_store);
-        if (combo_index < 0)
-            file_type_combo.set_active (0);
-        else
-            file_type_combo.set_active (combo_index);
-
         /* Quality not applicable to PNG */
-        quality_scale.visible = quality_label.visible = (read_extension != ".png");
+        quality_scale.visible = quality_label.visible = (save_format != "image/png");
 
         file_type_combo.changed.connect (() =>
         {
-            var extension = "";
+            var mime_type = "";
             Gtk.TreeIter i;
             if (file_type_combo.get_active_iter (out i))
             {
-                file_type_store.get (i, 1, out extension, -1);
-                settings.set_string ("file-format-extension", extension);
+                file_type_store.get (i, 1, out mime_type, -1);
+                settings.set_string ("save-format", mime_type);
             }
 
             var path = save_dialog.get_filename ();
@@ -592,11 +576,11 @@ public class AppWindow : Gtk.ApplicationWindow
             var extension_index = filename.last_index_of_char ('.');
             if (extension_index >= 0)
                 filename = filename.slice (0, extension_index);
-            filename = filename + extension;
+            filename = filename + "." + mime_type_to_extension (mime_type);
             save_dialog.set_current_name (filename);
 
             /* Quality not applicable to PNG */
-            quality_scale.visible = quality_label.visible = (extension != ".png");
+            quality_scale.visible = quality_label.visible = (mime_type != "image/png");
         });
 
         while (true)
@@ -608,28 +592,23 @@ public class AppWindow : Gtk.ApplicationWindow
                 return null;
             }
 
-            var extension = "";
+            var mime_type = "";
             Gtk.TreeIter i;
             if (file_type_combo.get_active_iter (out i))
-                file_type_store.get (i, 1, out extension, -1);
+                file_type_store.get (i, 1, out mime_type, -1);
 
             var path = save_dialog.get_filename ();
             var filename = Path.get_basename (path);
 
             var extension_index = filename.last_index_of_char ('.');
             if (extension_index < 0)
-                path += extension;
+                path += "." + mime_type_to_extension (mime_type);
 
             var uri = File.new_for_path (path).get_uri ();
 
             /* Check the file(s) don't already exist */
             var files = new List<File> ();
-            var format = uri_to_format (uri);
-#if HAVE_WEBP
-            if (format == "jpeg" || format == "png" || format == "webp")
-#else
-            if (format == "jpeg" || format == "png")
-#endif
+            if (mime_type == "image/jpeg" || mime_type == "image/png" || mime_type == "image/webp")
             {
                 for (var j = 0; j < book.n_pages; j++)
                     files.append (make_indexed_file (uri, j, book.n_pages));
@@ -670,19 +649,47 @@ public class AppWindow : Gtk.ApplicationWindow
         return true;
     }
 
-    private string uri_to_format (string uri)
+    private string? mime_type_to_extension (string mime_type)
     {
-        var uri_lower = uri.down ();
-        if (uri_lower.has_suffix (".pdf"))
+        if (mime_type == "application/pdf")
             return "pdf";
-        else if (uri_lower.has_suffix (".png"))
+        else if (mime_type == "image/jpeg")
+            return "jpg";
+        else if (mime_type == "image/png")
             return "png";
-#if HAVE_WEBP
-        else if (uri_lower.has_suffix (".webp"))
+        else if (mime_type == "image/webp")
             return "webp";
-#endif
         else
-            return "jpeg";
+            return null;
+    }
+
+    private string? extension_to_mime_type (string extension)
+    {
+        var extension_lower = extension.down ();
+        if (extension_lower == "pdf")
+            return "application/pdf";
+        else if (extension_lower == "jpg")
+            return "image/jpeg";
+        else if (extension_lower == "png")
+            return "image/png";
+        else if (extension_lower == "webp")
+            return "image/webp";
+        else
+            return null;
+    }
+
+    private string uri_to_mime_type (string uri)
+    {
+        var extension_index = uri.last_index_of_char ('.');
+        if (extension_index < 0)
+            return "image/jpeg";
+        var extension = uri.substring (extension_index);
+
+        var mime_type = extension_to_mime_type (extension);
+        if (mime_type == null)
+            return "image/jpeg";
+
+        return mime_type;
     }
 
     private async bool save_document_async ()
@@ -695,7 +702,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
         debug ("Saving to '%s'", uri);
 
-        var format = uri_to_format (uri);
+        var mime_type = uri_to_mime_type (uri);
 
         var cancellable = new Cancellable ();
         var progress_bar =  new CancellableProgressBar (_("Saving"), cancellable);
@@ -704,7 +711,7 @@ public class AppWindow : Gtk.ApplicationWindow
         save_button.sensitive = false;
         try
         {
-            yield book.save_async (format, settings.get_int ("jpeg-quality"), file, (fraction) =>
+            yield book.save_async (mime_type, settings.get_int ("jpeg-quality"), file, (fraction) =>
             {
                 progress_bar.set_fraction (fraction);
             }, cancellable);
@@ -1465,11 +1472,21 @@ public class AppWindow : Gtk.ApplicationWindow
         try
         {
             var dir = DirUtils.make_tmp ("simple-scan-XXXXXX");
-            var type = document_hint == "text" ? "pdf" : "jpeg";
-            var file = File.new_for_path (Path.build_filename (dir, "scan." + type));
-            yield book.save_async (type, settings.get_int ("jpeg-quality"), file, null, null);
+            string mime_type, filename;
+            if (document_hint == "text")
+            {
+                mime_type = "application/pdf";
+                filename = "scan.pdf";
+            }
+            else
+            {
+                mime_type = "image/jpeg";
+                filename = "scan.jpg";
+            }
+            var file = File.new_for_path (Path.build_filename (dir, filename));
+            yield book.save_async (mime_type, settings.get_int ("jpeg-quality"), file, null, null);
             var command_line = "xdg-email";
-            if (type == "pdf")
+            if (mime_type == "application/pdf")
                 command_line += " --attach %s".printf (file.get_path ());
             else
             {

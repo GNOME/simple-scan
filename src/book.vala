@@ -136,10 +136,10 @@ public class Book : Object
         return pages.index (page);
     }
 
-    public async void save_async (string t, int q, File f, ProgressionCallback? p, Cancellable? c) throws Error
+    public async void save_async (string mime_type, int quality, File file, ProgressionCallback? progress_cb, Cancellable? cancellable = null) throws Error
     {
         var book_saver = new BookSaver ();
-        yield book_saver.save_async (this, t, q, f, p, c);
+        yield book_saver.save_async (this, mime_type, quality, file, progress_cb, cancellable);
     }
 }
 
@@ -160,7 +160,7 @@ private class BookSaver
      * distributes all encode tasks to other threads then yield so
      * the ui can continue operating. The method then return once saving
      * is completed, cancelled, or failed */
-    public async void save_async (Book book, string type, int quality, File file, ProgressionCallback? progression_callback, Cancellable? cancellable) throws Error
+    public async void save_async (Book book, string mime_type, int quality, File file, ProgressionCallback? progression_callback, Cancellable? cancellable) throws Error
     {
         var timer = new Timer ();
 
@@ -184,20 +184,20 @@ private class BookSaver
 
         /* Configure an encoder */
         ThreadPoolFunc<EncodeTask>? encode_delegate = null;
-        switch (type)
+        switch (mime_type)
         {
-        case "jpeg":
+        case "image/jpeg":
             encode_delegate = encode_jpeg;
             break;
-        case "png":
+        case "image/png":
             encode_delegate = encode_png;
             break;
 #if HAVE_WEBP
-        case "webp":
+        case "image/webp":
             encode_delegate = encode_webp;
             break;
 #endif
-        case "pdf":
+        case "application/pdf":
             encode_delegate = encode_pdf;
             break;
         }
@@ -205,16 +205,16 @@ private class BookSaver
 
         /* Configure a writer */
         ThreadFunc<Error?>? write_delegate = null;
-        switch (type)
+        switch (mime_type)
         {
-        case "jpeg":
-        case "png":
+        case "image/jpeg":
+        case "image/png":
 #if HAVE_WEBP
-        case "webp":
+        case "image/webp":
 #endif
             write_delegate = write_multifile;
             break;
-        case "pdf":
+        case "application/pdf":
             write_delegate = write_pdf;
             break;
         }
