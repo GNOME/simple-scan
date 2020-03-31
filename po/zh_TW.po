@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-02-02 23:43+0000\n"
-"PO-Revision-Date: 2020-02-19 11:28+0800\n"
-"Last-Translator: kytseng <jj_yaung@yahoo.com.tw>\n"
+"POT-Creation-Date: 2020-03-21 20:31+0000\n"
+"PO-Revision-Date: 2020-03-31 23:25+0800\n"
+"Last-Translator: Cheng-Chia Tseng <pswo10680@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -140,19 +140,13 @@ msgstr "為您的照片或文件建立數位複本"
 
 # 建議採用此翻譯
 #: data/simple-scan.appdata.xml.in:9
-#, fuzzy
-#| msgid ""
-#| "A really easy way to scan both documents and photos. You can crop out the "
-#| "bad parts of a photo and rotate it if it is the wrong way round. You can "
-#| "print your scans, export them to pdf, or save them in a range of image "
-#| "formats."
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
 "your scans, export them to pdf, or save them in a range of image formats."
 msgstr ""
-"您能輕易地掃描文件和相片。您可以裁剪相片的不良部分並將之旋轉至正確角度。您可"
-"以列印您的掃描檔，將掃描檔匯出成 pdf，或儲存為多種圖像檔案格式。"
+"您能輕鬆掃描文件和影像。您可以裁剪影像的不良部分，並將之旋轉至正確角度。您可"
+"以列印您的掃描檔，將掃描檔匯出為 pdf，或儲存為多種影像格式。"
 
 #: data/simple-scan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
@@ -334,10 +328,8 @@ msgstr "請檢查您的掃描器是否連接，並且是否開啟電源"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:379
-#, fuzzy
-#| msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgid "An autosaved book exists. Do you want to open it?"
-msgstr "「%s」檔名已經存在。您是否希望取代該檔案？"
+msgstr "自動存檔的書本已經存在。您是否希望開啟它？"
 
 #. Save dialog: Dialog title
 #: src/app-window.vala:453
@@ -788,7 +780,7 @@ msgstr "複製目前頁面到剪貼簿中"
 #: src/help-overlay.ui:128
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 # 新增翻譯
 #: src/help-overlay.ui:133
@@ -797,32 +789,24 @@ msgid "Show help"
 msgstr "顯示說明"
 
 #: src/help-overlay.ui:140
-#, fuzzy
-#| msgid "Keyboard Shortcuts"
 msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
-msgstr "鍵盤捷徑鍵"
+msgstr "鍵盤快捷鍵"
 
 #: src/help-overlay.ui:147
-#, fuzzy
-#| msgid "Quit"
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "結束"
+msgstr "退出"
 
 #. Label beside scan side combo box
 #: src/preferences-dialog.ui:72
-#, fuzzy
-#| msgid "Scan Sides"
 msgid "Scan _Sides"
-msgstr "掃描面"
+msgstr "掃描面(_S)"
 
 #. Label beside page size combo box
 #: src/preferences-dialog.ui:88
-#, fuzzy
-#| msgid "Page Size"
 msgid "_Page Size"
-msgstr "頁面大小"
+msgstr "頁面大小(_P)"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: src/preferences-dialog.ui:118
@@ -841,10 +825,8 @@ msgstr "雙面"
 
 #. Label beside page delay scale
 #: src/preferences-dialog.ui:165
-#, fuzzy
-#| msgid "Delay"
 msgid "_Delay"
-msgstr "延遲"
+msgstr "延遲(_D)"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
 #: src/preferences-dialog.ui:181
@@ -968,17 +950,17 @@ msgid "Unable to connect to scanner"
 msgstr "無法連接到掃描器"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1300
+#: src/scanner.vala:1284
 msgid "Document feeder empty"
-msgstr ""
+msgstr "空的文件送紙匣"
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1307
+#: src/scanner.vala:1291
 msgid "Unable to start scan"
 msgstr "無法起始掃描"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1320 src/scanner.vala:1427
+#: src/scanner.vala:1304 src/scanner.vala:1411
 msgid "Error communicating with scanner"
 msgstr "與掃描器溝通時發生錯誤"
 
