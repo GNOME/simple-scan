@@ -981,6 +981,7 @@ public class Scanner : Object
                     Sane.VALUE_SCAN_MODE_COLOR,
                     "Color",
                     "24bit Color", /* Seen in the proprietary brother3 driver */
+                    "24-bit Color", /* #161 Lexmark CX310dn */
                     "Color - 16 Million Colors" /* Samsung unified driver. LP: 892915 */
                 };
                 string[] gray_scan_modes =
@@ -989,6 +990,7 @@ public class Scanner : Object
                     "Gray",
                     "Grayscale",
                     Sane.I18N ("Grayscale"),
+                    "8-bit Grayscale", /* #161 Lexmark CX310dn */
                     "True Gray", /* Seen in the proprietary brother3 driver */
                     "Grayscale - 256 Levels"  /* Samsung unified driver. LP: 892915 */
                 };
@@ -1000,7 +1002,7 @@ public class Scanner : Object
                     Sane.I18N ("LineArt"),
                     "Black & White",
                     Sane.I18N ("Black & White"),
-                    "Binary",
+                    "Binary", /* Epson PM-A820 */
                     Sane.I18N ("Binary"),
                     "Thresholded",
                     Sane.VALUE_SCAN_MODE_GRAY,
@@ -1008,8 +1010,10 @@ public class Scanner : Object
                     "Grayscale",
                     Sane.I18N ("Grayscale"),
                     "True Gray", /* Seen in the proprietary brother3 driver */
+                    "1-bit Black & White", /* #161 Lexmark CX310dn */
                     "Black and White - Line Art",  /* Samsung unified driver. LP: 892915 */
-                    "Black and White - Halftone"
+                    "Black and White - Halftone",
+                    "Monochrome" /* Epson */
                 };
 
                 switch (job.scan_mode)
@@ -1033,6 +1037,8 @@ public class Scanner : Object
 
             /* Duplex */
             option = get_option_by_name (handle, "duplex", out index);
+            if (option == null) /* #161 Lexmark CX310dn Duplex */
+                option = get_option_by_name (handle, "scan-both-sides", out index);
             if (option != null)
             {
                 if (option.type == Sane.ValueType.BOOL)
@@ -1073,6 +1079,8 @@ public class Scanner : Object
 
             /* Set resolution and bit depth */
             option = get_option_by_name (handle, Sane.NAME_SCAN_RESOLUTION, out index);
+            if (option == null) /* #161 Lexmark CX310dn Duplex */
+                option = get_option_by_name (handle, "scan-resolution", out index);
             if (option != null)
             {
                 set_fixed_or_int_option (handle, option, index, job.dpi, out job.dpi);
