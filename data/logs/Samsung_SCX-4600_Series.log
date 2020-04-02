@@ -1,0 +1,50 @@
+[+0.00s] DEBUG: simple-scan.vala:637: Starting Simple Scan 3.26.1, PID=10425
+[+0.08s] DEBUG: scanner.vala:1460: SANE version 1.0.27
+[+0.08s] DEBUG: scanner.vala:1521: Requesting redetection of scan devices
+[+0.08s] DEBUG: scanner.vala:806: Processing request
+[+0.14s] DEBUG: autosave-manager.vala:281: Autosaving book information
+[+6.40s] DEBUG: scanner.vala:341: sane_get_devices () -> SANE_STATUS_GOOD
+[+6.40s] DEBUG: scanner.vala:353: Device: name="xerox_mfp:libusb:001:027" vendor="Samsung" model="Samsung SCX-4600 Series" type="multi-function peripheral"
+[+10.71s] DEBUG: simple-scan.vala:454: Requesting scan at 150 dpi from device 'xerox_mfp:libusb:001:027'
+[+10.71s] DEBUG: scanner.vala:1569: Scanner.scan ("xerox_mfp:libusb:001:027", dpi=150, scan_mode=ScanMode.GRAY, depth=2, type=ScanType.SINGLE, paper_width=2100, paper_height=2970, brightness=0, contrast=0, delay=15ms)
+[+10.71s] DEBUG: scanner.vala:806: Processing request
+[+10.71s] DEBUG: scanner.vala:867: sane_open ("xerox_mfp:libusb:001:027") -> SANE_STATUS_GOOD
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (0)
+[+10.71s] DEBUG: scanner.vala:738: Option 0: title='Number of options' type=int size=4 cap=soft-detect
+[+10.71s] DEBUG: scanner.vala:741:   Description: Read-only option that specifies how many options a specific devices supports.
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (1)
+[+10.71s] DEBUG: scanner.vala:738: Option 1: name='standard' title='Standard' type=group size=4
+[+10.71s] DEBUG: scanner.vala:741:   Description: Source, mode and resolution options
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (2)
+[+10.71s] DEBUG: scanner.vala:738: Option 2: name='resolution' title='Scan resolution' type=int size=4 unit=dpi values=[75, 100, 150, 200, 300, 600] cap=soft-select,soft-detect
+[+10.71s] DEBUG: scanner.vala:741:   Description: Sets the resolution of the scanned image.
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (3)
+[+10.71s] DEBUG: scanner.vala:738: Option 3: name='mode' title='Scan mode' type=string size=9 values=["Lineart", "Halftone", "Gray", "Color"] cap=soft-select,soft-detect
+[+10.71s] DEBUG: scanner.vala:741:   Description: Selects the scan mode (e.g., lineart, monochrome, or color).
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (4)
+[+10.71s] DEBUG: scanner.vala:738: Option 4: name='highlight' title='Threshold' type=fixed size=4 unit=percent min=30.000000, max=70.000000, quant=655360 cap=soft-select,soft-detect,inactive
+[+10.71s] DEBUG: scanner.vala:741:   Description: Select minimum-brightness to get a white point
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (5)
+[+10.71s] DEBUG: scanner.vala:738: Option 5: name='source' title='Scan source' type=string size=8 values=["Flatbed", "ADF", "Auto"] cap=soft-select,soft-detect
+[+10.71s] DEBUG: scanner.vala:741:   Description: Selects the scan source (such as a document-feeder).
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (6)
+[+10.71s] DEBUG: scanner.vala:738: Option 6: name='geometry' title='Geometry' type=group size=4
+[+10.71s] DEBUG: scanner.vala:741:   Description: Scan area and media size options
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (7)
+[+10.71s] DEBUG: scanner.vala:738: Option 7: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=65536 cap=soft-select,soft-detect
+[+10.71s] DEBUG: scanner.vala:741:   Description: Top-left x position of scan area.
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (8)
+[+10.71s] DEBUG: scanner.vala:738: Option 8: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0.000000, max=297.179993, quant=65536 cap=soft-select,soft-detect
+[+10.71s] DEBUG: scanner.vala:741:   Description: Top-left y position of scan area.
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (9)
+[+10.71s] DEBUG: scanner.vala:738: Option 9: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=0.000000, max=215.899994, quant=65536 cap=soft-select,soft-detect
+[+10.71s] DEBUG: scanner.vala:741:   Description: Bottom-right x position of scan area.
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (10)
+[+10.71s] DEBUG: scanner.vala:738: Option 10: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=0.000000, max=297.179993, quant=65536 cap=soft-select,soft-detect
+[+10.71s] DEBUG: scanner.vala:741:   Description: Bottom-right y position of scan area.
+[+10.71s] DEBUG: scanner.vala:888: sane_get_option_descriptor (11)
+[+10.71s] DEBUG: scanner.vala:549: sane_control_option (5, SANE_ACTION_SET_VALUE, "Auto") -> (SANE_STATUS_GOOD, "Auto")
+[+10.71s] DEBUG: scanner.vala:549: sane_control_option (3, SANE_ACTION_SET_VALUE, "Gray") -> (SANE_STATUS_GOOD, "Gray")
+[+10.71s] DEBUG: scanner.vala:465: sane_control_option (2, SANE_ACTION_SET_VALUE, 150) -> (SANE_STATUS_GOOD, 150)
+[+10.71s] DEBUG: scanner.vala:505: sane_control_option (9, SANE_ACTION_SET_VALUE, 210.000000) -> (SANE_STATUS_GOOD, 210.000000)
+[+10.71s] DEBUG: scanner.vala:505: sane_control_option (10, SANE_ACTION_SET_VALUE, 297.000000) -> (SANE_STATUS_GOOD, 297.000000)
