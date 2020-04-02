@@ -1135,7 +1135,12 @@ public class Scanner : Object
                 else
                     set_option_to_max (handle, option, index);
             }
-
+            if (job.page_width == 0) /* #90 Fix automatic mode for Epson scanners */
+            {
+                option = get_option_by_name (handle, "scan-area", out index);
+                if (option != null)
+                    set_string_option (handle, option, index, "Maximum", null);
+            }
             /* Set page size */
             option = get_option_by_name (handle, Sane.NAME_PAGE_WIDTH, out index);
             if (option != null && job.page_width > 0.0)
