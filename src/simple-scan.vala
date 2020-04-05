@@ -546,7 +546,688 @@ public class SimpleScan : Gtk.Application
     private const uint32 samsung_devices[] = { 0x04e83425, 0x04e8341c, 0x04e8342a, 0x04e8343d, 0x04e83456, 0x04e8345a, 0x04e83427, 0x04e8343a, 0x04e83428, 0x04e8343b, 0x04e83455, 0x04e83421, 0x04e83439, 0x04e83444, 0x04e8343f, 0x04e8344e, 0x04e83431, 0x04e8345c, 0x04e8344d, 0x04e83462, 0x04e83464, 0x04e83461, 0x04e83460, 0x04e8340e, 0x04e83435, 0x04e8340f, 0x04e83441, 0x04e8344f, 0x04e83413, 0x04e8341b, 0x04e8342e, 0x04e83426, 0x04e8342b, 0x04e83433, 0x04e83440, 0x04e83434, 0x04e8345b, 0x04e83457, 0x04e8341f, 0x04e83453, 0x04e8344b, 0x04e83409, 0x04e83412, 0x04e83419, 0x04e8342c, 0x04e8343c, 0x04e83432, 0x04e8342d, 0x04e83430, 0x04e8342f, 0x04e83446, 0x04e8341a, 0x04e83437, 0x04e83442, 0x04e83466, 0x04e8340d, 0x04e8341d, 0x04e83420, 0x04e83429, 0x04e83443, 0x04e83438, 0x04e8344c, 0x04e8345d, 0x04e83463, 0x04e83465, 0x04e83450, 0x04e83468, 0x04e83469, 0x04e83471 };
 
     /* Taken from /usr/share/hplip/data/models/models.dat in the HPAIO driver */
-    private const uint32 hpaio_devices[] = { 0x03f02311, 0x03f09711, 0x03f01311, 0x03f01011, 0x03f00f11, 0x03f01911, 0x03f00011, 0x03f00111, 0x03f00611, 0x03f00511, 0x03f00811, 0x03f00711, 0x03f00211, 0x03f00311, 0x03f00411, 0x03f0062a, 0x03f04912, 0x03f09911, 0x03f03802, 0x03f07a11, 0x03f08311, 0x03f07b11, 0x03f0a711, 0x03f08d11, 0x03f08a11, 0x03f0bb11, 0x03f0222a, 0x03f0322a, 0x03f03902, 0x03f01002, 0x03f0242a, 0x03f0332a, 0x03f0122a, 0x03f00c2a, 0x03f0132a, 0x03f02c2a, 0x03f07e11, 0x03f07811, 0x03f08e11, 0x03f02d2a, 0x03f03502, 0x03f01102, 0x03f06112, 0x03f06212, 0x03f05511, 0x03f00f2a, 0x03f0082a, 0x03f07311, 0x03f07c11, 0x03f07d11, 0x03f01d02, 0x03f01202, 0x03f01e02, 0x03f01602, 0x03f01302, 0x03f01702, 0x03f0152a, 0x03f0142a, 0x03f09611, 0x03f01502, 0x03f01902, 0x03f01f02, 0x03f00512, 0x03f0aa11, 0x03f0a311, 0x03f01312, 0x03f01802, 0x03f02812, 0x03f0bf11, 0x03f0c011, 0x03f0342a, 0x03f09e17, 0x03f09f17, 0x03f0252a, 0x03f0a417, 0x03f01a02, 0x03f09e11, 0x03f09011, 0x03f02602, 0x03f0272a, 0x03f02b02, 0x03f01812, 0x03f0b211, 0x03f0352a, 0x03f02b2a, 0x03f0362a, 0x03f0a517, 0x03f01b02, 0x03f02702, 0x03f02c02, 0x03f0282a, 0x03f02104, 0x03f0432a, 0x03f02004, 0x03f01a2a, 0x03f02304, 0x03f01b2a, 0x03f0442a, 0x03f08904, 0x03f0a617, 0x03f09a17, 0x03f0312a, 0x03f0452a, 0x03f01c02, 0x03f01811, 0x03f09d17, 0x03f02804, 0x03f02904, 0x03f01511, 0x03f01411, 0x03f0372a, 0x03f00d14, 0x03f01611, 0x03f01711, 0x03f00f14, 0x03f01f2a, 0x03f00304, 0x03f00204, 0x03f00804, 0x03f02902, 0x03f00704, 0x03f01e2a, 0x03f00404, 0x03f00604, 0x03f00904, 0x03f01512, 0x03f01c2a, 0x03f00104, 0x03f01d2a, 0x03f00004, 0x03f02604, 0x03f02704, 0x03f01804, 0x03f01504, 0x03f01f11, 0x03f01204, 0x03f01604, 0x03f01704, 0x03f01104, 0x03f01e11, 0x03f01304, 0x03f01404, 0x03f03104, 0x03f01004, 0x03f03004, 0x03f03304, 0x03f05004, 0x03f01712, 0x03f02e11, 0x03f00517, 0x03f08811, 0x03f01317, 0x03f04117, 0x03f03217, 0x03f03e17, 0x03f00c17, 0x03f0b511, 0x03f04217, 0x03f04317, 0x03f02b17, 0x03f03017, 0x03f02d17, 0x03f02c17, 0x03f00b2a, 0x03f0112a, 0x03f08911, 0x03f07c04, 0x03f00912, 0x03f03011, 0x03f0032a, 0x03f0002a, 0x03f0102a, 0x03f03402, 0x03f05617, 0x03f05717, 0x03f0042a, 0x03f00f17, 0x03f04004, 0x03f01017, 0x03f01e17, 0x03f00317, 0x03f00f12, 0x03f02f11, 0x03f0052a, 0x03f04717, 0x03f03202, 0x03f00e2a, 0x03f0262a, 0x03f03302, 0x03f00417, 0x03f00212, 0x03f01412, 0x03f07804, 0x03f03b11, 0x03f01117, 0x03f03f11, 0x03f04f17, 0x03f04e17, 0x03f03602, 0x03f05817, 0x03f01d17, 0x03f03c11, 0x03f07904, 0x03f04d11, 0x03f0072a, 0x03f01417, 0x03f04c11, 0x03f0c111, 0x03f04417, 0x03f05017, 0x03f0022a, 0x03f0012a, 0x03f0092a, 0x03f07f11, 0x03f04811, 0x03f03a17, 0x03f00a2a, 0x03f00312, 0x03f09411, 0x03f09b11, 0x03f03917, 0x03f04a17, 0x03f03817, 0x03f0b911, 0x03f05417, 0x03f05217, 0x03f05317, 0x03f05d17, 0x03f08711, 0x03f05c17, 0x03f09a11, 0x03f02811, 0x03f07d04, 0x03f02a11, 0x03f02b11, 0x03f00217, 0x03f02911, 0x03f02404, 0x03f03511, 0x03f00812, 0x03f00b17, 0x03f0c302, 0x03f05917, 0x03f05a17, 0x03f05b17, 0x03f04911, 0x03f03611, 0x03f07611, 0x03f07a04, 0x03f02517, 0x03f02917, 0x03f02a17, 0x03f01e04, 0x03f00717, 0x03f02504, 0x03f03711, 0x03f0ac11, 0x03f0be11, 0x03f0c211, 0x03f01c17, 0x03f04e11, 0x03f02e17, 0x03f04511, 0x03f08011, 0x03f00412, 0x03f03617, 0x03f02f17, 0x03f03117, 0x03f0c911, 0x03f0ca11, 0x03f04611, 0x03f03c17, 0x03f03717, 0x03f02617, 0x03f01112, 0x03f00612, 0x03f06717, 0x03f09511, 0x03f07617, 0x03f07317, 0x03f08d17, 0x03f01617, 0x03f07a17, 0x03f07517, 0x03f09311, 0x03f0a011, 0x03f03317, 0x03f03417, 0x03f0a211, 0x03f05611, 0x03f05011, 0x03f00117, 0x03f05111, 0x03f00817, 0x03f05211, 0x03f07004, 0x03f00917, 0x03f01917, 0x03f03517, 0x03f07104, 0x03f01517, 0x03f03112, 0x03f07817, 0x03f0ad11, 0x03f0b011, 0x03f08517, 0x03f08a17, 0x03f0c711, 0x03f06117, 0x03f06917, 0x03f06812, 0x03f06d12, 0x03f07204, 0x03f00a17, 0x03f07404, 0x03f06817, 0x03f01b04, 0x03f01a04, 0x03f01c04, 0x03f01904, 0x03f07504, 0x03f07604, 0x03f00714, 0x03f09c11, 0x03f07b17, 0x03f08817, 0x03f05711, 0x03f07704, 0x03f07e04, 0x03f03111, 0x03f06017, 0x03f03d11, 0x03f05c11, 0x03f07b04, 0x03f06a17, 0x03f02417, 0x03f05411, 0x03f01f04, 0x03f06711, 0x03f07417, 0x03f09717, 0x03f02317, 0x03f06611, 0x03f06c11, 0x03f09d11, 0x03f07711, 0x03f04712, 0x03f08c11, 0x03f05712, 0x03f02a12, 0x03f06b11, 0x03f0c511, 0x03f02e12, 0x03f0c411, 0x03f09917, 0x03f09c17, 0x03f07411, 0x03f06c17, 0x03f05812, 0x03f06512, 0x03f06612, 0x03f06412, 0x03f0c611, 0x03f0c811, 0x03f01a17, 0x03f02b12, 0x03f02c12, 0x03f07511, 0x03f06217, 0x03f07d17, 0x03f06317, 0x03f07917, 0x03f07217, 0x03f0a117, 0x03f0c802, 0x03f05811, 0x03f0c402, 0x03f02411, 0x03f05d11, 0x03f06417, 0x03f06617, 0x03f08917, 0x03f05117, 0x03f07111, 0x03f01f12, 0x03f06811, 0x03f02012, 0x03f08604, 0x03f06d11, 0x03f03a11, 0x03f03012, 0x03f08211, 0x03f07211, 0x03f0a111, 0x03f0b411, 0x03f09b17, 0x03f0b111, 0x03f0b611, 0x03f0c311, 0x03f01f17, 0x03f06004, 0x03f04f11, 0x03f0cc11, 0x03f06104, 0x03f05b11, 0x03f08104, 0x03f0cd11, 0x03f0a004, 0x03f08704, 0x03f04312, 0x03f04212, 0x03f06f17, 0x03f07c17, 0x03f09517, 0x03f05911, 0x03f05e12, 0x03f00b14, 0x03f0c502, 0x03f02d11, 0x03f03404, 0x03f04b11, 0x03f01014, 0x03f06a11, 0x03f07312, 0x03f07011, 0x03f05311, 0x03f03312, 0x03f04412, 0x03f05412, 0x03f05512, 0x03f04512, 0x03f08204, 0x03f0a511, 0x03f0af11, 0x03f0ba11, 0x03f08504, 0x03f05d12, 0x03f05c12, 0x03f08404, 0x03f07412, 0x03f07212, 0x03f08804, 0x03f04612, 0x03f02611, 0x03f05a11, 0x03f02612, 0x03f0c602, 0x03f06012, 0x03f03a02, 0x03f06911, 0x03f0b002, 0x03f04111, 0x03f06511, 0x03f04211, 0x03f02512, 0x03f0c702, 0x03f02002, 0x03f03c02, 0x03f04311, 0x03f0b802, 0x03f05e11, 0x03f03412, 0x03f02112, 0x03f04812, 0x03f06f11, 0x03f0a611, 0x03f0bc11, 0x03f03e02, 0x03f02212, 0x03f0b202, 0x03f06e12, 0x03f0dc11, 0x03f02312, 0x03f0b402, 0x03f0c002, 0x03f0b602, 0x03f05612, 0x03f03612, 0x03f0c102, 0x03f0de11, 0x03f07717, 0x03f07117, 0x03f05b12, 0x03f06411, 0x03f0ba02, 0x03f0c202, 0x03f0be02, 0x03f0bb02, 0x03f03812, 0x03f04012, 0x03f03912, 0x03f0d102, 0x03f05312, 0x03f02712, 0x03f05912, 0x03f07112, 0x03f07012, 0x03f06f12, 0x03f07712, 0x03f07612, 0x03f0bc02, 0x03f0d002, 0x03f08417, 0x03f02017, 0x03f02117, 0x03f08317, 0x03f09617, 0x03f00d12, 0x03f0bd02, 0x03f02217, 0x03f00b12, 0x03f01212, 0x03f03c2a, 0x03f0382a, 0x03f0582a, 0x03f0552a, 0x03f03e2a, 0x03f03f2a, 0x03f0e311, 0x03f0e111 };
+    private const uint32 hpaio_devices[] = {
+      0x04f92311, /* HP Officejet d125xi All-in-One Printer */
+      0x04f99711, /* HP Photosmart All-in-One Printer - B010 */
+      0x04f91311, /* HP Officejet v30 All-in-One Printer */
+      0x04f91011, /* HP Officejet v40xi All-in-One Printer */
+      0x04f90f11, /* HP Officejet v40 All-in-One Printer */
+      0x04f91911, /* HP Officejet v45 All-in-One Printer */
+      0x04f90011, /* HP Officejet g55 All-in-One Printer */
+      0x04f90111, /* HP Officejet g55xi All-in-One Printer */
+      0x04f90611, /* HP Officejet k60xi All-in-One Printer */
+      0x04f90511, /* HP Officejet k60 All-in-One Printer */
+      0x04f90811, /* HP Officejet k80xi All-in-One Printer */
+      0x04f90711, /* HP Officejet k80 All-in-One Printer */
+      0x04f90211, /* HP Officejet g85 All-in-One Printer */
+      0x04f90311, /* HP Officejet g85xi All-in-One Printer */
+      0x04f90411, /* HP Officejet g95 All-in-One Printer */
+      0x04f9062a, /* HP LaserJet 100 Color MFP M175 */
+      0x04f94912, /* HP Officejet 100 Mobile L411 */
+      0x04f99911, /* HP Envy 100 D410 series */
+      0x04f93802, /* HP Photosmart 100 Printer */
+      0x04f97a11, /* HP Photosmart B109A series */
+      0x04f98311, /* HP Deskjet Ink Advantage K109a Printer */
+      0x04f97b11, /* HP Photosmart Wireless All-in-One Printer - B109n */
+      0x04f9a711, /* HP Envy 110 e-All-in-One */
+      0x04f98d11, /* HP Photosmart D110 Series Printer */
+      0x04f98a11, /* HP Photosmart Wireless All-in-One Printer - B110 */
+      0x04f9bb11, /* HP Envy 120 e-All-in-One */
+      0x04f9222a, /* HP LaserJet Pro MFP M125r */
+      0x04f9322a, /* HP LaserJet Pro MFP M127fp */
+      0x04f93902, /* HP Photosmart 130 Printer */
+      0x04f91002, /* HP Photosmart 140 Compact Photo Printer */
+      0x04f9242a, /* HP Color LaserJet Pro MPF M176n */
+      0x04f9332a, /* HP Color LaserJet Pro MPF M177fw */
+      0x04f9122a, /* HP LaserJet Pro 200 color MFP M276nw */
+      0x04f90c2a, /* HP LaserJet 200 Color MFP M275s */
+      0x04f9132a, /* HP LaserJet Pro M251nw Color Printer */
+      0x04f92c2a, /* HP LaserJet Pro M201dw Printer */
+      0x04f97e11, /* HP Photosmart Plus All-in-One Printer - B209a */
+      0x04f97811, /* HP Deskjet Ink Advantage K209a All-in-One Printer */
+      0x04f98e11, /* HP Photosmart Plus B210 series */
+      0x04f92d2a, /* HP LaserJet Pro MFP M225rdn */
+      0x04f93502, /* HP Photosmart 230 Printer */
+      0x04f91102, /* HP Photosmart 240 Compact Photo Printer */
+      0x04f96112, /* HP Officejet Pro 251dw Printer */
+      0x04f96212, /* HP Officejet Pro 276dw Multifunction Printer */
+      0x04f95511, /* HP Deskjet F310 All-in-One Printer */
+      0x04f90f2a, /* HP LaserJet 300 Color M351a */
+      0x04f9082a, /* HP LaserJet 300 Color MFP M375nw */
+      0x04f97311, /* HP Photosmart Premium Fax All-in-One Printer - C309a */
+      0x04f97c11, /* HP Photosmart Premium Fax All-in-One Printer series -C309a */
+      0x04f97d11, /* HP Photosmart Premium All-in-One Printer series - C309g */
+      0x04f91d02, /* HP Photosmart A310 Compact Photo Printer */
+      0x04f91202, /* HP Photosmart 320 Compact Photo Printer */
+      0x04f91e02, /* HP Photosmart A320 Compact Photo Printer */
+      0x04f91602, /* HP Photosmart 330 Series Compact Photo Printer */
+      0x04f91302, /* HP Photosmart 370 Compact Photo Printer */
+      0x04f91702, /* HP Photosmart 385 Compact Photo Printer */
+      0x04f9152a, /* HP LaserJet 400 M401dne */
+      0x04f9142a, /* HP LaserJet 400 MFP M425dw */
+      0x04f99611, /* HP Photosmart Prem C410 series */
+      0x04f91502, /* HP Photosmart 420 Compact Photo Printer */
+      0x04f91902, /* HP Photosmart A430 Compact Photo Printer */
+      0x04f91f02, /* HP Photosmart A440 Compact Photo Printer */
+      0x04f90512, /* HP Deskjet 450ci Mobile Printer */
+      0x04f9aa11, /* HP Officejet Pro X451 Printer series */
+      0x04f9a311, /* HP Officejet Pro X451dn Printer */
+      0x04f91312, /* HP Deskjet 460c Mobile Printer */
+      0x04f91802, /* HP Photosmart 470 Series Compact Photo Printer */
+      0x04f92812, /* HP Officejet H470 Mobile Printer */
+      0x04f9bf11, /* HP Officejet Pro X476 Multifunction Printer series */
+      0x04f9c011, /* HP Officejet Pro X476dw Multifunction Printer */
+      0x04f9342a, /* HP Color Laserjet Pro MFP M476dw */
+      0x04f99e17, /* HP LaserJet Enterprise 500 MFP M525 Series */
+      0x04f99f17, /* HP LaserJet Enterprise 500 Color MFP M575 */
+      0x04f9252a, /* HP LaserJet Pro 500 color MFP M570dw */
+      0x04f9a417, /* HP LaserJet Enterprise 500 Color M551 */
+      0x04f91a02, /* HP Photosmart A510 Compact Photo Printer */
+      0x04f99e11, /* HP Photosmart Ink Adv K510 */
+      0x04f99011, /* HP PhotoSmart eStn C510 Series */
+      0x04f92602, /* HP Photosmart A522xi Compact Photo Printer */
+      0x04f9272a, /* HP LaserJet Pro M521dn Multifunction Printer */
+      0x04f92b02, /* HP Photosmart A532 Compact Photo Printer */
+      0x04f91812, /* HP Officejet Pro K550dtwn Printer */
+      0x04f9b211, /* HP Officejet Pro X551 Printer series */
+      0x04f9352a, /* HP Officejet Enterprise Color X555dn Printer */
+      0x04f92b2a, /* HP Officejet Enterprise Color X585dn Multifunction Printer */
+      0x04f9362a, /* HP Officejet Enterprise Color Flow X585z Multifunction Printer */
+      0x04f9a517, /* HP LaserJet Enterprise 600 M601n */
+      0x04f91b02, /* HP Photosmart A610 Compact Photo Printer */
+      0x04f92702, /* HP Photosmart A620 Compact Photo Printer */
+      0x04f92c02, /* HP Photosmart A636 Compact Photo Printer */
+      0x04f9282a, /* HP LaserJet Enterprise MFP M630dn */
+      0x04f92104, /* HP Deskjet 630c Printer */
+      0x04f9432a, /* HP LaserJet Enterprise Flow MFP M630z */
+      0x04f92004, /* HP Deskjet 640c Lite Printer */
+      0x04f91a2a, /* HP Color LaserJet Enterprise M651dn Printer */
+      0x04f92304, /* HP Deskjet 656c Printer */
+      0x04f91b2a, /* HP Color LaserJet Enterprise Multifunction M680dn Printer */
+      0x04f9442a, /* HP Color LaserJet Enterprise Flow Multifunction M680z Printer */
+      0x04f98904, /* HP Deskjet 694c Printer */
+      0x04f9a617, /* HP LaserJet Enterprise 700 M712n */
+      0x04f99a17, /* HP LaserJet Enterprise 700 color MFP M775dn */
+      0x04f9312a, /* HP LaserJet Pro M701a Printer */
+      0x04f9452a, /* HP LaserJet Pro M706n Printer */
+      0x04f91c02, /* HP Photosmart A712 Compact Photo Printer */
+      0x04f91811, /* HP PSC 720 All-in-One Printer */
+      0x04f99d17, /* HP LaserJet Enterprise MFP M725 series */
+      0x04f92804, /* HP Deskjet D730 Printer */
+      0x04f92904, /* HP Deskjet F735 All-in-One Printer */
+      0x04f91511, /* HP PSC 750xi All-in-One Printer */
+      0x04f91411, /* HP PSC 750 All-in-One Printer */
+      0x04f9372a, /* HP Color LaserJet Enterprise M750 Printer series */
+      0x04f90d14, /* HP Designjet T770 24-in Postscript Printer */
+      0x04f91611, /* HP PSC 780 All-in-One Printer */
+      0x04f91711, /* HP PSC 780xi All-in-One Printer */
+      0x04f90f14, /* HP Designjet T790ps 24in */
+      0x04f91f2a, /* HP LaserJet Enterprise M806 Printer Series */
+      0x04f90304, /* HP Deskjet 810c Printer */
+      0x04f90204, /* HP Deskjet 815c Printer */
+      0x04f90804, /* HP Deskjet 816 Printer */
+      0x04f92902, /* HP Photosmart A826 Home Photo Center */
+      0x04f90704, /* HP Deskjet 825cvr Printer */
+      0x04f91e2a, /* HP LaserJet Enterprise flow M830z Multifunction Printer */
+      0x04f90404, /* HP Deskjet 830c Printer */
+      0x04f90604, /* HP Deskjet 840c Printer */
+      0x04f90904, /* HP Deskjet 845c Printer */
+      0x04f91512, /* HP Officejet Pro K850 Printer */
+      0x04f91c2a, /* HP Color LaserJet Enterprise M855 Printer series */
+      0x04f90104, /* HP Deskjet 880c Printer */
+      0x04f91d2a, /* HP Color LaserJet Enterprise flow M880 Multifunction Printer series */
+      0x04f90004, /* HP Deskjet 895cse Printer */
+      0x04f92604, /* HP 910 Printer */
+      0x04f92704, /* HP 915 Inkjet All-in-One Printer */
+      0x04f91804, /* HP Deskjet 916c Printer */
+      0x04f91504, /* HP Deskjet 920c Printer */
+      0x04f91f11, /* HP PSC 920 All-in-One Printer */
+      0x04f91204, /* HP Deskjet 930c Printer */
+      0x04f91604, /* HP Deskjet 940cvr Printer */
+      0x04f91704, /* HP Deskjet 948c Printer */
+      0x04f91104, /* HP Deskjet 950c Printer */
+      0x04f91e11, /* HP PSC 950 All-in-One Printer */
+      0x04f91304, /* HP Deskjet 955c Printer */
+      0x04f91404, /* HP Deskjet 957c Printer */
+      0x04f93104, /* HP Deskjet 960cse Printer */
+      0x04f91004, /* HP Deskjet 970cxi Printer */
+      0x04f93004, /* HP Deskjet 980cxi Printer */
+      0x04f93304, /* HP Deskjet 990cxi Printer */
+      0x04f95004, /* HP Deskjet 995c Printer */
+      0x04f92e11, /* HP PSC 1000 Series */
+      0x04f90517, /* HP LaserJet 1000 Printer */
+      0x04f98811, /* HP Deskjet 1000 J110 Series */
+      0x04f91712, /* Business Inkjet 1000 Printer */
+      0x04f91317, /* HP LaserJet 1005 Printer */
+      0x04f94117, /* HP LaserJet P1005 Printer */
+      0x04f93217, /* HP LaserJet M1005 Multifunction Printer */
+      0x04f93e17, /* HP LaserJet P1009 Printer */
+      0x04f90c17, /* HP LaserJet 1010 Printer */
+      0x04f9b511, /* HP Deskjet 1010 Printer */
+      0x04f94217, /* HP Color LaserJet CM1015 Multifunction Printer */
+      0x04f94317, /* HP Color LaserJet CM1017 Multifunction Printer */
+      0x04f92b17, /* HP LaserJet 1020 Printer */
+      0x04f93017, /* HP LaserJet 1022nw Printer */
+      0x04f92d17, /* HP LaserJet 1022n Printer */
+      0x04f92c17, /* HP LaserJet 1022 Printer */
+      0x04f9112a, /* HP LaserJet Pro CP 1025nw Color Printer Series */
+      0x04f90b2a, /* HP LaserJet Pro CP1025nw Color Printer Series */
+      0x04f98911, /* HP Deskjet 1050 J410 All-in-One Printer */
+      0x04f97c04, /* HP Deskjet 1100c Printer */
+      0x04f90912, /* HP Business Inkjet 1100d Printer */
+      0x04f93011, /* HP PSC 1110 All-in-One Printer */
+      0x04f9032a, /* HP LaserJet Professional P1102w Printer */
+      0x04f9002a, /* HP Laserjet Professional P1102 Printer */
+      0x04f9102a, /* HP LaserJet Professional P 1102w Printer */
+      0x04f93402, /* HP Photosmart 1115 Printer */
+      0x04f95617, /* HP LaserJet M1120 Multifunction Printer */
+      0x04f95717, /* HP LaserJet M1120n Multifunction Printer */
+      0x04f9042a, /* HP LaserJet Professional M1132 Multifunction Printer */
+      0x04f90f17, /* HP LaserJet 1150 Printer */
+      0x04f94004, /* HP Color Inkjet cp1160 Printer */
+      0x04f91e17, /* HP LaserJet 1160 Series Printer */
+      0x04f90317, /* HP LaserJet 1200 Printer */
+      0x04f90f12, /* HP Business Inkjet 1200dtn Printer */
+      0x04f92f11, /* HP PSC 1200 All-in-One Printer */
+      0x04f9052a, /* HP LaserJet Professional M1212nf Multifunction Printer */
+      0x04f94717, /* HP Color LaserJet CP1215 Printer */
+      0x04f93202, /* HP Photosmart 1215 Printer */
+      0x04f90e2a, /* HP LaserJet Professional M1217nfW Multifunction Printer */
+      0x04f9262a, /* HP Laserjet M1210 MFP Series */
+      0x04f93302, /* HP Photosmart 1218 Printer */
+      0x04f90417, /* HP LaserJet 1220se All-in-One Printer */
+      0x04f90212, /* HP Deskjet 1220c Printer */
+      0x04f91412, /* HP Deskjet 1280 Printer */
+      0x04f91017, /* HP LaserJet 1300 Printer */
+      0x04f97804, /* HP Deskjet D1311 Printer */
+      0x04f93b11, /* HP PSC 1300 All-in-One Printer */
+      0x04f91117, /* HP LaserJet 1300n Printer */
+      0x04f93f11, /* HP PSC 1310 All-in-One Printer */
+      0x04f94f17, /* HP Color LaserJet CM1312nfi Multifunction Printer */
+      0x04f94e17, /* HP Color LaserJet CM1312 Multifunction Printer */
+      0x04f93602, /* HP Photosmart 1315 Printer */
+      0x04f95817, /* HP LaserJet M1319f Multifunction Printer */
+      0x04f91d17, /* HP LaserJet 1320 Series Printer */
+      0x04f93c11, /* HP PSC 1358 series */
+      0x04f97904, /* HP Deskjet D1415 Printer */
+      0x04f94d11, /* HP PSC 1401 All-in-One Printer */
+      0x04f9072a, /* HP LaserJet Professional CM1411fn */
+      0x04f94c11, /* HP PSC 1508 All-in-One Printer */
+      0x04f9c111, /* HP Deskjet 1510 All-in-One Printer */
+      0x04f94417, /* HP Color LaserJet CP1514n Printer */
+      0x04f95017, /* HP Color LaserJet CP1518ni Printer */
+      0x04f9022a, /* HP LaserJet Professional CP1521n */
+      0x04f9012a, /* HP LaserJet M1536dnf MFP */
+      0x04f9092a, /* HP LaserJet Professional P1566 */
+      0x04f97f11, /* HP Deskjet D1620 Printer */
+      0x04f94811, /* HP PSC 1600 All-in-One Printer */
+      0x04f93a17, /* HP Color LaserJet 1600 Printer */
+      0x04f90a2a, /* HP LaserJet Professional P1606dn Printer */
+      0x04f90312, /* HP Color Inkjet cp1700 Printer */
+      0x04f99411, /* HP Deskjet 2000 J210 series */
+      0x04f99b11, /* HP Deskjet Ink Adv 2010 K010 */
+      0x04f93917, /* HP LaserJet P2014 Printer */
+      0x04f94a17, /* HP LaserJet P2014n Printer */
+      0x04f93817, /* HP LaserJet P2015d Printer */
+      0x04f9b911, /* HP Deskjet Ink Advantage 2020HC Printer */
+      0x04f95417, /* HP Color LaserJet CP2025dn Printer */
+      0x04f95217, /* HP Color LaserJet CP2025 Printer */
+      0x04f95317, /* HP Color LaserJet CP2025n Printer */
+      0x04f95d17, /* HP LaserJet P2035n Printer */
+      0x04f98711, /* HP Deskjet 2050 J510 All-in-One Printer */
+      0x04f95c17, /* HP LaserJet P2055dn Printer */
+      0x04f99a11, /* HP Deskjet Ink Adv 2060 K110 */
+      0x04f92811, /* HP PSC 2105 All-in-One Printer */
+      0x04f97d04, /* HP Deskjet F2110 All-in-One Printer */
+      0x04f92a11, /* HP PSC 2150 All-in-One Printer */
+      0x04f92b11, /* HP PSC 2170 All-in-One Printer */
+      0x04f90217, /* HP LaserJet 2200 Series Printer */
+      0x04f92911, /* HP PSC 2200 All-in-One Printer */
+      0x04f92404, /* HP Deskjet F2210 All-in-One Printer */
+      0x04f93511, /* HP PSC 2300 Series All-in-One Printer */
+      0x04f90812, /* HP Business Inkjet 2300 Printer */
+      0x04f9c302, /* HP Deskjet D2320 Printer */
+      0x04f90b17, /* HP LaserJet 2300 Series Printer */
+      0x04f95917, /* HP Color LaserJet CM2320 Multifunction Printer */
+      0x04f95a17, /* HP Color LaserJet CM2320nf Multifunction Printer */
+      0x04f95b17, /* HP Color LaserJet CM2320fxi Multifunction Printer */
+      0x04f94911, /* HP PSC 2350 All-in-One Printer */
+      0x04f93611, /* HP PSC 2405 Photosmart All-in-One Printer */
+      0x04f97611, /* HP Deskjet F2410 All-in-One Printer */
+      0x04f97a04, /* HP Deskjet D2430 Printer */
+      0x04f92517, /* HP LaserJet 2410 Printer */
+      0x04f92917, /* HP LaserJet 2420 Printer */
+      0x04f92a17, /* HP LaserJet 2430t Printer */
+      0x04f91e04, /* HP 2500c Plus Printer */
+      0x04f90717, /* HP Color LaserJet 2500 Printer */
+      0x04f92504, /* HP Deskjet D2530 Printer */
+      0x04f93711, /* HP PSC 2500 Photosmart All-in-One Printer */
+      0x04f9ac11, /* HP Deskjet Ink Advantage 2510 All-in-One */
+      0x04f9be11, /* HP Deskjet Ink Advantage 2520HC All-in-One */
+      0x04f9c211, /* HP Deskjet 2540 All-in-One Printer */
+      0x04f91c17, /* HP Color LaserJet 2550L Printer */
+      0x04f94e11, /* HP Photosmart 2570 All-in-One Printer */
+      0x04f92e17, /* HP Color LaserJet 2600n Printer */
+      0x04f94511, /* HP Photosmart 2605 All-in-One Printer */
+      0x04f98011, /* HP Deskjet D2660 Printer */
+      0x04f90412, /* HP Business Inkjet 2600 Printer */
+      0x04f93617, /* HP Color LaserJet 2605dtn Printer */
+      0x04f92f17, /* HP Color LaserJet 2605 Printer */
+      0x04f93117, /* HP Color LaserJet 2605dn Printer */
+      0x04f9c911, /* HP Officejet 2620 All-in-One */
+      0x04f9ca11, /* HP Deskjet Ink Advantage 2645 All-in-One Printer */
+      0x04f94611, /* HP Photosmart 2710 All-in-One Printer */
+      0x04f93c17, /* HP Color LaserJet 2700n Printer */
+      0x04f93717, /* HP Color LaserJet 2700 Printer */
+      0x04f92617, /* HP Color LaserJet 2800 All-in-One Printer */
+      0x04f91112, /* HP Business Inkjet 2800 Printer */
+      0x04f90612, /* HP Business Inkjet 3000 Printer */
+      0x04f96717, /* HP Color LaserJet 3000 Printer */
+      0x04f99511, /* HP Deskjet 3000 j310 series */
+      0x04f97617, /* HP LaserJet P3004 Printer */
+      0x04f97317, /* HP LaserJet P3005 Printer */
+      0x04f98d17, /* HP LaserJet P3015 Printer */
+      0x04f91617, /* HP LaserJet 3015 All-in-One Printer */
+      0x04f97a17, /* HP LaserJet M3027 Multifunction Printer */
+      0x04f97517, /* HP LaserJet M3035 Multifunction Printer */
+      0x04f99311, /* HP Deskjet 3050 J610 series */
+      0x04f9a011, /* HP Deskjet 3050A J611 series */
+      0x04f93317, /* HP LaserJet 3052 All-in-One Printer */
+      0x04f93417, /* HP LaserJet 3055 All-in-One Printer */
+      0x04f9a211, /* HP Deskjet 3070 B611 series */
+      0x04f95611, /* HP Photosmart C3110 All-in-One Printer */
+      0x04f95011, /* HP Photosmart 3108 All-in-One Printer */
+      0x04f95111, /* HP Photosmart 3207 All-in-One Printer */
+      0x04f90117, /* HP LaserJet 3200 All-in-One Printer */
+      0x04f90817, /* HP LaserJet 3300 Multifunction Printer */
+      0x04f95211, /* HP Photosmart 3308 All-in-One Printer */
+      0x04f97004, /* HP Deskjet 3320v Color Inkjet Printer */
+      0x04f90917, /* HP LaserJet 3330 Multifunction Printer */
+      0x04f91917, /* HP LaserJet 3380 All-in-One Printer */
+      0x04f93517, /* HP LaserJet 3390 All-in-One Printer */
+      0x04f97104, /* HP Deskjet 3420 Color Inkjet Printer */
+      0x04f91517, /* HP Color LaserJet 3500n Printer */
+      0x04f93112, /* HP Officejet J3508 All-in-One Printer */
+      0x04f97817, /* HP Color LaserJet CP3505n Printer */
+      0x04f9ad11, /* HP Deskjet Ink Advantage 3515 e-All-in-One */
+      0x04f9b011, /* HP Deskjet 3520 e-All-in-One Series */
+      0x04f98517, /* HP Color LaserJet CP3525 Printer */
+      0x04f98a17, /* HP Color LaserJet CM3530 Multifunction Printer */
+      0x04f9c711, /* HP Deskjet Ink Advantage 3540 e-All-in-One Printer Series */
+      0x04f96117, /* HP Color LaserJet 3550 Printer */
+      0x04f96917, /* HP Color LaserJet 3600 Printer */
+      0x04f96812, /* HP Officejet Pro 3610 Black and White e-All-in-One */
+      0x04f96d12, /* HP Officejet Pro 3620 Black and White e-All-in-One */
+      0x04f97204, /* HP Deskjet 3650 Color Inkjet Printer */
+      0x04f90a17, /* HP Color LaserJet 3700 Printer */
+      0x04f97404, /* HP Deskjet 3740 Color Inkjet Printer */
+      0x04f96817, /* HP Color LaserJet 3800 Printer */
+      0x04f91b04, /* HP Deskjet 3810 Color Inkjet Printer */
+      0x04f91a04, /* HP Deskjet 3816 Color Inkjet Printer */
+      0x04f91c04, /* HP Deskjet 3819 Color Inkjet Printer */
+      0x04f91904, /* HP Deskjet 3820 Color Inkjet Printer */
+      0x04f97504, /* HP Deskjet 3843 Color Inkjet Printer */
+      0x04f97604, /* HP Deskjet 3900 Color Inkjet Printer */
+      0x04f90714, /* HP Designjet 4000ps */
+      0x04f99c11, /* HP Officejet 4000 K210 Printer */
+      0x04f97b17, /* HP Color LaserJet CP4005n Printer */
+      0x04f98817, /* HP Color LaserJet CP4020 Series Printer */
+      0x04f95711, /* HP Photosmart C4110 All-in-One Printer */
+      0x04f97704, /* HP Deskjet D4145 Printer */
+      0x04f97e04, /* HP Deskjet F4135 All-in-One Printer */
+      0x04f93111, /* HP OfficeJet 4100 Series All-in-One Printer */
+      0x04f96017, /* HP LaserJet 4150 Printer */
+      0x04f93d11, /* HP Officejet 4200 All-in-One Printer */
+      0x04f95c11, /* HP Photosmart C4205 All-in-One Printer */
+      0x04f97b04, /* HP Deskjet D4245 Printer */
+      0x04f96a17, /* HP LaserJet 4240n Printer */
+      0x04f92417, /* HP LaserJet 4250 Printer */
+      0x04f95411, /* HP Officejet 4308 All-in-One Printer */
+      0x04f91f04, /* HP Deskjet D4360 Printer */
+      0x04f96711, /* HP Photosmart C4340 All-in-One Printer */
+      0x04f97417, /* HP LaserJet 4345 Multifunction Printer */
+      0x04f99717, /* HP LaserJet M4349 MFP */
+      0x04f92317, /* HP LaserJet 4350 Printer */
+      0x04f96611, /* HP Photosmart C4380 All-in-One Printer */
+      0x04f96c11, /* HP Photosmart C4410 All-in-One Printer */
+      0x04f99d11, /* HP Officejet 4400 K410 All-in-One Printer */
+      0x04f97711, /* HP Deskjet F4440 All-in-One Printer */
+      0x04f94712, /* HP Officejet 4500 Desktop All-in-One Printer - G510a */
+      0x04f98c11, /* HP Deskjet F4500 All-in-One Printer Series */
+      0x04f95712, /* HP Officejet 4500 All-in-One Printer - K710 */
+      0x04f92a12, /* HP Officejet J4524 All-in-One Printer */
+      0x04f96b11, /* HP Photosmart C4540 All-in-One Printer */
+      0x04f9c511, /* HP Envy 4500 e-All-in-One */
+      0x04f92e12, /* HP Officejet 4500 G510n-z All-in-One Printer */
+      0x04f9c411, /* HP DeskJet Ink Advantage 4515 e-All-in-One Printer */
+      0x04f99917, /* HP Color LaserJet CM4540 Multifunction Printer */
+      0x04f99c17, /* HP LaserJet M4555 MFP */
+      0x04f97411, /* HP Photosmart C4640 All-in-One Printer */
+      0x04f96c17, /* HP Color LaserJet 4610n Printer */
+      0x04f95812, /* HP OfficeJet 4610 All-in-One Printer Series */
+      0x04f96512, /* HP Deskjet Ink Advantage 4610 All-in-One Printer Series */
+      0x04f96612, /* HP Deskjet Ink Advantage 4620 e-All-in-One Printer */
+      0x04f96412, /* HP OfficeJet 4620 e-All-in-One Printer */
+      0x04f9c611, /* HP Officejet 4630 e-All-in-One Printer */
+      0x04f9c811, /* HP Deskjet Ink Advantage 4640 e-All-in-One Printer series */
+      0x04f91a17, /* HP Color LaserJet 4650 Printer */
+      0x04f92b12, /* HP Officejet J4660 All-in-One Printer */
+      0x04f92c12, /* HP Officejet J4680c All-in-One Printer */
+      0x04f97511, /* HP Photosmart C4740 All-in-One Printer */
+      0x04f96217, /* HP Color LaserJet 4700 Printer */
+      0x04f97d17, /* HP Color LaserJet CM4730 Multifunction Printer */
+      0x04f96317, /* HP Color LaserJet 4730xs Multifunction Printer */
+      0x04f97917, /* HP LaserJet M5025 Multifunction Printer */
+      0x04f97217, /* HP LaserJet M5035 Multifunction Printer */
+      0x04f9a117, /* HP LaserJet M5039 Multifunction Printer */
+      0x04f9c802, /* HP Photosmart D5060 Printer */
+      0x04f95811, /* HP Photosmart C5140 All-in-One Printer */
+      0x04f9c402, /* HP Photosmart D5145 Printer */
+      0x04f92411, /* HP Officejet 5100 All-in-One Printer */
+      0x04f95d11, /* HP Photosmart C5240 All-in-One Printer */
+      0x04f96417, /* HP LaserJet 5200 Printer */
+      0x04f96617, /* HP LaserJet 5200L Printer */
+      0x04f98917, /* HP LaserJet 5200LX Printer */
+      0x04f95117, /* HP Color LaserJet CP5225 */
+      0x04f97111, /* HP Photosmart C5370 All-in-One Printer */
+      0x04f91f12, /* HP Officejet Pro K5300 Printer */
+      0x04f96811, /* HP Photosmart D5345 Printer */
+      0x04f92012, /* HP Officejet Pro K5400dn Printer */
+      0x04f98604, /* HP Deskjet 5420v Photo Printer */
+      0x04f96d11, /* HP Photosmart D5460 Printer */
+      0x04f93a11, /* HP Officejet 5505 All-in-One Printer */
+      0x04f93012, /* HP Officejet J5505 All-in-One Printer */
+      0x04f98211, /* HP Deskjet D5545 Printer */
+      0x04f97211, /* HP Photosmart C5540 All-in-One Printer */
+      0x04f9a111, /* HP Photosmart 5510 e-All-in-One */
+      0x04f9b411, /* HP Photosmart 5510d e-All-in-One */
+      0x04f99b17, /* HP Color LaserJet CP5520 Series Printer */
+      0x04f9b111, /* HP Photosmart 5520 e-All-in-One */
+      0x04f9b611, /* HP Deskjet Ink Advantage 5525 e-All-in-One */
+      0x04f9c311, /* HP ENVY 5530 e-All-in-One Printer */
+      0x04f91f17, /* HP Color LaserJet 5550n Printer */
+      0x04f96004, /* HP Deskjet 5550 Color Inkjet Printer */
+      0x04f94f11, /* HP Officejet 5600 Series All-in-One Printer */
+      0x04f9cc11, /* HP Envy 5640 e-All-in-One */
+      0x04f96104, /* HP Deskjet 5650 Color Inkjet Printer */
+      0x04f95b11, /* HP Officejet J5725 All-in-One Printer */
+      0x04f98104, /* HP Deskjet 5700 Color Inkjet Printer */
+      0x04f9cd11, /* HP Officejet 5740 e-All-in-One */
+      0x04f9a004, /* HP Deskjet 5800 Color Inkjet Printer */
+      0x04f98704, /* HP Deskjet 5938 Photo Printer */
+      0x04f94312, /* HP Officejet 6000 Wireless Printer - E609n */
+      0x04f94212, /* HP Officejet 6000 Printer - E609a */
+      0x04f96f17, /* HP Color LaserJet CP6015dn Printer */
+      0x04f97c17, /* HP Color LaserJet CM6030 Multifunction Printer */
+      0x04f99517, /* HP Color LaserJet CM6049 MFP */
+      0x04f95911, /* HP Photosmart C6150 All-in-One Printer */
+      0x04f95e12, /* HP OfficeJet 6100 ePrinter H611a */
+      0x04f90b14, /* HP Designjet z6100ps 60in photo */
+      0x04f9c502, /* HP Photosmart D6160 Printer */
+      0x04f92d11, /* HP Officejet 6105 All-in-One Printer */
+      0x04f93404, /* HP Deskjet 6120 Color Inkjet Printer */
+      0x04f94b11, /* HP Officejet 6200 All-in-One Printer */
+      0x04f91014, /* HP Designjet z6200PS 42in Photo */
+      0x04f96a11, /* HP Photosmart C6240 All-in-One Printer */
+      0x04f97312, /* HP OfficeJet Pro 6230 ePrinter */
+      0x04f97011, /* HP Photosmart C6324 All-in-One Printer */
+      0x04f95311, /* HP Officejet 6301 All-in-One Printer */
+      0x04f93312, /* HP Officejet J6405 All-in-One Printer */
+      0x04f94412, /* HP Officejet 6500 All-in-One Printer - E709a */
+      0x04f95412, /* HP Officejet 6500 E710n-z */
+      0x04f95512, /* HP Officejet 6500 E710 */
+      0x04f94512, /* HP Officejet 6500 Wireless All-in-One Printer - E709n */
+      0x04f98204, /* HP Deskjet 6500 Color Inkjet Printer */
+      0x04f9a511, /* HP Photosmart 6510 e-All-in-one */
+      0x04f9af11, /* HP Photsmart 6520 e All-in-One */
+      0x04f9ba11, /* HP Deskjet Ink Advantage 6525 e-All-in-One */
+      0x04f98504, /* HP Deskjet 6600 Series Color Inkjet Printer */
+      0x04f95d12, /* HP Officejet 6600 e-All-in-One Printer - H711a */
+      0x04f95c12, /* HP Officejet 6700 Premium e-All-in-One Printer-H711n */
+      0x04f98404, /* HP Deskjet 6800 Color Inkjet Printer */
+      0x04f97412, /* HP OfficeJet 6800 e-All-in-one */
+      0x04f97212, /* HP OfficeJet Pro 6830 e-All-in-one */
+      0x04f98804, /* HP Deskjet 6980xi Printer */
+      0x04f94612, /* HP Officejet 7000 E809 series */
+      0x04f92611, /* HP Officejet 7100 All-in-One Printer */
+      0x04f95a11, /* HP Photosmart C7150 All-in-One Printer */
+      0x04f92612, /* HP Officejet K7100 Printer */
+      0x04f9c602, /* HP Photosmart D7145 Printer */
+      0x04f96012, /* HP Officejet 7110 Wide Format ePrinter */
+      0x04f96911, /* HP Photosmart D7245 Printer */
+      0x04f9b002, /* HP Photosmart 7260w Photo Printer */
+      0x04f94111, /* HP Officejet 7205 All-in-One Printer */
+      0x04f96511, /* HP Photosmart C7250 All-in-One Printer */
+      0x04f94211, /* HP Officejet 7310 All-in-One Printer */
+      0x04f92512, /* HP Officejet Pro L7300 Series All-in-One Printer */
+      0x04f9c702, /* HP Photosmart D7345 Printer */
+      0x04f92002, /* HP Photosmart 7345 Printer */
+      0x04f94311, /* HP Officejet 7408 All-in-One Printer */
+      0x04f9b802, /* HP Photosmart 7450 Photo Printer */
+      0x04f95e11, /* HP Photosmart D7460 Printer */
+      0x04f93412, /* HP Officejet Pro L7480 All-in-One Printer */
+      0x04f92112, /* HP Officejet Pro L7500 Series All-in-One Printer */
+      0x04f94812, /* HP Officejet 7500 E910 */
+      0x04f96f11, /* HP Photosmart D7560 Printer */
+      0x04f9a611, /* HP Photosmart 7510 e-All-in-One */
+      0x04f9bc11, /* HP Photosmart 7520 e-All-in-One */
+      0x04f93e02, /* HP Photosmart 7550 Printer */
+      0x04f92212, /* HP Officejet Pro L7600 Series All-in-One Printer */
+      0x04f9b202, /* HP Photosmart 7655 Photo Printer */
+      0x04f96e12, /* HP Officejet 7610 Wide Format e-All-in-One Printer */
+      0x04f9dc11, /* HP Envy 7640 e-All-in-One */
+      0x04f92312, /* HP Officejet Pro L7700 Series All-in-One Printer */
+      0x04f9b402, /* HP Photosmart 7755 Photo Printer */
+      0x04f9c002, /* HP Photosmart 7830 Printer */
+      0x04f9b602, /* HP Photosmart 7960 Photo Printer */
+      0x04f9d011, /* HP Envy 8000 e-All-in-One */
+      0x04f95612, /* HP Officejet Pro 8000 Enterprise A811a */
+      0x04f93612, /* HP Officejet Pro 8000 Printer - A809a */
+      0x04f9c102, /* HP Photosmart 8030 Printer */
+      0x04f9de11, /* HP OfficeJet 8040 e-All-in-One */
+      0x04f97717, /* HP CM8050 Color Multifunction Printer with Edgeline Technology */
+      0x04f97117, /* HP CM8060 Color Multifunction Printer with Edgeline Technology */
+      0x04f95b12, /* HP OfficeJet Pro 8100 ePrinter-N811a */
+      0x04f96411, /* HP Photosmart C8150 All-in-One Printer */
+      0x04f9ba02, /* HP Photosmart 8150 Photo Printer */
+      0x04f9c202, /* HP Photosmart 8230 Printer */
+      0x04f9be02, /* HP Photosmart Pro B8330 Printer */
+      0x04f9bb02, /* HP Photosmart 8450gp Photo Printer */
+      0x04f93812, /* HP Officejet Pro 8500 All-in-One Printer - A909a */
+      0x04f94012, /* HP Officejet Pro 8500 Premier All-in-One Printer - A909n */
+      0x04f93912, /* HP Officejet Pro 8500 Wireless All-in-One Printer - A909g */
+      0x04f9d102, /* HP Photosmart B8550 Photo Printer */
+      0x04f95312, /* HP OfficeJet Pro 8500A Plus e-AiO Printer - A910g */
+      0x04f92712, /* HP Officejet Pro K8600 Color Printer */
+      0x04f95912, /* HP OfficeJet Pro 8600 e-AiO N911a */
+      0x04f97112, /* HP OfficeJet Pro 8610 e-All-in-One Printer */
+      0x04f97012, /* HP OfficeJet Pro 8620 e-All-in-One Printer */
+      0x04f96f12, /* HP OfficeJet Pro 8630 e-All-in-One Printer */
+      0x04f97712, /* HP OfficeJet Pro 8640 e-All-in-One Printer */
+      0x04f97612, /* HP OfficeJet Pro 8660 e-All-in-One Printer */
+      0x04f9bc02, /* HP Photosmart 8750 Professional Photo Printer */
+      0x04f9d002, /* HP Photosmart Pro B8850 Printer */
+      0x04f98417, /* HP LaserJet 9040 Multifunction Printer */
+      0x04f92017, /* HP LaserJet 9040 Printer */
+      0x04f92117, /* HP LaserJet 9050 Multifunction Printer */
+      0x04f98317, /* HP LaserJet M9050 Multifunction Printer */
+      0x04f99617, /* HP LaserJet M9059 MFP */
+      0x04f90d12, /* HP Officejet 9110 All-in-One Printer */
+      0x04f9bd02, /* HP Photosmart Pro B9180gp Photo Printer */
+      0x04f92217, /* HP Color LaserJet 9500n Printer */
+      0x04f90b12, /* HP Deskjet 9650 Printer */
+      0x04f91212, /* HP Deskjet 9800 Printer */
+      0x04f93c2a, /* HP Color LaserJet Pro M252n */
+      0x04f9382a, /* HP Color LaserJet Enterprise M553n */
+      0x04f9582a, /* HP Color LaserJet Enterprise M552dn */
+      0x04f9552a, /* HP LaserJet Enterprise M604n */
+      0x04f93e2a, /* HP LaserJet Enterprise M605n */
+      0x04f93f2a, /* HP LaserJet Enterprise M606dn */
+      0x04f9e311, /* HP DeskJet 3630 All-in-One Printer */
+      0x04f9e111, /* HP DeskJet 2130 All-in-One Printer series */
+      0x04f9df11, /* HP Deskjet 1110 Printer */
+      0x04f9e511, /* HP OfficeJet 3830 All-in-One Printer */
+      0x04f9e611, /* HP DeskJet Ink Advantage 3830 All-in-One Printer */
+      0x04f9d911, /* HP OfficeJet 4650 All-in-One Printer series */
+      0x04f9d711, /* HP ENVY 4520 All-in-One Printer series */
+      0x04f9ce11, /* HP Envy 5540 All-in-One Printer series */
+      0x04f9e811, /* HP Envy 4510 All-in-One */
+      0x04f9842a, /* HP Color LaserJet Pro MFP M274n */
+      0x04f9e211, /* HP DeskJet Ink Advantage Ultra 4720 All-in-One Printer series */
+      0x04f9db11, /* HP DeskJet Ink Advantage 5640 All-in-One Printer series */
+      0x04f9da11, /* HP DeskJet Ink Advantage 4670 All-in-One */
+      0x04f9d811, /* HP DeskJet Ink Advantage 4530 All-in-One */
+      0x04f9422a, /* HP LaserJet Enterprise M506 series */
+      0x04f9542a, /* HP LaserJet Pro M402dw */
+      0x04f9602a, /* HP LaserJet Pro M402n */
+      0x04f9522a, /* HP Color Laserjet Pro M452dn */
+      0x04f95a2a, /* HP Laserjet Pro MFP M426fdn */
+      0x04f9402a, /* HP Laserjet Enterprise MFP M527dn */
+      0x04f9412a, /* HP Laserjet Enterprise Flow MFP M527c */
+      0x04f95305, /* HP Scanjet Pro 3500 f1 Flatbed Scanner */
+      0x04f93a2a, /* HP Color LaserJet Enterprise MFP M577 Series */
+      0x04f94a2a, /* HP Color LaserJet Enterprise Flow MFP M577 Series */
+      0x04f9512a, /* HP Color Laserjet Pro MFP M477 fnw */
+      0x04f9d611, /* HP PageWide Pro 577dw Multifunction Printer */
+      0x04f9d311, /* HP PageWide Pro 552dw Printer */
+      0x04f9d211, /* HP PageWide Pro 452dw Printer */
+      0x04f9d111, /* HP PageWide Pro 452dn Printer */
+      0x04f9d511, /* HP PageWide Pro 477dw Multifunction Printer */
+      0x04f9d411, /* HP PageWide Pro 477dn Multifunction Printer */
+      0x04f9ed11, /* HP DeskJet GT 5810 All-in-One Printer */
+      0x04f9ee11, /* HP DeskJet GT 5820 All-in-One Printer */
+      0x04f9e711, /* HP OfficeJet 200 Mobile Printer */
+      0x04f97a12, /* HP OfficeJet Pro 8710 All-in-One Printer */
+      0x04f96312, /* HP OfficeJet Pro 8740 All-in-One Printer */
+      0x04f97b12, /* HP OfficeJet Pro 8720 All-in-One Printer */
+      0x04f9652a, /* HP Laserjet Pro M501n */
+      0x04f9832a, /* HP PageWide Enterprise Color MFP 586dn */
+      0x04f9822a, /* HP PageWide Enterprise Color Flow MFP 586z */
+      0x04f9fa11, /* HP PageWide Managed MFP P57750dw */
+      0x04f9f911, /* HP PageWide Managed P55250dw */
+      0x04f97d12, /* HP OfficeJet Pro 8210 */
+      0x04f9862a, /* HP Color Laserjet MFP M377 fnw */
+      0x04f9f511, /* HP DeskJet Ink Advantage Ultra 5738 All-in-One Printer */
+      0x04f91254, /* HP ENVY Photo 6200 All-in-One */
+      0x04f91154, /* HP ENVY Photo 7100 All-in-One */
+      0x04f91054, /* HP ENVY Photo 7800 All-in-One */
+      0x04f9e911, /* HP OfficeJet 250 Mobile All-in-One */
+      0x04f90d54, /* HP OfficeJet Pro 6960 All-in-One */
+      0x04f90c54, /* HP OfficeJet Pro 6970 All-in-One */
+      0x04f903f0, /* HP DeskJet 3700 All-in-One */
+      0x04f90e54, /* HP OfficeJet 6960 All-in-One */
+      0x04f9802a, /* HP PageWide Managed Color E55650dn */
+      0x04f91554, /* HP OfficeJet Pro 8732 All-in-One Printer */
+      0x04f90954, /* HP OfficeJet 8702 All-in-One */
+      0x04f9f211, /* HP PageWide MFP 377dw */
+      0x04f90154, /* HP OfficeJet Pro 7740 Wide Format All-in-One */
+      0x04f90f54, /* HP OfficeJet 6950 All-in-One */
+      0x04f95605, /* HP Scanjet Pro 3000 S3 */
+      0x04f95705, /* HP Scanjet Enterprise Flow 5000 S4 */
+      0x04f95805, /* HP Scanjet Enterprise Flow 7000 S3 */
+      0x04f9612a, /* HP LaserJet M102a */
+      0x04f91654, /* HP OfficeJet Pro 7720 Wide Format All-in-One */
+      0x04f91754, /* HP OfficeJet Pro 7730 Wide Format All-in-One */
+      0x04f90853, /* HP ENVY 5000 All-in-One */
+      0x04f90a54, /* HP DeskJet Ink Advantage 5075 All-in-One */
+      0x04f9632a, /* HP LaserJet Pro M203d */
+      0x04f9642a, /* HP LaserJet Pro MFP M227sdn */
+      0x04f9622a, /* HP LaserJet Pro MFP M132a */
+      0x04f90b53, /* HP DeskJet Ink Advantage 5275 All-in-One */
+      0x04f9b22a, /* HP Color LaserJet Managed Flow MFP E77830z */
+      0x04f9b32a, /* HP Color LaserJet Managed MFP E87640 dn */
+      0x04f9b12a, /* HP LaserJet Managed MFP E82540dn */
+      0x04f9b02a, /* HP LaserJet Managed MFP E72525dn */
+      0x04f96b2a, /* HP LaserJet Enterprise M607n */
+      0x04f96c2a, /* HP LaserJet Managed E60055dn */
+      0x04f9672a, /* HP LaserJet Enterprise MFP M631dn */
+      0x04f9682a, /* HP LaserJet Managed MFP E62555dn */
+      0x04f9a32a, /* HP Color LaserJet Enterprise M652n */
+      0x04f9a42a, /* HP Color LaserJet Managed E65050dn */
+      0x04f9a52a, /* HP Color LaserJet Enterprise MFP M681dh */
+      0x04f9a62a, /* HP Color LaserJet Managed MFP E67550dh */
+      0x04f9fe11, /* HP PageWide Pro 750dn */
+      0x04f9eb11, /* HP PageWide Pro MFP 772dw */
+      0x04f9fc11, /* HP PageWide Managed MFP P77740zs */
+      0x04f9f611, /* HP PageWide Managed P75050dn */
+      0x04f9932a, /* HP LaserJet Pro MFP M26a */
+      0x04f90753, /* HP DeskJet 2200 All-in-One */
+      0x04f90053, /* HP DeskJet 2620 All-in-One */
+      0x04f9b62a, /* HP PageWide Enterprise Color 765dn */
+      0x04f9b72a, /* HP PageWide Managed Color E75160dn */
+      0x04f90e53, /* HP AMP All-in-One */
+      0x04f9b42a, /* HP PageWide Enterprise Color MFP 780dn */
+      0x04f9b52a, /* HP PageWide Managed Color MFP E77650dn */
+      0x04f9ba2a, /* HP Scanjet Enterprise Flow N9120 fn2 Document Scanner */
+      0x04f9b92a, /* HP Digital Sender Flow 8500 fn2 Document Capture Workstation */
+      0x04f9be2a, /* HP LaserJet Pro M15w */
+      0x04f9bf2a, /* HP LaserJet Pro MFP M28w */
+      0x04f9ac2a, /* HP Color LaserJet Pro M253a */
+      0x04f9af2a, /* HP Color LaserJet Pro MFP M180nw */
+      0x04f9ad2a, /* HP Color LaserJet Pro MFP M281fdw */
+      0x04f9ae2a, /* HP Color LaserJet Pro M154a */
+      0x04f9c92a, /* HP PageWide Managed Color MFP P77440dn */
+      0x04f9c72a, /* HP PageWide Managed Color MFP P77450dn */
+      0x04f90f53, /* HP Smart Tank 350 */
+      0x04f91253, /* HP Smart Tank Wireless 450 */
+      0x04f91053, /* HP Ink Tank 310 */
+      0x04f91353, /* HP Ink Tank Wireless 410 */
+      0x04f91453, /* HP Ink Tank 115 */
+      0x04f9ef2a, /* HP PageWide 755dn */
+      0x04f9ee2a, /* HP PageWide MFP 774dn */
+      0x04f9e92a, /* HP LaserJet Pro M118dw */
+      0x04f9ec2a, /* HP LaserJet Pro MFP M148dw */
+      0x04f9ed2a, /* HP LaserJet Pro MFP M148fdw */
+      0x04f98411, /* HP Scanjet Enterprise 7500 */
+      0x04f92454, /* HP OfficeJet Pro All-in-One 9010 */
+      0x04f92354, /* HP OfficeJet Pro All-in-One 9020 */
+      0x04f92554, /* HP OfficeJet All-in-One 9010 */
+      0x04f92654, /* HP OfficeJet Pro 8030 All-in-One Printer series */
+      0x04f92854, /* HP OfficeJet 8020 All-in-One Printer series */
+      0x04f92754, /* HP OfficeJet Pro 8020 All-in-One Printer series */
+      0x04f92954, /* HP OfficeJet 8010 All-in-One Printer series */
+      0x04f91c54, /* HP Smart Tank Plus 650 */
+      0x04f91b54, /* HP Smart Tank 610 */
+      0x04f91a54, /* HP Smart Tank Plus 550 */
+      0x04f91954, /* HP Smart Tank 510 */
+      0x04f9e32a, /* HP LaserJet Managed MFP E62655dn */
+      0x04f9e02a, /* HP LaserJet Managed E60155dn */
+      0x04f9e22a, /* HP Color LaserJet Managed MFP E67650dh */
+      0x04f9e12a, /* HP Color LaserJet Managed E65150dn */
+      0x04f9f42a, /* HP Neverstop Laser MFP 1200a */
+      0x04f9f32a, /* HP Neverstop Laser 1000a */
+      0x04f9f02a, /* HP Laser NS 1020 */
+      0x04f9f12a, /* HP Laser NS MFP 1005 */
+      0x04f92b54, /* HP Smart Tank 500 series */
+      0x04f92a54, /* HP Smart Tank 530 series */
+      0x04f92d54, /* HP Smart Tank Plus 570 series */
+      0x04f9ca2a, /* HP LaserJet Enterprise M507n */
+      0x04f9d22a, /* HP Laserjet Managed E50145dn */
+      0x04f9cc2a, /* HP LaserJet Enterprise MFP M528dn */
+      0x04f9d32a, /* HP LaserJet Managed MFP E52645dn */
+      0x04f99d2a, /* HP Color LaserJet Enterprise M751n */
+      0x04f99e2a, /* HP Color LaserJet Managed E75245dn */
+      0x04f9de2a, /* HP LaserJet Pro M305d */
+      0x04f9c12a, /* HP LaserJet Pro M404d */
+      0x04f9c22a, /* HP LaserJet Pro MFP M428dw */
+      0x04f9df2a, /* HP LaserJet Pro MFP M329dn */
+      0x04f9c32a, /* HP LaserJet Pro MFP M428fdn */
+      0x04f9c42a, /* HP Color LaserJet Pro M453cdn */
+      0x04f9c62a, /* HP Color LaserJet Pro MFP M479dw */
+      0x04f9c52a, /* HP Color LaserJet Pro MFP M478fcdn */
+      0x04f99f2a, /* HP Color LaserJet Enterprise MFP M776dn */
+      0x04f9a12a, /* HP Color laserjet Enterprise M856dn */
+      0x04f9a22a, /* HP Color laserjet Managed E85055 */
+      0x04f90c70, /* HP Color LaserJet Pro M155a */
+      0x04f90a70, /* HP Color LaserJet Pro M256dn */
+      0x04f90970, /* HP Color LaserJet Pro MFP M282nw */
+      0x04f90870, /* HP Color LaserJet Pro MFP M182n */
+      0x04f95a05, /* HP Scanjet Pro 2000 S2 */
+      0x04f95e05, /* HP ScanJet Enterprise Flow N7000 snw1 */
+      0x04f95c05, /* HP ScanJet Pro N4000 snw1 */
+      0x04f95b05, /* HP ScanJet Pro 3000 s4 */
+      0x04f95d05, /* HP ScanJet Enterprise Flow 5000 s5 */
+    };
 
     /* Taken from epkowa.desc from iscan-data package for Epson driver */
     private const uint32 epkowa_devices[] = { 0x04b80101, 0x04b80102, 0x04b80103, 0x04b80104, 0x04b80105, 0x04b80106, 0x04b80107, 0x04b80108, 0x04b80109, 0x04b8010a, 0x04b8010b, 0x04b8010c, 0x04b8010d, 0x04b8010e, 0x04b8010f, 0x04b80110, 0x04b80112, 0x04b80114, 0x04b80116, 0x04b80118, 0x04b80119, 0x04b8011a, 0x04b8011b, 0x04b8011c, 0x04b8011d, 0x04b8011e, 0x04b8011f, 0x04b80120, 0x04b80121, 0x04b80122, 0x04b80126, 0x04b80128, 0x04b80129, 0x04b8012a, 0x04b8012b, 0x04b8012c, 0x04b8012d, 0x04b8012e, 0x04b8012f, 0x04b80130, 0x04b80131, 0x04b80133, 0x04b80135, 0x04b80136, 0x04b80137, 0x04b80138, 0x04b8013a, 0x04b8013b, 0x04b8013c, 0x04b8013d, 0x04b80142, 0x04b80143, 0x04b80144, 0x04b80147, 0x04b8014a, 0x04b8014b, 0x04b80151, 0x04b80153, 0x04b80801, 0x04b80802, 0x04b80805, 0x04b80806, 0x04b80807, 0x04b80808, 0x04b8080a, 0x04b8080c, 0x04b8080d, 0x04b8080e, 0x04b8080f, 0x04b80810, 0x04b80811, 0x04b80813, 0x04b80814, 0x04b80815, 0x04b80817, 0x04b80818, 0x04b80819, 0x04b8081a, 0x04b8081c, 0x04b8081d, 0x04b8081f, 0x04b80820, 0x04b80821, 0x04b80827, 0x04b80828, 0x04b80829, 0x04b8082a, 0x04b8082b, 0x04b8082e, 0x04b8082f, 0x04b80830, 0x04b80831, 0x04b80833, 0x04b80834, 0x04b80835, 0x04b80836, 0x04b80837, 0x04b80838, 0x04b80839, 0x04b8083a, 0x04b8083c, 0x04b8083f, 0x04b80841, 0x04b80843, 0x04b80844, 0x04b80846, 0x04b80847, 0x04b80848, 0x04b80849, 0x04b8084a, 0x04b8084c, 0x04b8084d, 0x04b8084f, 0x04b80850, 0x04b80851, 0x04b80852, 0x04b80853, 0x04b80854, 0x04b80855, 0x04b80856, 0x04b8085c, 0x04b8085d, 0x04b8085e, 0x04b8085f, 0x04b80860, 0x04b80861, 0x04b80862, 0x04b80863, 0x04b80864, 0x04b80865, 0x04b80866, 0x04b80869, 0x04b8086a, 0x04b80870, 0x04b80871, 0x04b80872, 0x04b80873, 0x04b80878, 0x04b80879, 0x04b8087b, 0x04b8087c, 0x04b8087d, 0x04b8087e, 0x04b8087f, 0x04b80880, 0x04b80881, 0x04b80883, 0x04b80884, 0x04b80885, 0x04b8088f, 0x04b80890, 0x04b80891, 0x04b80892, 0x04b80893, 0x04b80894, 0x04b80895, 0x04b80896, 0x04b80897, 0x04b80898, 0x04b80899, 0x04b8089a, 0x04b8089b, 0x04b8089c, 0x04b8089d, 0x04b8089e, 0x04b8089f, 0x04b808a0, 0x04b808a1, 0x04b808a5, 0x04b808a6, 0x04b808a8, 0x04b808a9, 0x04b808aa, 0x04b808ab, 0x04b808ac, 0x04b808ad, 0x04b808ae, 0x04b808af, 0x04b808b0, 0x04b808b3, 0x04b808b4, 0x04b808b5, 0x04b808b6, 0x04b808b7, 0x04b808b8, 0x04b808b9, 0x04b808bd, 0x04b808be, 0x04b808bf, 0x04b808c0, 0x04b808c1, 0x04b808c3, 0x04b808c4, 0x04b808c5, 0x04b808c6, 0x04b808c7, 0x04b808c8, 0x04b808c9, 0x04b808ca, 0x04b808cd, 0x04b808d0 };
@@ -562,19 +1243,20 @@ public class SimpleScan : Gtk.Application
      */
 
     /* HPAIO IDs extracted using the following Python:
-     * import sys
-     * ids = []
-     * for f in sys.argv:
-     *   for l in file (f).readlines ():
-     *   if not l.startswith ('usb-pid='):
-     *     continue
-     *   pid = int (l[8:].strip (), 16)
-     *   if pid == 0:
-     *     continue
-     *   usb_id = '0x%08x' % (0x04f9 << 16 | pid)
-     *   if not usb_id in ids:
-     *     ids.append (usb_id)
-     * print ('{ ' + ', '.join (ids) + ' }')
+      import sys
+      ids = []
+      for f in sys.argv:
+        for l in file (f).readlines ():
+          if l.startswith ('model1='):
+            model=l[7:].strip ()
+          elif l.startswith ('usb-pid='):
+            pid = int (l[8:].strip (), 16)
+            if pid == 0:
+              continue
+            usb_id = '0x%08x' % (0x04f9 << 16 | pid)
+            if not usb_id in ids:
+              ids.append (usb_id)
+              print (usb_id + ", /* " + model + " * /")
      */
 
     public string? suggest_driver ()
