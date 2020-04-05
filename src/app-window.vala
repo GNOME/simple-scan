@@ -683,7 +683,7 @@ public class AppWindow : Gtk.ApplicationWindow
         var extension_index = uri.last_index_of_char ('.');
         if (extension_index < 0)
             return "image/jpeg";
-        var extension = uri.substring (extension_index);
+        var extension = uri.substring (extension_index + 1);
 
         var mime_type = extension_to_mime_type (extension);
         if (mime_type == null)
