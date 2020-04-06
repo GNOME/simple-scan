@@ -1,0 +1,59 @@
+[+0,00s] DEBUG: simple-scan.vala:638: Starting Simple Scan 3.30.2, PID=8419
+[+0,03s] DEBUG: app-window.vala:1672: Restoring window to 600x400 pixels
+[+0,03s] DEBUG: autosave-manager.vala:64: Loading autosave information
+[+0,03s] DEBUG: autosave-manager.vala:259: Waiting to autosave...
+[+0,07s] DEBUG: scanner.vala:1461: sane_init () -> SANE_STATUS_GOOD
+[+0,07s] DEBUG: scanner.vala:1467: SANE version 1.0.27
+[+0,07s] DEBUG: scanner.vala:1528: Requesting redetection of scan devices
+[+0,07s] DEBUG: scanner.vala:806: Processing request
+[+9,98s] DEBUG: scanner.vala:341: sane_get_devices () -> SANE_STATUS_GOOD
+[+9,98s] DEBUG: scanner.vala:353: Device: name="xerox_mfp:tcp 192.168.178.36" vendor="Samsung" model="C460 Series" type="multi-function peripheral"
+[+25,67s] DEBUG: simple-scan.vala:455: Requesting scan at 300 dpi from device 'xerox_mfp:tcp 192.168.178.36'
+[+25,67s] DEBUG: scanner.vala:1576: Scanner.scan ("xerox_mfp:tcp 192.168.178.36", dpi=300, scan_mode=ScanMode.COLOR, depth=8, type=ScanType.SINGLE, paper_width=0, paper_height=0, brightness=0, contrast=0, delay=10000ms)
+[+25,67s] DEBUG: scanner.vala:806: Processing request
+[+25,67s] DEBUG: scanner.vala:867: sane_open ("xerox_mfp:tcp 192.168.178.36") -> SANE_STATUS_GOOD
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (0)
+[+25,67s] DEBUG: scanner.vala:738: Option 0: title='Number of options' type=int size=4 cap=soft-detect
+[+25,67s] DEBUG: scanner.vala:741:   Description: Read-only option that specifies how many options a specific devices supports.
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (1)
+[+25,67s] DEBUG: scanner.vala:738: Option 1: name='standard' title='Standard' type=group size=4
+[+25,67s] DEBUG: scanner.vala:741:   Description: Source, mode and resolution options
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (2)
+[+25,67s] DEBUG: scanner.vala:738: Option 2: name='resolution' title='Scan resolution' type=int size=4 unit=dpi values=[75, 100, 150, 200, 300, 600] cap=soft-select,soft-detect
+[+25,67s] DEBUG: scanner.vala:741:   Description: Sets the resolution of the scanned image.
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (3)
+[+25,67s] DEBUG: scanner.vala:738: Option 3: name='mode' title='Scan mode' type=string size=9 values=["Lineart", "Halftone", "Gray", "Color"] cap=soft-select,soft-detect
+[+25,67s] DEBUG: scanner.vala:741:   Description: Selects the scan mode (e.g., lineart, monochrome, or color).
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (4)
+[+25,67s] DEBUG: scanner.vala:738: Option 4: name='highlight' title='Threshold' type=fixed size=4 unit=percent min=30,000000, max=70,000000, quant=655360 cap=soft-select,soft-detect,inactive
+[+25,67s] DEBUG: scanner.vala:741:   Description: Select minimum-brightness to get a white point
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (5)
+[+25,67s] DEBUG: scanner.vala:738: Option 5: name='source' title='Scan source' type=string size=8 values=["Flatbed", "ADF", "Auto"] cap=soft-select,soft-detect
+[+25,67s] DEBUG: scanner.vala:741:   Description: Selects the scan source (such as a document-feeder).
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (6)
+[+25,67s] DEBUG: scanner.vala:738: Option 6: name='geometry' title='Geometry' type=group size=4
+[+25,67s] DEBUG: scanner.vala:741:   Description: Scan area and media size options
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (7)
+[+25,67s] DEBUG: scanner.vala:738: Option 7: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0,000000, max=216,069321, quant=65536 cap=soft-select,soft-detect
+[+25,67s] DEBUG: scanner.vala:741:   Description: Top-left x position of scan area.
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (8)
+[+25,67s] DEBUG: scanner.vala:738: Option 8: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0,000000, max=297,179993, quant=65536 cap=soft-select,soft-detect
+[+25,67s] DEBUG: scanner.vala:741:   Description: Top-left y position of scan area.
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (9)
+[+25,67s] DEBUG: scanner.vala:738: Option 9: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=0,000000, max=216,069321, quant=65536 cap=soft-select,soft-detect
+[+25,67s] DEBUG: scanner.vala:741:   Description: Bottom-right x position of scan area.
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (10)
+[+25,67s] DEBUG: scanner.vala:738: Option 10: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=0,000000, max=297,179993, quant=65536 cap=soft-select,soft-detect
+[+25,67s] DEBUG: scanner.vala:741:   Description: Bottom-right y position of scan area.
+[+25,67s] DEBUG: scanner.vala:888: sane_get_option_descriptor (11)
+[+25,67s] DEBUG: scanner.vala:549: sane_control_option (5, SANE_ACTION_SET_VALUE, "Auto") -> (SANE_STATUS_GOOD, "Auto")
+[+25,67s] DEBUG: scanner.vala:549: sane_control_option (3, SANE_ACTION_SET_VALUE, "Color") -> (SANE_STATUS_GOOD, "Color")
+[+25,67s] DEBUG: scanner.vala:465: sane_control_option (2, SANE_ACTION_SET_VALUE, 300) -> (SANE_STATUS_GOOD, 300)
+[+25,67s] DEBUG: scanner.vala:533: sane_control_option (9, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+25,67s] DEBUG: scanner.vala:533: sane_control_option (10, SANE_ACTION_SET_VALUE, option.range.max) -> (SANE_STATUS_GOOD)
+[+30,83s] DEBUG: scanner.vala:1217: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+30,83s] DEBUG: scanner.vala:1234: sane_get_parameters () -> SANE_STATUS_GOOD
+[+30,83s] DEBUG: scanner.vala:1246: Parameters: format=SANE_FRAME_RGB last_frame=SANE_TRUE bytes_per_line=7653 pixels_per_line=2551 lines=3569 depth=8
+[+30,83s] DEBUG: simple-scan.vala:350: Page is 2551 pixels wide, 3569 pixels high, 8 bits per pixel
+[+30,84s] DEBUG: simple-scan.vala:284: Getting color profile for device xerox_mfp:tcp 192.168.178.36
+[+30,85s] DEBUG: simple-scan.vala:304: Unable to find colord device xerox_mfp:tcp 192.168.178.36: property match 'Serial'='sane:xerox_mfp:tcp 192.168.178.36' does not exist
