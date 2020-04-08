@@ -549,6 +549,10 @@ public class SimpleScan : Gtk.Application
                                                0x04e8347c, 0x04e8347e, 0x04e83481, 0x04e83482, 0x04e83331, 0x04e83332, 0x04e83483, 0x04e83484, 0x04e83485, 0x04e83478, 0x04e83325, 0x04e83327, 0x04e8346f, 0x04e83477, 0x04e83324, 0x04e83326, 0x04e83486, 0x04e83487, 0x04e83489
     };
 
+    /* Taken from uld/noarch/oem.conf in the HP/Samsung SANE driver
+       These devices are rebranded Samsung Multifunction Printers. */
+    private const uint32 smfp_devices[] = { 0x03F0AA2A, 0x03F0CE2A, 0x03F0C02A, 0x03F0EB2A, 0x03F0F22A };
+
     /* Taken from /usr/share/hplip/data/models/models.dat in the HPAIO driver */
     private const uint32 hpaio_devices[] = {
       0x04f92311, /* HP Officejet d125xi All-in-One Printer */
@@ -1336,6 +1340,7 @@ public class SimpleScan : Gtk.Application
         add_devices (driver_map, brscan3_devices, "brscan3");
         add_devices (driver_map, brscan4_devices, "brscan4");
         add_devices (driver_map, samsung_devices, "samsung");
+        add_devices (driver_map, smfp_devices, "smfp");
         add_devices (driver_map, hpaio_devices, "hpaio");
         add_devices (driver_map, epkowa_devices, "epkowa");
         add_devices (driver_map, lexmark_nscan_devices, "lexmark_nscan");
