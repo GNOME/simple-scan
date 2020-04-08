@@ -1631,8 +1631,9 @@ public class AppWindow : Gtk.ApplicationWindow
         case "samsung":
             /* Message to indicate a Samsung scanner has been detected */
             message = _("You appear to have a Samsung scanner.");
-            /* Instructions on how to install Samsung scanner drivers */
-            instructions = _("Drivers for this are available on the <a href=\"http://samsung.com/support\">Samsung website</a>.");
+            /* Instructions on how to install Samsung scanner drivers.
+               Because HP acquired Samsung's global printing business in 2017, the support is made on HP site. */
+            instructions = _("Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a> (HP acquired Samsung's printing business).");
             break;
         case "hpaio":
             /* Message to indicate a HP scanner has been detected */
