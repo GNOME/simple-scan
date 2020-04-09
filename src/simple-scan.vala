@@ -54,6 +54,7 @@ public class SimpleScan : Gtk.Application
         book = app.book;
         app.start_scan.connect (scan_cb);
         app.stop_scan.connect (cancel_cb);
+        app.redetect.connect (redetect_cb);
 
         scanner = Scanner.get_instance ();
         scanner.update_devices.connect (update_scan_devices_cb);
@@ -1613,6 +1614,12 @@ public class SimpleScan : Gtk.Application
     {
         scanner.cancel ();
     }
+
+    private void redetect_cb (AppWindow ui)
+    {
+        scanner.redetect ();
+    }
+
 
     private static void log_cb (string? log_domain, LogLevelFlags log_level, string message)
     {

@@ -188,6 +188,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
     public signal void start_scan (string? device, ScanOptions options);
     public signal void stop_scan ();
+    public signal void redetect ();
 
     public AppWindow ()
     {
@@ -793,6 +794,8 @@ public class AppWindow : Gtk.ApplicationWindow
                 stop_scan ();
 
             clear_document ();
+            /* Refresh list of devices to detect network scanners */
+            redetect ();
         });
     }
 
