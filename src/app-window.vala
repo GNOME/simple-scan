@@ -245,6 +245,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void update_scan_status ()
     {
+        scan_button.set_sensitive(false);
         if (!have_devices)
         {
             status_primary_label.set_text (/* Label shown when searching for scanners */
@@ -254,6 +255,7 @@ public class AppWindow : Gtk.ApplicationWindow
         }
         else if (get_selected_device () != null)
         {
+            scan_button.set_sensitive(true);
             status_primary_label.set_text (/* Label shown when detected a scanner */
                                            _("Ready to Scan"));
             status_secondary_label.set_text (get_selected_device_label ());
