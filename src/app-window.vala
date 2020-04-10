@@ -793,9 +793,10 @@ public class AppWindow : Gtk.ApplicationWindow
             if (scanning)
                 stop_scan ();
 
-            clear_document ();
-            /* Refresh list of devices to detect network scanners */
+            have_devices = false;
+            /* Refresh list of devices to detect network scanners, and fix issues with disconnected scanners */
             redetect ();
+            clear_document ();
         });
     }
 
