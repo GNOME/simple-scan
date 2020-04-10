@@ -1630,6 +1630,12 @@ public class AppWindow : Gtk.ApplicationWindow
             /* Instructions on how to install Brother scanner drivers */
             instructions = _("Drivers for this are available on the <a href=\"http://support.brother.com\">Brother website</a>.");
             break;
+        case "pixma":
+            /* Message to indicate a Canon Pixma scanner has been detected */
+            message = _("You appear to have a Canon scanner, which is supported by <a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">pixma SANE backend</a>.");
+            /* Instructions on how to resolve issue with SANE scanner drivers */
+            instructions = _("Please check if your <a href=\"http://www.sane-project.org/sane-supported-devices.html\">scanner was tested by SANE</a>, otherwise report the issue to <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">mailing list</a>.");
+            break;
         case "samsung":
             /* Message to indicate a Samsung scanner has been detected */
             message = _("You appear to have a Samsung scanner.");
@@ -1672,6 +1678,7 @@ public class AppWindow : Gtk.ApplicationWindow
         label.visible = true;
         label.xalign = 0f;
         label.vexpand = true;
+        label.use_markup = true;
         dialog.get_content_area ().add (label);
 
         var instructions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
