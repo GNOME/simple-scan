@@ -910,7 +910,7 @@ public class Scanner : Object
                     "FlatBed",
                     "Normal",
                     Sane.I18N ("Normal"),
-                    "Document Table" /* Epson scanners, eg. ET-3760 */ 
+                    "Document Table" /* Epson scanners, eg. ET-3760 */
                 };
 
                 string[] adf_sources =
@@ -1245,6 +1245,10 @@ public class Scanner : Object
             state = ScanState.GET_PARAMETERS;
         else if (status == Sane.Status.NO_DOCS)
             do_complete_document ();
+        else if (status == Sane.Status.DEVICE_BUSY)
+        {
+            /* If device is busy don't interrupt, but keep waiting for scanner */
+        }
         else
         {
             warning ("Unable to start device: %s", Sane.strstatus (status));
@@ -1636,7 +1640,7 @@ public class Scanner : Object
             thread.join ();
             thread = null;
         }
-        
+
         Sane.exit ();
         debug ("sane_exit ()");
     }
