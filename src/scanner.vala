@@ -1249,6 +1249,10 @@ public class Scanner : Object
         {
             /* If device is busy don't interrupt, but keep waiting for scanner */
         }
+        else if (status == Sane.Status.DEVICE_BUSY)
+        {
+            /* If device is busy don't interrupt, but keep waiting for scanner */
+        }
         else
         {
             warning ("Unable to start device: %s", Sane.strstatus (status));
