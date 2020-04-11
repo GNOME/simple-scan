@@ -1293,6 +1293,10 @@ public class Scanner : Object
                     /* Error displayed when no documents at the start of scanning */
                     _("Document feeder empty"));
         }
+        else if (status == Sane.Status.DEVICE_BUSY)
+        {
+            /* If device is busy don't interrupt, but keep waiting for scanner */
+        }
         else
         {
             warning ("Unable to start device: %s", Sane.strstatus (status));
