@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-03-04 04:46+0000\n"
-"PO-Revision-Date: 2020-03-04 18:15+0900\n"
-"Last-Translator: sicklylife <translation@sicklylife.jp>\n"
+"POT-Creation-Date: 2020-04-11 00:18+0000\n"
+"PO-Revision-Date: 2020-04-11 21:10+0900\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -108,19 +108,31 @@ msgstr ""
 "ファイルを保存するディレクトリです。設定されていない場合、標準でドキュメント"
 "ディレクトリに保存されます。"
 
+#: data/org.gnome.SimpleScan.gschema.xml:65
+msgid "File format that is used for saving image files"
+msgstr "画像ファイルの保存に使用するファイル形式"
+
 #: data/org.gnome.SimpleScan.gschema.xml:66
+msgid ""
+"MIME type that is used for saving image files. Examples of supported MIME "
+"types: image/jpeg, image/png, application/pdf"
+msgstr ""
+"画像ファイルの保存に使用する MIME タイプ。サポートしている MIME タイプの例: "
+"image/jpeg, image/png, application/pdf"
+
+#: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
 msgstr "JPEG の圧縮に使用する品質の値"
 
-#: data/org.gnome.SimpleScan.gschema.xml:67
+#: data/org.gnome.SimpleScan.gschema.xml:72
 msgid "Quality value to use for JPEG compression."
 msgstr "JPEG の圧縮に使用する品質の値です。"
 
-#: data/org.gnome.SimpleScan.gschema.xml:72
+#: data/org.gnome.SimpleScan.gschema.xml:77
 msgid "Delay in millisecond between pages"
 msgstr "ページ間におけるミリ秒単位の遅延時間"
 
-#: data/org.gnome.SimpleScan.gschema.xml:73
+#: data/org.gnome.SimpleScan.gschema.xml:78
 msgid "Delay in millisecond between pages."
 msgstr "ページ間におけるミリ秒単位の遅延時間です。"
 
@@ -129,13 +141,13 @@ msgstr "ページ間におけるミリ秒単位の遅延時間です。"
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:498 src/app-window.vala:1511 src/app-window.vala:1765
+#: src/app-window.ui:498 src/app-window.vala:1569 src/app-window.vala:1838
 msgid "Document Scanner"
 msgstr "ドキュメントスキャナー"
 
 #: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
-msgstr ""
+msgstr "写真と文書のデジタルコピーを作成します"
 
 #: data/simple-scan.appdata.xml.in:9
 msgid ""
@@ -282,37 +294,37 @@ msgid "_Scan"
 msgstr "スキャン(_S)"
 
 #. Tooltip for save toolbar button
-#: src/app-window.ui:696
+#: src/app-window.ui:697
 msgid "Save document to a file"
 msgstr "ドキュメントをファイルに保存"
 
-#: src/app-window.vala:226 src/app-window.vala:1598
+#: src/app-window.vala:227 src/app-window.vala:1671
 msgid "_Close"
 msgstr "閉じる(_C)"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:235
+#: src/app-window.vala:236
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "“%s”へのアクセスに必要なユーザー名とパスワード"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:251
+#: src/app-window.vala:253
 msgid "Searching for Scanners…"
 msgstr "スキャナーを検索中…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:258
+#: src/app-window.vala:261
 msgid "Ready to Scan"
 msgstr "スキャン準備完了"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:266
+#: src/app-window.vala:269
 msgid "Additional software needed"
 msgstr "追加のソフトウェアが必要です"
 
 #. Instructions to install driver software
-#: src/app-window.vala:268
+#: src/app-window.vala:271
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -321,161 +333,164 @@ msgstr ""
 "</a>する必要があります。"
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:275
+#: src/app-window.vala:278
 msgid "No scanners detected"
 msgstr "スキャナーが検出されていません"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:277
+#: src/app-window.vala:280
 msgid "Please check your scanner is connected and powered on"
 msgstr "スキャナーが接続されて電源が入っているか確認してください"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:379
+#: src/app-window.vala:382
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "自動保存されたものが存在します。開きますか?"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:453
+#: src/app-window.vala:456
 msgid "Save As…"
 msgstr "名前を付けて保存…"
 
-#: src/app-window.vala:456 src/app-window.vala:710
+#: src/app-window.vala:459 src/app-window.vala:755
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: src/app-window.vala:457 src/app-window.vala:625 src/app-window.vala:709
+#: src/app-window.vala:460 src/app-window.vala:642 src/app-window.vala:754
 msgid "_Cancel"
 msgstr "キャンセル(_C)"
 
-#. Default filename to use when saving document
-#: src/app-window.vala:464
-msgid "Scanned Document.pdf"
+#. Default filename to use when saving document.
+#. To that filename the extension will be added, eg. "Scanned Document.pdf"
+#: src/app-window.vala:470
+#, fuzzy
+#| msgid "Scanned Document.pdf"
+msgid "Scanned Document"
 msgstr "スキャンされたドキュメント.pdf"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:470
+#: src/app-window.vala:476
 msgid "Image Files"
 msgstr "画像ファイル"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:480
+#: src/app-window.vala:486
 msgid "All Files"
 msgstr "すべてのファイル"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:489
+#: src/app-window.vala:495
 msgid "PDF (multi-page document)"
 msgstr "PDF (複数ページ)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:495
+#: src/app-window.vala:501
 msgid "JPEG (compressed)"
 msgstr "JPEG (圧縮済み)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:501
+#: src/app-window.vala:507
 msgid "PNG (lossless)"
 msgstr "PNG (ロスレス)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:508
+#: src/app-window.vala:514
 msgid "WebP (compressed)"
 msgstr "WebP (圧縮済み)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:518
+#: src/app-window.vala:524
 msgid "File format:"
 msgstr "ファイルフォーマット:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:530
+#: src/app-window.vala:547
 msgid "Compression:"
 msgstr "圧縮率:"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:624
+#: src/app-window.vala:641
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "“%s”はすでに存在します。上書きしますか?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:627
+#: src/app-window.vala:644
 msgid "_Replace"
 msgstr "上書き(_R)"
 
-#: src/app-window.vala:666
+#: src/app-window.vala:711
 msgid "Saving"
 msgstr "保存中"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:683
+#: src/app-window.vala:728
 msgid "Failed to save file"
 msgstr "ファイルの保存に失敗しました"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:707
+#: src/app-window.vala:752
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "保存しない場合、変更は永久に失われます。"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:743
+#: src/app-window.vala:788
 msgid "Save current document?"
 msgstr "現在のドキュメントを保存しますか?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:745
+#: src/app-window.vala:790
 msgid "Discard Changes"
 msgstr "変更を破棄"
 
 #. Label shown when scan started
-#: src/app-window.vala:777
+#: src/app-window.vala:825
 msgid "Contacting scanner…"
 msgstr "スキャナーと通信中…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1045
+#: src/app-window.vala:1093
 msgid "Unable to save image for preview"
 msgstr "プレビュー用の画像を保存できません"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1057
+#: src/app-window.vala:1105
 msgid "Unable to open image preview application"
 msgstr "画像プレビューアプリケーションを開けませんでした"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1219
+#: src/app-window.vala:1267
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "ページを再整列"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1242
+#: src/app-window.vala:1290
 msgid "Combine sides"
 msgstr "面を結合"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1252
+#: src/app-window.vala:1300
 msgid "Combine sides (reverse)"
 msgstr "面を結合 (逆順)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1262
+#: src/app-window.vala:1310
 msgid "Reverse"
 msgstr "逆順"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1272
+#: src/app-window.vala:1320
 msgid "Keep unchanged"
 msgstr "無変更を維持"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1486
+#: src/app-window.vala:1544
 msgid "Unable to open help file"
 msgstr "ヘルプファイルを開くことができません"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1501
+#: src/app-window.vala:1559
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -504,16 +519,16 @@ msgstr ""
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1504 src/app-window.vala:1798
+#: src/app-window.vala:1562 src/app-window.vala:1871
 msgid "About Document Scanner"
 msgstr "ドキュメントスキャナーについて"
 
 #. Description of program
-#: src/app-window.vala:1507
+#: src/app-window.vala:1565
 msgid "Simple document scanning tool"
 msgstr "ドキュメントのスキャンを行うシンプルなツールです"
 
-#: src/app-window.vala:1516
+#: src/app-window.vala:1574
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -525,6 +540,7 @@ msgstr ""
 "  Kentaro Kazuhama https://launchpad.net/~kazken3\n"
 "  Koichi Akabe https://launchpad.net/~vbkaisetsu\n"
 "  MANABE Akinari https://launchpad.net/~maaanaari\n"
+"  Ryo Nakano https://launchpad.net/~ryonakaknock3\n"
 "  Shinichirou Yamada https://launchpad.net/~yamada-strong-yamada-nice-64bit\n"
 "  Shushi Kurose https://launchpad.net/~kuromabo\n"
 "  Tosiki Iga https://launchpad.net/~tosiki-iga\n"
@@ -533,22 +549,22 @@ msgstr ""
 "  kaneisland https://launchpad.net/~kaneisland"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1532
+#: src/app-window.vala:1590
 msgid "Save document before quitting?"
 msgstr "終了する前にドキュメントを保存しますか?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1534
+#: src/app-window.vala:1592
 msgid "Quit without Saving"
 msgstr "保存せずに終了"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1575
+#: src/app-window.vala:1633
 msgid "You appear to have a Brother scanner."
 msgstr "ブラザー製スキャナーを見つけました。"
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1577
+#: src/app-window.vala:1635
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -557,31 +573,52 @@ msgstr ""
 "のウェブサイト</a>から入手できます。"
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1581
+#: src/app-window.vala:1639
 msgid "You appear to have a Samsung scanner."
 msgstr "Samsung 製スキャナーを見つけました。"
 
-#. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1583
+#. Instructions on how to install Samsung scanner drivers.
+#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
+#: src/app-window.vala:1642
+#, fuzzy
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.epson.com"
+#| "\">Epson website</a>."
 msgid ""
-"Drivers for this are available on the <a href=\"http://samsung.com/support"
-"\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"このスキャナーのドライバーは、<a href=\"http://samsung.com/support\">Samsung "
-"のウェブサイト</a> から入手できます。"
+"このスキャナーのドライバーは、<a href=\"http://support.epson.com\">エプソンの"
+"ウェブサイト</a>から入手できます。"
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1587
+#: src/app-window.vala:1647
 msgid "You appear to have an HP scanner."
 msgstr "HP 製スキャナーを見つけました。"
 
+#. Instructions on how to install HP scanner drivers.
+#. smfp is rebranded and slightly modified Samsung devices,
+#. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
+#. It require custom drivers, not available in hpaio package
+#: src/app-window.vala:1655
+#, fuzzy
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.epson.com"
+#| "\">Epson website</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a>."
+msgstr ""
+"このスキャナーのドライバーは、<a href=\"http://support.epson.com\">エプソンの"
+"ウェブサイト</a>から入手できます。"
+
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1592
+#: src/app-window.vala:1659
 msgid "You appear to have an Epson scanner."
 msgstr "エプソン製スキャナーを見つけました。"
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1594
+#: src/app-window.vala:1661
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -589,67 +626,87 @@ msgstr ""
 "このスキャナーのドライバーは、<a href=\"http://support.epson.com\">エプソンの"
 "ウェブサイト</a>から入手できます。"
 
+#. Message to indicate an Lexmark scanner has been detected
+#: src/app-window.vala:1665
+#, fuzzy
+#| msgid "You appear to have an HP scanner."
+msgid "You appear to have an Lexmark scanner."
+msgstr "HP 製スキャナーを見つけました。"
+
+#. Instructions on how to install Linux scanner drivers
+#: src/app-window.vala:1667
+#, fuzzy
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.brother.com"
+#| "\">Brother website</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.lexmark.com"
+"\">Lexmark website</a>."
+msgstr ""
+"このスキャナーのドライバーは、<a href=\"http://support.brother.com\">ブラザー"
+"のウェブサイト</a>から入手できます。"
+
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1598
+#: src/app-window.vala:1671
 msgid "Install drivers"
 msgstr "ドライバーのインストール手順"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1631
+#: src/app-window.vala:1704
 msgid "Once installed you will need to restart this app."
 msgstr "ドライバーのインストール後、このアプリを再起動する必要があります。"
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1644
+#: src/app-window.vala:1717
 msgid "Installing drivers…"
 msgstr "ドライバーをインストールしています…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1652
+#: src/app-window.vala:1725
 msgid "Drivers installed successfully!"
 msgstr "ドライバーのインストールに成功しました!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1662
+#: src/app-window.vala:1735
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "ドライバーのインストールに失敗しました (エラーコード %d)。"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1668
+#: src/app-window.vala:1741
 msgid "Failed to install drivers."
 msgstr "ドライバーのインストールに失敗しました。"
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1675
+#: src/app-window.vala:1748
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "%s パッケージをインストールする必要があります。"
 
-#: src/app-window.vala:1790
+#: src/app-window.vala:1863
 msgid "Email"
 msgstr "メール"
 
-#: src/app-window.vala:1791
+#: src/app-window.vala:1864
 msgid "Print"
 msgstr "印刷"
 
-#: src/app-window.vala:1792
+#: src/app-window.vala:1865
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "ページを再整列"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1793 src/preferences-dialog.ui:44
+#: src/app-window.vala:1866 src/preferences-dialog.ui:44
 msgid "Preferences"
 msgstr "設定"
 
-#: src/app-window.vala:1796
+#: src/app-window.vala:1869
 msgid "Keyboard Shortcuts"
 msgstr "キーボードショートカット"
 
-#: src/app-window.vala:1797
+#: src/app-window.vala:1870
 msgid "Help"
 msgstr "ヘルプ"
 
@@ -657,32 +714,32 @@ msgstr "ヘルプ"
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1806
+#: src/app-window.vala:1879
 msgid "Start Again…"
 msgstr "もう一度はじめから…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1825
+#: src/app-window.vala:1898
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "ページを左回転 (反時計回り)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1834
+#: src/app-window.vala:1907
 msgid "Rotate the page to the right (clockwise)"
 msgstr "ページを右回転 (時計回り)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1846
+#: src/app-window.vala:1919
 msgid "Crop the selected page"
 msgstr "選択した範囲の切り抜き"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1864
+#: src/app-window.vala:1937
 msgid "Delete the selected page"
 msgstr "選択したページを削除"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2038
+#: src/app-window.vala:2111
 msgid "Cancel"
 msgstr "キャンセル"
 
@@ -803,10 +860,15 @@ msgstr "ヘルプを表示する"
 
 #: src/help-overlay.ui:140
 msgctxt "shortcut window"
+msgid "Open menu"
+msgstr "メニューを開く"
+
+#: src/help-overlay.ui:147
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "キーボードショートカット"
 
-#: src/help-overlay.ui:147
+#: src/help-overlay.ui:154
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "終了する"
@@ -962,17 +1024,17 @@ msgid "Unable to connect to scanner"
 msgstr "スキャナーに接続できません"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1300
+#: src/scanner.vala:1288
 msgid "Document feeder empty"
 msgstr "ドキュメントフィーダーが空です"
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1307
+#: src/scanner.vala:1299
 msgid "Unable to start scan"
 msgstr "スキャンを開始できません"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1320 src/scanner.vala:1427
+#: src/scanner.vala:1312 src/scanner.vala:1419
 msgid "Error communicating with scanner"
 msgstr "スキャナーとの通信に失敗しました"
 
@@ -991,27 +1053,34 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "このアプリの古いバージョンによって生成された PDF ファイルを修復する"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:393
+#: src/simple-scan.vala:1543
 msgid "Failed to scan"
 msgstr "スキャンに失敗しました"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:408
+#: src/simple-scan.vala:1558
 msgid "Scan in progress"
 msgstr "スキャン実行中"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:585
+#: src/simple-scan.vala:1741
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[デバイス…] — スキャンユーティリティ"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:596
+#: src/simple-scan.vala:1752
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "“%s --help”を実行すると利用可能なすべてのコマンドラインオプションの一覧が表示"
 "されます。"
+
+#~ msgid ""
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
+#~ "\">Samsung website</a>."
+#~ msgstr ""
+#~ "このスキャナーのドライバーは、<a href=\"http://samsung.com/support"
+#~ "\">Samsung のウェブサイト</a> から入手できます。"
 
 #~ msgid "Resolution for photo scans"
 #~ msgstr "写真スキャンの解像度"
