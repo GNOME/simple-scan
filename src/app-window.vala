@@ -399,8 +399,8 @@ public class AppWindow : Gtk.ApplicationWindow
             if (file_type_combo.get_active_iter (out i))
                 file_type_store.get (i, 1, out extension, -1);
 
-            var path = save_dialog.get_filename ();
-            var filename = Path.get_basename (path);
+            var uri = save_dialog.get_uri ();
+            var filename = Path.get_basename (uri);
 
             /* Replace extension */
             var extension_index = filename.last_index_of_char ('.');
@@ -427,14 +427,11 @@ public class AppWindow : Gtk.ApplicationWindow
             if (file_type_combo.get_active_iter (out i))
                 file_type_store.get (i, 1, out extension, -1);
 
-            var path = save_dialog.get_filename ();
-            var filename = Path.get_basename (path);
+            var uri = save_dialog.get_uri ();
 
-            var extension_index = filename.last_index_of_char ('.');
+            var extension_index = uri.last_index_of_char ('.');
             if (extension_index < 0)
-                path += extension;
-
-            var uri = File.new_for_path (path).get_uri ();
+                uri += extension;
 
             /* Check the file(s) don't already exist */
             var files = new List<File> ();
