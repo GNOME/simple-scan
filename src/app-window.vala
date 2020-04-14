@@ -550,8 +550,7 @@ public class AppWindow : Gtk.ApplicationWindow
             if (file_type_combo.get_active_iter (out i))
                 file_type_store.get (i, 1, out extension, -1);
 
-            var uri = save_dialog.get_uri ();
-            var filename = Path.get_basename (uri);
+            var filename = save_dialog.get_current_name ();
 
             /* Replace extension */
             var extension_index = filename.last_index_of_char ('.');
