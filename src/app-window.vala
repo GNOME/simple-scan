@@ -572,8 +572,7 @@ public class AppWindow : Gtk.ApplicationWindow
                 settings.set_string ("save-format", mime_type);
             }
 
-            var uri = save_dialog.get_uri ();
-            var filename = Path.get_basename (uri);
+            var filename = save_dialog.get_current_name ();
 
             /* Replace extension */
             var extension_index = filename.last_index_of_char ('.');
