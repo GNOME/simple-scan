@@ -225,7 +225,7 @@ public class AppWindow : Gtk.ApplicationWindow
                                             Gtk.ButtonsType.NONE,
                                             "%s", error_title);
         dialog.add_button (_("_Close"), 0);
-        dialog.format_secondary_text ("%s", error_text);
+        dialog.format_secondary_markup  ("%s", error_text);
         dialog.run ();
         dialog.destroy ();
     }

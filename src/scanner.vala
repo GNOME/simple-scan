@@ -1286,6 +1286,16 @@ public class Scanner : Object
                     /* Error displayed when no documents at the start of scanning */
                     _("Document feeder empty"));
         }
+        else if (status == Sane.Status.NO_MEM)
+        {
+            fail_scan (status,
+                /* Out of memory error message with help instruction.
+                   Message written in Pango text markup language,
+                   A carriage return makes a line break, <tt> tag makes a monospace font */
+                _("Insufficient memory to perform scan.\n" +
+                  "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in <tt>Preferences</tt> menu. " +
+                  "For some scanners when scanning in high resolution, the scan size is restricted."));
+        }
         else if (status == Sane.Status.DEVICE_BUSY)
         {
             /* If device is busy don't interrupt, but keep waiting for scanner */
