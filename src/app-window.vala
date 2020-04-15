@@ -1632,9 +1632,9 @@ public class AppWindow : Gtk.ApplicationWindow
             break;
         case "pixma":
             /* Message to indicate a Canon Pixma scanner has been detected */
-            message = _("You appear to have a Canon scanner, which is supported by <a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">pixma SANE backend</a>.");
+            message = _("You appear to have a Canon scanner, which is supported by the <a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>.");
             /* Instructions on how to resolve issue with SANE scanner drivers */
-            instructions = _("Please check if your <a href=\"http://www.sane-project.org/sane-supported-devices.html\">scanner was tested by SANE</a>, otherwise report the issue to <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">mailing list</a>.");
+            instructions = _("Please check if your <a href=\"http://www.sane-project.org/sane-supported-devices.html\">scanner is supported by SANE</a>, otherwise report the issue to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE mailing list</a>.");
             break;
         case "samsung":
             /* Message to indicate a Samsung scanner has been detected */
