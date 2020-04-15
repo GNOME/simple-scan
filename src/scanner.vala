@@ -429,7 +429,7 @@ public class Scanner : Object
             return false;
 
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_AUTO, null, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_AUTO) -> %s", (int) option_index, Sane.status_to_string (status));
+        debug ("sane_control_option (%d, SANE_ACTION_SET_AUTO, %s=auto) -> %s", (int) option_index, option.name, Sane.status_to_string (status));
         if (status != Sane.Status.GOOD)
             warning ("Error setting default option %s: %s", option.name, Sane.strstatus(status));
 
@@ -443,7 +443,7 @@ public class Scanner : Object
         Sane.Bool v = (Sane.Bool) value;
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &v, null);
         result = (bool) v;
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s) -> (%s, %s)", (int) option_index, value ? "SANE_TRUE" : "SANE_FALSE", Sane.status_to_string (status), result ? "SANE_TRUE" : "SANE_FALSE");
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s=%s) -> (%s, %s)", (int) option_index, option.name, value ? "SANE_TRUE" : "SANE_FALSE", Sane.status_to_string (status), result ? "SANE_TRUE" : "SANE_FALSE");
     }
 
     private void set_int_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, int value, out int result)
@@ -480,7 +480,7 @@ public class Scanner : Object
         }
 
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &v, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %d) -> (%s, %d)", (int) option_index, value, Sane.status_to_string (status), (int) v);
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s=%d) -> (%s, %d)", (int) option_index, option.name, value, Sane.status_to_string (status), (int) v);
         result = (int) v;
     }
 
@@ -520,7 +520,7 @@ public class Scanner : Object
 
         v_fixed = Sane.FIX (v);
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &v_fixed, null);
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %f) -> (%s, %f)", (int) option_index, value, Sane.status_to_string (status), Sane.UNFIX (v_fixed));
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s=%f) -> (%s, %f)", (int) option_index, option.name, value, Sane.status_to_string (status), Sane.UNFIX (v_fixed));
 
         result = Sane.UNFIX (v_fixed);
     }
@@ -550,9 +550,9 @@ public class Scanner : Object
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, &option.range.max, null);
 
         if (option.type == Sane.ValueType.FIXED)
-            debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, option.range.max=%f) -> (%s)", (int) option_index, Sane.UNFIX (option.range.max), Sane.status_to_string (status));
+            debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s=option.range.max=%f) -> (%s)", (int) option_index, option.name, Sane.UNFIX (option.range.max), Sane.status_to_string (status));
         else
-            debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, option.range.max=%d) -> (%s)", (int) option_index, (int) option.range.max, Sane.status_to_string (status));
+            debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s=option.range.max=%d) -> (%s)", (int) option_index, option.name, (int) option.range.max, Sane.status_to_string (status));
     }
 
     private bool set_string_option (Sane.Handle handle, Sane.OptionDescriptor option, Sane.Int option_index, string value, out string result)
@@ -568,7 +568,7 @@ public class Scanner : Object
         s[i] = '\0';
         var status = Sane.control_option (handle, option_index, Sane.Action.SET_VALUE, s, null);
         result = (string) s;
-        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, \"%s\") -> (%s, \"%s\")", (int) option_index, value, Sane.status_to_string (status), result);
+        debug ("sane_control_option (%d, SANE_ACTION_SET_VALUE, %s=\"%s\") -> (%s, \"%s\")", (int) option_index, option.name, value, Sane.status_to_string (status), result);
 
         return status == Sane.Status.GOOD;
     }
@@ -918,7 +918,6 @@ public class Scanner : Object
             option = get_option_by_name (handle, Sane.NAME_SCAN_SOURCE, out index);
             if (option == null)
             {
-                 debug ("SCAN_SOURCE not available, trying alternative \"doc-source\"");
                  option = get_option_by_name (handle, "doc-source", out index); /* Samsung unified driver. LP: #892915 */
             }
             if (option != null)
