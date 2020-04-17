@@ -519,6 +519,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         box.visible = true;
+        box.spacing = 10;
         save_dialog.set_extra_widget (box);
 
         /* Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP) */
@@ -550,12 +551,14 @@ public class AppWindow : Gtk.ApplicationWindow
 
         var quality_adjustment = new Gtk.Adjustment (75, 0, 100, 1, 10, 0);
         var quality_scale = new Gtk.Scale (Gtk.Orientation.HORIZONTAL, quality_adjustment);
-        quality_scale.width_request = 200;
+        quality_scale.width_request = 250;
         quality_scale.draw_value = false;
-        quality_scale.add_mark (0, Gtk.PositionType.BOTTOM, null);
+        var minimum_size_label = "<small>%s</small>".printf (_("Minimum size"));
+        quality_scale.add_mark (quality_adjustment.lower, Gtk.PositionType.BOTTOM, minimum_size_label);
         quality_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
         quality_scale.add_mark (90, Gtk.PositionType.BOTTOM, null);
-        quality_scale.add_mark (100, Gtk.PositionType.BOTTOM, null);
+        var full_detail_label = "<small>%s</small>".printf (_("Full detail"));
+        quality_scale.add_mark (quality_adjustment.upper, Gtk.PositionType.BOTTOM, full_detail_label);
         quality_adjustment.value = settings.get_int ("jpeg-quality");
         quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", (int) quality_adjustment.value); });
         box.add (quality_scale);
