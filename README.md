@@ -58,7 +58,7 @@ command line
 by the SANE project - these allow to to easily see and control all the
 settings your driver provides.
 
-If XSane is also not working, then the issue could be casued by wrongly
+If XSane is also not working, then the issue could be caused by wrongly
 loaded backend. To enable debug traces on Sane, set `SANE_DEBUG_DLL`
 environment variable:
 
@@ -96,3 +96,10 @@ A lot of information about translation process can be found at
 [GNOME TranslationProject](https://wiki.gnome.org/TranslationProject/).
 The translation files for *Document Scanner* User Interface and User Guide,
 are available [here](https://l10n.gnome.org/module/simple-scan/).
+
+To be able to run Document Scanner in selected language, the `LANGUAGE` could be used.
+For example to run Document Scanner in Polish language:
+
+```
+$ LANGUAGE=pl XDG_DATA_DIRS=_install/share:$XDG_DATA_DIRS ./_install/bin/simple-scan
+```
