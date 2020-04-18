@@ -1301,7 +1301,7 @@ public class SimpleScan : Gtk.Application
         scanner.authorize (username, password);
     }
 
-    private Page append_page ()
+    private Page append_page (int width = 100, int height = 100, int dpi = 100)
     {
         /* Use current page if not used */
         var page = book.get_page (-1);
@@ -1316,7 +1316,7 @@ public class SimpleScan : Gtk.Application
         var scan_direction = ScanDirection.TOP_TO_BOTTOM;
         bool do_crop = false;
         string named_crop = null;
-        var width = 100, height = 100, dpi = 100, cx = 0, cy = 0, cw = 0, ch = 0;
+        var cx = 0, cy = 0, cw = 0, ch = 0;
         if (page != null)
         {
             scan_direction = page.scan_direction;
@@ -1536,7 +1536,7 @@ public class SimpleScan : Gtk.Application
         debug ("Requesting scan at %d dpi from device '%s'", options.dpi, device);
 
         if (!scanner.is_scanning ())
-            append_page ();
+            append_page (options.paper_width, options.paper_height, options.dpi);
 
         scanner.scan (device, options);
     }
