@@ -1,0 +1,107 @@
+[+0.00s] DEBUG: simple-scan.vala:638: Starting simple-scan 3.34.1, PID=12484
+[+0.06s] DEBUG: app-window.vala:1670: Restoring window to 1705x994 pixels
+[+0.06s] DEBUG: autosave-manager.vala:64: Loading autosave information
+[+0.06s] DEBUG: autosave-manager.vala:259: Waiting to autosave...
+[+0.11s] DEBUG: scanner.vala:1485: sane_init () -> SANE_STATUS_GOOD
+[+0.11s] DEBUG: scanner.vala:1491: SANE version 1.0.27
+[+0.11s] DEBUG: scanner.vala:1552: Requesting redetection of scan devices
+[+0.11s] DEBUG: scanner.vala:806: Processing request
+[+0.16s] DEBUG: autosave-manager.vala:281: Autosaving book information
+[+9.64s] DEBUG: scanner.vala:341: sane_get_devices () -> SANE_STATUS_GOOD
+[+9.64s] DEBUG: scanner.vala:353: Device: name="brother3:net1;dev0" vendor="Brother" model="MFC-930CDN" type="MFC-930CDN"
+[+9.64s] DEBUG: scanner.vala:353: Device: name="pixma:MF240_canon-mfc.lan" vendor="CANON" model="Canon i-SENSYS MF240 Series" type="multi-function peripheral"
+[+31.99s] DEBUG: simple-scan.vala:455: Requesting scan at 300 dpi from device 'pixma:MF240_canon-mfc.lan'
+[+31.99s] DEBUG: scanner.vala:1600: Scanner.scan ("pixma:MF240_canon-mfc.lan", dpi=300, scan_mode=ScanMode.COLOR, depth=8, type=ScanType.ADF_BOTH, paper_width=2159, paper_height=2794, brightness=0, contrast=0, delay=3000ms)
+[+31.99s] DEBUG: scanner.vala:806: Processing request
+[+33.57s] DEBUG: scanner.vala:867: sane_open ("pixma:MF240_canon-mfc.lan") -> SANE_STATUS_GOOD
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (0)
+[+33.57s] DEBUG: scanner.vala:738: Option 0: title='Number of options' type=int size=4 cap=soft-detect
+[+33.57s] DEBUG: scanner.vala:741:   Description: Read-only option that specifies how many options a specific devices supports.
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (1)
+[+33.57s] DEBUG: scanner.vala:738: Option 1: name='(null)' title='Scan mode' type=group size=0
+[+33.57s] DEBUG: scanner.vala:741:   Description: Scan mode
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (2)
+[+33.57s] DEBUG: scanner.vala:738: Option 2: name='resolution' title='Scan resolution' type=int size=4 unit=dpi values=[75, 150, 300, 600] cap=soft-select,soft-detect,automatic
+[+33.57s] DEBUG: scanner.vala:741:   Description: Sets the resolution of the scanned image.
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (3)
+[+33.57s] DEBUG: scanner.vala:738: Option 3: name='mode' title='Scan mode' type=string size=31 values=["Color", "Gray", "Lineart"] cap=soft-select,soft-detect,automatic
+[+33.57s] DEBUG: scanner.vala:741:   Description: Selects the scan mode (e.g., lineart, monochrome, or color).
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (4)
+[+33.57s] DEBUG: scanner.vala:738: Option 4: name='source' title='Scan source' type=string size=31 values=["Flatbed", "Automatic Document Feeder"] cap=soft-select,soft-detect
+[+33.57s] DEBUG: scanner.vala:741:   Description: Selects the scan source (such as a document-feeder). Set source before mode and resolution. Resets mode and resolution to auto values.
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (5)
+[+33.57s] DEBUG: scanner.vala:738: Option 5: name='button-controlled' title='Button-controlled scan' type=bool size=4 cap=soft-select,soft-detect
+[+33.57s] DEBUG: scanner.vala:741:   Description: When enabled, scan process will not start immediately. To proceed, press "SCAN" button (for MP150) or "COLOR" button (for other models). To cancel, press "GRAY" button.
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (6)
+[+33.57s] DEBUG: scanner.vala:738: Option 6: name='(null)' title='Gamma' type=group size=0
+[+33.57s] DEBUG: scanner.vala:741:   Description: Gamma
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (7)
+[+33.57s] DEBUG: scanner.vala:738: Option 7: name='custom-gamma' title='Use custom gamma table' type=bool size=4 cap=soft-select,soft-detect,automatic,inactive
+[+33.57s] DEBUG: scanner.vala:741:   Description: Determines whether a builtin or a custom gamma-table should be used.
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (8)
+[+33.57s] DEBUG: scanner.vala:738: Option 8: name='gamma-table' title='Image intensity' type=int size=16384 min=0, max=255, quant=0 cap=soft-select,soft-detect,automatic,inactive
+[+33.57s] DEBUG: scanner.vala:741:   Description: Gamma-correction table.  In color mode this option equally affects the red, green, and blue channels simultaneously (i.e., it is an intensity gamma table).
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (9)
+[+33.57s] DEBUG: scanner.vala:738: Option 9: name='gamma' title='Gamma function exponent' type=fixed size=4 min=0.299988, max=5.000000, quant=0 cap=soft-select,soft-detect,automatic,inactive
+[+33.57s] DEBUG: scanner.vala:741:   Description: Changes intensity of midtones
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (10)
+[+33.57s] DEBUG: scanner.vala:738: Option 10: name='(null)' title='Geometry' type=group size=0
+[+33.57s] DEBUG: scanner.vala:741:   Description: Geometry
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (11)
+[+33.57s] DEBUG: scanner.vala:738: Option 11: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0.000000, max=216.746658, quant=0 cap=soft-select,soft-detect,automatic
+[+33.57s] DEBUG: scanner.vala:741:   Description: Top-left x position of scan area.
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (12)
+[+33.57s] DEBUG: scanner.vala:738: Option 12: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0.000000, max=355.599991, quant=0 cap=soft-select,soft-detect,automatic
+[+33.57s] DEBUG: scanner.vala:741:   Description: Top-left y position of scan area.
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (13)
+[+33.57s] DEBUG: scanner.vala:738: Option 13: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=0.000000, max=216.746658, quant=0 cap=soft-select,soft-detect,automatic
+[+33.57s] DEBUG: scanner.vala:741:   Description: Bottom-right x position of scan area.
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (14)
+[+33.57s] DEBUG: scanner.vala:738: Option 14: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=0.000000, max=355.599991, quant=0 cap=soft-select,soft-detect,automatic
+[+33.57s] DEBUG: scanner.vala:741:   Description: Bottom-right y position of scan area.
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (15)
+[+33.57s] DEBUG: scanner.vala:738: Option 15: name='(null)' title='Buttons' type=group size=0
+[+33.57s] DEBUG: scanner.vala:741:   Description: Buttons
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (16)
+[+33.57s] DEBUG: scanner.vala:738: Option 16: name='button-update' title='Update button state' type=button size=0 cap=soft-select,soft-detect,advanced
+[+33.57s] DEBUG: scanner.vala:741:   Description: Update button state
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (17)
+[+33.57s] DEBUG: scanner.vala:738: Option 17: name='button-1' title='Button 1' type=int size=4 cap=soft-detect,advanced
+[+33.57s] DEBUG: scanner.vala:741:   Description: Button 1
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (18)
+[+33.57s] DEBUG: scanner.vala:738: Option 18: name='button-2' title='Button 2' type=int size=4 cap=soft-detect,advanced
+[+33.57s] DEBUG: scanner.vala:741:   Description: Button 2
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (19)
+[+33.57s] DEBUG: scanner.vala:738: Option 19: name='original' title='Type of original to scan' type=int size=4 cap=soft-detect,advanced
+[+33.57s] DEBUG: scanner.vala:741:   Description: Type of original to scan
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (20)
+[+33.57s] DEBUG: scanner.vala:738: Option 20: name='target' title='Target operation type' type=int size=4 cap=soft-detect,advanced
+[+33.57s] DEBUG: scanner.vala:741:   Description: Target operation type
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (21)
+[+33.57s] DEBUG: scanner.vala:738: Option 21: name='scan-resolution' title='Scan resolution' type=int size=4 cap=soft-detect,advanced
+[+33.57s] DEBUG: scanner.vala:741:   Description: Scan resolution
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (22)
+[+33.57s] DEBUG: scanner.vala:738: Option 22: name='(null)' title='Extras' type=group size=0
+[+33.57s] DEBUG: scanner.vala:741:   Description: Extras
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (23)
+[+33.57s] DEBUG: scanner.vala:738: Option 23: name='threshold' title='Threshold' type=int size=4 unit=percent min=0, max=100, quant=1 cap=soft-select,soft-detect,automatic,inactive
+[+33.57s] DEBUG: scanner.vala:741:   Description: Select minimum-brightness to get a white point
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (24)
+[+33.57s] DEBUG: scanner.vala:738: Option 24: name='threshold-curve' title='Threshold curve' type=int size=4 min=0, max=127, quant=1 cap=soft-select,soft-detect,automatic,inactive
+[+33.57s] DEBUG: scanner.vala:741:   Description: Dynamic threshold curve, from light to dark, normally 50-65
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (25)
+[+33.57s] DEBUG: scanner.vala:738: Option 25: name='adf-wait' title='ADF Waiting Time' type=int size=4 min=0, max=3600, quant=1 cap=soft-select,soft-detect,automatic,inactive
+[+33.57s] DEBUG: scanner.vala:741:   Description: When set, the scanner searches the waiting time in seconds for a new document inserted into the automatic document feeder.
+[+33.57s] DEBUG: scanner.vala:888: sane_get_option_descriptor (26)
+[+33.57s] DEBUG: scanner.vala:549: sane_control_option (4, SANE_ACTION_SET_VALUE, "Automatic Document Feeder") -> (SANE_STATUS_GOOD, "Automatic Document Feeder")
+[+33.57s] DEBUG: scanner.vala:549: sane_control_option (3, SANE_ACTION_SET_VALUE, "Color") -> (SANE_STATUS_GOOD, "Color")
+[+33.57s] DEBUG: scanner.vala:465: sane_control_option (2, SANE_ACTION_SET_VALUE, 300) -> (SANE_STATUS_GOOD, 300)
+[+33.57s] DEBUG: scanner.vala:505: sane_control_option (13, SANE_ACTION_SET_VALUE, 215.900000) -> (SANE_STATUS_GOOD, 215.899994)
+[+33.57s] DEBUG: scanner.vala:505: sane_control_option (14, SANE_ACTION_SET_VALUE, 279.400000) -> (SANE_STATUS_GOOD, 279.399994)
+[+33.57s] DEBUG: scanner.vala:1241: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+33.57s] DEBUG: scanner.vala:1258: sane_get_parameters () -> SANE_STATUS_GOOD
+[+33.57s] DEBUG: scanner.vala:1270: Parameters: format=SANE_FRAME_RGB last_frame=SANE_TRUE bytes_per_line=7650 pixels_per_line=2550 lines=3300 depth=8
+[+33.58s] DEBUG: simple-scan.vala:350: Page is 2550 pixels wide, 3300 pixels high, 8 bits per pixel
+[+33.59s] DEBUG: simple-scan.vala:284: Getting color profile for device pixma:MF240_canon-mfc.lan
+[+33.60s] DEBUG: simple-scan.vala:304: Unable to find colord device pixma:MF240_canon-mfc.lan: property match 'Serial'='sane:pixma:MF240_canon-mfc.lan' does not exist
+[+39.83s] DEBUG: scanner.vala:1345: sane_read (7651) -> (SANE_STATUS_GOOD, 7651)
