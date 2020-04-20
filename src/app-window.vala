@@ -262,6 +262,7 @@ public class AppWindow : Gtk.ApplicationWindow
             status_secondary_label.set_text (get_selected_device_label ());
             status_secondary_label.visible = false;
             device_combo.visible = true;
+            device_combo.sensitive = true;
         }
         else if (this.missing_driver != null)
         {
@@ -819,6 +820,7 @@ public class AppWindow : Gtk.ApplicationWindow
     {
         status_primary_label.set_text (/* Label shown when scan started */
                                        _("Contacting scanner…"));
+        device_combo.sensitive = false;
         start_scan (get_selected_device (), options);
     }
 
