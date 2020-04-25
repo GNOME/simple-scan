@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-04-05 20:33+0000\n"
-"PO-Revision-Date: 2020-04-06 16:25+0300\n"
+"POT-Creation-Date: 2020-04-24 11:51+0000\n"
+"PO-Revision-Date: 2020-04-25 10:43+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "Language: uk\n"
@@ -123,8 +123,8 @@ msgid ""
 "MIME type that is used for saving image files. Examples of supported MIME "
 "types: image/jpeg, image/png, application/pdf"
 msgstr ""
-"Тип MIME, який буде використано для зберігання файлів зображень. Прикладами"
-" підтримуваних типів MIME є image/jpeg, image/png, application/pdf"
+"Тип MIME, який буде використано для зберігання файлів зображень. Прикладами "
+"підтримуваних типів MIME є image/jpeg, image/png, application/pdf"
 
 #: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
@@ -147,7 +147,7 @@ msgstr "Затримка у мілісекундах між сторінками
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:498 src/app-window.vala:1563 src/app-window.vala:1823
+#: src/app-window.ui:498 src/app-window.vala:1566 src/app-window.vala:1842
 msgid "Document Scanner"
 msgstr "Засіб для сканування документів"
 
@@ -304,33 +304,33 @@ msgstr "С_канувати"
 msgid "Save document to a file"
 msgstr "Зберегти документ до файла"
 
-#: src/app-window.vala:226 src/app-window.vala:1656
+#: src/app-window.vala:227 src/app-window.vala:1674
 msgid "_Close"
 msgstr "За_крити"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:235
+#: src/app-window.vala:236
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Для доступу до «%s» слід вказати ім’я користувача та пароль"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:251
+#: src/app-window.vala:253
 msgid "Searching for Scanners…"
 msgstr "Шукаємо сканери…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:258
+#: src/app-window.vala:261
 msgid "Ready to Scan"
 msgstr "Готовність до сканування"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:266
+#: src/app-window.vala:270
 msgid "Additional software needed"
 msgstr "Потрібне додаткове програмне забезпечення"
 
 #. Instructions to install driver software
-#: src/app-window.vala:268
+#: src/app-window.vala:272
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -339,77 +339,76 @@ msgstr ""
 "сканера."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:275
+#: src/app-window.vala:279
 msgid "No scanners detected"
 msgstr "Сканерів не виявлено"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:277
+#: src/app-window.vala:281
 msgid "Please check your scanner is connected and powered on"
 msgstr "Будь ласка, перевірте, чи з’єднано ваш сканер і чи увімкнено його"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:379
+#: src/app-window.vala:383
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Існує автоматично збережена книга. Хочете відкрити її?"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:453
+#: src/app-window.vala:457
 msgid "Save As…"
 msgstr "Зберегти як…"
 
-#: src/app-window.vala:456 src/app-window.vala:752
+#: src/app-window.vala:460 src/app-window.vala:752
 msgid "_Save"
 msgstr "З_берегти"
 
-#: src/app-window.vala:457 src/app-window.vala:639 src/app-window.vala:751
+#: src/app-window.vala:461 src/app-window.vala:639 src/app-window.vala:751
 msgid "_Cancel"
 msgstr "_Скасувати"
 
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:467
-#| msgid "Scanned Document.pdf"
+#: src/app-window.vala:471
 msgid "Scanned Document"
 msgstr "Сканований документ"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:473
+#: src/app-window.vala:477
 msgid "Image Files"
 msgstr "Файли зображень"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:483
+#: src/app-window.vala:487
 msgid "All Files"
 msgstr "Всі файли"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:492
+#: src/app-window.vala:496
 msgid "PDF (multi-page document)"
 msgstr "PDF (багатосторінковий документ)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:498
+#: src/app-window.vala:502
 msgid "JPEG (compressed)"
 msgstr "JPEG (стиснений)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:504
+#: src/app-window.vala:508
 msgid "PNG (lossless)"
 msgstr "PNG (без втрат)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:511
+#: src/app-window.vala:515
 msgid "WebP (compressed)"
 msgstr "WebP (стиснений)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:521
+#: src/app-window.vala:525
 msgid "File format:"
 msgstr "Формат файлів:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:544
+#: src/app-window.vala:548
 msgid "Compression:"
 msgstr "Стискання:"
 
@@ -449,53 +448,53 @@ msgid "Discard Changes"
 msgstr "Відкинути зміни"
 
 #. Label shown when scan started
-#: src/app-window.vala:819
+#: src/app-window.vala:822
 msgid "Contacting scanner…"
 msgstr "Встановлюємо зв'язок зі сканером…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1087
+#: src/app-window.vala:1090
 msgid "Unable to save image for preview"
 msgstr "Не вдалося зберегти зображення для попереднього перегляду"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1099
+#: src/app-window.vala:1102
 msgid "Unable to open image preview application"
 msgstr "Не вдалося запустити програму для перегляду зображення"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1261
+#: src/app-window.vala:1264
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Перевпорядковування сторінок"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1284
+#: src/app-window.vala:1287
 msgid "Combine sides"
 msgstr "З’єднувати збоку"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1294
+#: src/app-window.vala:1297
 msgid "Combine sides (reverse)"
 msgstr "З’єднувати збоку (у зворотному порядку)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1304
+#: src/app-window.vala:1307
 msgid "Reverse"
 msgstr "У зворотному порядку"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1314
+#: src/app-window.vala:1317
 msgid "Keep unchanged"
 msgstr "Не змінювати"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1538
+#: src/app-window.vala:1541
 msgid "Unable to open help file"
 msgstr "Не вдалося відкрити файл довідки"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1553
+#: src/app-window.vala:1556
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -524,16 +523,16 @@ msgstr ""
 ">, щоб дізнатися про подальші дії."
 
 #. Title of about dialog
-#: src/app-window.vala:1556 src/app-window.vala:1856
+#: src/app-window.vala:1559 src/app-window.vala:1875
 msgid "About Document Scanner"
 msgstr "Про програму для сканування документів"
 
 #. Description of program
-#: src/app-window.vala:1559
+#: src/app-window.vala:1562
 msgid "Simple document scanning tool"
 msgstr "Інструмент для спрощення сканування документів"
 
-#: src/app-window.vala:1568
+#: src/app-window.vala:1571
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -544,22 +543,22 @@ msgstr ""
 "  Микола Ткач https://launchpad.net/~stuartlittle1970"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1584
+#: src/app-window.vala:1587
 msgid "Save document before quitting?"
 msgstr "Зберегти документ перед виходом?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1586
+#: src/app-window.vala:1589
 msgid "Quit without Saving"
 msgstr "Вийти без збереження"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1627
+#: src/app-window.vala:1630
 msgid "You appear to have a Brother scanner."
 msgstr "Здається, у вас сканер Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1629
+#: src/app-window.vala:1632
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -567,90 +566,129 @@ msgstr ""
 "Драйвери можна отримати на <a href=\"http://support.brother.com\">сайті "
 "Brother</a>."
 
+#. Message to indicate a Canon Pixma scanner has been detected
+#: src/app-window.vala:1636
+msgid ""
+"You appear to have a Canon scanner, which is supported by the <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+msgstr ""
+"Здається, у вас сканер Canon, підтримку якого передбачено у <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">модулі Pixma SANE</a>."
+
+#. Instructions on how to resolve issue with SANE scanner drivers
+#: src/app-window.vala:1638
+msgid ""
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">SANE mailing list</a>."
+msgstr ""
+"Будь ласка, перевірте, чи <a href=\"http://www.sane-project.org/sane-supported"
+"-"
+"devices.html\">передбачено підтримку вашого сканера у SANE</a>. Якщо такої"
+" підтримки не передбачено, повідомте про ваду до "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">списку листування SANE</a>."
+
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1633
+#: src/app-window.vala:1642
 msgid "You appear to have a Samsung scanner."
 msgstr "Здається, у вас сканер Samsung."
 
-#. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1635
+#. Instructions on how to install Samsung scanner drivers.
+#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
+#: src/app-window.vala:1645
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.epson.com"
+#| "\">Epson website</a>."
 msgid ""
-"Drivers for this are available on the <a href=\"http://samsung.com/support"
-"\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"Драйвери до таких сканерів можна отримати з <a href=\"http://samsung.com/"
-"support\">сайта Samsung</a>."
+"Драйвери для цього доступні на <a href=\"https://support.hp.com\">сайті HP</a"
+"> (HP придбала виробництво принтерів Samsung)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1639
+#: src/app-window.vala:1650
 msgid "You appear to have an HP scanner."
 msgstr "Здається, у вас сканер HP."
 
+#. Instructions on how to install HP scanner drivers.
+#. smfp is rebranded and slightly modified Samsung devices,
+#. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
+#. It require custom drivers, not available in hpaio package
+#: src/app-window.vala:1658
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.epson.com"
+#| "\">Epson website</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a>."
+msgstr ""
+"Драйвери для цього доступні на <a href=\"https://support.hp.com\">сайті HP</a"
+">."
+
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1644
+#: src/app-window.vala:1662
 msgid "You appear to have an Epson scanner."
 msgstr "Здається, у вас сканер Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1646
+#: src/app-window.vala:1664
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
 msgstr ""
-"Драйвери для цього доступні на <a href=\"http://support.epson.com\">Веб-"
-"сайті Epson</a>."
+"Драйвери для цього доступні на <a href=\"http://support.epson.com\">сайті"
+" Epson</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1650
-#| msgid "You appear to have an HP scanner."
+#: src/app-window.vala:1668
 msgid "You appear to have an Lexmark scanner."
 msgstr "Здається, у вас сканер Lexmark."
 
 #. Instructions on how to install Linux scanner drivers
-#: src/app-window.vala:1652
-#| msgid ""
-#| "Drivers for this are available on the <a href=\"http://support.brother.com"
-#| "\">Brother website</a>."
+#: src/app-window.vala:1670
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
 msgstr ""
-"Драйвери можна отримати на <a href=\"http://support.lexmark.com\">сайті"
-" Lexmark</a>."
+"Драйвери можна отримати на <a href=\"http://support.lexmark.com\">сайті "
+"Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1656
+#: src/app-window.vala:1674
 msgid "Install drivers"
 msgstr "Встановлення драйверів"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1689
+#: src/app-window.vala:1708
 msgid "Once installed you will need to restart this app."
 msgstr "Після встановлення вам слід перезапустити цю програму."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1702
+#: src/app-window.vala:1721
 msgid "Installing drivers…"
 msgstr "Встановлюємо драйвери…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1710
+#: src/app-window.vala:1729
 msgid "Drivers installed successfully!"
 msgstr "Драйвери успішно встановлено!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1720
+#: src/app-window.vala:1739
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Не вдалося встановити драйвери (код помилки %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1726
+#: src/app-window.vala:1745
 msgid "Failed to install drivers."
 msgstr "Не вдалося встановити драйвери."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1733
+#: src/app-window.vala:1752
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
@@ -659,61 +697,61 @@ msgstr[1] "Вам слід встановити пакунки %s."
 msgstr[2] "Вам слід встановити пакунки %s."
 msgstr[3] "Вам слід встановити пакунок %s."
 
-#: src/app-window.vala:1848
+#: src/app-window.vala:1867
 msgid "Email"
 msgstr "Надіслати ел. поштою"
 
-#: src/app-window.vala:1849
+#: src/app-window.vala:1868
 msgid "Print"
 msgstr "Надрукувати"
 
-#: src/app-window.vala:1850
+#: src/app-window.vala:1869
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "Перевпорядкувати сторінки"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1851 src/preferences-dialog.ui:44
+#: src/app-window.vala:1870 src/preferences-dialog.ui:44
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: src/app-window.vala:1854
+#: src/app-window.vala:1873
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні скорочення"
 
-#: src/app-window.vala:1855
+#: src/app-window.vala:1874
 msgid "Help"
 msgstr "Довідка"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1864
+#: src/app-window.vala:1883
 msgid "Start Again…"
 msgstr "Розпочати знову…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1883
+#: src/app-window.vala:1902
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Обертати сторінку ліворуч (проти годинникової стрілки)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1892
+#: src/app-window.vala:1911
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Обертати сторінку праворуч (за годинниковою стрілкою)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1904
+#: src/app-window.vala:1923
 msgid "Crop the selected page"
 msgstr "Обрізати позначену сторінку"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1922
+#: src/app-window.vala:1941
 msgid "Delete the selected page"
 msgstr "Вилучити позначену сторінку"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2096
+#: src/app-window.vala:2115
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -1002,17 +1040,32 @@ msgid "Unable to connect to scanner"
 msgstr "Не вдалося з’єднатися зі сканером"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1288
+#: src/scanner.vala:1287
 msgid "Document feeder empty"
 msgstr "Лоток із документами є порожнім"
 
-#. Error display when unable to start scan
+#. Out of memory error message with help instruction.
+#. Message written in Pango text markup language,
+#. A carriage return makes a line break, <tt> tag makes a monospace font
 #: src/scanner.vala:1295
+msgid ""
+"Insufficient memory to perform scan.\n"
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
+"<tt>Preferences</tt> menu. For some scanners when scanning in high "
+"resolution, the scan size is restricted."
+msgstr ""
+"Недостатньо пам'яті для виконання сканування.\n"
+"Спробуйте зменшити <tt>Роздільність</tt> або <tt>Розмір сторінки</tt> у меню "
+"<tt>Налаштування</tt>. Для деяких сканерів передбачено обмеження розміру"
+" сканування при високих значення роздільної здатності."
+
+#. Error display when unable to start scan
+#: src/scanner.vala:1308
 msgid "Unable to start scan"
 msgstr "Не вдалося розпочати сканування"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1308 src/scanner.vala:1415
+#: src/scanner.vala:1321 src/scanner.vala:1424
 msgid "Error communicating with scanner"
 msgstr "Помилка під час спроби обміну даними зі сканером"
 
@@ -1033,27 +1086,34 @@ msgstr ""
 "програми"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:456
+#: src/simple-scan.vala:1755
 msgid "Failed to scan"
 msgstr "Помилка сканування"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:471
+#: src/simple-scan.vala:1770
 msgid "Scan in progress"
 msgstr "Виконуємо сканування"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:648
+#: src/simple-scan.vala:1953
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ПРИСТРІЙ…] — програма для сканування"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:659
+#: src/simple-scan.vala:1964
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Щоб переглянути повний список можливих параметрів командного рядка, віддайте "
 "команду «%s --help»."
+
+#~ msgid ""
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
+#~ "\">Samsung website</a>."
+#~ msgstr ""
+#~ "Драйвери до таких сканерів можна отримати з <a href=\"http://samsung.com/"
+#~ "support\">сайта Samsung</a>."
 
 #~ msgid "Resolution for photo scans"
 #~ msgstr "Роздільна здатність для сканування фотографій"
