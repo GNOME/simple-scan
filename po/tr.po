@@ -11,16 +11,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-03-30 21:08+0000\n"
-"PO-Revision-Date: 2020-04-03 18:32+0300\n"
+"POT-Creation-Date: 2020-04-25 07:45+0000\n"
+"PO-Revision-Date: 2020-04-28 16:12+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
-"Language-Team:  <gnome-turk@gnome.org>\n"
+"Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Gtranslator 3.34.0\n"
+"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -153,7 +153,7 @@ msgstr "Sayfalar arasındaki gecikmenin milisaniye türünden değeri."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:498 src/app-window.vala:1563 src/app-window.vala:1817
+#: src/app-window.ui:498 src/app-window.vala:1566 src/app-window.vala:1842
 msgid "Document Scanner"
 msgstr "Belge Tarayıcı"
 
@@ -305,37 +305,37 @@ msgid "_Scan"
 msgstr "_Tara"
 
 #. Tooltip for save toolbar button
-#: src/app-window.ui:696
+#: src/app-window.ui:697
 msgid "Save document to a file"
 msgstr "Belgeyi bir dosyaya kaydet"
 
-#: src/app-window.vala:226 src/app-window.vala:1650
+#: src/app-window.vala:227 src/app-window.vala:1674
 msgid "_Close"
 msgstr "_Kapat"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:235
+#: src/app-window.vala:236
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "“%s” kaynağına erişmek için kullanıcı adı ve parola gerekiyor"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:251
+#: src/app-window.vala:253
 msgid "Searching for Scanners…"
 msgstr "Tarayıcılar aranıyor…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:258
+#: src/app-window.vala:261
 msgid "Ready to Scan"
 msgstr "Taramaya hazır"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:266
+#: src/app-window.vala:270
 msgid "Additional software needed"
 msgstr "Ek yazılım gerekiyor"
 
 #. Instructions to install driver software
-#: src/app-window.vala:268
+#: src/app-window.vala:272
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -344,77 +344,76 @@ msgstr ""
 "gerekir."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:275
+#: src/app-window.vala:279
 msgid "No scanners detected"
 msgstr "Tarayıcı bulunamadı"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:277
+#: src/app-window.vala:281
 msgid "Please check your scanner is connected and powered on"
 msgstr "Lütfen tarayıcınızın bağlı ve açık olduğundan emin olun"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:379
+#: src/app-window.vala:383
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Kendiliğinden kaydedilen bir kitap var. Bunu açmak ister misiniz?"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:453
+#: src/app-window.vala:457
 msgid "Save As…"
 msgstr "Farklı Kaydet…"
 
-#: src/app-window.vala:456 src/app-window.vala:752
+#: src/app-window.vala:460 src/app-window.vala:752
 msgid "_Save"
 msgstr "_Kaydet"
 
-#: src/app-window.vala:457 src/app-window.vala:639 src/app-window.vala:751
+#: src/app-window.vala:461 src/app-window.vala:639 src/app-window.vala:751
 msgid "_Cancel"
 msgstr "_Vazgeç"
 
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:467
-#| msgid "Scanned Document.pdf"
+#: src/app-window.vala:471
 msgid "Scanned Document"
 msgstr "Taranan Belge"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:473
+#: src/app-window.vala:477
 msgid "Image Files"
 msgstr "Resim Dosyaları"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:483
+#: src/app-window.vala:487
 msgid "All Files"
 msgstr "Tüm Dosyalar"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:492
+#: src/app-window.vala:496
 msgid "PDF (multi-page document)"
 msgstr "PDF (çok sayfalı belge)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:498
+#: src/app-window.vala:502
 msgid "JPEG (compressed)"
 msgstr "JPEG (sıkıştırılmış)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:504
+#: src/app-window.vala:508
 msgid "PNG (lossless)"
 msgstr "PNG (kayıpsız)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:511
+#: src/app-window.vala:515
 msgid "WebP (compressed)"
 msgstr "WebP (sıkıştırılmış)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:521
+#: src/app-window.vala:525
 msgid "File format:"
 msgstr "Dosya biçimi:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:544
+#: src/app-window.vala:548
 msgid "Compression:"
 msgstr "Sıkıştırma:"
 
@@ -454,53 +453,53 @@ msgid "Discard Changes"
 msgstr "Değişiklikleri Geri Al"
 
 #. Label shown when scan started
-#: src/app-window.vala:819
+#: src/app-window.vala:822
 msgid "Contacting scanner…"
 msgstr "Tarayıcıyla iletişim kuruluyor…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1087
+#: src/app-window.vala:1090
 msgid "Unable to save image for preview"
 msgstr "Resim, önizleme için kaydedilemiyor"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1099
+#: src/app-window.vala:1102
 msgid "Unable to open image preview application"
 msgstr "Resim önizleme uygulaması açılamıyor"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1261
+#: src/app-window.vala:1264
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Sayfaları Yeniden Sırala"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1284
+#: src/app-window.vala:1287
 msgid "Combine sides"
 msgstr "Yüzleri birleştir"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1294
+#: src/app-window.vala:1297
 msgid "Combine sides (reverse)"
 msgstr "Yüzleri birleştir (ters)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1304
+#: src/app-window.vala:1307
 msgid "Reverse"
 msgstr "Tersine çevir"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1314
+#: src/app-window.vala:1317
 msgid "Keep unchanged"
 msgstr "Değiştirmeden bırak"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1538
+#: src/app-window.vala:1541
 msgid "Unable to open help file"
 msgstr "Yardım dosyası açılamıyor"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1553
+#: src/app-window.vala:1556
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -515,13 +514,15 @@ msgid ""
 "You should have received a copy of the GNU General Public License\n"
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 msgstr ""
-"Bu program özgür yazılımdır: Yeniden dağıtabilir ve/veya Özgür Yazılım Vakfı "
-"tarafından yayınlanmış 3. sürüm lisans veya isterseniz herhangi sonraki "
-"sürüm ile GNU Genel Kamu Lisansı sözleşmesi altında düzenleyebilirsiniz.\n"
+"Bu program özgür yazılımdır: Yeniden dağıtabilir ve/veya \n"
+"Özgür Yazılım Vakfı tarafından yayınlanmış 3. sürüm lisans \n"
+"veya isterseniz herhangi sonraki sürüm ile \n"
+"GNU Genel Kamu Lisansı sözleşmesi altında düzenleyebilirsiniz.\n"
 "\n"
-"Bu program HERHANGİ GARANTİSİ OLMAKSIZIN; hatta TİCARETE UYGUNLUK veya BELLİ "
-"BİR AMACA UYGUNLUK garantisi bile olmaksızın, kullanışlı olması umularak "
-"dağıtıldı.\n"
+"Bu program HERHANGİ GARANTİSİ OLMAKSIZIN; \n"
+"hatta TİCARETE UYGUNLUK\n"
+"veya BELLİ BİR AMACA UYGUNLUK garantisi bile olmaksızın,\n"
+"kullanışlı olması umularak dağıtıldı.\n"
 "Daha çok bilgi için GNU Genel Kamu Lisansıʼna bakın.\n"
 "\n"
 "Bu program ile birlikte GNU Genel Kamu Lisansıʼnın bir kopyasını almış "
@@ -529,16 +530,16 @@ msgstr ""
 "Eğer almadıysanız bile şuraya bakınız: <http://www.gnu.org/licenses/>"
 
 #. Title of about dialog
-#: src/app-window.vala:1556 src/app-window.vala:1850
+#: src/app-window.vala:1559 src/app-window.vala:1875
 msgid "About Document Scanner"
 msgstr "Belge Tarayıcı Hakkında"
 
 #. Description of program
-#: src/app-window.vala:1559
+#: src/app-window.vala:1562
 msgid "Simple document scanning tool"
 msgstr "Basit bir belge tarama aracı"
 
-#: src/app-window.vala:1568
+#: src/app-window.vala:1571
 msgid "translator-credits"
 msgstr ""
 "GNOME Türkiye Çeviri Takımı:\n"
@@ -569,22 +570,22 @@ msgstr ""
 "  İbrahim Çelik https://launchpad.net/~ibrahimcelik89"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1584
+#: src/app-window.vala:1587
 msgid "Save document before quitting?"
 msgstr "Çıkmadan önce belgeyi kaydet?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1586
+#: src/app-window.vala:1589
 msgid "Quit without Saving"
 msgstr "Kaydetmeden Çık"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1627
+#: src/app-window.vala:1630
 msgid "You appear to have a Brother scanner."
 msgstr "Bir Brother tarayıcınız olduğu görünüyor."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1629
+#: src/app-window.vala:1632
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -592,32 +593,67 @@ msgstr ""
 "Bunun sürücüleri <a href=\"http://support.brother.com\">Brother web "
 "sitesinde</a> bulunabilir."
 
+#. Message to indicate a Canon Pixma scanner has been detected
+#: src/app-window.vala:1636
+msgid ""
+"You appear to have a Canon scanner, which is supported by the <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+msgstr ""
+"<a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"arka ucu</a> tarafından desteklenen bir Canon tarayıcınız olduğu görünüyor."
+
+#. Instructions on how to resolve issue with SANE scanner drivers
+#: src/app-window.vala:1638
+msgid ""
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">SANE mailing list</a>."
+msgstr ""
+"<a href=\"http://www.sane-project.org/sane-supported-devices.html"
+"\">Tarayıcınızın SANE tarafından desteklenip desteklenmediğini</a> gözden "
+"geçirin, olmazsa <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/"
+"listinfo/sane-devel\">SANE postalaşma listesine</a> sorun bildirin."
+
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1633
+#: src/app-window.vala:1642
 msgid "You appear to have a Samsung scanner."
 msgstr "Bir Samsung tarayıcınız olduğu görünüyor."
 
-#. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1635
+#. Instructions on how to install Samsung scanner drivers.
+#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
+#: src/app-window.vala:1645
 msgid ""
-"Drivers for this are available on the <a href=\"http://samsung.com/support"
-"\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"Bunun sürücüleri <a href=\"http://samsung.com/support\">Samsung web "
-"sitesinde</a> bulunabilir."
+"Bunun sürücüleri <a href=\"https://support.hp.com\">HP web sitesinde</a> "
+"bulunabilir (HP, Samsung’un yazdırma işlerini devralmıştır)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1639
+#: src/app-window.vala:1650
 msgid "You appear to have an HP scanner."
 msgstr "Bir HP tarayıcınız olduğu görünüyor."
 
+#. Instructions on how to install HP scanner drivers.
+#. smfp is rebranded and slightly modified Samsung devices,
+#. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
+#. It require custom drivers, not available in hpaio package
+#: src/app-window.vala:1658
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a>."
+msgstr ""
+"Bunun sürücüleri <a href=\"https://support.hp.com\">HP web sitesinde</a> "
+"bulunabilir."
+
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1644
+#: src/app-window.vala:1662
 msgid "You appear to have an Epson scanner."
 msgstr "Bir Epson tarayıcınız olduğu görünüyor."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1646
+#: src/app-window.vala:1664
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -625,99 +661,113 @@ msgstr ""
 "Bunun sürücüleri <a href=\"http://support.epson.com\">Epson web sitesinde</"
 "a> bulunabilir."
 
+#. Message to indicate an Lexmark scanner has been detected
+#: src/app-window.vala:1668
+msgid "You appear to have an Lexmark scanner."
+msgstr "Bir Lexmark tarayıcınız olduğu görünüyor."
+
+#. Instructions on how to install Linux scanner drivers
+#: src/app-window.vala:1670
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.lexmark.com"
+"\">Lexmark website</a>."
+msgstr ""
+"Bunun sürücüleri <a href=\"http://support.lexmark.com\">Lexmark web "
+"sitesinde</a> bulunabilir."
+
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1650
+#: src/app-window.vala:1674
 msgid "Install drivers"
 msgstr "Sürücüleri kur"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1683
+#: src/app-window.vala:1708
 msgid "Once installed you will need to restart this app."
 msgstr "Yükledikten sonra uygulamayı yeniden başlatmanız gerekiyor."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1696
+#: src/app-window.vala:1721
 msgid "Installing drivers…"
 msgstr "Sürücüler kuruluyor…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1704
+#: src/app-window.vala:1729
 msgid "Drivers installed successfully!"
 msgstr "Sürücüler başarıyla kuruldu!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1714
+#: src/app-window.vala:1739
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Sürücülerin kurulumu başarısız oldu (hata kodu %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1720
+#: src/app-window.vala:1745
 msgid "Failed to install drivers."
 msgstr "Sürücülerin kurulumu başarısız oldu."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1727
+#: src/app-window.vala:1752
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "%s paket kurmanız gerekiyor."
 
-#: src/app-window.vala:1842
+#: src/app-window.vala:1867
 msgid "Email"
 msgstr "E-posta"
 
-#: src/app-window.vala:1843
+#: src/app-window.vala:1868
 msgid "Print"
 msgstr "Yazdır"
 
-#: src/app-window.vala:1844
+#: src/app-window.vala:1869
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "Sayfaları Yeniden Sırala"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1845 src/preferences-dialog.ui:44
+#: src/app-window.vala:1870 src/preferences-dialog.ui:44
 msgid "Preferences"
 msgstr "Tercihler"
 
-#: src/app-window.vala:1848
+#: src/app-window.vala:1873
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
-#: src/app-window.vala:1849
+#: src/app-window.vala:1874
 msgid "Help"
 msgstr "Yardım"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1858
+#: src/app-window.vala:1883
 msgid "Start Again…"
 msgstr "Yeniden Başlat…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1877
+#: src/app-window.vala:1902
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Sayfayı sola döndür (saat yönünün tersine)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1886
+#: src/app-window.vala:1911
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Sayfayı sağa döndür (saat yönünde)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1898
+#: src/app-window.vala:1923
 msgid "Crop the selected page"
 msgstr "Seçili sayfayı kırp"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1916
+#: src/app-window.vala:1941
 msgid "Delete the selected page"
 msgstr "Seçili sayfayı sil"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2090
+#: src/app-window.vala:2115
 msgid "Cancel"
 msgstr "Vazgeç"
 
@@ -838,10 +888,15 @@ msgstr "Yardımı göster"
 
 #: src/help-overlay.ui:140
 msgctxt "shortcut window"
+msgid "Open menu"
+msgstr "Menüyü aç"
+
+#: src/help-overlay.ui:147
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Klavye kısayolları"
 
-#: src/help-overlay.ui:147
+#: src/help-overlay.ui:154
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Çık"
@@ -997,17 +1052,32 @@ msgid "Unable to connect to scanner"
 msgstr "Tarayıcıya bağlanılamadı"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1286
+#: src/scanner.vala:1287
 msgid "Document feeder empty"
 msgstr "Belge besleyici boş"
 
+#. Out of memory error message with help instruction.
+#. Message written in Pango text markup language,
+#. A carriage return makes a line break, <tt> tag makes a monospace font
+#: src/scanner.vala:1295
+msgid ""
+"Insufficient memory to perform scan.\n"
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
+"<tt>Preferences</tt> menu. For some scanners when scanning in high "
+"resolution, the scan size is restricted."
+msgstr ""
+"Tarama gerçekleştirmek için yetersiz bellek.\n"
+"<tt>Tercihler</tt> menüsünden <tt>Çözünürlük</tt> veya <tt>Sayfa Boyutu</"
+"tt>nu düşürmeyi deneyin. Bazı tarayıcılar yüksek çözünürlükte tararken, "
+"tarama alanını kısıtlar."
+
 #. Error display when unable to start scan
-#: src/scanner.vala:1293
+#: src/scanner.vala:1308
 msgid "Unable to start scan"
 msgstr "Tarama başlatılamadı"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1306 src/scanner.vala:1413
+#: src/scanner.vala:1321 src/scanner.vala:1424
 msgid "Error communicating with scanner"
 msgstr "Tarayıcı ile iletişim kurulamıyor"
 
@@ -1026,27 +1096,34 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Bu uygulamanın eski sürümlerince üretilen PDF dosyalarını düzelt"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:393
+#: src/simple-scan.vala:1755
 msgid "Failed to scan"
 msgstr "Tarama başarısız oldu"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:408
+#: src/simple-scan.vala:1770
 msgid "Scan in progress"
 msgstr "Tarama sürüyor"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:585
+#: src/simple-scan.vala:1953
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[AYGIT…] — Tarama uygulaması"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:596
+#: src/simple-scan.vala:1964
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Kullanılabilir komut satırı seçeneklerinin tam listesini görmek için “%s --"
 "help” komutunu çalıştırın."
+
+#~ msgid ""
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
+#~ "\">Samsung website</a>."
+#~ msgstr ""
+#~ "Bunun sürücüleri <a href=\"http://samsung.com/support\">Samsung web "
+#~ "sitesinde</a> bulunabilir."
 
 #~ msgid "Scan Documents"
 #~ msgstr "Belgeleri Tara"
