@@ -1,3 +1,14 @@
+build:snap:
+  stage: build
+  image: ubuntudesktop/gnome-3-28-1804
+  before_script:
+    - apt-get update
+  script: snapcraft
+  allow_failure: true
+  artifacts:
+    paths: ['./*.snap']
+    expire_in: 3 days
+
 build-ubuntu:
   image: ubuntu:rolling
   before_script:
