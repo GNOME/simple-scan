@@ -451,7 +451,7 @@ public class AppWindow : Gtk.ApplicationWindow
         directory = settings.get_string ("save-directory");
 
         if (directory == null || directory == "")
-            directory = Environment.get_user_special_dir (UserDirectory.DOCUMENTS);
+            directory = GLib.Filename.to_uri(Environment.get_user_special_dir (UserDirectory.DOCUMENTS));
 
         var save_dialog = new Gtk.FileChooserNative (/* Save dialog: Dialog title */
                                                      _("Save As…"),
@@ -465,7 +465,7 @@ public class AppWindow : Gtk.ApplicationWindow
         if (book_uri != null)
             save_dialog.set_uri (book_uri);
         else {
-            save_dialog.set_current_folder (directory);
+            save_dialog.set_current_folder_uri (directory);
             /* Default filename to use when saving document. */
             /* To that filename the extension will be added, eg. "Scanned Document.pdf" */
             save_dialog.set_current_name (_("Scanned Document") + "." + mime_type_to_extension (save_format));
@@ -618,7 +618,8 @@ public class AppWindow : Gtk.ApplicationWindow
 
             if (check_overwrite (save_dialog.transient_for, files))
             {
-                settings.set_string ("save-directory", save_dialog.get_current_folder ());
+                var directory_uri = uri.substring (0, uri.last_index_of ("/") + 1);
+                settings.set_string ("save-directory", directory_uri);
                 save_dialog.destroy ();
                 return uri;
             }
