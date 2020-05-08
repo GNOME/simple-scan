@@ -1336,6 +1336,10 @@ public class Scanner : Object
         info.width = parameters.pixels_per_line;
         info.height = parameters.lines;
         info.depth = parameters.depth;
+        /* Reduce bit depth if requested lower than received */
+        // FIXME: This a hack and only works on 8 bit gray to 2 bit gray
+        if (parameters.depth == 8 && parameters.format == Sane.Frame.GRAY && job.depth == 2 && job.scan_mode == ScanMode.GRAY)
+            info.depth = job.depth;
         info.n_channels = parameters.format == Sane.Frame.GRAY ? 1 : 3;
         info.dpi = job.dpi; // FIXME: This is the requested DPI, not the actual DPI
         info.device = current_device;
@@ -1473,6 +1477,56 @@ public class Scanner : Object
             {
                 buffer[i] = line.data[i + (line.n_lines * line.data_length)];
                 n_used++;
+            }
+
+            /* Reduce bit depth if requested lower than received */
+            // FIXME: This a hack and only works on 8 bit gray to 2 bit gray
+            if (parameters.depth == 8 && parameters.format == Sane.Frame.GRAY &&
+                job.depth == 2 && job.scan_mode == ScanMode.GRAY)
+            {
+                uchar block = 0;
+                var write_offset = 0;
+                var block_shift = 6;
+                for (var i = 0; i < line.n_lines; i++)
+                {
+                    var offset = i * line.data_length;
+                    for (var x = 0; x < line.width; x++)
+                    {
+                         var p = line.data[offset + x];
+
+                         uchar sample;
+                         if (p >= 192)
+                             sample = 3;
+                         else if (p >= 128)
+                             sample = 2;
+                         else if (p >= 64)
+                             sample = 1;
+                         else
+                             sample = 0;
+
+                         block |= sample << block_shift;
+                         if (block_shift == 0)
+                         {
+                             line.data[write_offset] = block;
+                             write_offset++;
+                             block = 0;
+                             block_shift = 6;
+                         }
+                         else
+                             block_shift -= 2;
+                    }
+
+                    /* Finish each line on a byte boundary */
+                    if (block_shift != 6)
+                    {
+                        line.data[write_offset] = block;
+                        write_offset++;
+                        block = 0;
+                        block_shift = 6;
+                    }
+                }
+
+                line.data_length = (line.width * 2 + 7) / 8;
             }
 
             notify_event (new NotifyGotLine (job.id, line));
