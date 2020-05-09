@@ -5,21 +5,23 @@
 # Tiffany ANTOPOLSKI <tiffany.antopolski@gmail.com>, 2011.
 # Manuel ORTEGA <manuel@grupolasindias.coop>, 2015.
 # Sébastien ZURFLUH <sebastien.zurfluh@gmail.com>, 2017.
-# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2017, 2018.
+# Tirifto, <>, 2019.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2017-2020.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2018-09-25 08:41+0000\n"
-"PO-Revision-Date: 2018-09-30 11:55+0200\n"
+"POT-Creation-Date: 2020-05-08 21:10+0000\n"
+"PO-Revision-Date: 2020-05-09 11:41+0200\n"
 "Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
 "Language-Team: Esperanto <gnome-eo-list@gnome.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Gtranslator 3.36.0\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -88,12 +90,14 @@ msgid "The resolution in dots-per-inch to use when scanning text."
 msgstr "La distingivo en punktoj en coloj uzi kiam skanantaj teksto."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
-msgid "Resolution for photo scans"
-msgstr "Distingivo por fotoskanoj"
+msgid "Resolution for image scans"
+msgstr "Distingivo por bildskanoj"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
-msgid "The resolution in dots-per-inch to use when scanning photos."
-msgstr "La distingivo en punktoj en coloj uzi kiam skanantaj fotoj."
+#, fuzzy
+#| msgid "The resolution in dots-per-inch to use when scanning text."
+msgid "The resolution in dots-per-inch to use when scanning images."
+msgstr "La distingivo en punktoj en coloj uzi kiam skanantaj teksto."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -114,19 +118,31 @@ msgstr ""
 "La dosierujo al kiu konservi dosierojn. La dokument-dosierujo estas la "
 "defaŭlto, se malagordi."
 
+#: data/org.gnome.SimpleScan.gschema.xml:65
+msgid "File format that is used for saving image files"
+msgstr "Dosierformo kiu estas uzata por konservi bildojn"
+
 #: data/org.gnome.SimpleScan.gschema.xml:66
+msgid ""
+"MIME type that is used for saving image files. Examples of supported MIME "
+"types: image/jpeg, image/png, application/pdf"
+msgstr ""
+"MIME-tipo kiu estas uzata por konservi bildojn. Ekzemploj de subtenatoj MIME-"
+"tipoj: image/jpeg, image/png, application/pdf"
+
+#: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
 msgstr "Kvalito por JPEG-densigo"
 
-#: data/org.gnome.SimpleScan.gschema.xml:67
+#: data/org.gnome.SimpleScan.gschema.xml:72
 msgid "Quality value to use for JPEG compression."
 msgstr "Kvalito por JPEG-densigo."
 
-#: data/org.gnome.SimpleScan.gschema.xml:72
+#: data/org.gnome.SimpleScan.gschema.xml:77
 msgid "Delay in millisecond between pages"
 msgstr "Malfruo en milisekundoj inter paĝoj"
 
-#: data/org.gnome.SimpleScan.gschema.xml:73
+#: data/org.gnome.SimpleScan.gschema.xml:78
 msgid "Delay in millisecond between pages."
 msgstr "Malfruo en milisekundoj inter paĝoj."
 
@@ -135,20 +151,25 @@ msgstr "Malfruo en milisekundoj inter paĝoj."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:181 src/app-window.vala:1522
-msgid "Simple Scan"
-msgstr "Simpla skano"
+#: src/app-window.ui:498 src/app-window.vala:1568 src/app-window.vala:1844
+msgid "Document Scanner"
+msgstr "Dokumentoskanilo"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:5
-msgid "Scan Documents"
-msgstr "Skani dokumentojn"
+#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+msgid "Make a digital copy of your photos and documents"
+msgstr "Krei ciferecan kopion de viaj fotaĵoj kaj dokumentoj"
 
 #: data/simple-scan.appdata.xml.in:9
+#, fuzzy
+#| msgid ""
+#| "A really easy way to scan both documents and photos. You can crop out the "
+#| "bad parts of a photo and rotate it if it is the wrong way round. You can "
+#| "print your scans, export them to pdf, or save them in a range of image "
+#| "formats."
 msgid ""
-"A really easy way to scan both documents and photos. You can crop out the "
-"bad parts of a photo and rotate it if it is the wrong way round. You can "
-"print your scans, export them to pdf, or save them in a range of image "
-"formats."
+"A really easy way to scan both text and images. You can crop out the bad "
+"parts of an image and rotate it if it is the wrong way round. You can print "
+"your scans, export them to pdf, or save them in a range of image formats."
 msgstr ""
 "Facilega maniero skani kiel dokumentojn, tiel fotojn. Vi povas stuci la "
 "mabonajn partojn de la foto kaj ĝin turni se ĝi malorientas. Vi povas presi "
@@ -156,170 +177,169 @@ msgstr ""
 "bildformato."
 
 #: data/simple-scan.appdata.xml.in:14
-msgid "Simple Scan uses the SANE framework to support most existing scanners."
+msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
-"Simpla skano uzas la framo SANE por apogi la plimulton de estantaj skaniloj."
+"Ĉi tiu aplikaĵo uzas la framon SANE por apogi la plimulton de estantaj "
+"skaniloj."
 
-#: data/simple-scan.desktop.in:4
-msgid "Document Scanner"
-msgstr "Dokumentoskanilo"
+#: data/simple-scan.appdata.xml.in:24
+msgid "The GNOME Project"
+msgstr "La projekto GNOME"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/simple-scan.desktop.in:7
+#: data/simple-scan.desktop.in:6
 msgid "scan;scanner;flatbed;adf;"
 msgstr "skani;skanilo;plata;adf;"
 
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/simple-scan.desktop.in:10
-msgid "scanner"
-msgstr "scanner"
-
 #. Menu item to rotate page to left (anti-clockwise)
-#: src/app-window.ui:10
+#: src/app-window.ui:12
 msgid "Rotate _Left"
 msgstr "Turni _maldekstren"
 
 #. Menu item to rotate page to right (clockwise)
-#: src/app-window.ui:19
+#: src/app-window.ui:22
 msgid "Rotate _Right"
 msgstr "Turni _dekstren"
 
 #. Label for page crop submenu
-#: src/app-window.ui:28
+#: src/app-window.ui:32
 msgid "_Crop"
 msgstr "Stu_ci"
 
 #. Radio button for no crop
-#: src/app-window.ui:36
+#: src/app-window.ui:42
 msgid "_None"
 msgstr "_Neniu"
 
 #. Radio button for cropping page to A4 size
-#: src/app-window.ui:46
+#: src/app-window.ui:53
 msgid "A_4"
 msgstr "A_4"
 
 #. Radio button for cropping page to A5 size
-#: src/app-window.ui:56
+#: src/app-window.ui:64
 msgid "A_5"
 msgstr "A_5"
 
 #. Radio button for cropping page to A6 size
-#: src/app-window.ui:66
+#: src/app-window.ui:75
 msgid "A_6"
 msgstr "A_6"
 
 #. Radio button for cropping page to US letter size
-#: src/app-window.ui:76
+#: src/app-window.ui:86
 msgid "_Letter"
 msgstr "US _Letter"
 
 #. Radio button for cropping to page to US legal size
-#: src/app-window.ui:86
+#: src/app-window.ui:97
 msgid "Le_gal"
 msgstr "US Le_gal"
 
 #. Radio button for cropping page to 4x6 inch
-#: src/app-window.ui:96
+#: src/app-window.ui:108
 msgid "4×6"
 msgstr "4×6"
 
 #. Radio button for cropping page to A3
-#: src/app-window.ui:106
+#: src/app-window.ui:119
 msgid "A_3"
 msgstr "A_3"
 
 #. Radio button for cropping to custom page size
-#: src/app-window.ui:116
+#: src/app-window.ui:130
 msgid "_Custom"
 msgstr "_Propre"
 
 #. Menu item to rotate the crop area
-#: src/app-window.ui:132
+#: src/app-window.ui:148
 msgid "_Rotate Crop"
 msgstr "_Turni la stoco-lokon"
 
 #. Menu item to move the selected page to the left
-#: src/app-window.ui:144
+#: src/app-window.ui:161
 msgid "Move Left"
 msgstr "Movi maldekstren"
 
 #. Menu item to move the selected page to the right
-#: src/app-window.ui:152
+#: src/app-window.ui:170
 msgid "Move Right"
 msgstr "Movi dekstren"
 
-#: src/app-window.ui:272
-msgid "Stop"
-msgstr "Haltigi"
-
-#. Tooltip for stop button
-#: src/app-window.ui:274
-msgid "Stop the current scan"
-msgstr "Haltigi la aktualan skanon"
-
-#. Label on scan toolbar item
-#: src/app-window.ui:285
-msgid "Scan"
-msgstr "Skani"
-
-#. Tooltip for scan toolbar button
-#: src/app-window.ui:288
-msgid "Scan a single page from the scanner"
-msgstr "Skani unuopan paĝon el la skanilo"
-
-#. Tooltip for save toolbar button
-#: src/app-window.ui:352
-msgid "Save document to a file"
-msgstr "Konservi dokumenton en dosiero"
-
-#: src/app-window.ui:405
+#: src/app-window.ui:252
 msgid "_Single Page"
 msgstr "_Unuopa paĝo"
 
-#: src/app-window.ui:436
+#: src/app-window.ui:303
 msgid "All Pages From _Feeder"
 msgstr "Ĉiuj paĝoj el _papero-metilo"
 
-#: src/app-window.ui:467
+#: src/app-window.ui:354
 msgid "_Multiple Pages From Flatbed"
 msgstr "_Pluraj paĝoj el plato"
 
-#: src/app-window.ui:498
+#: src/app-window.ui:405
 msgid "_Text"
 msgstr "_Teksto"
 
-#: src/app-window.ui:529
+#: src/app-window.ui:456
 msgid "_Image"
 msgstr "_Bildo"
 
-#: src/app-window.vala:223 src/app-window.vala:1353
+#: src/app-window.ui:476
+msgid "_Preferences"
+msgstr "_Agordoj"
+
+#. Tooltip for stop button
+#: src/app-window.ui:516
+msgid "Stop the current scan"
+msgstr "Haltigi la aktualan skanon"
+
+#: src/app-window.ui:540
+msgid "S_top"
+msgstr "_Halti"
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:569
+msgid "Scan a single page from the scanner"
+msgstr "Skani unuopan paĝon el la skanilo"
+
+#: src/app-window.ui:594
+msgid "_Scan"
+msgstr "_Skani"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:697
+msgid "Save document to a file"
+msgstr "Konservi dokumenton en dosiero"
+
+#: src/app-window.vala:227 src/app-window.vala:1676
 msgid "_Close"
 msgstr "_Fermi"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:232
+#: src/app-window.vala:236
 #, c-format
 msgid "Username and password required to access “%s”"
-msgstr "Salutnomo kaj pasvorto necesas por aliri “%s”"
+msgstr "Salutnomo kaj pasvorto necesas por aliri al “%s”"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:248
+#: src/app-window.vala:253
 msgid "Searching for Scanners…"
 msgstr "Serĉante skanilojn…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:254
+#: src/app-window.vala:261
 msgid "Ready to Scan"
 msgstr "Pretas skani"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:261
+#: src/app-window.vala:270
 msgid "Additional software needed"
 msgstr "Plua programo bezonatas"
 
 #. Instructions to install driver software
-#: src/app-window.vala:263
+#: src/app-window.vala:272
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -328,155 +348,162 @@ msgstr ""
 "skanilo."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:269
+#: src/app-window.vala:279
 msgid "No scanners detected"
-msgstr "Neniuj skaniloj eltrovis"
+msgstr "Neniuj skaniloj troviĝis"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:271
+#: src/app-window.vala:281
 msgid "Please check your scanner is connected and powered on"
 msgstr "Bonvolu kontrolas ke via skanilo estas kenekta kaj kurentŝalta"
 
+#. Contents of dialog that shows if autosaved book should be loaded.
+#: src/app-window.vala:383
+msgid "An autosaved book exists. Do you want to open it?"
+msgstr "Aŭtomate konservita libro ekzistas. Ĉu vi volas malfermi ĝin?"
+
 #. Save dialog: Dialog title
-#: src/app-window.vala:294
+#: src/app-window.vala:457
 msgid "Save As…"
 msgstr "Konservi kiel…"
 
-#: src/app-window.vala:297 src/app-window.vala:467 src/app-window.vala:548
-msgid "_Cancel"
-msgstr "_Nuligi"
-
-#: src/app-window.vala:298 src/app-window.vala:549
+#: src/app-window.vala:460 src/app-window.vala:753
 msgid "_Save"
 msgstr "Kon_servi"
 
-#. Default filename to use when saving document
-#: src/app-window.vala:306
-msgid "Scanned Document.pdf"
-msgstr "Skanita Dokumento.pdf"
+#: src/app-window.vala:461 src/app-window.vala:640 src/app-window.vala:752
+msgid "_Cancel"
+msgstr "_Nuligi"
+
+#. Default filename to use when saving document.
+#. To that filename the extension will be added, eg. "Scanned Document.pdf"
+#: src/app-window.vala:471
+msgid "Scanned Document"
+msgstr "Skanita dokumento"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:312
+#: src/app-window.vala:477
 msgid "Image Files"
 msgstr "Bildo-dosieroj"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:322
+#: src/app-window.vala:487
 msgid "All Files"
 msgstr "Ĉiuj dosieroj"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:331
+#: src/app-window.vala:496
 msgid "PDF (multi-page document)"
 msgstr "PDF (multpaĝa dokumento)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:337
+#: src/app-window.vala:502
 msgid "JPEG (compressed)"
 msgstr "JPEG (densigita)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:343
+#: src/app-window.vala:508
 msgid "PNG (lossless)"
 msgstr "PNG (senperda)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:350
+#: src/app-window.vala:515
 msgid "WebP (compressed)"
 msgstr "WebP (densigita)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:360
+#: src/app-window.vala:525
 msgid "File format:"
 msgstr "Dosiertipo:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:372
+#: src/app-window.vala:548
 msgid "Compression:"
 msgstr "Densigo:"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:466
+#: src/app-window.vala:639
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "La dosiero nomata  “%s” jam ekzistas. Ĉu vi volas anstataŭigi ĝin?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:469
+#: src/app-window.vala:642
 msgid "_Replace"
 msgstr "_Anstataŭigi"
 
-#: src/app-window.vala:508
+#: src/app-window.vala:709
 msgid "Saving"
 msgstr "Konservi"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:523
+#: src/app-window.vala:726
 msgid "Failed to save file"
 msgstr "Ne sukcesis konservi la dosieron"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:546
+#: src/app-window.vala:750
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Se vi ne konservas, ŝanĝoj estos perditaj permanente."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:582
+#: src/app-window.vala:786
 msgid "Save current document?"
 msgstr "Konservi la nunan dokumenton?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:584
+#: src/app-window.vala:788
 msgid "Discard Changes"
 msgstr "Forlasi Ŝanĝojn"
 
 #. Label shown when scan started
-#: src/app-window.vala:717
+#: src/app-window.vala:823
 msgid "Contacting scanner…"
 msgstr "Kontaktante skanilon…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:800
+#: src/app-window.vala:1092
 msgid "Unable to save image for preview"
 msgstr "Ne eblas konservi bildon por antaŭrigardo"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:812
+#: src/app-window.vala:1104
 msgid "Unable to open image preview application"
 msgstr "Ne eblis malfermi bild-dosieron"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:974 src/app-window.vala:1537
+#: src/app-window.vala:1266
+msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Reordigi paĝojn"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:997
+#: src/app-window.vala:1289
 msgid "Combine sides"
 msgstr "Kombini flankojn"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1007
+#: src/app-window.vala:1299
 msgid "Combine sides (reverse)"
 msgstr "Kombini flankojn (inverse)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1017
+#: src/app-window.vala:1309
 msgid "Reverse"
 msgstr "Inversigi"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1027
+#: src/app-window.vala:1319
 msgid "Keep unchanged"
 msgstr "Konservi senŝanĝa"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1241
+#: src/app-window.vala:1543
 msgid "Unable to open help file"
 msgstr "Ne eblis malfermi help-dosieron"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1256
+#: src/app-window.vala:1558
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -502,76 +529,108 @@ msgstr ""
 "Pliajn detalojn vidu en la Ĝenerala Publika Permesilo de GNU.\n"
 "\n"
 "Ekzemplero de la GNUa Ĝenerala Publika Permesilo devas esti liverita\n"
-"al vi kun ĉi tiu programo.  Se vi ĝin ne ricevis, turnu vin al "
-"<http://www.gnu.org/licenses/>."
+"al vi kun ĉi tiu programo.  Se vi ĝin ne ricevis, turnu vin al <http://www."
+"gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1259
-msgid "About Simple Scan"
-msgstr "Pri simpla skani"
+#: src/app-window.vala:1561 src/app-window.vala:1877
+msgid "About Document Scanner"
+msgstr "Pri Dokumentoskanilo"
 
 #. Description of program
-#: src/app-window.vala:1262
+#: src/app-window.vala:1564
 msgid "Simple document scanning tool"
 msgstr "Simpla skanilo de dokumento"
 
-#: src/app-window.vala:1271
+#: src/app-window.vala:1573
 msgid "translator-credits"
 msgstr ""
 "Donald ROGERS, Kristjan SCHMIDT, Leo ARIAS, Manuel ORTEGA, Michael MORONI, "
 "Patrick (Petriko) OUDEJANS, Robert ANCELL, Tiffany ANTOLPOLSKI, Sébastien "
-"(Sezuo) ZURFLUH"
+"(Sezuo) ZURFLUH, Tirifto"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1287
+#: src/app-window.vala:1589
 msgid "Save document before quitting?"
 msgstr "Konservi dokumenton antaŭe ĉesanta?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1289
+#: src/app-window.vala:1591
 msgid "Quit without Saving"
 msgstr "Fini sen konservanta"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1330
+#: src/app-window.vala:1632
 msgid "You appear to have a Brother scanner."
 msgstr "Ŝajnas ke vi havas skanilon de Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1332
+#: src/app-window.vala:1634
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
 msgstr ""
-"Peliloj por ĉi tiu disponeblas ĉe la <a href=\"http://support.brother.com\">"
-"retejo de Brother</a>."
+"Peliloj por ĉi tiu disponeblas ĉe la <a href=\"http://support.brother.com"
+"\">retejo de Brother</a>."
+
+#. Message to indicate a Canon Pixma scanner has been detected
+#: src/app-window.vala:1638
+msgid ""
+"You appear to have a Canon scanner, which is supported by the <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+msgstr ""
+"Ŝajnas ke vi havas skanilon de Canon, kiu estas subtenata de la <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">internaĵo \"Pixma SANE"
+"\"</a>."
+
+#. Instructions on how to resolve issue with SANE scanner drivers
+#: src/app-window.vala:1640
+msgid ""
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">SANE mailing list</a>."
+msgstr ""
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1336
+#: src/app-window.vala:1644
 msgid "You appear to have a Samsung scanner."
 msgstr "Ŝajnas ke vi havas skanilon de Samsung."
 
-#. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1338
+#. Instructions on how to install Samsung scanner drivers.
+#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
+#: src/app-window.vala:1647
 msgid ""
-"Drivers for this are available on the <a href=\"http://samsung.com/support"
-"\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"Peliloj por ĉi tiu disponeblas ĉe la <a href=\"http://samsung.com/support\">"
-"retejo de Samsung</a>."
+"Peliloj por ĉi tiu disponeblas ĉe la <a href=\"http://support.hp.com"
+"\">retejo de HP</a>."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1342
+#: src/app-window.vala:1652
 msgid "You appear to have an HP scanner."
 msgstr "Ŝajnas ke vi havas skanilon de HP."
 
+#. Instructions on how to install HP scanner drivers.
+#. smfp is rebranded and slightly modified Samsung devices,
+#. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
+#. It require custom drivers, not available in hpaio package
+#: src/app-window.vala:1660
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a>."
+msgstr ""
+"Peliloj por ĉi tiu disponeblas ĉe la <a href=\"http://support.hp.com"
+"\">retejo de HP</a>."
+
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1347
+#: src/app-window.vala:1664
 msgid "You appear to have an Epson scanner."
 msgstr "Ŝajnas ke vi havas skanilon de Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1349
+#: src/app-window.vala:1666
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -579,95 +638,114 @@ msgstr ""
 "Peliloj por ĉi tiu disponeblas ĉe la <a href=\"http://support.epson.com"
 "\">retejo de Epson</a>."
 
+#. Message to indicate an Lexmark scanner has been detected
+#: src/app-window.vala:1670
+msgid "You appear to have an Lexmark scanner."
+msgstr "Ŝajnas ke vi havas skanilon de Lexmark."
+
+#. Instructions on how to install Linux scanner drivers
+#: src/app-window.vala:1672
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.lexmark.com"
+"\">Lexmark website</a>."
+msgstr ""
+"Peliloj por ĉi tiu disponeblas ĉe la <a href=\"http://support.lexmark.com"
+"\">retejo de Lexmark</a>."
+
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1353
+#: src/app-window.vala:1676
 msgid "Install drivers"
 msgstr "Instali pelilojn"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1386
-msgid "Once installed you will need to restart Simple Scan."
-msgstr "Kiam instalita, tiam vi bezonos restarti na Simpla Skano."
+#: src/app-window.vala:1710
+msgid "Once installed you will need to restart this app."
+msgstr "Post instalo vi bezonos reruli ĉi tiun aplikaĵon."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1399
+#: src/app-window.vala:1723
 msgid "Installing drivers…"
 msgstr "Instalante pelilojn…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1407
+#: src/app-window.vala:1731
 msgid "Drivers installed successfully!"
 msgstr "Sukcese instalis pelilojn!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1417
+#: src/app-window.vala:1741
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Malsukcesis instali pelilojn (erar-kodo %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1423
+#: src/app-window.vala:1747
 msgid "Failed to install drivers."
 msgstr "Malsukcesis instali pelilojn."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1430
+#: src/app-window.vala:1754
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Vi bezonas instali la pakaĵon %s."
 msgstr[1] "Vi bezonas instali la pakaĵojn %s."
 
-#: src/app-window.vala:1536
+#: src/app-window.vala:1869
 msgid "Email"
 msgstr "Retpoŝti"
 
+#: src/app-window.vala:1870
+msgid "Print"
+msgstr "Presi"
+
+#: src/app-window.vala:1871
+msgctxt "menu"
+msgid "Reorder Pages"
+msgstr "Reordigi paĝojn"
+
 #. Title of preferences dialog
-#: src/app-window.vala:1540 src/preferences-dialog.ui:52
+#: src/app-window.vala:1872 src/preferences-dialog.ui:44
 msgid "Preferences"
 msgstr "Agordoj"
 
-#: src/app-window.vala:1541
+#: src/app-window.vala:1875
 msgid "Keyboard Shortcuts"
 msgstr "Fulmoklavoj"
 
-#: src/app-window.vala:1542
+#: src/app-window.vala:1876
 msgid "Help"
 msgstr "Helpo"
-
-#: src/app-window.vala:1543
-msgid "About"
-msgstr "Pri"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1551
+#: src/app-window.vala:1885
 msgid "Start Again…"
 msgstr "Starti denove…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1570
+#: src/app-window.vala:1904
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Turni la paĝon maldekstren (maldekstrume)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1579
+#: src/app-window.vala:1913
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Turni la paĝon dekstren (dekstrume)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1591
+#: src/app-window.vala:1925
 msgid "Crop the selected page"
 msgstr "Stuci la elektitan paĝon"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1609
+#: src/app-window.vala:1943
 msgid "Delete the selected page"
 msgstr "Forigi la elektitan paĝon"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1753
+#: src/app-window.vala:2117
 msgid "Cancel"
 msgstr "Nuligi"
 
@@ -679,7 +757,7 @@ msgstr "R_ajtigi"
 #. Label beside username entry
 #: src/authorize-dialog.ui:80
 msgid "_Username for resource:"
-msgstr "Sal_utnomo por risurco:"
+msgstr "Sal_utnomo por rimedo:"
 
 #. Label beside password entry
 #: src/authorize-dialog.ui:92
@@ -689,7 +767,7 @@ msgstr "_Pasvorto:"
 #: src/book.vala:331 src/book.vala:337
 #, c-format
 msgid "Unable to encode page %i"
-msgstr "Maleblas enkodi paĝon %i"
+msgstr "Maleblas kodi paĝon %i"
 
 #: src/help-overlay.ui:12
 msgctxt "shortcut window"
@@ -776,168 +854,204 @@ msgctxt "shortcut window"
 msgid "Copy current page to clipboard"
 msgstr "Kopii la nunan paĝon al poŝo"
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:80
-msgid "_Scanner"
-msgstr "_Skanilo"
+#: src/help-overlay.ui:128
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Ĝenerala"
+
+#: src/help-overlay.ui:133
+msgctxt "shortcut window"
+msgid "Show help"
+msgstr "Montri helpon"
+
+#: src/help-overlay.ui:140
+msgctxt "shortcut window"
+msgid "Open menu"
+msgstr "Malfermi menuon"
+
+#: src/help-overlay.ui:147
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Klavkombinoj"
+
+#: src/help-overlay.ui:154
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Ĉesi"
 
 #. Label beside scan side combo box
-#: src/preferences-dialog.ui:108
-msgid "Scan Sides"
-msgstr "Skana flanko"
+#: src/preferences-dialog.ui:72
+msgid "Scan _Sides"
+msgstr "Skanendaj _flankojn"
 
 #. Label beside page size combo box
-#: src/preferences-dialog.ui:124
-msgid "Page Size"
-msgstr "Paĝo-dimensio"
+#: src/preferences-dialog.ui:88
+msgid "_Page Size"
+msgstr "_Paĝgrando"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:153
+#: src/preferences-dialog.ui:118
 msgid "Front"
 msgstr "Antaŭo"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:163
+#: src/preferences-dialog.ui:128
 msgid "Back"
 msgstr "Dorso"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:173
+#: src/preferences-dialog.ui:138
 msgid "Both"
 msgstr "Ambaŭ"
 
 #. Label beside page delay scale
-#: src/preferences-dialog.ui:200
-msgid "Delay"
-msgstr "Malfrui de"
+#: src/preferences-dialog.ui:165
+msgid "_Delay"
+msgstr "_Prokrasto"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:215
+#: src/preferences-dialog.ui:181
 msgid "Multiple pages from flatbed"
 msgstr "Pluraj paĝoj el plato"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:233
+#: src/preferences-dialog.ui:199
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:243
+#: src/preferences-dialog.ui:209
 msgid "5"
 msgstr "5"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:254
+#: src/preferences-dialog.ui:220
 msgid "7"
 msgstr "7"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:265
+#: src/preferences-dialog.ui:231
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:276
+#: src/preferences-dialog.ui:242
 msgid "15"
 msgstr "15"
 
 #. Label after page delay radio buttons
-#: src/preferences-dialog.ui:297
+#: src/preferences-dialog.ui:263
 msgid "Seconds"
 msgstr "Sekundoj"
 
 #. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:319
-msgid "Scanning"
-msgstr "Skanado"
+#: src/preferences-dialog.ui:285
+msgid "_Scanning"
+msgstr "_Skanado"
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:339
+#. Label beside scan resolution combo box
+#: src/preferences-dialog.ui:306
 msgid "_Text Resolution"
-msgstr "_Teksta distingivo"
+msgstr "_Teksta distingo"
 
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:354
-msgid "_Photo Resolution"
-msgstr "_Fotaĵa distingivo"
+#. Label beside scan resolution combo box
+#: src/preferences-dialog.ui:322
+msgid "_Image Resolution"
+msgstr "_Bilda distingo"
 
 #. Label beside brightness scale
-#: src/preferences-dialog.ui:398
-msgid "Brightness"
-msgstr "Heleco"
+#: src/preferences-dialog.ui:367
+msgid "_Brightness"
+msgstr "_Heleco"
 
 #. Label beside contrast scale
-#: src/preferences-dialog.ui:413
-msgid "Contrast"
-msgstr "Kontrasto"
+#: src/preferences-dialog.ui:383
+msgid "_Contrast"
+msgstr "_Kontrasto"
 
 #. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:461
-msgid "Quality"
-msgstr "Kvalito"
+#: src/preferences-dialog.ui:432
+msgid "_Quality"
+msgstr "_Kvalito"
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:72
+#: src/preferences-dialog.vala:65
 msgid "Automatic"
 msgstr "Aŭtomata"
 
-#: src/preferences-dialog.vala:113
+#: src/preferences-dialog.vala:102
 msgid "Darker"
 msgstr "Pli malhele"
 
-#: src/preferences-dialog.vala:115
+#: src/preferences-dialog.vala:104
 msgid "Lighter"
 msgstr "Pli hele"
 
-#: src/preferences-dialog.vala:123
+#: src/preferences-dialog.vala:112
 msgid "Less"
 msgstr "Malpli"
 
-#: src/preferences-dialog.vala:125
+#: src/preferences-dialog.vala:114
 msgid "More"
 msgstr "Pli"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:437
+#: src/preferences-dialog.vala:285
 #, c-format
 msgid "%d dpi (default)"
-msgstr "%d punktoj en colo (defaŭlto)"
+msgstr "%d punktoj en colo (implicite)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:440
+#: src/preferences-dialog.vala:288
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d punktoj en colo (malneto)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:443
+#: src/preferences-dialog.vala:291
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d punktoj en colo (alta distingivo)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:446
+#: src/preferences-dialog.vala:294
 #, c-format
 msgid "%d dpi"
 msgstr "%d punktoj en colo"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:844
+#: src/scanner.vala:866
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Neniuj skaniloj disponeblaj.  Bonvolu konekti skanilon."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:874
+#: src/scanner.vala:896
 msgid "Unable to connect to scanner"
 msgstr "Ne povas konekto kun skanilo"
 
+#. Error displayed when no documents at the start of scanning
+#: src/scanner.vala:1287
+msgid "Document feeder empty"
+msgstr "Dokumentodonilo malplenas"
+
+#. Out of memory error message with help instruction.
+#. Message written in Pango text markup language,
+#. A carriage return makes a line break, <tt> tag makes a monospace font
+#: src/scanner.vala:1295
+msgid ""
+"Insufficient memory to perform scan.\n"
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
+"<tt>Preferences</tt> menu. For some scanners when scanning in high "
+"resolution, the scan size is restricted."
+msgstr ""
+
 #. Error display when unable to start scan
-#: src/scanner.vala:1227
+#: src/scanner.vala:1308
 msgid "Unable to start scan"
 msgstr "Ne povas komenci skani"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1240 src/scanner.vala:1347
+#: src/scanner.vala:1321 src/scanner.vala:1428
 msgid "Error communicating with scanner"
 msgstr "Eraro kiam konektanta kun skanilo"
 
@@ -952,30 +1066,68 @@ msgid "Print debugging messages"
 msgstr "Presi mesaĝojn pri sencimigo"
 
 #: src/simple-scan.vala:26
-msgid "Fix PDF files generated with older versions of Simple Scan"
-msgstr "Ripari PDF-dosierojn generitajn per antaŭaj versioj de Simple Scan"
+msgid "Fix PDF files generated with older versions of this app"
+msgstr "Ripari PDF-dosierojn generitajn per antaŭaj versioj de ĉi tiu aplikaĵo"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:393
+#: src/simple-scan.vala:1755
 msgid "Failed to scan"
-msgstr "Ne sukcesi skani"
+msgstr "Ne sukcesis skani"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:408
+#: src/simple-scan.vala:1770
 msgid "Scan in progress"
 msgstr "Nun skanante"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:585
+#: src/simple-scan.vala:1953
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[APARATO…] — Skanutilaĵo"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:596
+#: src/simple-scan.vala:1964
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
-"Lanĉu “%s --help” por vidi plenan liston da disponeblaj komandliniaj opcioj."
+"Lanĉu “%s --help” por vidi plenan liston da disponeblaj komandliniaj "
+"elektebloj."
+
+#~ msgid "Resolution for photo scans"
+#~ msgstr "Distingivo por fotoskanoj"
+
+#~ msgid "The resolution in dots-per-inch to use when scanning photos."
+#~ msgstr "La distingivo en punktoj en coloj uzi kiam skanantaj fotoj."
+
+#~ msgid "Scan Documents"
+#~ msgstr "Skani dokumentojn"
+
+#~ msgid ""
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
+#~ "\">Samsung website</a>."
+#~ msgstr ""
+#~ "Peliloj por ĉi tiu disponeblas ĉe la <a href=\"http://samsung.com/support"
+#~ "\">retejo de Samsung</a>."
+
+#~ msgid "_Photo Resolution"
+#~ msgstr "_Fotaĵa distingo"
+
+#~ msgid "Simple Scan"
+#~ msgstr "Simpla skano"
+
+#~ msgid "scanner"
+#~ msgstr "scanner"
+
+#~ msgid "Stop"
+#~ msgstr "Haltigi"
+
+#~ msgid "About Simple Scan"
+#~ msgstr "Pri simpla skani"
+
+#~ msgid "About"
+#~ msgstr "Pri"
+
+#~ msgid "_Scanner"
+#~ msgstr "_Skanilo"
 
 #~ msgid "Photo"
 #~ msgstr "Foto"
@@ -1003,9 +1155,6 @@ msgstr ""
 
 #~ msgid "Save"
 #~ msgstr "Konservi"
-
-#~ msgid "Quit"
-#~ msgstr "Ĉesi"
 
 #~ msgid "Front and Back"
 #~ msgstr "Antaŭo kaj malantaŭo"
