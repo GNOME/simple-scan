@@ -21,6 +21,11 @@ For Fedora:
 $ sudo dnf install -y meson vala gettext itstool gtk3-devel libgusb-devel colord-devel PackageKit-glib-devel libwebp-devel sane-backends-devel
 ```
 
+For Arch Linux:
+```
+sudo pacman -S meson vala gettext itstool gtk3 libusb colord libpackagekit-glib libwebp sane
+```
+
 Get the source:
 ```
 $ git clone https://gitlab.gnome.org/GNOME/simple-scan.git
