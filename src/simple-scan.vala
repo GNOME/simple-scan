@@ -1536,7 +1536,8 @@ public class SimpleScan : Gtk.Application
         debug ("Requesting scan at %d dpi from device '%s'", options.dpi, device);
 
         if (!scanner.is_scanning ())
-            append_page (options.paper_width, options.paper_height, options.dpi);
+            // We need to add +1 to avoid visual glitches, fixes: #179
+            append_page (options.paper_width + 1, options.paper_height + 1, options.dpi + 1);
 
         scanner.scan (device, options);
     }
