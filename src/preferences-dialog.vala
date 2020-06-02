@@ -26,11 +26,11 @@ private class PreferencesDialog : Gtk.Dialog
     [GtkChild]
     private Gtk.Scale contrast_scale;
     [GtkChild]
+    private Gtk.RadioButton page_delay_0s_button;
+    [GtkChild]
     private Gtk.RadioButton page_delay_3s_button;
     [GtkChild]
-    private Gtk.RadioButton page_delay_5s_button;
-    [GtkChild]
-    private Gtk.RadioButton page_delay_7s_button;
+    private Gtk.RadioButton page_delay_6s_button;
     [GtkChild]
     private Gtk.RadioButton page_delay_10s_button;
     [GtkChild]
@@ -130,9 +130,9 @@ private class PreferencesDialog : Gtk.Dialog
         });
 
         set_page_delay (settings.get_int ("page-delay"));
+        page_delay_0s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 0); });
         page_delay_3s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 3000); });
-        page_delay_5s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 5000); });
-        page_delay_7s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 7000); });
+        page_delay_6s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 6000); });
         page_delay_10s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 10000); });
         page_delay_15s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 15000); });
     }
@@ -247,12 +247,12 @@ private class PreferencesDialog : Gtk.Dialog
             return 15000;
         else if (page_delay_10s_button.active)
             return 10000;
-        else if (page_delay_7s_button.active)
-            return 7000;
-        else if (page_delay_5s_button.active)
-            return 5000;
-        else
+        else if (page_delay_6s_button.active)
+            return 6000;
+        else if (page_delay_3s_button.active)
             return 3000;
+        else
+            return 0;
     }
 
     public void set_page_delay (int page_delay)
@@ -261,12 +261,12 @@ private class PreferencesDialog : Gtk.Dialog
             page_delay_15s_button.active = true;
         else if (page_delay >= 10000)
             page_delay_10s_button.active = true;
-        else if (page_delay >= 7000)
-            page_delay_7s_button.active = true;
-        else if (page_delay >= 5000)
-            page_delay_5s_button.active = true;
-        else
+        else if (page_delay >= 6000)
+            page_delay_6s_button.active = true;
+        else if (page_delay >= 3000)
             page_delay_3s_button.active = true;
+        else
+            page_delay_0s_button.active = true;
     }
 
     private void set_dpi_combo (Gtk.ComboBox combo, int default_dpi, int current_dpi)
