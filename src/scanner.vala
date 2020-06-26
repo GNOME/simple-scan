@@ -1007,6 +1007,7 @@ public class Scanner : Object
                     "24bit Color[Fast]", /* brother4 driver, Brother DCP-1622WE, #134 */
                     "24bit Color", /* Seen in the proprietary brother3 driver */
                     "24-bit Color", /* #161 Lexmark CX310dn */
+                    "24 bit Color", /* brscanads2200ads2700w */
                     "Color - 16 Million Colors" /* Samsung unified driver. LP: 892915 */
                 };
                 string[] gray_scan_modes =
