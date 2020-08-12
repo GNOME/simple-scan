@@ -276,7 +276,7 @@ private class PreferencesDialog : Gtk.Dialog
         combo.add_attribute (renderer, "text", 1);
 
         var model = combo.model as Gtk.ListStore;
-        int[] scan_resolutions = {75, 150, 300, 600, 1200, 2400};
+        int[] scan_resolutions = {75, 150, 200, 300, 600, 1200, 2400};
         foreach (var dpi in scan_resolutions)
         {
             string label;
