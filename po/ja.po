@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
 "POT-Creation-Date: 2020-07-18 15:25+0000\n"
-"PO-Revision-Date: 2020-04-12 17:10+0900\n"
+"PO-Revision-Date: 2020-08-17 08:55+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja\n"
@@ -63,7 +63,7 @@ msgstr "スキャンの明るさ"
 
 #: data/org.gnome.SimpleScan.gschema.xml:36
 msgid "The brightness adjustment from -100 to 100 (0 being none)."
-msgstr "-100 から 100 までの範囲で明るさを調節する (0 は無調整)。"
+msgstr "-100 から 100 までの範囲で明るさを調節します (0 は無調整)。"
 
 #: data/org.gnome.SimpleScan.gschema.xml:40
 msgid "Contrast of scan"
@@ -71,7 +71,7 @@ msgstr "スキャンのコントラスト"
 
 #: data/org.gnome.SimpleScan.gschema.xml:41
 msgid "The contrast adjustment from -100 to 100 (0 being none)."
-msgstr "-100 から 100 までの範囲でコントラストを調節する (0 は無調整)。"
+msgstr "-100 から 100 までの範囲でコントラストを調節します (0 は無調整)。"
 
 #: data/org.gnome.SimpleScan.gschema.xml:45
 msgid "Resolution for text scans"
@@ -106,7 +106,7 @@ msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
 msgstr ""
 "ファイルを保存するディレクトリです。設定されていない場合、標準でドキュメント"
-"ディレクトリに保存されます。"
+"ディレクトリに保存します。"
 
 #: data/org.gnome.SimpleScan.gschema.xml:65
 msgid "File format that is used for saving image files"
@@ -117,8 +117,8 @@ msgid ""
 "MIME type that is used for saving image files. Examples of supported MIME "
 "types: image/jpeg, image/png, application/pdf"
 msgstr ""
-"画像ファイルの保存に使用する MIME タイプ。サポートしている MIME タイプの例: "
-"image/jpeg, image/png, application/pdf"
+"画像ファイルの保存に使用する MIME タイプです。サポートしている MIME タイプの"
+"例: image/jpeg, image/png, application/pdf"
 
 #: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
@@ -162,8 +162,8 @@ msgstr ""
 #: data/simple-scan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
-"このアプリは SANE フレームワークを採用しており、多数の既存スキャナーに対応し"
-"ています。"
+"このアプリは多数の既存スキャナーをサポートするために SANE フレームワークを使"
+"用しています。"
 
 #: data/simple-scan.appdata.xml.in:24
 msgid "The GNOME Project"
@@ -296,7 +296,7 @@ msgstr "スキャン(_S)"
 #. Tooltip for save toolbar button
 #: src/app-window.ui:697
 msgid "Save document to a file"
-msgstr "ドキュメントをファイルに保存"
+msgstr "ドキュメントをファイルに保存します"
 
 #: src/app-window.vala:227 src/app-window.vala:1679
 msgid "_Close"
@@ -408,11 +408,11 @@ msgstr "圧縮率:"
 
 #: src/app-window.vala:556
 msgid "Minimum size"
-msgstr ""
+msgstr "最小サイズ"
 
 #: src/app-window.vala:560
 msgid "Full detail"
-msgstr ""
+msgstr "完全な詳細"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
 #: src/app-window.vala:642
@@ -437,7 +437,7 @@ msgstr "ファイルの保存に失敗しました"
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:753
 msgid "If you don’t save, changes will be permanently lost."
-msgstr "保存しない場合、変更は永久に失われます。"
+msgstr "保存しない場合、変更内容は完全に失われます。"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:789
@@ -493,7 +493,7 @@ msgstr "無変更を維持"
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1546
 msgid "Unable to open help file"
-msgstr "ヘルプファイルを開くことができません"
+msgstr "ヘルプファイルを開けません"
 
 #. The license this software is under (GPL3+)
 #: src/app-window.vala:1561
@@ -584,6 +584,8 @@ msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
 msgstr ""
+"<a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE バ"
+"ックエンド</a>がサポートしているキヤノン製スキャナーを見つけました。"
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/app-window.vala:1643
@@ -593,11 +595,15 @@ msgid ""
 "to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
 "sane-devel\">SANE mailing list</a>."
 msgstr ""
+"<a href=\"http://www.sane-project.org/sane-supported-devices.html\">SANE が"
+"スキャナーをサポートしている</a>か確認してください。サポートしていない場合は "
+"SANE の<a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">メーリングリスト</a>に問題を報告してください。"
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/app-window.vala:1647
 msgid "You appear to have a Samsung scanner."
-msgstr "Samsung 製スキャナーを見つけました。"
+msgstr "サムスン製スキャナーを見つけました。"
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
@@ -667,7 +673,7 @@ msgstr "ドライバーのインストール後、このアプリを再起動す
 #. Label shown while installing drivers
 #: src/app-window.vala:1726
 msgid "Installing drivers…"
-msgstr "ドライバーをインストールしています…"
+msgstr "ドライバーをインストール中…"
 
 #. Label shown once drivers successfully installed
 #: src/app-window.vala:1734
@@ -1046,6 +1052,10 @@ msgid ""
 "<tt>Preferences</tt> menu. For some scanners when scanning in high "
 "resolution, the scan size is restricted."
 msgstr ""
+"スキャンを実行するための十分なメモリがありません。"
+"<tt>設定</tt>メニューで<tt>解像度</tt>や<tt>ページサイズ</tt>を小さくしてみ"
+"てください。一部のスキャナーは、高解像度でスキャンするとスキャンサイズが制限"
+"されます。"
 
 #. Error display when unable to start scan
 #: src/scanner.vala:1309
