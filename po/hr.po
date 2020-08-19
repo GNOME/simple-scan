@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-07-07 17:04+0000\n"
-"PO-Revision-Date: 2020-08-19 00:43+0200\n"
+"POT-Creation-Date: 2020-08-18 22:44+0000\n"
+"PO-Revision-Date: 2020-08-19 21:11+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-07-25 17:32+0000\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -416,7 +416,7 @@ msgstr "Najmanja veličina"
 
 #: src/app-window.vala:560
 msgid "Full detail"
-msgstr ""
+msgstr "Potpuni detalji"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
 #: src/app-window.vala:642
@@ -557,7 +557,7 @@ msgstr "Zatvori bez spremanja"
 #. Message to indicate a Brother scanner has been detected
 #: src/app-window.vala:1635
 msgid "You appear to have a Brother scanner."
-msgstr "Izgleda kako imate Brother skener."
+msgstr "Izgleda da imate Brother skener."
 
 #. Instructions on how to install Brother scanner drivers
 #: src/app-window.vala:1637
@@ -574,6 +574,9 @@ msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
 msgstr ""
+"Izgleda da imate Canon skener, koji je podržan od strane <a href=\"http://"
+"www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE pozadinskog "
+"programa</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/app-window.vala:1643
@@ -583,51 +586,48 @@ msgid ""
 "to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
 "sane-devel\">SANE mailing list</a>."
 msgstr ""
+"Provjerite podržava li <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">SANE vaš skener</a>, u suprotnome prijavite problem na <a "
+"href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel"
+"\">SANE mailing listi</a>."
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/app-window.vala:1647
 msgid "You appear to have a Samsung scanner."
-msgstr "Izgleda kako imate Samsung skener."
+msgstr "Izgleda da imate Samsung skener."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
 #: src/app-window.vala:1650
-#, fuzzy
-#| msgid ""
-#| "Drivers for this are available on the <a href=\"http://support.epson.com"
-#| "\">Epson website</a>."
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"Upravljački programi za ovaj pisač su dostupi na <a href=\"http://support."
-"epson.com\">Epson web stranici</a>."
+"Upravljački programi za ovaj pisač su dostupi na <a href=\"https://support."
+"hp.com\">HP web stranici</a> (HP je preuzeo Samsungovo poslovanje s "
+"pisačima)."
 
 #. Message to indicate a HP scanner has been detected
 #: src/app-window.vala:1655
 msgid "You appear to have an HP scanner."
-msgstr "Izgleda kako imate HP skener."
+msgstr "Izgleda da imate HP skener."
 
 #. Instructions on how to install HP scanner drivers.
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
 #: src/app-window.vala:1663
-#, fuzzy
-#| msgid ""
-#| "Drivers for this are available on the <a href=\"http://support.epson.com"
-#| "\">Epson website</a>."
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
 msgstr ""
-"Upravljački programi za ovaj pisač su dostupi na <a href=\"http://support."
-"epson.com\">Epson web stranici</a>."
+"Upravljački programi za ovaj pisač su dostupi na <a href=\"https://support."
+"hp.com\">HP web stranici</a>."
 
 #. Message to indicate an Epson scanner has been detected
 #: src/app-window.vala:1667
 msgid "You appear to have an Epson scanner."
-msgstr "Izgleda kako imate Epson skener."
+msgstr "Izgleda da imate Epson skener."
 
 #. Instructions on how to install Epson scanner drivers
 #: src/app-window.vala:1669
@@ -640,23 +640,17 @@ msgstr ""
 
 #. Message to indicate an Lexmark scanner has been detected
 #: src/app-window.vala:1673
-#, fuzzy
-#| msgid "You appear to have an HP scanner."
 msgid "You appear to have an Lexmark scanner."
-msgstr "Izgleda kako imate HP skener."
+msgstr "Izgleda da imate HP skener."
 
 #. Instructions on how to install Linux scanner drivers
 #: src/app-window.vala:1675
-#, fuzzy
-#| msgid ""
-#| "Drivers for this are available on the <a href=\"http://support.brother.com"
-#| "\">Brother website</a>."
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
 msgstr ""
-"Upravljački programi su dostupni na <a href=\"http://support.brother.com"
-"\">Brother web stranici</a>."
+"Upravljački programi su dostupni na <a href=\"http://support.lexmark.com"
+"\">Lexmark web stranici</a>."
 
 #. Title of dialog giving instructions on how to install drivers
 #: src/app-window.vala:1679
@@ -949,7 +943,7 @@ msgstr "15"
 #. Label after page delay radio buttons
 #: src/preferences-dialog.ui:263
 msgid "Seconds"
-msgstr "Sekune"
+msgstr "Sekunda"
 
 #. Preferences Dialog: Tab label for scanning settings
 #: src/preferences-dialog.ui:285
@@ -1051,6 +1045,10 @@ msgid ""
 "<tt>Preferences</tt> menu. For some scanners when scanning in high "
 "resolution, the scan size is restricted."
 msgstr ""
+"Nedovoljno memorije za obavljanje skeniranja.\n"
+"Pokušajte smanjiti <tt>Razlučivost</tt> ili <tt>Veličinu stranice</tt> u "
+"<tt>Osobitostima</tt> izborniku. Za određene skenere pri skeniranju u "
+"visokoj razlučivosti, veličina skeniranja je ograničena."
 
 #. Error display when unable to start scan
 #: src/scanner.vala:1309
