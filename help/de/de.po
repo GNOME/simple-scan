@@ -5,15 +5,15 @@
 # Phillip Sz https://launchpad.net/~phillip-sz
 # Silke Hamann https://launchpad.net/~silkehamann
 # Thomas https://launchpad.net/~tz2
-# Tobias Bannert <tobannert@gmail.com>, 2016.
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2017.
 #
+# Tobias Bannert <tobannert@gmail.com>, 2016.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2017, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2019-09-10 09:00+0000\n"
-"PO-Revision-Date: 2019-09-12 18:39+0200\n"
+"POT-Creation-Date: 2020-08-12 23:13+0000\n"
+"PO-Revision-Date: 2020-08-17 20:55+0200\n"
 "Last-Translator: Tim Sabsch <tim@sabsch.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -21,7 +21,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-19 06:11+0000\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.3.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -34,16 +35,16 @@ msgstr ""
 "  Thomas https://launchpad.net/~tz2\n"
 "  Tobias Bannert https://launchpad.net/~toba\n"
 "\n"
-"Mario Blättermann <mario.blaettermann@gmail.com>, 2017\n"
+"Mario Blättermann <mario.blaettermann@gmail.com>, 2017, 2020\n"
 "Christian Kirbach <christian.kirbach@gmail.com>, 2019"
 
 #. (itstool) path: page/title
-#: C/adf.page:9
+#: C/adf.page:19
 msgid "Using an Automatic Document Feeder"
 msgstr "Benutzung eines automatischen Dokumenteneinzuges"
 
 #. (itstool) path: page/p
-#: C/adf.page:11
+#: C/adf.page:21
 msgid ""
 "If your scanner features an Automatic Document Feeder (ADF) you can scan all "
 "the pages from the feeder via one of following methods:"
@@ -52,104 +53,136 @@ msgstr ""
 "können Sie alle Seiten aus dem Einzug auf die folgenden Arten scannen lassen:"
 
 #. (itstool) path: steps/title
-#: C/adf.page:16
+#: C/adf.page:26
 msgid "Use a Keyboard Shortcut"
 msgstr "Mit einer Tastenkombination"
 
 #. (itstool) path: item/p
-#: C/adf.page:18
+#: C/adf.page:28
 msgid "Press <keyseq><key>Ctrl</key><key>F</key></keyseq>"
 msgstr "Drücken Sie <keyseq><key>Strg</key><key>F</key></keyseq>"
 
 #. (itstool) path: steps/title
-#: C/adf.page:23 C/crop.page:27 C/rotate.page:28
-msgid "Use a Menu"
-msgstr "Aus dem Menü"
+#: C/adf.page:33 C/crop.page:39 C/rotate.page:27
+msgid "Use the Toolbar"
+msgstr "Aus der Werkzeugleiste"
 
 #. (itstool) path: item/p
-#: C/adf.page:25
+#: C/adf.page:35 C/scanning.page:29
 msgid ""
-"Navigate to <guiseq><gui>Document</gui> <gui>Scan</gui><gui>All Pages From "
-"Feeder</gui></guiseq>."
+"Click the arrow to the right of the <gui style=\"button\">Scan</gui> button."
 msgstr ""
-"Wählen Sie <guiseq><gui>Dokument</gui> <gui>Scannen</gui><gui>Alle Seiten "
-"aus dem Papiereinzug</gui></guiseq>."
-
-#. (itstool) path: steps/title
-#: C/adf.page:32
-msgid "Use the Toolbar Buttons"
-msgstr "Die Werkzeugleistenknöpfe benutzen"
+"Klicken Sie auf den Pfeil rechts vom <gui style=\"button\">Scannen</gui>-"
+"Knopf."
 
 #. (itstool) path: item/p
-#: C/adf.page:34
-msgid "Click on the arrow to the right of the \"Scan\" button."
-msgstr "Klicken Sie auf den Pfeil rechts vom »Scan«-Knopf."
-
-#. (itstool) path: item/p
-#: C/adf.page:37
-msgid "Choose \"All Pages From Feeder\"."
-msgstr "Wählen Sie <gui>Alle Seiten aus dem Papiereinzug</gui>."
+#: C/adf.page:38
+msgid "Select <gui style=\"button\">All Pages From Feeder</gui>."
+msgstr ""
+"Wählen Sie <gui style=\"button\">Alle Seiten aus dem Papiereinzug</gui>."
 
 #. (itstool) path: item/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/adf.page:38 C/scanning.page:20
+#: C/adf.page:39 C/scanning.page:31
+#, fuzzy
+#| msgctxt "_"
+#| msgid ""
+#| "external ref='figures/scan_toolbar.png' "
+#| "md5='4d351a0cdd40bebe78b82da62265f3bd'"
 msgctxt "_"
 msgid ""
 "external ref='figures/scan_toolbar.png' "
-"md5='4d351a0cdd40bebe78b82da62265f3bd'"
+"md5='22ed3eed519db31aa827728dbf3a867b'"
 msgstr "ok"
 
-#. (itstool) path: note/p
-#: C/adf.page:44
+#. (itstool) path: page/p
+#: C/adf.page:43
 msgid ""
-"By default, both sides of a sheet will scan if your scanner has this "
-"capability. You can choose single side scanning from the "
-"<guiseq><gui>Document</gui><gui>Preferences</gui></guiseq> menu."
+"By default, both sides of a page will be scanned if your scanner has this "
+"capability. To scan only a single side:"
 msgstr ""
 "In der Voreinstellung werden beide Seiten eines Blattes eingescannt, sofern "
-"Ihr Scanner dazu in der Lage ist. Einseitiges Scannen können Sie im Menü "
-"<guiseq><gui>Dokument</gui><gui>Einstellungen</gui></guiseq> auswählen."
+"Ihr Scanner dazu in der Lage ist. So scannen Sie nur eine Seite des Blattes "
+"ein:"
 
-#. (itstool) path: note/media
-#. (itstool) path: page/media
+#. (itstool) path: item/p
+#: C/adf.page:49 C/brightness-contrast.page:28 C/dpi.page:28
+msgid ""
+"Press the menu button in the top-right corner of the window and select <gui "
+"style=\"menuitem\">Preferences</gui>."
+msgstr ""
+"Klicken Sie auf den Menüknopf in der oberen rechten Ecke des Fensters und "
+"wählen Sie <gui style=\"menuitem\">Einstellungen</gui>."
+
+#. (itstool) path: item/p
+#: C/adf.page:53
+msgid "Select <gui style=\"tab\">Scanning</gui>."
+msgstr "Wählen Sie <gui style=\"tab\">Scannen</gui>."
+
+#. (itstool) path: item/p
+#: C/adf.page:56
+msgid "Change the <gui>Scan Sides</gui> value."
+msgstr "Ändern Sie den Wert von <gui>Zu scannende Seiten</gui>."
+
+#. (itstool) path: item/p
+#: C/adf.page:59 C/brightness-contrast.page:38 C/dpi.page:38
+msgid "Close the dialog."
+msgstr "Schließen Sie den Dialog."
+
+#. (itstool) path: item/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/adf.page:48 C/dpi.page:16 C/scanner.page:14
+#: C/adf.page:60
+#, fuzzy
+#| msgctxt "_"
+#| msgid ""
+#| "external ref='figures/preferences.png' "
+#| "md5='b1e0d97b547076f20a7d34b0dc4fba57'"
 msgctxt "_"
 msgid ""
-"external ref='figures/preferences.png' md5='b1e0d97b547076f20a7d34b0dc4fba57'"
+"external ref='figures/preferences.png' md5='6b6b3b901e59567fba3a758f9ae64193'"
 msgstr "ok"
 
 #. (itstool) path: page/title
-#: C/brightness-contrast.page:9
-msgid "Setting brightness and Contrast"
+#: C/brightness-contrast.page:19
+msgid "Setting Brightness and Contrast"
 msgstr "Helligkeit und Kontrast einstellen"
 
 #. (itstool) path: page/p
-#: C/brightness-contrast.page:11
+#: C/brightness-contrast.page:21
 msgid ""
 "Some scanners allow the user to adjust the brightness and contrast when "
 "scanning. If your scans come out too dark or too light you can adjust these "
-"settings from the <guiseq><gui>Document</gui><gui>Preferences</gui></guiseq> "
-"menu."
+"settings:"
 msgstr ""
 "Einige Scanner ermöglichen Ihnen, die Helligkeit und den Kontrast beim "
 "Scannen anzupassen. Wenn Ihr Scan zu dunkel oder zu hell ist, können Sie "
-"diese Einstellungen im Menü <guiseq><gui>Dokument</gui><gui>Einstellungen</"
-"gui></guiseq> ändern."
+"diese Einstellungen ändern:"
+
+#. (itstool) path: item/p
+#: C/brightness-contrast.page:32 C/dpi.page:32
+msgid "Select <gui style=\"tab\">Quality</gui>."
+msgstr "Wählen Sie <gui style=\"tab\">Qualität</gui>."
+
+#. (itstool) path: item/p
+#: C/brightness-contrast.page:35
+msgid "Drag the <gui>Brightness</gui> and/or <gui>Contrast</gui> sliders."
+msgstr ""
+"Bewegen Sie die Schieberegler <gui>Helligkeit</gui> und/oder <gui>Kontrast</"
+"gui>."
 
 #. (itstool) path: page/title
-#: C/crop.page:9
+#: C/crop.page:19
 msgid "Cropping"
 msgstr "Zuschneiden"
 
 #. (itstool) path: page/p
-#: C/crop.page:11
+#: C/crop.page:21
 msgid ""
 "The cropping feature allows you to use only a part of a scanned image. You "
 "can enable crop either before or after scanning a page, and you can always "
@@ -167,19 +200,22 @@ msgstr ""
 "Bereichs auf folgende Arten aktivieren:"
 
 #. (itstool) path: steps/title
-#: C/crop.page:19
-msgid "Use a Right Click"
+#: C/crop.page:29 C/rotate.page:32
+msgid "Use Right Click"
 msgstr "Mit einem Rechtsklick"
 
 #. (itstool) path: item/p
-#: C/crop.page:20
-msgid "Right click anywhere on the image area and select \"Crop\"."
-msgstr ""
-"Klicken Sie auf eine beliebige Stelle im Bildbereich und wählen Sie "
-"<gui>Zuschneiden</gui>."
+#: C/crop.page:30
+msgid "Right click anywhere on the page."
+msgstr "Klicken Sie auf eine beliebige Stelle im Bildbereich."
 
 #. (itstool) path: item/p
-#: C/crop.page:21
+#: C/crop.page:31
+msgid "Select <gui style=\"menuitem\">Crop</gui>."
+msgstr "Wählen Sie <gui style=\"menuitem\">Zuschneiden</gui>."
+
+#. (itstool) path: item/p
+#: C/crop.page:32
 msgid ""
 "Choose one of the fixed crop frames, or select \"Custom\" to manually set "
 "the crop frame's dimensions by dragging its borders."
@@ -189,40 +225,28 @@ msgstr ""
 "Ziehen der Ränder anzupassen."
 
 #. (itstool) path: item/p
-#: C/crop.page:23 C/crop.page:30
-msgid "Click and hold the frame, then move it to the desired position."
+#: C/crop.page:34 C/crop.page:43
+msgid "Click and hold the frame to move it to the desired position."
 msgstr ""
 "Klicken Sie den Rahmen an und halten Sie die Maustaste gedrückt, dann ziehen "
 "Sie ihn an die gewünschte Position."
 
 #. (itstool) path: item/p
-#: C/crop.page:28
-msgid "Navigate to the <guiseq><gui>Page</gui><gui>Crop</gui></guiseq> menu."
-msgstr "Wählen Sie <guiseq><gui>Seite</gui><gui>Zuschneiden</gui></guiseq>."
+#: C/crop.page:35 C/crop.page:44
+msgid "Drag the borders of the frame to set the desired dimensions."
+msgstr "Ziehen Sie die Ränder des Rahmens auf die gewünschte Größe."
 
 #. (itstool) path: item/p
-#: C/crop.page:29
+#: C/crop.page:40
 msgid ""
-"Choose one of the fixed crop frames, or select \"Custom\" to manually adjust "
-"the frame's dimensions by dragging its borders."
+"Press the <gui style=\"button\">Crop the selected page</gui> button in the "
+"toolbar."
 msgstr ""
-"Wählen Sie entweder einen der festen Zuschneiderahmen aus oder wählen Sie "
-"<gui>Benutzerdefiniert</gui>, um die Abmessungen des Zuschneiderahmens durch "
-"Ziehen der Ränder anzupassen."
-
-#. (itstool) path: steps/title
-#: C/crop.page:34
-msgid "Use the Toolbar"
-msgstr "Aus der Werkzeugleiste"
-
-#. (itstool) path: item/p
-#: C/crop.page:35
-msgid "Click the \"<gui>Crop</gui>\" button in the toolbar."
-msgstr ""
-"Klicken Sie auf den <gui>Zuschneiden</gui>-Knopf in der Werkzeugleiste."
+"Klicken Sie auf den Knopf <gui>Die gewählte Seite zurechtschneiden</gui> in "
+"der Werkzeugleiste."
 
 #. (itstool) path: note/p
-#: C/crop.page:36
+#: C/crop.page:41
 msgid ""
 "This is the same as choosing \"Custom\" in step 2 of the aforementioned "
 "methods."
@@ -230,169 +254,146 @@ msgstr ""
 "Dies ist gleichbedeutend mit <gui>Benutzerdefiniert</gui> in Schritt 2 der "
 "bereits genannten Methoden."
 
-#. (itstool) path: item/p
-#: C/crop.page:38
-msgid ""
-"Drag the borders of the frame to set the desired dimensions and position."
-msgstr ""
-"Ziehen Sie die Ränder des Rahmens auf die gewünschte Größe und Position."
-
 #. (itstool) path: note/p
-#: C/crop.page:42
+#: C/crop.page:47
 msgid "Each new scanned page will use the previous crop."
 msgstr "Für jede neue Seite wird der vorherige Zuschneiderahmen verwendet."
 
 #. (itstool) path: page/title
-#: C/dpi.page:9
+#: C/dpi.page:19
 msgid "Setting the Scan Resolution"
 msgstr "Scan-Auflösung einstellen"
 
 #. (itstool) path: page/p
-#: C/dpi.page:11
+#: C/dpi.page:21
 msgid ""
 "The default resolution for document type <gui><em>Text</em></gui> is 150 dpi "
-"(dots per inch) and for document type <gui><em>Photo</em></gui> is 300 dpi. "
-"You can change these settings from the <guiseq><gui>Document</"
-"gui><gui>Preferences</gui></guiseq> menu."
+"(dots per inch) and for document type <gui><em>Image</em></gui> is 300 dpi. "
+"To change these settings:"
 msgstr ""
 "Die voreingestellte Auflösung für den Dokumenttyp <gui><em>Text</em></gui> "
-"ist 150 dpi (Punkte pro Zoll) und 300 dpi für den Dokumenttyp <gui><em>Foto</"
-"em></gui>. Sie können diese Vorgaben im Menü <guiseq><gui>Dokument</"
-"gui><gui>Einstellungen</gui></guiseq> ändern."
+"ist 150 dpi (Punkte pro Zoll) und 300 dpi für den Dokumenttyp <gui><em>Bild</"
+"em></gui>. So ändern Sie diese Einstellungen:"
+
+#. (itstool) path: item/p
+#: C/dpi.page:35
+msgid ""
+"Change the <gui>Text Resolution</gui> or <gui>Image Resolution</gui> value."
+msgstr ""
+"Wählen Sie einen der Werte <gui>Textauflösung</gui> oder <gui>Bildauflösung</"
+"gui>."
 
 #. (itstool) path: page/p
-#: C/dpi.page:18
+#: C/dpi.page:42
 msgid ""
-"The available scanning resolutions for both document types (Text and Photo) "
+"The available scanning resolutions for both document types (Text and Image) "
 "are the same and are listed in the following table:"
 msgstr ""
 "Die verfügbaren Scanauflösungen sind gleichermaßen für beide Dokumenttypen "
-"verfügbar (Text und Foto) und in der folgenden Tabelle aufgelistet:"
+"verfügbar (Text und Bild) und in der folgenden Tabelle aufgelistet:"
 
 #. (itstool) path: td/p
-#: C/dpi.page:23
+#: C/dpi.page:47
 msgid "<em>Text Resolution</em>"
 msgstr "<em>Textauflösung</em>"
 
 #. (itstool) path: td/p
-#: C/dpi.page:24
-msgid "<em>Photo Resolution</em>"
-msgstr "<em>Fotoauflösung</em>"
+#: C/dpi.page:48
+msgid "<em>Image Resolution</em>"
+msgstr "<em>Bildauflösung</em>"
 
 #. (itstool) path: td/p
-#: C/dpi.page:27 C/dpi.page:28
+#: C/dpi.page:51 C/dpi.page:52
 msgid "75 dpi (draft)"
 msgstr "75 dpi (Vorschau)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:31
+#: C/dpi.page:55
 msgid "150 dpi (default)"
 msgstr "150 dpi (Standard)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:32
+#: C/dpi.page:56
 msgid "150 dpi"
 msgstr "150 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:35
+#: C/dpi.page:59
 msgid "300 dpi"
 msgstr "300 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:36
+#: C/dpi.page:60
 msgid "300 dpi (default)"
 msgstr "300 dpi (Standard)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:39 C/dpi.page:40
+#: C/dpi.page:63 C/dpi.page:64
 msgid "600 dpi"
 msgstr "600 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:43 C/dpi.page:44
+#: C/dpi.page:67 C/dpi.page:68
 msgid "1200 dpi (high resolution)"
 msgstr "1200 dpi (Hochauflösend)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:47 C/dpi.page:48
+#: C/dpi.page:71 C/dpi.page:72
 msgid "2400 dpi"
 msgstr "2400 dpi"
 
 #. (itstool) path: note/p
-#: C/dpi.page:52
+#: C/dpi.page:76
 msgid ""
 "<gui><em>Text</em></gui> documents are always scanned in black and white, "
-"while <gui><em>Photo</em></gui> documents are always scanned in color, at "
+"while <gui><em>Image</em></gui> documents are always scanned in color, at "
 "any resolution!"
 msgstr ""
 "<gui><em>Text</em></gui>dokumente werden stets in Schwarzweiß eingescannt, "
-"während <gui><em>Foto</em></gui>dokumente immer farbig eingescannt werden, "
+"während <gui><em>Bild</em></gui>dokumente immer farbig eingescannt werden, "
 "in jeder Auflösung!"
 
 #. (itstool) path: page/title
-#: C/email.page:9
+#: C/email.page:19
 msgid "Sending via Email"
 msgstr "Per E-Mail versenden"
 
 #. (itstool) path: page/p
-#: C/email.page:11
+#: C/email.page:21
 msgid ""
-"To email the current document use the <guiseq><gui>Document</gui><gui>Email</"
-"gui></guiseq> menu (<keyseq><key>Ctrl</key><key>E</key></keyseq>). Your "
-"email program will be opened with a new message containing the scanned "
-"document as an attachment."
+"To email the current document, press the menu button in the top-right corner "
+"of the window and select <gui style=\"menuitem\">Email</gui>. Alternatively, "
+"press <keyseq><key>Ctrl</key><key>E</key></keyseq>. Your email program will "
+"be opened with a new message containing the scanned document as an "
+"attachment."
 msgstr ""
-"Um das Dokument per E-Mail zu versenden, verwenden Sie "
-"<guiseq><gui>Dokument</gui><gui>E-Mail</gui></guiseq> (<keyseq><key>Strg</"
-"key><key>E</key></keyseq>). Dadurch wird Ihr E-Mail-Programm mit einer neuen "
-"Nachricht geöffnet, die das eingelesene Dokument als Anhang enthält."
+"Um das Dokument per E-Mail zu versenden, klicken Sie auf den Menüknopf in "
+"der rechten oberen Ecke des Fensters und wählen Sie <gui style=\"menuitem"
+"\">E-Mail</gui>. Alternativ drücken Sie <keyseq><key>Strg</key><key>E</key></"
+"keyseq>. Dadurch wird Ihr E-Mail-Programm mit einer neuen Nachricht "
+"geöffnet, die das eingelesene Dokument als Anhang enthält."
 
 #. (itstool) path: page/p
-#: C/email.page:16
+#: C/email.page:27
 msgid ""
 "If the document type was set to \"Text\" the email will have a PDF "
-"attachment for each page. Conversely, if the document type was set to \"Photo"
+"attachment for each page. Conversely, if the document type was set to \"Image"
 "\", the email will have a JPEG attachment for each page."
 msgstr ""
 "Wenn der Dokumenttyp auf <gui>Text</gui> gesetzt war, erhält die E-Mail "
-"einen PDF-Anhang für jede Seite. War der Dokumenttyp auf <gui>Foto</gui> "
+"einen PDF-Anhang für jede Seite. War der Dokumenttyp auf <gui>Bild</gui> "
 "gesetzt, erhält die E-Mail einen JPEG-Anhang für jede Seite."
 
 #. (itstool) path: page/p
-#: C/email.page:21
+#: C/email.page:32
 msgid "See <link xref=\"save\"/> for more information about file formats."
 msgstr ""
 "In <link xref=\"save\"/> finden Sie weitere Informationen zu Dateiformaten."
 
-#. (itstool) path: credit/name
-#: C/index.page:7
-msgid "Robert Ancell"
-msgstr "Robert Ancell"
-
-#. (itstool) path: credit/name
-#: C/index.page:11
-msgid "Ali Shtarbanov"
-msgstr "Ali Shtarbanov"
-
-#. (itstool) path: title/media
-#. This is a reference to an external file such as an image or video. When
-#. the file changes, the md5 hash will change to let you know you need to
-#. update your localized copy. The msgstr is not used at all. Set it to
-#. whatever you like once you have updated your copy of the file.
-#: C/index.page:17
-msgctxt "_"
-msgid "external ref='figures/icon.svg' md5='e0fbd536ef08711877b65373c0e0173a'"
-msgstr "Original"
-
 #. (itstool) path: page/title
 #: C/index.page:17
-msgid ""
-"<media type=\"image\" src=\"figures/icon.svg\" height=\"32px\"/>Document "
-"Scanner Manual"
-msgstr ""
-"<media type=\"image\" src=\"figures/icon.svg\" height=\"32px\"/>Handbuch zu "
-"Dokument-Scanner"
+msgid "<_:media-1/>Document Scanner Manual"
+msgstr "<_:media-1/>Handbuch zum Dokumentenscanner"
 
 #. (itstool) path: section/title
 #: C/index.page:20
@@ -431,52 +432,64 @@ msgstr ""
 "Bedingungen Ihrer Wahl zu verbreiten."
 
 #. (itstool) path: page/title
-#: C/print.page:9
+#: C/print.page:19
 msgid "Printing"
 msgstr "Drucken"
 
 #. (itstool) path: page/p
-#: C/print.page:11
+#: C/print.page:21
 msgid ""
 "You are able to print a scanned document directly without having to save the "
 "document first. This is convenient for making copies of documents or photos."
 msgstr ""
 "Sie können ein eingescanntes Dokument direkt ausdrucken, ohne es vorher "
-"speichern zu müssen. Das ist bequemen zum Kopieren von Dokumenten oder Fotos."
+"speichern zu müssen. Das ist bequemen zum Kopieren von Dokumenten oder "
+"Bildern."
 
 #. (itstool) path: steps/title
-#: C/print.page:16
+#: C/print.page:26
 msgid "To Print a Document"
 msgstr "Ein Dokument drucken"
 
 #. (itstool) path: item/p
-#: C/print.page:18
+#: C/print.page:28
 msgid ""
-"Go to the <guiseq><gui>Document</gui><gui>Print</gui> </guiseq> menu or use "
-"the keyboard shortcut <keyseq><key>Ctrl</key><key>P</key></keyseq>. This "
-"will open the \"Print\" dialog box."
+"Press the menu button in the top-right corner of the window and select <gui "
+"style=\"menuitem\">Print</gui>. Alternatively, press <keyseq><key>Ctrl</"
+"key><key>P</key></keyseq>."
 msgstr ""
-"Wählen Sie <guiseq><gui>Dokument</gui><gui>Drucken</gui> </guiseq> oder "
-"drücken Sie <keyseq><key>Strl</key><key>P</key></keyseq>. Dadurch wird der "
-"Druckdialog geöffnet."
+"Klicken Sie auf den Menüknopf in der oberen rechten Ecke des Fensters und "
+"wählen Sie <gui style=\"menuitem\">Drucken</gui>. Alternativ drücken Sie "
+"<keyseq><key>Strg</key><key>P</key></keyseq>."
 
 #. (itstool) path: item/p
-#: C/print.page:24
+#: C/print.page:34
 msgid ""
-"From the \"Print\" dialog box choose your desired printing settings and/or "
-"Print Preview the document, then press the \"Print\" button."
+"Choose your desired printing settings and/or preview the document, then "
+"press <gui style=\"button\">Print</gui>."
 msgstr ""
-"Wählen Sie im Dialog <gui>Drucken</gui> Ihre gewünschten Druckeinstellungen "
-"und/oder Vorschaueinstellungen und klicken anschließend auf den Knopf "
-"<gui>Drucken</gui>."
+"Wählen Sie Ihre gewünschten Druckeinstellungen und/oder "
+"Vorschaueinstellungen und klicken anschließend auf den Knopf <gui style="
+"\"button\">Drucken</gui>."
+
+#. (itstool) path: note/p
+#: C/print.page:37
+msgid ""
+"See <link xref=\"help:gnome-help/printing\" href=\"https://help.gnome.org/"
+"users/gnome-help/stable/printing\">the desktop help</link> for general "
+"information on printing."
+msgstr ""
+"Siehe <link xref=\"help:gnome-help/printing\" href=\"https://help.gnome.org/"
+"users/gnome-help/stable/printing\">die GNOME-Hilfe</link> für allgemeine "
+"Informationen zum Drucken."
 
 #. (itstool) path: page/title
-#: C/quality.page:9
+#: C/quality.page:18
 msgid "Setting the Image Quality"
 msgstr "Einstellen der Bildqualität"
 
 #. (itstool) path: page/p
-#: C/quality.page:11
+#: C/quality.page:20
 msgid ""
 "You can adjust the image quality that is used when the scan is converted to "
 "a file by changing this setting in the save dialog. Using a low quality will "
@@ -495,38 +508,36 @@ msgstr ""
 "weitere Informationen dazu (derzeit nur auf Englisch, Juli 2017)."
 
 #. (itstool) path: page/title
-#: C/reorder.page:9
+#: C/reorder.page:19
 msgid "Reordering Pages"
 msgstr "Seiten neu anordnen"
 
 #. (itstool) path: page/p
-#: C/reorder.page:11
+#: C/reorder.page:21
 msgid ""
-"To move a page, right click on it and choose <gui><em>Move Left</em></gui> "
-"or <gui><em>Move Right</em></gui>."
+"To move a page, right click on it and choose <gui style=\"menuitem\">Move "
+"Left</gui> or <gui style=\"menuitem\">Move Right</gui>."
 msgstr ""
 "Um eine Seite zu verschieben, klicken Sie mit der rechten Maustaste darauf "
-"und wählen Sie <gui>Nach links schieben</gui> oder <gui>Nach rechts "
-"schieben</gui>."
+"und wählen Sie <gui style=\"menuitem\">Nach links schieben</gui> oder <gui "
+"style=\"menuitem\">Nach rechts schieben</gui>."
 
 #. (itstool) path: page/p
-#: C/reorder.page:16
+#: C/reorder.page:26
 msgid ""
-"Alternatively, you can move a page by first selecting it and then choosing "
-"<gui><em>Move Left</em></gui> or <gui><em>Move Right</em></gui> from the "
-"\"Page\" menu."
+"Alternatively, press the menu button in the top-right corner of the window "
+"and select <gui style=\"menuitem\">Reorder Pages</gui>."
 msgstr ""
-"Alternativ können Sie eine Seite verschieben, indem Sie sie zuerst auswählen "
-"und dann <gui>Nach links schieben</gui> oder <gui>Nach rechts schieben</gui> "
-"im Menü <gui>Seite</gui> wählen."
+"Alternativ klicken Sie auf den Menüknopf in der oberen rechten Ecke des "
+"Fensters und wählen Sie <gui style=\"menuitem\">Seiten umsortieren</gui>."
 
 #. (itstool) path: page/title
-#: C/rotate.page:9
+#: C/rotate.page:19
 msgid "Rotating a Page"
 msgstr "Eine Seite drehen"
 
 #. (itstool) path: page/p
-#: C/rotate.page:11
+#: C/rotate.page:21
 msgid ""
 "You can change the rotation of a page either before or after scanning the "
 "page. Currently, there are four ways to rotate a page:"
@@ -534,18 +545,13 @@ msgstr ""
 "Sie können die Ausrichtung einer Seite entweder vor oder nach dem Scannen "
 "ändern. Gegenwärtig gibt es vier Möglichkeiten, eine Seite zu drehen:"
 
-#. (itstool) path: steps/title
-#: C/rotate.page:17
-msgid "Use Toolbar Buttons"
-msgstr "Aus der Werkzeugleiste"
-
 #. (itstool) path: item/p
-#: C/rotate.page:18 C/rotate.page:29 C/rotate.page:35
+#: C/rotate.page:28 C/rotate.page:40
 msgid "Select the page you want to rotate by clicking on it once."
 msgstr "Wählen Sie die zu drehende Seite aus, indem Sie sie anklicken."
 
 #. (itstool) path: item/p
-#: C/rotate.page:19
+#: C/rotate.page:29
 msgid ""
 "Press one of the arrows on the toolbar to rotate the page in the desired "
 "direction."
@@ -553,136 +559,126 @@ msgstr ""
 "Klicken Sie auf einen der Knöpfe in der Werkzeugleiste, um die Seite in der "
 "gewünschten Richtung zu drehen."
 
-#. (itstool) path: steps/title
-#: C/rotate.page:22
-msgid "Use Right Click"
-msgstr "Mit einem Rechtsklick"
-
 #. (itstool) path: item/p
-#: C/rotate.page:23
+#: C/rotate.page:33
 msgid "Right click on the page you want to rotate."
 msgstr ""
 "Klicken Sie mit der rechten Maustaste auf die Seite, die Sie drehen wollen."
 
 #. (itstool) path: item/p
-#: C/rotate.page:24
-msgid "From the context menu choose \"Rotate Left\" or \"Rotate Right\"."
+#: C/rotate.page:34
+msgid ""
+"Select <gui style=\"menuitem\">Rotate Left</gui> or <gui style=\"menuitem"
+"\">Rotate Right</gui>."
 msgstr ""
-"Wählen Sie im Kontextmenü <gui>Links herum drehen</gui> oder <gui>Rechts "
-"herum drehen</gui> aus."
-
-#. (itstool) path: item/p
-#: C/rotate.page:30
-msgid "Click the \"Page\" menu and select \"Rotate Left\" or \"Rotate Right\"."
-msgstr ""
-"Klicken Sie auf das <gui>Seite</gui>-Menü und wählen Sie <gui>Nach links "
-"schieben</gui> oder <gui>Nach rechts schieben</gui>."
+"Wählen Sie <gui style=\"menuitem\">Links herum drehen</gui> oder <gui style="
+"\"menuitem\">Rechts herum drehen</gui>."
 
 #. (itstool) path: steps/title
-#: C/rotate.page:34
+#: C/rotate.page:39
 msgid "Use Shortcuts"
 msgstr "Mit einer Tastenkombination"
 
 #. (itstool) path: item/p
-#: C/rotate.page:36
+#: C/rotate.page:41
 msgid "Press one of the following shortcut keys:"
 msgstr "Drücken Sie eine der folgenden Tastenkombinationen:"
 
 #. (itstool) path: td/p
-#: C/rotate.page:39
+#: C/rotate.page:44
 msgid "<em>Command</em>"
 msgstr "<em>Befehl</em>"
 
 #. (itstool) path: td/p
-#: C/rotate.page:40
+#: C/rotate.page:45
 msgid "<em>Shortcut Key</em>"
 msgstr "<em>Tastenkombination</em>"
 
 #. (itstool) path: td/p
-#: C/rotate.page:43
+#: C/rotate.page:48
 msgid "Rotate Left"
 msgstr "Links drehen"
 
 #. (itstool) path: td/p
-#: C/rotate.page:44
+#: C/rotate.page:49
 msgid "<key>[</key> (left bracket)"
 msgstr "<key>[</key> (linke eckige Klammer)"
 
 #. (itstool) path: td/p
-#: C/rotate.page:47
+#: C/rotate.page:52
 msgid "Rotate Right"
 msgstr "Rechts drehen"
 
 #. (itstool) path: td/p
-#: C/rotate.page:48
+#: C/rotate.page:53
 msgid "<key>]</key> (right bracket)"
 msgstr "<key>]</key> (rechte eckige Klammer)"
 
 #. (itstool) path: note/p
-#: C/rotate.page:54
+#: C/rotate.page:59
 msgid "Each new scanned page will use the previous rotation."
 msgstr ""
 "Jede neu gescannte Seite wird auf die gleiche Weise gedreht wie die "
 "vorherige Seite."
 
 #. (itstool) path: page/title
-#: C/save.page:9
+#: C/save.page:19
 msgid "Saving to a File"
 msgstr "Speichern in einer Datei"
 
 #. (itstool) path: item/p
-#: C/save.page:13
-msgid ""
-"Navigate to the <guiseq><gui>Document</gui><gui>Save As</gui></guiseq> menu "
-"(or press <keyseq><key>Shift</key><key>Ctrl</key><key>S</key></keyseq>)."
-msgstr ""
-"Wählen Sie <guiseq><gui>Dokument</gui><gui>Speichern unter</gui></guiseq> "
-"(oder drücken Sie <keyseq><key>Umschalttaste</key><key>Strg</key><key>S</"
-"key></keyseq>)."
-
-#. (itstool) path: item/p
-#: C/save.page:18
-msgid ""
-"From the \"Save As\" dialog box, choose one of the supported file types, or "
-"simply change the extension in the \"Name\" field."
-msgstr ""
-"Wählen Sie im Dialog <gui>Speichern unter</gui> einen der unterstützten "
-"Dateitypen aus oder ändern Sie einfach die Dateinamenserweiterung im Feld "
-"<gui>Name</gui>."
-
-#. (itstool) path: item/p
 #: C/save.page:23
-msgid "Press the \"Save\" button."
-msgstr "Klicken Sie auf <gui>Speichern</gui>."
+msgid ""
+"Press the <gui style=\"button\">Save document to a file</gui> button in the "
+"top bar of the window (or press <keyseq><key>Ctrl</key><key>S</key></"
+"keyseq>)."
+msgstr ""
+"Klicken Sie auf den Knopf <gui style=\"button\">Dokument als Datei "
+"speichern</gui> in der oberen Leiste des Fensters (oder drücken Sie "
+"<keyseq><key>Strg</key><key>S</key></keyseq>)."
+
+#. (itstool) path: item/p
+#: C/save.page:28
+msgid ""
+"Choose one of the supported file types, or change the file extension in the "
+"<gui>Name</gui> field."
+msgstr ""
+"Wählen Sie einen der unterstützten Dateitypen aus oder ändern Sie einfach "
+"die Dateinamenserweiterung im Feld <gui>Name</gui>."
+
+#. (itstool) path: item/p
+#: C/save.page:33
+msgid "Press the <gui style=\"button\">Save</gui> button."
+msgstr "Klicken Sie auf den Knopf <gui style=\"button\">Speichern</gui>."
 
 #. (itstool) path: table/title
-#: C/save.page:29
+#: C/save.page:39
 msgid "Supported File Types"
 msgstr "Unterstützte Dateitypen"
 
 #. (itstool) path: td/p
-#: C/save.page:31
+#: C/save.page:41
 msgid "<em>Type</em>"
 msgstr "<em>Typ</em>"
 
 #. (itstool) path: td/p
-#: C/save.page:32
+#: C/save.page:42
 msgid "<em>Brief Description</em>"
 msgstr "<em>Kurzbeschreibung</em>"
 
 #. (itstool) path: td/p
-#: C/save.page:35
+#: C/save.page:45
 msgid "PDF"
 msgstr "PDF"
 
 #. (itstool) path: td/p
-#: C/save.page:36
+#: C/save.page:46
 msgid ""
 "A PDF can contain multiple pages, like a book, and is easy to distribute. "
 "Only a small number of linux programs can modify PDF documents, so this "
 "format is recommended primarily for archiving. The size of the PDF document "
 "is affected by the <link xref=\"quality\">image quality</link>. See the "
-"<link href=\"http://en.wikipedia.org/wiki/pdf\">PDF Wikipedia page</link> "
+"<link href=\"https://en.wikipedia.org/wiki/PDF\">PDF Wikipedia page</link> "
 "for more information."
 msgstr ""
 "Wie ein Buch kann ein PDF-Dokument mehrere Seiten enthalten und lässt sich "
@@ -694,12 +690,12 @@ msgstr ""
 "weitere Informationen darüber."
 
 #. (itstool) path: td/p
-#: C/save.page:43
+#: C/save.page:53
 msgid "JPEG"
 msgstr "JPEG"
 
 #. (itstool) path: td/p
-#: C/save.page:44
+#: C/save.page:54
 msgid ""
 "JPEG is the file format used by digital cameras to save pictures. A JPEG "
 "file is relatively small, very easy to distribute, and suitable for "
@@ -707,8 +703,8 @@ msgid ""
 "JPEG editor by default. If you have scanned multiple pages, a JPEG file will "
 "be created for each page. Use this file type if you want to modify or upload "
 "the scanned images. The size of the JPEG file is affected by the <link xref="
-"\"quality\">image quality</link>. See the <link href=\"http://en.wikipedia."
-"org/wiki/jpeg\">JPEG Wikipedia page</link> for more information."
+"\"quality\">image quality</link>. See the <link href=\"https://en.wikipedia."
+"org/wiki/JPEG\">JPEG Wikipedia page</link> for more information."
 msgstr ""
 "JPEG ist das Dateiformat, das von Digitalkameras für die Bildspeicherung "
 "verwendet wird. Eine JPEG-Datei ist relativ klein, einfach weiterzugeben und "
@@ -717,66 +713,46 @@ msgstr ""
 "haben, wird eine JPEG-Datei für jede Seite erzeugt. Verwenden Sie diesen "
 "Dateityp, wenn Sie die eingescannten Bilder bearbeiten oder irgendwo "
 "hochladen wollen. Die Größe der JPEG-Datei ist von der <link xref=\"quality"
-"\">Bildqualität</link> abhängig. Auf der <link href=\"http://de.wikipedia."
+"\">Bildqualität</link> abhängig. Auf der <link href=\"https://de.wikipedia."
 "org/wiki/JPEG\">Wikipedia-Seite zu JPEG</link> finden Sie weitere "
 "Informationen darüber."
 
 #. (itstool) path: td/p
-#: C/save.page:53
+#: C/save.page:63
 msgid "PNG"
 msgstr "PNG"
 
 #. (itstool) path: td/p
-#: C/save.page:54
+#: C/save.page:64
 msgid ""
-"PNG files contain the raw data from the scanner. This makes them very large "
+"PNG files support lossless data compression. This can make files very large "
 "and not suitable for distributing. If you have scanned multiple pages, a PNG "
-"file will be created for each page. See the <link href=\"http://en.wikipedia."
-"org/wiki/Portable_Network_Graphics\">PNG Wikipedia page</link> for more "
-"information."
+"file will be created for each page. See the <link href=\"https://en."
+"wikipedia.org/wiki/Portable_Network_Graphics\">PNG Wikipedia page</link> for "
+"more information."
 msgstr ""
-"PNG-Dateien enthalten die Rohdaten aus dem Scanner. Dadurch werden sie sehr "
-"groß und eignen sich nicht für die Weitergabe. Wenn Sie mehrere Seiten "
-"eingescannt haben, wird eine PNG-Datei für jede Seite erzeugt. Auf der <link "
-"href=\"http://de.wikipedia.org/wiki/Portable_Network_Graphics\">Wikipedia-"
-"Seite zu PNG</link> finden Sie weitere Informationen."
-
-#. (itstool) path: td/p
-#: C/save.page:61
-msgid "TIFF"
-msgstr "TIFF"
-
-#. (itstool) path: td/p
-#: C/save.page:62
-msgid ""
-"TIFF files contain the raw data from the scanner. This makes them very large "
-"and not suitable for distributing. If you have scanned multipe pages, a TIFF "
-"file will be created for each page. See the <link href=\"http://en.wikipedia."
-"org/wiki/Tagged_Image_File_Format\">TIFF Wikipedia page</link> for more "
-"information."
-msgstr ""
-"TIFF-Dateien enthalten die Rohdaten aus dem Scanner. Dadurch werden sie sehr "
-"groß und eignen sich nicht für die Weitergabe. Wenn Sie mehrere Seiten "
-"eingescannt haben, wird eine TIFF-Datei für jede Seite erzeugt. Auf der "
-"<link href=\"http://de.wikipedia.org/wiki/Tagged_Image_File_Format"
-"\">Wikipedia-Seite zu TIFF</link> finden Sie weitere Informationen."
+"PNG-Dateien unterstützen verlustlose Datenkompression. Dadurch können "
+"Dateien sehr groß werden und eignen sich nicht für die Weitergabe. Wenn Sie "
+"mehrere Seiten eingescannt haben, wird eine PNG-Datei für jede Seite "
+"erzeugt. Auf der <link href=\"https://de.wikipedia.org/wiki/"
+"Portable_Network_Graphics\">Wikipedia-Seite zu PNG</link> finden Sie weitere "
+"Informationen."
 
 #. (itstool) path: page/title
-#: C/scanner.page:9
+#: C/scanner.page:19
 msgid "Selecting a Scanner"
 msgstr "Einen Scanner wählen"
 
 #. (itstool) path: page/p
-#: C/scanner.page:11
+#: C/scanner.page:21
 msgid ""
-"If you have multiple scanning devices you can change the selected device "
-"from the <guiseq><gui>Document</gui><gui>Preferences</gui></guiseq> menu."
+"If you have multiple scanning devices you can change device on main page."
 msgstr ""
-"Wenn Sie über mehrere Scanner verfügen, können Sie das ausgewählte Gerät im "
-"Menü <guiseq><gui>Dokument</gui><gui>Einstellungen</gui></guiseq> ändern."
+"Wenn Sie über mehrere Scanner verfügen, können Sie das ausgewählte Gerät auf "
+"der Hauptseite ändern."
 
 #. (itstool) path: page/p
-#: C/scanner.page:15
+#: C/scanner.page:25
 msgid ""
 "Local scanners are automatically detected each time <app>Document Scanner</"
 "app> starts and each time you plug in a USB scanner. If you connect a "
@@ -790,43 +766,42 @@ msgstr ""
 "erkannt wird."
 
 #. (itstool) path: info/title
-#: C/scanning.page:6
+#: C/scanning.page:7
 msgctxt "sort"
 msgid "0"
 msgstr "0"
 
 #. (itstool) path: page/title
-#: C/scanning.page:10
+#: C/scanning.page:21
 msgid "Scanning a Page"
 msgstr "Eine Seite scannen"
 
 #. (itstool) path: page/p
-#: C/scanning.page:12
+#: C/scanning.page:23
 msgid "To scan a document from your scanner:"
 msgstr "So scannen Sie ein Dokument mit dem Scanner ein:"
 
 #. (itstool) path: item/p
-#: C/scanning.page:16
+#: C/scanning.page:27
 msgid "Connect the scanner to your computer and power it on."
 msgstr "Schließen Sie den Scanner an Ihren Rechner an und schalten ihn ein."
 
 #. (itstool) path: item/p
-#: C/scanning.page:17
+#: C/scanning.page:28
 msgid "Open <app>Document Scanner</app>."
 msgstr "Öffnen Sie <app>Dokument-Scanner</app>."
 
 #. (itstool) path: item/p
-#: C/scanning.page:18
+#: C/scanning.page:30
 msgid ""
-"Click the arrow to the right of the \"Scan\" button and choose the type of "
-"document you are scanning: <em>Photo</em> or <em>Text</em>."
+"Select the type of document you are scanning: <gui style=\"button\">Text</"
+"gui> or <gui style=\"button\">Image</gui>."
 msgstr ""
-"Klicken Sie auf den Pfeil rechts neben dem <gui>Scannen</gui>-Knopf und "
-"wählen Sie den gewünschten Dokumenttyp aus: <gui>Foto</gui> oder <gui>Text</"
-"gui>."
+"Wählen Sie den Typ des Dokuments aus, das Sie scannen: <gui style=\"button"
+"\">Text</gui> oder <gui style=\"button\">Bild</gui>."
 
 #. (itstool) path: item/p
-#: C/scanning.page:21
+#: C/scanning.page:32
 msgid ""
 "Click the \"Scan\" button on the toolbar (or press <keyseq><key>Ctrl</"
 "key><key>1</key></keyseq>)."
@@ -835,7 +810,7 @@ msgstr ""
 "drücken Sie <keyseq><key>Strg</key><key>1</key></keyseq>)."
 
 #. (itstool) path: note/p
-#: C/scanning.page:24
+#: C/scanning.page:35
 msgid ""
 "The page will be shown as it is scanned. To stop the scan at any time press "
 "the <key>Esc</key> key on the keyboard. Each page you scan is placed at the "
@@ -846,16 +821,137 @@ msgstr ""
 "Seite wird am Ende des Dokuments angefügt."
 
 #. (itstool) path: page/p
-#: C/scanning.page:29
-msgid ""
-"The document type can be also be changed from the <guiseq><gui>Document</"
-"gui> <gui>Scan</gui></guiseq> menu. Choose <gui><em>Text</em></gui> if you "
-"want the document to be quickly scanned in black and white; choose "
-"<gui><em>Photo</em></gui> for a high resolution color scan. See <link xref="
-"\"dpi\"/> for more details and more options."
+#: C/scanning.page:40
+msgid "To change the quality of a scanned page, see <link xref=\"dpi\"/>."
 msgstr ""
-"Den Dokumenttyp können Sie auch im Menü <guiseq><gui>Dokument</gui> "
-"<gui>Scannen</gui></guiseq> ändern. Wählen Sie <gui>Text</gui>, wenn das "
-"Dokument schnell in Schwarzweiß eingescannt werden soll, oder <gui>Foto</"
-"gui> für einen Farbscan in höherer Auflösung. In <link xref=\"dpi\"/> finden "
-"Sie Details und weitere Optionen."
+"Zum Ändern der Qualität der gescannten Seite, siehe <link xref=\"dpi\"/>."
+
+#~ msgid "Use a Menu"
+#~ msgstr "Aus dem Menü"
+
+#~ msgid ""
+#~ "Navigate to <guiseq><gui>Document</gui> <gui>Scan</gui><gui>All Pages "
+#~ "From Feeder</gui></guiseq>."
+#~ msgstr ""
+#~ "Wählen Sie <guiseq><gui>Dokument</gui> <gui>Scannen</gui><gui>Alle Seiten "
+#~ "aus dem Papiereinzug</gui></guiseq>."
+
+#~ msgid "Use the Toolbar Buttons"
+#~ msgstr "Die Werkzeugleistenknöpfe benutzen"
+
+#~ msgid "Choose \"All Pages From Feeder\"."
+#~ msgstr "Wählen Sie <gui>Alle Seiten aus dem Papiereinzug</gui>."
+
+#~ msgid "Use a Right Click"
+#~ msgstr "Mit einem Rechtsklick"
+
+#~ msgid ""
+#~ "Navigate to the <guiseq><gui>Page</gui><gui>Crop</gui></guiseq> menu."
+#~ msgstr "Wählen Sie <guiseq><gui>Seite</gui><gui>Zuschneiden</gui></guiseq>."
+
+#~ msgid ""
+#~ "Choose one of the fixed crop frames, or select \"Custom\" to manually "
+#~ "adjust the frame's dimensions by dragging its borders."
+#~ msgstr ""
+#~ "Wählen Sie entweder einen der festen Zuschneiderahmen aus oder wählen Sie "
+#~ "<gui>Benutzerdefiniert</gui>, um die Abmessungen des Zuschneiderahmens "
+#~ "durch Ziehen der Ränder anzupassen."
+
+#~ msgid "<em>Photo Resolution</em>"
+#~ msgstr "<em>Fotoauflösung</em>"
+
+#~ msgid "Robert Ancell"
+#~ msgstr "Robert Ancell"
+
+#~ msgid "Ali Shtarbanov"
+#~ msgstr "Ali Shtarbanov"
+
+#~ msgctxt "_"
+#~ msgid ""
+#~ "external ref='figures/icon.svg' md5='e0fbd536ef08711877b65373c0e0173a'"
+#~ msgstr "Original"
+
+#~ msgid ""
+#~ "<media type=\"image\" src=\"figures/icon.svg\" height=\"32px\"/>Document "
+#~ "Scanner Manual"
+#~ msgstr ""
+#~ "<media type=\"image\" src=\"figures/icon.svg\" height=\"32px\"/>Handbuch "
+#~ "zu Dokument-Scanner"
+
+#~ msgid ""
+#~ "Go to the <guiseq><gui>Document</gui><gui>Print</gui> </guiseq> menu or "
+#~ "use the keyboard shortcut <keyseq><key>Ctrl</key><key>P</key></keyseq>. "
+#~ "This will open the \"Print\" dialog box."
+#~ msgstr ""
+#~ "Wählen Sie <guiseq><gui>Dokument</gui><gui>Drucken</gui> </guiseq> oder "
+#~ "drücken Sie <keyseq><key>Strl</key><key>P</key></keyseq>. Dadurch wird "
+#~ "der Druckdialog geöffnet."
+
+#~ msgid ""
+#~ "Alternatively, you can move a page by first selecting it and then "
+#~ "choosing <gui><em>Move Left</em></gui> or <gui><em>Move Right</em></gui> "
+#~ "from the \"Page\" menu."
+#~ msgstr ""
+#~ "Alternativ können Sie eine Seite verschieben, indem Sie sie zuerst "
+#~ "auswählen und dann <gui>Nach links schieben</gui> oder <gui>Nach rechts "
+#~ "schieben</gui> im Menü <gui>Seite</gui> wählen."
+
+#~ msgid "Use Toolbar Buttons"
+#~ msgstr "Aus der Werkzeugleiste"
+
+#~ msgid "From the context menu choose \"Rotate Left\" or \"Rotate Right\"."
+#~ msgstr ""
+#~ "Wählen Sie im Kontextmenü <gui>Links herum drehen</gui> oder <gui>Rechts "
+#~ "herum drehen</gui> aus."
+
+#~ msgid ""
+#~ "Click the \"Page\" menu and select \"Rotate Left\" or \"Rotate Right\"."
+#~ msgstr ""
+#~ "Klicken Sie auf das <gui>Seite</gui>-Menü und wählen Sie <gui>Nach links "
+#~ "schieben</gui> oder <gui>Nach rechts schieben</gui>."
+
+#~ msgid ""
+#~ "Navigate to the <guiseq><gui>Document</gui><gui>Save As</gui></guiseq> "
+#~ "menu (or press <keyseq><key>Shift</key><key>Ctrl</key><key>S</key></"
+#~ "keyseq>)."
+#~ msgstr ""
+#~ "Wählen Sie <guiseq><gui>Dokument</gui><gui>Speichern unter</gui></guiseq> "
+#~ "(oder drücken Sie <keyseq><key>Umschalttaste</key><key>Strg</key><key>S</"
+#~ "key></keyseq>)."
+
+#~ msgid "TIFF"
+#~ msgstr "TIFF"
+
+#~ msgid ""
+#~ "TIFF files contain the raw data from the scanner. This makes them very "
+#~ "large and not suitable for distributing. If you have scanned multipe "
+#~ "pages, a TIFF file will be created for each page. See the <link href="
+#~ "\"http://en.wikipedia.org/wiki/Tagged_Image_File_Format\">TIFF Wikipedia "
+#~ "page</link> for more information."
+#~ msgstr ""
+#~ "TIFF-Dateien enthalten die Rohdaten aus dem Scanner. Dadurch werden sie "
+#~ "sehr groß und eignen sich nicht für die Weitergabe. Wenn Sie mehrere "
+#~ "Seiten eingescannt haben, wird eine TIFF-Datei für jede Seite erzeugt. "
+#~ "Auf der <link href=\"http://de.wikipedia.org/wiki/Tagged_Image_File_Format"
+#~ "\">Wikipedia-Seite zu TIFF</link> finden Sie weitere Informationen."
+
+#~ msgid ""
+#~ "Click the arrow to the right of the \"Scan\" button and choose the type "
+#~ "of document you are scanning: <em>Photo</em> or <em>Text</em>."
+#~ msgstr ""
+#~ "Klicken Sie auf den Pfeil rechts neben dem <gui>Scannen</gui>-Knopf und "
+#~ "wählen Sie den gewünschten Dokumenttyp aus: <gui>Foto</gui> oder "
+#~ "<gui>Text</gui>."
+
+#~ msgid ""
+#~ "The document type can be also be changed from the <guiseq><gui>Document</"
+#~ "gui> <gui>Scan</gui></guiseq> menu. Choose <gui><em>Text</em></gui> if "
+#~ "you want the document to be quickly scanned in black and white; choose "
+#~ "<gui><em>Photo</em></gui> for a high resolution color scan. See <link "
+#~ "xref=\"dpi\"/> for more details and more options."
+#~ msgstr ""
+#~ "Den Dokumenttyp können Sie auch im Menü <guiseq><gui>Dokument</gui> "
+#~ "<gui>Scannen</gui></guiseq> ändern. Wählen Sie <gui>Text</gui>, wenn das "
+#~ "Dokument schnell in Schwarzweiß eingescannt werden soll, oder <gui>Foto</"
+#~ "gui> für einen Farbscan in höherer Auflösung. In <link xref=\"dpi\"/> "
+#~ "finden Sie Details und weitere Optionen."
