@@ -1885,7 +1885,7 @@ public class AppWindow : Gtk.ApplicationWindow
         /* Populate ActionBar (not supported in Glade) */
         /* https://bugzilla.gnome.org/show_bug.cgi?id=769966 */
         var button = new Gtk.Button.with_label (/* Label on new document button */
-                                               _("New Document…"));
+                                               _("New Document"));
         button.visible = true;
         button.clicked.connect (new_document_cb);
         action_bar.pack_start (button);
