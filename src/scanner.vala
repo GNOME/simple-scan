@@ -1426,6 +1426,10 @@ public class Scanner : Object
         if (status == Sane.Status.NO_DOCS)
         {
             do_complete_document ();
+            if (page_number == 0)
+                fail_scan (status,
+                    /* Error displayed when no documents at the start of scanning */
+                    _("Document feeder empty"));
             return;
         }
 
