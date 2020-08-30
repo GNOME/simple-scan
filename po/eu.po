@@ -3,20 +3,19 @@
 # This file is distributed under the same license as the simple-scan package.
 #
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2017.
-# Asier Sarasua Garmendia  <asier.sarasua@gmail.com>, 2019, 2020.
+# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2019, 2020.
 #
 msgid ""
 msgstr "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-04-25 07:45+0000\n"
-"PO-Revision-Date: 2020-04-25 10:00+0100\n"
-"Last-Translator: Asier Sarasua Garmendia <asier.sarasua@gmail.com>\n"
+"POT-Creation-Date: 2020-07-18 15:25+0000\n"
+"PO-Revision-Date: 2020-08-30 10:00+0100\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-04-25 06:09+0000\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -114,7 +113,7 @@ msgstr "Irudi-fitxategiak gordetzeko erabiliko den fitxategi-formatua"
 msgid ""
 "MIME type that is used for saving image files. Examples of supported MIME "
 "types: image/jpeg, image/png, application/pdf"
-msgstr "Irudi-fitxategiak gordetzeko erabiliko den MIME mota. Onartzen diren MIME moten adibideak: image/jpeg, image/png, application/pdf "
+msgstr "Irudi-fitxategiak gordetzeko erabiliko den MIME mota. Onartzen diren MIME moten adibideak: image/jpeg, image/png, application/pdf"
 
 #: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
@@ -137,7 +136,7 @@ msgstr "Orrien arteko atzerapena (milisegundotan)."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:498 src/app-window.vala:1566 src/app-window.vala:1842
+#: src/app-window.ui:498 src/app-window.vala:1571 src/app-window.vala:1847
 msgid "Document Scanner"
 msgstr "Dokumentuen eskanerra"
 
@@ -287,7 +286,7 @@ msgstr "E_skaneatu"
 msgid "Save document to a file"
 msgstr "Gorde dokumentua fitxategi batean"
 
-#: src/app-window.vala:227 src/app-window.vala:1674
+#: src/app-window.vala:227 src/app-window.vala:1679
 msgid "_Close"
 msgstr "It_xi"
 
@@ -339,11 +338,11 @@ msgstr "Badago automatikoki gordetako liburu bat. Ireki nahi duzu?"
 msgid "Save As…"
 msgstr "Gorde honela…"
 
-#: src/app-window.vala:460 src/app-window.vala:752
+#: src/app-window.vala:460 src/app-window.vala:756
 msgid "_Save"
 msgstr "_Gorde"
 
-#: src/app-window.vala:461 src/app-window.vala:639 src/app-window.vala:751
+#: src/app-window.vala:461 src/app-window.vala:643 src/app-window.vala:755
 msgid "_Cancel"
 msgstr "_Utzi"
 
@@ -384,98 +383,106 @@ msgid "WebP (compressed)"
 msgstr "WebP (konprimatua)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:525
+#: src/app-window.vala:526
 msgid "File format:"
 msgstr "Fitxategi-formatua:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:548
+#: src/app-window.vala:549
 msgid "Compression:"
 msgstr "Konpresioa:"
 
+#: src/app-window.vala:556
+msgid "Minimum size"
+msgstr "Gutxieneko tamaina"
+
+#: src/app-window.vala:560
+msgid "Full detail"
+msgstr "Xehetasun guztiak"
+
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:638
+#: src/app-window.vala:642
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "'%s' izeneko fitxategia badago lehendik. Ordeztea nahi duzu?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:641
+#: src/app-window.vala:645
 msgid "_Replace"
 msgstr "_Ordeztu"
 
-#: src/app-window.vala:708
+#: src/app-window.vala:712
 msgid "Saving"
 msgstr "Gordetzen"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:725
+#: src/app-window.vala:729
 msgid "Failed to save file"
 msgstr "Huts egin du fitxategia gordetzean"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:749
+#: src/app-window.vala:753
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Gordetzen ez baduzu, aldaketak betiko galduko dira."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:785
+#: src/app-window.vala:789
 msgid "Save current document?"
 msgstr "Gorde uneko dokumentua?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:787
+#: src/app-window.vala:791
 msgid "Discard Changes"
 msgstr "Baztertu aldaketak"
 
 #. Label shown when scan started
-#: src/app-window.vala:822
+#: src/app-window.vala:826
 msgid "Contacting scanner…"
 msgstr "Eskanerrarekin harremanetan jartzen…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1090
+#: src/app-window.vala:1095
 msgid "Unable to save image for preview"
 msgstr "Ezin izan da aurrebistarako irudia gorde"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1102
+#: src/app-window.vala:1107
 msgid "Unable to open image preview application"
 msgstr "Ezin izan da ireki irudiaren aurrebistarako aplikazioa"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1264
+#: src/app-window.vala:1269
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Berrordenatu orrialdeak"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1287
+#: src/app-window.vala:1292
 msgid "Combine sides"
 msgstr "Konbinatu aldeak"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1297
+#: src/app-window.vala:1302
 msgid "Combine sides (reverse)"
 msgstr "Konbinatu aldeak (alderantziz)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1307
+#: src/app-window.vala:1312
 msgid "Reverse"
 msgstr "Alderantzikatu"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1317
+#: src/app-window.vala:1322
 msgid "Keep unchanged"
 msgstr "Mantendu aldatu gabe"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1541
+#: src/app-window.vala:1546
 msgid "Unable to open help file"
 msgstr "Ezin izan da laguntza-fitxategia ireki"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1556
+#: src/app-window.vala:1561
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -503,50 +510,50 @@ msgstr "This program is free software: you can redistribute it and/or modify\n"
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1559 src/app-window.vala:1875
+#: src/app-window.vala:1564 src/app-window.vala:1880
 msgid "About Document Scanner"
 msgstr "Dokumentuen eskanerrari buruz"
 
 #. Description of program
-#: src/app-window.vala:1562
+#: src/app-window.vala:1567
 msgid "Simple document scanning tool"
 msgstr "Dokumentuak eskaneatzeko tresna sinplea"
 
-#: src/app-window.vala:1571
+#: src/app-window.vala:1576
 msgid "translator-credits"
 msgstr "translator-credits"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1587
+#: src/app-window.vala:1592
 msgid "Save document before quitting?"
 msgstr "Gorde dokumentua irten baino lehen?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1589
+#: src/app-window.vala:1594
 msgid "Quit without Saving"
 msgstr "Irten gorde gabe"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1630
+#: src/app-window.vala:1635
 msgid "You appear to have a Brother scanner."
 msgstr "Brother eskanerra duzula dirudi."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1632
+#: src/app-window.vala:1637
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
 msgstr "Horrentzako kontrolatzaileak  <a href=\"http://support.brother.com\">Brother webgunean</a> daude eskuragarri."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1636
+#: src/app-window.vala:1641
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
 msgstr "Badirudi Canon eskaner bat duzula. <a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE motorrak lagunduta</a> dabil marka hori."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1638
+#: src/app-window.vala:1643
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -555,20 +562,20 @@ msgid ""
 msgstr "Egiaztatu zure <a href=\"http://www.sane-project.org/sane-supported-devices.html\">eskanerrak SANE erabiltzen duela</a>, bestela jakinarazi akatsa <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE posta-zerrendan</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1642
+#: src/app-window.vala:1647
 msgid "You appear to have a Samsung scanner."
 msgstr "Samsung eskanerra duzula dirudi."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1645
+#: src/app-window.vala:1650
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
 msgstr "Horrentzako kontrolagailuak <a href=\"https://support.hp.com\">HP webgunean</a> (HP enpresak Samsungen inprimatze-negozioa erosi zuen) daude eskuragarri."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1650
+#: src/app-window.vala:1655
 msgid "You appear to have an HP scanner."
 msgstr "HP eskanerra duzula dirudi."
 
@@ -576,130 +583,130 @@ msgstr "HP eskanerra duzula dirudi."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1658
+#: src/app-window.vala:1663
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
 msgstr "Horrentzako kontrolagailuak <a href=\"https://support.hp.com\">HP webgunean</a> daude eskuragarri."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1662
+#: src/app-window.vala:1667
 msgid "You appear to have an Epson scanner."
 msgstr "Epson eskanerra duzula dirudi."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1664
+#: src/app-window.vala:1669
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
 msgstr "Horrentzako kontrolatzaileak <a href=\"http://support.epson.com\">Epson webgunean</a> daude eskuragarri."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1668
+#: src/app-window.vala:1673
 msgid "You appear to have an Lexmark scanner."
 msgstr "Lekmark eskanerra duzula dirudi."
 
 #. Instructions on how to install Linux scanner drivers
-#: src/app-window.vala:1670
+#: src/app-window.vala:1675
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
 msgstr "Horrentzako kontrolagailuak <a href=\"http://support.lexmark.com\">Lexmark webgunean</a> daude eskuragarri."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1674
+#: src/app-window.vala:1679
 msgid "Install drivers"
 msgstr "Instalatu kontrolatzaileak"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1708
+#: src/app-window.vala:1713
 msgid "Once installed you will need to restart this app."
 msgstr "Behin instalatua, aplikazio hau berrabiarazi behar duzu."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1721
+#: src/app-window.vala:1726
 msgid "Installing drivers…"
 msgstr "Kontrolatzaileak instalatzen…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1729
+#: src/app-window.vala:1734
 msgid "Drivers installed successfully!"
 msgstr "Kontrolatzaileak ondo instalatu dira!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1739
+#: src/app-window.vala:1744
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Ezin izan dira kontrolatzaileak instalatu (%d errore kodea)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1745
+#: src/app-window.vala:1750
 msgid "Failed to install drivers."
 msgstr "Ezin izan dira kontrolatzaileak instalatu."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1752
+#: src/app-window.vala:1757
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "%s paketea instalatu behar duzu."
 msgstr[1] "%s paketeak instalatu behar dituzu."
 
-#: src/app-window.vala:1867
+#: src/app-window.vala:1872
 msgid "Email"
 msgstr "Posta elektronikoa"
 
-#: src/app-window.vala:1868
+#: src/app-window.vala:1873
 msgid "Print"
 msgstr "Inprimatu"
 
-#: src/app-window.vala:1869
+#: src/app-window.vala:1874
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "Berrordenatu orrialdeak"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1870 src/preferences-dialog.ui:44
+#: src/app-window.vala:1875 src/preferences-dialog.ui:44
 msgid "Preferences"
 msgstr "Hobespenak"
 
-#: src/app-window.vala:1873
+#: src/app-window.vala:1878
 msgid "Keyboard Shortcuts"
 msgstr "Laster-teklak"
 
-#: src/app-window.vala:1874
+#: src/app-window.vala:1879
 msgid "Help"
 msgstr "Laguntza"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1883
+#: src/app-window.vala:1888
 msgid "Start Again…"
 msgstr "Hasi berriro…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1902
+#: src/app-window.vala:1907
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Biratu orrialdea ezkerrera (erlojuaren kontrako noranzkoan)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1911
+#: src/app-window.vala:1916
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Biratu orrialdea eskuinera (erlojuaren noranzkoan)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1923
+#: src/app-window.vala:1928
 msgid "Crop the selected page"
 msgstr "Moztu hautatutako orrialdea"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1941
+#: src/app-window.vala:1946
 msgid "Delete the selected page"
 msgstr "Ezabatu hautatutako orria"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2115
+#: src/app-window.vala:2120
 msgid "Cancel"
 msgstr "Utzi"
 
@@ -984,14 +991,14 @@ msgid "Unable to connect to scanner"
 msgstr "Ezin da eskanerrarekin konektatu"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1287
+#: src/scanner.vala:1288
 msgid "Document feeder empty"
 msgstr "Dokumentu-elikagailua hutsik dago"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1295
+#: src/scanner.vala:1296
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1001,12 +1008,12 @@ msgstr "Memoria gutxiegi dago eskaneatzea gauzatzeko.\n"
 "Saiatu <tt>Bereizmena</tt> edo <tt>Orrialde-tamaina</tt> txikitzen <tt>Hobespenak</tt> menuan. Zenbati eskanerren kasuan, bereizmen handian eskaneatzen dutenean eskaneatze-tamaina mugatuta dago."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1308
+#: src/scanner.vala:1309
 msgid "Unable to start scan"
 msgstr "Ezin da eskanerra abiarazi"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1321 src/scanner.vala:1424
+#: src/scanner.vala:1322 src/scanner.vala:1429
 msgid "Error communicating with scanner"
 msgstr "Errorea eskanerrarekin komunikatzean"
 
@@ -1035,12 +1042,12 @@ msgid "Scan in progress"
 msgstr "Eskaneatzea abian"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1953
+#: src/simple-scan.vala:1954
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[DEVICE…] — Eskaneatze-tresna"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1964
+#: src/simple-scan.vala:1965
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Exekutatu “%s --help” komando-lerroko aukera guztiak zerrendatzeko."
@@ -1138,9 +1145,6 @@ msgstr "Exekutatu “%s --help” komando-lerroko aukera guztiak zerrendatzeko."
 
 #~ msgid "_Install Drivers"
 #~ msgstr "_Instalatu kontrolatzaileak"
-
-#~ msgid "Minimum"
-#~ msgstr "Minimoa"
 
 #~ msgid "Maximum"
 #~ msgstr "Maximoa"
