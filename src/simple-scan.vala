@@ -1982,7 +1982,7 @@ public class SimpleScan : Gtk.Application
             }
             catch (Error e)
             {
-                stderr.printf ("Error fixing PDF file: %s", e.message);
+                stderr.printf ("Error fixing PDF file: %s\n", e.message);
                 return Posix.EXIT_FAILURE;
             }
             return Posix.EXIT_SUCCESS;
@@ -2002,6 +2002,11 @@ public class SimpleScan : Gtk.Application
         DirUtils.create_with_parents (path, 0700);
         path = Path.build_filename (Environment.get_user_cache_dir (), "simple-scan", "simple-scan.log", null);
         log_file = FileStream.open (path, "w");
+        if (log_file == null )
+        {
+            stderr.printf ("Error: Unable to open %s file for writing\n", path);
+            return Posix.EXIT_FAILURE;
+        }
         Log.set_default_handler (log_cb);
 
         debug ("Starting %s %s, PID=%i", args[0], VERSION, Posix.getpid ());
