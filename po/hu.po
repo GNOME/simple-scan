@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-02-10 13:50+0000\n"
-"PO-Revision-Date: 2020-02-17 08:03+0100\n"
-"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"POT-Creation-Date: 2020-09-02 14:04+0000\n"
+"PO-Revision-Date: 2020-09-05 23:50+0200\n"
+"Last-Translator: Balázs Meskó <mesko.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Lokalize 19.04.3\n"
+"X-Generator: Lokalize 19.12.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -88,12 +88,10 @@ msgid "The resolution in dots-per-inch to use when scanning text."
 msgstr "Szövegek szkennelésnél használandó DPI felbontás."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
-#| msgid "Resolution for text scans"
 msgid "Resolution for image scans"
 msgstr "Képek szkennelésének felbontása"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
-#| msgid "The resolution in dots-per-inch to use when scanning text."
 msgid "The resolution in dots-per-inch to use when scanning images."
 msgstr "Képek szkennelésnél használandó DPI felbontás."
 
@@ -116,19 +114,32 @@ msgstr ""
 "A fájlok mentésének helye. Alapértelmezésben a Dokumentumok mappa, ha nincs "
 "beállítva."
 
+#: data/org.gnome.SimpleScan.gschema.xml:65
+msgid "File format that is used for saving image files"
+msgstr "A képfájlok mentéséhez használandó fájlformátum"
+
 #: data/org.gnome.SimpleScan.gschema.xml:66
+msgid ""
+"MIME type that is used for saving image files. Examples of supported MIME "
+"types: image/jpeg, image/png, application/pdf"
+msgstr ""
+"A képfájlok mentéséhez használt MIME-típus. Példa a támogatott"
+" MIME-típusokra: image/jpeg, image/png, "
+"application/pdf"
+
+#: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
 msgstr "A minőségi tényező megadása a JPEG tömörítéshez"
 
-#: data/org.gnome.SimpleScan.gschema.xml:67
+#: data/org.gnome.SimpleScan.gschema.xml:72
 msgid "Quality value to use for JPEG compression."
 msgstr "A minőségi tényező megadása a JPEG tömörítéshez."
 
-#: data/org.gnome.SimpleScan.gschema.xml:72
+#: data/org.gnome.SimpleScan.gschema.xml:77
 msgid "Delay in millisecond between pages"
 msgstr "A lapok közti késleltetés ezredmásodpercben"
 
-#: data/org.gnome.SimpleScan.gschema.xml:73
+#: data/org.gnome.SimpleScan.gschema.xml:78
 msgid "Delay in millisecond between pages."
 msgstr "A lapok közti késleltetés ezredmásodpercben."
 
@@ -137,7 +148,7 @@ msgstr "A lapok közti késleltetés ezredmásodpercben."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:498 src/app-window.vala:1511 src/app-window.vala:1765
+#: src/app-window.ui:498 src/app-window.vala:1571 src/app-window.vala:1847
 msgid "Document Scanner"
 msgstr "Szkenner"
 
@@ -146,11 +157,6 @@ msgid "Make a digital copy of your photos and documents"
 msgstr "Készítsen digitális másolatot a fényképeiről és dokumentumairól"
 
 #: data/simple-scan.appdata.xml.in:9
-#| msgid ""
-#| "A really easy way to scan both documents and photos. You can crop out the "
-#| "bad parts of a photo and rotate it if it is the wrong way round. You can "
-#| "print your scans, export them to pdf, or save them in a range of image "
-#| "formats."
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -271,7 +277,6 @@ msgid "_Image"
 msgstr "_Kép"
 
 #: src/app-window.ui:476
-#| msgid "Preferences"
 msgid "_Preferences"
 msgstr "_Beállítások"
 
@@ -290,42 +295,41 @@ msgid "Scan a single page from the scanner"
 msgstr "Egy oldal szkennelése az eszközről"
 
 #: src/app-window.ui:594
-#| msgid "Scan"
 msgid "_Scan"
 msgstr "_Szkennelés"
 
 #. Tooltip for save toolbar button
-#: src/app-window.ui:696
+#: src/app-window.ui:697
 msgid "Save document to a file"
 msgstr "Dokumentum fájlba mentése"
 
-#: src/app-window.vala:226 src/app-window.vala:1598
+#: src/app-window.vala:227 src/app-window.vala:1679
 msgid "_Close"
 msgstr "_Bezárás"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:235
+#: src/app-window.vala:236
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "A(z) „%s” eléréséhez felhasználónév és jelszó szükséges"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:251
+#: src/app-window.vala:253
 msgid "Searching for Scanners…"
 msgstr "Szkennerek keresése…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:258
+#: src/app-window.vala:261
 msgid "Ready to Scan"
 msgstr "Szkennelésre kész"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:266
+#: src/app-window.vala:270
 msgid "Additional software needed"
 msgstr "További szoftverek szükségesek"
 
 #. Instructions to install driver software
-#: src/app-window.vala:268
+#: src/app-window.vala:272
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -334,162 +338,171 @@ msgstr ""
 "telepíteni</a>."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:275
+#: src/app-window.vala:279
 msgid "No scanners detected"
 msgstr "Nem található szkenner"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:277
+#: src/app-window.vala:281
 msgid "Please check your scanner is connected and powered on"
 msgstr "Ellenőrizze, hogy a szkenner csatlakoztatva van, és be van-e kapcsolva"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:379
-#| msgid "A file named “%s” already exists.  Do you want to replace it?"
+#: src/app-window.vala:383
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Már létezik automatikusan mentett könyv. Szeretné megnyitni?"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:453
+#: src/app-window.vala:457
 msgid "Save As…"
 msgstr "Mentés másként…"
 
-#: src/app-window.vala:456 src/app-window.vala:710
+#: src/app-window.vala:460 src/app-window.vala:756
 msgid "_Save"
 msgstr "_Mentés"
 
-#: src/app-window.vala:457 src/app-window.vala:625 src/app-window.vala:709
+#: src/app-window.vala:461 src/app-window.vala:643 src/app-window.vala:755
 msgid "_Cancel"
 msgstr "_Mégse"
 
-#. Default filename to use when saving document
-#: src/app-window.vala:464
-msgid "Scanned Document.pdf"
-msgstr "Szkennelt dokumentum.pdf"
+#. Default filename to use when saving document.
+#. To that filename the extension will be added, eg. "Scanned Document.pdf"
+#: src/app-window.vala:471
+#| msgid "Scanned Document.pdf"
+msgid "Scanned Document"
+msgstr "Szkennelt dokumentum"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:470
+#: src/app-window.vala:477
 msgid "Image Files"
 msgstr "Képfájlok"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:480
+#: src/app-window.vala:487
 msgid "All Files"
 msgstr "Minden fájl"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:489
+#: src/app-window.vala:496
 msgid "PDF (multi-page document)"
 msgstr "PDF (többoldalas dokumentum)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:495
+#: src/app-window.vala:502
 msgid "JPEG (compressed)"
 msgstr "JPEG (tömörített)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:501
+#: src/app-window.vala:508
 msgid "PNG (lossless)"
 msgstr "PNG (veszteségmentes)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:508
+#: src/app-window.vala:515
 msgid "WebP (compressed)"
 msgstr "WebP (tömörített)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:518
+#: src/app-window.vala:526
 msgid "File format:"
 msgstr "Fájlformátum:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:530
+#: src/app-window.vala:549
 msgid "Compression:"
 msgstr "Tömörítés:"
 
+#: src/app-window.vala:556
+msgid "Minimum size"
+msgstr "Legkisebb méret"
+
+#: src/app-window.vala:560
+msgid "Full detail"
+msgstr "Teljes részletek"
+
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:624
+#: src/app-window.vala:642
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Már létezik „%s” nevű fájl. Le akarja cserélni?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:627
+#: src/app-window.vala:645
 msgid "_Replace"
 msgstr "_Csere"
 
-#: src/app-window.vala:666
+#: src/app-window.vala:712
 msgid "Saving"
 msgstr "Mentés"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:683
+#: src/app-window.vala:729
 msgid "Failed to save file"
 msgstr "A fájl mentése sikertelen"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:707
+#: src/app-window.vala:753
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Ha nem ment, akkor a változtatások véglegesen elvesznek."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:743
+#: src/app-window.vala:789
 msgid "Save current document?"
 msgstr "Mentse az aktuális dokumentumot?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:745
+#: src/app-window.vala:791
 msgid "Discard Changes"
 msgstr "Módosítások eldobása"
 
 #. Label shown when scan started
-#: src/app-window.vala:777
+#: src/app-window.vala:826
 msgid "Contacting scanner…"
 msgstr "Kapcsolatfelvétel a szkennerrel…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1045
+#: src/app-window.vala:1095
 msgid "Unable to save image for preview"
 msgstr "A képfájlt nem lehet elmenteni előnézethez"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1057
+#: src/app-window.vala:1107
 msgid "Unable to open image preview application"
 msgstr "Nem nyitható meg az előnézetet megjelenítő alkalmazás"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1219
+#: src/app-window.vala:1269
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Oldalak újrarendezése"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1242
+#: src/app-window.vala:1292
 msgid "Combine sides"
 msgstr "Oldalak egyesítése"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1252
+#: src/app-window.vala:1302
 msgid "Combine sides (reverse)"
 msgstr "Oldalak egyesítése (fordított)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1262
+#: src/app-window.vala:1312
 msgid "Reverse"
 msgstr "Fordított"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1272
+#: src/app-window.vala:1322
 msgid "Keep unchanged"
 msgstr "Maradjon változatlan"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1486
+#: src/app-window.vala:1546
 msgid "Unable to open help file"
 msgstr "A súgófájl nem nyitható meg"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1501
+#: src/app-window.vala:1561
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -517,16 +530,16 @@ msgstr ""
 "meg, itt elolvashatja: <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1504 src/app-window.vala:1798
+#: src/app-window.vala:1564 src/app-window.vala:1880
 msgid "About Document Scanner"
 msgstr "A Szkenner névjegye"
 
 #. Description of program
-#: src/app-window.vala:1507
+#: src/app-window.vala:1567
 msgid "Simple document scanning tool"
 msgstr "Egyszerű dokumentumszkennelés"
 
-#: src/app-window.vala:1516
+#: src/app-window.vala:1576
 msgid "translator-credits"
 msgstr ""
 "Meskó Balázs <mesko dot balazs at fsf dot hu>\n"
@@ -545,22 +558,22 @@ msgstr ""
 "  Úr Balázs https://launchpad.net/~urbalazs"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1532
+#: src/app-window.vala:1592
 msgid "Save document before quitting?"
 msgstr "Menti a dokumentumot kilépés előtt?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1534
+#: src/app-window.vala:1594
 msgid "Quit without Saving"
 msgstr "Kilépés mentés nélkül"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1575
+#: src/app-window.vala:1635
 msgid "You appear to have a Brother scanner."
 msgstr "Úgy tűnik, Brother márkájú szkennere van."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1577
+#: src/app-window.vala:1637
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -568,32 +581,74 @@ msgstr ""
 "Ehhez a <a href=\"http://support.brother.com\">Brother weboldaláról</a> "
 "érhetők el illesztőprogramok."
 
+#. Message to indicate a Canon Pixma scanner has been detected
+#: src/app-window.vala:1641
+msgid ""
+"You appear to have a Canon scanner, which is supported by the <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+msgstr ""
+"Úgy tűnik, Canon márkájú szkennere van, amelyet a <a href=\"http://www.sane-"
+"project.org/man/sane-pixma.5.html\">Pixma SANE háttérszolgáltatás</a> "
+"támogat."
+
+#. Instructions on how to resolve issue with SANE scanner drivers
+#: src/app-window.vala:1643
+msgid ""
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">SANE mailing list</a>."
+msgstr ""
+"Ellenőrizze, hogy a <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">SANE támogatja-e a szkennerét</a>, egyébként jelentse be a "
+"problémát a <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/"
+"listinfo/sane-devel\">SANE levelezőlistán</a>."
+
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1581
+#: src/app-window.vala:1647
 msgid "You appear to have a Samsung scanner."
 msgstr "Úgy tűnik, Samsung márkájú szkennere van."
 
-#. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1583
+#. Instructions on how to install Samsung scanner drivers.
+#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
+#: src/app-window.vala:1650
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.epson.com"
+#| "\">Epson website</a>."
 msgid ""
-"Drivers for this are available on the <a href=\"http://samsung.com/support"
-"\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"Ehhez a <a href=\"http://samsung.com/support\">Samsung weboldaláról</a> "
-"érhetők el illesztőprogramok."
+"Ehhez a <a href=\"https://support.hp.com\">HP weboldalán</a> érhetők el "
+"illesztőprogramok (a HP felvásárolta a Samsung nyomtató üzletágát)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1587
+#: src/app-window.vala:1655
 msgid "You appear to have an HP scanner."
 msgstr "Úgy tűnik, HP márkájú szkennere van."
 
+#. Instructions on how to install HP scanner drivers.
+#. smfp is rebranded and slightly modified Samsung devices,
+#. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
+#. It require custom drivers, not available in hpaio package
+#: src/app-window.vala:1663
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.epson.com"
+#| "\">Epson website</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a>."
+msgstr ""
+"Ehhez a <a href=\"http://support.hp.com\">HP weboldaláról</a> érhetők el "
+"illesztőprogramok."
+
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1592
+#: src/app-window.vala:1667
 msgid "You appear to have an Epson scanner."
 msgstr "Úgy tűnik, Epson márkájú szkennere van."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1594
+#: src/app-window.vala:1669
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -601,100 +656,118 @@ msgstr ""
 "Ehhez az <a href=\"http://support.epson.com\">Epson weboldaláról</a> érhetők "
 "el illesztőprogramok."
 
+#. Message to indicate an Lexmark scanner has been detected
+#: src/app-window.vala:1673
+#| msgid "You appear to have an HP scanner."
+msgid "You appear to have an Lexmark scanner."
+msgstr "Úgy tűnik, Lexmark márkájú szkennere van."
+
+#. Instructions on how to install Linux scanner drivers
+#: src/app-window.vala:1675
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.brother.com"
+#| "\">Brother website</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.lexmark.com"
+"\">Lexmark website</a>."
+msgstr ""
+"Ehhez a <a href=\"http://support.lexmark.com\">Lexmark weboldaláról</a> "
+"érhetők el illesztőprogramok."
+
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1598
+#: src/app-window.vala:1679
 msgid "Install drivers"
 msgstr "Illesztőprogramok telepítése"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1631
+#: src/app-window.vala:1713
 msgid "Once installed you will need to restart this app."
 msgstr "A telepítés után újra kell indítania ezt az alkalmazást."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1644
+#: src/app-window.vala:1726
 msgid "Installing drivers…"
 msgstr "Illesztőprogramok telepítése…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1652
+#: src/app-window.vala:1734
 msgid "Drivers installed successfully!"
 msgstr "Az illesztőprogramok sikeresen telepítve!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1662
+#: src/app-window.vala:1744
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Az illesztőprogramok telepítése meghiúsult (hibakód: %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1668
+#: src/app-window.vala:1750
 msgid "Failed to install drivers."
 msgstr "Az illesztőprogramok telepítése meghiúsult."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1675
+#: src/app-window.vala:1757
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Telepíteni kell a következő csomagot: %s."
 msgstr[1] "Telepíteni kell a következő csomagokat: %s."
 
-#: src/app-window.vala:1790
+#: src/app-window.vala:1872
 msgid "Email"
 msgstr "Küldés e-mailben"
 
-#: src/app-window.vala:1791
+#: src/app-window.vala:1873
 msgid "Print"
 msgstr "Nyomtatás"
 
-#: src/app-window.vala:1792
+#: src/app-window.vala:1874
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "Oldalak újrarendezése"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1793 src/preferences-dialog.ui:44
+#: src/app-window.vala:1875 src/preferences-dialog.ui:44
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: src/app-window.vala:1796
+#: src/app-window.vala:1878
 msgid "Keyboard Shortcuts"
 msgstr "Gyorsbillentyűk"
 
-#: src/app-window.vala:1797
+#: src/app-window.vala:1879
 msgid "Help"
 msgstr "Súgó"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1806
+#: src/app-window.vala:1888
 msgid "Start Again…"
 msgstr "Újrakezdés…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1825
+#: src/app-window.vala:1907
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Az oldal elforgatása balra (az óra járásával ellentétesen)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1834
+#: src/app-window.vala:1916
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Az oldal elforgatása jobbra (az óra járásával egyezően)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1846
+#: src/app-window.vala:1928
 msgid "Crop the selected page"
 msgstr "A kiválasztott oldal vágása"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1864
+#: src/app-window.vala:1946
 msgid "Delete the selected page"
 msgstr "A kiválasztott oldal törlése"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2038
+#: src/app-window.vala:2120
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -814,25 +887,27 @@ msgid "Show help"
 msgstr "Súgó megjelenítése"
 
 #: src/help-overlay.ui:140
-#| msgid "Keyboard Shortcuts"
+msgctxt "shortcut window"
+msgid "Open menu"
+msgstr "Menü megnyitása"
+
+#: src/help-overlay.ui:147
 msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Gyorsbillentyűk"
 
-#: src/help-overlay.ui:147
+#: src/help-overlay.ui:154
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Kilépés"
 
 #. Label beside scan side combo box
 #: src/preferences-dialog.ui:72
-#| msgid "Scan Sides"
 msgid "Scan _Sides"
 msgstr "Szé_lek szkennelése"
 
 #. Label beside page size combo box
 #: src/preferences-dialog.ui:88
-#| msgid "Page Size"
 msgid "_Page Size"
 msgstr "_Oldalméret"
 
@@ -853,7 +928,6 @@ msgstr "Mindkettő"
 
 #. Label beside page delay scale
 #: src/preferences-dialog.ui:165
-#| msgid "Delay"
 msgid "_Delay"
 msgstr "_Késleltetés"
 
@@ -894,7 +968,6 @@ msgstr "másodperc"
 
 #. Preferences Dialog: Tab label for scanning settings
 #: src/preferences-dialog.ui:285
-#| msgid "Scanning"
 msgid "_Scanning"
 msgstr "_Szkennelés"
 
@@ -905,25 +978,21 @@ msgstr "Szöveg _felbontása"
 
 #. Label beside scan resolution combo box
 #: src/preferences-dialog.ui:322
-#| msgid "_Text Resolution"
 msgid "_Image Resolution"
 msgstr "_Kép felbontása"
 
 #. Label beside brightness scale
 #: src/preferences-dialog.ui:367
-#| msgid "Brightness"
 msgid "_Brightness"
 msgstr "Fénye_rő"
 
 #. Label beside contrast scale
 #: src/preferences-dialog.ui:383
-#| msgid "Contrast"
 msgid "_Contrast"
 msgstr "Kon_traszt"
 
 #. Preferences Dialog: Tab for quality settings
 #: src/preferences-dialog.ui:432
-#| msgid "Quality"
 msgid "_Quality"
 msgstr "_Minőség"
 
@@ -983,17 +1052,32 @@ msgid "Unable to connect to scanner"
 msgstr "Nem sikerült csatlakozni a szkennerhez"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1300
+#: src/scanner.vala:1293
 msgid "Document feeder empty"
 msgstr "A dokumentumadagoló üres"
 
+#. Out of memory error message with help instruction.
+#. Message written in Pango text markup language,
+#. A carriage return makes a line break, <tt> tag makes a monospace font
+#: src/scanner.vala:1301
+msgid ""
+"Insufficient memory to perform scan.\n"
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
+"<tt>Preferences</tt> menu. For some scanners when scanning in high "
+"resolution, the scan size is restricted."
+msgstr ""
+"Nincs elég memória a szkennelés végrehajtásához.\n"
+"Próbálja csökkenteni a <tt>Felbontást</tt> vagy a <tt>Lapméretet</tt> a "
+"<tt>Beállítások</tt> menüben. Egyes szkennereknél, ha magas felbontásban "
+"szkennel, akkor a kép mérete korlátozott."
+
 #. Error display when unable to start scan
-#: src/scanner.vala:1307
+#: src/scanner.vala:1314
 msgid "Unable to start scan"
 msgstr "Nem sikerült elindítani a szkennelést"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1320 src/scanner.vala:1427
+#: src/scanner.vala:1327 src/scanner.vala:1434
 msgid "Error communicating with scanner"
 msgstr "Kommunikációs hiba a szkennerrel"
 
@@ -1012,23 +1096,30 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Ezen alkalmazás régebbi verzióival készült PDF fájlok javítása"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:393
+#: src/simple-scan.vala:1755
 msgid "Failed to scan"
 msgstr "A szkennelés meghiúsult"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:408
+#: src/simple-scan.vala:1770
 msgid "Scan in progress"
 msgstr "Szkennelés folyamatban"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:585
+#: src/simple-scan.vala:1954
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ESZKÖZ…] – Szkennelő segédprogram"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:596
+#: src/simple-scan.vala:1965
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Futtassa a(z) „%s --help” parancsot a parancssori kapcsolók listájáért."
+
+#~ msgid ""
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
+#~ "\">Samsung website</a>."
+#~ msgstr ""
+#~ "Ehhez a <a href=\"http://samsung.com/support\">Samsung weboldaláról</a> "
+#~ "érhetők el illesztőprogramok."
