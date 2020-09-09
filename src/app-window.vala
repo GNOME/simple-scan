@@ -1671,7 +1671,7 @@ public class AppWindow : Gtk.ApplicationWindow
         case "lexmark_nscan":
             /* Message to indicate an Lexmark scanner has been detected */
             message = _("You appear to have an Lexmark scanner.");
-            /* Instructions on how to install Linux scanner drivers */
+            /* Instructions on how to install Lexmark scanner drivers */
             instructions = _("Drivers for this are available on the <a href=\"http://support.lexmark.com\">Lexmark website</a>.");
             break;
         }
