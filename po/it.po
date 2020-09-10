@@ -8,17 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-03-04 09:17+0000\n"
-"PO-Revision-Date: 2020-03-06 08:59+0100\n"
+"POT-Creation-Date: 2020-09-02 14:04+0000\n"
+"PO-Revision-Date: 2020-09-08 14:38+0200\n"
 "Last-Translator: Gianvito Cavasoli <gianvito@gmx.it>\n"
-"Language-Team: Italiano <gnome-it-list@gnome.org>\n"
+"Language-Team: Italian <gnome-it-list@gnome.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 2.2.4\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 3.36.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -118,19 +118,31 @@ msgstr ""
 "La directory dove salvare i file. Il valore predefinito è la directory dei "
 "documenti."
 
+#: data/org.gnome.SimpleScan.gschema.xml:65
+msgid "File format that is used for saving image files"
+msgstr "Formato del file da usare per il salvataggio dei file di immagini"
+
 #: data/org.gnome.SimpleScan.gschema.xml:66
+msgid ""
+"MIME type that is used for saving image files. Examples of supported MIME "
+"types: image/jpeg, image/png, application/pdf"
+msgstr ""
+"Tipo MIME da usare per il salvataggio dei file di immagini. Esempi di tipi "
+"MIME supportati: image/jpeg, image/png, application/pdf"
+
+#: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
 msgstr "Indica il valore della qualità per la compressione JPEG"
 
-#: data/org.gnome.SimpleScan.gschema.xml:67
+#: data/org.gnome.SimpleScan.gschema.xml:72
 msgid "Quality value to use for JPEG compression."
 msgstr "Indica il valore della qualità per la compressione JPEG."
 
-#: data/org.gnome.SimpleScan.gschema.xml:72
+#: data/org.gnome.SimpleScan.gschema.xml:77
 msgid "Delay in millisecond between pages"
 msgstr "Ritardo tra le pagine in millisecondi"
 
-#: data/org.gnome.SimpleScan.gschema.xml:73
+#: data/org.gnome.SimpleScan.gschema.xml:78
 msgid "Delay in millisecond between pages."
 msgstr "Ritardo tra le pagine in millisecondi."
 
@@ -139,7 +151,7 @@ msgstr "Ritardo tra le pagine in millisecondi."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:498 src/app-window.vala:1511 src/app-window.vala:1765
+#: src/app-window.ui:498 src/app-window.vala:1571 src/app-window.vala:1847
 msgid "Document Scanner"
 msgstr "Acquisizione documenti"
 
@@ -291,37 +303,37 @@ msgid "_Scan"
 msgstr "Acqui_sisci"
 
 #. Tooltip for save toolbar button
-#: src/app-window.ui:696
+#: src/app-window.ui:697
 msgid "Save document to a file"
 msgstr "Salva il documento su un file"
 
-#: src/app-window.vala:226 src/app-window.vala:1598
+#: src/app-window.vala:227 src/app-window.vala:1679
 msgid "_Close"
 msgstr "_Chiudi"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:235
+#: src/app-window.vala:236
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Sono richiesti nome utente e password per accedere a «%s»"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:251
+#: src/app-window.vala:253
 msgid "Searching for Scanners…"
 msgstr "Ricerca degli scanner…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:258
+#: src/app-window.vala:261
 msgid "Ready to Scan"
 msgstr "Pronto per l'acquisizione"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:266
+#: src/app-window.vala:270
 msgid "Additional software needed"
 msgstr "Software aggiuntivo necessario"
 
 #. Instructions to install driver software
-#: src/app-window.vala:268
+#: src/app-window.vala:272
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -330,162 +342,172 @@ msgstr ""
 "a> dello scanner."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:275
+#: src/app-window.vala:279
 msgid "No scanners detected"
 msgstr "Nessuno scanner rilevato"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:277
+#: src/app-window.vala:281
 msgid "Please check your scanner is connected and powered on"
 msgstr "Controllare che lo scanner sia collegato e acceso"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:379
+#: src/app-window.vala:383
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Un documento automaticamente salvato esiste già. Aprirlo?"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:453
+#: src/app-window.vala:457
 msgid "Save As…"
 msgstr "Salva come…"
 
-#: src/app-window.vala:456 src/app-window.vala:710
+#: src/app-window.vala:460 src/app-window.vala:756
 msgid "_Save"
 msgstr "_Salva"
 
-#: src/app-window.vala:457 src/app-window.vala:625 src/app-window.vala:709
+#: src/app-window.vala:461 src/app-window.vala:643 src/app-window.vala:755
 msgid "_Cancel"
 msgstr "A_nnulla"
 
-#. Default filename to use when saving document
-#: src/app-window.vala:464
-msgid "Scanned Document.pdf"
-msgstr "Documento acquisito.pdf"
+#. Default filename to use when saving document.
+#. To that filename the extension will be added, eg. "Scanned Document.pdf"
+#: src/app-window.vala:471
+#| msgid "Scanned Document.pdf"
+msgid "Scanned Document"
+msgstr "Documento acquisito"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:470
+#: src/app-window.vala:477
 msgid "Image Files"
 msgstr "File immagine"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:480
+#: src/app-window.vala:487
 msgid "All Files"
 msgstr "Tutti i file"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:489
+#: src/app-window.vala:496
 msgid "PDF (multi-page document)"
 msgstr "PDF (documento multi-pagina)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:495
+#: src/app-window.vala:502
 msgid "JPEG (compressed)"
 msgstr "JPEG (compresso)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:501
+#: src/app-window.vala:508
 msgid "PNG (lossless)"
 msgstr "PNG (senza perdita)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:508
+#: src/app-window.vala:515
 msgid "WebP (compressed)"
 msgstr "WebP (compresso)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:518
+#: src/app-window.vala:526
 msgid "File format:"
 msgstr "Formato file:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:530
+#: src/app-window.vala:549
 msgid "Compression:"
 msgstr "Compressione:"
 
+#: src/app-window.vala:556
+msgid "Minimum size"
+msgstr "Dimensione minima"
+
+#: src/app-window.vala:560
+msgid "Full detail"
+msgstr "Dettagli completi"
+
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:624
+#: src/app-window.vala:642
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Un file con il nome «%s» esiste già. Sostituirlo?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:627
+#: src/app-window.vala:645
 msgid "_Replace"
 msgstr "_Sostituisci"
 
-#: src/app-window.vala:666
+#: src/app-window.vala:712
 msgid "Saving"
 msgstr "Salvataggio"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:683
+#: src/app-window.vala:729
 msgid "Failed to save file"
 msgstr "Salvataggio file non riuscito"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:707
+#: src/app-window.vala:753
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Se non si salva, le modifiche saranno perse per sempre."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:743
+#: src/app-window.vala:789
 msgid "Save current document?"
 msgstr "Salvare il documento corrente?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:745
+#: src/app-window.vala:791
 msgid "Discard Changes"
 msgstr "Scarta le modifiche"
 
 #. Label shown when scan started
-#: src/app-window.vala:777
+#: src/app-window.vala:826
 msgid "Contacting scanner…"
 msgstr "Scanner in contatto…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1045
+#: src/app-window.vala:1095
 msgid "Unable to save image for preview"
 msgstr "Impossibile salvare l'immagine per l'anteprima"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1057
+#: src/app-window.vala:1107
 msgid "Unable to open image preview application"
 msgstr ""
 "Impossibile aprire l'applicazione per la visualizzazione delle anteprime"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1219
+#: src/app-window.vala:1269
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Riordino delle pagine"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1242
+#: src/app-window.vala:1292
 msgid "Combine sides"
 msgstr "Unisci lati"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1252
+#: src/app-window.vala:1302
 msgid "Combine sides (reverse)"
 msgstr "Unisci lati (inverso)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1262
+#: src/app-window.vala:1312
 msgid "Reverse"
 msgstr "Inverso"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1272
+#: src/app-window.vala:1322
 msgid "Keep unchanged"
 msgstr "Mantieni non modificato"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1486
+#: src/app-window.vala:1546
 msgid "Unable to open help file"
 msgstr "Impossibile aprire il file di aiuto"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1501
+#: src/app-window.vala:1561
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -515,16 +537,16 @@ msgstr ""
 ">."
 
 #. Title of about dialog
-#: src/app-window.vala:1504 src/app-window.vala:1798
+#: src/app-window.vala:1564 src/app-window.vala:1880
 msgid "About Document Scanner"
 msgstr "Informazioni su Acquisizione documenti"
 
 #. Description of program
-#: src/app-window.vala:1507
+#: src/app-window.vala:1567
 msgid "Simple document scanning tool"
 msgstr "Semplice strumento per l'acquisizione di documenti"
 
-#: src/app-window.vala:1516
+#: src/app-window.vala:1576
 msgid "translator-credits"
 msgstr ""
 "Gianvito Cavasoli <gianvito@gmx.it>\n"
@@ -532,158 +554,218 @@ msgstr ""
 "...e un ringraziamento ai precedenti traduttori da Rosetta."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1532
+#: src/app-window.vala:1592
 msgid "Save document before quitting?"
 msgstr "Salvare il documento prima di uscire?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1534
+#: src/app-window.vala:1594
 msgid "Quit without Saving"
 msgstr "Esci senza salvare"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1575
+#: src/app-window.vala:1635
 msgid "You appear to have a Brother scanner."
-msgstr "Sembra essere uno scanner «Brother»."
+msgstr "Sembra che si possegga uno scanner Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1577
+#: src/app-window.vala:1637
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
 msgstr ""
 "I driver per questo dispositivo sono disponibili sul <a href=\"http://"
-"support.brother.com\">sito web Brother</a>."
+"support.brother.com\">sito web di Brother</a>."
+
+#. Message to indicate a Canon Pixma scanner has been detected
+#: src/app-window.vala:1641
+msgid ""
+"You appear to have a Canon scanner, which is supported by the <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+msgstr ""
+"Sembra che si possegga uno scanner Canon, il quale è supportato dal <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">driver SANE Pixma</a>."
+
+#. Instructions on how to resolve issue with SANE scanner drivers
+#: src/app-window.vala:1643
+msgid ""
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">SANE mailing list</a>."
+msgstr ""
+"Verificare che lo scanner è <a href=\"http://www.sane-project.org/sane-"
+"supported-devices.html\">supportato da SANE</a>, altrimenti segnalare il "
+"problema nella <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/"
+"listinfo/sane-devel\">mailing list di SANE</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1581
+#: src/app-window.vala:1647
 msgid "You appear to have a Samsung scanner."
-msgstr "Sembra essere uno scanner «Samsung»."
+msgstr "Sembra che si possegga uno scanner Samsung."
 
-#. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1583
+#. Instructions on how to install Samsung scanner drivers.
+#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
+#: src/app-window.vala:1650
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.epson.com"
+#| "\">Epson website</a>."
 msgid ""
-"Drivers for this are available on the <a href=\"http://samsung.com/support"
-"\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"I driver per questo dispositivo sono disponibili sul <a href=\"http://"
-"samsung.com/support\">sito web Samsung</a>."
+"I driver per questo dispositivo sono disponibili sul <a href=\"https://"
+"support.hp.com\">sito web di HP</a>. (HP ha acquisito il reparto aziendale "
+"delle stampanti Samsung)"
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1587
+#: src/app-window.vala:1655
 msgid "You appear to have an HP scanner."
-msgstr "Sembra essere uno scanner «HP»."
+msgstr "Sembra che si possegga uno scanner HP."
+
+#. Instructions on how to install HP scanner drivers.
+#. smfp is rebranded and slightly modified Samsung devices,
+#. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
+#. It require custom drivers, not available in hpaio package
+#: src/app-window.vala:1663
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.epson.com"
+#| "\">Epson website</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a>."
+msgstr ""
+"I driver per questo dispositivo sono disponibili sul <a href=\"https://"
+"support.hp.com\">sito web di HP</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1592
+#: src/app-window.vala:1667
 msgid "You appear to have an Epson scanner."
-msgstr "Sembra essere uno scanner «Epson»."
+msgstr "Sembra che si possegga uno scanner Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1594
+#: src/app-window.vala:1669
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
 msgstr ""
-"I driver sono disponibili dal <a href=\"http://support.epson.com\">sito web "
-"Epson</a>."
+"I driver per questo dispositivo sono disponibili sul <a href=\"http://"
+"support.epson.com\">sito web di Epson</a>."
+
+#. Message to indicate an Lexmark scanner has been detected
+#: src/app-window.vala:1673
+#| msgid "You appear to have an HP scanner."
+msgid "You appear to have an Lexmark scanner."
+msgstr "Sembra che si possegga uno scanner Lexmark."
+
+#. Instructions on how to install Linux scanner drivers
+#: src/app-window.vala:1675
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.brother.com"
+#| "\">Brother website</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.lexmark.com"
+"\">Lexmark website</a>."
+msgstr ""
+"I driver per questo dispositivo sono disponibili sul <a href=\"http://"
+"support.lexmark.com\">sito web di Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1598
+#: src/app-window.vala:1679
 msgid "Install drivers"
 msgstr "Installare i driver"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1631
+#: src/app-window.vala:1713
 msgid "Once installed you will need to restart this app."
 msgstr ""
 "Una volta completata l'installazione sarà necessario riavviare "
 "l'applicazione."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1644
+#: src/app-window.vala:1726
 msgid "Installing drivers…"
 msgstr "Installazione driver…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1652
+#: src/app-window.vala:1734
 msgid "Drivers installed successfully!"
 msgstr "Driver installati con successo."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1662
+#: src/app-window.vala:1744
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Installazione dei driver non riuscita (codice errore %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1668
+#: src/app-window.vala:1750
 msgid "Failed to install drivers."
 msgstr "Installazione driver non riuscita."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1675
+#: src/app-window.vala:1757
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "È necessario installare il pacchetto %s."
 msgstr[1] "È necessario installare i pacchetti %s."
 
-#: src/app-window.vala:1790
+#: src/app-window.vala:1872
 msgid "Email"
 msgstr "Posta elettronica"
 
-#: src/app-window.vala:1791
+#: src/app-window.vala:1873
 msgid "Print"
 msgstr "Stampa"
 
-#: src/app-window.vala:1792
+#: src/app-window.vala:1874
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "Riordina pagine"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1793 src/preferences-dialog.ui:44
+#: src/app-window.vala:1875 src/preferences-dialog.ui:44
 msgid "Preferences"
 msgstr "Preferenze"
 
-#: src/app-window.vala:1796
+#: src/app-window.vala:1878
 msgid "Keyboard Shortcuts"
 msgstr "Scorciatoie da tastiera"
 
-#: src/app-window.vala:1797
+#: src/app-window.vala:1879
 msgid "Help"
 msgstr "Aiuto"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1806
+#: src/app-window.vala:1888
 msgid "Start Again…"
 msgstr "Avvia di nuovo…"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1825
+#: src/app-window.vala:1907
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Ruota la pagina a sinistra (senso antiorario)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1834
+#: src/app-window.vala:1916
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Ruota la pagina a destra (senso orario)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1846
+#: src/app-window.vala:1928
 msgid "Crop the selected page"
 msgstr "Ritaglia la pagina selezionata"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1864
+#: src/app-window.vala:1946
 msgid "Delete the selected page"
 msgstr "Elimina la pagina selezionata"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2038
+#: src/app-window.vala:2120
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -804,10 +886,15 @@ msgstr "Mostra l'aiuto"
 
 #: src/help-overlay.ui:140
 msgctxt "shortcut window"
+msgid "Open menu"
+msgstr "Apre il menù"
+
+#: src/help-overlay.ui:147
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Scorciatoie da tastiera"
 
-#: src/help-overlay.ui:147
+#: src/help-overlay.ui:154
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Esce"
@@ -963,17 +1050,32 @@ msgid "Unable to connect to scanner"
 msgstr "Impossibile connettersi allo scanner"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1300
+#: src/scanner.vala:1293
 msgid "Document feeder empty"
 msgstr "Alimentatore dei documenti vuoto"
 
+#. Out of memory error message with help instruction.
+#. Message written in Pango text markup language,
+#. A carriage return makes a line break, <tt> tag makes a monospace font
+#: src/scanner.vala:1301
+msgid ""
+"Insufficient memory to perform scan.\n"
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
+"<tt>Preferences</tt> menu. For some scanners when scanning in high "
+"resolution, the scan size is restricted."
+msgstr ""
+"Memoria insufficiente per eseguire la scansione.\n"
+"Provare a ridurre la <tt>risoluzione</tt> o la <tt>dimensione della pagina</"
+"tt> nel menù delle <tt>preferenze</tt>. Per alcuni scanner durante la "
+"scansione ad alta risoluzione, la dimensione della scansione è limitata."
+
 #. Error display when unable to start scan
-#: src/scanner.vala:1307
+#: src/scanner.vala:1314
 msgid "Unable to start scan"
 msgstr "Impossibile avviare l'acquisizione"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1320 src/scanner.vala:1427
+#: src/scanner.vala:1327 src/scanner.vala:1434
 msgid "Error communicating with scanner"
 msgstr "Errore di comunicazione con lo scanner"
 
@@ -992,22 +1094,22 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Corregge file PDF generati con una vecchia versione dell'applicazione"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:393
+#: src/simple-scan.vala:1755
 msgid "Failed to scan"
 msgstr "Acquisizione non riuscita"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:408
+#: src/simple-scan.vala:1770
 msgid "Scan in progress"
 msgstr "Acquisizione in corso"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:585
+#: src/simple-scan.vala:1954
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[DISPOSITIVO…] - Strumento per l'acquisizione"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:596
+#: src/simple-scan.vala:1965
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
