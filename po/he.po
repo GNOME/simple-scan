@@ -2,540 +2,525 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# Yosef Or Boczko <yoseforb@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2017-04-16 08:54-0400\n"
-"PO-Revision-Date: 2017-03-29 06:28+0000\n"
-"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <he@li.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
+"POT-Creation-Date: 2020-06-17 11:40+0000\n"
+"PO-Revision-Date: 2020-09-28 23:37+0300\n"
+"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
+"Language-Team: Hebrew <yoseforb@gmail.com>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Launchpad (build 18361)\n"
+"X-Generator: Gtranslator 3.36.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#. Button to submit authorization dialog
-#: src/simple-scan.ui:24
-msgid "_Authorize"
-msgstr "_אימות"
+#: data/org.gnome.SimpleScan.gschema.xml:11
+msgid "Device to scan from"
+msgstr "Device to scan from"
 
-#. Label beside username entry
-#: src/simple-scan.ui:102
-msgid "_Username for resource:"
-msgstr "_שם המשתמש עבור המשאב:"
+#: data/org.gnome.SimpleScan.gschema.xml:12
+msgid "SANE device to acquire images from."
+msgstr "SANE device to acquire images from."
 
-#. Label beside password entry
-#: src/simple-scan.ui:117
-msgid "_Password:"
-msgstr "_ססמה:"
+#: data/org.gnome.SimpleScan.gschema.xml:20
+msgid "Type of document being scanned"
+msgstr "Type of document being scanned"
 
-#. Combo box label for scanning both sides of a page
-#: src/simple-scan.ui:188
-msgid "Front and Back"
-msgstr "גב וחזית"
+#: data/org.gnome.SimpleScan.gschema.xml:21
+msgid ""
+"Type of document being scanned. This setting decides on the scan resolution, "
+"colors and post-processing."
+msgstr ""
+"Type of document being scanned. This setting decides on the scan resolution, "
+"colors and post-processing."
 
-#. Combo box label for scanning the front side of a page
-#: src/simple-scan.ui:192
-msgid "Front"
-msgstr "חזית"
+#: data/org.gnome.SimpleScan.gschema.xml:25
+msgid "Width of paper in tenths of a mm"
+msgstr "Width of paper in tenths of a mm"
 
-#. Combo box label for scanning the back side of a page
-#: src/simple-scan.ui:196
-msgid "Back"
-msgstr "גב"
+#: data/org.gnome.SimpleScan.gschema.xml:26
+msgid ""
+"The width of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+"The width of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+
+#: data/org.gnome.SimpleScan.gschema.xml:30
+msgid "Height of paper in tenths of a mm"
+msgstr "Height of paper in tenths of a mm"
+
+#: data/org.gnome.SimpleScan.gschema.xml:31
+msgid ""
+"The height of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+"The height of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+
+#: data/org.gnome.SimpleScan.gschema.xml:35
+msgid "Brightness of scan"
+msgstr "בהירות הסריקה"
+
+#: data/org.gnome.SimpleScan.gschema.xml:36
+msgid "The brightness adjustment from -100 to 100 (0 being none)."
+msgstr "התאמת הבהירות מ־‎-100 ועד 100 (0 - ללא השפעה)"
+
+#: data/org.gnome.SimpleScan.gschema.xml:40
+msgid "Contrast of scan"
+msgstr "ניגודיות הסריקה"
+
+#: data/org.gnome.SimpleScan.gschema.xml:41
+msgid "The contrast adjustment from -100 to 100 (0 being none)."
+msgstr "התאמת הניגודיות מ־‎-100 ועד 100 (0 - ללא השפעה)"
+
+#: data/org.gnome.SimpleScan.gschema.xml:45
+msgid "Resolution for text scans"
+msgstr "Resolution for text scans"
+
+#: data/org.gnome.SimpleScan.gschema.xml:46
+msgid "The resolution in dots-per-inch to use when scanning text."
+msgstr "The resolution in dots-per-inch to use when scanning text."
+
+#: data/org.gnome.SimpleScan.gschema.xml:50
+#| msgid "Resolution for text scans"
+msgid "Resolution for image scans"
+msgstr "Resolution for image scans"
+
+#: data/org.gnome.SimpleScan.gschema.xml:51
+#| msgid "The resolution in dots-per-inch to use when scanning text."
+msgid "The resolution in dots-per-inch to use when scanning images."
+msgstr "The resolution in dots-per-inch to use when scanning images."
+
+#: data/org.gnome.SimpleScan.gschema.xml:55
+msgid "Page side to scan"
+msgstr "Page side to scan"
+
+#: data/org.gnome.SimpleScan.gschema.xml:56
+msgid "The page side to scan."
+msgstr "The page side to scan."
+
+#: data/org.gnome.SimpleScan.gschema.xml:60
+msgid "Directory to save files to"
+msgstr "Directory to save files to"
+
+#: data/org.gnome.SimpleScan.gschema.xml:61
+msgid ""
+"The directory to save files to. Defaults to the documents directory if unset."
+msgstr ""
+"The directory to save files to. Defaults to the documents directory if unset."
+
+#: data/org.gnome.SimpleScan.gschema.xml:65
+msgid "File format that is used for saving image files"
+msgstr "File format that is used for saving image files"
+
+#: data/org.gnome.SimpleScan.gschema.xml:66
+msgid ""
+"MIME type that is used for saving image files. Examples of supported MIME "
+"types: image/jpeg, image/png, application/pdf"
+msgstr ""
+"MIME type that is used for saving image files. Examples of supported MIME "
+"types: image/jpeg, image/png, application/pdf"
+
+#: data/org.gnome.SimpleScan.gschema.xml:71
+msgid "Quality value to use for JPEG compression"
+msgstr "ערך האיכות לשימוש לדחיסת JPEG"
+
+#: data/org.gnome.SimpleScan.gschema.xml:72
+msgid "Quality value to use for JPEG compression."
+msgstr "ערך האיכות לשימוש לדחיסת JPEG."
+
+#: data/org.gnome.SimpleScan.gschema.xml:77
+msgid "Delay in millisecond between pages"
+msgstr "Delay in millisecond between pages"
+
+#: data/org.gnome.SimpleScan.gschema.xml:78
+msgid "Delay in millisecond between pages."
+msgstr "Delay in millisecond between pages."
 
 #. Title of scan window
-#: src/simple-scan.ui:231 src/simple-scan.ui:815 data/simple-scan.desktop.in:3
-#: data/simple-scan.appdata.xml.in:6
-msgid "Simple Scan"
-msgstr "סריקה פשוטה"
-
-#. Label on document menu (contains actions for this document, e.g. save, print)
-#: src/simple-scan.ui:247
-msgid "_Document"
-msgstr "מ_סמך"
-
-#. Scan menu item
-#: src/simple-scan.ui:266
-msgid "Sc_an"
-msgstr "_סריקה"
-
-#. Scan menu item to scan a single page from the scanner
-#. Toolbar scan menu item to scan a single page from the scanner
-#: src/simple-scan.ui:279 src/simple-scan.ui:1343 src/simple-scan.ui:1402
-msgid "Single _Page"
-msgstr "עמוד _בודד"
-
-#. Scan menu item to scan all pages from a document feeder
-#. Toolbar scan menu item to scan all pages from a document feeder
-#: src/simple-scan.ui:289 src/simple-scan.ui:1352 src/simple-scan.ui:1411
-msgid "All Pages From _Feeder"
-msgstr "כל הדפים מהמ_זין"
-
-#. Scan menu item to scan continuously from the flatbed
-#. Toolbar scan menu item to scan continuously from the flatbed
-#: src/simple-scan.ui:299 src/simple-scan.ui:1361 src/simple-scan.ui:1420
-msgid "_Multiple Pages From Flatbed"
-msgstr ""
-
-#. Menu entry to stop current scan
-#: src/simple-scan.ui:310
-msgid "_Stop Scan"
-msgstr "ע_צירת הסריקה"
-
-#: src/simple-scan.ui:326 src/simple-scan.ui:1376 src/simple-scan.ui:1435
-msgid "Text"
-msgstr "טקסט"
-
-#: src/simple-scan.ui:336 src/simple-scan.ui:1386 src/simple-scan.ui:1445
-msgid "Photo"
-msgstr "צילום"
-
-#. Menu item to reorder pages
-#. Title of dialog to reorder pages
-#: src/simple-scan.ui:352 src/ui.vala:1247 src/ui.vala:1891
-msgid "Reorder Pages"
-msgstr "סידור הדפים מחדש"
-
-#. Label on email menu item
-#: src/simple-scan.ui:371
-msgid "_Email"
-msgstr "_דוא״ל"
-
-#. Page menu (contains action for each page, e.g. delete, crop)
-#: src/simple-scan.ui:436
-msgid "_Page"
-msgstr "_עמוד"
-
-#. Menu item to rotate page to left (anti-clockwise)
-#: src/simple-scan.ui:446
-msgid "Rotate _Left"
-msgstr "סיבוב _שמאלה"
-
-#. Menu item to rotate page to right (clockwise)
-#: src/simple-scan.ui:456
-msgid "Rotate _Right"
-msgstr "סיבוב _ימינה"
-
-#. Label for page crop submenu
-#: src/simple-scan.ui:466
-msgid "_Crop"
-msgstr "_חיתוך"
-
-#. Radio button for no crop
-#: src/simple-scan.ui:476
-msgid "_None"
-msgstr "_ללא"
-
-#. Radio button for cropping page to A4 size
-#: src/simple-scan.ui:487
-msgid "A_4"
-msgstr "A_4"
-
-#. Radio button for cropping page to A5 size
-#: src/simple-scan.ui:498
-msgid "A_5"
-msgstr "A_5"
-
-#. Radio button for cropping page to A6 size
-#: src/simple-scan.ui:509
-msgid "A_6"
-msgstr "A_6"
-
-#. Radio button for cropping page to US letter size
-#: src/simple-scan.ui:520
-msgid "_Letter"
-msgstr "_מכתב"
-
-#. Radio button for cropping to page to US legal size
-#: src/simple-scan.ui:531
-msgid "Le_gal"
-msgstr "_פוליו"
-
-#. Radio button for cropping page to 4x6 inch
-#: src/simple-scan.ui:542
-msgid "4×6"
-msgstr "4×6"
-
-#. Radio button for cropping to custom page size
-#: src/simple-scan.ui:553
-msgid "_Custom"
-msgstr "ה_תאמה אישית"
-
-#. Menu item to rotate the crop area
-#: src/simple-scan.ui:571
-msgid "_Rotate Crop"
-msgstr "_סיבוב חיתוך"
-
-#. Menu item to move the selected page to the left
-#: src/simple-scan.ui:584
-msgid "Move Left"
-msgstr "הזזה שמאלה"
-
-#. Menu item to move the selected page to the right
-#: src/simple-scan.ui:593
-msgid "Move Right"
-msgstr "הזזה ימינה"
-
-#. Label on help menu
-#: src/simple-scan.ui:630
-msgid "_Help"
-msgstr "ע_זרה"
-
-#. Help|Contents menu
-#: src/simple-scan.ui:638
-msgid "_Contents"
-msgstr "_תוכן"
-
-#. Tooltip for new document button
-#: src/simple-scan.ui:680 src/simple-scan.ui:891
-msgid "Start a new document"
-msgstr "התחלת מסמך חדש"
-
-#: src/simple-scan.ui:681
-msgid "New"
-msgstr "חדש"
-
-#. Tooltip for scan toolbar button
-#: src/simple-scan.ui:695 src/simple-scan.ui:842
-msgid "Scan a single page from the scanner"
-msgstr "סריקת עמוד בודד מהסורק"
-
-#. Label on scan toolbar item
-#: src/simple-scan.ui:697 src/simple-scan.ui:843
-msgid "Scan"
-msgstr "סריקה"
-
-#. Tooltip for save toolbar button
-#: src/simple-scan.ui:713 src/simple-scan.ui:870
-msgid "Save document to a file"
-msgstr "שמירת המסמך לקובץ"
-
-#: src/simple-scan.ui:715 src/ui.vala:1892
-msgid "Save"
-msgstr "שמירה"
-
-#. Tooltip for stop button
-#: src/simple-scan.ui:730 src/simple-scan.ui:830
-msgid "Stop the current scan"
-msgstr "עצירת הסריקה הנוכחית"
-
-#: src/simple-scan.ui:731 src/simple-scan.ui:831
-msgid "Stop"
-msgstr "עצירה"
-
-#. Tooltip for rotate left (counter-clockwise) button
-#: src/simple-scan.ui:755 src/simple-scan.ui:942
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "סיבוב העמוד לשמאל (נגד כיוון השעון)"
-
-#. Label on rotate page left (anti-clockwise) item
-#: src/simple-scan.ui:756
-msgid "Rotate Left"
-msgstr "סיבוב שמאלה"
-
-#. Tooltip for rotate right (clockwise) button
-#: src/simple-scan.ui:770 src/simple-scan.ui:920
-msgid "Rotate the page to the right (clockwise)"
-msgstr "סיבוב העמוד לימין (עם כיוון השעון)"
-
-#. Label on rotate page right (clockwise) item
-#: src/simple-scan.ui:771
-msgid "Rotate Right"
-msgstr "סיבוב ימינה"
-
-#: src/simple-scan.ui:785 src/simple-scan.ui:969
-msgid "Crop the selected page"
-msgstr "חיתוך העמוד שנבחר"
-
-#: src/simple-scan.ui:787
-msgid "Crop"
-msgstr "חיתוך"
-
-#. Title of preferences dialog
-#: src/simple-scan.ui:1003 src/ui.vala:1898
-msgid "Preferences"
-msgstr "העדפות"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1054
-msgid "Scan S_ource:"
-msgstr "_מקור הסריקה:"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1085
-msgid "_Text Resolution:"
-msgstr "ר_זולוציית הטקסט:"
-
-#. Label beside scan source combo box
-#: src/simple-scan.ui:1101
-msgid "_Photo Resolution:"
-msgstr "_רזולוציית התמונה:"
-
-#. Label beside scan side combo box
-#: src/simple-scan.ui:1145
-msgid "Scan Side:"
-msgstr "הצד הנסרק:"
-
-#. Label beside page size combo box
-#: src/simple-scan.ui:1175
-msgid "Page Size:"
-msgstr "מידות הדף:"
-
-#. Label beside brightness scale
-#: src/simple-scan.ui:1205
-msgid "Brightness:"
-msgstr "בהירות:"
-
-#. Label beside contrast scale
-#: src/simple-scan.ui:1235
-msgid "Contrast:"
-msgstr "ניגודיות:"
-
-#. Label beside quality scale
-#: src/simple-scan.ui:1266
-msgid "Quality:"
-msgstr "איכות:"
-
-#. Label beside page delay scale
-#: src/simple-scan.ui:1297
-msgid "Delay between pages:"
-msgstr ""
-
-#: data/simple-scan.desktop.in:4
+#. Set HeaderBar title here because Glade doesn't keep it translated
+#. https://bugzilla.gnome.org/show_bug.cgi?id=782753
+#. Title of scan window
+#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: src/app-window.ui:498 src/app-window.vala:1571 src/app-window.vala:1847
 msgid "Document Scanner"
 msgstr "סורק מסמכים"
 
-#: data/simple-scan.desktop.in:5 data/simple-scan.appdata.xml.in:7
-msgid "Scan Documents"
-msgstr "סריקת מסמכים"
+#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+msgid "Make a digital copy of your photos and documents"
+msgstr "יצירת עותק ממוחשב של התמונות והמסמכים שלך"
 
+#: data/simple-scan.appdata.xml.in:9
+#| msgid ""
+#| "A really easy way to scan both documents and photos. You can crop out the "
+#| "bad parts of a photo and rotate it if it is the wrong way round. You can "
+#| "print your scans, export them to pdf, or save them in a range of image "
+#| "formats."
+msgid ""
+"A really easy way to scan both text and images. You can crop out the bad "
+"parts of an image and rotate it if it is the wrong way round. You can print "
+"your scans, export them to pdf, or save them in a range of image formats."
+msgstr ""
+"דרך פשוטה ביותר לסריקת מסמכים ותמונות. ניתן לגזור את החלקים שאינם נחוצים "
+"בתמונה ולהטות אם הם בכיוון הלא נכון. ניתן להדפיס את הסריקות שלך, לייצא אותן "
+"ל־PDF או לשמור אותן במגוון רחב של תסדירי תמונה."
+
+#: data/simple-scan.appdata.xml.in:14
+#| msgid ""
+#| "Simple Scan uses the SANE framework to support most existing scanners."
+msgid "This app uses the SANE framework to support most existing scanners."
+msgstr "יישום זה משתמש בסביבת העבודה SANE לטובת תמיכה ברוב הסורקים הזמינים."
+
+#: data/simple-scan.appdata.xml.in:24
+msgid "The GNOME Project"
+msgstr "מיזם GNOME"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
 msgid "scan;scanner;flatbed;adf;"
 msgstr "סורק;סריקה;משטח;מזין דפים;"
 
-#: data/simple-scan.desktop.in:8
-msgid "scanner"
-msgstr ""
+#. Menu item to rotate page to left (anti-clockwise)
+#: src/app-window.ui:12
+msgid "Rotate _Left"
+msgstr "סיבוב _שמאלה"
 
-#: data/simple-scan.appdata.xml.in:9
-msgid ""
-"A really easy way to scan both documents and photos. You can crop out the "
-"bad parts of a photo and rotate it if it is the wrong way round. You can "
-"print your scans, export them to pdf, or save them in a range of image "
-"formats."
-msgstr ""
-"דרך פשוטה ביותר לסריקת מסמכים ותמונות. ניתן לגזור את החלקים שאינם נחוצים "
-"בתמונה ולהטות אם היא בכיוון הלא נכון. ניתן להדפיס את הסריקות שלך, לייצא אותן "
-"ל־PDF או לשמור אותן במגוון רחב של תסדירי תמונה."
+#. Menu item to rotate page to right (clockwise)
+#: src/app-window.ui:22
+msgid "Rotate _Right"
+msgstr "סיבוב _ימינה"
 
-#: data/simple-scan.appdata.xml.in:14
-msgid ""
-"Simple Scan uses the SANE framework to support most existing scanners."
-msgstr ""
-"סריקה פשוטה משתמשת בסביבת העבודה SANE לטובת תמיכה ברוב הסורקים הזמינים."
+#. Label for page crop submenu
+#: src/app-window.ui:32
+msgid "_Crop"
+msgstr "_חיתוך"
 
-#. Error displayed when no scanners to scan with
-#: src/scanner.vala:844
-msgid "No scanners available.  Please connect a scanner."
-msgstr "אין סורקים זמינים. נא לחבר סורק."
+#. Radio button for no crop
+#: src/app-window.ui:42
+msgid "_None"
+msgstr "_ללא"
 
-#. Error displayed when cannot connect to scanner
-#: src/scanner.vala:874
-msgid "Unable to connect to scanner"
-msgstr "לא ניתן להתחבר לסורק"
+#. Radio button for cropping page to A4 size
+#: src/app-window.ui:53
+msgid "A_4"
+msgstr "A_4"
 
-#. Error display when unable to start scan
-#: src/scanner.vala:1227
-msgid "Unable to start scan"
-msgstr "לא ניתן להתחיל בסריקה"
+#. Radio button for cropping page to A5 size
+#: src/app-window.ui:64
+msgid "A_5"
+msgstr "A_5"
 
-#. Error displayed when communication with scanner broken
-#: src/scanner.vala:1240 src/scanner.vala:1340
-msgid "Error communicating with scanner"
-msgstr "אירעה שגיאה בעת ההתקשרות עם הסורק"
+#. Radio button for cropping page to A6 size
+#: src/app-window.ui:75
+msgid "A_6"
+msgstr "A_6"
 
-#. Help string for command line --version flag
-#: src/simple-scan.vala:21
-msgid "Show release version"
-msgstr "Show release version"
+#. Radio button for cropping page to US letter size
+#: src/app-window.ui:86
+msgid "_Letter"
+msgstr "_מכתב"
 
-#. Help string for command line --debug flag
-#: src/simple-scan.vala:24
-msgid "Print debugging messages"
-msgstr "Print debugging messages"
+#. Radio button for cropping to page to US legal size
+#: src/app-window.ui:97
+msgid "Le_gal"
+msgstr "_פוליו"
 
-#: src/simple-scan.vala:26
-msgid "Fix PDF files generated with older versions of Simple Scan"
-msgstr "תיקון קובצי PDF שנוצרו באמצעות גרסאות ישנות יותר של Simple Scan"
+#. Radio button for cropping page to 4x6 inch
+#: src/app-window.ui:108
+msgid "4×6"
+msgstr "4×6"
 
-#. Title of error dialog when scan failed
-#: src/simple-scan.vala:389
-msgid "Failed to scan"
-msgstr "הסריקה נכשלה"
+#. Radio button for cropping page to A3
+#: src/app-window.ui:119
+#| msgid "A_4"
+msgid "A_3"
+msgstr "A_3"
 
-#. Arguments and description for --help text
-#: src/simple-scan.vala:619
-msgid "[DEVICE...] - Scanning utility"
-msgstr "[DEVICE...] - Scanning utility"
+#. Radio button for cropping to custom page size
+#: src/app-window.ui:130
+msgid "_Custom"
+msgstr "ה_תאמה אישית"
 
-#. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:630
-#, c-format
-msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
-"Run '%s --help' to see a full list of available command line options."
+#. Menu item to rotate the crop area
+#: src/app-window.ui:148
+msgid "_Rotate Crop"
+msgstr "_סיבוב חיתוך"
 
-#: src/ui.vala:332 src/ui.vala:1655 src/ui.vala:1935
+#. Menu item to move the selected page to the left
+#: src/app-window.ui:161
+msgid "Move Left"
+msgstr "הזזה שמאלה"
+
+#. Menu item to move the selected page to the right
+#: src/app-window.ui:170
+msgid "Move Right"
+msgstr "הזזה ימינה"
+
+#: src/app-window.ui:252
+#| msgid "Single _Page"
+msgid "_Single Page"
+msgstr "עמוד _בודד"
+
+#: src/app-window.ui:303
+msgid "All Pages From _Feeder"
+msgstr "כל הדפים מהמ_זין"
+
+#: src/app-window.ui:354
+msgid "_Multiple Pages From Flatbed"
+msgstr "_הרבה דפים מסורק שטוח"
+
+#: src/app-window.ui:405
+#| msgid "Text"
+msgid "_Text"
+msgstr "_טקסט"
+
+#: src/app-window.ui:456
+msgid "_Image"
+msgstr "_תמונה"
+
+#: src/app-window.ui:476
+#| msgid "Preferences"
+msgid "_Preferences"
+msgstr "_העדפות"
+
+#. Tooltip for stop button
+#: src/app-window.ui:516
+msgid "Stop the current scan"
+msgstr "עצירת הסריקה הנוכחית"
+
+#: src/app-window.ui:540
+msgid "S_top"
+msgstr "_עצירה"
+
+#. Tooltip for scan toolbar button
+#: src/app-window.ui:569
+msgid "Scan a single page from the scanner"
+msgstr "סריקת עמוד בודד מהסורק"
+
+#: src/app-window.ui:594
+#| msgid "Scan"
+msgid "_Scan"
+msgstr "_סריקה"
+
+#. Tooltip for save toolbar button
+#: src/app-window.ui:697
+msgid "Save document to a file"
+msgstr "שמירת המסמך לקובץ"
+
+#: src/app-window.vala:227 src/app-window.vala:1679
 msgid "_Close"
 msgstr "ס_גירה"
 
-#. Label in authorization dialog.  '%s' is replaced with the name of the resource requesting authorization
-#: src/ui.vala:341
+#. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
+#: src/app-window.vala:236
 #, c-format
-msgid "Username and password required to access '%s'"
-msgstr "נדרשים שם משתמש וססמה כדי לגשת אל '%s'"
+#| msgid "Username and password required to access '%s'"
+msgid "Username and password required to access “%s”"
+msgstr "נדרשים שם משתמש וססמה כדי לגשת אל „%s”"
 
-#. Warning displayed when no scanners are detected
-#: src/ui.vala:389
-msgid "No scanners detected"
-msgstr "לא נמצאו סורקים"
+#. Label shown when searching for scanners
+#: src/app-window.vala:253
+msgid "Searching for Scanners…"
+msgstr "מחפש סורקים…"
 
-#. Hint to user on why there are no scanners detected
-#: src/ui.vala:391
-msgid "Please check your scanner is connected and powered on"
-msgstr "יש לבדוק כי הסורק מחובר ומופעל"
+#. Label shown when detected a scanner
+#: src/app-window.vala:261
+#| msgid "Failed to scan"
+msgid "Ready to Scan"
+msgstr "מוכן לסריקה"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/ui.vala:396
+#: src/app-window.vala:270
 msgid "Additional software needed"
 msgstr "נדרשות תכניות נוספות"
 
 #. Instructions to install driver software
-#: src/ui.vala:398
-msgid "You need to install driver software for your scanner."
-msgstr "עליך להתקין את מנהל ההתקן של הסורק שלך."
+#: src/app-window.vala:272
+#| msgid "You need to install driver software for your scanner."
+msgid ""
+"You need to <a href=\"install-firmware\">install driver software</a> for "
+"your scanner."
+msgstr ""
+"עליך <a href=\"install-firmware\">להתקין את מנהל ההתקן</a> של הסורק שלך."
+
+#. Warning displayed when no scanners are detected
+#: src/app-window.vala:279
+msgid "No scanners detected"
+msgstr "לא נמצאו סורקים"
+
+#. Hint to user on why there are no scanners detected
+#: src/app-window.vala:281
+msgid "Please check your scanner is connected and powered on"
+msgstr "יש לבדוק כי הסורק מחובר ומופעל"
+
+#. Contents of dialog that shows if autosaved book should be loaded.
+#: src/app-window.vala:383
+msgid "An autosaved book exists. Do you want to open it?"
+msgstr "ספר שנשמר אוטומטית קיים. האם ברצונך לפתוח אותו?"
 
 #. Save dialog: Dialog title
-#: src/ui.vala:510
-msgid "Save As..."
-msgstr "שמירה בשם..."
+#: src/app-window.vala:457
+#| msgid "Save As..."
+msgid "Save As…"
+msgstr "שמירה בשם…"
 
-#: src/ui.vala:513 src/ui.vala:648 src/ui.vala:723
-msgid "_Cancel"
-msgstr "_ביטול"
-
-#: src/ui.vala:514 src/ui.vala:724
+#: src/app-window.vala:460 src/app-window.vala:756
 msgid "_Save"
 msgstr "_שמירה"
 
-#. Default filename to use when saving document
-#: src/ui.vala:522
-msgid "Scanned Document.pdf"
-msgstr "מסמך סרוק.pdf"
+#: src/app-window.vala:461 src/app-window.vala:643 src/app-window.vala:755
+msgid "_Cancel"
+msgstr "_ביטול"
 
-#. Save dialog: Filter name to show only image files
-#: src/ui.vala:528
+#. Default filename to use when saving document.
+#. To that filename the extension will be added, eg. "Scanned Document.pdf"
+#: src/app-window.vala:471
+msgid "Scanned Document"
+msgstr "מסמך שנסרק"
+
+#. Save dialog: Filter name to show only supported image files
+#: src/app-window.vala:477
 msgid "Image Files"
 msgstr "קובצי תמונה"
 
 #. Save dialog: Filter name to show all files
-#: src/ui.vala:534
+#: src/app-window.vala:487
 msgid "All Files"
 msgstr "כל הקבצים"
 
 #. Save dialog: Label for saving in PDF format
-#: src/ui.vala:543
+#: src/app-window.vala:496
 msgid "PDF (multi-page document)"
-msgstr "PDF (מסמך מרובה עמודים)"
+msgstr "‏PDF (מסמך מרובה עמודים)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/ui.vala:549
+#: src/app-window.vala:502
 msgid "JPEG (compressed)"
-msgstr "JPEG (דחוס)"
+msgstr "‏JPEG ‏(דחוס)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/ui.vala:555
+#: src/app-window.vala:508
 msgid "PNG (lossless)"
-msgstr "PNG (ללא אבדן נתונים)"
+msgstr "‏PNG (ללא אבדן נתונים)"
 
-#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG)
-#: src/ui.vala:564
+#. Save dialog: Label for sabing in WEBP format
+#: src/app-window.vala:515
+#| msgid "JPEG (compressed)"
+msgid "WebP (compressed)"
+msgstr "‏WebP ‏(דחוס)"
+
+#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
+#: src/app-window.vala:526
 msgid "File format:"
 msgstr "תבנית הקובץ:"
 
+#. Label in save dialog beside compression slider
+#: src/app-window.vala:549
+msgid "Compression:"
+msgstr "דחיסה:"
+
+#: src/app-window.vala:556
+#| msgid "Minimum"
+msgid "Minimum size"
+msgstr "גודל מזערי"
+
+#: src/app-window.vala:560
+msgid "Full detail"
+msgstr "פרטים מלאים"
+
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/ui.vala:647
+#: src/app-window.vala:642
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
-msgstr ""
+msgstr "קובץ בשם „%s” כבר קיים. האם ברצונך להחליף אותו?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/ui.vala:650
+#: src/app-window.vala:645
 msgid "_Replace"
-msgstr ""
+msgstr "_החלפה"
+
+#: src/app-window.vala:712
+msgid "Saving"
+msgstr "שמירה"
 
 #. Title of error dialog when save failed
-#: src/ui.vala:698
+#: src/app-window.vala:729
 msgid "Failed to save file"
 msgstr "שמירת הקובץ נכשלה"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:721
-msgid "If you don't save, changes will be permanently lost."
-msgstr "ללא שמירה, השינויים יאבדו לעד."
+#: src/app-window.vala:753
+#| msgid "If you don't save, changes will be permanently lost."
+msgid "If you don’t save, changes will be permanently lost."
+msgstr "אם לא תתבצע שמירה, השינויים יאבדו לעד."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:763
+#: src/app-window.vala:789
 msgid "Save current document?"
 msgstr "האם לשמור את המסמך הנוכחי?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/ui.vala:765
+#: src/app-window.vala:791
 msgid "Discard Changes"
 msgstr "התעלמות מהשינויים"
 
+#. Label shown when scan started
+#: src/app-window.vala:826
+#| msgid "Change _Scanner"
+msgid "Contacting scanner…"
+msgstr "יוצר קשר עם הסורק…"
+
 #. Error message display when unable to save image for preview
-#: src/ui.vala:1056
+#: src/app-window.vala:1095
 msgid "Unable to save image for preview"
 msgstr "לא ניתן לשמור את התמונה לתצוגה מקדימה"
 
 #. Error message display when unable to preview image
-#: src/ui.vala:1068
+#: src/app-window.vala:1107
 msgid "Unable to open image preview application"
 msgstr "לא ניתן לפתוח את היישום להצגה מקדימה של תמונות"
 
+#. Title of dialog to reorder pages
+#: src/app-window.vala:1269
+#| msgid "Reorder Pages"
+msgctxt "dialog title"
+msgid "Reorder Pages"
+msgstr "סידור הדפים מחדש"
+
 #. Label on button for combining sides in reordering dialog
-#: src/ui.vala:1270
+#: src/app-window.vala:1292
 msgid "Combine sides"
 msgstr "שילוב צדדים"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/ui.vala:1280
+#: src/app-window.vala:1302
 msgid "Combine sides (reverse)"
 msgstr "שילוב צדדים (הפוך)"
 
 #. Label on button for reversing in reordering dialog
-#: src/ui.vala:1290
+#: src/app-window.vala:1312
 msgid "Reverse"
 msgstr "היפוך"
 
 #. Label on button for cancelling page reordering dialog
-#: src/ui.vala:1300
+#: src/app-window.vala:1322
 msgid "Keep unchanged"
 msgstr "להשאיר ללא שינוי"
 
 #. Error message displayed when unable to launch help browser
-#: src/ui.vala:1504
+#: src/app-window.vala:1546
 msgid "Unable to open help file"
 msgstr "לא ניתן לפתוח את קובץ העזרה"
 
 #. The license this software is under (GPL3+)
-#: src/ui.vala:1525
+#: src/app-window.vala:1561
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -562,16 +547,17 @@ msgstr ""
 "ניתן לעיין ב־<http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/ui.vala:1528
-msgid "About Simple Scan"
-msgstr "על אודות Simple Scan"
+#: src/app-window.vala:1564 src/app-window.vala:1880
+#| msgid "Document Scanner"
+msgid "About Document Scanner"
+msgstr "על אודות סורק מסמכים"
 
 #. Description of program
-#: src/ui.vala:1531
+#: src/app-window.vala:1567
 msgid "Simple document scanning tool"
 msgstr "כלי פשוט לסריקת מסמכים"
 
-#: src/ui.vala:1540
+#: src/app-window.vala:1576
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -581,206 +567,699 @@ msgstr ""
 "  Liel Fridman https://launchpad.net/~lielft-deactivatedaccount\n"
 "  Robert Ancell https://launchpad.net/~robert-ancell\n"
 "  Shlomil https://launchpad.net/~shlomister\n"
-"  Yaron https://launchpad.net/~sh-yaron"
+"  Yaron https://launchpad.net/~sh-yaron\n"
+"  Yoseg Or Boczko yoseforb@gmail.com\n"
+"\n"
+"<a href=\\\"https://l10n.gnome.org/teams/he/\\\">מיזם תרגום GNOME לעברית</a>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/ui.vala:1562
+#: src/app-window.vala:1592
 msgid "Save document before quitting?"
 msgstr "האם לשמור את המסמך בטרם היציאה?"
 
-#. Button in dialog to quit and discard unsaved document
-#: src/ui.vala:1564
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:1594
 msgid "Quit without Saving"
 msgstr "לצאת ללא שמירה"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/ui.vala:1632
+#: src/app-window.vala:1635
 msgid "You appear to have a Brother scanner."
 msgstr "נראה כי הסורק המחובר הוא מתוצרת Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/ui.vala:1634
+#: src/app-window.vala:1637
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.brother.com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother.com"
+"\">Brother website</a>."
 msgstr ""
-"מנהלי ההתקן זמינים ב<a href=\"http://support.brother.com\">אתר של "
-"Brother</a>."
+"מנהלי ההתקן זמינים ב<a href=\"http://support.brother.com\">אתר של Brother</"
+"a>."
+
+#. Message to indicate a Canon Pixma scanner has been detected
+#: src/app-window.vala:1641
+msgid ""
+"You appear to have a Canon scanner, which is supported by the <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+msgstr ""
+"נראה שיש ברשותך סורק Canon, אשר נתמך על ידי <a href=\"http://www.sane-"
+"project.org/man/sane-pixma.5.html\">Pixma SANE מנוע </a>."
+
+#. Instructions on how to resolve issue with SANE scanner drivers
+#: src/app-window.vala:1643
+msgid ""
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">SANE mailing list</a>."
+msgstr ""
+"יש לבדוק אם הסורק שלך <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">נתמך על ידי SANE</a>, אחרת יש לדווח על תקלה <a href=\"https://"
+"alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE לרשימת "
+"תפוצת הדוא״ל של ‏</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/ui.vala:1638
+#: src/app-window.vala:1647
 msgid "You appear to have a Samsung scanner."
 msgstr "נראה כי הסורק המחובר הוא מתוצרת Samsung."
 
-#. Instructions on how to install Samsung scanner drivers
-#: src/ui.vala:1640
+#. Instructions on how to install Samsung scanner drivers.
+#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
+#: src/app-window.vala:1650
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.epson.com"
+#| "\">Epson website</a>."
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://samsung.com/support\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"מנהלי ההתקן זמינים ב<a href=\"http://samsung.com/support\">אתר של "
-"Samsung</a>."
+"מנהלי התקן עבור ההתקן זמינים ב<a href=\"https://support.hp.com\">אתר HP</a> ‏"
+"(HP נקנתה על ידי עסקי הדפסות של Samsung)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/ui.vala:1644
+#: src/app-window.vala:1655
 msgid "You appear to have an HP scanner."
 msgstr "נראה כי הסורק המחובר הוא מתוצרת HP."
 
+#. Instructions on how to install HP scanner drivers.
+#. smfp is rebranded and slightly modified Samsung devices,
+#. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
+#. It require custom drivers, not available in hpaio package
+#: src/app-window.vala:1663
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.epson.com"
+#| "\">Epson website</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a>."
+msgstr ""
+"מנהלי התקן עבור ההתקן זמינים ב<a href=\"http://support.hp.com\">אתר של HP</"
+"a>."
+
 #. Message to indicate an Epson scanner has been detected
-#: src/ui.vala:1649
+#: src/app-window.vala:1667
 msgid "You appear to have an Epson scanner."
 msgstr "נראה כי הסורק המחובר הוא מתוצרת Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/ui.vala:1651
+#: src/app-window.vala:1669
 msgid ""
-"Drivers for this are available on the <a "
-"href=\"http://support.epson.com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson.com"
+"\">Epson website</a>."
 msgstr ""
 "מנהלי התקן עבור ההתקן זמינים ב<a href=\"http://support.epson.com\">אתר של "
 "Epson</a>."
 
+#. Message to indicate an Lexmark scanner has been detected
+#: src/app-window.vala:1673
+#| msgid "You appear to have an HP scanner."
+msgid "You appear to have an Lexmark scanner."
+msgstr "נראה כי הסורק המחובר הוא מתוצרת Lexmark."
+
+#. Instructions on how to install Linux scanner drivers
+#: src/app-window.vala:1675
+#| msgid ""
+#| "Drivers for this are available on the <a href=\"http://support.brother.com"
+#| "\">Brother website</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.lexmark.com"
+"\">Lexmark website</a>."
+msgstr ""
+"מנהלי ההתקן זמינים ב<a href=\"http://support.lexmark.com\">אתר של lexmark</"
+"a>."
+
 #. Title of dialog giving instructions on how to install drivers
-#: src/ui.vala:1655
+#: src/app-window.vala:1679
 msgid "Install drivers"
 msgstr "התקנת מנהלי התקן"
 
 #. Message in driver install dialog
-#: src/ui.vala:1686
-msgid "Once installed you will need to restart Simple Scan."
-msgstr "לאחר ההתקנה יהיה עליך להפעיל מחדש את סריקה פשוטה."
+#: src/app-window.vala:1713
+#| msgid "Once installed you will need to restart Simple Scan."
+msgid "Once installed you will need to restart this app."
+msgstr "לאחר ההתקנה יהיה עליך להפעיל מחדש יישום זה."
 
 #. Label shown while installing drivers
-#: src/ui.vala:1698
-msgid "Installing drivers..."
+#: src/app-window.vala:1726
+#| msgid "Installing drivers..."
+msgid "Installing drivers…"
 msgstr "מנהלי ההתקן מותקנים…"
 
 #. Label shown once drivers successfully installed
-#: src/ui.vala:1706
+#: src/app-window.vala:1734
 msgid "Drivers installed successfully!"
 msgstr "מנהלי ההתקנים הותקנו בהצלחה!"
 
 #. Label shown if failed to install drivers
-#: src/ui.vala:1716
+#: src/app-window.vala:1744
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "התקנת מנהלי ההתקנים נכשלה (קוד שגיאה %d)."
 
 #. Label shown if failed to install drivers
-#: src/ui.vala:1722
+#: src/app-window.vala:1750
 msgid "Failed to install drivers."
 msgstr "התקנת מנהלי ההתקן נכשלה."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/ui.vala:1729
+#: src/app-window.vala:1757
 #, c-format
-msgid "You need to install the %s package(s)."
-msgstr "יהיה עליך להתקין את החבילה/ות %s."
+#| msgid "You need to install the %s package(s)."
+msgid "You need to install the %s package."
+msgid_plural "You need to install the %s packages."
+msgstr[0] "יהיה עליך להתקין את החבילה %s."
+msgstr[1] "יהיה עליך להתקין את החבילות %s."
+
+#: src/app-window.vala:1872
+#| msgid "_Email"
+msgid "Email"
+msgstr "דוא״ל"
+
+#: src/app-window.vala:1873
+#| msgid "Print..."
+msgid "Print"
+msgstr "הדפסה"
+
+#: src/app-window.vala:1874
+#| msgid "Reorder Pages"
+msgctxt "menu"
+msgid "Reorder Pages"
+msgstr "סידור הדפים מחדש"
+
+#. Title of preferences dialog
+#: src/app-window.vala:1875 src/preferences-dialog.ui:44
+msgid "Preferences"
+msgstr "העדפות"
+
+#: src/app-window.vala:1878
+msgid "Keyboard Shortcuts"
+msgstr "צירופי מקשים"
+
+#: src/app-window.vala:1879
+msgid "Help"
+msgstr "עזרה"
+
+#. Populate ActionBar (not supported in Glade)
+#. https://bugzilla.gnome.org/show_bug.cgi?id=769966
+#. Label on new document button
+#: src/app-window.vala:1888
+msgid "Start Again…"
+msgstr "התחלה מחדש…"
+
+#. Tooltip for rotate left (counter-clockwise) button
+#: src/app-window.vala:1907
+msgid "Rotate the page to the left (counter-clockwise)"
+msgstr "סיבוב העמוד לשמאל (נגד כיוון השעון)"
+
+#. Tooltip for rotate right (clockwise) button
+#: src/app-window.vala:1916
+msgid "Rotate the page to the right (clockwise)"
+msgstr "סיבוב העמוד לימין (עם כיוון השעון)"
+
+#. Tooltip for crop button
+#: src/app-window.vala:1928
+msgid "Crop the selected page"
+msgstr "חיתוך העמוד שנבחר"
+
+#. Tooltip for delete button
+#: src/app-window.vala:1946
+#| msgid "Crop the selected page"
+msgid "Delete the selected page"
+msgstr "מחיקת העמוד שנבחר"
+
+#. Text of button for cancelling save
+#: src/app-window.vala:2120
+#| msgid "_Cancel"
+msgid "Cancel"
+msgstr "ביטול"
+
+#. Button to submit authorization dialog
+#: src/authorize-dialog.ui:22
+msgid "_Authorize"
+msgstr "_אימות"
+
+#. Label beside username entry
+#: src/authorize-dialog.ui:80
+msgid "_Username for resource:"
+msgstr "_שם המשתמש עבור המשאב:"
+
+#. Label beside password entry
+#: src/authorize-dialog.ui:92
+msgid "_Password:"
+msgstr "_ססמה:"
+
+#: src/book.vala:331 src/book.vala:337
+#, c-format
+#| msgid "Unable to open help file"
+msgid "Unable to encode page %i"
+msgstr "לא ניתן לקודד את עמוד %i"
+
+#: src/help-overlay.ui:12
+#| msgid "Scan"
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "סריקה"
+
+#: src/help-overlay.ui:17
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "סריקת עמוד בודד"
+
+#: src/help-overlay.ui:24
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "סריקת כל העמודים ממגש המסמכים"
+
+#: src/help-overlay.ui:31
+#| msgid "Scan a single page from the scanner"
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "סריקה רציפה ממגשה הסריקה"
+
+#: src/help-overlay.ui:38
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "עצירת סריקה שבביצוע"
+
+#: src/help-overlay.ui:46
+#| msgid "Document Scanner"
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "שינוי מסמך"
+
+#: src/help-overlay.ui:51
+#| msgid "Move Left"
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "הזזת העמוד שמאלה"
+
+#: src/help-overlay.ui:58
+#| msgid "Move Right"
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "הזזת העמוד ימינה"
+
+#: src/help-overlay.ui:65
+#| msgid "Rotate the page to the left (counter-clockwise)"
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "סיבוב העמוד לשמאל (נגד כיוון השעון)"
+
+#: src/help-overlay.ui:72
+#| msgid "Rotate the page to the right (clockwise)"
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "סיבוב העמוד לימין (עם כיוון השעון)"
+
+#: src/help-overlay.ui:79
+#| msgid "Crop the selected page"
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "מחיקת עמוד"
+
+#: src/help-overlay.ui:87
+#| msgid "Document Scanner"
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "ניהול מסמך"
+
+#: src/help-overlay.ui:92
+#| msgid "Start a new document"
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "התחלת מסמך חדש"
+
+#: src/help-overlay.ui:99
+#| msgid "Scanned Document"
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "שמירת מסמך שנסרק"
+
+#: src/help-overlay.ui:106
+#| msgid "Scanned Document"
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "שליחת מסמך שנסרק בדוא״ל"
+
+#: src/help-overlay.ui:113
+#| msgid "Scanned Document"
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "הדפסת מסמך שנסרק"
+
+#: src/help-overlay.ui:120
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "העתק העמוד הנוכחי ללוח הגזירים"
+
+#: src/help-overlay.ui:128
+msgctxt "shortcut window"
+msgid "General"
+msgstr "כללי"
+
+#: src/help-overlay.ui:133
+msgctxt "shortcut window"
+msgid "Show help"
+msgstr "הצגת עזרה"
+
+#: src/help-overlay.ui:140
+msgctxt "shortcut window"
+msgid "Open menu"
+msgstr "פתיחת תפריט"
+
+#: src/help-overlay.ui:147
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "צירופי מקשים"
+
+#: src/help-overlay.ui:154
+#| msgid "Quit"
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "יציאה"
+
+#. Label beside scan side combo box
+#: src/preferences-dialog.ui:72
+#| msgid "Scan Side:"
+msgid "Scan _Sides"
+msgstr "ה_צד הנסרק"
+
+#. Label beside page size combo box
+#: src/preferences-dialog.ui:88
+#| msgid "Page Size:"
+msgid "_Page Size"
+msgstr "מידות ה_דף"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:118
+msgid "Front"
+msgstr "חזית"
+
+#. Preferences Dialog: Toggle button to select scanning on the back side of a page
+#: src/preferences-dialog.ui:128
+msgid "Back"
+msgstr "גב"
+
+#. Preferences Dialog: Toggle button to select scanning on both sides of a page
+#: src/preferences-dialog.ui:138
+msgid "Both"
+msgstr "דו״ץ"
+
+#. Label beside page delay scale
+#: src/preferences-dialog.ui:165
+msgid "_Delay"
+msgstr "_עיכוב"
+
+#. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
+#: src/preferences-dialog.ui:181
+msgid "Multiple pages from flatbed"
+msgstr "ריבוי דפים במגש הסריקה"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:199
+msgid "3"
+msgstr "3"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:209
+msgid "5"
+msgstr "5"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:220
+msgid "7"
+msgstr "7"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:231
+msgid "10"
+msgstr "10"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:242
+msgid "15"
+msgstr "15"
+
+#. Label after page delay radio buttons
+#: src/preferences-dialog.ui:263
+msgid "Seconds"
+msgstr "שניות"
+
+#. Preferences Dialog: Tab label for scanning settings
+#: src/preferences-dialog.ui:285
+#| msgid "Scan"
+msgid "_Scanning"
+msgstr "_סריקה"
+
+#. Label beside scan resolution combo box
+#: src/preferences-dialog.ui:306
+#| msgid "_Text Resolution:"
+msgid "_Text Resolution"
+msgstr "הבחנת ה_טקסט"
+
+#. Label beside scan resolution combo box
+#: src/preferences-dialog.ui:322
+#| msgid "_Text Resolution:"
+msgid "_Image Resolution"
+msgstr "הבחנת ה_תמונה"
+
+#. Label beside brightness scale
+#: src/preferences-dialog.ui:367
+#| msgid "Brightness:"
+msgid "_Brightness"
+msgstr "_בהירות"
+
+#. Label beside contrast scale
+#: src/preferences-dialog.ui:383
+#| msgid "Contrast:"
+msgid "_Contrast"
+msgstr "_ניגודיות"
+
+#. Preferences Dialog: Tab for quality settings
+#: src/preferences-dialog.ui:432
+#| msgid "Quality:"
+msgid "_Quality"
+msgstr "_איכות"
+
+#. Combo box value for automatic paper size
+#: src/preferences-dialog.vala:65
+msgid "Automatic"
+msgstr "אוטומטי"
+
+#: src/preferences-dialog.vala:102
+msgid "Darker"
+msgstr "כהה יותר"
+
+#: src/preferences-dialog.vala:104
+msgid "Lighter"
+msgstr "בהיר יותר"
+
+#: src/preferences-dialog.vala:112
+msgid "Less"
+msgstr "פחות"
+
+#: src/preferences-dialog.vala:114
+msgid "More"
+msgstr "יותר"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/ui.vala:1833
+#: src/preferences-dialog.vala:285
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (בררת מחדל)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/ui.vala:1836
+#: src/preferences-dialog.vala:288
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (טיוטה)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/ui.vala:1839
+#: src/preferences-dialog.vala:291
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (רזולוציה גבוהה)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/ui.vala:1842
+#: src/preferences-dialog.vala:294
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
-#: src/ui.vala:1885
-msgid "New Document"
-msgstr "מסמך חדש"
+#. Error displayed when no scanners to scan with
+#: src/scanner.vala:866
+msgid "No scanners available.  Please connect a scanner."
+msgstr "אין סורקים זמינים. נא לחבר סורק."
 
-#: src/ui.vala:1890
-msgid "Document"
-msgstr "מסמך"
+#. Error displayed when cannot connect to scanner
+#: src/scanner.vala:896
+msgid "Unable to connect to scanner"
+msgstr "לא ניתן להתחבר לסורק"
 
-#: src/ui.vala:1893
-msgid "Email..."
-msgstr "דוא״ל…"
+#. Error displayed when no documents at the start of scanning
+#: src/scanner.vala:1287
+msgid "Document feeder empty"
+msgstr "מגש המסמכים ריק"
 
-#: src/ui.vala:1894
-msgid "Print..."
-msgstr "הדפסה…"
+#. Out of memory error message with help instruction.
+#. Message written in Pango text markup language,
+#. A carriage return makes a line break, <tt> tag makes a monospace font
+#: src/scanner.vala:1295
+msgid ""
+"Insufficient memory to perform scan.\n"
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
+"<tt>Preferences</tt> menu. For some scanners when scanning in high "
+"resolution, the scan size is restricted."
+msgstr ""
+"אין מספיק זיכרון על מנת לבצע את הסריקה.\n"
+"יש לנסות להפחית את <tt>ההבחנה</tt> או את <tt>גודל העמוד</tt> בתפריט "
+"<tt>העדפות</tt>. במספר סורקים ישנה הגבלת גודל בהבחנה גבוהה."
 
-#: src/ui.vala:1902
-msgid "Help"
-msgstr "עזרה"
+#. Error display when unable to start scan
+#: src/scanner.vala:1308
+msgid "Unable to start scan"
+msgstr "לא ניתן להתחיל בסריקה"
 
-#: src/ui.vala:1903
-msgid "About"
-msgstr "על אודות"
+#. Error displayed when communication with scanner broken
+#: src/scanner.vala:1321 src/scanner.vala:1428
+msgid "Error communicating with scanner"
+msgstr "אירעה שגיאה בעת ההתקשרות עם הסורק"
 
-#: src/ui.vala:1904
-msgid "Quit"
-msgstr "יציאה"
+#. Help string for command line --version flag
+#: src/simple-scan.vala:21
+msgid "Show release version"
+msgstr "Show release version"
 
-#. Button in error infobar to open preferences dialog and change scanner
-#: src/ui.vala:1937
-msgid "Change _Scanner"
-msgstr "ב_חירה בסורק אחר"
+#. Help string for command line --debug flag
+#: src/simple-scan.vala:24
+msgid "Print debugging messages"
+msgstr "Print debugging messages"
 
-#. Button in error infobar to prompt user to install drivers
-#: src/ui.vala:1939
-msgid "_Install Drivers"
-msgstr "הת_קנת מנהלי התקן"
+#: src/simple-scan.vala:26
+#| msgid "Fix PDF files generated with older versions of Simple Scan"
+msgid "Fix PDF files generated with older versions of this app"
+msgstr "Fix PDF files generated with older versions of this app"
 
-#. Combo box value for automatic paper size
-#: src/ui.vala:1945
-msgid "Automatic"
-msgstr "אוטומטי"
+#. Title of error dialog when scan failed
+#: src/simple-scan.vala:1755
+msgid "Failed to scan"
+msgstr "Failed to scan"
 
-#: src/ui.vala:1995
-msgid "Darker"
-msgstr "כהה יותר"
+#. Attempt to inhibit the screensaver when scanning
+#: src/simple-scan.vala:1770
+msgid "Scan in progress"
+msgstr "Scan in progress"
 
-#: src/ui.vala:1997
-msgid "Lighter"
-msgstr "בהיר יותר"
+#. Arguments and description for --help text
+#: src/simple-scan.vala:1954
+#| msgid "[DEVICE...] - Scanning utility"
+msgid "[DEVICE…] — Scanning utility"
+msgstr "[DEVICE…] — Scanning utility"
 
-#: src/ui.vala:2005
-msgid "Less"
-msgstr "פחות"
-
-#: src/ui.vala:2007
-msgid "More"
-msgstr "יותר"
-
-#: src/ui.vala:2015
-msgid "Minimum"
-msgstr "מזערי"
-
-#: src/ui.vala:2017
-msgid "Maximum"
-msgstr "מרבי"
-
-#: src/ui.vala:2068
-msgid "Saving document..."
-msgstr "המסמך נשמר...‏"
-
-#: src/ui.vala:2242
+#. Text printed out when an unknown command-line argument provided
+#: src/simple-scan.vala:1965
 #, c-format
-msgid "Saving page %d out of %d"
-msgstr "נשמר העמוד %d מתוך %d"
+#| msgid ""
+#| "Run '%s --help' to see a full list of available command line options."
+msgid "Run “%s --help” to see a full list of available command line options."
+msgstr "Run “%s --help” to see a full list of available command line options."
+
+#~ msgid "Front and Back"
+#~ msgstr "גב וחזית"
+
+#~ msgid "Simple Scan"
+#~ msgstr "סריקה פשוטה"
+
+#~ msgid "_Document"
+#~ msgstr "מ_סמך"
+
+#~ msgid "Sc_an"
+#~ msgstr "_סריקה"
+
+#~ msgid "_Stop Scan"
+#~ msgstr "ע_צירת הסריקה"
+
+#~ msgid "Photo"
+#~ msgstr "צילום"
+
+#~ msgid "_Page"
+#~ msgstr "_עמוד"
+
+#~ msgid "_Help"
+#~ msgstr "ע_זרה"
+
+#~ msgid "_Contents"
+#~ msgstr "_תוכן"
+
+#~ msgid "New"
+#~ msgstr "חדש"
+
+#~ msgid "Save"
+#~ msgstr "שמירה"
+
+#~ msgid "Stop"
+#~ msgstr "עצירה"
+
+#~ msgid "Rotate Left"
+#~ msgstr "סיבוב שמאלה"
+
+#~ msgid "Rotate Right"
+#~ msgstr "סיבוב ימינה"
+
+#~ msgid "Crop"
+#~ msgstr "חיתוך"
+
+#~ msgid "Scan S_ource:"
+#~ msgstr "_מקור הסריקה:"
+
+#~ msgid "_Photo Resolution:"
+#~ msgstr "_רזולוציית התמונה:"
+
+#~ msgid "Scan Documents"
+#~ msgstr "סריקת מסמכים"
+
+#~ msgid "Scanned Document.pdf"
+#~ msgstr "מסמך סרוק.pdf"
+
+#~ msgid "About Simple Scan"
+#~ msgstr "על אודות Simple Scan"
+
+#~ msgid ""
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
+#~ "\">Samsung website</a>."
+#~ msgstr ""
+#~ "מנהלי ההתקן זמינים ב<a href=\"http://samsung.com/support\">אתר של "
+#~ "Samsung</a>."
+
+#~ msgid "New Document"
+#~ msgstr "מסמך חדש"
+
+#~ msgid "Document"
+#~ msgstr "מסמך"
+
+#~ msgid "Email..."
+#~ msgstr "דוא״ל…"
+
+#~ msgid "About"
+#~ msgstr "על אודות"
+
+#~ msgid "_Install Drivers"
+#~ msgstr "הת_קנת מנהלי התקן"
+
+#~ msgid "Maximum"
+#~ msgstr "מרבי"
+
+#~ msgid "Saving document..."
+#~ msgstr "המסמך נשמר...‏"
+
+#~ msgid "Saving page %d out of %d"
+#~ msgstr "נשמר העמוד %d מתוך %d"
 
 #~ msgid "4&#xD7;6"
 #~ msgstr "4&#xD7;6"
 
-#, c-format
 #~ msgid ""
 #~ "Usage:\n"
 #~ "  %s [DEVICE...] - Scanning utility"
@@ -788,7 +1267,6 @@ msgstr "נשמר העמוד %d מתוך %d"
 #~ "Usage:\n"
 #~ "  %s [DEVICE...] - Scanning utility"
 
-#, c-format
 #~ msgid ""
 #~ "GTK+ Options:\n"
 #~ "  --class=CLASS                   Program class as used by the window "
@@ -822,17 +1300,8 @@ msgstr "נשמר העמוד %d מתוך %d"
 #~ msgid "TRUE if the application window is maximized"
 #~ msgstr "TRUE if the application window is maximized"
 
-#~ msgid "Device to scan from"
-#~ msgstr "Device to scan from"
-
-#~ msgid "SANE device to acquire images from."
-#~ msgstr "SANE device to acquire images from."
-
 #~ msgid "Direction of scan"
 #~ msgstr "Direction of scan"
-
-#~ msgid "Resolution for text scans"
-#~ msgstr "Resolution for text scans"
 
 #~ msgid "Resolution for photo scans"
 #~ msgstr "Resolution for photo scans"
@@ -848,14 +1317,13 @@ msgstr "נשמר העמוד %d מתוך %d"
 #~ "last scanned page was."
 
 #~ msgid ""
-#~ "The direction of the scanner across the scanned page. It can be one of the "
-#~ "following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
+#~ "The direction of the scanner across the scanned page. It can be one of "
+#~ "the following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-"
+#~ "left'"
 #~ msgstr ""
-#~ "The direction of the scanner across the scanned page. It can be one of the "
-#~ "following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
-
-#~ msgid "Type of document being scanned"
-#~ msgstr "Type of document being scanned"
+#~ "The direction of the scanner across the scanned page. It can be one of "
+#~ "the following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-"
+#~ "left'"
 
 #~ msgid ""
 #~ "Type of document being scanned. 'text' for text documents, 'photo' for "
@@ -870,17 +1338,14 @@ msgstr "נשמר העמוד %d מתוך %d"
 #~ msgstr "Window height in pixels"
 
 #~ msgid ""
-#~ "The width of scanned image in pixels. This value is updated to what the last "
-#~ "scanned page was."
+#~ "The width of scanned image in pixels. This value is updated to what the "
+#~ "last scanned page was."
 #~ msgstr ""
-#~ "The width of scanned image in pixels. This value is updated to what the last "
-#~ "scanned page was."
+#~ "The width of scanned image in pixels. This value is updated to what the "
+#~ "last scanned page was."
 
 #~ msgid "The resolution in dots-per-inch of the previously scanned image."
 #~ msgstr "The resolution in dots-per-inch of the previously scanned image."
-
-#~ msgid "The resolution in dots-per-inch to use when scanning text."
-#~ msgstr "The resolution in dots-per-inch to use when scanning text."
 
 #~ msgid "The resolution in dots-per-inch to use when scanning photos."
 #~ msgstr "The resolution in dots-per-inch to use when scanning photos."
@@ -891,7 +1356,6 @@ msgstr "נשמר העמוד %d מתוך %d"
 #~ msgid "Window width in pixels"
 #~ msgstr "Window width in pixels"
 
-#, c-format
 #~ msgid ""
 #~ "Help Options:\n"
 #~ "  -d, --debug                     Print debugging messages\n"
@@ -907,75 +1371,15 @@ msgstr "נשמר העמוד %d מתוך %d"
 #~ "  --help-all                      Show all help options\n"
 #~ "  --help-gtk                      Show GTK+ options"
 
-#~ msgid "Scanned Document"
-#~ msgstr "מסמך שנסרק"
-
-#~ msgid "Page side to scan"
-#~ msgstr "Page side to scan"
-
-#~ msgid "Height of paper in tenths of a mm"
-#~ msgstr "Height of paper in tenths of a mm"
-
-#~ msgid "Directory to save files to"
-#~ msgstr "Directory to save files to"
-
 #~ msgid ""
-#~ "The page side to scan. It can be one of the following: 'both' 'front' 'back'"
+#~ "The page side to scan. It can be one of the following: 'both' 'front' "
+#~ "'back'"
 #~ msgstr ""
-#~ "The page side to scan. It can be one of the following: 'both' 'front' 'back'"
-
-#~ msgid ""
-#~ "The height of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr ""
-#~ "The height of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-
-#~ msgid ""
-#~ "The directory to save files to. Defaults to the documents directory if unset."
-#~ msgstr ""
-#~ "The directory to save files to. Defaults to the documents directory if unset."
-
-#~ msgid ""
-#~ "The width of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-#~ msgstr ""
-#~ "The width of the paper in tenths of a mm (or 0 for automatic paper "
-#~ "detection)."
-
-#~ msgid "Width of paper in tenths of a mm"
-#~ msgstr "Width of paper in tenths of a mm"
+#~ "The page side to scan. It can be one of the following: 'both' 'front' "
+#~ "'back'"
 
 #~ msgid "Select File _Type"
 #~ msgstr "בחירת _סוג הקובץ"
 
-#~ msgid "The page side to scan."
-#~ msgstr "The page side to scan."
-
-#~ msgid ""
-#~ "Type of document being scanned. This setting decides on the scan resolution, "
-#~ "colors and post-processing."
-#~ msgstr ""
-#~ "Type of document being scanned. This setting decides on the scan resolution, "
-#~ "colors and post-processing."
-
 #~ msgid "The direction of the scanner across the scanned page."
 #~ msgstr "The direction of the scanner across the scanned page."
-
-#~ msgid "Quality value to use for JPEG compression."
-#~ msgstr "ערך האיכות לשימוש לדחיסת JPEG."
-
-#~ msgid "The contrast adjustment from -100 to 100 (0 being none)."
-#~ msgstr "התאמת הניגודיות מ־‎-100 ועד 100 (0 - ללא השפעה)"
-
-#~ msgid "Contrast of scan"
-#~ msgstr "ניגודיות הסריקה"
-
-#~ msgid "The brightness adjustment from -100 to 100 (0 being none)."
-#~ msgstr "התאמת הבהירות מ־‎-100 ועד 100 (0 - ללא השפעה)"
-
-#~ msgid "Brightness of scan"
-#~ msgstr "בהירות הסריקה"
-
-#~ msgid "Quality value to use for JPEG compression"
-#~ msgstr "ערך האיכות לשימוש לדחיסת JPEG"
