@@ -530,6 +530,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
         /* Label in save dialog beside compression slider */
         var quality_label = new Gtk.Label (_("Compression:"));
+        quality_label.visible = true;
         box.add (quality_label);
 
         var quality_adjustment = new Gtk.Adjustment (75, 0, 100, 1, 10, 0);
@@ -542,6 +543,7 @@ public class AppWindow : Gtk.ApplicationWindow
         quality_scale.add_mark (100, Gtk.PositionType.BOTTOM, null);
         quality_adjustment.value = settings.get_int ("jpeg-quality");
         quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", (int) quality_adjustment.value); });
+        quality_scale.visible = true;
         box.add (quality_scale);
 
         file_type_combo.set_active (0);
