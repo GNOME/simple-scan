@@ -662,10 +662,12 @@ public class Scanner : Object
         switch (option.constraint_type)
         {
         case Sane.ConstraintType.RANGE:
-            if (option.type == Sane.ValueType.FIXED)
-                s += " min=%f, max=%f, quant=%d".printf (Sane.UNFIX (option.range.min), Sane.UNFIX (option.range.max), (int) option.range.quant);
-            else
-                s += " min=%d, max=%d, quant=%d".printf ((int) option.range.min, (int) option.range.max, (int) option.range.quant);
+            if (option.range != null) {
+                if (option.type == Sane.ValueType.FIXED)
+                    s += " min=%f, max=%f, quant=%d".printf (Sane.UNFIX (option.range.min), Sane.UNFIX (option.range.max), (int) option.range.quant);
+                else
+                    s += " min=%d, max=%d, quant=%d".printf ((int) option.range.min, (int) option.range.max, (int) option.range.quant);
+            }
             break;
         case Sane.ConstraintType.WORD_LIST:
             s += " values=[";
@@ -682,11 +684,13 @@ public class Scanner : Object
             break;
         case Sane.ConstraintType.STRING_LIST:
             s += " values=[";
-            for (var i = 0; option.string_list[i] != null; i++)
-            {
-                if (i != 0)
-                    s += ", ";
-                s += "\"%s\"".printf (option.string_list[i]);
+            if (option.string_list != null) {
+                for (var i = 0; option.string_list[i] != null; i++)
+                {
+                    if (i != 0)
+                        s += ", ";
+                        s += "\"%s\"".printf (option.string_list[i]);
+                }
             }
             s += "]";
             break;
