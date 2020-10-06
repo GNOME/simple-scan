@@ -216,8 +216,8 @@ public class Page : Object
         this.crop_name = crop_name;
         this.crop_x = crop_x;
         this.crop_y = crop_y;
-        this.crop_width = crop_width;
-        this.crop_height = crop_height;
+        this.crop_width = (crop_x + crop_width > scan_width) ? scan_width : crop_width;
+        this.crop_height = (crop_y + crop_height > scan_height) ? scan_height : crop_height;
     }
 
     public void set_page_info (ScanPageInfo info)
