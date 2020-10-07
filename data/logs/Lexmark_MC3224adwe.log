@@ -1,0 +1,106 @@
+[+0.00s] DEBUG: simple-scan.vala:2012: Starting ./src/simple-scan 3.38.1, PID=28628
+[+0.00s] DEBUG: unsetenv() is not thread-safe and should not be used after threads are created
+[+0.04s] DEBUG: app-window.vala:1969: Restoring window to 923x587 pixels
+[+0.08s] DEBUG: scanner.vala:1552: sane_init () -> SANE_STATUS_GOOD
+[+0.08s] DEBUG: scanner.vala:1558: SANE version 1.0.31
+[+0.08s] DEBUG: scanner.vala:1619: Requesting redetection of scan devices
+[+0.08s] DEBUG: scanner.vala:832: Processing request
+[+5.10s] DEBUG: scanner.vala:341: sane_get_devices () -> SANE_STATUS_GOOD
+[+5.10s] DEBUG: scanner.vala:353: Device: name="lexmark_nscan:libnet/123A4567890B" vendor="Lexmark" model="Lexmark MC3224adwe" type="Scanner"
+[+10.20s] DEBUG: simple-scan.vala:1817: Requesting scan at 300 dpi from device 'lexmark_nscan:libnet/123A4567890B'
+[+10.20s] DEBUG: scanner.vala:1687: Scanner.scan ("lexmark_nscan:libnet/123A4567890B", dpi=300, scan_mode=ScanMode.COLOR, depth=8, type=single, paper_width=0, paper_height=0, brightness=0, contrast=0, delay=3000ms)
+[+10.20s] DEBUG: scanner.vala:832: Processing request
+[+10.61s] DEBUG: scanner.vala:893: sane_open ("lexmark_nscan:libnet/123A4567890B") -> SANE_STATUS_GOOD
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (0)
+[+10.61s] DEBUG: scanner.vala:764: Option 0: title='Number of options' type=int size=4 cap=soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: Read-only option that specifies how many options a specific devices supports.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (1)
+[+10.61s] DEBUG: scanner.vala:764: Option 1: name='scanner-group' title='Scanner' type=group size=4 cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description:
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (2)
+[+10.61s] DEBUG: scanner.vala:764: Option 2: name='ip-address' title='IP Address' type=string size=50 cap=soft-select,soft-detect,inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: The IP address / hostname associated with this scan job.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (3)
+[+10.61s] DEBUG: scanner.vala:764: Option 3: name='interface' title='Interface' type=string size=50 cap=inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: The interface associated with this scan job.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (4)
+[+10.61s] DEBUG: scanner.vala:764: Option 4: name='profile-information-group' title='Profile Information' type=group size=4 cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description:
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (5)
+[+10.61s] DEBUG: scanner.vala:764: Option 5: name='user-name' title='User Name' type=string size=50 cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: The user name associated with this scan job.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (6)
+[+10.61s] DEBUG: scanner.vala:764: Option 6: name='profile-name' title='Profile Name' type=string size=50 cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: The profile name associated with this scan job.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (7)
+[+10.61s] DEBUG: scanner.vala:764: Option 7: name='image-group' title='Image Settings' type=group size=4 cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description:
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (8)
+[+10.61s] DEBUG: scanner.vala:764: Option 8: name='content-type' title='Content Type' type=string size=50 values=["Graphics", "Mixed", "Photo", "Text"] cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: Indicates the type of material to be scanned.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (9)
+[+10.61s] DEBUG: scanner.vala:764: Option 9: name='scan-resolution' title='Resolution' type=int size=4 unit=dpi values=[75, 150, 200, 300, 400, 600] cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: The resolution of the scan job in dots per inch.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (10)
+[+10.61s] DEBUG: scanner.vala:764: Option 10: name='mode' title='Color Depth' type=string size=50 values=["1-bit Black & White", "8-bit Grayscale", "24-bit Color"] cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: The color depth of the scan job.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (11)
+[+10.61s] DEBUG: scanner.vala:764: Option 11: name='content-source' title='Content Source' type=string size=50 values=[] cap=soft-select,soft-detect,inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: Content Source.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (12)
+[+10.61s] DEBUG: scanner.vala:764: Option 12: name='original-size' title='Original Size' type=string size=50 values=["A4", "A5", "A6", "B5", "Custom Scan Size 1", "Executive", "Folio", "Legal", "Letter", "Oficio (México)", "Statement"] cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: The size of the area to be scanned.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (13)
+[+10.61s] DEBUG: scanner.vala:764: Option 13: name='orientation' title='Orientation' type=string size=50 values=["Portrait", "Landscape"] cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: The orientation of the scan output.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (14)
+[+10.61s] DEBUG: scanner.vala:764: Option 14: name='scan-both-sides' title='Scan both sides' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: Scan both sides of the document.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (15)
+[+10.61s] DEBUG: scanner.vala:764: Option 15: name='scan-now' title='Start Immediately' type=bool size=4 cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: Start scan operation immediately.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (16)
+[+10.61s] DEBUG: scanner.vala:764: Option 16: name='source' title='Scan source' type=string size=50 values=["Automatic Document Feeder", "Flatbed"] cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: Indicates the number of pages to be scanned.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (17)
+[+10.61s] DEBUG: scanner.vala:764: Option 17: name='advanced-settings-group' title='Advanced Settings' type=group size=4
+[+10.61s] DEBUG: scanner.vala:767:   Description:
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (18)
+[+10.61s] DEBUG: scanner.vala:764: Option 18: name='brightness' title='Brightness' type=fixed size=4 min=1.000000, max=9.000000, quant=65536 cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: Adjusts the brightness setting for this scan.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (19)
+[+10.61s] DEBUG: scanner.vala:764: Option 19: name='contrast' title='Contrast' type=fixed size=4 min=0.000000, max=5.000000, quant=65536 cap=soft-select,soft-detect
+[+10.61s] DEBUG: scanner.vala:767:   Description: Adjusts the contrast setting used for this scan.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (20)
+[+10.61s] DEBUG: scanner.vala:764: Option 20: name='advance-imaging-group' title='Advance Imaging' type=group size=4 cap=advanced
+[+10.61s] DEBUG: scanner.vala:767:   Description:
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (21)
+[+10.61s] DEBUG: scanner.vala:764: Option 21: name='mirrorimage' title='Mirror Image' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: Scans the image then rotates it 180 degrees horizontally.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (22)
+[+10.61s] DEBUG: scanner.vala:764: Option 22: name='negativeimage' title='Negative Image' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: Negative Image.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (23)
+[+10.61s] DEBUG: scanner.vala:764: Option 23: name='blankpageremoval' title='Blank Page Removal' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: Blank Page Removal.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (24)
+[+10.61s] DEBUG: scanner.vala:764: Option 24: name='colordropout' title='Color Dropout' type=string size=50 values=[] cap=soft-select,soft-detect,inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: Color Dropout.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (25)
+[+10.61s] DEBUG: scanner.vala:764: Option 25: name='colordropoutthreshold' title='Color Dropout Threshold' type=fixed size=4 cap=soft-select,soft-detect,inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: Color Dropout Threshold.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (26)
+[+10.61s] DEBUG: scanner.vala:764: Option 26: name='bkgremoval' title='Background Removal' type=bool size=4 cap=soft-select,soft-detect,inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: Background Removal.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (27)
+[+10.61s] DEBUG: scanner.vala:764: Option 27: name='reset' title='Reset' type=button size=4 cap=soft-select,soft-detect,inactive
+[+10.61s] DEBUG: scanner.vala:767:   Description: Resets advance imaging options to its default value.
+[+10.61s] DEBUG: scanner.vala:914: sane_get_option_descriptor (28)
+[+10.61s] DEBUG: scanner.vala:571: sane_control_option (16, SANE_ACTION_SET_VALUE, source="Flatbed") -> (SANE_STATUS_GOOD, "Flatbed")
+[+10.61s] DEBUG: scanner.vala:571: sane_control_option (10, SANE_ACTION_SET_VALUE, mode="24-bit Color") -> (SANE_STATUS_GOOD, "24-bit Color")
+[+10.61s] WARNING: scanner.vala:1252: The option scan-both-sides (14) is inactive and can't be set, please file a bug
+[+10.61s] DEBUG: scanner.vala:483: sane_control_option (9, SANE_ACTION_SET_VALUE, scan-resolution=300) -> (SANE_STATUS_GOOD, 300)
+[+10.61s] DEBUG: scanner.vala:399: scale_fixed: scaling 0 [min: -100, max: 100] to 5.000000 [min: 1.000000, max: 9.000000]
+[+10.61s] DEBUG: scanner.vala:523: sane_control_option (18, SANE_ACTION_SET_VALUE, brightness=5.000000) -> (SANE_STATUS_GOOD, 5.000000)
+[+10.61s] DEBUG: scanner.vala:399: scale_fixed: scaling 0 [min: -100, max: 100] to 2.500000 [min: 0.000000, max: 5.000000]
+[+10.61s] DEBUG: scanner.vala:523: sane_control_option (19, SANE_ACTION_SET_VALUE, contrast=2.500000) -> (SANE_STATUS_GOOD, 2.500000)
