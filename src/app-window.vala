@@ -58,6 +58,8 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.ListStore device_model;
     [GtkChild]
+    private Gtk.Box device_combo_box;
+    [GtkChild]
     private Gtk.ComboBox device_combo;
     [GtkChild]
     private Gtk.Label status_secondary_label;
@@ -252,7 +254,7 @@ public class AppWindow : Gtk.ApplicationWindow
             status_primary_label.set_text (/* Label shown when searching for scanners */
                                            _("Searching for Scanners…"));
             status_secondary_label.visible = false;
-            device_combo.visible = false;
+            device_combo_box.visible = false;
         }
         else if (get_selected_device () != null)
         {
@@ -261,7 +263,7 @@ public class AppWindow : Gtk.ApplicationWindow
                                            _("Ready to Scan"));
             status_secondary_label.set_text (get_selected_device_label ());
             status_secondary_label.visible = false;
-            device_combo.visible = true;
+            device_combo_box.visible = true;
             device_combo.sensitive = true;
         }
         else if (this.missing_driver != null)
@@ -271,7 +273,7 @@ public class AppWindow : Gtk.ApplicationWindow
             /* Instructions to install driver software */
             status_secondary_label.set_markup (_("You need to <a href=\"install-firmware\">install driver software</a> for your scanner."));
             status_secondary_label.visible = true;
-            device_combo.visible = false;
+            device_combo_box.visible = false;
         }
         else
         {
@@ -280,7 +282,7 @@ public class AppWindow : Gtk.ApplicationWindow
             /* Hint to user on why there are no scanners detected */
             status_secondary_label.set_text (_("Please check your scanner is connected and powered on"));
             status_secondary_label.visible = true;
-            device_combo.visible = false;
+            device_combo_box.visible = false;
         }
     }
 
@@ -796,9 +798,6 @@ public class AppWindow : Gtk.ApplicationWindow
             if (scanning)
                 stop_scan ();
 
-            have_devices = false;
-            /* Refresh list of devices to detect network scanners, and fix issues with disconnected scanners */
-            redetect ();
             clear_document ();
         });
     }
@@ -818,6 +817,14 @@ public class AppWindow : Gtk.ApplicationWindow
     private void new_document_cb ()
     {
         new_document ();
+    }
+
+    [GtkCallback]
+    private void redetect_button_clicked_cb (Gtk.Button button)
+    {
+        have_devices = false;
+        update_scan_status ();
+        redetect ();
     }
 
     private void scan (ScanOptions options)
