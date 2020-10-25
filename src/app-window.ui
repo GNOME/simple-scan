@@ -794,10 +794,45 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkComboBox" id="device_combo">
+                      <object class="GtkBox" id="device_combo_box">
                         <property name="visible">False</property>
-                        <property name="model">device_model</property>
-                        <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">horizontal</property>
+                        <property name="spacing">10</property>
+                        <child>
+                          <object class="GtkComboBox" id="device_combo">
+                            <property name="visible">True</property>
+                            <property name="model">device_model</property>
+                            <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="refresh_devices">
+                            <property name="height_request">40</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Refresh device list</property>
+                            <signal name="clicked" handler="redetect_button_clicked_cb" swapped="no"/>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="icon_name">view-refresh-symbolic</property>
+                                <property name="icon_size">1</property>
+                              </object>
+                            </child>
+                            <style>
+                              <class name="image-button"/>
+                            </style>
+                          </object>
+                          <packing>
+                            <property name="fill">False</property>
+                          </packing>
+                        </child>
                       </object>
                     </child>
                   </object>
