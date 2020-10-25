@@ -1773,7 +1773,7 @@ public class SimpleScan : Gtk.Application
              * but will not work on KDE, LXDE, XFCE, ... */
             inhibit_cookie = inhibit (app, Gtk.ApplicationInhibitFlags.IDLE, reason);
 
-            if (!is_inhibited (Gtk.ApplicationInhibitFlags.IDLE))
+            if (inhibit_cookie == 0)
             {
                 /* If the previous method didn't work, try the one
                  * provided by Freedesktop. It should work with KDE,
