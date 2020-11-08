@@ -58,7 +58,7 @@ public class AppWindow : Gtk.ApplicationWindow
     [GtkChild]
     private Gtk.ListStore device_model;
     [GtkChild]
-    private Gtk.Box device_combo_box;
+    private Gtk.Box device_buttons_box;
     [GtkChild]
     private Gtk.ComboBox device_combo;
     [GtkChild]
@@ -254,7 +254,7 @@ public class AppWindow : Gtk.ApplicationWindow
             status_primary_label.set_text (/* Label shown when searching for scanners */
                                            _("Searching for Scanners…"));
             status_secondary_label.visible = false;
-            device_combo_box.visible = false;
+            device_buttons_box.visible = false;
         }
         else if (get_selected_device () != null)
         {
@@ -263,7 +263,8 @@ public class AppWindow : Gtk.ApplicationWindow
                                            _("Ready to Scan"));
             status_secondary_label.set_text (get_selected_device_label ());
             status_secondary_label.visible = false;
-            device_combo_box.visible = true;
+            device_buttons_box.visible = true;
+            device_buttons_box.sensitive = true;
             device_combo.sensitive = true;
         }
         else if (this.missing_driver != null)
@@ -273,7 +274,7 @@ public class AppWindow : Gtk.ApplicationWindow
             /* Instructions to install driver software */
             status_secondary_label.set_markup (_("You need to <a href=\"install-firmware\">install driver software</a> for your scanner."));
             status_secondary_label.visible = true;
-            device_combo_box.visible = false;
+            device_buttons_box.visible = false;
         }
         else
         {
@@ -282,7 +283,9 @@ public class AppWindow : Gtk.ApplicationWindow
             /* Hint to user on why there are no scanners detected */
             status_secondary_label.set_text (_("Please check your scanner is connected and powered on"));
             status_secondary_label.visible = true;
-            device_combo_box.visible = false;
+            device_buttons_box.visible = true;
+            device_buttons_box.sensitive = true;
+            device_combo.sensitive = false; // We would like to be refresh button to be active
         }
     }
 
@@ -831,7 +834,8 @@ public class AppWindow : Gtk.ApplicationWindow
     {
         status_primary_label.set_text (/* Label shown when scan started */
                                        _("Contacting scanner…"));
-        device_combo.sensitive = false;
+        device_buttons_box.visible = true;
+        device_buttons_box.sensitive = false;
         start_scan (get_selected_device (), options);
     }
 
