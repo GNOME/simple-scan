@@ -564,7 +564,6 @@
             <child>
               <object class="GtkButton" id="scan_button">
                 <property name="visible">True</property>
-                <property name="sensitive">False</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>
                 <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button">Scan a single page from the scanner</property>
@@ -795,15 +794,13 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkBox" id="device_buttons_box">
+                      <object class="GtkBox" id="device_combo_box">
                         <property name="visible">False</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">horizontal</property>
-                        <property name="halign">center</property>
                         <property name="spacing">10</property>
                         <child>
                           <object class="GtkComboBox" id="device_combo">
-                            <property name="width_request">200</property>
                             <property name="visible">True</property>
                             <property name="model">device_model</property>
                             <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
