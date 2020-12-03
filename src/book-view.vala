@@ -189,7 +189,14 @@ public class BookView : Gtk.Box
 
     private void add_cb (Book book, Page page)
     {
-        var page_view = new PageView (page);
+        Gdk.RGBA page_ruler_color;
+        if (!get_style_context ().lookup_color ("theme_fg_color", out page_ruler_color))
+        {
+            warning ("Couldn't get theme_fg_color from GTK theme, needed to draw the page view ruler");
+            /* Use a bright color so that theme makers notice it. */
+            page_ruler_color.parse ("#00ff00");
+        }
+        var page_view = new PageView (page, page_ruler_color);
         page_view.changed.connect (page_view_changed_cb);
         page_view.size_changed.connect (page_view_size_changed_cb);
         page_data.insert (page, page_view);
