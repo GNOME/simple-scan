@@ -13,7 +13,7 @@
 private const int DEFAULT_TEXT_DPI = 150;
 private const int DEFAULT_PHOTO_DPI = 300;
 
-[GtkTemplate (ui = "/org/gnome/SimpleScan/app-window.ui")]
+[GtkTemplate (ui = "/org/gnome/SimpleScan/ui/app-window.ui")]
 public class AppWindow : Gtk.ApplicationWindow
 {
     private const GLib.ActionEntry[] action_entries =
