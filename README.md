@@ -7,7 +7,20 @@
 It allows you to capture images using [image scanners](https://en.wikipedia.org/wiki/Image_scanner)
 (e.g. flatbed scanners) that have suitable [SANE drivers](http://sane-project.org/) installed.
 
-# Building from source
+# Building the flatpak with GNOME Builder
+
+It is recommended to use the development flatpak for developing this application.
+That way you won't have to download all dependencies yourself and it'll be consistent between all distros.
+
+1. Download [GNOME Builder](https://flathub.org/apps/details/org.gnome.Builder)
+2. Click the `Clone Repository` button in Builder and use https://gitlab.gnome.org/GNOME/simple-scan.git as the URL.
+3. Click the Run button in the headerbar
+
+Note that this flatpak requires access to all devices (--device=all), and so isn't made for general use.
+For this reason and until a more suitable solution is found to interact with a host `saned`, please don't
+try to publish it on Flathub.
+
+# Building manually from source
 
 Install the dependencies
 
