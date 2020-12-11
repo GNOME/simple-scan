@@ -1930,7 +1930,7 @@ public class AppWindow : Gtk.ApplicationWindow
 
         crop_button = new Gtk.ToggleButton ();
         crop_button.visible = true;
-        var image = new Gtk.Image.from_icon_name ("edit-cut-symbolic", Gtk.IconSize.BUTTON);
+        var image = new Gtk.Image.from_icon_name ("crop-symbolic", Gtk.IconSize.BUTTON);
         image.visible = true;
         image.margin_start = 18;
         image.margin_end = 18;

@@ -25,10 +25,10 @@ i18n.merge_file ('appdata-file',
 
 install_man ('simple-scan.1')
 
-icon_dir = 'icons/scalable/actions'
 resource_files = files([
-    icon_dir / 'scan-type-adf-symbolic.svg',
-    icon_dir / 'scan-type-batch-symbolic.svg',
+    'icons/scalable/actions/scan-type-adf-symbolic.svg',
+    'icons/scalable/actions/scan-type-batch-symbolic.svg',
+    'icons/scalable/actions/crop-symbolic.svg',
     'ui/app-window.ui',
     'ui/authorize-dialog.ui',
     'ui/help-overlay.ui',
