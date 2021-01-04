@@ -8,10 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-06-17 11:40+0000\n"
-"PO-Revision-Date: 2020-06-17 19:26+0300\n"
-"Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
-"gmail [dot] com>\n"
+"POT-Creation-Date: 2020-12-11 08:56+0000\n"
+"PO-Revision-Date: 2020-12-19 15:55+0200\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
 "Language-Team: Gnome Romanian Translation Team <gnomero-list@lists."
 "sourceforge.net>\n"
 "Language: ro\n"
@@ -20,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -151,7 +150,7 @@ msgstr "Decalare în milisecunde între pagini."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:498 src/app-window.vala:1571 src/app-window.vala:1847
+#: src/app-window.ui:498 src/app-window.vala:1582 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "Scaner de documente"
 
@@ -176,7 +175,7 @@ msgstr ""
 "Această aplicație folosește platforma SANE pentru a suporta majoritatea "
 "scanerelor existente."
 
-#: data/simple-scan.appdata.xml.in:24
+#: data/simple-scan.appdata.xml.in:26
 msgid "The GNOME Project"
 msgstr "Proiectul GNOME"
 
@@ -294,46 +293,51 @@ msgid "S_top"
 msgstr "Opreș_te"
 
 #. Tooltip for scan toolbar button
-#: src/app-window.ui:569
+#: src/app-window.ui:570
 msgid "Scan a single page from the scanner"
 msgstr "Scanați o singură pagină din scaner"
 
-#: src/app-window.ui:594
+#: src/app-window.ui:595
 msgid "_Scan"
 msgstr "_Scanează"
 
 #. Tooltip for save toolbar button
-#: src/app-window.ui:697
+#: src/app-window.ui:698
 msgid "Save document to a file"
 msgstr "Salvează documentul ca fișier"
 
-#: src/app-window.vala:227 src/app-window.vala:1679
+#. Tooltip for stop button
+#: src/app-window.ui:821
+msgid "Refresh device list"
+msgstr "Reîmprospătează lista de dispozitive"
+
+#: src/app-window.vala:229 src/app-window.vala:1690
 msgid "_Close"
 msgstr "În_chide"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:236
+#: src/app-window.vala:238
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Sunt necesare numele de utilizator și parola pentru a accesa „%s”"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:253
+#: src/app-window.vala:255
 msgid "Searching for Scanners…"
 msgstr "Se caută scanere…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:261
+#: src/app-window.vala:263
 msgid "Ready to Scan"
 msgstr "Gata de scanat"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:270
+#: src/app-window.vala:273
 msgid "Additional software needed"
 msgstr "Programe adiționale necesare"
 
 #. Instructions to install driver software
-#: src/app-window.vala:272
+#: src/app-window.vala:275
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -342,170 +346,170 @@ msgstr ""
 "scanerul dumneavoastră."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:279
+#: src/app-window.vala:282
 msgid "No scanners detected"
 msgstr "Nu a fost detectat niciun scaner"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:281
+#: src/app-window.vala:284
 msgid "Please check your scanner is connected and powered on"
 msgstr "Verificați dacă scanerul este conectat și pornit"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:383
+#: src/app-window.vala:388
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "O carte autosalvată există deja. Doriți să o deschideți?"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:457
+#: src/app-window.vala:462
 msgid "Save As…"
 msgstr "Salvează ca…"
 
-#: src/app-window.vala:460 src/app-window.vala:756
+#: src/app-window.vala:465 src/app-window.vala:761
 msgid "_Save"
 msgstr "_Salvează"
 
-#: src/app-window.vala:461 src/app-window.vala:643 src/app-window.vala:755
+#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:760
 msgid "_Cancel"
 msgstr "_Anulare"
 
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:471
+#: src/app-window.vala:476
 msgid "Scanned Document"
 msgstr "Document scanat"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:477
+#: src/app-window.vala:482
 msgid "Image Files"
 msgstr "Fișiere imagine"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:487
+#: src/app-window.vala:492
 msgid "All Files"
 msgstr "Toate fișierele"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:496
+#: src/app-window.vala:501
 msgid "PDF (multi-page document)"
 msgstr "PDF (document cu mai multe pagini)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:502
+#: src/app-window.vala:507
 msgid "JPEG (compressed)"
 msgstr "JPEG (comprimat)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:508
+#: src/app-window.vala:513
 msgid "PNG (lossless)"
 msgstr "PNG (fără pierderi)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:515
+#: src/app-window.vala:520
 msgid "WebP (compressed)"
 msgstr "WebP (comprimat)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:526
+#: src/app-window.vala:531
 msgid "File format:"
 msgstr "Format de fișier:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:549
+#: src/app-window.vala:554
 msgid "Compression:"
 msgstr "Compresie:"
 
-#: src/app-window.vala:556
+#: src/app-window.vala:561
 msgid "Minimum size"
 msgstr "Dimensiune minimă"
 
-#: src/app-window.vala:560
+#: src/app-window.vala:565
 msgid "Full detail"
 msgstr "Detalii complete"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:642
+#: src/app-window.vala:647
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Un fișier numit „%s” există deja. Doriți să-l înlocuiți?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:645
+#: src/app-window.vala:650
 msgid "_Replace"
 msgstr "Înlo_cuiește"
 
-#: src/app-window.vala:712
+#: src/app-window.vala:717
 msgid "Saving"
 msgstr "Salvare"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:729
+#: src/app-window.vala:734
 msgid "Failed to save file"
 msgstr "Salvarea fișierului a eșuat"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:753
+#: src/app-window.vala:758
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Dacă nu salvați, modificările vor fi pierdute definitiv."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:789
+#: src/app-window.vala:794
 msgid "Save current document?"
 msgstr "Salvați documentul curent?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:791
+#: src/app-window.vala:796
 msgid "Discard Changes"
 msgstr "Renunță la modificări"
 
 #. Label shown when scan started
-#: src/app-window.vala:826
+#: src/app-window.vala:836
 msgid "Contacting scanner…"
 msgstr "Se contactează scanerul…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1095
+#: src/app-window.vala:1106
 msgid "Unable to save image for preview"
 msgstr "Nu se poate salva imaginea pentru a prezenta o previzualizare"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1107
+#: src/app-window.vala:1118
 msgid "Unable to open image preview application"
 msgstr "Nu s-a putut deschide aplicația de previzualizare a imaginilor"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1269
+#: src/app-window.vala:1280
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Reordonare pagini"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1292
+#: src/app-window.vala:1303
 msgid "Combine sides"
 msgstr "Combină fețele"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1302
+#: src/app-window.vala:1313
 msgid "Combine sides (reverse)"
 msgstr "Combină fețeke (invers)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1312
+#: src/app-window.vala:1323
 msgid "Reverse"
 msgstr "Invers"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1322
+#: src/app-window.vala:1333
 msgid "Keep unchanged"
 msgstr "Păstrează nemodificat"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1546
+#: src/app-window.vala:1557
 msgid "Unable to open help file"
 msgstr "Nu se poate deschide fișierul de ajutor"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1561
+#: src/app-window.vala:1572
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -537,16 +541,16 @@ msgstr ""
 "licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1564 src/app-window.vala:1880
+#: src/app-window.vala:1575 src/app-window.vala:1891
 msgid "About Document Scanner"
 msgstr "Despre Scaner de documente"
 
 #. Description of program
-#: src/app-window.vala:1567
+#: src/app-window.vala:1578
 msgid "Simple document scanning tool"
 msgstr "Utilitar pentru scanarea simplă a documentelor"
 
-#: src/app-window.vala:1576
+#: src/app-window.vala:1587
 msgid "translator-credits"
 msgstr ""
 "Florentina Mușat <florentina [dot] musat [dot] 28 [at] gmail [dot] com>, "
@@ -563,22 +567,22 @@ msgstr ""
 "  sfantu https://launchpad.net/~sfantus1"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1592
+#: src/app-window.vala:1603
 msgid "Save document before quitting?"
 msgstr "Salvați documentul înainte de ieșire?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1594
+#: src/app-window.vala:1605
 msgid "Quit without Saving"
 msgstr "Închide fără a salva"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1635
+#: src/app-window.vala:1646
 msgid "You appear to have a Brother scanner."
 msgstr "Se pare că aveți un scaner Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1637
+#: src/app-window.vala:1648
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -587,7 +591,7 @@ msgstr ""
 "com\">situl Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1641
+#: src/app-window.vala:1652
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -596,7 +600,7 @@ msgstr ""
 "www.sane-project.org/man/sane-pixma.5.html\">suportul Pixma SANE</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1643
+#: src/app-window.vala:1654
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -609,13 +613,13 @@ msgstr ""
 "\">lista de discuții SANE</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1647
+#: src/app-window.vala:1658
 msgid "You appear to have a Samsung scanner."
 msgstr "Se pare că aveți un scaner Samsung."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1650
+#: src/app-window.vala:1661
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -624,7 +628,7 @@ msgstr ""
 "\">pagina web HP</a> (HP a obținut afacerea de tipărire a Samsung)"
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1655
+#: src/app-window.vala:1666
 msgid "You appear to have an HP scanner."
 msgstr "Se pare că aveți un scaner HP."
 
@@ -632,7 +636,7 @@ msgstr "Se pare că aveți un scaner HP."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1663
+#: src/app-window.vala:1674
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -641,12 +645,12 @@ msgstr ""
 "\">pagina web HP</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1667
+#: src/app-window.vala:1678
 msgid "You appear to have an Epson scanner."
 msgstr "Se pare că aveți un scaner Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1669
+#: src/app-window.vala:1680
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -655,12 +659,12 @@ msgstr ""
 "\">situl Epson</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1673
+#: src/app-window.vala:1684
 msgid "You appear to have an Lexmark scanner."
 msgstr "Se pare că aveți un scaner Lexmark."
 
-#. Instructions on how to install Linux scanner drivers
-#: src/app-window.vala:1675
+#. Instructions on how to install Lexmark scanner drivers
+#: src/app-window.vala:1686
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -669,38 +673,38 @@ msgstr ""
 "com\">pagina web Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1679
+#: src/app-window.vala:1690
 msgid "Install drivers"
 msgstr "Instalare drivere"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1713
+#: src/app-window.vala:1724
 msgid "Once installed you will need to restart this app."
 msgstr "Odată instalat trebuie să reporniți această aplicație."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1726
+#: src/app-window.vala:1737
 msgid "Installing drivers…"
 msgstr "Se instalează drivere…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1734
+#: src/app-window.vala:1745
 msgid "Drivers installed successfully!"
 msgstr "Drivere instalate cu succes!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1744
+#: src/app-window.vala:1755
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Instalarea driverelor a eșuat (cod de eroare %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1750
+#: src/app-window.vala:1761
 msgid "Failed to install drivers."
 msgstr "Eșec la instalarea driverelor."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1757
+#: src/app-window.vala:1768
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
@@ -708,61 +712,61 @@ msgstr[0] "Trebuie să instalați pachetul %s."
 msgstr[1] "Trebuie să instalați pachetele %s."
 msgstr[2] "Trebuie să instalați pachetele %s."
 
-#: src/app-window.vala:1872
+#: src/app-window.vala:1883
 msgid "Email"
 msgstr "Email"
 
-#: src/app-window.vala:1873
+#: src/app-window.vala:1884
 msgid "Print"
 msgstr "Tipărește"
 
-#: src/app-window.vala:1874
+#: src/app-window.vala:1885
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "Reordonează pagini"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1875 src/preferences-dialog.ui:44
+#: src/app-window.vala:1886 src/preferences-dialog.ui:45
 msgid "Preferences"
 msgstr "Preferințe"
 
-#: src/app-window.vala:1878
+#: src/app-window.vala:1889
 msgid "Keyboard Shortcuts"
 msgstr "Scurtături de tastatură"
 
-#: src/app-window.vala:1879
+#: src/app-window.vala:1890
 msgid "Help"
 msgstr "Ajutor"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1888
-msgid "Start Again…"
-msgstr "Începe din nou…"
+#: src/app-window.vala:1899
+msgid "New Document"
+msgstr "Document nou"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1907
+#: src/app-window.vala:1918
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Rotește pagina la stânga (în sens invers acelor de ceasornic)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1916
+#: src/app-window.vala:1927
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Rotește pagina la dreapta (în sensul acelor de ceasornic)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1928
+#: src/app-window.vala:1939
 msgid "Crop the selected page"
 msgstr "Decupează pagina selectată"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1946
+#: src/app-window.vala:1957
 msgid "Delete the selected page"
 msgstr "Șterge pagina selectată"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2120
+#: src/app-window.vala:2131
 msgid "Cancel"
 msgstr "Anulare"
 
@@ -897,97 +901,97 @@ msgid "Quit"
 msgstr "Ieșire"
 
 #. Label beside scan side combo box
-#: src/preferences-dialog.ui:72
+#: src/preferences-dialog.ui:90
 msgid "Scan _Sides"
 msgstr "Părți de _scanat"
 
 #. Label beside page size combo box
-#: src/preferences-dialog.ui:88
+#: src/preferences-dialog.ui:107
 msgid "_Page Size"
 msgstr "Dimensiunea _paginii"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:118
+#: src/preferences-dialog.ui:139
 msgid "Front"
 msgstr "Față"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:128
+#: src/preferences-dialog.ui:154
 msgid "Back"
 msgstr "Verso"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:138
+#: src/preferences-dialog.ui:169
 msgid "Both"
 msgstr "Ambele"
 
 #. Label beside page delay scale
-#: src/preferences-dialog.ui:165
+#: src/preferences-dialog.ui:208
 msgid "_Delay"
 msgstr "_Decalare"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:181
+#: src/preferences-dialog.ui:225
 msgid "Multiple pages from flatbed"
 msgstr "Pagini multiple de la scaner cu capac"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:199
+#: src/preferences-dialog.ui:244
+msgid "0"
+msgstr "0"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:259
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:209
-msgid "5"
-msgstr "5"
+#: src/preferences-dialog.ui:275
+msgid "6"
+msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:220
-msgid "7"
-msgstr "7"
-
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:231
+#: src/preferences-dialog.ui:291
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:242
+#: src/preferences-dialog.ui:307
 msgid "15"
 msgstr "15"
 
 #. Label after page delay radio buttons
-#: src/preferences-dialog.ui:263
+#: src/preferences-dialog.ui:334
 msgid "Seconds"
 msgstr "Secunde"
 
 #. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:285
+#: src/preferences-dialog.ui:362
 msgid "_Scanning"
 msgstr "_Scanare"
 
 #. Label beside scan resolution combo box
-#: src/preferences-dialog.ui:306
+#: src/preferences-dialog.ui:386
 msgid "_Text Resolution"
 msgstr "Rezoluție _text"
 
 #. Label beside scan resolution combo box
-#: src/preferences-dialog.ui:322
+#: src/preferences-dialog.ui:403
 msgid "_Image Resolution"
 msgstr "Rezoluție _imagine"
 
 #. Label beside brightness scale
-#: src/preferences-dialog.ui:367
+#: src/preferences-dialog.ui:457
 msgid "_Brightness"
 msgstr "_Luminozitate"
 
 #. Label beside contrast scale
-#: src/preferences-dialog.ui:383
+#: src/preferences-dialog.ui:474
 msgid "_Contrast"
 msgstr "_Contrast"
 
 #. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:432
+#: src/preferences-dialog.ui:530
 msgid "_Quality"
 msgstr "_Calitate"
 
@@ -1037,24 +1041,24 @@ msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:866
+#: src/scanner.vala:870
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Nu există niciun scaner disponibil. Conectați un scaner."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:896
+#: src/scanner.vala:900
 msgid "Unable to connect to scanner"
 msgstr "Nu s-a putut realiza conexiunea la scaner"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1287
+#: src/scanner.vala:1297 src/scanner.vala:1432
 msgid "Document feeder empty"
 msgstr "Tava cu foi de hârtie este goală"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1295
+#: src/scanner.vala:1305
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1067,12 +1071,12 @@ msgstr ""
 "rezoluție înaltă, dimensiunea scanării este restricționată."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1308
+#: src/scanner.vala:1318
 msgid "Unable to start scan"
 msgstr "Nu s-a putut porni scanarea"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1321 src/scanner.vala:1428
+#: src/scanner.vala:1331 src/scanner.vala:1442
 msgid "Error communicating with scanner"
 msgstr "Eroare la comunicarea cu scanerul"
 
@@ -1113,6 +1117,15 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Rulați „%s --help” pentru a consulta lista completă a opțiunilor pentru "
 "comenzile din lina de comandă."
+
+#~ msgid "Start Again…"
+#~ msgstr "Începe din nou…"
+
+#~ msgid "5"
+#~ msgstr "5"
+
+#~ msgid "7"
+#~ msgstr "7"
 
 #~ msgid ""
 #~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
@@ -1196,9 +1209,6 @@ msgstr ""
 
 #~ msgid "Scan S_ource:"
 #~ msgstr "S_ursă scanare:"
-
-#~ msgid "New Document"
-#~ msgstr "Document nou"
 
 #~ msgid "Document"
 #~ msgstr "Document"
