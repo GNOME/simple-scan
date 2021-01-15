@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2020-08-28 18:00+0000\n"
-"PO-Revision-Date: 2020-08-30 12:09+0200\n"
+"POT-Creation-Date: 2020-11-26 12:24+0000\n"
+"PO-Revision-Date: 2021-01-15 02:15+0100\n"
 "Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian\n"
 "Language: sr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -147,7 +147,7 @@ msgstr "Размак у милисекундама између страница
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:498 src/app-window.vala:1571 src/app-window.vala:1847
+#: src/app-window.ui:498 src/app-window.vala:1582 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "Скенер за документе"
 
@@ -171,7 +171,7 @@ msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Овај програм користи САНЕ радни оквир као подршку за велики број скенера."
 
-#: data/simple-scan.appdata.xml.in:24
+#: data/simple-scan.appdata.xml.in:26
 msgid "The GNOME Project"
 msgstr "Гномов пројекат"
 
@@ -291,46 +291,51 @@ msgid "S_top"
 msgstr "Зау_стави"
 
 #. Tooltip for scan toolbar button
-#: src/app-window.ui:569
+#: src/app-window.ui:570
 msgid "Scan a single page from the scanner"
 msgstr "Скенирај једну стану са скенера"
 
-#: src/app-window.ui:594
+#: src/app-window.ui:595
 msgid "_Scan"
 msgstr "_Скенирај"
 
 #. Tooltip for save toolbar button
-#: src/app-window.ui:697
+#: src/app-window.ui:698
 msgid "Save document to a file"
 msgstr "Сачувај документ у датотеку"
 
-#: src/app-window.vala:227 src/app-window.vala:1679
+#. Tooltip for stop button
+#: src/app-window.ui:821
+msgid "Refresh device list"
+msgstr "Освежи списак уређаја"
+
+#: src/app-window.vala:229 src/app-window.vala:1690
 msgid "_Close"
 msgstr "_Затвори"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:236
+#: src/app-window.vala:238
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Име налога и лозинка који су потребни за приступ “%s”"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:253
+#: src/app-window.vala:255
 msgid "Searching for Scanners…"
 msgstr "Тражење скенера…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:261
+#: src/app-window.vala:263
 msgid "Ready to Scan"
 msgstr "Спреман за скенирање"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:270
+#: src/app-window.vala:273
 msgid "Additional software needed"
 msgstr "Потребан је додатни софтвер"
 
 #. Instructions to install driver software
-#: src/app-window.vala:272
+#: src/app-window.vala:275
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -339,170 +344,170 @@ msgstr ""
 "Ваш скенер."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:279
+#: src/app-window.vala:282
 msgid "No scanners detected"
 msgstr "Ниједан скенер није пронађен"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:281
+#: src/app-window.vala:284
 msgid "Please check your scanner is connected and powered on"
 msgstr "Провери да ли је скенер повезан и укључен"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:383
+#: src/app-window.vala:388
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Самостално сачувана књига већ постоји. Да ли желите да је отворите?"
 
 #. Save dialog: Dialog title
-#: src/app-window.vala:457
+#: src/app-window.vala:462
 msgid "Save As…"
 msgstr "Сачувај као…"
 
-#: src/app-window.vala:460 src/app-window.vala:756
+#: src/app-window.vala:465 src/app-window.vala:761
 msgid "_Save"
 msgstr "_Сачувај"
 
-#: src/app-window.vala:461 src/app-window.vala:643 src/app-window.vala:755
+#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:760
 msgid "_Cancel"
 msgstr "_Откажи"
 
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:471
+#: src/app-window.vala:476
 msgid "Scanned Document"
 msgstr "Скенирани документ"
 
 #. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:477
+#: src/app-window.vala:482
 msgid "Image Files"
 msgstr "Датотеке слика"
 
 #. Save dialog: Filter name to show all files
-#: src/app-window.vala:487
+#: src/app-window.vala:492
 msgid "All Files"
 msgstr "Све датотеке"
 
 #. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:496
+#: src/app-window.vala:501
 msgid "PDF (multi-page document)"
 msgstr "ПДФ (документ са више страна)"
 
 #. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:502
+#: src/app-window.vala:507
 msgid "JPEG (compressed)"
 msgstr "ЈПЕГ (компримовани)"
 
 #. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:508
+#: src/app-window.vala:513
 msgid "PNG (lossless)"
 msgstr "ПНГ (без губитака)"
 
 #. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:515
+#: src/app-window.vala:520
 msgid "WebP (compressed)"
 msgstr "ВебП (компримовани)"
 
 #. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:526
+#: src/app-window.vala:531
 msgid "File format:"
 msgstr "Формат датотеке:"
 
 #. Label in save dialog beside compression slider
-#: src/app-window.vala:549
+#: src/app-window.vala:554
 msgid "Compression:"
 msgstr "Компресија:"
 
-#: src/app-window.vala:556
+#: src/app-window.vala:561
 msgid "Minimum size"
 msgstr "Најмања величина"
 
-#: src/app-window.vala:560
+#: src/app-window.vala:565
 msgid "Full detail"
 msgstr "Све појединости"
 
 #. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:642
+#: src/app-window.vala:647
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Датотека са називом “%s” већ постоји.  Да ли желите да је замените?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:645
+#: src/app-window.vala:650
 msgid "_Replace"
 msgstr "_Замени"
 
-#: src/app-window.vala:712
+#: src/app-window.vala:717
 msgid "Saving"
 msgstr "Чување"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:729
+#: src/app-window.vala:734
 msgid "Failed to save file"
 msgstr "Чување датотеке није успело"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:753
+#: src/app-window.vala:758
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Ако не сачувате измене ће бити изгубљене заувек."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:789
+#: src/app-window.vala:794
 msgid "Save current document?"
 msgstr "Сачувати тренутни документ?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:791
+#: src/app-window.vala:796
 msgid "Discard Changes"
 msgstr "Одбаци измене"
 
 #. Label shown when scan started
-#: src/app-window.vala:826
+#: src/app-window.vala:836
 msgid "Contacting scanner…"
 msgstr "Контактирање скенера…"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1095
+#: src/app-window.vala:1106
 msgid "Unable to save image for preview"
 msgstr "Чување пробне слике није успело"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1107
+#: src/app-window.vala:1118
 msgid "Unable to open image preview application"
 msgstr "Покретање програма за приказ слике није успело"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1269
+#: src/app-window.vala:1280
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Промена распореда страница"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1292
+#: src/app-window.vala:1303
 msgid "Combine sides"
 msgstr "Комбинуј странице"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1302
+#: src/app-window.vala:1313
 msgid "Combine sides (reverse)"
 msgstr "Комбинуј странице (уназад)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1312
+#: src/app-window.vala:1323
 msgid "Reverse"
 msgstr "Изокрени"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1322
+#: src/app-window.vala:1333
 msgid "Keep unchanged"
 msgstr "Без измена"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1546
+#: src/app-window.vala:1557
 msgid "Unable to open help file"
 msgstr "Није могуће отворити датотеку помоћи"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1561
+#: src/app-window.vala:1572
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -531,45 +536,48 @@ msgstr ""
 "уз овај програм. Ако нисте посетите <http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1564 src/app-window.vala:1880
+#: src/app-window.vala:1575 src/app-window.vala:1891
 msgid "About Document Scanner"
 msgstr "О Скенеру докумената"
 
 #. Description of program
-#: src/app-window.vala:1567
+#: src/app-window.vala:1578
 msgid "Simple document scanning tool"
 msgstr "Једноставна алатка за скенирање докумената"
 
-#: src/app-window.vala:1576
+#: src/app-window.vala:1587
 msgid "translator-credits"
 msgstr ""
-"Launchpad Contributions:\n"
+"Доприноси са Launchpad-а:\n"
 "  Ivan Petrovic https://launchpad.net/~ivanpetrovic\n"
 "  Kosava https://launchpad.net/~kosava\n"
 "  Launchpad Translations Administrators https://launchpad.net/~rosetta\n"
 "  Michael Hoth https://launchpad.net/~hoth-einbeck\n"
 "  Марко М. Костић https://launchpad.net/~marko-m-kostic\n"
 "  Мирослав Николић https://launchpad.net/~lipek\n"
-"Serbian GNOME Translation Project:\n"
-"  Борисав Живановић <borisavzivanovic@gmail.com>"
+"\n"
+"Српски тим на Гномовој преводилачкој платформи:\n"
+"  Борисав Живановић <borisavzivanovic@gmail.com>\n"
+"  Марко М. Костић <marko.m.kostic@gmail.com>\n"
+"  https://гном.срб - превод Гнома на српски језик."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1592
+#: src/app-window.vala:1603
 msgid "Save document before quitting?"
 msgstr "Да сачувам документ пре него што изађем?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1594
+#: src/app-window.vala:1605
 msgid "Quit without Saving"
 msgstr "Затвори без чувања"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1635
+#: src/app-window.vala:1646
 msgid "You appear to have a Brother scanner."
 msgstr "Изгледа да имате Брадеров (Brother) скенер."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1637
+#: src/app-window.vala:1648
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -578,7 +586,7 @@ msgstr ""
 "\">вебсајту Брадера</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1641
+#: src/app-window.vala:1652
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -588,7 +596,7 @@ msgstr ""
 "a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1643
+#: src/app-window.vala:1654
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -601,13 +609,13 @@ msgstr ""
 "listinfo/sane-devel\">SANE дописној листи</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1647
+#: src/app-window.vala:1658
 msgid "You appear to have a Samsung scanner."
 msgstr "Изгледа да имате Самсунгов скенер."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1650
+#: src/app-window.vala:1661
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -616,7 +624,7 @@ msgstr ""
 "\">вебсајту HP-а</a> (HP је купио Самсунгове штампаче)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1655
+#: src/app-window.vala:1666
 msgid "You appear to have an HP scanner."
 msgstr "Изгледа да имате ХП-ов скенер."
 
@@ -624,7 +632,7 @@ msgstr "Изгледа да имате ХП-ов скенер."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1663
+#: src/app-window.vala:1674
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -633,12 +641,12 @@ msgstr ""
 "\">вебсајту HP-а</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1667
+#: src/app-window.vala:1678
 msgid "You appear to have an Epson scanner."
 msgstr "Изгледа да имате Епсонов скенер."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1669
+#: src/app-window.vala:1680
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -647,12 +655,12 @@ msgstr ""
 "\">вебсајту Епсона</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1673
+#: src/app-window.vala:1684
 msgid "You appear to have an Lexmark scanner."
 msgstr "Изгледа да имате Лексмарков скенер."
 
-#. Instructions on how to install Linux scanner drivers
-#: src/app-window.vala:1675
+#. Instructions on how to install Lexmark scanner drivers
+#: src/app-window.vala:1686
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -661,100 +669,100 @@ msgstr ""
 "\">вебсајту Лексмарка</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1679
+#: src/app-window.vala:1690
 msgid "Install drivers"
 msgstr "Инталирај управљачки програм"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1713
+#: src/app-window.vala:1724
 msgid "Once installed you will need to restart this app."
 msgstr "Након инсталирања, биће потребно да поново покренете овај програм."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1726
+#: src/app-window.vala:1737
 msgid "Installing drivers…"
 msgstr "Инсталација управљачког програма у току…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1734
+#: src/app-window.vala:1745
 msgid "Drivers installed successfully!"
 msgstr "Управљачки програм успешно инсталиран!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1744
+#: src/app-window.vala:1755
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Инсталација управљачког програма није успела (код грешке  %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1750
+#: src/app-window.vala:1761
 msgid "Failed to install drivers."
 msgstr "Инсталација управљачког програма није успела."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1757
+#: src/app-window.vala:1768
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
-msgstr[0] "Морате инсталирати %s пакет"
-msgstr[1] "Морате инсталирати %s пакетa"
-msgstr[2] "Морате инсталирати %s пакетa"
+msgstr[0] "Морате инсталирати %s пакет."
+msgstr[1] "Морате инсталирати %s пакетa."
+msgstr[2] "Морате инсталирати %s пакетa."
 
-#: src/app-window.vala:1872
+#: src/app-window.vala:1883
 msgid "Email"
 msgstr "Е-пошта"
 
-#: src/app-window.vala:1873
+#: src/app-window.vala:1884
 msgid "Print"
 msgstr "Одштампај"
 
-#: src/app-window.vala:1874
+#: src/app-window.vala:1885
 msgctxt "menu"
 msgid "Reorder Pages"
 msgstr "Промени распоред страница"
 
 #. Title of preferences dialog
-#: src/app-window.vala:1875 src/preferences-dialog.ui:44
+#: src/app-window.vala:1886 src/preferences-dialog.ui:45
 msgid "Preferences"
 msgstr "Поставке"
 
-#: src/app-window.vala:1878
+#: src/app-window.vala:1889
 msgid "Keyboard Shortcuts"
 msgstr "Пречице на тастатури"
 
-#: src/app-window.vala:1879
+#: src/app-window.vala:1890
 msgid "Help"
 msgstr "Помоћ"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1888
-msgid "Start Again…"
-msgstr "_Поново покрени…"
+#: src/app-window.vala:1899
+msgid "New Document"
+msgstr "Нови документ"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1907
+#: src/app-window.vala:1918
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Ротирај страницу налево (супротно казаљци на сату)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1916
+#: src/app-window.vala:1927
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Ротирај страницу надесно (смер казаљке на сату)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1928
+#: src/app-window.vala:1939
 msgid "Crop the selected page"
 msgstr "Исеци означену страницу"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1946
+#: src/app-window.vala:1957
 msgid "Delete the selected page"
 msgstr "Обриши означену страницу"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2120
+#: src/app-window.vala:2131
 msgid "Cancel"
 msgstr "Откажи"
 
@@ -889,97 +897,97 @@ msgid "Quit"
 msgstr "Излазак"
 
 #. Label beside scan side combo box
-#: src/preferences-dialog.ui:72
+#: src/preferences-dialog.ui:90
 msgid "Scan _Sides"
 msgstr "Скенирање _страница"
 
 #. Label beside page size combo box
-#: src/preferences-dialog.ui:88
+#: src/preferences-dialog.ui:107
 msgid "_Page Size"
 msgstr "Величина ст_ранице"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:118
+#: src/preferences-dialog.ui:139
 msgid "Front"
 msgstr "Предња страна"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:128
+#: src/preferences-dialog.ui:154
 msgid "Back"
 msgstr "Задња страна"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:138
+#: src/preferences-dialog.ui:169
 msgid "Both"
 msgstr "Обе стране"
 
 #. Label beside page delay scale
-#: src/preferences-dialog.ui:165
+#: src/preferences-dialog.ui:208
 msgid "_Delay"
 msgstr "Зас_тој"
 
 #. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:181
+#: src/preferences-dialog.ui:225
 msgid "Multiple pages from flatbed"
 msgstr "Више страна са положеног скенера"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:199
+#: src/preferences-dialog.ui:244
+msgid "0"
+msgstr "0"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: src/preferences-dialog.ui:259
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:209
-msgid "5"
-msgstr "5"
+#: src/preferences-dialog.ui:275
+msgid "6"
+msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:220
-msgid "7"
-msgstr "7"
-
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:231
+#: src/preferences-dialog.ui:291
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:242
+#: src/preferences-dialog.ui:307
 msgid "15"
 msgstr "15"
 
 #. Label after page delay radio buttons
-#: src/preferences-dialog.ui:263
+#: src/preferences-dialog.ui:334
 msgid "Seconds"
 msgstr "секунди"
 
 #. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:285
+#: src/preferences-dialog.ui:362
 msgid "_Scanning"
 msgstr "_Скенирање"
 
 #. Label beside scan resolution combo box
-#: src/preferences-dialog.ui:306
+#: src/preferences-dialog.ui:386
 msgid "_Text Resolution"
 msgstr "Резолуција _текста"
 
 #. Label beside scan resolution combo box
-#: src/preferences-dialog.ui:322
+#: src/preferences-dialog.ui:403
 msgid "_Image Resolution"
 msgstr "Резолуција сл_ике"
 
 #. Label beside brightness scale
-#: src/preferences-dialog.ui:367
+#: src/preferences-dialog.ui:457
 msgid "_Brightness"
 msgstr "_Осветљеност"
 
 #. Label beside contrast scale
-#: src/preferences-dialog.ui:383
+#: src/preferences-dialog.ui:474
 msgid "_Contrast"
 msgstr "_Контраст"
 
 #. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:432
+#: src/preferences-dialog.ui:530
 msgid "_Quality"
 msgstr "_Квалитет"
 
@@ -1029,24 +1037,24 @@ msgid "%d dpi"
 msgstr "%d тачака по инчу"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:866
+#: src/scanner.vala:870
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Ниједан скенер није доступан. Повежи скенер."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:896
+#: src/scanner.vala:900
 msgid "Unable to connect to scanner"
 msgstr "Није могуће контактирати скенер"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1293
+#: src/scanner.vala:1297 src/scanner.vala:1432
 msgid "Document feeder empty"
 msgstr "Држач папира је празан"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1301
+#: src/scanner.vala:1305
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1059,12 +1067,12 @@ msgstr ""
 "скенирања ограничена у високим резолуцијама."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1314
+#: src/scanner.vala:1318
 msgid "Unable to start scan"
 msgstr "Није могуће почети скенирање"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1327 src/scanner.vala:1434
+#: src/scanner.vala:1331 src/scanner.vala:1442
 msgid "Error communicating with scanner"
 msgstr "Грешка у комуникацији са скенером"
 
@@ -1104,6 +1112,15 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Покрените “%s --help” да бисте видели листу свих опција командне линије."
 
+#~ msgid "Start Again…"
+#~ msgstr "_Поново покрени…"
+
+#~ msgid "5"
+#~ msgstr "5"
+
+#~ msgid "7"
+#~ msgstr "7"
+
 #~ msgid ""
 #~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
 #~ "\">Samsung website</a>."
@@ -1140,9 +1157,6 @@ msgstr ""
 
 #~ msgid "Photo"
 #~ msgstr "Слика"
-
-#~ msgid "_Document"
-#~ msgstr "_Документ"
 
 #~ msgid "Sc_an"
 #~ msgstr "_Скенирај"
