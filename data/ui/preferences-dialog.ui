@@ -40,520 +40,243 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <template class="PreferencesDialog" parent="GtkDialog">
+  <template class="PreferencesDialog" parent="HdyPreferencesWindow">
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes" comments="Title of preferences dialog">Preferences</property>
-    <property name="resizable">False</property>
     <property name="icon_name">org.gnome.SimpleScan</property>
-    <property name="type_hint">normal</property>
-    <child type="titlebar">
-      <placeholder/>
-    </child>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox2">
+    <property name="search_enabled">False</property>
+    <child>
+      <object class="HdyPreferencesPage">
         <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox">
-            <property name="can_focus">False</property>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="visible">True</property>
+            <property name="title" translatable="yes" comments="Preferences Dialog: Section label for scanning settings">Scanning</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes" comments="Label beside scan side combo box">Scan _Sides</property>
+                <property name="use_underline">True</property>
+                <property name="activatable_widget">front_side_button</property>
+                <child>
+                  <object class="GtkBox" id="scan_side_box">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="homogeneous">True</property>
+                    <child>
+                      <object class="GtkRadioButton" id="front_side_button">
+                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">Front</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="back_side_button">
+                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on the back side of a page">Back</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="draw_indicator">False</property>
+                        <property name="group">front_side_button</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="both_side_button">
+                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on both sides of a page">Both</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="draw_indicator">False</property>
+                        <property name="group">front_side_button</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="linked"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes" comments="Label beside page size combo box">_Page Size</property>
+                <property name="use_underline">True</property>
+                <property name="activatable_widget">paper_size_combo</property>
+                <child>
+                  <object class="GtkComboBox" id="paper_size_combo">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
+                    <property name="valign">center</property>
+                    <property name="model">paper_size_model</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes" comments="Label beside page delay scale">_Delay in Seconds</property>
+                <property name="subtitle" translatable="yes" comments="Provides context for the page delay scale">Interval to scan multiple pages</property>
+                <property name="use_underline">True</property>
+                <property name="activatable_widget">page_delay_0s_button</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="homogeneous">True</property>
+                    <child>
+                      <object class="GtkRadioButton" id="page_delay_0s_button">
+                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">0</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="page_delay_3s_button">
+                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">3</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">False</property>
+                        <property name="group">page_delay_0s_button</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="page_delay_6s_button">
+                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">6</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">False</property>
+                        <property name="group">page_delay_0s_button</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="page_delay_10s_button">
+                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">10</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">False</property>
+                        <property name="group">page_delay_0s_button</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="page_delay_15s_button">
+                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">15</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">False</property>
+                        <property name="group">page_delay_0s_button</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="linked"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
-          <object class="GtkNotebook">
+          <object class="HdyPreferencesGroup">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="show_border">False</property>
+            <property name="title" translatable="yes" comments="Preferences Dialog: Section label for quality settings">Quality</property>
             <child>
-              <object class="GtkBox">
+              <object class="HdyActionRow">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="border_width">30</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">30</property>
-                <child>
-                  <object class="GtkGrid">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="row_spacing">15</property>
-                    <property name="column_spacing">10</property>
-                    <child>
-                      <object class="GtkLabel" id="page_side_label">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Label beside scan side combo box">Scan _Sides</property>
-                        <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">front_side_button</property>
-                        <property name="xalign">1</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="paper_size_label">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Label beside page size combo box">_Page Size</property>
-                        <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">paper_size_combo</property>
-                        <property name="xalign">1</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBox" id="paper_size_combo">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="model">paper_size_model</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="scan_side_box">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="homogeneous">True</property>
-                        <child>
-                          <object class="GtkRadioButton" id="front_side_button">
-                            <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">Front</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="active">True</property>
-                            <property name="draw_indicator">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkRadioButton" id="back_side_button">
-                            <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on the back side of a page">Back</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="draw_indicator">False</property>
-                            <property name="group">front_side_button</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkRadioButton" id="both_side_button">
-                            <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on both sides of a page">Both</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="draw_indicator">False</property>
-                            <property name="group">front_side_button</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
-                        <style>
-                          <class name="linked"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkGrid">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="row_spacing">15</property>
-                    <property name="column_spacing">10</property>
-                    <child>
-                      <object class="GtkLabel" id="page_delay_label">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Label beside page delay scale">_Delay</property>
-                        <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">page_delay_0s_button</property>
-                        <property name="xalign">1</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Preferences dialog: Label above settings for scanning multiple pages from a flatbed">Multiple pages from flatbed</property>
-                        <property name="xalign">0</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                        <property name="width">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="homogeneous">True</property>
-                        <child>
-                          <object class="GtkRadioButton" id="page_delay_0s_button">
-                            <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">0</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="active">True</property>
-                            <property name="draw_indicator">False</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkRadioButton" id="page_delay_3s_button">
-                            <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">3</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="active">True</property>
-                            <property name="draw_indicator">False</property>
-                            <property name="group">page_delay_0s_button</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkRadioButton" id="page_delay_6s_button">
-                            <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">6</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="active">True</property>
-                            <property name="draw_indicator">False</property>
-                            <property name="group">page_delay_0s_button</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkRadioButton" id="page_delay_10s_button">
-                            <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">10</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="active">True</property>
-                            <property name="draw_indicator">False</property>
-                            <property name="group">page_delay_0s_button</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">3</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkRadioButton" id="page_delay_15s_button">
-                            <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">15</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="active">True</property>
-                            <property name="draw_indicator">False</property>
-                            <property name="group">page_delay_0s_button</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">4</property>
-                          </packing>
-                        </child>
-                        <style>
-                          <class name="linked"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Label after page delay radio buttons">Seconds</property>
-                        <property name="use_underline">True</property>
-                        <property name="xalign">1</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">2</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="tab_expand">True</property>
-              </packing>
-            </child>
-            <child type="tab">
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes" comments="Preferences Dialog: Tab label for scanning settings">_Scanning</property>
+                <property name="title" translatable="yes" comments="Label beside scan resolution combo box">_Text Resolution</property>
                 <property name="use_underline">True</property>
+                <property name="activatable_widget">text_dpi_combo</property>
+                <child>
+                  <object class="GtkComboBox" id="text_dpi_combo">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="model">text_dpi_model</property>
+                  </object>
+                </child>
               </object>
-              <packing>
-                <property name="tab_fill">False</property>
-              </packing>
             </child>
             <child>
-              <object class="GtkBox">
+              <object class="HdyActionRow">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="border_width">30</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">30</property>
-                <child>
-                  <object class="GtkGrid">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="row_spacing">14</property>
-                    <property name="column_spacing">10</property>
-                    <child>
-                      <object class="GtkLabel" id="text_dpi_label">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Label beside scan resolution combo box">_Text Resolution</property>
-                        <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">text_dpi_combo</property>
-                        <property name="xalign">1</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="photo_dpi_label">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Label beside scan resolution combo box">_Image Resolution</property>
-                        <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">photo_dpi_combo</property>
-                        <property name="xalign">1</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBox" id="text_dpi_combo">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="model">text_dpi_model</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBox" id="photo_dpi_combo">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="model">photo_dpi_model</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkGrid">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="row_spacing">15</property>
-                    <property name="column_spacing">10</property>
-                    <child>
-                      <object class="GtkLabel" id="brightness_label">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Label beside brightness scale">_Brightness</property>
-                        <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">brightness_scale</property>
-                        <property name="xalign">1</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="contrast_label">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" comments="Label beside contrast scale">_Contrast</property>
-                        <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">contrast_scale</property>
-                        <property name="xalign">1</property>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkScale" id="brightness_scale">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="hexpand">True</property>
-                        <property name="adjustment">brightness_adjustment</property>
-                        <property name="draw_value">False</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkScale" id="contrast_scale">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="hexpand">True</property>
-                        <property name="adjustment">contrast_adjustment</property>
-                        <property name="draw_value">False</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="position">1</property>
-                <property name="tab_expand">True</property>
-              </packing>
-            </child>
-            <child type="tab">
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes" comments="Preferences Dialog: Tab for quality settings">_Quality</property>
+                <property name="title" translatable="yes" comments="Label beside scan resolution combo box">_Image Resolution</property>
                 <property name="use_underline">True</property>
+                <property name="activatable_widget">photo_dpi_combo</property>
+                <child>
+                  <object class="GtkComboBox" id="photo_dpi_combo">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">center</property>
+                    <property name="model">photo_dpi_model</property>
+                  </object>
+                </child>
               </object>
-              <packing>
-                <property name="position">1</property>
-                <property name="tab_fill">False</property>
-              </packing>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="title" translatable="yes" comments="Label beside brightness scale">_Brightness</property>
+                <property name="use_underline">True</property>
+                <property name="activatable_widget">brightness_scale</property>
+                <child>
+                  <object class="GtkScale" id="brightness_scale">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">True</property>
+                    <property name="adjustment">brightness_adjustment</property>
+                    <property name="draw_value">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="title" translatable="yes" comments="Label beside contrast scale">_Contrast</property>
+                <property name="use_underline">True</property>
+                <property name="activatable_widget">contrast_scale</property>
+                <child>
+                  <object class="GtkScale" id="contrast_scale">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">True</property>
+                    <property name="adjustment">contrast_adjustment</property>
+                    <property name="draw_value">False</property>
+                  </object>
+                </child>
+              </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
     </child>
   </template>
-  <object class="GtkSizeGroup" id="label_size_group">
+  <object class="GtkSizeGroup" id="scale_size_group">
+    <property name="mode">GTK_SIZE_GROUP_HORIZONTAL</property>
     <widgets>
-      <widget name="page_side_label"/>
-      <widget name="paper_size_label"/>
-      <widget name="page_delay_label"/>
-      <widget name="text_dpi_label"/>
-      <widget name="photo_dpi_label"/>
-      <widget name="brightness_label"/>
-      <widget name="contrast_label"/>
+      <widget name="brightness_scale"/>
+      <widget name="contrast_scale"/>
     </widgets>
   </object>
 </interface>

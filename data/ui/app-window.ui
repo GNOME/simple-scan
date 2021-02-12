@@ -491,308 +491,267 @@
       </object>
     </child>
   </object>
-  <template class="AppWindow" parent="GtkApplicationWindow">
+  <template class="AppWindow" parent="HdyApplicationWindow">
     <property name="width_request">320</property>
     <property name="height_request">480</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes" comments="Title of scan window">Document Scanner</property>
     <property name="icon_name">org.gnome.SimpleScan</property>
     <signal name="delete-event" handler="window_delete_event_cb" swapped="no"/>
-    <child type="titlebar">
-      <object class="GtkHeaderBar" id="header_bar">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="vexpand">True</property>
-        <property name="show_close_button">True</property>
-        <child>
-          <object class="GtkBox" id="open_box">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="valign">center</property>
-            <child>
-              <object class="GtkButton" id="stop_button">
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="stop_scan_button_clicked_cb" swapped="no"/>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkSpinner" id="stop_button_spinner">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="active">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">S_top</property>
-                        <property name="use_underline">True</property>
-                        <property name="width_chars">6</property>
-                        <property name="xalign">0.33</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-                <style>
-                  <class name="text-button"/>
-                  <class name="destructive-action"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="scan_button">
-                <property name="visible">True</property>
-                <property name="sensitive">False</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button">Scan a single page from the scanner</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="scan_button_clicked_cb" swapped="no"/>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkImage" id="scan_options_image">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">scanner-symbolic</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_right">1</property>
-                        <property name="label" translatable="yes">_Scan</property>
-                        <property name="use_underline">True</property>
-                        <property name="width_chars">6</property>
-                        <property name="xalign">0.33</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-                <style>
-                  <class name="text-button"/>
-                  <class name="suggested-action"/>
-                </style>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkMenuButton">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="receives_default">False</property>
-                <property name="popover">scan_options_popover</property>
-                <child>
-                  <object class="GtkBox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkImage" id="scan_hint_image">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">x-office-document-symbolic</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="icon_name">pan-down-symbolic</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <style>
-              <class name="linked"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkMenuButton" id="menu_button">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <accelerator key="F10" signal="activate"/>
-            <child>
-              <object class="GtkImage">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="icon_name">open-menu-symbolic</property>
-                <property name="icon_size">1</property>
-              </object>
-            </child>
-            <style>
-              <class name="image-button"/>
-            </style>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkButton" id="save_button">
-            <property name="visible">True</property>
-            <property name="sensitive">False</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <property name="tooltip_text" translatable="yes" comments="Tooltip for save toolbar button">Save document to a file</property>
-            <property name="use_underline">True</property>
-            <signal name="clicked" handler="save_file_button_clicked_cb" swapped="no"/>
-            <child>
-              <object class="GtkImage" id="save_image">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="icon_name">document-save-symbolic</property>
-                <property name="icon_size">1</property>
-              </object>
-            </child>
-            <style>
-              <class name="image-button"/>
-            </style>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <style>
-          <class name="titlebar"/>
-        </style>
-      </object>
-    </child>
     <child>
       <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
+          <object class="HdyHeaderBar" id="header_bar">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="show_close_button">True</property>
+            <child>
+              <object class="GtkBox" id="open_box">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="valign">center</property>
+                <child>
+                  <object class="GtkButton" id="stop_button">
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="stop_scan_button_clicked_cb" swapped="no"/>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkSpinner" id="stop_button_spinner">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="active">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">S_top</property>
+                            <property name="use_underline">True</property>
+                            <property name="width_chars">6</property>
+                            <property name="xalign">0.33</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="text-button"/>
+                      <class name="destructive-action"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="scan_button">
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button">Scan a single page from the scanner</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="scan_button_clicked_cb" swapped="no"/>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkImage" id="scan_options_image">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">scanner-symbolic</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="margin_right">1</property>
+                            <property name="label" translatable="yes">_Scan</property>
+                            <property name="use_underline">True</property>
+                            <property name="width_chars">6</property>
+                            <property name="xalign">0.33</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="text-button"/>
+                      <class name="suggested-action"/>
+                    </style>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkMenuButton">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="popover">scan_options_popover</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkImage" id="scan_hint_image">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">x-office-document-symbolic</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkImage">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="icon_name">pan-down-symbolic</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <style>
+                  <class name="linked"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuButton" id="menu_button">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <accelerator key="F10" signal="activate"/>
+                <child>
+                  <object class="GtkImage">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">open-menu-symbolic</property>
+                    <property name="icon_size">1</property>
+                  </object>
+                </child>
+                <style>
+                  <class name="image-button"/>
+                </style>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="save_button">
+                <property name="visible">True</property>
+                <property name="sensitive">False</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for save toolbar button">Save document to a file</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="save_file_button_clicked_cb" swapped="no"/>
+                <child>
+                  <object class="GtkImage" id="save_image">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="icon_name">document-save-symbolic</property>
+                    <property name="icon_size">1</property>
+                  </object>
+                </child>
+                <style>
+                  <class name="image-button"/>
+                </style>
+              </object>
+              <packing>
+                <property name="pack_type">end</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <style>
+              <class name="titlebar"/>
+            </style>
+          </object>
+        </child>
+        <child>
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="vexpand">True</property>
             <child>
-              <object class="GtkAlignment">
+              <object class="HdyStatusPage" id="status_page">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xscale">0</property>
-                <property name="yscale">0</property>
+                <property name="icon_name">org.gnome.SimpleScan-symbolic</property>
                 <child>
                   <object class="GtkBox">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
                     <property name="orientation">vertical</property>
-                    <property name="spacing">10</property>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="has_focus">True</property>
-                        <property name="is_focus">True</property>
-                        <property name="can_default">True</property>
-                        <property name="has_default">True</property>
-                        <property name="opacity">0.5</property>
-                        <property name="pixel_size">120</property>
-                        <property name="icon_name">org.gnome.SimpleScan-symbolic</property>
-                        <property name="icon_size">6</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="status_primary_label">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                          <attribute name="scale" value="1.5"/>
-                        </attributes>
-                        <style>
-                          <class name="dim-label"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
+                    <property name="spacing">12</property>
                     <child>
                       <object class="GtkLabel" id="status_secondary_label">
-                        <property name="can_focus">False</property>
+                        <property name="visible">False</property>
+                        <property name="wrap">True</property>
+                        <property name="wrap-mode">word-char</property>
+                        <property name="justify">center</property>
+                        <property name="use-markup">True</property>
                         <property name="track_visited_links">False</property>
                         <signal name="activate-link" handler="status_label_activate_link_cb" swapped="no"/>
                         <style>
-                          <class name="dim-label"/>
+                          <class name="body"/>
+                          <class name="description"/>
                         </style>
                       </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
                     </child>
                     <child>
                       <object class="GtkBox" id="device_buttons_box">
@@ -868,11 +827,6 @@
               </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
       </object>
     </child>

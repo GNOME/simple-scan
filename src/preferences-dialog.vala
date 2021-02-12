@@ -11,7 +11,7 @@
  */
 
 [GtkTemplate (ui = "/org/gnome/SimpleScan/ui/preferences-dialog.ui")]
-private class PreferencesDialog : Gtk.Dialog
+private class PreferencesDialog : Hdy.PreferencesWindow
 {
     private Settings settings;
 
@@ -54,8 +54,6 @@ private class PreferencesDialog : Gtk.Dialog
 
     public PreferencesDialog (Settings settings)
     {
-        Object (use_header_bar: 1);
-
         this.settings = settings;
 
         Gtk.TreeIter iter;

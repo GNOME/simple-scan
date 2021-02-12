@@ -14,7 +14,7 @@ private const int DEFAULT_TEXT_DPI = 150;
 private const int DEFAULT_PHOTO_DPI = 300;
 
 [GtkTemplate (ui = "/org/gnome/SimpleScan/ui/app-window.ui")]
-public class AppWindow : Gtk.ApplicationWindow
+public class AppWindow : Hdy.ApplicationWindow
 {
     private const GLib.ActionEntry[] action_entries =
     {
@@ -48,21 +48,21 @@ public class AppWindow : Gtk.ApplicationWindow
     private bool user_selected_device;
 
     [GtkChild]
-    private Gtk.HeaderBar header_bar;
+    private Hdy.HeaderBar header_bar;
     [GtkChild]
     private Gtk.Menu page_menu;
     [GtkChild]
     private Gtk.Stack stack;
     [GtkChild]
-    private Gtk.Label status_primary_label;
+    private Hdy.StatusPage status_page;
+    [GtkChild]
+    private Gtk.Label status_secondary_label;
     [GtkChild]
     private Gtk.ListStore device_model;
     [GtkChild]
     private Gtk.Box device_buttons_box;
     [GtkChild]
     private Gtk.ComboBox device_combo;
-    [GtkChild]
-    private Gtk.Label status_secondary_label;
     [GtkChild]
     private Gtk.Box main_vbox;
     [GtkChild]
@@ -251,16 +251,16 @@ public class AppWindow : Gtk.ApplicationWindow
         scan_button.sensitive = false;
         if (!have_devices)
         {
-            status_primary_label.set_text (/* Label shown when searching for scanners */
-                                           _("Searching for Scanners…"));
+            status_page.set_title (/* Label shown when searching for scanners */
+                                   _("Searching for Scanners…"));
             status_secondary_label.visible = false;
             device_buttons_box.visible = false;
         }
         else if (get_selected_device () != null)
         {
             scan_button.sensitive = true;
-            status_primary_label.set_text (/* Label shown when detected a scanner */
-                                           _("Ready to Scan"));
+            status_page.set_title (/* Label shown when detected a scanner */
+                                   _("Ready to Scan"));
             status_secondary_label.set_text (get_selected_device_label ());
             status_secondary_label.visible = false;
             device_buttons_box.visible = true;
@@ -269,8 +269,8 @@ public class AppWindow : Gtk.ApplicationWindow
         }
         else if (this.missing_driver != null)
         {
-            status_primary_label.set_text (/* Warning displayed when no drivers are installed but a compatible scanner is detected */
-                                           _("Additional software needed"));
+            status_page.set_title (/* Warning displayed when no drivers are installed but a compatible scanner is detected */
+                                   _("Additional Software Needed"));
             /* Instructions to install driver software */
             status_secondary_label.set_markup (_("You need to <a href=\"install-firmware\">install driver software</a> for your scanner."));
             status_secondary_label.visible = true;
@@ -279,9 +279,9 @@ public class AppWindow : Gtk.ApplicationWindow
         else
         {
             /* Warning displayed when no scanners are detected */
-            status_primary_label.set_text (_("No scanners detected"));
+            status_page.set_title (_("No Scanners Detected"));
             /* Hint to user on why there are no scanners detected */
-            status_secondary_label.set_text (_("Please check your scanner is connected and powered on"));
+            status_secondary_label.set_text (_("Please check your scanner is connected and powered on."));
             status_secondary_label.visible = true;
             device_buttons_box.visible = true;
             device_buttons_box.sensitive = true;
@@ -832,8 +832,8 @@ public class AppWindow : Gtk.ApplicationWindow
 
     private void scan (ScanOptions options)
     {
-        status_primary_label.set_text (/* Label shown when scan started */
-                                       _("Contacting scanner…"));
+        status_page.set_title (/* Label shown when scan started */
+                               _("Contacting Scanner…"));
         device_buttons_box.visible = true;
         device_buttons_box.sensitive = false;
         start_scan (get_selected_device (), options);
@@ -1845,8 +1845,12 @@ public class AppWindow : Gtk.ApplicationWindow
     private void load ()
     {
         preferences_dialog = new PreferencesDialog (settings);
-        preferences_dialog.delete_event.connect (() => { return true; });
-        preferences_dialog.response.connect (() => { preferences_dialog.visible = false; });
+        preferences_dialog.delete_event.connect (() => {
+            preferences_dialog.visible = false;
+            return true;
+        });
+        preferences_dialog.transient_for = this;
+        preferences_dialog.modal = true;
 
         Gtk.Window.set_default_icon_name ("org.gnome.SimpleScan");
 
@@ -1883,9 +1887,9 @@ public class AppWindow : Gtk.ApplicationWindow
         section.append (_("Email"), "app.email");
         section.append (_("Print"), "app.print");
         section.append (C_("menu", "Reorder Pages"), "app.reorder");
-        section.append (_("Preferences"), "app.preferences");
         section = new Menu ();
         gear_menu.append_section (null, section);
+        section.append (_("Preferences"), "app.preferences");
         section.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
         section.append (_("Help"), "app.help");
         section.append (_("About Document Scanner"), "app.about");
