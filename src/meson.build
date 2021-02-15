@@ -1,9 +1,5 @@
-resources = gnome.compile_resources ('resources', 'simple-scan.gresource.xml',
-                                     source_dir: '.',
-                                     c_name: 'resources')
-
 vala_args = [ '--pkg=posix', '--vapidir=' + meson.current_source_dir () ]
-dependencies = [ glib_dep, gtk_dep, zlib_dep, cairo_dep, gdk_pixbuf_dep, gusb_dep, sane_dep ]
+dependencies = [ glib_dep, gtk_dep, libhandy_dep, zlib_dep, cairo_dep, gdk_pixbuf_dep, gusb_dep, sane_dep ]
 if colord_dep.found ()
     vala_args += [ '-D', 'HAVE_COLORD' ]
     dependencies += colord_dep

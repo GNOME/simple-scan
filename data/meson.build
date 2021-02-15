@@ -24,3 +24,17 @@ i18n.merge_file ('appdata-file',
                  po_dir: '../po')
 
 install_man ('simple-scan.1')
+
+resource_files = files([
+    'icons/scalable/actions/scan-type-adf-symbolic.svg',
+    'icons/scalable/actions/scan-type-batch-symbolic.svg',
+    'icons/scalable/actions/crop-symbolic.svg',
+    'ui/app-window.ui',
+    'ui/authorize-dialog.ui',
+    'ui/help-overlay.ui',
+    'ui/preferences-dialog.ui',
+])
+resources = gnome.compile_resources ('resources', 'simple-scan.gresource.xml',
+                                     dependencies: resource_files,
+                                     source_dir: '.',
+                                     c_name: 'resources')

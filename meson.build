@@ -7,6 +7,12 @@ project ('simple-scan', ['vala', 'c'],
          ],
          meson_version: '>= 0.37.1')
 
+# FIXME Disable --disable-since-check after libhandy 1.2 is released
+add_project_arguments (
+  '--disable-since-check',
+  language: 'vala'
+)
+
 gnome = import ('gnome')
 i18n = import ('i18n')
 
@@ -23,6 +29,7 @@ glib_dep = dependency ('glib-2.0', version: '>= 2.38')
 gtk_dep = dependency ('gtk+-3.0', version: '>=3.22')
 gmodule_dep = dependency ('gmodule-export-2.0')
 gthread_dep = dependency ('gthread-2.0')
+libhandy_dep = dependency ('libhandy-1', version: '>= 1.1.90', required: false)
 zlib_dep = dependency ('zlib')
 cairo_dep = dependency ('cairo')
 gdk_pixbuf_dep = dependency ('gdk-pixbuf-2.0')
@@ -34,6 +41,26 @@ webpmux_dep = dependency ('libwebpmux', required: false)
 sane_dep = dependency ('sane-backends')
 msgfmt = find_program  ('msgfmt')
 itstool = find_program  ('itstool')
+
+libhandy_subproj = libhandy_dep
+if not libhandy_dep.found()
+  libhandy_subproj = subproject(
+    'libhandy',
+    default_options: [
+      'examples=false',
+      'glade_catalog=disabled',
+      'tests=false',
+    ]
+  )
+
+  # When using libhandy as subproject, make sure we get the VAPI file
+  libhandy_dep = declare_dependency(
+    dependencies: [
+      libhandy_subproj.get_variable('libhandy_dep'),
+      libhandy_subproj.get_variable('libhandy_vapi'),
+    ]
+  )
+endif
 
 subdir ('po')
 subdir ('data')

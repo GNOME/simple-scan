@@ -50,6 +50,8 @@ public class SimpleScan : Gtk.Application
     {
         base.startup ();
 
+        Hdy.init ();
+
         app = new AppWindow ();
         book = app.book;
         app.start_scan.connect (scan_cb);

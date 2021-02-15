@@ -1,0 +1,230 @@
+{
+    "app-id" : "org.gnome.SimpleScan",
+    "runtime" : "org.gnome.Sdk",
+    "runtime-version" : "master",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "simple-scan",
+    "rename-desktop-file" : "simple-scan.desktop",
+    "tags" : [
+        "devel"
+    ],
+    "desktop-file-name-prefix" : "(Development) ",
+    "finish-args" : [
+        "--device=dri",
+        "--device=all",
+        "--share=network",
+        "--socket=fallback-x11",
+        "--socket=pulseaudio",
+        "--socket=wayland"
+    ],
+    "cleanup" : [
+        "/include",
+        "/share/aclocal",
+        "/man",
+        "/share/man",
+        "/share/gtk-doc",
+        "/share/vala",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+        {
+            "name" : "libusb1",
+            "buildsystem" : "autotools",
+            "config-opts" : [
+                "--disable-udev"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/libusb/libusb.git"
+                }
+            ]
+        },
+        {
+            "name" : "gusb",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Ddocs=false",
+                "-Dtests=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/hughsie/libgusb.git"
+                }
+            ]
+        },
+        {
+            "name" : "udev",
+            "config-opts" : [
+                "--disable-hwdb",
+                "--disable-logging",
+                "--disable-gudev",
+                "--disable-introspection",
+                "--disable-keymap",
+                "--disable-mtd_probe"
+            ],
+            "cleanup" : [
+                "/include",
+                "/etc",
+                "/libexec",
+                "/sbin",
+                "/lib/pkgconfig",
+                "/man",
+                "/share/aclocal",
+                "/share/doc",
+                "/share/gtk-doc",
+                "/share/man",
+                "/share/pkgconfig",
+                "*.la",
+                "*.a"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/gentoo/eudev.git"
+                }
+            ]
+        },
+        {
+            "name" : "gudev",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dtests=disabled",
+                "-Dintrospection=disabled"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libgudev.git"
+                }
+            ]
+        },
+        {
+            "name": "intltool",
+            "cleanup": [ "*" ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+                    "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+                }
+            ]
+        },
+        {
+            "name" : "polkit",
+            "buildsystem" : "autotools",
+            "config-opts" : [
+                "--disable-polkitd",
+                "--disable-man-pages",
+                "--disable-introspection",
+                "--disable-examples",
+                "--disable-gtk-doc",
+                "--disable-libelogind",
+                "--disable-libsystemd-login",
+                "--with-systemdsystemunitdir=no",
+                "--with-authdb=dummy",
+                "--with-authfw=none"
+            ],
+            "rm-configure" : true,
+            "cleanup" : [
+                "/bin/*",
+                "/etc/pam.d",
+                "/etc/dbus-1",
+                "/share/dbus-1/system-services/*",
+                "/share/polkit-1",
+                "/lib/polkit-1"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://www.freedesktop.org/software/polkit/releases/polkit-0.116.tar.gz",
+                    "sha256" : "88170c9e711e8db305a12fdb8234fac5706c61969b94e084d0f117d8ec5d34b1"
+                },
+                {
+                    "type" : "patch",
+                    "path" : "polkit-build-Add-option-to-build-without-polkitd.patch"
+                },
+                {
+                    "type" : "file",
+                    "path" : "polkit-autogen",
+                    "dest-filename" : "autogen.sh"
+                }
+            ]
+        },
+        {
+            "name" : "colord",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dargyllcms_sensor=false",
+                "-Dbash_completion=false",
+                "-Dman=false",
+                "-Dudev_rules=false",
+                "-Dsystemd=false",
+                "-Ddocs=false",
+                "-Dtests=false",
+                "-Dinstalled_tests=false",
+                "-Dvapi=true"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/hughsie/colord.git"
+                }
+            ]
+        },
+        {
+            "name" : "packagekit-glib2",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dpackaging_backend=dummy",
+                "-Dman_pages=false",
+                "-Dgstreamer_plugin=false",
+                "-Doffline_update=false",
+                "-Dbash_completion=false",
+                "-Dbash_command_not_found=false",
+                "-Dsystemd=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/hughsie/PackageKit.git"
+                }
+            ]
+        },
+        {
+            "name" : "gphoto2",
+            "buildsystem" : "autotools",
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://sourceforge.net/projects/gphoto/files/libgphoto/2.5.26/libgphoto2-2.5.26.tar.bz2",
+                    "sha256" : "7740fea3cbb78489071cdfec06c07fab528e69e27ac82734eae6a73eaeeabcd4"
+                }
+            ]
+        },
+        {
+            "name" : "sane-backends",
+            "buildsystem" : "autotools",
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://gitlab.com/sane-project/backends/uploads/8bf1cae2e1803aefab9e5331550e5d5d/sane-backends-1.0.31.tar.gz",
+                    "sha256" : "4a3b10fcb398ed854777d979498645edfe66fcac2f2fd2b9117a79ff45e2a5aa"
+                }
+            ]
+        },
+        {
+            "name" : "simple-scan",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/simple-scan.git"
+                }
+            ]
+        }
+    ]
+}
