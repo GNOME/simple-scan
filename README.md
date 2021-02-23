@@ -26,17 +26,19 @@ Install the dependencies
 
 For Ubuntu/Debian:
 ```
-$ sudo apt install git meson valac libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev gettext itstool
+$ sudo apt install -y meson valac gcc gettext itstool gobject-introspection libfribidi-dev libgirepository1.0-dev libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev git ca-certificates
+
 ```
 
 For Fedora:
 ```
-$ sudo dnf install -y meson vala gettext itstool gtk3-devel libgusb-devel colord-devel PackageKit-glib-devel libwebp-devel sane-backends-devel
+$ sudo dnf install -y meson vala gettext itstool fribidi-devel gtk3-devel gobject-introspection-devel libgusb-devel colord-devel PackageKit-glib-devel libwebp-devel sane-backends-devel git
 ```
 
 For Arch Linux:
 ```
-sudo pacman -S meson vala gettext itstool gtk3 libusb colord libpackagekit-glib libwebp sane
+sudo pacman -S meson vala gettext itstool fribidi gtk3 gobject-introspection libgusb colord libwebp sane git
+
 ```
 
 Get the source:
