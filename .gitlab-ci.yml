@@ -1,5 +1,4 @@
 build:snap:
-  stage: build
   image: ubuntudesktop/gnome-3-28-1804
   before_script:
     - apt-get update
@@ -33,6 +32,7 @@ build-arch:
   script:
     - meson _build
     - ninja -C _build install
+  allow_failure: true
 
 include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
 
