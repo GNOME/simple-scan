@@ -361,7 +361,12 @@ public class Scanner : Object
             if (vendor == "Hewlett-Packard")
                 vendor = "HP";
 
-            scan_device.label = "%s %s".printf (vendor, device_list[i].model);
+            /* Don't repeat vendor name */
+            if (device_list[i].model.down().has_prefix (vendor.down()))
+                scan_device.label = device_list[i].model;
+            else
+                scan_device.label = "%s %s".printf (vendor, device_list[i].model);
+
             /* Replace underscores in name */
             scan_device.label.replace ("_", " ");
 
