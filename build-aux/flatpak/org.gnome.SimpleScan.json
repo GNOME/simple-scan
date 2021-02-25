@@ -14,7 +14,8 @@
         "--device=all",
         "--share=network",
         "--socket=fallback-x11",
-        "--socket=wayland"
+        "--socket=wayland",
+        "--talk-name=org.freedesktop.ColorManager"
     ],
     "cleanup" : [
         "/include",
@@ -167,6 +168,7 @@
             "name" : "colord",
             "buildsystem" : "meson",
             "config-opts" : [
+                "-Ddaemon=false",
                 "-Dargyllcms_sensor=false",
                 "-Dbash_completion=false",
                 "-Dman=false",
