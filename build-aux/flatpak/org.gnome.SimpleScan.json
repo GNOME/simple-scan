@@ -175,25 +175,6 @@
             ]
         },
         {
-            "name" : "packagekit-glib2",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dpackaging_backend=dummy",
-                "-Dman_pages=false",
-                "-Dgstreamer_plugin=false",
-                "-Doffline_update=false",
-                "-Dbash_completion=false",
-                "-Dbash_command_not_found=false",
-                "-Dsystemd=false"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://github.com/hughsie/PackageKit.git"
-                }
-            ]
-        },
-        {
             "name" : "gphoto2",
             "buildsystem" : "autotools",
             "sources" : [
