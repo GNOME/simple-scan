@@ -1112,7 +1112,15 @@ public class Scanner : Object
             }
 
             /* Set resolution and bit depth */
-            option = get_option_by_name (handle, Sane.NAME_SCAN_RESOLUTION, out index);
+            /* Epson has separate resolution settings for x and y axes, which is preferable options to set */
+            option = get_option_by_name (handle, Sane.NAME_SCAN_X_RESOLUTION, out index);
+            if (option != null)
+            {
+                set_fixed_or_int_option (handle, option, index, job.dpi, out job.dpi);
+                option = get_option_by_name (handle, Sane.NAME_SCAN_Y_RESOLUTION, out index);
+            }
+             else
+                option = get_option_by_name (handle, Sane.NAME_SCAN_RESOLUTION, out index);
             if (option == null) /* #161 Lexmark CX310dn Duplex */
                 option = get_option_by_name (handle, "scan-resolution", out index);
             if (option != null)

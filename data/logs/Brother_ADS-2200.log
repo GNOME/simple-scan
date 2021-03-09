@@ -1,0 +1,53 @@
+[+0.00s] DEBUG: simple-scan.vala:1720: Starting simple-scan 3.36.3, PID=313755
+[+0.00s] DEBUG: unsetenv() is not thread-safe and should not be used after threads are created
+[+0.02s] DEBUG: _g_io_module_get_default: Found default implementation dconf (DConfSettingsBackend) for ‘gsettings-backend’
+[+0.08s] DEBUG: app-window.vala:1906: Loading state from /home/arunasr/.cache/simple-scan/state
+[+0.08s] DEBUG: app-window.vala:1885: Restoring window to 2648x1604 pixels
+[+0.15s] DEBUG: scanner.vala:1539: sane_init () -> SANE_STATUS_GOOD
+[+0.15s] DEBUG: scanner.vala:1545: SANE version 1.0.29
+[+0.15s] DEBUG: scanner.vala:1606: Requesting redetection of scan devices
+[+0.15s] DEBUG: scanner.vala:828: Processing request
+[+0.57s] DEBUG: app-window.vala:1981: Saving state to /home/arunasr/.cache/simple-scan/state
+[+0.97s] DEBUG: scanner.vala:341: sane_get_devices () -> SANE_STATUS_GOOD
+[+0.97s] DEBUG: scanner.vala:353: Device: name="BrotherADS2200:libusb:002:015" vendor="Brother" model="ADS2200" type="USB scanner"
+[+0.97s] DEBUG: scanner.vala:353: Device: name="epkowa:interpreter:002:010" vendor="Epson" model="GT-1500" type="flatbed scanner"
+[+1.27s] DEBUG: app-window.vala:1981: Saving state to /home/arunasr/.cache/simple-scan/state
+[+4.80s] DEBUG: simple-scan.vala:1536: Requesting scan at 150 dpi from device 'BrotherADS2200:libusb:002:015'
+[+4.80s] DEBUG: scanner.vala:1674: Scanner.scan ("BrotherADS2200:libusb:002:015", dpi=150, scan_mode=ScanMode.COLOR, depth=8, type=adf-front, paper_width=2100, paper_height=2970, brightness=21, contrast=32, delay=10000ms)
+[+4.80s] DEBUG: scanner.vala:828: Processing request
+[+5.12s] DEBUG: scanner.vala:889: sane_open ("BrotherADS2200:libusb:002:015") -> SANE_STATUS_GOOD
+[+5.12s] DEBUG: scanner.vala:910: sane_get_option_descriptor (0)
+[+5.12s] DEBUG: scanner.vala:760: Option 0: title='Number of options' type=int size=4 cap=soft-detect
+[+5.12s] DEBUG: scanner.vala:763:   Description: Read-only option that specifies how many options a specific devices supports.
+[+5.12s] DEBUG: scanner.vala:910: sane_get_option_descriptor (1)
+[+5.12s] DEBUG: scanner.vala:760: Option 1: name='tl-x' title='Top-left x' type=fixed size=4 unit=mm min=0.000000, max=165.100006, quant=0 cap=soft-select,soft-detect
+[+5.12s] DEBUG: scanner.vala:763:   Description: Top-left x position of scan area.
+[+5.12s] DEBUG: scanner.vala:910: sane_get_option_descriptor (2)
+[+5.12s] DEBUG: scanner.vala:760: Option 2: name='tl-y' title='Top-left y' type=fixed size=4 unit=mm min=0.000000, max=304.800003, quant=0 cap=soft-select,soft-detect
+[+5.12s] DEBUG: scanner.vala:763:   Description: Top-left y position of scan area.
+[+5.12s] DEBUG: scanner.vala:910: sane_get_option_descriptor (3)
+[+5.12s] DEBUG: scanner.vala:760: Option 3: name='br-x' title='Bottom-right x' type=fixed size=4 unit=mm min=50.799988, max=215.899994, quant=0 cap=soft-select,soft-detect
+[+5.12s] DEBUG: scanner.vala:763:   Description: Bottom-right x position of scan area.
+[+5.12s] DEBUG: scanner.vala:910: sane_get_option_descriptor (4)
+[+5.12s] DEBUG: scanner.vala:760: Option 4: name='br-y' title='Bottom-right y' type=fixed size=4 unit=mm min=50.799988, max=355.599991, quant=0 cap=soft-select,soft-detect
+[+5.12s] DEBUG: scanner.vala:763:   Description: Bottom-right y position of scan area.
+[+5.12s] DEBUG: scanner.vala:910: sane_get_option_descriptor (5)
+[+5.12s] DEBUG: scanner.vala:760: Option 5: name='resolution' title='Scan resolution' type=int size=4 unit=dpi values=[100, 150, 200, 300, 400, 600] cap=soft-select,soft-detect
+[+5.12s] DEBUG: scanner.vala:763:   Description: Sets the resolution of the scanned image.
+[+5.12s] DEBUG: scanner.vala:910: sane_get_option_descriptor (6)
+[+5.12s] DEBUG: scanner.vala:760: Option 6: name='mode' title='Scan mode' type=string size=256 values=["Black & White", "Gray", "24 bit Color"] cap=soft-select,soft-detect
+[+5.12s] DEBUG: scanner.vala:763:   Description: Selects the scan mode (e.g., lineart, monochrome, or color).
+[+5.12s] DEBUG: scanner.vala:910: sane_get_option_descriptor (7)
+[+5.12s] DEBUG: scanner.vala:760: Option 7: name='source' title='Scan source' type=string size=256 values=["Automatic Document Feeder(left aligned)", "Automatic Document Feeder(left aligned,Duplex)"] cap=soft-select,soft-detect
+[+5.12s] DEBUG: scanner.vala:763:   Description: Selects the scan source (such as a document-feeder).
+[+5.12s] DEBUG: scanner.vala:910: sane_get_option_descriptor (8)
+[+5.12s] DEBUG: scanner.vala:571: sane_control_option (7, SANE_ACTION_SET_VALUE, "Automatic Document Feeder(left aligned)") -> (SANE_STATUS_GOOD, "Automatic Document Feeder(left aligned)")
+[+5.12s] WARNING: scanner.vala:1048: Unable to set Color mode, please file a bug
+[+5.12s] DEBUG: scanner.vala:483: sane_control_option (5, SANE_ACTION_SET_VALUE, 150) -> (SANE_STATUS_GOOD, 150)
+[+5.12s] DEBUG: scanner.vala:523: sane_control_option (3, SANE_ACTION_SET_VALUE, 210.000000) -> (SANE_STATUS_GOOD, 210.000000)
+[+5.12s] DEBUG: scanner.vala:523: sane_control_option (4, SANE_ACTION_SET_VALUE, 297.000000) -> (SANE_STATUS_GOOD, 297.000000)
+[+5.13s] DEBUG: app-window.vala:1981: Saving state to /home/arunasr/.cache/simple-scan/state
+[+9.53s] DEBUG: scanner.vala:1285: sane_start (page=0, pass=0) -> SANE_STATUS_GOOD
+[+9.53s] DEBUG: scanner.vala:1312: sane_get_parameters () -> SANE_STATUS_GOOD
+[+9.53s] DEBUG: scanner.vala:1324: Parameters: format=SANE_FRAME_GRAY last_frame=SANE_TRUE bytes_per_line=155 pixels_per_line=1240 lines=1753 depth=1
+[+9.53s] DEBUG: simple-scan.vala:1431: Page is 1240 pixels wide, 1753 pixels high, 1 bits per pixel
