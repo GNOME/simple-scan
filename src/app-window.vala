@@ -48,79 +48,79 @@ public class AppWindow : Hdy.ApplicationWindow
     private bool user_selected_device;
 
     [GtkChild]
-    private Hdy.HeaderBar header_bar;
+    private unowned Hdy.HeaderBar header_bar;
     [GtkChild]
-    private Gtk.Menu page_menu;
+    private unowned Gtk.Menu page_menu;
     [GtkChild]
-    private Gtk.Stack stack;
+    private unowned Gtk.Stack stack;
     [GtkChild]
-    private Hdy.StatusPage status_page;
+    private unowned Hdy.StatusPage status_page;
     [GtkChild]
-    private Gtk.Label status_secondary_label;
+    private unowned Gtk.Label status_secondary_label;
     [GtkChild]
-    private Gtk.ListStore device_model;
+    private unowned Gtk.ListStore device_model;
     [GtkChild]
-    private Gtk.Box device_buttons_box;
+    private unowned Gtk.Box device_buttons_box;
     [GtkChild]
-    private Gtk.ComboBox device_combo;
+    private unowned Gtk.ComboBox device_combo;
     [GtkChild]
-    private Gtk.Box main_vbox;
+    private unowned Gtk.Box main_vbox;
     [GtkChild]
-    private Gtk.RadioMenuItem custom_crop_menuitem;
+    private unowned Gtk.RadioMenuItem custom_crop_menuitem;
     [GtkChild]
-    private Gtk.RadioMenuItem a3_menuitem;
+    private unowned Gtk.RadioMenuItem a3_menuitem;
     [GtkChild]
-    private Gtk.RadioMenuItem a4_menuitem;
+    private unowned Gtk.RadioMenuItem a4_menuitem;
     [GtkChild]
-    private Gtk.RadioMenuItem a5_menuitem;
+    private unowned Gtk.RadioMenuItem a5_menuitem;
     [GtkChild]
-    private Gtk.RadioMenuItem a6_menuitem;
+    private unowned Gtk.RadioMenuItem a6_menuitem;
     [GtkChild]
-    private Gtk.RadioMenuItem letter_menuitem;
+    private unowned Gtk.RadioMenuItem letter_menuitem;
     [GtkChild]
-    private Gtk.RadioMenuItem legal_menuitem;
+    private unowned Gtk.RadioMenuItem legal_menuitem;
     [GtkChild]
-    private Gtk.RadioMenuItem four_by_six_menuitem;
+    private unowned Gtk.RadioMenuItem four_by_six_menuitem;
     [GtkChild]
-    private Gtk.RadioMenuItem no_crop_menuitem;
+    private unowned Gtk.RadioMenuItem no_crop_menuitem;
     [GtkChild]
-    private Gtk.MenuItem page_move_left_menuitem;
+    private unowned Gtk.MenuItem page_move_left_menuitem;
     [GtkChild]
-    private Gtk.MenuItem page_move_right_menuitem;
+    private unowned Gtk.MenuItem page_move_right_menuitem;
     [GtkChild]
-    private Gtk.MenuItem page_delete_menuitem;
+    private unowned Gtk.MenuItem page_delete_menuitem;
     [GtkChild]
-    private Gtk.MenuItem crop_rotate_menuitem;
+    private unowned Gtk.MenuItem crop_rotate_menuitem;
     [GtkChild]
-    private Gtk.MenuItem copy_to_clipboard_menuitem;
+    private unowned Gtk.MenuItem copy_to_clipboard_menuitem;
     [GtkChild]
-    private Gtk.Button save_button;
+    private unowned Gtk.Button save_button;
     [GtkChild]
-    private Gtk.Button stop_button;
+    private unowned Gtk.Button stop_button;
     [GtkChild]
-    private Gtk.Button scan_button;
+    private unowned Gtk.Button scan_button;
     [GtkChild]
-    private Gtk.ActionBar action_bar;
+    private unowned Gtk.ActionBar action_bar;
     private Gtk.ToggleButton crop_button;
     private Gtk.Button delete_button;
 
     [GtkChild]
-    private Gtk.Image scan_options_image;
+    private unowned Gtk.Image scan_options_image;
     [GtkChild]
-    private Gtk.Image scan_hint_image;
+    private unowned Gtk.Image scan_hint_image;
     [GtkChild]
-    private Gtk.RadioButton scan_single_radio;
+    private unowned Gtk.RadioButton scan_single_radio;
     [GtkChild]
-    private Gtk.RadioButton scan_adf_radio;
+    private unowned Gtk.RadioButton scan_adf_radio;
     [GtkChild]
-    private Gtk.RadioButton scan_batch_radio;
+    private unowned Gtk.RadioButton scan_batch_radio;
     [GtkChild]
-    private Gtk.RadioButton text_radio;
+    private unowned Gtk.RadioButton text_radio;
     [GtkChild]
-    private Gtk.RadioButton photo_radio;
+    private unowned Gtk.RadioButton photo_radio;
 
     [GtkChild]
-    private Gtk.MenuButton menu_button;
+    private unowned Gtk.MenuButton menu_button;
 
     private bool have_devices = false;
     private string? missing_driver = null;

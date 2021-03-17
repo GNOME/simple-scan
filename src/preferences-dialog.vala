@@ -16,41 +16,41 @@ private class PreferencesDialog : Hdy.PreferencesWindow
     private Settings settings;
 
     [GtkChild]
-    private Gtk.ComboBox text_dpi_combo;
+    private unowned Gtk.ComboBox text_dpi_combo;
     [GtkChild]
-    private Gtk.ComboBox photo_dpi_combo;
+    private unowned Gtk.ComboBox photo_dpi_combo;
     [GtkChild]
-    private Gtk.ComboBox paper_size_combo;
+    private unowned Gtk.ComboBox paper_size_combo;
     [GtkChild]
-    private Gtk.Scale brightness_scale;
+    private unowned Gtk.Scale brightness_scale;
     [GtkChild]
-    private Gtk.Scale contrast_scale;
+    private unowned Gtk.Scale contrast_scale;
     [GtkChild]
-    private Gtk.RadioButton page_delay_0s_button;
+    private unowned Gtk.RadioButton page_delay_0s_button;
     [GtkChild]
-    private Gtk.RadioButton page_delay_3s_button;
+    private unowned Gtk.RadioButton page_delay_3s_button;
     [GtkChild]
-    private Gtk.RadioButton page_delay_6s_button;
+    private unowned Gtk.RadioButton page_delay_6s_button;
     [GtkChild]
-    private Gtk.RadioButton page_delay_10s_button;
+    private unowned Gtk.RadioButton page_delay_10s_button;
     [GtkChild]
-    private Gtk.RadioButton page_delay_15s_button;
+    private unowned Gtk.RadioButton page_delay_15s_button;
     [GtkChild]
-    private Gtk.ListStore text_dpi_model;
+    private unowned Gtk.ListStore text_dpi_model;
     [GtkChild]
-    private Gtk.ListStore photo_dpi_model;
+    private unowned Gtk.ListStore photo_dpi_model;
     [GtkChild]
-    private Gtk.RadioButton front_side_button;
+    private unowned Gtk.RadioButton front_side_button;
     [GtkChild]
-    private Gtk.RadioButton back_side_button;
+    private unowned Gtk.RadioButton back_side_button;
     [GtkChild]
-    private Gtk.RadioButton both_side_button;
+    private unowned Gtk.RadioButton both_side_button;
     [GtkChild]
-    private Gtk.ListStore paper_size_model;
+    private unowned Gtk.ListStore paper_size_model;
     [GtkChild]
-    private Gtk.Adjustment brightness_adjustment;
+    private unowned Gtk.Adjustment brightness_adjustment;
     [GtkChild]
-    private Gtk.Adjustment contrast_adjustment;
+    private unowned Gtk.Adjustment contrast_adjustment;
 
     public PreferencesDialog (Settings settings)
     {
