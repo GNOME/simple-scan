@@ -26,7 +26,7 @@ build-fedora:
     - ninja -C _build install
 
 build-arch:
-  image: archlinux/base:latest
+  image: archlinux:latest
   before_script:
     - pacman -Syu --noconfirm meson vala gettext itstool fribidi gtk3 gobject-introspection libgusb colord libwebp sane git
   script:
