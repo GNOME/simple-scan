@@ -849,8 +849,7 @@ public class AppWindow : Hdy.ApplicationWindow
     private void scan_adf_cb ()
     {
         var options = make_scan_options ();
-        options.type = ScanType.ADF_BOTH;
-        options.type = preferences_dialog.get_page_side ();
+        options.type = ScanType.ADF;
         scan (options);
     }
 
@@ -906,7 +905,7 @@ public class AppWindow : Hdy.ApplicationWindow
             scan_single_radio.active = true;
             scan_options_image.icon_name = "scanner-symbolic";
             break;
-        case ScanType.ADF_BOTH:
+        case ScanType.ADF:
             scan_adf_radio.active = true;
             scan_options_image.icon_name = "scan-type-adf-symbolic";
             break;
@@ -928,7 +927,7 @@ public class AppWindow : Hdy.ApplicationWindow
     private void scan_adf_radio_toggled_cb (Gtk.ToggleButton button)
     {
         if (button.active)
-            set_scan_type (ScanType.ADF_BOTH);
+            set_scan_type (ScanType.ADF);
     }
 
     [GtkCallback]
@@ -996,6 +995,7 @@ public class AppWindow : Hdy.ApplicationWindow
         options.brightness = brightness;
         options.contrast = contrast;
         options.page_delay = page_delay;
+        options.side = preferences_dialog.get_page_side ();
 
         return options;
     }
@@ -1017,8 +1017,6 @@ public class AppWindow : Hdy.ApplicationWindow
         stop_button.visible = true;
         var options = make_scan_options ();
         options.type = scan_type;
-        if (options.type == ScanType.ADF_BOTH)
-            options.type = preferences_dialog.get_page_side ();
         scan (options);
     }
 

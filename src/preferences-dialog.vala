@@ -87,10 +87,10 @@ private class PreferencesDialog : Hdy.PreferencesWindow
         set_dpi_combo (photo_dpi_combo, DEFAULT_PHOTO_DPI, dpi);
         photo_dpi_combo.changed.connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
 
-        set_page_side ((ScanType) settings.get_enum ("page-side"));
-        front_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanType.ADF_FRONT); });
-        back_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanType.ADF_BACK); });
-        both_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanType.ADF_BOTH); });
+        set_page_side ((ScanSide) settings.get_enum ("page-side"));
+        front_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanSide.FRONT); });
+        back_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanSide.BACK); });
+        both_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanSide.BOTH); });
 
         var renderer = new Gtk.CellRendererText ();
         paper_size_combo.pack_start (renderer, true);
@@ -135,31 +135,31 @@ private class PreferencesDialog : Hdy.PreferencesWindow
         page_delay_15s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 15000); });
     }
 
-    private void set_page_side (ScanType page_side)
+    private void set_page_side (ScanSide page_side)
     {
         switch (page_side)
         {
-        case ScanType.ADF_FRONT:
+        case ScanSide.FRONT:
             front_side_button.active = true;
             break;
-        case ScanType.ADF_BACK:
+        case ScanSide.BACK:
             back_side_button.active = true;
             break;
         default:
-        case ScanType.ADF_BOTH:
+        case ScanSide.BOTH:
             both_side_button.active = true;
             break;
         }
     }
 
-    public ScanType get_page_side ()
+    public ScanSide get_page_side ()
     {
         if (front_side_button.active)
-            return ScanType.ADF_FRONT;
+            return ScanSide.FRONT;
         else if (back_side_button.active)
-            return ScanType.ADF_BACK;
+            return ScanSide.BACK;
         else
-            return ScanType.ADF_BOTH;
+            return ScanSide.BOTH;
     }
 
     public void set_paper_size (int width, int height)
