@@ -1133,9 +1133,9 @@ public class Scanner : Object
             }
 
             /* Set resolution and bit depth */
-            /* Epson has separate resolution settings for x and y axes, which is preferable options to set */
+            /* Epson may have separate resolution settings for x and y axes, which is preferable options to set */
             option = get_option_by_name (handle, Sane.NAME_SCAN_X_RESOLUTION, out index);
-            if (option != null)
+            if (option != null && (0 != (option.cap & Sane.Capability.SOFT_SELECT)))  // L4160 has non-selectable separate options
             {
                 set_fixed_or_int_option (handle, option, index, job.dpi, out job.dpi);
                 option = get_option_by_name (handle, Sane.NAME_SCAN_Y_RESOLUTION, out index);
