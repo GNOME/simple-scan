@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2021-03-09 15:51+0000\n"
-"PO-Revision-Date: 2020-08-09 13:19+0200\n"
+"POT-Creation-Date: 2021-04-22 09:06+0000\n"
+"PO-Revision-Date: 2021-05-10 17:32+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -310,7 +310,7 @@ msgstr "Enregistrar lo document dins un fichièr"
 #. Tooltip for stop button
 #: data/ui/app-window.ui:779
 msgid "Refresh device list"
-msgstr ""
+msgstr "Refrescar la lista del periferics"
 
 #. Button to submit authorization dialog
 #: data/ui/authorize-dialog.ui:22
@@ -439,18 +439,13 @@ msgstr "Quitar"
 
 #. Preferences Dialog: Section label for scanning settings
 #: data/ui/preferences-dialog.ui:53
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "Scanning"
 msgid "Scanning"
 msgstr "Numerizacion"
 
 #. Label beside scan side combo box
 #: data/ui/preferences-dialog.ui:57
-#, fuzzy
-#| msgid "Scan Sides"
 msgid "Scan _Sides"
-msgstr "Fàcias de numerizar"
+msgstr "_Fàcias de numerizar"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:68
@@ -475,19 +470,17 @@ msgstr "Talha de la _pagina"
 #. Label beside page delay scale
 #: data/ui/preferences-dialog.ui:123
 msgid "_Delay in Seconds"
-msgstr ""
+msgstr "_Relambi en segondas :"
 
 #. Provides context for the page delay scale
 #: data/ui/preferences-dialog.ui:124
 msgid "Interval to scan multiple pages"
-msgstr ""
+msgstr "Interval per numerizar mantun pagina"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:135
-#, fuzzy
-#| msgid "10"
 msgid "0"
-msgstr "10"
+msgstr "100"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:145
@@ -497,7 +490,7 @@ msgstr "3"
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:156
 msgid "6"
-msgstr ""
+msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:167
@@ -511,10 +504,8 @@ msgstr "15"
 
 #. Preferences Dialog: Section label for quality settings
 #: data/ui/preferences-dialog.ui:199
-#, fuzzy
-#| msgid "_Quality"
 msgid "Quality"
-msgstr "_Qualitat"
+msgstr "Qualitat"
 
 #. Label beside scan resolution combo box
 #: data/ui/preferences-dialog.ui:203
@@ -558,8 +549,6 @@ msgstr "Prèst a numerizar"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
 #: src/app-window.vala:273
-#, fuzzy
-#| msgid "Additional software needed"
 msgid "Additional Software Needed"
 msgstr "Logicial suplementari necessari"
 
@@ -574,17 +563,13 @@ msgstr ""
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:282
-#, fuzzy
-#| msgid "No scanners detected"
 msgid "No Scanners Detected"
-msgstr "Cap de scanner es pas estat detectat"
+msgstr "Cap de numerizador es pas estat detectat"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:284
-#, fuzzy
-#| msgid "Please check your scanner is connected and powered on"
 msgid "Please check your scanner is connected and powered on."
-msgstr "Verificatz que vòstre scanner es connectat e jos tension"
+msgstr "Verificatz que vòstre numerizador es connectat e jos tension."
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:388
@@ -695,8 +680,6 @@ msgstr "Abandonar las modificacions"
 
 #. Label shown when scan started
 #: src/app-window.vala:836
-#, fuzzy
-#| msgid "Contacting scanner…"
 msgid "Contacting Scanner…"
 msgstr "Contacte del periferic de numerizacion…"
 
@@ -829,6 +812,10 @@ msgid ""
 "to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
 "sane-devel\">SANE mailing list</a>."
 msgstr ""
+"Mercés de verificar se vòstre <a href=\"http://www.sane-project.org/sane-"
+"supported-devices.html\">numerizador es pres en carga per SANE</a>, "
+"autrament senhalatz lo problèma sus la <a href=\"https://alioth-lists.debian."
+"net/cgi-bin/mailman/listinfo/sane-devel\">lista de difusion</a>."
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/app-window.vala:1658
@@ -1062,6 +1049,10 @@ msgid ""
 "<tt>Preferences</tt> menu. For some scanners when scanning in high "
 "resolution, the scan size is restricted."
 msgstr ""
+"Manca de memòria per realizar la numerizacion.\n"
+"Ensajatz de reduire la <tt>Resolucion</tt> o la <tt>Talha de la pagina</tt> "
+"dins lo menú de las <tt>Preferéncias</tt>. Per d’unes numerizador en "
+"numerizant en qualitat nauta, la talha de la numerizacion es constrencha."
 
 #. Error display when unable to start scan
 #: src/scanner.vala:1331
@@ -1350,4 +1341,3 @@ msgstr ""
 
 #~ msgid "The direction of the scanner across the scanned page."
 #~ msgstr "Lo sens de l'escanèr per rapòrt a la pagina numerizada."
-
