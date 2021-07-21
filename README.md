@@ -54,6 +54,13 @@ $ ninja -C _build all install
 $ XDG_DATA_DIRS=_install/share:$XDG_DATA_DIRS ./_install/bin/simple-scan
 ```
 
+If libhandy is used as a subproject (i.e. system libhandy not found or
+too old), then make sure to use the resulting .so file as well when
+running, e.g. by using the `LD_LIBRARY_PATH` variable:
+```
+$ LD_LIBRARY_PATH=_install/lib/x86_64-linux-gnu XDG_DATA_DIRS=_install/share:$XDG_DATA_DIRS ./_install/bin/simple-scan
+```
+
 # Debugging
 
 There is a `--debug` command line switch to enable more verbose logging:
