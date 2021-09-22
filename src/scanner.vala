@@ -925,8 +925,8 @@ public class Scanner : Object
             "Automatic Document Feeder",
             Sane.I18N ("Automatic Document Feeder"),
             "ADF",
-            "Automatic Document Feeder(left aligned)", /* Seen in the proprietary brother3 driver */
             "Automatic Document Feeder(centrally aligned)", /* Seen in the proprietary brother3 driver */
+            "Automatic Document Feeder(left aligned)", /* Seen in the proprietary brother3 driver */
             "ADF Simplex" /* Samsung unified driver. LP: # 892915 */
         };
 
@@ -1140,7 +1140,7 @@ public class Scanner : Object
                 set_fixed_or_int_option (handle, option, index, job.dpi, out job.dpi);
                 option = get_option_by_name (handle, Sane.NAME_SCAN_Y_RESOLUTION, out index);
             }
-             else
+            else
                 option = get_option_by_name (handle, Sane.NAME_SCAN_RESOLUTION, out index);
             if (option == null) /* #161 Lexmark CX310dn Duplex */
                 option = get_option_by_name (handle, "scan-resolution", out index);
@@ -1172,11 +1172,17 @@ public class Scanner : Object
                 else
                     set_option_to_max (handle, option, index);
             }
-            if (job.page_width == 0) /* #90 Fix automatic mode for Epson scanners */
+            if (job.page_width == 0)
             {
+                /* #90 Fix automatic mode for Epson scanners */
                 option = get_option_by_name (handle, "scan-area", out index);
                 if (option != null)
                     set_string_option (handle, option, index, "Maximum", null);
+
+                /* #264 Enable automatic document size for Brother scanners */
+                option = get_option_by_name (handle, "AutoDocumentSize", out index);
+                if (option != null)
+                    set_bool_option (handle, option, index, true, null);
             }
             /* Set page size */
             option = get_option_by_name (handle, Sane.NAME_PAGE_WIDTH, out index);
