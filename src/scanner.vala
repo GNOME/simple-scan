@@ -926,6 +926,7 @@ public class Scanner : Object
             Sane.I18N ("Automatic Document Feeder"),
             "ADF",
             "Automatic Document Feeder(centrally aligned)", /* Seen in the proprietary brother3 driver */
+            "Automatic Document Feeder(center aligned)", /* Seen in Brother's proprietary brscan5 driver */
             "Automatic Document Feeder(left aligned)", /* Seen in the proprietary brother3 driver */
             "ADF Simplex" /* Samsung unified driver. LP: # 892915 */
         };
