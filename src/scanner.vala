@@ -1100,6 +1100,26 @@ public class Scanner : Object
                 if (option.type == Sane.ValueType.BOOL)
                     set_bool_option (handle, option, index, job.side == ScanSide.BOTH, null);
             }
+            
+            /* Support Canon DR-C240 ADF_BOTH options */
+            option = get_option_by_name (handle, "ScanMode", out index);
+            if (option != null)
+            {
+                string[] adf_simplex_modes =
+                {
+                    "Simplex"
+                };
+                string[] adf_duplex_modes =
+                {
+                    "Duplex"
+                };
+                if (job.type == ScanType.ADF_BOTH) {
+                    // Support ADF_BOTH scan, while click button with text: "All Pages From _Feeder"
+                    set_constrained_string_option (handle, option, index, adf_duplex_modes, null);
+                } else {
+                    set_constrained_string_option (handle, option, index, adf_simplex_modes, null);
+                }
+            }
 
             /* Non-standard Epson GT-S50 ADF options */
             option = get_option_by_name (handle, "adf-mode", out index);
