@@ -1103,6 +1103,10 @@ public class Scanner : Object
 
             /* Non-standard Epson GT-S50 ADF options */
             option = get_option_by_name (handle, "adf-mode", out index);
+
+            /* Support Canon DR-C240 ADF_BOTH options */
+            if (option == null)
+                option = get_option_by_name (handle, "ScanMode", out index);
             if (option != null)
             {
                 string[] adf_simplex_modes =
