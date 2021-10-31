@@ -793,7 +793,7 @@ public class AppWindow : Hdy.ApplicationWindow
         prompt_to_save_async.begin (/* Text in dialog warning when a document is about to be lost */
                                     _("Save current document?"),
                                     /* Button in dialog to create new document and discard unsaved document */
-                                    _("Discard Changes"), (obj, res) =>
+                                    _("_Discard Changes"), (obj, res) =>
         {
             if (!prompt_to_save_async.end(res))
                 return;
@@ -1600,7 +1600,7 @@ public class AppWindow : Hdy.ApplicationWindow
         prompt_to_save_async.begin (/* Text in dialog warning when a document is about to be lost */
                                     _("Save document before quitting?"),
                                     /* Text in dialog warning when a document is about to be lost */
-                                    _("Quit without Saving"), (obj, res) =>
+                                    _("_Quit without Saving"), (obj, res) =>
         {
             if (!prompt_to_save_async.end(res))
                 return;
@@ -1882,23 +1882,23 @@ public class AppWindow : Hdy.ApplicationWindow
         var gear_menu = new Menu ();
         var section = new Menu ();
         gear_menu.append_section (null, section);
-        section.append (_("Email"), "app.email");
-        section.append (_("Print"), "app.print");
-        section.append (C_("menu", "Reorder Pages"), "app.reorder");
+        section.append (_("_Email"), "app.email");
+        section.append (_("Pri_nt"), "app.print");
+        section.append (C_("menu", "_Reorder Pages"), "app.reorder");
         section = new Menu ();
         gear_menu.append_section (null, section);
-        section.append (_("Preferences"), "app.preferences");
-        section.append (_("Keyboard Shortcuts"), "win.show-help-overlay");
-        section.append (_("Help"), "app.help");
-        section.append (_("About Document Scanner"), "app.about");
+        section.append (_("_Preferences"), "app.preferences");
+        section.append (_("_Keyboard Shortcuts"), "win.show-help-overlay");
+        section.append (_("_Help"), "app.help");
+        section.append (_("_About Document Scanner"), "app.about");
         menu_button.set_menu_model (gear_menu);
 
         app.add_window (this);
 
         /* Populate ActionBar (not supported in Glade) */
         /* https://bugzilla.gnome.org/show_bug.cgi?id=769966 */
-        var button = new Gtk.Button.with_label (/* Label on new document button */
-                                               _("New Document"));
+        var button = new Gtk.Button.with_mnemonic (/* Label on new document button */
+                                               _("_New Document"));
         button.visible = true;
         button.clicked.connect (new_document_cb);
         action_bar.pack_start (button);
