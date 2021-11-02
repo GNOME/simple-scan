@@ -41,6 +41,7 @@
     </columns>
   </object>
   <template class="PreferencesDialog" parent="HdyPreferencesWindow">
+    <property name="can_focus">False</property>
     <property name="icon_name">org.gnome.SimpleScan</property>
     <property name="search_enabled">False</property>
     <child>
@@ -59,6 +60,7 @@
                 <child>
                   <object class="GtkBox" id="scan_side_box">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="valign">center</property>
                     <property name="homogeneous">True</property>
                     <child>
@@ -107,6 +109,7 @@
                 <child>
                   <object class="GtkComboBox" id="paper_size_combo">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="hexpand">True</property>
                     <property name="valign">center</property>
                     <property name="model">paper_size_model</property>
@@ -124,6 +127,7 @@
                 <child>
                   <object class="GtkBox">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="valign">center</property>
                     <property name="homogeneous">True</property>
                     <child>
@@ -202,6 +206,7 @@
                 <child>
                   <object class="GtkComboBox" id="text_dpi_combo">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="valign">center</property>
                     <property name="model">text_dpi_model</property>
                   </object>
@@ -217,6 +222,7 @@
                 <child>
                   <object class="GtkComboBox" id="photo_dpi_combo">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="valign">center</property>
                     <property name="model">photo_dpi_model</property>
                   </object>
@@ -226,6 +232,7 @@
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="title" translatable="yes" comments="Label beside brightness scale">_Brightness</property>
                 <property name="use_underline">True</property>
                 <property name="activatable_widget">brightness_scale</property>
@@ -244,6 +251,7 @@
             <child>
               <object class="HdyActionRow">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="title" translatable="yes" comments="Label beside contrast scale">_Contrast</property>
                 <property name="use_underline">True</property>
                 <property name="activatable_widget">contrast_scale</property>
