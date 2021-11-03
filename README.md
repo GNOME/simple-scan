@@ -26,7 +26,7 @@ Install the dependencies
 
 For Ubuntu/Debian:
 ```
-$ sudo apt install -y meson valac gcc gettext itstool gobject-introspection libfribidi-dev libgirepository1.0-dev libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev git ca-certificates
+$ sudo apt install -y meson valac gcc gettext itstool libfribidi-dev libgirepository1.0-dev libgtk-3-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev git ca-certificates
 
 ```
 
