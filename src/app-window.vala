@@ -904,14 +904,17 @@ public class AppWindow : Hdy.ApplicationWindow
         case ScanType.SINGLE:
             scan_single_radio.active = true;
             scan_options_image.icon_name = "scanner-symbolic";
+            scan_button.tooltip_text = _("Scan a single page from the scanner");
             break;
         case ScanType.ADF:
             scan_adf_radio.active = true;
             scan_options_image.icon_name = "scan-type-adf-symbolic";
+            scan_button.tooltip_text = _("Scan multiple pages from the scanner");
             break;
         case ScanType.BATCH:
             scan_batch_radio.active = true;
             scan_options_image.icon_name = "scan-type-batch-symbolic";
+            scan_button.tooltip_text = _("Scan multiple pages from the scanner");
             break;
         }
     }
