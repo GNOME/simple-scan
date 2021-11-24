@@ -354,6 +354,16 @@ public class Scanner : Object
             return;
         }
 
+        /* Determine the number of each model to additionally display the name if the model names are the same. */
+        var seen = new HashTable<string, int> (str_hash, str_equal);
+        for (var i = 0; device_list[i] != null; i++)
+        {
+            if (seen.contains(device_list[i].model))
+                seen.set(device_list[i].model, seen.get(device_list[i].model) + 1);
+            else
+                seen.set(device_list[i].model, 1);
+        }
+
         var devices = new List<ScanDevice> ();
         for (var i = 0; device_list[i] != null; i++)
         {
@@ -373,6 +383,10 @@ public class Scanner : Object
                 scan_device.label = device_list[i].model;
             else
                 scan_device.label = "%s %s".printf (vendor, device_list[i].model);
+            
+            /* Additionally add the device name to the label if there are several identical models. */
+            if (seen.get(device_list[i].model) > 1)
+                scan_device.label = "%s on %s".printf (scan_device.label, device_list[i].name);
 
             /* Replace underscores in name */
             scan_device.label.replace ("_", " ");
