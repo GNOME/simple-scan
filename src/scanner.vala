@@ -384,12 +384,13 @@ public class Scanner : Object
             else
                 scan_device.label = "%s %s".printf (vendor, device_list[i].model);
             
+            /* Replace underscores in name */
+            scan_device.label = scan_device.label.replace ("_", " ");
+            
             /* Additionally add the device name to the label if there are several identical models. */
             if (seen.get(device_list[i].model) > 1)
                 scan_device.label = "%s on %s".printf (scan_device.label, device_list[i].name);
 
-            /* Replace underscores in name */
-            scan_device.label.replace ("_", " ");
 
             devices.append (scan_device);
         }
