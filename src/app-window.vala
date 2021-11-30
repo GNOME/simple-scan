@@ -802,6 +802,7 @@ public class AppWindow : Hdy.ApplicationWindow
                 stop_scan ();
 
             clear_document ();
+            autosave_manager.cleanup ();
         });
     }
 
