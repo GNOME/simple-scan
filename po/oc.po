@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2021-11-02 21:33+0000\n"
-"PO-Revision-Date: 2021-11-07 20:37+0100\n"
+"POT-Creation-Date: 2021-11-30 10:38+0000\n"
+"PO-Revision-Date: 2021-12-01 16:34+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -151,7 +151,7 @@ msgstr "Delai en millisegondas entre las paginas."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1580 src/app-window.vala:1860
+#: data/ui/app-window.ui:454 src/app-window.vala:1583 src/app-window.vala:1863
 msgid "Document Scanner"
 msgstr "Numerizador de documents"
 
@@ -183,7 +183,7 @@ msgstr "Lo projècte GNOME"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
 msgid "scan;scanner;flatbed;adf;"
-msgstr "numerizar;scanner;numerizador;a plat;adf;"
+msgstr "numerizar;scanner;numerizador;a plat;adf;escanner;escanèr;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:10
@@ -275,7 +275,7 @@ msgstr "Tè_xte"
 msgid "_Image"
 msgstr "_Imatge"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1890
+#: data/ui/app-window.ui:433 src/app-window.vala:1893
 msgid "_Preferences"
 msgstr "_Preferéncias"
 
@@ -287,11 +287,6 @@ msgstr "Arrestar la numerizacion en cors"
 #: data/ui/app-window.ui:493
 msgid "S_top"
 msgstr "Arres_tar"
-
-#. Tooltip for scan toolbar button
-#: data/ui/app-window.ui:522
-msgid "Scan a single page from the scanner"
-msgstr "Numerizar una sola pagina a partir del numerizador"
 
 #: data/ui/app-window.ui:544
 msgid "_Scan"
@@ -522,7 +517,7 @@ msgstr "_Luminositat"
 msgid "_Contrast"
 msgstr "_Contraste"
 
-#: src/app-window.vala:229 src/app-window.vala:1688
+#: src/app-window.vala:229 src/app-window.vala:1691
 msgid "_Close"
 msgstr "_Tampar"
 
@@ -678,49 +673,57 @@ msgstr "_Abandonar las modificacions"
 msgid "Contacting Scanner…"
 msgstr "Contacte del periferic de numerizacion…"
 
+#: src/app-window.vala:907
+msgid "Scan a single page from the scanner"
+msgstr "Numerizar una sola pagina a partir del numerizador"
+
+#: src/app-window.vala:912 src/app-window.vala:917
+msgid "Scan multiple pages from the scanner"
+msgstr "Numerizar mantuna pagina a partir del numerizador"
+
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1104
+#: src/app-window.vala:1107
 msgid "Unable to save image for preview"
 msgstr "Impossible d'enregistrar l'imatge per lo previsualizar"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1116
+#: src/app-window.vala:1119
 msgid "Unable to open image preview application"
 msgstr "Impossible de dobrir l'aplicacion de previsualizacion d'imatge"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1278
+#: src/app-window.vala:1281
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Reorganizar las paginas"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1301
+#: src/app-window.vala:1304
 msgid "Combine sides"
 msgstr "Associar los costats"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1311
+#: src/app-window.vala:1314
 msgid "Combine sides (reverse)"
 msgstr "Associar los costats (inversar)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1321
+#: src/app-window.vala:1324
 msgid "Reverse"
 msgstr "Inversar"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1331
+#: src/app-window.vala:1334
 msgid "Keep unchanged"
 msgstr "Manténer incambiat"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1555
+#: src/app-window.vala:1558
 msgid "Unable to open help file"
 msgstr "Impossible de dobrir lo fichièr d'ajuda"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1570
+#: src/app-window.vala:1573
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -750,16 +753,16 @@ msgstr ""
 "<http://www.gnu.org/licenses/>."
 
 #. Title of about dialog
-#: src/app-window.vala:1573
+#: src/app-window.vala:1576
 msgid "About Document Scanner"
 msgstr "A prepaus de Numerizador de documents"
 
 #. Description of program
-#: src/app-window.vala:1576
+#: src/app-window.vala:1579
 msgid "Simple document scanning tool"
 msgstr "Numerizar simplament vòstres documents"
 
-#: src/app-window.vala:1585
+#: src/app-window.vala:1588
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -767,22 +770,22 @@ msgstr ""
 "  Quentin Pagès https://launchpad.net/~kwentin"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1601
+#: src/app-window.vala:1604
 msgid "Save document before quitting?"
 msgstr "Enregistrar lo document abans de quitar ?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1603
+#: src/app-window.vala:1606
 msgid "_Quit without Saving"
 msgstr "_Quitar sens enregistrar"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1644
+#: src/app-window.vala:1647
 msgid "You appear to have a Brother scanner."
 msgstr "Semblariá qu'aguèssetz un scanner Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1646
+#: src/app-window.vala:1649
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -791,7 +794,7 @@ msgstr ""
 "Web de Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1650
+#: src/app-window.vala:1653
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -800,7 +803,7 @@ msgstr ""
 "<a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1652
+#: src/app-window.vala:1655
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -813,13 +816,13 @@ msgstr ""
 "net/cgi-bin/mailman/listinfo/sane-devel\">lista de difusion</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1656
+#: src/app-window.vala:1659
 msgid "You appear to have a Samsung scanner."
 msgstr "Semblariá qu'aguèssetz un scanner Samsung."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1659
+#: src/app-window.vala:1662
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -828,7 +831,7 @@ msgstr ""
 "website</a> (HP crompèt los afars d'impression de Samsung)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1664
+#: src/app-window.vala:1667
 msgid "You appear to have an HP scanner."
 msgstr "Semblariá qu'aguèssetz un scanner HP."
 
@@ -836,7 +839,7 @@ msgstr "Semblariá qu'aguèssetz un scanner HP."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1672
+#: src/app-window.vala:1675
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -845,12 +848,12 @@ msgstr ""
 "HP</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1676
+#: src/app-window.vala:1679
 msgid "You appear to have an Epson scanner."
 msgstr "Semblariá qu'aguèssetz un scanner Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1678
+#: src/app-window.vala:1681
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -859,12 +862,12 @@ msgstr ""
 "d’Epson</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1682
+#: src/app-window.vala:1685
 msgid "You appear to have an Lexmark scanner."
 msgstr "Semblariá qu'aguèssetz un scanner Lexmark."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1684
+#: src/app-window.vala:1687
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -873,99 +876,99 @@ msgstr ""
 "de Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1688
+#: src/app-window.vala:1691
 msgid "Install drivers"
 msgstr "Installar los pilòts"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1722
+#: src/app-window.vala:1725
 msgid "Once installed you will need to restart this app."
 msgstr "Un còp installats, vos caldrà reaviar Simple Scan."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1735
+#: src/app-window.vala:1738
 msgid "Installing drivers…"
 msgstr "Installacion dels pilòts…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1743
+#: src/app-window.vala:1746
 msgid "Drivers installed successfully!"
 msgstr "Pilòts installats amb succès !"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1753
+#: src/app-window.vala:1756
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Impossible d’installar los pilòts (còdi d’error %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1759
+#: src/app-window.vala:1762
 msgid "Failed to install drivers."
 msgstr "Impossible d’installar los pilòts."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1766
+#: src/app-window.vala:1769
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Vos cal installar lo paquet %s."
 msgstr[1] "Vos cal installar los paquets %s."
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1888
 msgid "_Email"
 msgstr "_Corrièl"
 
-#: src/app-window.vala:1886
+#: src/app-window.vala:1889
 msgid "Pri_nt"
 msgstr "I_mprimir"
 
-#: src/app-window.vala:1887
+#: src/app-window.vala:1890
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Reorganizar las paginas"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1894
 msgid "_Keyboard Shortcuts"
 msgstr "_Acorchis de clavièr"
 
-#: src/app-window.vala:1892
+#: src/app-window.vala:1895
 msgid "_Help"
 msgstr "_Ajuda"
 
-#: src/app-window.vala:1893
+#: src/app-window.vala:1896
 msgid "_About Document Scanner"
 msgstr "_A prepaus de Numerizador de documents"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1901
+#: src/app-window.vala:1904
 msgid "_New Document"
 msgstr "Document _novèl"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1920
+#: src/app-window.vala:1923
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr ""
 "Pivotar la pagina cap a esquèrra (sens invèrse de las agulhas d'una mòstra)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1929
+#: src/app-window.vala:1932
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Pivotar la pagina cap a dreita (sens de las agulhas d'una mòstra)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1941
+#: src/app-window.vala:1944
 msgid "Crop the selected page"
 msgstr "Requadrar la pagina seleccionada"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1959
+#: src/app-window.vala:1962
 msgid "Delete the selected page"
 msgstr "Suprimir la pagina seleccionada"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2136
 msgid "Cancel"
 msgstr "Anullar"
 
@@ -1020,24 +1023,24 @@ msgid "%d dpi"
 msgstr "%d ppp"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:882
+#: src/scanner.vala:896
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Cap de periferic de numerizacion pas disponible. Connectatz-ne un."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:912
+#: src/scanner.vala:926
 msgid "Unable to connect to scanner"
 msgstr "Impossible de se connectar al numerizador"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1342 src/scanner.vala:1477
+#: src/scanner.vala:1356 src/scanner.vala:1491
 msgid "Document feeder empty"
 msgstr "Cargador de documents void"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1350
+#: src/scanner.vala:1364
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1050,12 +1053,12 @@ msgstr ""
 "numerizant en qualitat nauta, la talha de la numerizacion es constrencha."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1363
+#: src/scanner.vala:1377
 msgid "Unable to start scan"
 msgstr "Impossible d'aviar la numerizacion"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1376 src/scanner.vala:1487
+#: src/scanner.vala:1390 src/scanner.vala:1501
 msgid "Error communicating with scanner"
 msgstr "Error de comunicacion amb lo numerizador"
 
