@@ -6,10 +6,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2021-11-02 21:33+0000\n"
-"PO-Revision-Date: 2021-11-04 21:36+0000\n"
+"POT-Creation-Date: 2021-12-01 15:35+0000\n"
+"PO-Revision-Date: 2021-12-13 08:48+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: Icelandic\n"
+"Language-Team: Icelandic <translation-team-is@lists.sourceforge.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -144,7 +144,7 @@ msgstr "Töf milli síðna í millísekúndum."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1580 src/app-window.vala:1860
+#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1864
 msgid "Document Scanner"
 msgstr "Skjalaskanni"
 
@@ -267,7 +267,7 @@ msgstr "_Texti"
 msgid "_Image"
 msgstr "M_ynd"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1890
+#: data/ui/app-window.ui:433 src/app-window.vala:1894
 msgid "_Preferences"
 msgstr "_Kjörstillingar"
 
@@ -279,11 +279,6 @@ msgstr "Stöðva skönnun sem er í gangi"
 #: data/ui/app-window.ui:493
 msgid "S_top"
 msgstr "S_töðva"
-
-#. Tooltip for scan toolbar button
-#: data/ui/app-window.ui:522
-msgid "Scan a single page from the scanner"
-msgstr "Skanna eina síðu úr skannanum"
 
 #: data/ui/app-window.ui:544
 msgid "_Scan"
@@ -514,7 +509,7 @@ msgstr "_Birtustig"
 msgid "_Contrast"
 msgstr "_Birtuskil"
 
-#: src/app-window.vala:229 src/app-window.vala:1688
+#: src/app-window.vala:229 src/app-window.vala:1692
 msgid "_Close"
 msgstr "_Loka"
 
@@ -663,58 +658,66 @@ msgstr "Vista þetta skjal?"
 
 #. Button in dialog to create new document and discard unsaved document
 #: src/app-window.vala:796
-#| msgid "Discard Changes"
 msgid "_Discard Changes"
 msgstr "_Henda breytingum"
 
 #. Label shown when scan started
-#: src/app-window.vala:836
+#: src/app-window.vala:837
 msgid "Contacting Scanner…"
 msgstr "Hef samband við skanna…"
 
+#: src/app-window.vala:908
+msgid "Scan a single page from the scanner"
+msgstr "Skanna eina síðu úr skannanum"
+
+#: src/app-window.vala:913 src/app-window.vala:918
+#| msgid "Scan a single page from the scanner"
+msgid "Scan multiple pages from the scanner"
+msgstr "Skanna margar síður úr skannanum"
+
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1104
+#: src/app-window.vala:1108
 msgid "Unable to save image for preview"
 msgstr "Ekki tókst að vista mynd fyrir forskoðun"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1116
+#: src/app-window.vala:1120
 msgid "Unable to open image preview application"
 msgstr "Ekki tókst að opna forskoðunarforrit"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1278
+#: src/app-window.vala:1282
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Endurraða síðum"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1301
+#: src/app-window.vala:1305
 msgid "Combine sides"
 msgstr "Sameina hliðar"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1311
+#: src/app-window.vala:1315
 msgid "Combine sides (reverse)"
 msgstr "Sameina hliðar (öfugt)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1321
+#: src/app-window.vala:1325
 msgid "Reverse"
 msgstr "Snúa við"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1331
+#: src/app-window.vala:1335
 msgid "Keep unchanged"
 msgstr "Halda óbreyttu"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1555
+#: src/app-window.vala:1559
 msgid "Unable to open help file"
 msgstr "Get ekki opnað hjálparskrána"
 
 #. The license this software is under (GPL3+)
-#: src/app-window.vala:1570
+#: src/app-window.vala:1574
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -744,37 +747,36 @@ msgstr ""
 ">."
 
 #. Title of about dialog
-#: src/app-window.vala:1573
+#: src/app-window.vala:1577
 msgid "About Document Scanner"
 msgstr "Um forritið Skjalaskanni"
 
 #. Description of program
-#: src/app-window.vala:1576
+#: src/app-window.vala:1580
 msgid "Simple document scanning tool"
 msgstr "Einfalt verkfæri til skönnunar á skjölum"
 
-#: src/app-window.vala:1585
+#: src/app-window.vala:1589
 msgid "translator-credits"
 msgstr "Sveinn í Felli, sv1@fellsnet.is"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1601
+#: src/app-window.vala:1605
 msgid "Save document before quitting?"
 msgstr "Vista breytingar á skjalinu áður en þú hættir?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1603
-#| msgid "Quit without Saving"
+#: src/app-window.vala:1607
 msgid "_Quit without Saving"
 msgstr "Hætta án þess að _vista"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1644
+#: src/app-window.vala:1648
 msgid "You appear to have a Brother scanner."
 msgstr "Það lítur út fyrir að þú sért með Brother-skanna."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1646
+#: src/app-window.vala:1650
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -783,7 +785,7 @@ msgstr ""
 "\"http://support.brother.com\">Brother vefsvæðinu</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1650
+#: src/app-window.vala:1654
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -793,7 +795,7 @@ msgstr ""
 "a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1652
+#: src/app-window.vala:1656
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -806,13 +808,13 @@ msgstr ""
 "listinfo/sane-devel\">SANE póstlistanum</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1656
+#: src/app-window.vala:1660
 msgid "You appear to have a Samsung scanner."
 msgstr "Það lítur út fyrir að þú sért með Samsung-skanna."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1659
+#: src/app-window.vala:1663
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -822,7 +824,7 @@ msgstr ""
 "Samsung)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1664
+#: src/app-window.vala:1668
 msgid "You appear to have an HP scanner."
 msgstr "Það lítur út fyrir að þú sért með HP-skanna."
 
@@ -830,7 +832,7 @@ msgstr "Það lítur út fyrir að þú sért með HP-skanna."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1672
+#: src/app-window.vala:1676
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -839,12 +841,12 @@ msgstr ""
 "\"http://support.epson.com\">HP vefsvæðinu</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1676
+#: src/app-window.vala:1680
 msgid "You appear to have an Epson scanner."
 msgstr "Það lítur út fyrir að þú sért með Epson-skanna."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1678
+#: src/app-window.vala:1682
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -853,12 +855,12 @@ msgstr ""
 "\"http://support.epson.com\">Epson vefsvæðinu</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1682
+#: src/app-window.vala:1686
 msgid "You appear to have an Lexmark scanner."
 msgstr "Það lítur út fyrir að þú sért með Lexmark-skanna."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1684
+#: src/app-window.vala:1688
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -867,103 +869,98 @@ msgstr ""
 "\"http://support.lexmark.com\">Lexmark vefsvæðinu</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1688
+#: src/app-window.vala:1692
 msgid "Install drivers"
 msgstr "Setja upp vélbúnaðarrekla"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1722
+#: src/app-window.vala:1726
 msgid "Once installed you will need to restart this app."
 msgstr "Þegar uppsetningu er lokið, verður þú að endurræsa þetta forrit."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1735
+#: src/app-window.vala:1739
 msgid "Installing drivers…"
 msgstr "Set inn rekla…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1743
+#: src/app-window.vala:1747
 msgid "Drivers installed successfully!"
 msgstr "Uppsetningu rekla er lokið!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1753
+#: src/app-window.vala:1757
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Mistókst að setja inn vélbúnaðarrekla (villukóði %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1759
+#: src/app-window.vala:1763
 msgid "Failed to install drivers."
 msgstr "Mistókst að setja inn vélbúnaðarrekla."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1766
+#: src/app-window.vala:1770
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Þú þarft að setja upp %s pakkann."
 msgstr[1] "Þú þarft að setja upp %s pakkana."
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1889
 msgid "_Email"
 msgstr "_Tölvupóstur"
 
-#: src/app-window.vala:1886
+#: src/app-window.vala:1890
 msgid "Pri_nt"
 msgstr "Pre_nta"
 
-#: src/app-window.vala:1887
-#| msgctxt "menu"
-#| msgid "Reorder Pages"
+#: src/app-window.vala:1891
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "Endu_rraða síðum"
 
-#: src/app-window.vala:1891
-#| msgid "Keyboard Shortcuts"
+#: src/app-window.vala:1895
 msgid "_Keyboard Shortcuts"
 msgstr "Flýtileiðir á ly_klaborði"
 
-#: src/app-window.vala:1892
+#: src/app-window.vala:1896
 msgid "_Help"
 msgstr "_Hjálp"
 
-#: src/app-window.vala:1893
-#| msgid "About Document Scanner"
+#: src/app-window.vala:1897
 msgid "_About Document Scanner"
 msgstr "Um forritið Skj_alaskanni"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1901
-#| msgid "New Document"
+#: src/app-window.vala:1905
 msgid "_New Document"
 msgstr "_Nýtt skjal"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1920
+#: src/app-window.vala:1924
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Snúa síðunni til vinstri (rangsælis)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1929
+#: src/app-window.vala:1933
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Snúa síðunni til hægri (réttsælis)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1941
+#: src/app-window.vala:1945
 msgid "Crop the selected page"
 msgstr "Skera utan af valinni síðu"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1959
+#: src/app-window.vala:1963
 msgid "Delete the selected page"
 msgstr "Eyða valinni síðu"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2137
 msgid "Cancel"
 msgstr "Hætta við"
 
@@ -1018,24 +1015,24 @@ msgid "%d dpi"
 msgstr "%d pát"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:882
+#: src/scanner.vala:897
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Engir skannar fundust. Tengdu skanna við tölvuna."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:912
+#: src/scanner.vala:927
 msgid "Unable to connect to scanner"
 msgstr "Ekki tókst að tengjast skanna"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1342 src/scanner.vala:1477
+#: src/scanner.vala:1357 src/scanner.vala:1492
 msgid "Document feeder empty"
 msgstr "Síðumatari er tómur"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1350
+#: src/scanner.vala:1365
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1048,12 +1045,12 @@ msgstr ""
 "skannað er í hárri upplausn."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1363
+#: src/scanner.vala:1378
 msgid "Unable to start scan"
 msgstr "Get ekki ræst skönnun"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1376 src/scanner.vala:1487
+#: src/scanner.vala:1391 src/scanner.vala:1502
 msgid "Error communicating with scanner"
 msgstr "Villa í samskiptum við skanna"
 
