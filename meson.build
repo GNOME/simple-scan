@@ -26,7 +26,7 @@ icondir = join_paths (datadir, 'simple-scan', 'icons')
 
 # Dependencies
 glib_dep = dependency ('glib-2.0', version: '>= 2.38')
-gtk_dep = dependency ('gtk+-3.0', version: '>=3.22')
+gtk_dep = dependency ('gtk+-3.0', version: '>=3.24')
 gmodule_dep = dependency ('gmodule-export-2.0')
 gthread_dep = dependency ('gthread-2.0')
 libhandy_dep = dependency ('libhandy-1', version: '>= 1.1.90', required: false)

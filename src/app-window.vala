@@ -1570,29 +1570,23 @@ public class AppWindow : Hdy.ApplicationWindow
     {
         string[] authors = { "Robert Ancell <robert.ancell@canonical.com>" };
 
-        /* The license this software is under (GPL3+) */
-        string license = _("This program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see <http://www.gnu.org/licenses/>.");
-
-        /* Title of about dialog */
         string title = _("About Document Scanner");
 
-        /* Description of program */
         string description = _("Simple document scanning tool");
 
         Gtk.show_about_dialog (this,
-                               "title", title,
-                               "program-name", _("Document Scanner"),
-                               "version", VERSION,
-                               "comments", description,
-                               "logo-icon-name", "org.gnome.SimpleScan",
-                               "authors", authors,
-                               "translator-credits", _("translator-credits"),
-                               "website", "https://gitlab.gnome.org/GNOME/simple-scan",
-                               "copyright", "Copyright © 2009-2018 Canonical Ltd.",
-                               "license", license,
-                               "wrap-license", true,
-                               null);
-    }
+                                "title", title,
+                                "authors", authors,
+                                "translator-credits", _("translator-credits"),
+                                "comments", description,
+                                "copyright", "Copyright © 2009-2018 Canonical Ltd.",
+                                "license-type", Gtk.License.GPL_3_0,
+                                "program-name", _("Document Scanner"),
+                                "logo-icon-name", "org.gnome.SimpleScan",
+                                "version", VERSION,
+                                "website", "https://gitlab.gnome.org/GNOME/simple-scan",
+                                "wrap-license", true);
+        }
 
     private void about_cb ()
     {
