@@ -45,8 +45,6 @@ public class PageView : Object
         }
     }
 
-    private Gdk.RGBA ruler_color;
-
     private int ruler_width = 8;
 
     private int border_width = 2;
@@ -86,13 +84,9 @@ public class PageView : Object
     public signal void size_changed ();
     public signal void changed ();
 
-    /* It is necessary to ask the ruler color since it is themed with the GTK */
-    /* theme foreground color, and this class doesn't have any GTK widget     */
-    /* available to lookup the color. */
-    public PageView (Page page, Gdk.RGBA ruler_color)
+    public PageView (Page page)
     {
         this.page = page;
-        this.ruler_color = ruler_color;
         page.pixels_changed.connect (page_pixels_changed_cb);
         page.size_changed.connect (page_size_changed_cb);
         page.crop_changed.connect (page_overlay_changed_cb);
@@ -828,7 +822,10 @@ public class PageView : Object
         }
     }
 
-    public void render (Cairo.Context context)
+    /* It is necessary to ask the ruler color since it is themed with the GTK */
+    /* theme foreground color, and this class doesn't have any GTK widget     */
+    /* available to lookup the color. */
+    public void render (Cairo.Context context, Gdk.RGBA ruler_color)
     {
         update_animation ();
         update_page_view ();
@@ -845,7 +842,7 @@ public class PageView : Object
         context.paint ();
 
         /* Draw page border */
-        context.set_source_rgb (ruler_color.red, ruler_color.green, ruler_color.blue);
+        Gdk.cairo_set_source_rgba (context, ruler_color);
         context.set_line_width (border_width);
 
         context.rectangle (0,
