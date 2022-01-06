@@ -261,6 +261,104 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="visible">True</property>
+            <property name="title" translatable="yes" comments="Preferences Dialog: Section label for postprocessing settings">Postprocessing</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes" comments="Switch to enable postprocessing">_Enable Postprocessing</property>
+                <property name="use_underline">True</property>
+                <property name="activatable_widget">postproc_enable_box</property>
+                <child>
+                  <object class="GtkBox" id="postproc_enable_box">
+                    <property name="visible">True</property>
+                    <property name="valign">center</property>
+                    <property name="homogeneous">True</property>
+                    <child>
+                      <object class="GtkSwitch" id="postproc_enable_switch">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="hexpand">False</property>
+                        <property name="active">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes" comments="Label beside postprocesing script name entry">_Script</property>
+                <property name="use_underline">True</property>
+                <property name="activatable_widget">postproc_script_entry</property>
+                <child>
+                  <object class="GtkBox" id="postproc_script_box">
+                    <property name="visible">True</property>
+                    <property name="valign">center</property>
+                    <property name="homogeneous">True</property>
+
+                    <child>
+                      <object class="GtkEntry" id="postproc_script_entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes" comments="Label beside postprocesing arguments entry">_Script arguments</property>
+                <property name="use_underline">True</property>
+                <property name="activatable_widget">postproc_args_entry</property>
+                <child>
+                  <object class="GtkBox" id="postproc_args_box">
+                    <property name="visible">True</property>
+                    <property name="valign">center</property>
+                    <property name="homogeneous">True</property>
+
+                    <child>
+                      <object class="GtkEntry" id="postproc_args_entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="hexpand">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes" comments="Label beside keep keep original file radio">_Keep original file</property>
+                <property name="use_underline">True</property>
+                <property name="activatable_widget">postproc_keep_original_box</property>
+                <child>
+                  <object class="GtkBox" id="postproc_keep_original_box">
+                    <property name="visible">True</property>
+                    <property name="valign">center</property>
+                    <property name="homogeneous">True</property>
+                      <child>
+                        <object class="GtkSwitch" id="postproc_keep_original_switch">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="hexpand">False</property>
+                        <property name="active">True</property>
+                        </object>
+                      </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
   </template>

@@ -720,7 +720,10 @@ public class AppWindow : Hdy.ApplicationWindow
         save_button.sensitive = false;
         try
         {
-            yield book.save_async (mime_type, settings.get_int ("jpeg-quality"), file, (fraction) =>
+            yield book.save_async (mime_type, settings.get_int ("jpeg-quality"), file,
+                settings.get_boolean ("postproc-enabled"), settings.get_string ("postproc-script"),
+                settings.get_string ("postproc-arguments"), settings.get_boolean ("postproc-keep-original"),
+                (fraction) =>
             {
                 progress_bar.set_fraction (fraction);
             }, cancellable);
@@ -1473,7 +1476,10 @@ public class AppWindow : Hdy.ApplicationWindow
                 filename = "scan.jpg";
             }
             var file = File.new_for_path (Path.build_filename (dir, filename));
-            yield book.save_async (mime_type, settings.get_int ("jpeg-quality"), file, null, null);
+            yield book.save_async (mime_type, settings.get_int ("jpeg-quality"), file,
+                settings.get_boolean ("postproc-enabled"), settings.get_string ("postproc-script"),
+                settings.get_string ("postproc-arguments"), settings.get_boolean ("postproc-keep-original"),
+                null, null);
             var command_line = "xdg-email";
             if (mime_type == "application/pdf")
                 command_line += " --attach %s".printf (file.get_path ());

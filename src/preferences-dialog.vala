@@ -51,6 +51,14 @@ private class PreferencesDialog : Hdy.PreferencesWindow
     private unowned Gtk.Adjustment brightness_adjustment;
     [GtkChild]
     private unowned Gtk.Adjustment contrast_adjustment;
+    [GtkChild]
+    private unowned Gtk.Switch postproc_enable_switch;
+    [GtkChild]
+    private unowned Gtk.Entry postproc_script_entry;
+    [GtkChild]
+    private unowned Gtk.Entry postproc_args_entry;
+    [GtkChild]
+    private unowned Gtk.Switch postproc_keep_original_switch;
 
     public PreferencesDialog (Settings settings)
     {
@@ -133,6 +141,33 @@ private class PreferencesDialog : Hdy.PreferencesWindow
         page_delay_6s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 6000); });
         page_delay_10s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 10000); });
         page_delay_15s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 15000); });
+
+        // Postprocessing settings
+        var postproc_enabled = settings.get_boolean ("postproc-enabled");
+        postproc_enable_switch.set_state(postproc_enabled);
+        toggle_postproc_visibility (postproc_enabled);
+        postproc_enable_switch.state_set.connect ((is_active) => {  toggle_postproc_visibility (is_active);
+                                                                    settings.set_boolean("postproc-enabled", is_active);
+                                                                    return true; });
+
+        var postproc_script = settings.get_string("postproc-script");
+        postproc_script_entry.set_text(postproc_script);
+        postproc_script_entry.changed.connect (() => { settings.set_string("postproc-script", postproc_script_entry.get_text()); });
+
+        var postproc_arguments = settings.get_string("postproc-arguments");
+        postproc_args_entry.set_text(postproc_arguments);
+        postproc_args_entry.changed.connect (() => { settings.set_string("postproc-arguments", postproc_args_entry.get_text()); });
+
+        var postproc_keep_original = settings.get_boolean ("postproc-keep-original");
+        postproc_keep_original_switch.set_state(postproc_keep_original);
+        postproc_keep_original_switch.state_set.connect ((is_active) => {   settings.set_boolean("postproc-keep-original", is_active);
+                                                                            return true; });
+    }
+
+    private void toggle_postproc_visibility(bool enabled) {
+        postproc_script_entry.get_parent ().get_parent ().get_parent ().get_parent ().set_visible(enabled);
+        postproc_args_entry.get_parent ().get_parent ().get_parent ().get_parent ().set_visible(enabled);
+        postproc_keep_original_switch.get_parent ().get_parent ().get_parent ().get_parent ().set_visible(enabled);
     }
 
     private void set_page_side (ScanSide page_side)
