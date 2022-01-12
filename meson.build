@@ -7,7 +7,7 @@ project ('simple-scan', ['vala', 'c'],
          ],
          meson_version: '>= 0.37.1')
 
-# FIXME Disable --disable-since-check after libhandy 1.2 is released
+# FIXME Disable --disable-since-check after libhandy 1.6 is released
 add_project_arguments (
   '--disable-since-check',
   language: 'vala'
@@ -29,7 +29,7 @@ glib_dep = dependency ('glib-2.0', version: '>= 2.38')
 gtk_dep = dependency ('gtk+-3.0', version: '>=3.24')
 gmodule_dep = dependency ('gmodule-export-2.0')
 gthread_dep = dependency ('gthread-2.0')
-libhandy_dep = dependency ('libhandy-1', version: '>= 1.1.90', required: false)
+libhandy_dep = dependency ('libhandy-1', version: '>= 1.5.0', required: false)
 zlib_dep = dependency ('zlib')
 cairo_dep = dependency ('cairo')
 gdk_pixbuf_dep = dependency ('gdk-pixbuf-2.0')

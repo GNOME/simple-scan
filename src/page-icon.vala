@@ -12,18 +12,14 @@
 
 public class PageIcon : Gtk.DrawingArea
 {
-    private string text;
-    private double r;
-    private double g;
-    private double b;
+    private char side;
+    private int position;
     private const int MINIMUM_WIDTH = 20;
 
-    public PageIcon (string text, double r = 1.0, double g = 1.0, double b = 1.0)
+    public PageIcon (char side, int position)
     {
-        this.text = text;
-        this.r = r;
-        this.g = g;
-        this.b = b;
+        this.side = side;
+        this.position = position;
     }
 
     public override void get_preferred_width (out int minimum_width, out int natural_width)
@@ -57,15 +53,61 @@ public class PageIcon : Gtk.DrawingArea
 
         c.translate ((get_allocated_width () - w) / 2, (get_allocated_height () - h) / 2);
 
-        c.rectangle (0.5, 0.5, w - 1, h - 1);
+        bool dark = Hdy.StyleManager.get_default ().dark;
+        bool hc = Hdy.StyleManager.get_default ().high_contrast;
 
-        c.set_source_rgb (r, g, b);
-        c.fill_preserve ();
+        if (dark && !hc)
+            c.rectangle (1, 1, w - 2, h - 2);
+        else
+            c.rectangle (0, 0, w, h);
+
+        Gdk.RGBA rgba = {};
+
+        switch (side)
+        {
+        case 'F':
+            /* Purple 2 */
+            rgba.parse ("#c061cb");
+            break;
+        case 'B':
+            /* Orange 3 */
+            rgba.parse ("#ff7800");
+            break;
+        default:
+            /* Yellow 3 to Red 2 */
+            Gdk.RGBA start = {}, end = {};
+            start.parse ("#f6d32d");
+            end.parse ("#ed333b");
+
+            double progress = position / 5.0;
+            rgba.red   = start.red   + (end.red   - start.red)   * progress;
+            rgba.green = start.green + (end.green - start.green) * progress;
+            rgba.blue  = start.blue  + (end.blue  - start.blue)  * progress;
+            break;
+        }
+
+        rgba.alpha = 0.3;
+
+        Gdk.cairo_set_source_rgba (c, rgba);
+        c.fill ();
 
         c.set_line_width (1.0);
-        c.set_source_rgb (0.0, 0.0, 0.0);
+        if (hc && dark)
+            c.set_source_rgba (1, 1, 1, 0.5);
+        else if (hc)
+            c.set_source_rgba (0, 0, 0, 0.5);
+        else
+            c.set_source_rgba (0, 0, 0, 0.15);
+
+        c.rectangle (0.5, 0.5, w - 1, h - 1);
         c.stroke ();
 
+        if (dark)
+            c.set_source_rgb (1, 1, 1);
+        else
+            c.set_source_rgb (0, 0, 0);
+
+        var text = @"$(position + 1)";
         Cairo.TextExtents extents;
         c.text_extents (text, out extents);
         c.translate ((w - extents.width) * 0.5 - 0.5, (h + extents.height) * 0.5 - 0.5);

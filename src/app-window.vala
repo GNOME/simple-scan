@@ -1399,39 +1399,7 @@ public class AppWindow : Hdy.ApplicationWindow
                 box.add (page_box);
             }
 
-            /* Get colours for each page (from Tango palette) */
-            var r = 1.0;
-            var g = 1.0;
-            var b = 1.0;
-            switch (side)
-            {
-            case 'F':
-                /* Plum */
-                r = 0x75 / 255.0;
-                g = 0x50 / 255.0;
-                b = 0x7B / 255.0;
-                break;
-            case 'B':
-                /* Orange */
-                r = 0xF5 / 255.0;
-                g = 0x79 / 255.0;
-                b = 0.0;
-                break;
-            case 'C':
-                /* Butter to Scarlet Red */
-                var p = (items[i] - '1') / 5.0;
-                r = (0xED / 255.0) * (1 - p) + 0xCC * p;
-                g = (0xD4 / 255.0) * (1 - p);
-                b = 0;
-                break;
-            }
-
-            /* Mix with white to look more paper like */
-            r = r + (1.0 - r) * 0.7;
-            g = g + (1.0 - g) * 0.7;
-            b = b + (1.0 - b) * 0.7;
-
-            var icon = new PageIcon ("%c".printf (items[i]), r, g, b);
+            var icon = new PageIcon (side, items[i] - '1');
             icon.visible = true;
             page_box.add (icon);
         }

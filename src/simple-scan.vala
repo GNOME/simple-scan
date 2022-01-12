@@ -51,6 +51,7 @@ public class SimpleScan : Gtk.Application
         base.startup ();
 
         Hdy.init ();
+        Hdy.StyleManager.get_default ().color_scheme = PREFER_LIGHT;
 
         app = new AppWindow ();
         book = app.book;
