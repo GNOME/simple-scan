@@ -5,7 +5,7 @@ project ('simple-scan', ['vala', 'c'],
              'warning_level=1',
              'buildtype=debugoptimized',
          ],
-         meson_version: '>= 0.37.1')
+         meson_version: '>= 0.38.0')
 
 # FIXME Disable --disable-since-check after libhandy 1.6 is released
 add_project_arguments (

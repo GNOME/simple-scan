@@ -37,7 +37,7 @@ parts:
   libsane:
     source: https://gitlab.com/sane-project/backends.git
     source-type: git
-    source-tag: release-1.0.33
+    source-tag: 1.1.1
     plugin: autotools
     autotools-configure-parameters:
       - --prefix=/snap/simple-scan/current/usr
@@ -84,7 +84,7 @@ parts:
       - libgtk-3-dev
       - libgdk-pixbuf2.0-dev
       - libgusb-dev
-      - libgirepository1.0-dev 
+      - libgirepository1.0-dev
       - libpackagekit-glib2-dev
       - libsane-dev
       - libwebp-dev
