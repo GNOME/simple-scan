@@ -337,7 +337,7 @@ public class AutosaveManager
 
         try
         {
-            DirUtils.create_with_parents (AUTOSAVE_DIR, 0777);
+            DirUtils.create_with_parents (AUTOSAVE_DIR, 0700);
             FileUtils.set_contents (AUTOSAVE_PATH, file.to_data ());
         }
         catch (Error e)

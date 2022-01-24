@@ -1961,7 +1961,7 @@ public class AppWindow : Hdy.ApplicationWindow
 
     private string state_filename
     {
-        owned get { return Path.build_filename (Environment.get_user_cache_dir (), "simple-scan", "state"); }
+        owned get { return Path.build_filename (Environment.get_user_config_dir (), "simple-scan", "state"); }
     }
 
     private void load_state ()
@@ -1986,11 +1986,11 @@ public class AppWindow : Hdy.ApplicationWindow
             window_height = 400;
         window_is_maximized = state_get_boolean (f, "window", "is-maximized");
         window_is_fullscreen = state_get_boolean (f, "window", "is-fullscreen");
-        scan_type = Scanner.type_from_string(state_get_string (f, "scanner", "scan-type", "single"));
+        scan_type = Scanner.type_from_string(state_get_string (f, "scanner", "scan-type"));
         set_scan_type (scan_type);
     }
 
-    private string state_get_string (KeyFile f, string group_name, string key, string default)
+    private string state_get_string (KeyFile f, string group_name, string key, string default = "")
     {
         try
         {
@@ -2026,6 +2026,7 @@ public class AppWindow : Hdy.ApplicationWindow
         }
     }
 
+    private static string STATE_DIR = Path.build_filename (Environment.get_user_config_dir (), "simple-scan", null);
     private void save_state (bool force = false)
     {
         if (!force)
@@ -2051,6 +2052,7 @@ public class AppWindow : Hdy.ApplicationWindow
         f.set_string ("scanner", "scan-type", Scanner.type_to_string(scan_type));
         try
         {
+            DirUtils.create_with_parents (STATE_DIR, 0700);
             FileUtils.set_contents (state_filename, f.to_data ());
         }
         catch (Error e)
