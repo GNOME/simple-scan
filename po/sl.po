@@ -2,14 +2,14 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
 #
-# Matej Urbančič <mateju@src.gnome.org>, 2017–2021.
+# Matej Urbančič <mateju@src.gnome.org>, 2017–2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2021-11-03 17:52+0000\n"
-"PO-Revision-Date: 2021-11-03 19:37+0100\n"
+"POT-Creation-Date: 2022-01-26 19:03+0000\n"
+"PO-Revision-Date: 2022-01-26 21:16+0100\n"
 "Last-Translator: Matej Urbančič <mateju@src.gnome.org>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "Language: sl\n"
@@ -146,7 +146,7 @@ msgstr "Zakasnitev med branjem strani v milisekundah."
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1580 src/app-window.vala:1860
+#: data/ui/app-window.ui:454 src/app-window.vala:1552 src/app-window.vala:1826
 msgid "Document Scanner"
 msgstr "Optični bralnik dokumentov"
 
@@ -270,7 +270,7 @@ msgstr "_Besedilo"
 msgid "_Image"
 msgstr "_Slika"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1890
+#: data/ui/app-window.ui:433 src/app-window.vala:1856
 msgid "_Preferences"
 msgstr "_Možnosti"
 
@@ -282,11 +282,6 @@ msgstr "Zaustavi trenutno optično branje"
 #: data/ui/app-window.ui:493
 msgid "S_top"
 msgstr "_Zaustavi"
-
-#. Tooltip for scan toolbar button
-#: data/ui/app-window.ui:522
-msgid "Scan a single page from the scanner"
-msgstr "Optično branje ene strani iz optičnega bralnika"
 
 #: data/ui/app-window.ui:544
 msgid "_Scan"
@@ -517,7 +512,7 @@ msgstr "_Svetlost"
 msgid "_Contrast"
 msgstr "_Kontrast"
 
-#: src/app-window.vala:229 src/app-window.vala:1688
+#: src/app-window.vala:229 src/app-window.vala:1654
 msgid "_Close"
 msgstr "_Zapri"
 
@@ -669,94 +664,68 @@ msgid "_Discard Changes"
 msgstr "_Zavrzi spremembe"
 
 #. Label shown when scan started
-#: src/app-window.vala:836
+#: src/app-window.vala:837
 msgid "Contacting Scanner…"
 msgstr "Poteka povezovanje optičnega bralnika …"
 
+#: src/app-window.vala:908
+msgid "Scan a single page from the scanner"
+msgstr "Optično branje ene strani iz optičnega bralnika"
+
+#: src/app-window.vala:913 src/app-window.vala:918
+msgid "Scan multiple pages from the scanner"
+msgstr "Optično branje več strani iz optičnega bralnika"
+
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1104
+#: src/app-window.vala:1108
 msgid "Unable to save image for preview"
 msgstr "Ni mogoče shraniti slike za predogled"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1116
+#: src/app-window.vala:1120
 msgid "Unable to open image preview application"
 msgstr "Ni mogoče odpreti programa predogleda slik"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1278
+#: src/app-window.vala:1282
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Prerazporejevanje strani"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1301
+#: src/app-window.vala:1305
 msgid "Combine sides"
 msgstr "Spoji strani"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1311
+#: src/app-window.vala:1315
 msgid "Combine sides (reverse)"
 msgstr "Spoji strani (obratno)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1321
+#: src/app-window.vala:1325
 msgid "Reverse"
 msgstr "Obrnjeno"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1331
+#: src/app-window.vala:1335
 msgid "Keep unchanged"
 msgstr "Ohrani nespremenjeno"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1555
+#: src/app-window.vala:1527
 msgid "Unable to open help file"
 msgstr "Ni mogoče odpreti datoteke pomoči"
 
-#. The license this software is under (GPL3+)
-#: src/app-window.vala:1570
-msgid ""
-"This program is free software: you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation, either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program.  If not, see <http://www.gnu.org/licenses/>."
-msgstr ""
-"Ta program je prosta programska oprema; program lahko širite in/ali "
-"spreminjate\n"
-"pod pogoji Splošnega javnega dovoljenja kot je objavljena s strani Free "
-"Software \n"
-"Foundation; ali različico 3 Licence ali (na vašo željo) katerakoli kasnejša "
-"različica.\n"
-"\n"
-"Ta program je distribuiran v upanju da bo uporaben,\n"
-"toda BREZ KAKRŠNIHKOLI ZAGOTOVIL; tudi brez impliciranih\n"
-"zagotovila za PRODAJO ali PRIMERNOST ZA DOLOČEN NAMEN. \n"
-"Oglejte si GNU General Public Licence za več podrobnosti.\n"
-"\n"
-"Skupaj s programom bi morali prejeti tudi kopijo splošnega javnega "
-"potrdila; \n"
-"v primeru, da kopije niste prejeli si oglejte <http://www.gnu.org/licenses/>."
-
-#. Title of about dialog
-#: src/app-window.vala:1573
+#: src/app-window.vala:1541
 msgid "About Document Scanner"
 msgstr "O programu"
 
-#. Description of program
-#: src/app-window.vala:1576
+#: src/app-window.vala:1543
 msgid "Simple document scanning tool"
 msgstr "Preprosto orodje za optično branje dokumentov"
 
-#: src/app-window.vala:1585
+#: src/app-window.vala:1548
 msgid "translator-credits"
 msgstr ""
 "Matej Urbančič <mateju@svn@gnome.org>\n"
@@ -772,22 +741,22 @@ msgstr ""
 "  grofaty"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1601
+#: src/app-window.vala:1567
 msgid "Save document before quitting?"
 msgstr "Ali želite dokument končanjem programa shraniti?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1603
+#: src/app-window.vala:1569
 msgid "_Quit without Saving"
 msgstr "_Končaj brez shranjevanja"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1644
+#: src/app-window.vala:1610
 msgid "You appear to have a Brother scanner."
 msgstr "Kaže, da je priklopljen optični bralnik Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1646
+#: src/app-window.vala:1612
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -796,7 +765,7 @@ msgstr ""
 "com\">Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1650
+#: src/app-window.vala:1616
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -805,7 +774,7 @@ msgstr ""
 "href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1652
+#: src/app-window.vala:1618
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -818,13 +787,13 @@ msgstr ""
 "mailman/listinfo/sane-devel\">dopisni seznam SANE</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1656
+#: src/app-window.vala:1622
 msgid "You appear to have a Samsung scanner."
 msgstr "Kaže, da je priklopljen optični bralnik Samsung."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1659
+#: src/app-window.vala:1625
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -833,7 +802,7 @@ msgstr ""
 "\">HP website</a> (HP je prevzel posle tiskalnikov Samsung)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1664
+#: src/app-window.vala:1630
 msgid "You appear to have an HP scanner."
 msgstr "Kaže, da je priklopljen optični bralnik HP."
 
@@ -841,7 +810,7 @@ msgstr "Kaže, da je priklopljen optični bralnik HP."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1672
+#: src/app-window.vala:1638
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -850,12 +819,12 @@ msgstr ""
 "\">HP website</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1676
+#: src/app-window.vala:1642
 msgid "You appear to have an Epson scanner."
 msgstr "Kaže, da je priklopljen optični bralnik Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1678
+#: src/app-window.vala:1644
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -864,12 +833,12 @@ msgstr ""
 "com\">Epson</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1682
+#: src/app-window.vala:1648
 msgid "You appear to have an Lexmark scanner."
 msgstr "Kaže, da je priklopljen optični bralnik Lexmark."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1684
+#: src/app-window.vala:1650
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -878,38 +847,38 @@ msgstr ""
 "com\">Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1688
+#: src/app-window.vala:1654
 msgid "Install drivers"
 msgstr "Namesti gonilnike"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1722
+#: src/app-window.vala:1688
 msgid "Once installed you will need to restart this app."
 msgstr "Ko bodo paketi nameščeni, je treba program ponovno zagnati."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1735
+#: src/app-window.vala:1701
 msgid "Installing drivers…"
 msgstr "Poteka nameščanje gonilnikov …"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1743
+#: src/app-window.vala:1709
 msgid "Drivers installed successfully!"
 msgstr "Gonilniki so uspešno nameščeni!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1753
+#: src/app-window.vala:1719
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Namestitev gonilnikov je spodletela (koda napake %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1759
+#: src/app-window.vala:1725
 msgid "Failed to install drivers."
 msgstr "Namestitev gonilnikov je spodletela."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1766
+#: src/app-window.vala:1732
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
@@ -918,60 +887,60 @@ msgstr[1] "Namestiti je treba %s paket."
 msgstr[2] "Namestiti je treba %s paketa."
 msgstr[3] "Namestiti je treba %s pakete."
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1851
 msgid "_Email"
 msgstr "_Elektronski naslov"
 
-#: src/app-window.vala:1886
+#: src/app-window.vala:1852
 msgid "Pri_nt"
 msgstr "_Natisni"
 
-#: src/app-window.vala:1887
+#: src/app-window.vala:1853
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Prerazporedi strani"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1857
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice"
 
-#: src/app-window.vala:1892
+#: src/app-window.vala:1858
 msgid "_Help"
 msgstr "Pomo_č"
 
-#: src/app-window.vala:1893
+#: src/app-window.vala:1859
 msgid "_About Document Scanner"
 msgstr "_O programu"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1901
+#: src/app-window.vala:1867
 msgid "_New Document"
 msgstr "Nov _dokument"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1920
+#: src/app-window.vala:1886
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Obrni stran v levo (nasprotna smer urinega kazalca)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1929
+#: src/app-window.vala:1895
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Obrni stran v desno (smer urinega kazalca)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1941
+#: src/app-window.vala:1907
 msgid "Crop the selected page"
 msgstr "Obreži izbrano stran"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1959
+#: src/app-window.vala:1925
 msgid "Delete the selected page"
 msgstr "Izbriši izbrano stran"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2101
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -1026,24 +995,24 @@ msgid "%d dpi"
 msgstr "%d točk na palec"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:882
+#: src/scanner.vala:897
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Ni zaznanega optičnega bralnika. Priklopite in vklopite ga."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:912
+#: src/scanner.vala:927
 msgid "Unable to connect to scanner"
 msgstr "Z optičnim bralnikom se ni mogoče povezati"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1342 src/scanner.vala:1477
+#: src/scanner.vala:1357 src/scanner.vala:1492
 msgid "Document feeder empty"
 msgstr "Podajalnik dokumentov je prazen"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1350
+#: src/scanner.vala:1365
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1056,12 +1025,12 @@ msgstr ""
 "prebranega polja pri največji ločljivosti omejena."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1363
+#: src/scanner.vala:1378
 msgid "Unable to start scan"
 msgstr "Optičnega branja ni mogoče začeti"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1376 src/scanner.vala:1487
+#: src/scanner.vala:1391 src/scanner.vala:1502
 msgid "Error communicating with scanner"
 msgstr "Napaka med povezovanjem optičnim bralnikom"
 
@@ -1080,25 +1049,56 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Popravki datotek PDF, ustvarjeni s starejšimi različicami programa"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1757
+#: src/simple-scan.vala:1758
 msgid "Failed to scan"
 msgstr "Optično branje je spodletelo"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1772
+#: src/simple-scan.vala:1773
 msgid "Scan in progress"
 msgstr "Poteka optično branje dokumenta"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1956
+#: src/simple-scan.vala:1957
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[NAPRAVA ...] – orodje za optično branje"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1968
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Za popoln seznam možnosti ukazne vrstice zaženite »%s --help«."
+
+#~ msgid ""
+#~ "This program is free software: you can redistribute it and/or modify\n"
+#~ "it under the terms of the GNU General Public License as published by\n"
+#~ "the Free Software Foundation, either version 3 of the License, or\n"
+#~ "(at your option) any later version.\n"
+#~ "\n"
+#~ "This program is distributed in the hope that it will be useful,\n"
+#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+#~ "GNU General Public License for more details.\n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License\n"
+#~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "Ta program je prosta programska oprema; program lahko širite in/ali "
+#~ "spreminjate\n"
+#~ "pod pogoji Splošnega javnega dovoljenja kot je objavljena s strani Free "
+#~ "Software \n"
+#~ "Foundation; ali različico 3 Licence ali (na vašo željo) katerakoli "
+#~ "kasnejša različica.\n"
+#~ "\n"
+#~ "Ta program je distribuiran v upanju da bo uporaben,\n"
+#~ "toda BREZ KAKRŠNIHKOLI ZAGOTOVIL; tudi brez impliciranih\n"
+#~ "zagotovila za PRODAJO ali PRIMERNOST ZA DOLOČEN NAMEN. \n"
+#~ "Oglejte si GNU General Public Licence za več podrobnosti.\n"
+#~ "\n"
+#~ "Skupaj s programom bi morali prejeti tudi kopijo splošnega javnega "
+#~ "potrdila; \n"
+#~ "v primeru, da kopije niste prejeli si oglejte <http://www.gnu.org/"
+#~ "licenses/>."
 
 #~ msgid "A_6"
 #~ msgstr "A_6"
