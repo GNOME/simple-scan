@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2021-12-01 15:35+0000\n"
-"PO-Revision-Date: 2021-12-05 00:21+0300\n"
+"POT-Creation-Date: 2022-01-27 14:26+0000\n"
+"PO-Revision-Date: 2022-01-27 19:17+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -147,12 +147,48 @@ msgstr "Задержка в миллисекундах между страниц
 msgid "Delay in millisecond between pages."
 msgstr "Задержка в миллисекундах между страницами."
 
+#: data/org.gnome.SimpleScan.gschema.xml:82
+msgid "Whether or not postprocessing is enabled"
+msgstr "Включена или нет постобработка"
+
+#: data/org.gnome.SimpleScan.gschema.xml:83
+msgid "Whether or not postprocessing is enabled."
+msgstr "Включена или нет постобработка."
+
+#: data/org.gnome.SimpleScan.gschema.xml:87
+msgid "The path to the postprocessing script"
+msgstr "Путь к сценарию постобработки"
+
+#: data/org.gnome.SimpleScan.gschema.xml:88
+msgid "The path to the postprocessing script."
+msgstr "Путь к сценарию постобработки."
+
+#: data/org.gnome.SimpleScan.gschema.xml:92
+msgid "Additional arguments for the postprocessing script"
+msgstr "Дополнительные аргументы для скрипта постобработки"
+
+#: data/org.gnome.SimpleScan.gschema.xml:93
+msgid "Additional arguments for the postprocessing script."
+msgstr "Дополнительные аргументы для скрипта постобработки."
+
+#: data/org.gnome.SimpleScan.gschema.xml:97
+msgid "Whether or not to keep the original, unprocessed file"
+msgstr "Сохранять или нет исходный, необработанный файл"
+
+#: data/org.gnome.SimpleScan.gschema.xml:98
+msgid ""
+"Whether or not to keep the original, unprocessed file. The \"_orig\" "
+"filename will be added to the filename immediately before the file extension."
+msgstr ""
+"Сохранять или нет исходный, необработанный файл. Имя \"_orig\" будет "
+"добавлено к имени файла непосредственно перед расширением файла."
+
 #. Title of scan window
 #. Set HeaderBar title here because Glade doesn't keep it translated
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1864
+#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
 msgid "Document Scanner"
 msgstr "Сканер документов"
 
@@ -276,7 +312,7 @@ msgstr "_Текст"
 msgid "_Image"
 msgstr "_Изображение"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1894
+#: data/ui/app-window.ui:433 src/app-window.vala:1862
 msgid "_Preferences"
 msgstr "_Параметры"
 
@@ -518,7 +554,32 @@ msgstr "_Яркость"
 msgid "_Contrast"
 msgstr "_Контрастность"
 
-#: src/app-window.vala:229 src/app-window.vala:1692
+#. Preferences Dialog: Section label for postprocessing settings
+#: data/ui/preferences-dialog.ui:267
+msgid "Postprocessing"
+msgstr "Постобработка"
+
+#. Switch to enable postprocessing
+#: data/ui/preferences-dialog.ui:271
+msgid "_Enable Postprocessing"
+msgstr "_Включить постобработку"
+
+#. Label beside postprocesing script name entry
+#: data/ui/preferences-dialog.ui:294
+msgid "_Script"
+msgstr "_Сценарий"
+
+#. Label beside postprocesing arguments entry
+#: data/ui/preferences-dialog.ui:317
+msgid "_Script arguments"
+msgstr "_Аргументы сценария"
+
+#. Label beside keep keep original file radio
+#: data/ui/preferences-dialog.ui:340
+msgid "_Keep original file"
+msgstr "_Сохранить исходный файл"
+
+#: src/app-window.vala:229 src/app-window.vala:1660
 msgid "_Close"
 msgstr "_Закрыть"
 
@@ -572,11 +633,11 @@ msgstr "Существует автоматически сохраненная �
 msgid "Save As…"
 msgstr "Сохранить как…"
 
-#: src/app-window.vala:465 src/app-window.vala:761
+#: src/app-window.vala:465 src/app-window.vala:764
 msgid "_Save"
 msgstr "Со_хранить"
 
-#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:760
+#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:763
 msgid "_Cancel"
 msgstr "_Отменить"
 
@@ -650,119 +711,88 @@ msgid "Saving"
 msgstr "Сохранение"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:734
+#: src/app-window.vala:737
 msgid "Failed to save file"
 msgstr "Не удалось сохранить файл"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:758
+#: src/app-window.vala:761
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Если не выполнить сохранение, все изменения будут утеряны."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:794
+#: src/app-window.vala:797
 msgid "Save current document?"
 msgstr "Сохранить текущий документ?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:796
+#: src/app-window.vala:799
 msgid "_Discard Changes"
 msgstr "_Отменить изменения"
 
 #. Label shown when scan started
-#: src/app-window.vala:837
+#: src/app-window.vala:840
 msgid "Contacting Scanner…"
 msgstr "Связываюсь со сканером…"
 
-#: src/app-window.vala:908
+#: src/app-window.vala:911
 msgid "Scan a single page from the scanner"
 msgstr "Сканировать одну страницу со сканера"
 
-#: src/app-window.vala:913 src/app-window.vala:918
+#: src/app-window.vala:916 src/app-window.vala:921
 msgid "Scan multiple pages from the scanner"
 msgstr "Сканировать несколько страниц со сканера"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1108
+#: src/app-window.vala:1111
 msgid "Unable to save image for preview"
 msgstr "Не удалось сохранить изображение для предварительного просмотра"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1120
+#: src/app-window.vala:1123
 msgid "Unable to open image preview application"
 msgstr "Не удалось открыть программу для просмотра изображений"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1282
+#: src/app-window.vala:1285
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Организация страниц"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1305
+#: src/app-window.vala:1308
 msgid "Combine sides"
 msgstr "Объединить стороны"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1315
+#: src/app-window.vala:1318
 msgid "Combine sides (reverse)"
 msgstr "Объединить стороны (в обратном порядке)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1325
+#: src/app-window.vala:1328
 msgid "Reverse"
 msgstr "В обратном порядке"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1335
+#: src/app-window.vala:1338
 msgid "Keep unchanged"
 msgstr "Оставить без изменений"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1559
+#: src/app-window.vala:1533
 msgid "Unable to open help file"
 msgstr "Не удалось открыть файл справки"
 
-#. The license this software is under (GPL3+)
-#: src/app-window.vala:1574
-msgid ""
-"This program is free software: you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation, either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program.  If not, see <http://www.gnu.org/licenses/>."
-msgstr ""
-"Эта программа является свободным программным обеспечением: вы можете "
-"распространять и/или модифицировать её согласно условиям Открытого "
-"лицензионного соглашения GNU (GNU General Public License), опубликованного "
-"Free Software Foundation, версии 3 или (на ваш выбор) более поздней. \n"
-"Эта программа распространяется с надеждой на то, что она будет полезна "
-"пользователям, однако БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ; не гарантируется также "
-"КОММЕРЧЕСКОЕ КАЧЕСТВО или ВОЗМОЖНОСТЬ РЕШЕНИЯ ОПРЕДЕЛЕННЫХ ЗАДАЧ. Более "
-"подробная информация содержится в тексте Открытого лицензионного соглашения "
-"GNU (GNU General Public License). \n"
-"Копия текста Открытого лицензионного соглашения GNU (GNU General Public "
-"License) должная поставляться с этой программой. В остальных случаях "
-"пройдите по ссылке: <http://www.gnu.org/licenses/>."
-
-#. Title of about dialog
-#: src/app-window.vala:1577
+#: src/app-window.vala:1547
 msgid "About Document Scanner"
 msgstr "О Сканере документов"
 
-#. Description of program
-#: src/app-window.vala:1580
+#: src/app-window.vala:1549
 msgid "Simple document scanning tool"
 msgstr "Простой инструмент для сканирования документов"
 
-#: src/app-window.vala:1589
+#: src/app-window.vala:1554
 msgid "translator-credits"
 msgstr ""
 "Stas Solovey <whats_up@tut.by>, 2015-2018\n"
@@ -770,22 +800,22 @@ msgstr ""
 "Aleksandr Melman <alexmelman88@gmail.com>, 2021"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1605
+#: src/app-window.vala:1573
 msgid "Save document before quitting?"
 msgstr "Сохранить документ перед выходом?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1607
+#: src/app-window.vala:1575
 msgid "_Quit without Saving"
 msgstr "_Выйти без сохранения"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1648
+#: src/app-window.vala:1616
 msgid "You appear to have a Brother scanner."
 msgstr "Похоже, у вас сканер компании Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1650
+#: src/app-window.vala:1618
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -794,7 +824,7 @@ msgstr ""
 "\">веб-сайте Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1654
+#: src/app-window.vala:1622
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -803,7 +833,7 @@ msgstr ""
 "www.sane-project.org/man/sane-pixma.5.html\">бэкендом Pixma SANE</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1656
+#: src/app-window.vala:1624
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -817,13 +847,13 @@ msgstr ""
 "mailman/listinfo/sane-devel\">список рассылки SANE</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1660
+#: src/app-window.vala:1628
 msgid "You appear to have a Samsung scanner."
 msgstr "Похоже, у вас сканер компании Samsung."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1663
+#: src/app-window.vala:1631
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -832,7 +862,7 @@ msgstr ""
 "\">сайте HP</a> (HP приобрела бизнес Samsung по печати)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1668
+#: src/app-window.vala:1636
 msgid "You appear to have an HP scanner."
 msgstr "Похоже, у вас сканер компании HP."
 
@@ -840,7 +870,7 @@ msgstr "Похоже, у вас сканер компании HP."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1676
+#: src/app-window.vala:1644
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -849,12 +879,12 @@ msgstr ""
 "сайте HP</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1680
+#: src/app-window.vala:1648
 msgid "You appear to have an Epson scanner."
 msgstr "Похоже, у вас сканер компании Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1682
+#: src/app-window.vala:1650
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -863,12 +893,12 @@ msgstr ""
 "\">веб-сайте Epson</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1686
+#: src/app-window.vala:1654
 msgid "You appear to have an Lexmark scanner."
 msgstr "Похоже, у вас сканер Lexmark."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1688
+#: src/app-window.vala:1656
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -877,38 +907,38 @@ msgstr ""
 "сайте Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1692
+#: src/app-window.vala:1660
 msgid "Install drivers"
 msgstr "Установка драйверов"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1726
+#: src/app-window.vala:1694
 msgid "Once installed you will need to restart this app."
 msgstr "После установки вам нужно будет перезапустить это приложение."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1739
+#: src/app-window.vala:1707
 msgid "Installing drivers…"
 msgstr "Установка драйверов…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1747
+#: src/app-window.vala:1715
 msgid "Drivers installed successfully!"
 msgstr "Драйверы успешно установлены!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1757
+#: src/app-window.vala:1725
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Не удалось установить драйверы (код ошибки %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1763
+#: src/app-window.vala:1731
 msgid "Failed to install drivers."
 msgstr "Не удалось установить драйверы."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1770
+#: src/app-window.vala:1738
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
@@ -916,109 +946,109 @@ msgstr[0] "Необходимо установить %s пакет."
 msgstr[1] "Необходимо установить %s пакета."
 msgstr[2] "Необходимо установить %s пакетов."
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1857
 msgid "_Email"
 msgstr "Отправить _почтой"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1858
 msgid "Pri_nt"
 msgstr "Рас_печатать"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1859
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Организация страниц"
 
-#: src/app-window.vala:1895
+#: src/app-window.vala:1863
 msgid "_Keyboard Shortcuts"
 msgstr "_Комбинации клавиш"
 
-#: src/app-window.vala:1896
+#: src/app-window.vala:1864
 msgid "_Help"
 msgstr "_Справка"
 
-#: src/app-window.vala:1897
+#: src/app-window.vala:1865
 msgid "_About Document Scanner"
 msgstr "_О Сканере документов"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1905
+#: src/app-window.vala:1873
 msgid "_New Document"
 msgstr "_Новый документ"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1924
+#: src/app-window.vala:1892
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Повернуть страницу влево (против часовой стрелки)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1933
+#: src/app-window.vala:1901
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Повернуть страницу вправо (по часовой стрелке)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1945
+#: src/app-window.vala:1913
 msgid "Crop the selected page"
 msgstr "Обрезать выбранную страницу"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1963
+#: src/app-window.vala:1931
 msgid "Delete the selected page"
 msgstr "Удалить выбранную страницу"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2137
+#: src/app-window.vala:2107
 msgid "Cancel"
 msgstr "Отменить"
 
-#: src/book.vala:331 src/book.vala:337
+#: src/book.vala:355 src/book.vala:361
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Не удалось преобразовать страницу %i"
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:63
+#: src/preferences-dialog.vala:71
 msgid "Automatic"
 msgstr "Автоматический"
 
-#: src/preferences-dialog.vala:100
+#: src/preferences-dialog.vala:108
 msgid "Darker"
 msgstr "Темнее"
 
-#: src/preferences-dialog.vala:102
+#: src/preferences-dialog.vala:110
 msgid "Lighter"
 msgstr "Светлее"
 
-#: src/preferences-dialog.vala:110
+#: src/preferences-dialog.vala:118
 msgid "Less"
 msgstr "Меньше"
 
-#: src/preferences-dialog.vala:112
+#: src/preferences-dialog.vala:120
 msgid "More"
 msgstr "Больше"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:283
+#: src/preferences-dialog.vala:318
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (по умолчанию)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:286
+#: src/preferences-dialog.vala:321
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (черновик)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:289
+#: src/preferences-dialog.vala:324
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (высокое разрешение)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:292
+#: src/preferences-dialog.vala:327
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
@@ -1078,22 +1108,23 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Исправить PDF-файлы, созданные предыдущими версиями Сканера документов"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1757
+#: src/simple-scan.vala:1758
 msgid "Failed to scan"
 msgstr "Сканирование не удалось"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1772
+#: src/simple-scan.vala:1773
 msgid "Scan in progress"
 msgstr "Выполняется сканирование"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1956
+#: src/simple-scan.vala:1957
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[DEVICE…] — Устройство сканирования"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1968
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Выполните «%s --help», чтобы вывести полный список доступных опций."
+
