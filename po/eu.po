@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the simple-scan package.
 #
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2017.
-# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2019, 2020, 2021.
+# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2019, 2020, 2021, 2022.
 #
 msgid ""
 msgstr "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2021-11-02 21:33+0000\n"
-"PO-Revision-Date: 2021-11-16 10:00+0100\n"
+"POT-Creation-Date: 2022-01-27 14:26+0000\n"
+"PO-Revision-Date: 2022-01-30 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -131,12 +131,46 @@ msgstr "Orrien arteko atzerapena (milisegundotan)"
 msgid "Delay in millisecond between pages."
 msgstr "Orrien arteko atzerapena (milisegundotan)."
 
+#: data/org.gnome.SimpleScan.gschema.xml:82
+msgid "Whether or not postprocessing is enabled"
+msgstr "Postprozesatzea gaituta dagoen ala ez"
+
+#: data/org.gnome.SimpleScan.gschema.xml:83
+msgid "Whether or not postprocessing is enabled."
+msgstr "Postprozesatzea gaituta dagoen ala ez."
+
+#: data/org.gnome.SimpleScan.gschema.xml:87
+msgid "The path to the postprocessing script"
+msgstr "Postprozesatze-scriptaren bide-izena"
+
+#: data/org.gnome.SimpleScan.gschema.xml:88
+msgid "The path to the postprocessing script."
+msgstr "Postprozesatze-scriptaren bide-izena."
+
+#: data/org.gnome.SimpleScan.gschema.xml:92
+msgid "Additional arguments for the postprocessing script"
+msgstr "Postprozesatze-scriptaren argumentu gehigarriak"
+
+#: data/org.gnome.SimpleScan.gschema.xml:93
+msgid "Additional arguments for the postprocessing script."
+msgstr "Postprozesatze-scriptaren argumentu gehigarriak."
+
+#: data/org.gnome.SimpleScan.gschema.xml:97
+msgid "Whether or not to keep the original, unprocessed file"
+msgstr "Prozesatu gabeko jatorrizko fitxategia mantenduko den ala ez"
+
+#: data/org.gnome.SimpleScan.gschema.xml:98
+msgid ""
+"Whether or not to keep the original, unprocessed file. The \"_orig\" "
+"filename will be added to the filename immediately before the file extension."
+msgstr "Prozesatu gabeko jatorrizko fitxategia mantenduko den ala ez. \"_orig\" fitxategi-izena gehituko zaio fitxategi-izenari fitxategi-luzapenaren aurretik."
+
 #. Title of scan window
 #. Set HeaderBar title here because Glade doesn't keep it translated
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1580 src/app-window.vala:1860
+#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
 msgid "Document Scanner"
 msgstr "Dokumentuen eskanerra"
 
@@ -254,7 +288,7 @@ msgstr "_Testua"
 msgid "_Image"
 msgstr "_Irudia"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1890
+#: data/ui/app-window.ui:433 src/app-window.vala:1862
 msgid "_Preferences"
 msgstr "_Hobespenak"
 
@@ -266,11 +300,6 @@ msgstr "Gelditu uneko eskaneatzea"
 #: data/ui/app-window.ui:493
 msgid "S_top"
 msgstr "_Gelditu"
-
-#. Tooltip for scan toolbar button
-#: data/ui/app-window.ui:522
-msgid "Scan a single page from the scanner"
-msgstr "Eskaneatu eskanerreko orrialde bakarra"
 
 #: data/ui/app-window.ui:544
 msgid "_Scan"
@@ -501,7 +530,32 @@ msgstr "_Distira"
 msgid "_Contrast"
 msgstr "K_ontrastea"
 
-#: src/app-window.vala:229 src/app-window.vala:1688
+#. Preferences Dialog: Section label for postprocessing settings
+#: data/ui/preferences-dialog.ui:267
+msgid "Postprocessing"
+msgstr "Postprozesatzea"
+
+#. Switch to enable postprocessing
+#: data/ui/preferences-dialog.ui:271
+msgid "_Enable Postprocessing"
+msgstr "_Gaitu postprozesatzea"
+
+#. Label beside postprocesing script name entry
+#: data/ui/preferences-dialog.ui:294
+msgid "_Script"
+msgstr "_Scripta"
+
+#. Label beside postprocesing arguments entry
+#: data/ui/preferences-dialog.ui:317
+msgid "_Script arguments"
+msgstr "_Script-argumentuak"
+
+#. Label beside keep keep original file radio
+#: data/ui/preferences-dialog.ui:340
+msgid "_Keep original file"
+msgstr "_Mantendu jatorrizko fitxategia"
+
+#: src/app-window.vala:229 src/app-window.vala:1660
 msgid "_Close"
 msgstr "It_xi"
 
@@ -553,11 +607,11 @@ msgstr "Badago automatikoki gordetako liburu bat. Ireki nahi duzu?"
 msgid "Save As…"
 msgstr "Gorde honela…"
 
-#: src/app-window.vala:465 src/app-window.vala:761
+#: src/app-window.vala:465 src/app-window.vala:764
 msgid "_Save"
 msgstr "_Gorde"
 
-#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:760
+#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:763
 msgid "_Cancel"
 msgstr "_Utzi"
 
@@ -631,144 +685,122 @@ msgid "Saving"
 msgstr "Gordetzen"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:734
+#: src/app-window.vala:737
 msgid "Failed to save file"
 msgstr "Huts egin du fitxategia gordetzean"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:758
+#: src/app-window.vala:761
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Gordetzen ez baduzu, aldaketak betiko galduko dira."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:794
+#: src/app-window.vala:797
 msgid "Save current document?"
 msgstr "Gorde uneko dokumentua?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:796
+#: src/app-window.vala:799
 msgid "_Discard Changes"
 msgstr "_Baztertu aldaketak"
 
 #. Label shown when scan started
-#: src/app-window.vala:836
+#: src/app-window.vala:840
 msgid "Contacting Scanner…"
 msgstr "Eskanerrarekin kontaktuan jartzen…"
 
+#: src/app-window.vala:911
+msgid "Scan a single page from the scanner"
+msgstr "Eskaneatu eskanerreko orrialde bakarra"
+
+#: src/app-window.vala:916 src/app-window.vala:921
+msgid "Scan multiple pages from the scanner"
+msgstr "Eskaneatu eskanerreko orrialde anitz"
+
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1104
+#: src/app-window.vala:1111
 msgid "Unable to save image for preview"
 msgstr "Ezin izan da aurrebistarako irudia gorde"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1116
+#: src/app-window.vala:1123
 msgid "Unable to open image preview application"
 msgstr "Ezin izan da ireki irudiaren aurrebistarako aplikazioa"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1278
+#: src/app-window.vala:1285
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "Berrordenatu orrialdeak"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1301
+#: src/app-window.vala:1308
 msgid "Combine sides"
 msgstr "Konbinatu aldeak"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1311
+#: src/app-window.vala:1318
 msgid "Combine sides (reverse)"
 msgstr "Konbinatu aldeak (alderantziz)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1321
+#: src/app-window.vala:1328
 msgid "Reverse"
 msgstr "Alderantzikatu"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1331
+#: src/app-window.vala:1338
 msgid "Keep unchanged"
 msgstr "Mantendu aldatu gabe"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1555
+#: src/app-window.vala:1533
 msgid "Unable to open help file"
 msgstr "Ezin izan da laguntza-fitxategia ireki"
 
-#. The license this software is under (GPL3+)
-#: src/app-window.vala:1570
-msgid ""
-"This program is free software: you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation, either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program.  If not, see <http://www.gnu.org/licenses/>."
-msgstr "This program is free software: you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation, either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program.  If not, see <http://www.gnu.org/licenses/>."
-
-#. Title of about dialog
-#: src/app-window.vala:1573
+#: src/app-window.vala:1547
 msgid "About Document Scanner"
 msgstr "Dokumentuen eskanerrari buruz"
 
-#. Description of program
-#: src/app-window.vala:1576
+#: src/app-window.vala:1549
 msgid "Simple document scanning tool"
 msgstr "Dokumentuak eskaneatzeko tresna sinplea"
 
-#: src/app-window.vala:1585
+#: src/app-window.vala:1554
 msgid "translator-credits"
 msgstr "translator-credits"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1601
+#: src/app-window.vala:1573
 msgid "Save document before quitting?"
 msgstr "Gorde dokumentua irten baino lehen?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1603
+#: src/app-window.vala:1575
 msgid "_Quit without Saving"
 msgstr "_Irten gorde gabe"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1644
+#: src/app-window.vala:1616
 msgid "You appear to have a Brother scanner."
 msgstr "Brother eskanerra duzula dirudi."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1646
+#: src/app-window.vala:1618
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
 msgstr "Horrentzako kontrolatzaileak  <a href=\"http://support.brother.com\">Brother webgunean</a> daude eskuragarri."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1650
+#: src/app-window.vala:1622
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
 msgstr "Badirudi Canon eskaner bat duzula. <a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE motorrak lagunduta</a> dabil marka hori."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1652
+#: src/app-window.vala:1624
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -777,20 +809,20 @@ msgid ""
 msgstr "Egiaztatu zure <a href=\"http://www.sane-project.org/sane-supported-devices.html\">eskanerrak SANE erabiltzen duela</a>, bestela jakinarazi akatsa <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE posta-zerrendan</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1656
+#: src/app-window.vala:1628
 msgid "You appear to have a Samsung scanner."
 msgstr "Samsung eskanerra duzula dirudi."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1659
+#: src/app-window.vala:1631
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
 msgstr "Horrentzako kontrolagailuak <a href=\"https://support.hp.com\">HP webgunean</a> (HP enpresak Samsungen inprimatze-negozioa erosi zuen) daude eskuragarri."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1664
+#: src/app-window.vala:1636
 msgid "You appear to have an HP scanner."
 msgstr "HP eskanerra duzula dirudi."
 
@@ -798,201 +830,201 @@ msgstr "HP eskanerra duzula dirudi."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1672
+#: src/app-window.vala:1644
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
 msgstr "Horrentzako kontrolagailuak <a href=\"https://support.hp.com\">HP webgunean</a> daude eskuragarri."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1676
+#: src/app-window.vala:1648
 msgid "You appear to have an Epson scanner."
 msgstr "Epson eskanerra duzula dirudi."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1678
+#: src/app-window.vala:1650
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
 msgstr "Horrentzako kontrolatzaileak <a href=\"http://support.epson.com\">Epson webgunean</a> daude eskuragarri."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1682
+#: src/app-window.vala:1654
 msgid "You appear to have an Lexmark scanner."
 msgstr "Lekmark eskanerra duzula dirudi."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1684
+#: src/app-window.vala:1656
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
 msgstr "Horrentzako kontrolagailuak <a href=\"http://support.lexmark.com\">Lexmark webgunean</a> daude eskuragarri."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1688
+#: src/app-window.vala:1660
 msgid "Install drivers"
 msgstr "Instalatu kontrolatzaileak"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1722
+#: src/app-window.vala:1694
 msgid "Once installed you will need to restart this app."
 msgstr "Behin instalatua, aplikazio hau berrabiarazi behar duzu."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1735
+#: src/app-window.vala:1707
 msgid "Installing drivers…"
 msgstr "Kontrolatzaileak instalatzen…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1743
+#: src/app-window.vala:1715
 msgid "Drivers installed successfully!"
 msgstr "Kontrolatzaileak ondo instalatu dira!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1753
+#: src/app-window.vala:1725
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Ezin izan dira kontrolatzaileak instalatu (%d errore kodea)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1759
+#: src/app-window.vala:1731
 msgid "Failed to install drivers."
 msgstr "Ezin izan dira kontrolatzaileak instalatu."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1766
+#: src/app-window.vala:1738
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "%s paketea instalatu behar duzu."
 msgstr[1] "%s paketeak instalatu behar dituzu."
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1857
 msgid "_Email"
 msgstr "_Posta elektronikoa"
 
-#: src/app-window.vala:1886
+#: src/app-window.vala:1858
 msgid "Pri_nt"
 msgstr "I_nprimatu"
 
-#: src/app-window.vala:1887
+#: src/app-window.vala:1859
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "Be_rrordenatu orrialdeak"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1863
 msgid "_Keyboard Shortcuts"
 msgstr "Las_ter-teklak"
 
-#: src/app-window.vala:1892
+#: src/app-window.vala:1864
 msgid "_Help"
 msgstr "_Laguntza"
 
-#: src/app-window.vala:1893
+#: src/app-window.vala:1865
 msgid "_About Document Scanner"
 msgstr "Dokumentuen eskanerrari _buruz"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1901
+#: src/app-window.vala:1873
 msgid "_New Document"
 msgstr "_Dokumentu berria"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1920
+#: src/app-window.vala:1892
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Biratu orrialdea ezkerrera (erlojuaren kontrako noranzkoan)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1929
+#: src/app-window.vala:1901
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Biratu orrialdea eskuinera (erlojuaren noranzkoan)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1941
+#: src/app-window.vala:1913
 msgid "Crop the selected page"
 msgstr "Moztu hautatutako orrialdea"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1959
+#: src/app-window.vala:1931
 msgid "Delete the selected page"
 msgstr "Ezabatu hautatutako orria"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2107
 msgid "Cancel"
 msgstr "Utzi"
 
-#: src/book.vala:331 src/book.vala:337
+#: src/book.vala:355 src/book.vala:361
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Ezin da %i. orria kodetu"
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:63
+#: src/preferences-dialog.vala:71
 msgid "Automatic"
 msgstr "Automatikoa"
 
-#: src/preferences-dialog.vala:100
+#: src/preferences-dialog.vala:108
 msgid "Darker"
 msgstr "Ilunago"
 
-#: src/preferences-dialog.vala:102
+#: src/preferences-dialog.vala:110
 msgid "Lighter"
 msgstr "Argiago"
 
-#: src/preferences-dialog.vala:110
+#: src/preferences-dialog.vala:118
 msgid "Less"
 msgstr "Gutxiago"
 
-#: src/preferences-dialog.vala:112
+#: src/preferences-dialog.vala:120
 msgid "More"
 msgstr "Gehiago"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:283
+#: src/preferences-dialog.vala:318
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (lehenetsia)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:286
+#: src/preferences-dialog.vala:321
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (zirriborroa)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:289
+#: src/preferences-dialog.vala:324
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (bereizmen altua)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:292
+#: src/preferences-dialog.vala:327
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:882
+#: src/scanner.vala:897
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Ez dago eskanerrik erabilgarri. Mesedez, konektatu eskaner bat."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:912
+#: src/scanner.vala:927
 msgid "Unable to connect to scanner"
 msgstr "Ezin da eskanerrarekin konektatu"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1342 src/scanner.vala:1477
+#: src/scanner.vala:1357 src/scanner.vala:1492
 msgid "Document feeder empty"
 msgstr "Dokumentu-elikagailua hutsik dago"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1350
+#: src/scanner.vala:1365
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1002,12 +1034,12 @@ msgstr "Memoria gutxiegi dago eskaneatzea gauzatzeko.\n"
 "Saiatu <tt>Bereizmena</tt> edo <tt>Orrialde-tamaina</tt> txikitzen <tt>Hobespenak</tt> menuan. Zenbati eskanerren kasuan, bereizmen handian eskaneatzen dutenean eskaneatze-tamaina mugatuta dago."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1363
+#: src/scanner.vala:1378
 msgid "Unable to start scan"
 msgstr "Ezin da eskanerra abiarazi"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1376 src/scanner.vala:1487
+#: src/scanner.vala:1391 src/scanner.vala:1502
 msgid "Error communicating with scanner"
 msgstr "Errorea eskanerrarekin komunikatzean"
 
@@ -1026,25 +1058,52 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Konpondu aplikazio honen bertsio zaharragoekin sortutako PDF fitxategiak"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1757
+#: src/simple-scan.vala:1758
 msgid "Failed to scan"
 msgstr "Ezin izan da eskaneatu"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1772
+#: src/simple-scan.vala:1773
 msgid "Scan in progress"
 msgstr "Eskaneatzea abian"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1956
+#: src/simple-scan.vala:1957
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[DEVICE…] — Eskaneatze-tresna"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1968
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Exekutatu “%s --help” komando-lerroko aukera guztiak zerrendatzeko."
+
+#~ msgid ""
+#~ "This program is free software: you can redistribute it and/or modify\n"
+#~ "it under the terms of the GNU General Public License as published by\n"
+#~ "the Free Software Foundation, either version 3 of the License, or\n"
+#~ "(at your option) any later version.\n"
+#~ "\n"
+#~ "This program is distributed in the hope that it will be useful,\n"
+#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+#~ "GNU General Public License for more details.\n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License\n"
+#~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "This program is free software: you can redistribute it and/or modify\n"
+#~ "it under the terms of the GNU General Public License as published by\n"
+#~ "the Free Software Foundation, either version 3 of the License, or\n"
+#~ "(at your option) any later version.\n"
+#~ "\n"
+#~ "This program is distributed in the hope that it will be useful,\n"
+#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+#~ "GNU General Public License for more details.\n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License\n"
+#~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 
 #~ msgid "A_6"
 #~ msgstr "A_6"
