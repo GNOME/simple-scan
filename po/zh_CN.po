@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2021-11-30 10:38+0000\n"
-"PO-Revision-Date: 2022-01-01 10:42+0800\n"
+"POT-Creation-Date: 2022-01-27 14:26+0000\n"
+"PO-Revision-Date: 2022-01-31 09:30+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -137,12 +137,46 @@ msgstr "每页间延迟的毫秒数"
 msgid "Delay in millisecond between pages."
 msgstr "每页间延迟的毫秒数。"
 
+#: data/org.gnome.SimpleScan.gschema.xml:82
+msgid "Whether or not postprocessing is enabled"
+msgstr "后处理是否已启用"
+
+#: data/org.gnome.SimpleScan.gschema.xml:83
+msgid "Whether or not postprocessing is enabled."
+msgstr "后处理是否已启用。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:87
+msgid "The path to the postprocessing script"
+msgstr "后处理脚本的路径"
+
+#: data/org.gnome.SimpleScan.gschema.xml:88
+msgid "The path to the postprocessing script."
+msgstr "后处理脚本的路径。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:92
+msgid "Additional arguments for the postprocessing script"
+msgstr "后处理脚本的附加参数"
+
+#: data/org.gnome.SimpleScan.gschema.xml:93
+msgid "Additional arguments for the postprocessing script."
+msgstr "后处理脚本的附加参数。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:97
+msgid "Whether or not to keep the original, unprocessed file"
+msgstr "是否保留原始未处理的文件"
+
+#: data/org.gnome.SimpleScan.gschema.xml:98
+msgid ""
+"Whether or not to keep the original, unprocessed file. The \"_orig\" "
+"filename will be added to the filename immediately before the file extension."
+msgstr "是否保留原始未处理的文件。文件名“_orig”将立即被添加至文件扩展名前面。"
+
 #. Title of scan window
 #. Set HeaderBar title here because Glade doesn't keep it translated
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1583 src/app-window.vala:1863
+#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
 msgid "Document Scanner"
 msgstr "文档扫描仪"
 
@@ -263,7 +297,7 @@ msgstr "文本(_T)"
 msgid "_Image"
 msgstr "图像(_I)"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1893
+#: data/ui/app-window.ui:433 src/app-window.vala:1862
 msgid "_Preferences"
 msgstr "首选项(_P)"
 
@@ -505,7 +539,33 @@ msgstr "亮度(_B)"
 msgid "_Contrast"
 msgstr "对比度(_C)"
 
-#: src/app-window.vala:229 src/app-window.vala:1691
+#. Preferences Dialog: Section label for postprocessing settings
+#: data/ui/preferences-dialog.ui:267
+#| msgid "Compression:"
+msgid "Postprocessing"
+msgstr "后处理"
+
+#. Switch to enable postprocessing
+#: data/ui/preferences-dialog.ui:271
+msgid "_Enable Postprocessing"
+msgstr "启用后处理(_E)"
+
+#. Label beside postprocesing script name entry
+#: data/ui/preferences-dialog.ui:294
+msgid "_Script"
+msgstr "脚本(_S)"
+
+#. Label beside postprocesing arguments entry
+#: data/ui/preferences-dialog.ui:317
+msgid "_Script arguments"
+msgstr "脚本参数(_S)"
+
+#. Label beside keep keep original file radio
+#: data/ui/preferences-dialog.ui:340
+msgid "_Keep original file"
+msgstr "保留原始文件(_K)"
+
+#: src/app-window.vala:229 src/app-window.vala:1660
 msgid "_Close"
 msgstr "关闭(_C)"
 
@@ -557,11 +617,11 @@ msgstr "有一本自动保存的书，是否打开它？"
 msgid "Save As…"
 msgstr "另存为…"
 
-#: src/app-window.vala:465 src/app-window.vala:761
+#: src/app-window.vala:465 src/app-window.vala:764
 msgid "_Save"
 msgstr "保存(_S)"
 
-#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:760
+#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:763
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -635,118 +695,88 @@ msgid "Saving"
 msgstr "正在保存"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:734
+#: src/app-window.vala:737
 msgid "Failed to save file"
 msgstr "保存文件错误"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:758
+#: src/app-window.vala:761
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "如果您不保存，变更将永久丢失。"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:794
+#: src/app-window.vala:797
 msgid "Save current document?"
 msgstr "保存当前文档？"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:796
-#| msgid "Discard Changes"
+#: src/app-window.vala:799
 msgid "_Discard Changes"
 msgstr "放弃更改(_D)"
 
 #. Label shown when scan started
-#: src/app-window.vala:836
+#: src/app-window.vala:840
 msgid "Contacting Scanner…"
 msgstr "正在访问扫描仪…"
 
-#: src/app-window.vala:907
+#: src/app-window.vala:911
 msgid "Scan a single page from the scanner"
 msgstr "从扫描仪扫描一个页面"
 
-#: src/app-window.vala:912 src/app-window.vala:917
-#| msgid "Scan a single page from the scanner"
+#: src/app-window.vala:916 src/app-window.vala:921
 msgid "Scan multiple pages from the scanner"
 msgstr "从扫描仪扫描多个页面"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1107
+#: src/app-window.vala:1111
 msgid "Unable to save image for preview"
 msgstr "无法保存用以预览的图像"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1119
+#: src/app-window.vala:1123
 msgid "Unable to open image preview application"
 msgstr "无法打开图像预览软件"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1281
+#: src/app-window.vala:1285
 msgctxt "dialog title"
 msgid "Reorder Pages"
 msgstr "页面重新排序"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1304
+#: src/app-window.vala:1308
 msgid "Combine sides"
 msgstr "合并页"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1314
+#: src/app-window.vala:1318
 msgid "Combine sides (reverse)"
 msgstr "合并页（反向）"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1324
+#: src/app-window.vala:1328
 msgid "Reverse"
 msgstr "反向"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1334
+#: src/app-window.vala:1338
 msgid "Keep unchanged"
 msgstr "保持不变"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1558
+#: src/app-window.vala:1533
 msgid "Unable to open help file"
 msgstr "无法打开帮助文件"
 
-#. The license this software is under (GPL3+)
-#: src/app-window.vala:1573
-msgid ""
-"This program is free software: you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation, either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program.  If not, see <http://www.gnu.org/licenses/>."
-msgstr ""
-"本程序为自由软件；您可依据自由软件基金会所发布的 GNU 通用公共授权条款，\n"
-"对本程序进行重新分发和/或修改；无论您依据的是本授权的第三版，或（您自由\n"
-"选择的）任一日后发行的版本。\n"
-"\n"
-"本程序是基于使用目的而加以发布，然而不承担何担保责任；亦无对适售性或特\n"
-"定目的适用性所为的默示性担保。详情请参照 GNU 通用公共授权。\n"
-"\n"
-"您应已收到附随于本程序的 GNU 通用公共授权的副本；如果没有，请参照\n"
-"<http://www.gnu.org/licenses/>."
-
-#. Title of about dialog
-#: src/app-window.vala:1576
+#: src/app-window.vala:1547
 msgid "About Document Scanner"
 msgstr "关于文档扫描仪"
 
-#. Description of program
-#: src/app-window.vala:1579
+#: src/app-window.vala:1549
 msgid "Simple document scanning tool"
 msgstr "简易的文件扫描工具"
 
-#: src/app-window.vala:1588
+#: src/app-window.vala:1554
 msgid "translator-credits"
 msgstr ""
 "Mingcong Bai <jeffbai@aosc.xyz>, 2017, 2018.\n"
@@ -772,23 +802,22 @@ msgstr ""
 "  zixue.liu https://launchpad.net/~zixue"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1604
+#: src/app-window.vala:1573
 msgid "Save document before quitting?"
 msgstr "退出前保存文档？"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1606
-#| msgid "Quit without Saving"
+#: src/app-window.vala:1575
 msgid "_Quit without Saving"
 msgstr "退出且不保存(_Q)"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1647
+#: src/app-window.vala:1616
 msgid "You appear to have a Brother scanner."
 msgstr "您似乎有一个 Brother 扫描仪。"
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1649
+#: src/app-window.vala:1618
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -796,7 +825,7 @@ msgstr ""
 "该驱动程序可在 <a href=\"http://support.brother.com\"> Brother 网站</a>获得。"
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1653
+#: src/app-window.vala:1622
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -805,7 +834,7 @@ msgstr ""
 "sane-pixma.5.html\">Pixma SANE 后端</a>提供支持。"
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1655
+#: src/app-window.vala:1624
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -818,13 +847,13 @@ msgstr ""
 "问题。"
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1659
+#: src/app-window.vala:1628
 msgid "You appear to have a Samsung scanner."
 msgstr "您似乎有一个三星扫描仪。"
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1662
+#: src/app-window.vala:1631
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -833,7 +862,7 @@ msgstr ""
 "三星的打印业务）。"
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1667
+#: src/app-window.vala:1636
 msgid "You appear to have an HP scanner."
 msgstr "您似乎有一个惠普扫描仪。"
 
@@ -841,19 +870,19 @@ msgstr "您似乎有一个惠普扫描仪。"
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1675
+#: src/app-window.vala:1644
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
 msgstr "该驱动程序可在<a href=\"http://support.hp.com\">惠普网站</a>获得。"
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1679
+#: src/app-window.vala:1648
 msgid "You appear to have an Epson scanner."
 msgstr "您似乎有一个爱普生扫描仪。"
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1681
+#: src/app-window.vala:1650
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -861,12 +890,12 @@ msgstr ""
 "该驱动程序可在<a href=\"http://support.epson.com\">爱普生网站</a>获得。"
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1685
+#: src/app-window.vala:1654
 msgid "You appear to have an Lexmark scanner."
 msgstr "您似乎有一个 Lexmark 扫描仪。"
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1687
+#: src/app-window.vala:1656
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -874,174 +903,169 @@ msgstr ""
 "该驱动程序可在 <a href=\"http://support.lexmark.com\">Lexmark 网站</a>获得。"
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1691
+#: src/app-window.vala:1660
 msgid "Install drivers"
 msgstr "安装驱动"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1725
+#: src/app-window.vala:1694
 msgid "Once installed you will need to restart this app."
 msgstr "安装完成后，需要重新启动此应用。"
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1738
+#: src/app-window.vala:1707
 msgid "Installing drivers…"
 msgstr "正在安装驱动程序…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1746
+#: src/app-window.vala:1715
 msgid "Drivers installed successfully!"
 msgstr "成功安装驱动程序！"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1756
+#: src/app-window.vala:1725
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "无法安装驱动程序（错误码 %d）。"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1762
+#: src/app-window.vala:1731
 msgid "Failed to install drivers."
 msgstr "安装驱动失败。"
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1769
+#: src/app-window.vala:1738
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "您需要安装 %s 软件包。"
 
-#: src/app-window.vala:1888
+#: src/app-window.vala:1857
 msgid "_Email"
 msgstr "电子邮件(_E)"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1858
 msgid "Pri_nt"
 msgstr "打印(_N)"
 
-#: src/app-window.vala:1890
-#| msgctxt "menu"
-#| msgid "Reorder Pages"
+#: src/app-window.vala:1859
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "页面重新排序(_R)"
 
-#: src/app-window.vala:1894
-#| msgid "Keyboard Shortcuts"
+#: src/app-window.vala:1863
 msgid "_Keyboard Shortcuts"
 msgstr "键盘快捷键(_K)"
 
-#: src/app-window.vala:1895
+#: src/app-window.vala:1864
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: src/app-window.vala:1896
-#| msgid "About Document Scanner"
+#: src/app-window.vala:1865
 msgid "_About Document Scanner"
 msgstr "关于文档扫描仪(_A)"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1904
-#| msgid "New Document"
+#: src/app-window.vala:1873
 msgid "_New Document"
 msgstr "新建文档(_N)"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1923
+#: src/app-window.vala:1892
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "左旋页面（逆时针）"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1932
+#: src/app-window.vala:1901
 msgid "Rotate the page to the right (clockwise)"
 msgstr "右旋页面（顺时针）"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1944
+#: src/app-window.vala:1913
 msgid "Crop the selected page"
 msgstr "裁剪选中的页面"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1962
+#: src/app-window.vala:1931
 msgid "Delete the selected page"
 msgstr "删除选中的页面"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2136
+#: src/app-window.vala:2107
 msgid "Cancel"
 msgstr "取消"
 
-#: src/book.vala:331 src/book.vala:337
+#: src/book.vala:355 src/book.vala:361
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "无法编码页面 %i"
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:63
+#: src/preferences-dialog.vala:71
 msgid "Automatic"
 msgstr "自动"
 
-#: src/preferences-dialog.vala:100
+#: src/preferences-dialog.vala:108
 msgid "Darker"
 msgstr "较深"
 
-#: src/preferences-dialog.vala:102
+#: src/preferences-dialog.vala:110
 msgid "Lighter"
 msgstr "稍浅"
 
-#: src/preferences-dialog.vala:110
+#: src/preferences-dialog.vala:118
 msgid "Less"
 msgstr "较少"
 
-#: src/preferences-dialog.vala:112
+#: src/preferences-dialog.vala:120
 msgid "More"
 msgstr "更多"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:283
+#: src/preferences-dialog.vala:318
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi（默认）"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:286
+#: src/preferences-dialog.vala:321
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi（草稿）"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:289
+#: src/preferences-dialog.vala:324
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi（高分辨率）"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:292
+#: src/preferences-dialog.vala:327
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:896
+#: src/scanner.vala:897
 msgid "No scanners available.  Please connect a scanner."
 msgstr "没有可用的扫描仪。请连接一个扫描仪。"
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:926
+#: src/scanner.vala:927
 msgid "Unable to connect to scanner"
 msgstr "无法连接到扫描仪"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1356 src/scanner.vala:1491
+#: src/scanner.vala:1357 src/scanner.vala:1492
 msgid "Document feeder empty"
 msgstr "文档进纸器为空"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1364
+#: src/scanner.vala:1365
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1053,12 +1077,12 @@ msgstr ""
 "仪在进行高分辨率扫描时可支持的扫描尺寸有限。"
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1377
+#: src/scanner.vala:1378
 msgid "Unable to start scan"
 msgstr "无法开始扫描"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1390 src/scanner.vala:1501
+#: src/scanner.vala:1391 src/scanner.vala:1502
 msgid "Error communicating with scanner"
 msgstr "与扫描仪通信错误"
 
@@ -1077,25 +1101,49 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "修复旧版应用生成的 PDF 文件"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1757
+#: src/simple-scan.vala:1758
 msgid "Failed to scan"
 msgstr "扫描失败"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1772
+#: src/simple-scan.vala:1773
 msgid "Scan in progress"
 msgstr "正在扫描"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1956
+#: src/simple-scan.vala:1957
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[设备…] — 扫描工具"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1968
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "运行“%s --help”来查看可用命令行选项的完整列表。"
+
+#~ msgid ""
+#~ "This program is free software: you can redistribute it and/or modify\n"
+#~ "it under the terms of the GNU General Public License as published by\n"
+#~ "the Free Software Foundation, either version 3 of the License, or\n"
+#~ "(at your option) any later version.\n"
+#~ "\n"
+#~ "This program is distributed in the hope that it will be useful,\n"
+#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+#~ "GNU General Public License for more details.\n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License\n"
+#~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "本程序为自由软件；您可依据自由软件基金会所发布的 GNU 通用公共授权条款，\n"
+#~ "对本程序进行重新分发和/或修改；无论您依据的是本授权的第三版，或（您自由\n"
+#~ "选择的）任一日后发行的版本。\n"
+#~ "\n"
+#~ "本程序是基于使用目的而加以发布，然而不承担何担保责任；亦无对适售性或特\n"
+#~ "定目的适用性所为的默示性担保。详情请参照 GNU 通用公共授权。\n"
+#~ "\n"
+#~ "您应已收到附随于本程序的 GNU 通用公共授权的副本；如果没有，请参照\n"
+#~ "<http://www.gnu.org/licenses/>."
 
 #~ msgid "A_6"
 #~ msgstr "A_6"
