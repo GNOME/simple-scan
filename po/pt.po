@@ -3,23 +3,23 @@
 # This file is distributed under the same license as the simple-scan package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 # Juliano Camargo <julianosc@pm.me>, 2020.
-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021.
+# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2021-11-30 10:38+0000\n"
-"PO-Revision-Date: 2021-11-30 11:21+0000\n"
+"POT-Creation-Date: 2022-01-27 14:26+0000\n"
+"PO-Revision-Date: 2022-02-01 16:22+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -144,12 +144,49 @@ msgstr "Atraso em milissegundos entre páginas"
 msgid "Delay in millisecond between pages."
 msgstr "Atraso em milissegundos entre páginas."
 
+#: data/org.gnome.SimpleScan.gschema.xml:82
+msgid "Whether or not postprocessing is enabled"
+msgstr "Se o pós-processamento está ou não ativado"
+
+#: data/org.gnome.SimpleScan.gschema.xml:83
+msgid "Whether or not postprocessing is enabled."
+msgstr "Se o pós-processamento está ou não ativado."
+
+#: data/org.gnome.SimpleScan.gschema.xml:87
+msgid "The path to the postprocessing script"
+msgstr "A localização para o script de pós-processamento"
+
+#: data/org.gnome.SimpleScan.gschema.xml:88
+msgid "The path to the postprocessing script."
+msgstr "A localização para o script de pós-processamento."
+
+#: data/org.gnome.SimpleScan.gschema.xml:92
+msgid "Additional arguments for the postprocessing script"
+msgstr "Argumentos adicionais para o script de pós-processamento"
+
+#: data/org.gnome.SimpleScan.gschema.xml:93
+msgid "Additional arguments for the postprocessing script."
+msgstr "Argumentos adicionais para o script de pós-processamento."
+
+#: data/org.gnome.SimpleScan.gschema.xml:97
+msgid "Whether or not to keep the original, unprocessed file"
+msgstr "Se deve ou não manter o ficheiro original, não processado"
+
+#: data/org.gnome.SimpleScan.gschema.xml:98
+msgid ""
+"Whether or not to keep the original, unprocessed file. The \"_orig\" "
+"filename will be added to the filename immediately before the file extension."
+msgstr ""
+"Se deve ou não manter o ficheiro original, não processado. O nome do "
+"ficheiro \"_orig\" será adicionado ao nome do ficheiro imediatamente antes "
+"da extensão do ficheiro."
+
 #. Title of scan window
 #. Set HeaderBar title here because Glade doesn't keep it translated
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1583 src/app-window.vala:1863
+#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
 msgid "Document Scanner"
 msgstr "Digitalizador de documentos"
 
@@ -273,7 +310,7 @@ msgstr "_Texto"
 msgid "_Image"
 msgstr "_Imagem"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1893
+#: data/ui/app-window.ui:433 src/app-window.vala:1862
 msgid "_Preferences"
 msgstr "_Preferências"
 
@@ -374,7 +411,7 @@ msgstr "Apagar página"
 #: data/ui/help-overlay.ui:87
 msgctxt "shortcut window"
 msgid "Document Management"
-msgstr "Gestão de Documento"
+msgstr "Gestão de documentos"
 
 #: data/ui/help-overlay.ui:92
 msgctxt "shortcut window"
@@ -499,12 +536,12 @@ msgstr "Qualidade"
 #. Label beside scan resolution combo box
 #: data/ui/preferences-dialog.ui:199
 msgid "_Text Resolution"
-msgstr "Resolução do _Texto"
+msgstr "Resolução do _texto"
 
 #. Label beside scan resolution combo box
 #: data/ui/preferences-dialog.ui:214
 msgid "_Image Resolution"
-msgstr "Resolução da _Imagem"
+msgstr "Resolução da _imagem"
 
 #. Label beside brightness scale
 #: data/ui/preferences-dialog.ui:229
@@ -516,7 +553,32 @@ msgstr "_Brilho"
 msgid "_Contrast"
 msgstr "_Contraste"
 
-#: src/app-window.vala:229 src/app-window.vala:1691
+#. Preferences Dialog: Section label for postprocessing settings
+#: data/ui/preferences-dialog.ui:267
+msgid "Postprocessing"
+msgstr "Pós-processamento"
+
+#. Switch to enable postprocessing
+#: data/ui/preferences-dialog.ui:271
+msgid "_Enable Postprocessing"
+msgstr "_Ativar o pós-processamento"
+
+#. Label beside postprocesing script name entry
+#: data/ui/preferences-dialog.ui:294
+msgid "_Script"
+msgstr "_Script"
+
+#. Label beside postprocesing arguments entry
+#: data/ui/preferences-dialog.ui:317
+msgid "_Script arguments"
+msgstr "Argumentos do _script"
+
+#. Label beside keep keep original file radio
+#: data/ui/preferences-dialog.ui:340
+msgid "_Keep original file"
+msgstr "_Manter o ficheiro original"
+
+#: src/app-window.vala:229 src/app-window.vala:1660
 msgid "_Close"
 msgstr "Fe_char"
 
@@ -570,11 +632,11 @@ msgstr "Existe um livro gravado automaticamente. Deseja abri-lo?"
 msgid "Save As…"
 msgstr "Gravar como…"
 
-#: src/app-window.vala:465 src/app-window.vala:761
+#: src/app-window.vala:465 src/app-window.vala:764
 msgid "_Save"
 msgstr "_Gravar"
 
-#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:760
+#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:763
 msgid "_Cancel"
 msgstr "_Cancelar"
 
@@ -582,17 +644,17 @@ msgstr "_Cancelar"
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
 #: src/app-window.vala:476
 msgid "Scanned Document"
-msgstr "Documento Digitalizado"
+msgstr "Documento digitalizado"
 
 #. Save dialog: Filter name to show only supported image files
 #: src/app-window.vala:482
 msgid "Image Files"
-msgstr "Ficheiros de Imagem"
+msgstr "Ficheiros de imagem"
 
 #. Save dialog: Filter name to show all files
 #: src/app-window.vala:492
 msgid "All Files"
-msgstr "Todos os Ficheiros"
+msgstr "Todos os ficheiros"
 
 #. Save dialog: Label for saving in PDF format
 #: src/app-window.vala:501
@@ -648,173 +710,110 @@ msgid "Saving"
 msgstr "A gravar"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:734
+#: src/app-window.vala:737
 msgid "Failed to save file"
 msgstr "Falhou ao gravar o ficheiro"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:758
+#: src/app-window.vala:761
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Se não gravar, as alteração serão perdidas permanentemente."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:794
+#: src/app-window.vala:797
 msgid "Save current document?"
 msgstr "Gravar documento atual?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:796
+#: src/app-window.vala:799
 msgid "_Discard Changes"
 msgstr "_Descartar alterações"
 
 #. Label shown when scan started
-#: src/app-window.vala:836
+#: src/app-window.vala:840
 msgid "Contacting Scanner…"
 msgstr "A contactar o digitalizador…"
 
-#: src/app-window.vala:907
+#: src/app-window.vala:911
 msgid "Scan a single page from the scanner"
 msgstr "Digitalizar uma página no digitalizador"
 
-#: src/app-window.vala:912 src/app-window.vala:917
+#: src/app-window.vala:916 src/app-window.vala:921
 msgid "Scan multiple pages from the scanner"
 msgstr "Digitalizar várias páginas a partir do digitalizador"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1107
+#: src/app-window.vala:1111
 msgid "Unable to save image for preview"
 msgstr "Incapaz de gravar imagem para pré-visualização"
 
 #. Error message display when unable to preview image
-#: src/app-window.vala:1119
+#: src/app-window.vala:1123
 msgid "Unable to open image preview application"
 msgstr "Não foi possível abrir a aplicação de visualização de imagem"
 
 #. Title of dialog to reorder pages
-#: src/app-window.vala:1281
+#: src/app-window.vala:1285
 msgctxt "dialog title"
 msgid "Reorder Pages"
-msgstr "Reordenar Páginas"
+msgstr "Reordenar páginas"
 
 #. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1304
+#: src/app-window.vala:1308
 msgid "Combine sides"
 msgstr "Combinar lados"
 
 #. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1314
+#: src/app-window.vala:1318
 msgid "Combine sides (reverse)"
 msgstr "Combinar lados (inverso)"
 
 #. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1324
+#: src/app-window.vala:1328
 msgid "Reverse"
 msgstr "Inverter"
 
 #. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1334
+#: src/app-window.vala:1338
 msgid "Keep unchanged"
 msgstr "Manter inalterado"
 
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1558
+#: src/app-window.vala:1533
 msgid "Unable to open help file"
 msgstr "Impossível abrir o ficheiro da ajuda"
 
-#. The license this software is under (GPL3+)
-#: src/app-window.vala:1573
-msgid ""
-"This program is free software: you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation, either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program.  If not, see <http://www.gnu.org/licenses/>."
-msgstr ""
-"Este programa é software livre: você pode redistribuí-lo e/ou modificá-lo\n"
-"sob os termos da Licença Pública Geral GNU como publicado pela\n"
-"Free Software Foundation, seja a versão 3 da licença,  ou (na sua opinião)\n"
-"alguma versão posterior.\n"
-"\n"
-"Este programa é distribuído na esperança de que seja útil, mas\n"
-"SEM NENHUMA GARANTIA; mesmo a garantia implicada de COMERCIALIZAÇÃO\n"
-"ou APTIDÃO PARA UMA FINALIDADE PARTICULAR. Veja a Licença Pública\n"
-"Geral GNU para mais detalhes.\n"
-"\n"
-"Você deve ter recebido uma cópia da  Licença Pública Geral GNU juntamente "
-"a \n"
-"este programa. Caso contrário, veja <http://www.gnu.org/licenses/>."
-
-#. Title of about dialog
-#: src/app-window.vala:1576
+#: src/app-window.vala:1547
 msgid "About Document Scanner"
 msgstr "Acerca do Digitalizador de Documentos"
 
-#. Description of program
-#: src/app-window.vala:1579
+#: src/app-window.vala:1549
 msgid "Simple document scanning tool"
 msgstr "Ferramenta simples para digitalizar documentos"
 
-#: src/app-window.vala:1588
+#: src/app-window.vala:1554
 msgid "translator-credits"
 msgstr ""
-"Equipa Portuguesa:\n"
-"  Juliano Camargo <julianosc@pm.me>, 2020\n"
-"  Hugo Carvalho <hugokarvalho@hotmail.com>\n"
-"Contribuições do Launchpad:\n"
-"  Alessio Treglia https://launchpad.net/~quadrispro\n"
-"  Alexandre Fidalgo https://launchpad.net/~alexandremagnos15\n"
-"  Almufadado https://launchpad.net/~almufadado\n"
-"  André Lopes https://launchpad.net/~zipatei\n"
-"  António Miranda https://launchpad.net/~antoniom0910-deactivatedaccount\n"
-"  António PT https://launchpad.net/~antoniopt\n"
-"  Carlos Manuel https://launchpad.net/~crolidge\n"
-"  Cláudio Novais https://launchpad.net/~claudiocn\n"
-"  David Gomes https://launchpad.net/~davidgomes\n"
-"  Diogo Lavareda https://launchpad.net/~diogolavareda\n"
-"  Fernando Carvalho https://launchpad.net/~phaetonkde\n"
-"  Filipe André Pinho https://launchpad.net/~pinhoadas\n"
-"  Flavio https://launchpad.net/~flaviocarpin\n"
-"  Gusrubin https://launchpad.net/~gusrubin\n"
-"  Hélder Portela https://launchpad.net/~helderp666\n"
-"  Hugo Carvalho https://launchpad.net/~hugok79\n"
-"  Ivo Xavier https://launchpad.net/~ivoxavier\n"
-"  IvoGuerreiro https://launchpad.net/~ivoguerreiro\n"
-"  Jaime Pereira https://launchpad.net/~jaimepereira\n"
-"  Jose Almeida https://launchpad.net/~josealmeida\n"
-"  Luis Pratas https://launchpad.net/~luispratas\n"
-"  Maria Loureiro https://launchpad.net/~cloureiro\n"
-"  Paulo Henriques https://launchpad.net/~pajohenriques\n"
-"  Ricardo Conde https://launchpad.net/~turotulco\n"
-"  Robert Ancell https://launchpad.net/~robert-ancell\n"
-"  Sérgio Faria https://launchpad.net/~sergio91pt\n"
-"  Tiago Carrondo https://launchpad.net/~tcarrondo\n"
-"  Tiago Silva https://launchpad.net/~tiagosilva\n"
-"  styluss https://launchpad.net/~styluss"
+"Juliano Camargo <julianosc@pm.me>\n"
+"Hugo Carvalho <hugokarvalho@hotmail.com>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1604
+#: src/app-window.vala:1573
 msgid "Save document before quitting?"
 msgstr "Gravar documento antes de sair?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1606
+#: src/app-window.vala:1575
 msgid "_Quit without Saving"
 msgstr "_Sair sem gravar"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1647
+#: src/app-window.vala:1616
 msgid "You appear to have a Brother scanner."
 msgstr "Aparenta ter um digitalizador da Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1649
+#: src/app-window.vala:1618
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -823,7 +822,7 @@ msgstr ""
 "\">página Web da Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1653
+#: src/app-window.vala:1622
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -833,7 +832,7 @@ msgstr ""
 "a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1655
+#: src/app-window.vala:1624
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -846,13 +845,13 @@ msgstr ""
 "bin/mailman/listinfo/sane-devel\">lista de correio SANE</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1659
+#: src/app-window.vala:1628
 msgid "You appear to have a Samsung scanner."
 msgstr "Aparenta ter um digitalizador Samsung."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1662
+#: src/app-window.vala:1631
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -862,7 +861,7 @@ msgstr ""
 "Samsung)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1667
+#: src/app-window.vala:1636
 msgid "You appear to have an HP scanner."
 msgstr "Aparenta ter um digitalizador HP."
 
@@ -870,7 +869,7 @@ msgstr "Aparenta ter um digitalizador HP."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1675
+#: src/app-window.vala:1644
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -879,12 +878,12 @@ msgstr ""
 "\">página Web da HP</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1679
+#: src/app-window.vala:1648
 msgid "You appear to have an Epson scanner."
 msgstr "Aparenta ter um digitalizador Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1681
+#: src/app-window.vala:1650
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -893,12 +892,12 @@ msgstr ""
 "\">página Web da Epson</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1685
+#: src/app-window.vala:1654
 msgid "You appear to have an Lexmark scanner."
 msgstr "Aparenta ter um digitalizador Lexmark."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1687
+#: src/app-window.vala:1656
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -907,170 +906,170 @@ msgstr ""
 "\">página Web da Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1691
+#: src/app-window.vala:1660
 msgid "Install drivers"
 msgstr "Instalar controladores"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1725
+#: src/app-window.vala:1694
 msgid "Once installed you will need to restart this app."
 msgstr "Uma vez instalado vai necessitar de re-iniciar esta aplicação."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1738
+#: src/app-window.vala:1707
 msgid "Installing drivers…"
 msgstr "A instalar controladores…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1746
+#: src/app-window.vala:1715
 msgid "Drivers installed successfully!"
 msgstr "Controladores instalados com sucesso!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1756
+#: src/app-window.vala:1725
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Falha na instalação dos controladores (código de erro %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1762
+#: src/app-window.vala:1731
 msgid "Failed to install drivers."
 msgstr "Falha na instalação dos controladores."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1769
+#: src/app-window.vala:1738
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Necessita de instalar o pacote %s."
 msgstr[1] "Necessita de instalar os pacotes %s."
 
-#: src/app-window.vala:1888
+#: src/app-window.vala:1857
 msgid "_Email"
 msgstr "_E-mail"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1858
 msgid "Pri_nt"
 msgstr "Impri_mir"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1859
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Reordenar páginas"
 
-#: src/app-window.vala:1894
+#: src/app-window.vala:1863
 msgid "_Keyboard Shortcuts"
 msgstr "_Teclas de atalho"
 
-#: src/app-window.vala:1895
+#: src/app-window.vala:1864
 msgid "_Help"
 msgstr "_Ajuda"
 
-#: src/app-window.vala:1896
+#: src/app-window.vala:1865
 msgid "_About Document Scanner"
 msgstr "_Acerca do Digitalizador de Documentos"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1904
+#: src/app-window.vala:1873
 msgid "_New Document"
 msgstr "_Novo documento"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1923
+#: src/app-window.vala:1892
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Rodar a página à esquerda (contra ponteiros do relógio)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1932
+#: src/app-window.vala:1901
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Rodar a página à direita (ponteiros do relógio)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1944
+#: src/app-window.vala:1913
 msgid "Crop the selected page"
 msgstr "Cortar a página selecionada"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1962
+#: src/app-window.vala:1931
 msgid "Delete the selected page"
-msgstr "Apagar a página selecionada"
+msgstr "Eliminar a página selecionada"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2136
+#: src/app-window.vala:2107
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/book.vala:331 src/book.vala:337
+#: src/book.vala:355 src/book.vala:361
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Impossível codificar página %i"
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:63
+#: src/preferences-dialog.vala:71
 msgid "Automatic"
 msgstr "Automático"
 
-#: src/preferences-dialog.vala:100
+#: src/preferences-dialog.vala:108
 msgid "Darker"
 msgstr "Escurecer"
 
-#: src/preferences-dialog.vala:102
+#: src/preferences-dialog.vala:110
 msgid "Lighter"
 msgstr "Clarear"
 
-#: src/preferences-dialog.vala:110
+#: src/preferences-dialog.vala:118
 msgid "Less"
 msgstr "Menos"
 
-#: src/preferences-dialog.vala:112
+#: src/preferences-dialog.vala:120
 msgid "More"
 msgstr "Mais"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:283
+#: src/preferences-dialog.vala:318
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d ppp (predefinido)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:286
+#: src/preferences-dialog.vala:321
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d ppp (rascunho)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:289
+#: src/preferences-dialog.vala:324
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d ppp (alta resolução)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:292
+#: src/preferences-dialog.vala:327
 #, c-format
 msgid "%d dpi"
 msgstr "%d ppp"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:896
+#: src/scanner.vala:897
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Não existem digitalizadores disponíveis. Ligar um digitalizador."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:926
+#: src/scanner.vala:927
 msgid "Unable to connect to scanner"
 msgstr "Impossível ligar ao digitalizador"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1356 src/scanner.vala:1491
+#: src/scanner.vala:1357 src/scanner.vala:1492
 msgid "Document feeder empty"
 msgstr "Alimentador de documentos vazio"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1364
+#: src/scanner.vala:1365
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1083,12 +1082,12 @@ msgstr ""
 "resolução tem tamanhos restritos."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1377
+#: src/scanner.vala:1378
 msgid "Unable to start scan"
 msgstr "Impossível iniciar a digitalização"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1390 src/scanner.vala:1501
+#: src/scanner.vala:1391 src/scanner.vala:1502
 msgid "Error communicating with scanner"
 msgstr "Erro de comunicação com o digitalizador"
 
@@ -1108,27 +1107,57 @@ msgstr ""
 "Compatibilizar ficheiros PDF gerados por versões mais antigas desta aplicação"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1757
+#: src/simple-scan.vala:1758
 msgid "Failed to scan"
 msgstr "Falhou ao digitalizar"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1772
+#: src/simple-scan.vala:1773
 msgid "Scan in progress"
 msgstr "A digitalizar"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1956
+#: src/simple-scan.vala:1957
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[DEVICE…] — Utilitário de digitalização"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1968
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Execute \"%s --help\" para consultar uma lista completa das opções de linha "
 "de comando disponíveis."
+
+#~ msgid ""
+#~ "This program is free software: you can redistribute it and/or modify\n"
+#~ "it under the terms of the GNU General Public License as published by\n"
+#~ "the Free Software Foundation, either version 3 of the License, or\n"
+#~ "(at your option) any later version.\n"
+#~ "\n"
+#~ "This program is distributed in the hope that it will be useful,\n"
+#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+#~ "GNU General Public License for more details.\n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License\n"
+#~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "Este programa é software livre: você pode redistribuí-lo e/ou modificá-"
+#~ "lo\n"
+#~ "sob os termos da Licença Pública Geral GNU como publicado pela\n"
+#~ "Free Software Foundation, seja a versão 3 da licença,  ou (na sua "
+#~ "opinião)\n"
+#~ "alguma versão posterior.\n"
+#~ "\n"
+#~ "Este programa é distribuído na esperança de que seja útil, mas\n"
+#~ "SEM NENHUMA GARANTIA; mesmo a garantia implicada de COMERCIALIZAÇÃO\n"
+#~ "ou APTIDÃO PARA UMA FINALIDADE PARTICULAR. Veja a Licença Pública\n"
+#~ "Geral GNU para mais detalhes.\n"
+#~ "\n"
+#~ "Você deve ter recebido uma cópia da  Licença Pública Geral GNU juntamente "
+#~ "a \n"
+#~ "este programa. Caso contrário, veja <http://www.gnu.org/licenses/>."
 
 #~ msgid "A_6"
 #~ msgstr "A_6"
