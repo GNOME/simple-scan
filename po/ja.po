@@ -1,14 +1,16 @@
 # Japanese translation for simple-scan
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# Copyright (c) 2009-2010, 2013-2017 Rosetta Contributors and Canonical Ltd
+# Copyright (C) 2019-2020, 2022 simple-scan's COPYRIGHT HOLDER
 # This file is distributed under the same license as the simple-scan package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# sicklylife <translation@sicklylife.jp>, 2019-2020, 2022.
+# Ryo Nakano <ryonakaknock3@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
 "POT-Creation-Date: 2020-07-18 15:25+0000\n"
-"PO-Revision-Date: 2020-08-17 08:55+0900\n"
+"PO-Revision-Date: 2022-02-05 19:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "Language: ja\n"
@@ -298,6 +300,11 @@ msgstr "スキャン(_S)"
 msgid "Save document to a file"
 msgstr "ドキュメントをファイルに保存します"
 
+#. Tooltip for stop button
+#: data/ui/app-window.ui:779
+msgid "Refresh device list"
+msgstr "デバイス一覧を更新します"
+
 #: src/app-window.vala:227 src/app-window.vala:1679
 msgid "_Close"
 msgstr "閉じる(_C)"
@@ -319,8 +326,8 @@ msgid "Ready to Scan"
 msgstr "スキャン準備完了"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:270
-msgid "Additional software needed"
+#: src/app-window.vala:273
+msgid "Additional Software Needed"
 msgstr "追加のソフトウェアが必要です"
 
 #. Instructions to install driver software
@@ -333,14 +340,14 @@ msgstr ""
 "</a>する必要があります。"
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:279
-msgid "No scanners detected"
-msgstr "スキャナーが検出されていません"
+#: src/app-window.vala:282
+msgid "No Scanners Detected"
+msgstr "スキャナーを検出できません"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:281
-msgid "Please check your scanner is connected and powered on"
-msgstr "スキャナーが接続されて電源が入っているか確認してください"
+#: src/app-window.vala:284
+msgid "Please check your scanner is connected and powered on."
+msgstr "スキャナーが接続されて電源が入っているか確認してください。"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:383
@@ -450,8 +457,8 @@ msgid "Discard Changes"
 msgstr "変更を破棄"
 
 #. Label shown when scan started
-#: src/app-window.vala:826
-msgid "Contacting scanner…"
+#: src/app-window.vala:836
+msgid "Contacting Scanner…"
 msgstr "スキャナーと通信中…"
 
 #. Error message display when unable to save image for preview
@@ -537,6 +544,10 @@ msgstr "ドキュメントのスキャンを行うシンプルなツールです
 #: src/app-window.vala:1576
 msgid "translator-credits"
 msgstr ""
+"GNOME 日本語翻訳チーム <https://l10n.gnome.org/teams/ja/>\n"
+"Ryo Nakano <ryonakaknock3@gmail.com>\n"
+"sicklylife <translation@sicklylife.jp>\n"
+"\n"
 "Launchpad Contributions:\n"
 "  Akira Tanaka https://launchpad.net/~popo1897\n"
 "  Hajime Mizuno https://launchpad.net/~mizuno-as\n"
@@ -724,6 +735,13 @@ msgstr "キーボードショートカット"
 msgid "Help"
 msgstr "ヘルプ"
 
+#. Populate ActionBar (not supported in Glade)
+#. https://bugzilla.gnome.org/show_bug.cgi?id=769966
+#. Label on new document button
+#: src/app-window.vala:1901
+msgid "New Document"
+msgstr "新しいドキュメント"
+
 # スキャンしたものを破棄してスキャナーと通信し直し再びスキャンするボタン
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
@@ -887,6 +905,11 @@ msgctxt "shortcut window"
 msgid "Quit"
 msgstr "終了する"
 
+#. Preferences Dialog: Section label for scanning settings
+#: data/ui/preferences-dialog.ui:53
+msgid "Scanning"
+msgstr "スキャン"
+
 #. Label beside scan side combo box
 #: src/preferences-dialog.ui:72
 msgid "Scan _Sides"
@@ -896,6 +919,16 @@ msgstr "スキャン面(_S)"
 #: src/preferences-dialog.ui:88
 msgid "_Page Size"
 msgstr "ページサイズ(_P)"
+
+#. Label beside page delay scale
+#: data/ui/preferences-dialog.ui:123
+msgid "_Delay in Seconds"
+msgstr "遅延 (秒単位)(_D)"
+
+#. Provides context for the page delay scale
+#: data/ui/preferences-dialog.ui:124
+msgid "Interval to scan multiple pages"
+msgstr "次のページのスキャンを開始するまでの待機時間"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: src/preferences-dialog.ui:118
@@ -923,6 +956,11 @@ msgid "Multiple pages from flatbed"
 msgstr "フラットベッドから複数のページ"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:135
+msgid "0"
+msgstr "0"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: src/preferences-dialog.ui:199
 msgid "3"
 msgstr "3"
@@ -931,6 +969,11 @@ msgstr "3"
 #: src/preferences-dialog.ui:209
 msgid "5"
 msgstr "5"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:156
+msgid "6"
+msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: src/preferences-dialog.ui:220
@@ -946,6 +989,11 @@ msgstr "10"
 #: src/preferences-dialog.ui:242
 msgid "15"
 msgstr "15"
+
+#. Preferences Dialog: Section label for quality settings
+#: data/ui/preferences-dialog.ui:199
+msgid "Quality"
+msgstr "品質"
 
 #. Label after page delay radio buttons
 #: src/preferences-dialog.ui:263
