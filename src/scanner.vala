@@ -367,6 +367,10 @@ public class Scanner : Object
         var devices = new List<ScanDevice> ();
         for (var i = 0; device_list[i] != null; i++)
         {
+            /* Virtual devices tend to not be scanners. Skip them. */
+            if (device_list[i].type == "virtual device")
+                continue;
+
             debug ("Device: name=\"%s\" vendor=\"%s\" model=\"%s\" type=\"%s\"",
                    device_list[i].name, device_list[i].vendor, device_list[i].model, device_list[i].type);
 
