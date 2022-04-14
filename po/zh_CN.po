@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-04-10 19:55+0000\n"
-"PO-Revision-Date: 2022-04-12 21:03+0800\n"
+"POT-Creation-Date: 2022-01-27 14:26+0000\n"
+"PO-Revision-Date: 2022-01-31 09:30+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Gtranslator 42.0\n"
+"X-Generator: Gtranslator 41.0\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -187,11 +187,11 @@ msgstr "将您的照片与文档数字化后保存在计算机里"
 #: data/simple-scan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
-"parts of an image and rotate if it's the wrong way round. You can print your "
-"scans, export them to PDF, or save them in a range of image formats."
+"parts of an image and rotate it if it is the wrong way round. You can print "
+"your scans, export them to pdf, or save them in a range of image formats."
 msgstr ""
-"扫描文字和图像的简单方式。您可以剪裁图像的糟糕部分和方向错误时旋转图像。您可"
-"以打印扫描件，导出为 PDF 或保存为一些图像格式。"
+"简单的文档和照片扫描软件。如果图片显示有误，您可以根据需要通过裁剪、旋转等方"
+"式调整照片。您也可以打印扫描件、导出 PDF 格式、或者保存为图片。"
 
 #: data/simple-scan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
@@ -541,6 +541,7 @@ msgstr "对比度(_C)"
 
 #. Preferences Dialog: Section label for postprocessing settings
 #: data/ui/preferences-dialog.ui:267
+#| msgid "Compression:"
 msgid "Postprocessing"
 msgstr "后处理"
 
@@ -1047,24 +1048,24 @@ msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:901
+#: src/scanner.vala:897
 msgid "No scanners available.  Please connect a scanner."
 msgstr "没有可用的扫描仪。请连接一个扫描仪。"
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:931
+#: src/scanner.vala:927
 msgid "Unable to connect to scanner"
 msgstr "无法连接到扫描仪"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1496
+#: src/scanner.vala:1357 src/scanner.vala:1492
 msgid "Document feeder empty"
 msgstr "文档进纸器为空"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1369
+#: src/scanner.vala:1365
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1076,12 +1077,12 @@ msgstr ""
 "仪在进行高分辨率扫描时可支持的扫描尺寸有限。"
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1382
+#: src/scanner.vala:1378
 msgid "Unable to start scan"
 msgstr "无法开始扫描"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1506
+#: src/scanner.vala:1391 src/scanner.vala:1502
 msgid "Error communicating with scanner"
 msgstr "与扫描仪通信错误"
 
