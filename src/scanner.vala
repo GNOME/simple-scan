@@ -1455,7 +1455,6 @@ public class Scanner : Object
 
             page_number++;
             pass_number = 0;
-            notify_event (new NotifyPageDone (job.id));
             state = ScanState.START;
             return;
         }
