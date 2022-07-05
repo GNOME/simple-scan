@@ -204,6 +204,7 @@ public class BookView : Gtk.Box
             selected_page_view.selected = true;
 
         selected_page_view = page;
+        redraw();
         if (selected_page_view == null)
             return;
 
@@ -444,6 +445,8 @@ public class BookView : Gtk.Box
             pages.append (get_nth_page (i));
 
         var ruler_color = get_style_context ().get_color (get_state_flags ());
+        Gdk.RGBA ruler_color_selected = {};
+        ruler_color_selected.parse("#3584e4");  /* Gnome Blue 3 */
 
         /* Render each page */
         foreach (var page in pages)
@@ -457,7 +460,7 @@ public class BookView : Gtk.Box
 
             context.save ();
             context.translate (-x_offset, 0);
-            page.render (context, ruler_color);
+            page.render (context, page == selected_page_view ? ruler_color_selected : ruler_color);
             context.restore ();
 
             if (page.selected)
