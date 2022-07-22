@@ -5,7 +5,7 @@ project ('simple-scan', ['vala', 'c'],
              'warning_level=1',
              'buildtype=debugoptimized',
          ],
-         meson_version: '>= 0.38.0')
+         meson_version: '>= 0.40.0')
 
 gnome = import ('gnome')
 i18n = import ('i18n')
