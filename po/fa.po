@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan gnome-3-26\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-02-21 15:43+0000\n"
-"PO-Revision-Date: 2022-02-22 23:46+0330\n"
+"POT-Creation-Date: 2022-09-22 07:56+0000\n"
+"PO-Revision-Date: 2022-09-23 02:57+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-DamnedLies-Scope: partial\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -177,7 +177,7 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
+#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "پویشگر پرونده"
 
@@ -199,7 +199,7 @@ msgstr ""
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "این کاره از چهارچوب SANE برای پشتیبانی از پویشگرهای موجود استفاده می‌کند."
 
-#: data/simple-scan.appdata.xml.in:26
+#: data/simple-scan.appdata.xml.in:27
 msgid "The GNOME Project"
 msgstr "پروژهٔ گنوم"
 
@@ -298,7 +298,7 @@ msgstr "_متن"
 msgid "_Image"
 msgstr "_تصویر"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1862
+#: data/ui/app-window.ui:433 src/app-window.vala:1888
 msgid "_Preferences"
 msgstr "_ترجیحات"
 
@@ -323,7 +323,7 @@ msgstr "ذخیره سند در پرونده"
 #. Tooltip for stop button
 #: data/ui/app-window.ui:714
 msgid "Refresh device list"
-msgstr "تازه‌سازی فهرست افزاره‌ها"
+msgstr "تازه‌سازی سیاههٔ افزاره‌ها"
 
 #. Button to submit authorization dialog
 #: data/ui/authorize-dialog.ui:22
@@ -353,17 +353,17 @@ msgstr "پویشِ یک صفحه"
 #: data/ui/help-overlay.ui:24
 msgctxt "shortcut window"
 msgid "Scan all pages from document feeder"
-msgstr "پویش کردن تمام صفحات در منبع تغذیه سند"
+msgstr "پویش تمامی صفحات از خوراک سند"
 
 #: data/ui/help-overlay.ui:31
 msgctxt "shortcut window"
 msgid "Scan continuously from a flatbed scanner"
-msgstr "پویش مداوم از یک پویشگر flatbed"
+msgstr "پویش مداوم از یک پویشگر تخت"
 
 #: data/ui/help-overlay.ui:38
 msgctxt "shortcut window"
 msgid "Stop scan in progress"
-msgstr "متوقف کردن پویش جاری"
+msgstr "توقّف پویش جاری"
 
 #: data/ui/help-overlay.ui:46
 msgctxt "shortcut window"
@@ -383,12 +383,12 @@ msgstr "جابه‌جایی صفحه به راست"
 #: data/ui/help-overlay.ui:65
 msgctxt "shortcut window"
 msgid "Rotate page to the left (anti-clockwise)"
-msgstr "چرخاندن صفحه به چپ (خلاف جهت عقربه‌های ساعت)"
+msgstr "چرخاندن صفحه به چپ (پادساعتگرد)"
 
 #: data/ui/help-overlay.ui:72
 msgctxt "shortcut window"
 msgid "Rotate page to the right (clockwise)"
-msgstr "چرخاندن صفحه به راست (در جهت عقربه‌های ساعت)"
+msgstr "چرخاندن صفحه به راست (ساعتگرد)"
 
 #: data/ui/help-overlay.ui:79
 msgctxt "shortcut window"
@@ -398,17 +398,17 @@ msgstr "حذف صفحه"
 #: data/ui/help-overlay.ui:87
 msgctxt "shortcut window"
 msgid "Document Management"
-msgstr "مدیریت سندها"
+msgstr "مدیریت سند"
 
 #: data/ui/help-overlay.ui:92
 msgctxt "shortcut window"
 msgid "Start new document"
-msgstr "شروع پویش سند جدید"
+msgstr "آغاز سند جدید"
 
 #: data/ui/help-overlay.ui:99
 msgctxt "shortcut window"
 msgid "Save scanned document"
-msgstr "ذخیره سند پویش شده"
+msgstr "ذخیرهٔ سند پویش شده"
 
 #: data/ui/help-overlay.ui:106
 msgctxt "shortcut window"
@@ -565,7 +565,7 @@ msgstr "_آرگومان‌های کدنوشته"
 msgid "_Keep original file"
 msgstr "_نگه داشتن پروندهٔ اصلی"
 
-#: src/app-window.vala:229 src/app-window.vala:1660
+#: src/app-window.vala:229 src/app-window.vala:1686
 msgid "_Close"
 msgstr "_بستن"
 
@@ -765,20 +765,30 @@ msgstr "معکوس"
 msgid "Keep unchanged"
 msgstr "نگه‌داشتن بدون تغییر"
 
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1347
+msgid "Flip odd pages upside-down"
+msgstr "سر و ته کردن صفحه‌های فرد"
+
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1358
+msgid "Flip even pages upside-down"
+msgstr "سر و ته کردن صفحه‌های زوج"
+
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1533
+#: src/app-window.vala:1559
 msgid "Unable to open help file"
 msgstr "ناتوان در گشودن پروندهٔ راهنما"
 
-#: src/app-window.vala:1547
+#: src/app-window.vala:1573
 msgid "About Document Scanner"
 msgstr "دربارهٔ پویشگر سند"
 
-#: src/app-window.vala:1549
+#: src/app-window.vala:1575
 msgid "Simple document scanning tool"
 msgstr "یک پویشگر ساده برای اسناد"
 
-#: src/app-window.vala:1554
+#: src/app-window.vala:1580
 msgid "translator-credits"
 msgstr ""
 "آرش موسوی <mousavi.arash@gmail.com>\n"
@@ -787,22 +797,22 @@ msgstr ""
 "صالح شجاعی<shojaeisaleh@gmail.com>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1573
+#: src/app-window.vala:1599
 msgid "Save document before quitting?"
 msgstr "ذخیره پرونده قبل از خروج؟"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1575
+#: src/app-window.vala:1601
 msgid "_Quit without Saving"
 msgstr "_خروج بدون ذخیره‌سازی"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1616
+#: src/app-window.vala:1642
 msgid "You appear to have a Brother scanner."
 msgstr "به نظر می‌رسد یک پویشگر برادر دارید."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1618
+#: src/app-window.vala:1644
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother."
 "com\">Brother website</a>."
@@ -811,7 +821,7 @@ msgstr ""
 "برادر</a> موجودند."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1622
+#: src/app-window.vala:1648
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href=\"http://"
 "www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -820,7 +830,7 @@ msgstr ""
 "man/sane-pixma.5.html\">پشتانهٔ SANE پیکسما</a> پشتیبانی می‌شود."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1624
+#: src/app-window.vala:1650
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue to "
@@ -833,13 +843,13 @@ msgstr ""
 "devel\">فهرست پستی SANE</a> گزارش کنید."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1628
+#: src/app-window.vala:1654
 msgid "You appear to have a Samsung scanner."
 msgstr "به نظر می‌رسد یک پویشگر سامسونگ دارید."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1631
+#: src/app-window.vala:1657
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -848,7 +858,7 @@ msgstr ""
 "موجودند (اچ‌پی کسب‌وکار چاپ سامسونگ را خریده)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1636
+#: src/app-window.vala:1662
 msgid "You appear to have an HP scanner."
 msgstr "به نظر می‌رسد یک پویشگر اچ‌پی دارید."
 
@@ -856,7 +866,7 @@ msgstr "به نظر می‌رسد یک پویشگر اچ‌پی دارید."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1644
+#: src/app-window.vala:1670
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -865,12 +875,12 @@ msgstr ""
 "موجودند."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1648
+#: src/app-window.vala:1674
 msgid "You appear to have an Epson scanner."
 msgstr "به نظر می‌رسد یک پویشگر اپسون دارید."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1650
+#: src/app-window.vala:1676
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com\">Epson "
 "website</a>."
@@ -879,12 +889,12 @@ msgstr ""
 "a> موجودند."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1654
+#: src/app-window.vala:1680
 msgid "You appear to have an Lexmark scanner."
 msgstr "به نظر می‌رسد یک پویشگر Lexmark دارید."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1656
+#: src/app-window.vala:1682
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark."
 "com\">Lexmark website</a>."
@@ -893,101 +903,101 @@ msgstr ""
 "Lexmark</a> موجودند."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1660
+#: src/app-window.vala:1686
 msgid "Install drivers"
 msgstr "نصب راه‌اندازها"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1694
+#: src/app-window.vala:1720
 msgid "Once installed you will need to restart this app."
 msgstr "پس از نصب لازم است این کاره را دوباره شروع کنید."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1707
+#: src/app-window.vala:1733
 msgid "Installing drivers…"
 msgstr "در حال نصب راه‌اندازها…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1715
+#: src/app-window.vala:1741
 msgid "Drivers installed successfully!"
 msgstr "راه‌اندازها با موفقیت نصب شدند!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1725
+#: src/app-window.vala:1751
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "نصب راه‌انداز شکست خورد (خطا در کد %Id)"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1731
+#: src/app-window.vala:1757
 msgid "Failed to install drivers."
 msgstr "خطا در نصب راه‌انداز."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1738
+#: src/app-window.vala:1764
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "لازم است بستهٔ %s را نصب کنید."
 
-#: src/app-window.vala:1857
+#: src/app-window.vala:1883
 msgid "_Email"
 msgstr "_رایانامه"
 
-#: src/app-window.vala:1858
+#: src/app-window.vala:1884
 msgid "Pri_nt"
 msgstr "چا_پ"
 
-#: src/app-window.vala:1859
+#: src/app-window.vala:1885
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_ترتیب دوبارهٔ صفحه‌ها"
 
-#: src/app-window.vala:1863
+#: src/app-window.vala:1889
 msgid "_Keyboard Shortcuts"
 msgstr "_میان‌برهای صفحه‌کلید"
 
-#: src/app-window.vala:1864
+#: src/app-window.vala:1890
 msgid "_Help"
 msgstr "_راهنما"
 
-#: src/app-window.vala:1865
+#: src/app-window.vala:1891
 msgid "_About Document Scanner"
 msgstr "_دربارهٔ پویشگر سند"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1873
+#: src/app-window.vala:1899
 msgid "_New Document"
 msgstr "_سند جدید"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1892
+#: src/app-window.vala:1918
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "چرخاندن صفحه به چپ (خلاف جهت عقربه‌های ساعت)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1901
+#: src/app-window.vala:1927
 msgid "Rotate the page to the right (clockwise)"
 msgstr "چرخاندن صفحه به راست (در جهت عقربه‌های ساعت)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1913
+#: src/app-window.vala:1939
 msgid "Crop the selected page"
 msgstr "برش صفحه انتخاب شده"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1931
+#: src/app-window.vala:1957
 msgid "Delete the selected page"
 msgstr "حذف صفحه انتخاب شده"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2107
+#: src/app-window.vala:2133
 msgid "Cancel"
 msgstr "لغو"
 
-#: src/book.vala:355 src/book.vala:361
+#: src/book.vala:375 src/book.vala:381
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "خطا در رمزگذاری صفحه %Ii"
@@ -1038,24 +1048,24 @@ msgid "%d dpi"
 msgstr "%Id dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:897
+#: src/scanner.vala:901
 msgid "No scanners available.  Please connect a scanner."
 msgstr "پویشگری موجود نیست.  لطفاً پویشگری را وصل کنید."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:927
+#: src/scanner.vala:931
 msgid "Unable to connect to scanner"
 msgstr "امکان برقراری ارتباط با پویشگر نبود"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1357 src/scanner.vala:1492
+#: src/scanner.vala:1361 src/scanner.vala:1495
 msgid "Document feeder empty"
 msgstr "خوراک‌دهندهٔ سند خالی است"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1365
+#: src/scanner.vala:1369
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in <tt>Preferences</"
@@ -1068,12 +1078,12 @@ msgstr ""
 "محدود می‌شود."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1378
+#: src/scanner.vala:1382
 msgid "Unable to start scan"
 msgstr "ناتوان در شروع پویش"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1391 src/scanner.vala:1502
+#: src/scanner.vala:1395 src/scanner.vala:1505
 msgid "Error communicating with scanner"
 msgstr "خطا در هنگام بر قراری ارتباط با پویشگر"
 
