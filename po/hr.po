@@ -7,18 +7,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-04-20 17:40+0000\n"
-"PO-Revision-Date: 2022-04-20 19:49+0200\n"
+"POT-Creation-Date: 2022-09-22 07:56+0000\n"
+"PO-Revision-Date: 2022-09-22 12:29+0200\n"
 "Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Launchpad-Export-Date: 2017-07-25 17:32+0000\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -183,7 +183,7 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
+#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "Skener dokumenta"
 
@@ -207,7 +207,7 @@ msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Ova aplikacija koristi SANE radni okvir za podršku većine postojećih skenera."
 
-#: data/simple-scan.appdata.xml.in:26
+#: data/simple-scan.appdata.xml.in:27
 msgid "The GNOME Project"
 msgstr "GNOME projekt"
 
@@ -306,7 +306,7 @@ msgstr "_Tekst"
 msgid "_Image"
 msgstr "_Sliku"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1862
+#: data/ui/app-window.ui:433 src/app-window.vala:1888
 msgid "_Preferences"
 msgstr "_Osobitosti"
 
@@ -573,7 +573,7 @@ msgstr "_Argumenti skripte"
 msgid "_Keep original file"
 msgstr "_Zadrži izvornu datoteku"
 
-#: src/app-window.vala:229 src/app-window.vala:1660
+#: src/app-window.vala:229 src/app-window.vala:1686
 msgid "_Close"
 msgstr "_Zatvori"
 
@@ -773,61 +773,72 @@ msgstr "Obrnuto"
 msgid "Keep unchanged"
 msgstr "Zadrži nepromijenjeno"
 
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1347
+msgid "Flip odd pages upside-down"
+msgstr "Okreni neparne stranice naopako"
+
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1358
+msgid "Flip even pages upside-down"
+msgstr "Okreni parne stranice naopako"
+
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1533
+#: src/app-window.vala:1559
 msgid "Unable to open help file"
 msgstr "Nemoguće otvaranje datoteke pomoći"
 
-#: src/app-window.vala:1547
+#: src/app-window.vala:1573
 msgid "About Document Scanner"
 msgstr "O Skeneru dokumenta"
 
-#: src/app-window.vala:1549
+#: src/app-window.vala:1575
 msgid "Simple document scanning tool"
 msgstr "Alat za jednostavno skeniranje"
 
-#: src/app-window.vala:1554
+#: src/app-window.vala:1580
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  gogo https://launchpad.net/~trebelnik-stefina"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1573
+#: src/app-window.vala:1599
 msgid "Save document before quitting?"
 msgstr "Spremi dokument prije zatvaranja?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1575
+#: src/app-window.vala:1601
 msgid "_Quit without Saving"
 msgstr "_Zatvori bez spremanja"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1616
+#: src/app-window.vala:1642
 msgid "You appear to have a Brother scanner."
 msgstr "Izgleda da imate Brother skener."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1618
+#: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
-"Upravljački programi su dostupni na <a href=\"http://support.brother.com"
-"\">Brother web stranici</a>."
+"Upravljački programi su dostupni na <a href=\"http://support.brother."
+"com\">Brother web stranici</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1622
+#: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
 "Izgleda da imate Canon skener, koji je podržan od strane <a href=\"http://"
 "www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE pozadinskog "
 "programa</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1624
+#: src/app-window.vala:1650
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -836,17 +847,17 @@ msgid ""
 msgstr ""
 "Provjerite podržava li <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">SANE vaš skener</a>, u suprotnome prijavite problem na <a "
-"href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel"
-"\">SANE mailing listi</a>."
+"href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-"
+"devel\">SANE mailing listi</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1628
+#: src/app-window.vala:1654
 msgid "You appear to have a Samsung scanner."
 msgstr "Izgleda da imate Samsung skener."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1631
+#: src/app-window.vala:1657
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -856,7 +867,7 @@ msgstr ""
 "pisačima)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1636
+#: src/app-window.vala:1662
 msgid "You appear to have an HP scanner."
 msgstr "Izgleda da imate HP skener."
 
@@ -864,7 +875,7 @@ msgstr "Izgleda da imate HP skener."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1644
+#: src/app-window.vala:1670
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -873,66 +884,66 @@ msgstr ""
 "hp.com\">HP web stranici</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1648
+#: src/app-window.vala:1674
 msgid "You appear to have an Epson scanner."
 msgstr "Izgleda da imate Epson skener."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1650
+#: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
 "Upravljački programi za ovaj pisač su dostupi na <a href=\"http://support."
 "epson.com\">Epson web stranici</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1654
+#: src/app-window.vala:1680
 msgid "You appear to have an Lexmark scanner."
 msgstr "Izgleda da imate HP skener."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1656
+#: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
-"Upravljački programi su dostupni na <a href=\"http://support.lexmark.com"
-"\">Lexmark web stranici</a>."
+"Upravljački programi su dostupni na <a href=\"http://support.lexmark."
+"com\">Lexmark web stranici</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1660
+#: src/app-window.vala:1686
 msgid "Install drivers"
 msgstr "Instaliraj upravljački program"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1694
+#: src/app-window.vala:1720
 msgid "Once installed you will need to restart this app."
 msgstr "Jednom kada se instalira, morate ponovno pokrenuti ovu aplikaciju."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1707
+#: src/app-window.vala:1733
 msgid "Installing drivers…"
 msgstr "Instalacija upravljačkih programa…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1715
+#: src/app-window.vala:1741
 msgid "Drivers installed successfully!"
 msgstr "Upravljački programi su uspješno instalirani!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1725
+#: src/app-window.vala:1751
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Neuspjela instalacija upravljačkih programa (kôd greške %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1731
+#: src/app-window.vala:1757
 msgid "Failed to install drivers."
 msgstr "Neuspjela instalacija upravljačkih programa."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1738
+#: src/app-window.vala:1764
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
@@ -940,64 +951,64 @@ msgstr[0] "Morate instalirati %s paket."
 msgstr[1] "Morate instalirati %s paketa."
 msgstr[2] "Morate instalirati %s paketa."
 
-#: src/app-window.vala:1857
+#: src/app-window.vala:1883
 msgid "_Email"
 msgstr "_E-pošta"
 
-#: src/app-window.vala:1858
+#: src/app-window.vala:1884
 msgid "Pri_nt"
 msgstr "Isp_is"
 
-#: src/app-window.vala:1859
+#: src/app-window.vala:1885
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Preslaganje stranica"
 
-#: src/app-window.vala:1863
+#: src/app-window.vala:1889
 msgid "_Keyboard Shortcuts"
 msgstr "_Prečaci tipkovnice"
 
-#: src/app-window.vala:1864
+#: src/app-window.vala:1890
 msgid "_Help"
 msgstr "_Priručnik"
 
-#: src/app-window.vala:1865
+#: src/app-window.vala:1891
 msgid "_About Document Scanner"
 msgstr "_O Skeneru dokumenta"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1873
+#: src/app-window.vala:1899
 msgid "_New Document"
 msgstr "_Novi dokument"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1892
+#: src/app-window.vala:1918
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Zakreni stranicu ulijevo (obrnuto od kazaljke na satu)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1901
+#: src/app-window.vala:1927
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Zakreni stranicu udesno (u smjeru kazaljke na satu)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1913
+#: src/app-window.vala:1939
 msgid "Crop the selected page"
 msgstr "Izreži odabranu stranicu"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1931
+#: src/app-window.vala:1957
 msgid "Delete the selected page"
 msgstr "Obriši odabranu stranicu"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2107
+#: src/app-window.vala:2133
 msgid "Cancel"
 msgstr "Odustani"
 
-#: src/book.vala:355 src/book.vala:361
+#: src/book.vala:375 src/book.vala:381
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Nemoguće dekôdiranje stranice %i"
@@ -1058,7 +1069,7 @@ msgid "Unable to connect to scanner"
 msgstr "Nemoguće povezivanje sa skenerom"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1496
+#: src/scanner.vala:1361 src/scanner.vala:1495
 msgid "Document feeder empty"
 msgstr "Uvlakač dokumenata je prazan"
 
@@ -1083,7 +1094,7 @@ msgid "Unable to start scan"
 msgstr "Nemoguće pokretanje skenera"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1506
+#: src/scanner.vala:1395 src/scanner.vala:1505
 msgid "Error communicating with scanner"
 msgstr "Greška pri komunikaciji sa skenerom"
 
@@ -1188,11 +1199,11 @@ msgstr ""
 #~ msgstr "_Skeniranje"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
-#~ "Upravljački programi su dostupni na <a href=\"http://samsung.com/support"
-#~ "\">Samsung web stranici</a>."
+#~ "Upravljački programi su dostupni na <a href=\"http://samsung.com/"
+#~ "support\">Samsung web stranici</a>."
 
 #~ msgid "Scan Documents"
 #~ msgstr "Skenirajte dokumente"
