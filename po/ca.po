@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-02-05 10:47+0000\n"
-"PO-Revision-Date: 2022-02-11 20:07+0100\n"
-"Last-Translator: maite guix <maite.guix@me.com>\n"
+"POT-Creation-Date: 2022-09-22 07:56+0000\n"
+"PO-Revision-Date: 2022-09-22 20:07+0100\n"
+"Last-Translator: Jordi Mas i Heranàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -43,8 +43,8 @@ msgstr "Tipus de document a escanejar"
 
 #: data/org.gnome.SimpleScan.gschema.xml:21
 msgid ""
-"Type of document being scanned. This setting decides on the scan resolution, "
-"colors and post-processing."
+"Type of document being scanned. This setting decides on the scan resolution,"
+" colors and post-processing."
 msgstr ""
 "El tipus de document que s'està escanejant. Aquest paràmetre decideix la "
 "resolució d'escaneig, els colors i el processament posterior."
@@ -119,7 +119,8 @@ msgstr "Directori on desar els fitxers"
 
 #: data/org.gnome.SimpleScan.gschema.xml:61
 msgid ""
-"The directory to save files to. Defaults to the documents directory if unset."
+"The directory to save files to. Defaults to the documents directory if "
+"unset."
 msgstr ""
 "El directori on desar els fitxers. Per defecte serà el directori de "
 "documents si no es defineix."
@@ -183,7 +184,8 @@ msgstr "Si s'ha de mantenir o no el fitxer original no processat"
 #: data/org.gnome.SimpleScan.gschema.xml:98
 msgid ""
 "Whether or not to keep the original, unprocessed file. The \"_orig\" "
-"filename will be added to the filename immediately before the file extension."
+"filename will be added to the filename immediately before the file "
+"extension."
 msgstr ""
 "Si s'ha de conservar o no el fitxer original no processat. El nom de fitxer "
 "«_orig» s'afegirà al nom del fitxer immediatament abans de l'extensió del "
@@ -194,7 +196,7 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
+#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "Escàner de documents"
 
@@ -219,11 +221,12 @@ msgstr ""
 "Aquesta aplicació utilitza el marc de treball SANE per a donar suport a la "
 "majoria dels escàners existents."
 
-#: data/simple-scan.appdata.xml.in:26
+#: data/simple-scan.appdata.xml.in:27
 msgid "The GNOME Project"
 msgstr "El projecte GNOME"
 
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#. Translators: Search terms to find this application. Do NOT translate or
+#. localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
 msgid "scan;scanner;flatbed;adf;"
 msgstr "escanejar;escàner;pla;adf;"
@@ -318,7 +321,7 @@ msgstr "_Text"
 msgid "_Image"
 msgstr "_Imatge"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1862
+#: data/ui/app-window.ui:433 src/app-window.vala:1888
 msgid "_Preferences"
 msgstr "_Preferències"
 
@@ -480,17 +483,20 @@ msgstr "Escaneig"
 msgid "Scan _Sides"
 msgstr "_Cares a escanejar"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
 #: data/ui/preferences-dialog.ui:66
 msgid "Front"
 msgstr "Anvers de la pàgina"
 
-#. Preferences Dialog: Toggle button to select scanning on the back side of a page
+#. Preferences Dialog: Toggle button to select scanning on the back side of a
+#. page
 #: data/ui/preferences-dialog.ui:76
 msgid "Back"
 msgstr "Revers de la pàgina"
 
-#. Preferences Dialog: Toggle button to select scanning on both sides of a page
+#. Preferences Dialog: Toggle button to select scanning on both sides of a
+#. page
 #: data/ui/preferences-dialog.ui:86
 msgid "Both"
 msgstr "Ambdues"
@@ -510,27 +516,32 @@ msgstr "_Retard en segons"
 msgid "Interval to scan multiple pages"
 msgstr "Interval per a escanejar diverses pàgines"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
 #: data/ui/preferences-dialog.ui:131
 msgid "0"
 msgstr "0"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
 #: data/ui/preferences-dialog.ui:141
 msgid "3"
 msgstr "3"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
 #: data/ui/preferences-dialog.ui:152
 msgid "6"
 msgstr "6"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
 #: data/ui/preferences-dialog.ui:163
 msgid "10"
 msgstr "10"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
 #: data/ui/preferences-dialog.ui:174
 msgid "15"
 msgstr "15"
@@ -585,11 +596,12 @@ msgstr "Arguments de l_script"
 msgid "_Keep original file"
 msgstr "_Manté el fitxer original"
 
-#: src/app-window.vala:229 src/app-window.vala:1660
+#: src/app-window.vala:229 src/app-window.vala:1686
 msgid "_Close"
 msgstr "_Tanca"
 
-#. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
+#. Label in authorization dialog.  “%s” is replaced with the name of the
+#. resource requesting authorization
 #: src/app-window.vala:238
 #, c-format
 msgid "Username and password required to access “%s”"
@@ -605,7 +617,8 @@ msgstr "S'estan cercant escàners…"
 msgid "Ready to Scan"
 msgstr "Llest per escanejar"
 
-#. Warning displayed when no drivers are installed but a compatible scanner is detected
+#. Warning displayed when no drivers are installed but a compatible scanner is
+#. detected
 #: src/app-window.vala:273
 msgid "Additional Software Needed"
 msgstr "Programari addicional necessari"
@@ -683,7 +696,8 @@ msgstr "PNG (sense pèrdua)"
 msgid "WebP (compressed)"
 msgstr "WebP (comprimit)"
 
-#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
+#. Label in save dialog beside combo box to choose file format (PDF, JPEG,
+#. PNG, WEBP)
 #: src/app-window.vala:531
 msgid "File format:"
 msgstr "Format del fitxer:"
@@ -701,13 +715,15 @@ msgstr "Mida mínima"
 msgid "Full detail"
 msgstr "Detall complet"
 
-#. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
+#. Contents of dialog that shows if saving would overwrite and existing file.
+#. %s is replaced with the name of the file.
 #: src/app-window.vala:647
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Ja existeix un fitxer amb el nom «%s». Voleu reemplaçar-lo?"
 
-#. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
+#. Button in dialog that shows if saving would overwrite and existing file.
+#. Clicking the button allows simple-scan to overwrite the file.
 #: src/app-window.vala:650
 msgid "_Replace"
 msgstr "_Reemplaça"
@@ -785,91 +801,105 @@ msgstr "Inverteix"
 msgid "Keep unchanged"
 msgstr "Manté sense canvi"
 
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1347
+msgid "Flip odd pages upside-down"
+msgstr "Capgira les pàgines senars cap per avall"
+
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1358
+msgid "Flip even pages upside-down"
+msgstr "Capgira les pàgines parelles cap per avall"
+
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1533
+#: src/app-window.vala:1559
 msgid "Unable to open help file"
 msgstr "No s'ha pogut obrir el fitxer d'ajuda"
 
-#: src/app-window.vala:1547
+#: src/app-window.vala:1573
 msgid "About Document Scanner"
 msgstr "Quant a l'Escàner de documents"
 
-#: src/app-window.vala:1549
+#: src/app-window.vala:1575
 msgid "Simple document scanning tool"
 msgstr "Eina senzilla d'escaneig de documents"
 
-#: src/app-window.vala:1554
+#: src/app-window.vala:1580
 msgid "translator-credits"
 msgstr ""
 "equip de traducció:\n"
-"Jordi Mas i Hernàndez (2017-2019)\n"
+"Jordi Mas i Hernàndez (2017-2022)\n"
 "Contribuïdors del LaunchPad (2010-2016)\n"
 "Miquel-Àngel Burgos i Fradeja (2020)\n"
 "Maite Guix <maite.guix@me.com> (2021)"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1573
+#: src/app-window.vala:1599
 msgid "Save document before quitting?"
 msgstr "Voleu desar el document abans de sortir?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1575
+#: src/app-window.vala:1601
 msgid "_Quit without Saving"
 msgstr "_Surt sense desar"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1616
+#: src/app-window.vala:1642
 msgid "You appear to have a Brother scanner."
 msgstr "Sembla que teniu un escàner Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1618
+#: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a "
+"href=\"http://support.brother.com\">Brother website</a>."
 msgstr ""
-"Hi ha controladors disponibles a la <a href=\"http://support.brother.com"
-"\">pàgina web de Brother</a>."
+"Hi ha controladors disponibles a la <a "
+"href=\"http://support.brother.com\">pàgina web de Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1622
+#: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
-"Sembla que teniu un escàner Canon el qual està suportat pel <a href=\"http://"
-"www.sane-project.org/man/sane-pixma.5.html\">dorsal Pixma SANE</a>."
+"Sembla que teniu un escàner Canon el qual està suportat pel <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">dorsal Pixma "
+"SANE</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1624
+#: src/app-window.vala:1650
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
-"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
-"sane-devel\">SANE mailing list</a>."
+"to the <a href=\"https://alioth-lists.debian.net/cgi-"
+"bin/mailman/listinfo/sane-devel\">SANE mailing list</a>."
 msgstr ""
 "Comproveu si el vostre <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">escàner està suportat per SANE</a>, altrament informeu del "
-"problema a <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/"
-"listinfo/sane-devel\">Llista de correu SANE</a>."
+"problema a <a href=\"https://alioth-lists.debian.net/cgi-"
+"bin/mailman/listinfo/sane-devel\">Llista de correu SANE</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1628
+#: src/app-window.vala:1654
 msgid "You appear to have a Samsung scanner."
 msgstr "Sembla que teniu un escàner Samsung."
 
 #. Instructions on how to install Samsung scanner drivers.
-#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1631
+#. Because HP acquired Samsung's global printing business in 2017, the support
+#. is made on HP site.
+#: src/app-window.vala:1657
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"Hi ha controladors disponibles a la <a href=\"https://support.hp.com"
-"\">pàgina web d'HP</a> (HP va adquirir el negoci d'impressió de Samsung)."
+"Hi ha controladors disponibles a la <a "
+"href=\"https://support.hp.com\">pàgina web d'HP</a> (HP va adquirir el "
+"negoci d'impressió de Samsung)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1636
+#: src/app-window.vala:1662
 msgid "You appear to have an HP scanner."
 msgstr "Sembla que teniu un escàner HP."
 
@@ -877,139 +907,140 @@ msgstr "Sembla que teniu un escàner HP."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1644
+#: src/app-window.vala:1670
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
 msgstr ""
-"Hi ha controladors disponibles a la <a href=\"https://support.hp.com"
-"\">pàgina web d'HP</a>."
+"Hi ha controladors disponibles a la <a "
+"href=\"https://support.hp.com\">pàgina web d'HP</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1648
+#: src/app-window.vala:1674
 msgid "You appear to have an Epson scanner."
 msgstr "Sembla que teniu un escàner Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1650
+#: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a "
+"href=\"http://support.epson.com\">Epson website</a>."
 msgstr ""
-"Hi ha controladors disponibles a la <a href=\"http://samsung.com/support"
-"\">pàgina web d'Epson</a>."
+"Hi ha controladors disponibles a la <a "
+"href=\"http://samsung.com/support\">pàgina web d'Epson</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1654
+#: src/app-window.vala:1680
 msgid "You appear to have an Lexmark scanner."
 msgstr "Sembla que teniu un escàner Lexmark."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1656
+#: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a "
+"href=\"http://support.lexmark.com\">Lexmark website</a>."
 msgstr ""
-"Hi ha controladors disponibles a la <a href=\"http://support.lexmark.com"
-"\">pàgina web de Lexmark</a>."
+"Hi ha controladors disponibles a la <a "
+"href=\"http://support.lexmark.com\">pàgina web de Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1660
+#: src/app-window.vala:1686
 msgid "Install drivers"
 msgstr "Instal·la els controladors"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1694
+#: src/app-window.vala:1720
 msgid "Once installed you will need to restart this app."
 msgstr "Un cop instal·lat haureu de reiniciar aquesta aplicació."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1707
+#: src/app-window.vala:1733
 msgid "Installing drivers…"
 msgstr "S'estan instal·lant els controladors…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1715
+#: src/app-window.vala:1741
 msgid "Drivers installed successfully!"
 msgstr "La instal·lació dels controladors ha estat reeixida!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1725
+#: src/app-window.vala:1751
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Ha fallat la instal·lació dels controladors (codi d'error %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1731
+#: src/app-window.vala:1757
 msgid "Failed to install drivers."
 msgstr "No s'han pogut instal·lar els controladors."
 
-#. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1738
+#. Label shown to prompt user to install packages (when PackageKit not
+#. available)
+#: src/app-window.vala:1764
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Heu d'instal·lar el paquet %s."
 msgstr[1] "Heu d'instal·lar els paquets %s."
 
-#: src/app-window.vala:1857
+#: src/app-window.vala:1883
 msgid "_Email"
 msgstr "_Correu electrònic"
 
-#: src/app-window.vala:1858
+#: src/app-window.vala:1884
 msgid "Pri_nt"
 msgstr "Imp_rimeix"
 
-#: src/app-window.vala:1859
+#: src/app-window.vala:1885
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Reordena les pàgines"
 
-#: src/app-window.vala:1863
+#: src/app-window.vala:1889
 msgid "_Keyboard Shortcuts"
 msgstr "_Dreceres del teclat"
 
-#: src/app-window.vala:1864
+#: src/app-window.vala:1890
 msgid "_Help"
 msgstr "_Ajuda"
 
-#: src/app-window.vala:1865
+#: src/app-window.vala:1891
 msgid "_About Document Scanner"
 msgstr "_Quant a l'Escàner de documents"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1873
+#: src/app-window.vala:1899
 msgid "_New Document"
 msgstr "_Document nou"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1892
+#: src/app-window.vala:1918
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Gira la pàgina cap a l'esquerra (en sentit antihorari)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1901
+#: src/app-window.vala:1927
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Gira la pàgina cap a la dreta (en sentit horari)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1913
+#: src/app-window.vala:1939
 msgid "Crop the selected page"
 msgstr "Escapça la pàgina seleccionada"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1931
+#: src/app-window.vala:1957
 msgid "Delete the selected page"
 msgstr "Suprimeix la pàgina seleccionada"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2107
+#: src/app-window.vala:2133
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: src/book.vala:355 src/book.vala:361
+#: src/book.vala:375 src/book.vala:381
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "No s'ha pogut codificar la pàgina %i"
@@ -1053,49 +1084,46 @@ msgstr "%d ppp (esborrany)"
 msgid "%d dpi (high resolution)"
 msgstr "%d ppp (alta resolució)"
 
-#. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
+#. Preferences dialog: Label for resolution value in resolution list (dpi =
+#. dots per inch)
 #: src/preferences-dialog.vala:327
 #, c-format
 msgid "%d dpi"
 msgstr "%d ppp"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:897
+#: src/scanner.vala:901
 msgid "No scanners available.  Please connect a scanner."
 msgstr "No hi ha cap escàner disponible. Connecteu-ne un."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:927
+#: src/scanner.vala:931
 msgid "Unable to connect to scanner"
 msgstr "No s'ha pogut connectar a l'escàner"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1357 src/scanner.vala:1492
+#: src/scanner.vala:1361 src/scanner.vala:1495
 msgid "Document feeder empty"
 msgstr "L'alimentador de documents està buit"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1365
+#: src/scanner.vala:1369
 msgid ""
 "Insufficient memory to perform scan.\n"
-"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
-"<tt>Preferences</tt> menu. For some scanners when scanning in high "
-"resolution, the scan size is restricted."
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in <tt>Preferences</tt> menu. For some scanners when scanning in high resolution, the scan size is restricted."
 msgstr ""
 "No hi ha prou memòria per a realitzar l'exploració.\n"
-"Intenteu disminuir la <tt>Resolució</tt> o <tt>Mida de pàgina</tt> al menú "
-"<tt>Preferències</tt>. Per a alguns escàners quan s'escanegen en alta "
-"resolució la mida de l'escaneig està restringida."
+"Intenteu disminuir la <tt>Resolució</tt> o <tt>Mida de pàgina</tt> al menú <tt>Preferències</tt>. Per a alguns escàners quan s'escanegen en alta resolució la mida de l'escaneig està restringida."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1378
+#: src/scanner.vala:1382
 msgid "Unable to start scan"
 msgstr "No s'ha pogut iniciar l'escaneig"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1391 src/scanner.vala:1502
+#: src/scanner.vala:1395 src/scanner.vala:1505
 msgid "Error communicating with scanner"
 msgstr "S'ha produït un error en comunicar-se amb l'escàner"
 
@@ -1134,8 +1162,8 @@ msgstr "[DISPOSITIU…] - Utilitat d'escaneig"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
-"Executeu «%s --help» per a veure la llista completa d'opcions disponibles de "
-"la línia d'ordres."
+"Executeu «%s --help» per a veure la llista completa d'opcions disponibles de"
+" la línia d'ordres."
 
 #~ msgid ""
 #~ "This program is free software: you can redistribute it and/or modify\n"
@@ -1151,10 +1179,8 @@ msgstr ""
 #~ "You should have received a copy of the GNU General Public License\n"
 #~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 #~ msgstr ""
-#~ "Aquest programa és programari lliure: podeu redistribuir-lo i/o modificar-"
-#~ "lo\n"
-#~ "sota els termes de la Llicència Pública General GNU (GNU GPL) segons "
-#~ "publica la \n"
+#~ "Aquest programa és programari lliure: podeu redistribuir-lo i/o modificar-lo\n"
+#~ "sota els termes de la Llicència Pública General GNU (GNU GPL) segons publica la \n"
 #~ "Fundació de Programari Lliure, qualsevol versió 3 de la Llicència, o \n"
 #~ "(si ho trieu) qualsevol versió més recent. \n"
 #~ "\n"
@@ -1163,10 +1189,8 @@ msgstr ""
 #~ "MERCANDABILITAT o ADEQUAT PER UN PROPÒSIT PARTICULAR.\n"
 #~ "Vegeu la Llicència Pública General GNU (GNU GPL) per més detalls. \n"
 #~ "\n"
-#~ "Hauríeu d'haver rebut una còpia de la Llicència Pública General GNU (GNU "
-#~ "GPL)\n"
-#~ "juntament amb aquest programa. Si no, mireu <http://www.gnu.org/licenses/"
-#~ ">."
+#~ "Hauríeu d'haver rebut una còpia de la Llicència Pública General GNU (GNU GPL)\n"
+#~ "juntament amb aquest programa. Si no, mireu <http://www.gnu.org/licenses/>."
 
 #~ msgid "A_6"
 #~ msgstr "A_6"
