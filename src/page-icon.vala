@@ -14,12 +14,14 @@ public class PageIcon : Gtk.DrawingArea
 {
     private char side;
     private int position;
+    private int angle;
     private const int MINIMUM_WIDTH = 20;
 
-    public PageIcon (char side, int position)
+    public PageIcon (char side, int position, int angle)
     {
         this.side = side;
         this.position = position;
+        this.angle = angle;
     }
 
     public override void get_preferred_width (out int minimum_width, out int natural_width)
@@ -73,6 +75,14 @@ public class PageIcon : Gtk.DrawingArea
             /* Orange 3 */
             rgba.parse ("#ff7800");
             break;
+        case 'U':
+            /* green 4 */
+            rgba.parse ("#5cc02e");
+            break;
+        case 'R':
+            /* blue 4 */
+            rgba.parse ("#0deee7");
+            break;
         default:
             /* Yellow 3 to Red 2 */
             Gdk.RGBA start = {}, end = {};
@@ -109,8 +119,15 @@ public class PageIcon : Gtk.DrawingArea
 
         var text = @"$(position + 1)";
         Cairo.TextExtents extents;
+
+        var rad =  Math.PI / 180.0 * angle;
         c.text_extents (text, out extents);
-        c.translate ((w - extents.width) * 0.5 - 0.5, (h + extents.height) * 0.5 - 0.5);
+        c.translate ((w - extents.width) * 0.5 - 0.5, extents.height + (h - extents.height) * 0.5 - 0.5);
+        c.rotate(rad);
+        //  only correct for 0 and 180 degree
+        var tx = (1.0 - Math.sin(rad)) * extents.width / 2;
+        var ty = (1.0 - Math.sin(rad)) * extents.height / 2;
+        c.translate(-tx, +ty);
         c.show_text (text);
 
         return true;

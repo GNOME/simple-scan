@@ -1343,6 +1343,27 @@ public class AppWindow : Hdy.ApplicationWindow
         b.visible = true;
         g.attach (b, 1, 2, 1, 1);
 
+        /* Label on button for keeping the ordering, but flip every second upside down */
+        b = make_reorder_button (_("Flip odd pages upside-down"), "R1U2R3U4R5U6-R1R2R3R4R5R6");
+        b.clicked.connect (() =>
+        {
+            book.flip_every_second(false);
+            dialog.destroy ();
+        });
+        b.visible = true;
+        g.attach (b, 0, 3, 1, 1);
+
+
+        /* Label on button for keeping the ordering, but flip every second upside down */
+        b = make_reorder_button (_("Flip even pages upside-down"), "U1R2U3R4U5R6-R1R2R3R4R5R6");
+        b.clicked.connect (() =>
+        {
+            book.flip_every_second(true);
+            dialog.destroy ();
+        });
+        b.visible = true;
+        g.attach (b, 1, 3, 1, 1);
+
         dialog.present ();
     }
 
@@ -1401,10 +1422,15 @@ public class AppWindow : Hdy.ApplicationWindow
                 page_box.visible = true;
                 box.add (page_box);
             }
-
-            var icon = new PageIcon (side, items[i] - '1');
-            icon.visible = true;
-            page_box.add (icon);
+            if (side == 'U') {
+                var icon = new PageIcon (side, items[i] - '1', 180);
+                icon.visible = true;
+                page_box.add (icon);
+            } else {
+                var icon = new PageIcon (side, items[i] - '1', 0);
+                icon.visible = true;
+                page_box.add (icon);
+            }
         }
 
         return box;
