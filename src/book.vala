@@ -11,6 +11,12 @@
 
 public delegate void ProgressionCallback (double fraction);
 
+// Assumes first page has index 0
+public enum FlipEverySecond {
+    Even = 1,
+    Odd = 0,
+}
+
 public class Book : Object
 {
     private List<Page> pages;
@@ -99,17 +105,17 @@ public class Book : Object
         changed ();
     }
 
-    public void flip_every_second (bool flip_first)
+    public void flip_every_second (FlipEverySecond flip)
     {
         var new_pages = new List<Page> ();
         for (var i = 0; i < n_pages; i++)
         {
             var page = pages.nth_data (i);
-            if (i % 2 == (int)flip_first) {
+            if (i % 2 == (int)flip) {
+                page.rotate_left();
+                page.rotate_left();
                 new_pages.append (page);
             } else {
-                page.rotate_left();
-                page.rotate_left();
                 new_pages.append (page);
             }
         }
