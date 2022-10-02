@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-02-13 21:22+0000\n"
-"PO-Revision-Date: 2022-02-18 11:53+0100\n"
+"POT-Creation-Date: 2022-09-22 07:56+0000\n"
+"PO-Revision-Date: 2022-10-02 18:32+0200\n"
 "Last-Translator: Alexander Shopov <ash@kambanaria.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -183,7 +183,7 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
+#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "Сканиране на документи"
 
@@ -205,7 +205,7 @@ msgstr ""
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "Тази програма ползва SANE за поддръжката на повечето скенери."
 
-#: data/simple-scan.appdata.xml.in:26
+#: data/simple-scan.appdata.xml.in:27
 msgid "The GNOME Project"
 msgstr "Проектът GNOME"
 
@@ -304,7 +304,7 @@ msgstr "_Текст"
 msgid "_Image"
 msgstr "_Изображение"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1862
+#: data/ui/app-window.ui:433 src/app-window.vala:1888
 msgid "_Preferences"
 msgstr "_Настройки"
 
@@ -571,7 +571,7 @@ msgstr "_Аргументи на скрипта"
 msgid "_Keep original file"
 msgstr "_Запазване на оригинала"
 
-#: src/app-window.vala:229 src/app-window.vala:1660
+#: src/app-window.vala:229 src/app-window.vala:1686
 msgid "_Close"
 msgstr "_Затваряне"
 
@@ -770,20 +770,30 @@ msgstr "Обратно"
 msgid "Keep unchanged"
 msgstr "Без промяна"
 
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1347
+msgid "Flip odd pages upside-down"
+msgstr "Завъртане на нечетните страници обратно"
+
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1358
+msgid "Flip even pages upside-down"
+msgstr "Завъртане на четните страници обратно"
+
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1533
+#: src/app-window.vala:1559
 msgid "Unable to open help file"
 msgstr "Помощният файл не може да бъде отворен"
 
-#: src/app-window.vala:1547
+#: src/app-window.vala:1573
 msgid "About Document Scanner"
 msgstr "Относно „Сканиране на документи“"
 
-#: src/app-window.vala:1549
+#: src/app-window.vala:1575
 msgid "Simple document scanning tool"
 msgstr "Инструмент за опростено сканиране на документи"
 
-#: src/app-window.vala:1554
+#: src/app-window.vala:1580
 msgid "translator-credits"
 msgstr ""
 "Светослав Стефанов &lt;<a href='mailto:svetlisashkov@yahoo."
@@ -808,22 +818,22 @@ msgstr ""
 "<a href='https://launchpad.net/~vonodna'>Филип Андонов</a>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1573
+#: src/app-window.vala:1599
 msgid "Save document before quitting?"
 msgstr "Да се запази ли документът преди спирането на програмата?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1575
+#: src/app-window.vala:1601
 msgid "_Quit without Saving"
 msgstr "Спиране _без запазване"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1616
+#: src/app-window.vala:1642
 msgid "You appear to have a Brother scanner."
 msgstr "Изглежда, че скенерът ви е произведен от Brother."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1618
+#: src/app-window.vala:1644
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -832,7 +842,7 @@ msgstr ""
 "сайта на Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1622
+#: src/app-window.vala:1648
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -842,7 +852,7 @@ msgstr ""
 "сайта Pixma SANE</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1624
+#: src/app-window.vala:1650
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -855,13 +865,13 @@ msgstr ""
 "sane-devel'>пощенските списъци на проекта SANE</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1628
+#: src/app-window.vala:1654
 msgid "You appear to have a Samsung scanner."
 msgstr "Изглежда, че скенерът ви е произведен от Samsung."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1631
+#: src/app-window.vala:1657
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -870,7 +880,7 @@ msgstr ""
 "сайта на HP</a> (HP придоби бизнеса на Samsung за печат)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1636
+#: src/app-window.vala:1662
 msgid "You appear to have an HP scanner."
 msgstr "Изглежда, че скенерът ви е произведен от HP."
 
@@ -878,7 +888,7 @@ msgstr "Изглежда, че скенерът ви е произведен о�
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1644
+#: src/app-window.vala:1670
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -887,12 +897,12 @@ msgstr ""
 "сайта на HP</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1648
+#: src/app-window.vala:1674
 msgid "You appear to have an Epson scanner."
 msgstr "Изглежда, че скенерът ви е произведен от Epson."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1650
+#: src/app-window.vala:1676
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -901,12 +911,12 @@ msgstr ""
 "сайта на Epson</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1654
+#: src/app-window.vala:1680
 msgid "You appear to have an Lexmark scanner."
 msgstr "Изглежда, че скенерът ви е произведен от Lexmark."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1656
+#: src/app-window.vala:1682
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -915,102 +925,102 @@ msgstr ""
 "сайта на Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1660
+#: src/app-window.vala:1686
 msgid "Install drivers"
 msgstr "Инсталиране на драйвери"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1694
+#: src/app-window.vala:1720
 msgid "Once installed you will need to restart this app."
 msgstr "След инсталацията им ще трябва да рестартирате тази програма."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1707
+#: src/app-window.vala:1733
 msgid "Installing drivers…"
 msgstr "Инсталиране на драйвери…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1715
+#: src/app-window.vala:1741
 msgid "Drivers installed successfully!"
 msgstr "Драйверите са успешно инсталирани!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1725
+#: src/app-window.vala:1751
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Неуспешно инсталиране на драйвери (код за грешка: %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1731
+#: src/app-window.vala:1757
 msgid "Failed to install drivers."
 msgstr "Неуспешно инсталиране на драйвери."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1738
+#: src/app-window.vala:1764
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "Трябва да инсталирате пакета %s."
 msgstr[1] "Трябва да инсталирате пакетите %s"
 
-#: src/app-window.vala:1857
+#: src/app-window.vala:1883
 msgid "_Email"
 msgstr "_E-поща"
 
-#: src/app-window.vala:1858
+#: src/app-window.vala:1884
 msgid "Pri_nt"
 msgstr "_Печат"
 
-#: src/app-window.vala:1859
+#: src/app-window.vala:1885
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "П_реподреждане на страниците"
 
-#: src/app-window.vala:1863
+#: src/app-window.vala:1889
 msgid "_Keyboard Shortcuts"
 msgstr "_Клавишни комбинации"
 
-#: src/app-window.vala:1864
+#: src/app-window.vala:1890
 msgid "_Help"
 msgstr "Помо_щ"
 
-#: src/app-window.vala:1865
+#: src/app-window.vala:1891
 msgid "_About Document Scanner"
 msgstr "_Относно „Сканиране на документи“"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1873
+#: src/app-window.vala:1899
 msgid "_New Document"
 msgstr "_Нов документ"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1892
+#: src/app-window.vala:1918
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Завъртане на страницата наляво ↶"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1901
+#: src/app-window.vala:1927
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Завъртане на страницата надясно ↷"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1913
+#: src/app-window.vala:1939
 msgid "Crop the selected page"
 msgstr "Изрязване на избраната страница"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1931
+#: src/app-window.vala:1957
 msgid "Delete the selected page"
 msgstr "Изтриване на избраната страница"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2107
+#: src/app-window.vala:2133
 msgid "Cancel"
 msgstr "Отмяна"
 
-#: src/book.vala:355 src/book.vala:361
+#: src/book.vala:375 src/book.vala:381
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Страница %i не може да се кодира"
@@ -1061,24 +1071,24 @@ msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:897
+#: src/scanner.vala:901
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Няма налични скенери. Свържете такъв."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:927
+#: src/scanner.vala:931
 msgid "Unable to connect to scanner"
 msgstr "Не може да се осъществи връзка със скенера"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1357 src/scanner.vala:1492
+#: src/scanner.vala:1361 src/scanner.vala:1495
 msgid "Document feeder empty"
 msgstr "Листоподаващото устройство е празно"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1365
+#: src/scanner.vala:1369
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1091,12 +1101,12 @@ msgstr ""
 "разделителна способност води до ограничения на размера на сканираното."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1378
+#: src/scanner.vala:1382
 msgid "Unable to start scan"
 msgstr "Сканирането не може да бъде стартирано"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1391 src/scanner.vala:1502
+#: src/scanner.vala:1395 src/scanner.vala:1505
 msgid "Error communicating with scanner"
 msgstr "Грешка при комуникацията със скенера"
 
