@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-05-16 12:50+0000\n"
-"PO-Revision-Date: 2022-06-29 10:42+0200\n"
+"POT-Creation-Date: 2022-09-22 07:56+0000\n"
+"PO-Revision-Date: 2022-11-02 00:25+0100\n"
 "Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -192,7 +192,7 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
+#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "Documentenscanner"
 
@@ -316,7 +316,7 @@ msgstr "_Tekst"
 msgid "_Image"
 msgstr "_Afbeelding"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1862
+#: data/ui/app-window.ui:433 src/app-window.vala:1888
 msgid "_Preferences"
 msgstr "_Voorkeuren"
 
@@ -583,7 +583,7 @@ msgstr "_Scriptparameters"
 msgid "_Keep original file"
 msgstr "Oorspron_kelijk bestand behouden"
 
-#: src/app-window.vala:229 src/app-window.vala:1660
+#: src/app-window.vala:229 src/app-window.vala:1686
 msgid "_Close"
 msgstr "_Sluiten"
 
@@ -783,24 +783,34 @@ msgstr "Omgekeerd"
 msgid "Keep unchanged"
 msgstr "Onveranderd laten"
 
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1347
+msgid "Flip odd pages upside-down"
+msgstr "Oneven pagina’s verticaal spiegelen"
+
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1358
+msgid "Flip even pages upside-down"
+msgstr "Even pagina’s verticaal spiegelen"
+
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1533
+#: src/app-window.vala:1559
 msgid "Unable to open help file"
 msgstr "Kon hulpbestand niet openen"
 
-#: src/app-window.vala:1547
+#: src/app-window.vala:1573
 msgid "About Document Scanner"
 msgstr "Over Documentenscanner"
 
-#: src/app-window.vala:1549
+#: src/app-window.vala:1575
 msgid "Simple document scanning tool"
 msgstr "Eenvoudig hulpmiddel voor het scannen van documenten"
 
-#: src/app-window.vala:1554
+#: src/app-window.vala:1580
 msgid "translator-credits"
 msgstr ""
 "Nathan Follens <nfollens@gnome.org>\n"
-"Justin van Steijn\n"
+"Justin van Steijn <jvs@fsfe.org>\n"
 "\n"
 "Meer info over Gnome-NL http://nl.gnome.org\n"
 "\n"
@@ -826,22 +836,22 @@ msgstr ""
 "  rob https://launchpad.net/~rvdb"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1573
+#: src/app-window.vala:1599
 msgid "Save document before quitting?"
 msgstr "Document opslaan voor afsluiten?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1575
+#: src/app-window.vala:1601
 msgid "_Quit without Saving"
 msgstr "_Afsluiten zonder opslaan"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1616
+#: src/app-window.vala:1642
 msgid "You appear to have a Brother scanner."
 msgstr "U lijkt een Brother-scanner te hebben."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1618
+#: src/app-window.vala:1644
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -850,7 +860,7 @@ msgstr ""
 "brother.com\">Brother-website</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1622
+#: src/app-window.vala:1648
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -860,7 +870,7 @@ msgstr ""
 "a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1624
+#: src/app-window.vala:1650
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -873,13 +883,13 @@ msgstr ""
 "listinfo/sane-devel\">SANE-mailinglijst</a> (Engelstalig)."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1628
+#: src/app-window.vala:1654
 msgid "You appear to have a Samsung scanner."
 msgstr "U lijkt een Samsung-scanner te hebben."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1631
+#: src/app-window.vala:1657
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -888,7 +898,7 @@ msgstr ""
 "com\">HP-website</a> (HP heeft de printerafdeling van Samsung overgenomen)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1636
+#: src/app-window.vala:1662
 msgid "You appear to have an HP scanner."
 msgstr "U lijkt een HP-scanner te hebben."
 
@@ -896,7 +906,7 @@ msgstr "U lijkt een HP-scanner te hebben."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1644
+#: src/app-window.vala:1670
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -905,12 +915,12 @@ msgstr ""
 "com\">HP-website</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1648
+#: src/app-window.vala:1674
 msgid "You appear to have an Epson scanner."
 msgstr "U lijkt een Epson-scanner te hebben."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1650
+#: src/app-window.vala:1676
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -919,12 +929,12 @@ msgstr ""
 "epson.com\">Epson-website</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1654
+#: src/app-window.vala:1680
 msgid "You appear to have an Lexmark scanner."
 msgstr "U lijkt een Lexmark-scanner te hebben."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1656
+#: src/app-window.vala:1682
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -933,102 +943,102 @@ msgstr ""
 "lexmark.com\">Lexmark-website</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1660
+#: src/app-window.vala:1686
 msgid "Install drivers"
 msgstr "Stuurprogramma’s installeren"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1694
+#: src/app-window.vala:1720
 msgid "Once installed you will need to restart this app."
 msgstr "Eenmaal geïnstalleerd, zult u deze toepassing moeten herstarten."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1707
+#: src/app-window.vala:1733
 msgid "Installing drivers…"
 msgstr "Stuurprogramma’s worden geïnstalleerd…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1715
+#: src/app-window.vala:1741
 msgid "Drivers installed successfully!"
 msgstr "Stuurprogramma’s met succes geïnstalleerd!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1725
+#: src/app-window.vala:1751
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Installeren van stuurprogramma’s mislukt (foutcode %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1731
+#: src/app-window.vala:1757
 msgid "Failed to install drivers."
 msgstr "Installeren van stuurprogramma’s mislukt."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1738
+#: src/app-window.vala:1764
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "U dient het %s pakket te installeren."
 msgstr[1] "U dient de %s pakketten te installeren."
 
-#: src/app-window.vala:1857
+#: src/app-window.vala:1883
 msgid "_Email"
 msgstr "_E-mailen"
 
-#: src/app-window.vala:1858
+#: src/app-window.vala:1884
 msgid "Pri_nt"
 msgstr "Afdrukke_n"
 
-#: src/app-window.vala:1859
+#: src/app-window.vala:1885
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "Pagina’s he_rschikken"
 
-#: src/app-window.vala:1863
+#: src/app-window.vala:1889
 msgid "_Keyboard Shortcuts"
 msgstr "Snel_toetsen"
 
-#: src/app-window.vala:1864
+#: src/app-window.vala:1890
 msgid "_Help"
 msgstr "_Hulp"
 
-#: src/app-window.vala:1865
+#: src/app-window.vala:1891
 msgid "_About Document Scanner"
 msgstr "_Over Documentenscanner"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1873
+#: src/app-window.vala:1899
 msgid "_New Document"
 msgstr "_Nieuw document"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1892
+#: src/app-window.vala:1918
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "De pagina linksom draaien (tegen de klok in)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1901
+#: src/app-window.vala:1927
 msgid "Rotate the page to the right (clockwise)"
 msgstr "De pagina rechtsom draaien (met de klok mee)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1913
+#: src/app-window.vala:1939
 msgid "Crop the selected page"
 msgstr "De geselecteerde pagina bijsnijden"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1931
+#: src/app-window.vala:1957
 msgid "Delete the selected page"
 msgstr "De geselecteerde pagina verwijderen"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2107
+#: src/app-window.vala:2133
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/book.vala:355 src/book.vala:361
+#: src/book.vala:375 src/book.vala:381
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Coderen van pagina %i mislukt"
@@ -1091,7 +1101,7 @@ msgid "Unable to connect to scanner"
 msgstr "Kan niet verbinden met de scanner"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1496
+#: src/scanner.vala:1361 src/scanner.vala:1495
 msgid "Document feeder empty"
 msgstr "Documentinvoer leeg"
 
@@ -1116,7 +1126,7 @@ msgid "Unable to start scan"
 msgstr "Kan de scan niet starten"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1506
+#: src/scanner.vala:1395 src/scanner.vala:1505
 msgid "Error communicating with scanner"
 msgstr "Fout tijdens het communiceren met de scanner"
 
