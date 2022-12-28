@@ -1676,8 +1676,8 @@ public class AppWindow : Hdy.ApplicationWindow
             instructions = _("Drivers for this are available on the <a href=\"http://support.epson.com\">Epson website</a>.");
             break;
         case "lexmark_nscan":
-            /* Message to indicate an Lexmark scanner has been detected */
-            message = _("You appear to have an Lexmark scanner.");
+            /* Message to indicate a Lexmark scanner has been detected */
+            message = _("You appear to have a Lexmark scanner.");
             /* Instructions on how to install Lexmark scanner drivers */
             instructions = _("Drivers for this are available on the <a href=\"http://support.lexmark.com\">Lexmark website</a>.");
             break;
