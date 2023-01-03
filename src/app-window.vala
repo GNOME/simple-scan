@@ -1875,6 +1875,7 @@ public class AppWindow : Hdy.ApplicationWindow
         app.set_accels_for_action ("app.print", { "<Ctrl>P" });
         app.set_accels_for_action ("app.help", { "F1" });
         app.set_accels_for_action ("app.quit", { "<Ctrl>Q" });
+        app.set_accels_for_action ("app.preferences", { "<Ctrl>comma" });
         app.set_accels_for_action ("win.show-help-overlay", { "<Ctrl>question" });
 
         var gear_menu = new Menu ();
