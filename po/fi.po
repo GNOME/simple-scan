@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-01-27 14:26+0000\n"
-"PO-Revision-Date: 2022-03-02 14:12+0200\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
+"POT-Creation-Date: 2022-09-22 07:56+0000\n"
+"PO-Revision-Date: 2022-12-28 12:04+0200\n"
+"Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 2.3\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -66,7 +66,7 @@ msgstr ""
 
 #: data/org.gnome.SimpleScan.gschema.xml:35
 msgid "Brightness of scan"
-msgstr "Kuvanluvun kirkkaus"
+msgstr "Kirkkaus"
 
 #: data/org.gnome.SimpleScan.gschema.xml:36
 msgid "The brightness adjustment from -100 to 100 (0 being none)."
@@ -74,7 +74,7 @@ msgstr "Kirkkaussäätö asteikolla -100 - 100 (0 on ei yhtään)"
 
 #: data/org.gnome.SimpleScan.gschema.xml:40
 msgid "Contrast of scan"
-msgstr "Kuvanluvun kontrasti"
+msgstr "Kontrasti"
 
 #: data/org.gnome.SimpleScan.gschema.xml:41
 msgid "The contrast adjustment from -100 to 100 (0 being none)."
@@ -86,7 +86,7 @@ msgstr "Tarkkuus tekstin lukemiseen"
 
 #: data/org.gnome.SimpleScan.gschema.xml:46
 msgid "The resolution in dots-per-inch to use when scanning text."
-msgstr "Käytettävä resoluutio pisteinä tuumaa kohti skannattaessa tekstiä."
+msgstr "Tekstin skannauksessa käytettävä tarkkuus pisteinä tuumalle."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
 msgid "Resolution for image scans"
@@ -94,7 +94,7 @@ msgstr "Tarkkuus kuvan lukemiseen"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
 msgid "The resolution in dots-per-inch to use when scanning images."
-msgstr "Käytettävä resoluutio pisteinä tuumaa kohti skannattaessa kuvia."
+msgstr "Kuvan skannauksessa käytettävä tarkkuus pisteinä tuumalle."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -183,9 +183,9 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
+#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
 msgid "Document Scanner"
-msgstr "Asiakirjojen kuvanlukuohjelma"
+msgstr "Asiakirjaskanneri"
 
 #: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
@@ -205,16 +205,16 @@ msgstr ""
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Tämä sovellus käyttää SANE-kehystä tukeakseen useimpia olemassa olevia "
-"kuvanlukijoita."
+"skannereita."
 
-#: data/simple-scan.appdata.xml.in:26
+#: data/simple-scan.appdata.xml.in:27
 msgid "The GNOME Project"
 msgstr "Gnome-projekti"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
 msgid "scan;scanner;flatbed;adf;"
-msgstr "kuvanluku;skanneri;scan;scanner;flatbed;adf;"
+msgstr "kuvanluku;skanneri;scan;scanner;flatbed;adf;simple;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:10
@@ -288,15 +288,15 @@ msgstr "Siirrä oikealle"
 
 #: data/ui/app-window.ui:225
 msgid "_Single Page"
-msgstr "Yksi _sivu"
+msgstr "Yksi _sivu tasolta"
 
 #: data/ui/app-window.ui:272
 msgid "All Pages From _Feeder"
-msgstr "Kaikki sivut _laitteelta"
+msgstr "Kaikki sivut _syöttölaitteelta"
 
 #: data/ui/app-window.ui:319
 msgid "_Multiple Pages From Flatbed"
-msgstr "_Useita sivuja tasokuvanlukijasta"
+msgstr "_Useita sivuja tasolta"
 
 #: data/ui/app-window.ui:366
 msgid "_Text"
@@ -306,14 +306,14 @@ msgstr "_Teksti"
 msgid "_Image"
 msgstr "_Kuva"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1862
+#: data/ui/app-window.ui:433 src/app-window.vala:1888
 msgid "_Preferences"
 msgstr "_Asetukset"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:472
 msgid "Stop the current scan"
-msgstr "Pysäytä kuvan lukeminen"
+msgstr "Pysäytä lukeminen"
 
 #: data/ui/app-window.ui:493
 msgid "S_top"
@@ -351,27 +351,27 @@ msgstr "_Salasana:"
 #: data/ui/help-overlay.ui:12
 msgctxt "shortcut window"
 msgid "Scanning"
-msgstr "Kuvanluku"
+msgstr "Skannaa"
 
 #: data/ui/help-overlay.ui:17
 msgctxt "shortcut window"
 msgid "Scan a single page"
-msgstr "Lue yksi sivu kuvanlukijalta"
+msgstr "Skannaa sivu tasolta"
 
 #: data/ui/help-overlay.ui:24
 msgctxt "shortcut window"
 msgid "Scan all pages from document feeder"
-msgstr "Lue kaikki sivut asiakirjasyöttäjältä"
+msgstr "Skannaa sivut syöttölaitteelta"
 
 #: data/ui/help-overlay.ui:31
 msgctxt "shortcut window"
 msgid "Scan continuously from a flatbed scanner"
-msgstr "Lue jatkuvasti tasokuvanlukijasta"
+msgstr "Skannaa jatkuvasti tasolta"
 
 #: data/ui/help-overlay.ui:38
 msgctxt "shortcut window"
 msgid "Stop scan in progress"
-msgstr "Pysäytä käynnissä olevan kuvanluku"
+msgstr "Pysäytä skannaus"
 
 #: data/ui/help-overlay.ui:46
 msgctxt "shortcut window"
@@ -391,12 +391,12 @@ msgstr "Siirrä sivu oikealle"
 #: data/ui/help-overlay.ui:65
 msgctxt "shortcut window"
 msgid "Rotate page to the left (anti-clockwise)"
-msgstr "Kierrä sivua vasemmalle (vastapäivään)"
+msgstr "Kierrä sivua (vastapäivään)"
 
 #: data/ui/help-overlay.ui:72
 msgctxt "shortcut window"
 msgid "Rotate page to the right (clockwise)"
-msgstr "Kierrä sivua oikealle (myötäpäivään)"
+msgstr "Kierrä sivua (myötäpäivään)"
 
 #: data/ui/help-overlay.ui:79
 msgctxt "shortcut window"
@@ -416,22 +416,22 @@ msgstr "Aloita uusi asiakirja"
 #: data/ui/help-overlay.ui:99
 msgctxt "shortcut window"
 msgid "Save scanned document"
-msgstr "Tallenna luettu asiakirja"
+msgstr "Tallenna skannattu asiakirja"
 
 #: data/ui/help-overlay.ui:106
 msgctxt "shortcut window"
 msgid "Email scanned document"
-msgstr "Lähetä luettu asiakirja sähköpostitse"
+msgstr "Lähetä asiakirja sähköpostilla"
 
 #: data/ui/help-overlay.ui:113
 msgctxt "shortcut window"
 msgid "Print scanned document"
-msgstr "Tulosta luettu asiakirja"
+msgstr "Tulosta skannattu asiakirja"
 
 #: data/ui/help-overlay.ui:120
 msgctxt "shortcut window"
 msgid "Copy current page to clipboard"
-msgstr "Kopioi nykyinen sivu leikepöydälle"
+msgstr "Kopioi sivu leikepöydälle"
 
 #: data/ui/help-overlay.ui:128
 msgctxt "shortcut window"
@@ -461,7 +461,7 @@ msgstr "Lopeta"
 #. Preferences Dialog: Section label for scanning settings
 #: data/ui/preferences-dialog.ui:52
 msgid "Scanning"
-msgstr "Kuvanluku"
+msgstr "Skannaus"
 
 #. Label beside scan side combo box
 #: data/ui/preferences-dialog.ui:56
@@ -471,12 +471,12 @@ msgstr "_Luettava puoli"
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:66
 msgid "Front"
-msgstr "Etupuoli"
+msgstr "Edestä"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
 #: data/ui/preferences-dialog.ui:76
 msgid "Back"
-msgstr "Takapuoli"
+msgstr "Takaa"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
 #: data/ui/preferences-dialog.ui:86
@@ -496,7 +496,7 @@ msgstr "Viiv_e sekunneissa"
 #. Provides context for the page delay scale
 #: data/ui/preferences-dialog.ui:121
 msgid "Interval to scan multiple pages"
-msgstr "Aikaväli useiden sivujen kuvanluentaan"
+msgstr "Viive sivujen lukemisen välillä"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:131
@@ -573,7 +573,7 @@ msgstr "Komentosarjan ar_gumentit"
 msgid "_Keep original file"
 msgstr "S_äilytä alkuperäinen tiedosto"
 
-#: src/app-window.vala:229 src/app-window.vala:1660
+#: src/app-window.vala:229 src/app-window.vala:1686
 msgid "_Close"
 msgstr "_Sulje"
 
@@ -586,7 +586,7 @@ msgstr "Käyttäjänimi ja salasana vaaditaan laitteen “%s” käyttämiseksi"
 #. Label shown when searching for scanners
 #: src/app-window.vala:255
 msgid "Searching for Scanners…"
-msgstr "Etsitään kuvanlukijoita…"
+msgstr "Etsitään skannereita…"
 
 #. Label shown when detected a scanner
 #: src/app-window.vala:263
@@ -604,18 +604,18 @@ msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
 msgstr ""
-"Kuvanlukijaa varten on <a href=\"install-firmware\">asennettava erillinen "
+"Skanneria varten on <a href=\"install-firmware\">asennettava erillinen "
 "ajuri</a>."
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:282
 msgid "No Scanners Detected"
-msgstr "Kuvanlukijoita ei havaittu"
+msgstr "Skanneria ei havaittu"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:284
 msgid "Please check your scanner is connected and powered on."
-msgstr "Varmista että kuvanlukijasi on yhdistetty ja kytketty päälle."
+msgstr "Varmista, että skanneri on kytketty päälle."
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:388
@@ -640,7 +640,7 @@ msgstr "_Peru"
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
 #: src/app-window.vala:476
 msgid "Scanned Document"
-msgstr "Asiakirja kuvanlukijasta"
+msgstr "Skannattu asiakirja"
 
 #. Save dialog: Filter name to show only supported image files
 #: src/app-window.vala:482
@@ -655,7 +655,7 @@ msgstr "Kaikki tiedostot"
 #. Save dialog: Label for saving in PDF format
 #: src/app-window.vala:501
 msgid "PDF (multi-page document)"
-msgstr "PDF (monisivuinen asiakirja)"
+msgstr "PDF (asiakirja)"
 
 #. Save dialog: Label for saving in JPEG format
 #: src/app-window.vala:507
@@ -728,15 +728,15 @@ msgstr "_Hylkää muutokset"
 #. Label shown when scan started
 #: src/app-window.vala:840
 msgid "Contacting Scanner…"
-msgstr "Yhdistetään kuvanlukijaan…"
+msgstr "Yhdistetään skanneriin…"
 
 #: src/app-window.vala:911
 msgid "Scan a single page from the scanner"
-msgstr "Lue yksi sivu kuvanlukijalta"
+msgstr "Lue skannerilla"
 
 #: src/app-window.vala:916 src/app-window.vala:921
 msgid "Scan multiple pages from the scanner"
-msgstr "Lue useita sivuja kuvanlukijalta"
+msgstr "Lue skannerilla useita sivuja"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1111
@@ -774,23 +774,36 @@ msgstr "Käänteinen"
 msgid "Keep unchanged"
 msgstr "Säilytä muuttumattomana"
 
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1347
+msgid "Flip odd pages upside-down"
+msgstr "Käännä parittomat sivut ylösalaisin"
+
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1358
+msgid "Flip even pages upside-down"
+msgstr "Käännä parilliset sivut ylösalaisin"
+
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1533
+#: src/app-window.vala:1559
 msgid "Unable to open help file"
 msgstr "Ohjetiedostoa ei voi avata"
 
-#: src/app-window.vala:1547
+#: src/app-window.vala:1573
 msgid "About Document Scanner"
-msgstr "Tietoja - Asiakirjojen kuvanlukuohjelma"
+msgstr "Tietoja - Asiakirjaskanneri"
 
-#: src/app-window.vala:1549
+#: src/app-window.vala:1575
 msgid "Simple document scanning tool"
-msgstr "Yksinkertainen asiakirjojen kuvanlukutyökalu"
+msgstr "Helppo asiakirjojen skannaustyökalu"
 
-#: src/app-window.vala:1554
+#: src/app-window.vala:1580
 msgid "translator-credits"
 msgstr ""
 "Jiri Grönroos\n"
+"Kimmo Kujansuu\n"
+"\n"
+"https://l10n.gnome.org/teams/fi/\n"
 "\n"
 "Launchpad Contributions:\n"
 "  Elias Julkunen https://launchpad.net/~eliasj\n"
@@ -803,22 +816,22 @@ msgstr ""
 "  Ville Pilvio https://launchpad.net/~vpilvio"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1573
+#: src/app-window.vala:1599
 msgid "Save document before quitting?"
 msgstr "Tallennetaanko asiakirja ennen sovelluksen sulkemista?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1575
+#: src/app-window.vala:1601
 msgid "_Quit without Saving"
 msgstr "_Sulje tallentamatta"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1616
+#: src/app-window.vala:1642
 msgid "You appear to have a Brother scanner."
-msgstr "Käytössäsi vaikuttaa olevan Brother-kuvanlukija."
+msgstr "Käytössäsi vaikuttaa olevan Brother skanneri."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1618
+#: src/app-window.vala:1644
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother.com"
 "\">Brother website</a>."
@@ -827,17 +840,17 @@ msgstr ""
 "verkkosivustolta</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1622
+#: src/app-window.vala:1648
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href="
 "\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
 msgstr ""
-"Käytössäsi vaikuttaa olevan Canon-kuvanlukija, joka on tuettu <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE -"
-"taustaosan</a> toimesta."
+"Käytössäsi vaikuttaa olevan Canon skanneri, joka on tuettu <a href=\"http://"
+"www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE -taustaosan</a> "
+"toimesta."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1624
+#: src/app-window.vala:1650
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -850,13 +863,13 @@ msgstr ""
 "listinfo/sane-devel\">SANE:n postituslistalle</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1628
+#: src/app-window.vala:1654
 msgid "You appear to have a Samsung scanner."
-msgstr "Käytössäsi vaikuttaa olevan Samsung-kuvanlukija."
+msgstr "Käytössäsi vaikuttaa olevan Samsung skanneri."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1631
+#: src/app-window.vala:1657
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -865,15 +878,15 @@ msgstr ""
 "verkkosivustolta</a> (HP osti Samsungin tulostinliiketoiminnan)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1636
+#: src/app-window.vala:1662
 msgid "You appear to have an HP scanner."
-msgstr "Käytössäsi vaikuttaa olevan HP-kuvanlukija."
+msgstr "Käytössäsi vaikuttaa olevan HP skanneri."
 
 #. Instructions on how to install HP scanner drivers.
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1644
+#: src/app-window.vala:1670
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -882,12 +895,12 @@ msgstr ""
 "verkkosivustolta</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1648
+#: src/app-window.vala:1674
 msgid "You appear to have an Epson scanner."
-msgstr "Käytössäsi vaikuttaa olevan Epson-kuvanlukija."
+msgstr "Käytössäsi vaikuttaa olevan Epson skanneri."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1650
+#: src/app-window.vala:1676
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson.com"
 "\">Epson website</a>."
@@ -896,12 +909,12 @@ msgstr ""
 "verkkosivustolta</a>."
 
 #. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1654
+#: src/app-window.vala:1680
 msgid "You appear to have an Lexmark scanner."
-msgstr "Käytössäsi vaikuttaa olevan Lexmark-kuvanlukija."
+msgstr "Käytössäsi vaikuttaa olevan Lexmark skanneri."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1656
+#: src/app-window.vala:1682
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark.com"
 "\">Lexmark website</a>."
@@ -910,102 +923,102 @@ msgstr ""
 "verkkosivustolta</a>."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1660
+#: src/app-window.vala:1686
 msgid "Install drivers"
-msgstr "Asenna ajurit"
+msgstr "Asenna ajuri"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1694
+#: src/app-window.vala:1720
 msgid "Once installed you will need to restart this app."
-msgstr "Asennuksen jälkeen kuvanlukusovellus on käynnistettävä uudelleen."
+msgstr "Asennuksen jälkeen sovellus on käynnistettävä uudelleen."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1707
+#: src/app-window.vala:1733
 msgid "Installing drivers…"
-msgstr "Asennetaan ajureita…"
+msgstr "Asennetaan ajuria…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1715
+#: src/app-window.vala:1741
 msgid "Drivers installed successfully!"
-msgstr "Ajurit asennettiin onnistuneesti!"
+msgstr "Ajuri asennettiin onnistuneesti!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1725
+#: src/app-window.vala:1751
 #, c-format
 msgid "Failed to install drivers (error code %d)."
-msgstr "Ajurien asentaminen epäonnistui (virhekoodi %d)."
+msgstr "Ajurin asentaminen epäonnistui (virhekoodi %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1731
+#: src/app-window.vala:1757
 msgid "Failed to install drivers."
-msgstr "Ajurien asentaminen epäonnistui."
+msgstr "Ajurin asentaminen epäonnistui."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1738
+#: src/app-window.vala:1764
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "%s paketti/paketit tulee asentaa."
 msgstr[1] "%s paketti/paketit tulee asentaa."
 
-#: src/app-window.vala:1857
+#: src/app-window.vala:1883
 msgid "_Email"
 msgstr "_Sähköposti"
 
-#: src/app-window.vala:1858
+#: src/app-window.vala:1884
 msgid "Pri_nt"
 msgstr "T_ulosta"
 
-#: src/app-window.vala:1859
+#: src/app-window.vala:1885
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Järjestä sivut"
 
-#: src/app-window.vala:1863
+#: src/app-window.vala:1889
 msgid "_Keyboard Shortcuts"
 msgstr "_Pikanäppäimet"
 
-#: src/app-window.vala:1864
+#: src/app-window.vala:1890
 msgid "_Help"
 msgstr "O_hje"
 
-#: src/app-window.vala:1865
+#: src/app-window.vala:1891
 msgid "_About Document Scanner"
-msgstr "_Tietoja - Asiakirjojen kuvanlukuohjelma"
+msgstr "_Tietoja - Asiakirjaskanneri"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1873
+#: src/app-window.vala:1899
 msgid "_New Document"
 msgstr "_Uusi asiakirja"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1892
+#: src/app-window.vala:1918
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Kierrä sivua vasemmalle (vastapäivään)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1901
+#: src/app-window.vala:1927
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Kierrä sivua oikealle (myötäpäivään)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1913
+#: src/app-window.vala:1939
 msgid "Crop the selected page"
 msgstr "Rajaa nykyistä sivua"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1931
+#: src/app-window.vala:1957
 msgid "Delete the selected page"
 msgstr "Poista valittu sivu"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2107
+#: src/app-window.vala:2133
 msgid "Cancel"
 msgstr "Peru"
 
-#: src/book.vala:355 src/book.vala:361
+#: src/book.vala:375 src/book.vala:381
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Sivun %i koodaus epäonnistui"
@@ -1056,44 +1069,44 @@ msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:897
+#: src/scanner.vala:901
 msgid "No scanners available.  Please connect a scanner."
-msgstr "Kuvanlukijoita ei löydy. Yhdistä kuvanlukija."
+msgstr "Skannereita ei ole saatavilla. Liitä skanneri."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:927
+#: src/scanner.vala:931
 msgid "Unable to connect to scanner"
-msgstr "Kuvanlukijaan ei voi yhdistää"
+msgstr "Ei yhteyttä skanneriin"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1357 src/scanner.vala:1492
+#: src/scanner.vala:1361 src/scanner.vala:1495
 msgid "Document feeder empty"
-msgstr "Asiakirjan syöttötaso on tyhjä"
+msgstr "Syöttölaite on tyhjä"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1365
+#: src/scanner.vala:1369
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
 "<tt>Preferences</tt> menu. For some scanners when scanning in high "
 "resolution, the scan size is restricted."
 msgstr ""
-"Muisti ei riitä kuvanlukuun.\n"
+"Muisti ei riitä lukemiseen.\n"
 "Kokeile laskea <tt>tarkkuutta</tt> tai <tt>sivun kokoa</tt> <tt>sovelluksen "
-"asetuksissa</tt>. Joidenkin kuvanlukijoiden kohdalla suurella tarkkuudella "
-"kuvaa luettaessa on kuvanluvun koko rajoitettu."
+"asetuksissa</tt>. Joidenkin skannereiden kohdalla suurella tarkkuudella "
+"luettaessa on koko rajoitettu."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1378
+#: src/scanner.vala:1382
 msgid "Unable to start scan"
-msgstr "Kuvanluvun käynnistäminen ei onnistu"
+msgstr "Skannausta ei voi aloittaa"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1391 src/scanner.vala:1502
+#: src/scanner.vala:1395 src/scanner.vala:1505
 msgid "Error communicating with scanner"
-msgstr "Virhe viestinnässä kuvanlukijan kanssa"
+msgstr "Virhe viestinnässä skannerin kanssa"
 
 #. Help string for command line --version flag
 #: src/simple-scan.vala:21
@@ -1107,22 +1120,22 @@ msgstr "Tulosta virheenjäljitysviestit"
 
 #: src/simple-scan.vala:26
 msgid "Fix PDF files generated with older versions of this app"
-msgstr "Korjaa vanhemmilla Kuvanlukijan versioilla luodut PDF-tiedostot"
+msgstr "Korjaa tämän sovelluksen vanhemmilla versioilla luodut PDF-tiedostot"
 
 #. Title of error dialog when scan failed
 #: src/simple-scan.vala:1758
 msgid "Failed to scan"
-msgstr "Kuvanluku epäonnistui"
+msgstr "Luku epäonnistui"
 
 #. Attempt to inhibit the screensaver when scanning
 #: src/simple-scan.vala:1773
 msgid "Scan in progress"
-msgstr "Kuvanluku meneillään"
+msgstr "Lukeminen meneillään"
 
 #. Arguments and description for --help text
 #: src/simple-scan.vala:1957
 msgid "[DEVICE…] — Scanning utility"
-msgstr "[LAITE...] — Kuvanlukusovellus"
+msgstr "[LAITE...] — Skannaustyökalu"
 
 #. Text printed out when an unknown command-line argument provided
 #: src/simple-scan.vala:1968
