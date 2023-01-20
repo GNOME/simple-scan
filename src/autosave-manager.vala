@@ -117,8 +117,16 @@ public class AutosaveManager
             var pixels_filename = get_value (file, page_name, "pixels-filename");
             var has_crop = get_boolean (file, page_name, "has-crop");
             var crop_name = get_value (file, page_name, "crop-name");
+
             if (crop_name == "")
-                crop_name = null;
+            {
+                // If it has no crop name but has crop it probably means that it is a custom crop
+                if (has_crop)
+                    crop_name = "custom";
+                else
+                    crop_name = null;
+            }
+
             var crop_x = get_integer (file, page_name, "crop-x");
             var crop_y = get_integer (file, page_name, "crop-y");
             var crop_width = get_integer (file, page_name, "crop-width");
