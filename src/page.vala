@@ -400,20 +400,20 @@ public class Page : Object
         switch (name)
         {
         case "A3":
-            w = 11.7;
-            h = 16.5;
+            w = 11.692;
+            h = 16.535;
             break;
         case "A4":
-            w = 8.3;
-            h = 11.7;
+            w = 8.267;
+            h = 11.692;
             break;
         case "A5":
-            w = 5.8;
-            h = 8.3;
+            w = 5.846;
+            h = 8.267;
             break;
         case "A6":
-            w = 4.1;
-            h = 5.8;
+            w = 4.1335;
+            h = 5.846;
             break;
         case "letter":
             w = 8.5;
