@@ -1182,157 +1182,50 @@ public class AppWindow : Adw.ApplicationWindow
         page.rotate_crop ();
     }
 
-    private void reorder_document ()
+    private void reorder_document_cb ()
     {
-        var dialog = new Gtk.Window ();
-        dialog.modal = true;
-        /* Title of dialog to reorder pages */
-        dialog.title = C_("dialog title", "Reorder Pages");
+        var dialog = new ReorderPagesDialog ();
         dialog.set_transient_for (this);
         
-        dialog.add_binding (Gdk.Key.Escape, 0, (widget, args) => 
-        {
-            ((Gtk.Window) widget).close ();
-            return true;
-        }, null);
-
-        var g = new Gtk.Grid ();
-        g.row_homogeneous = true;
-        g.row_spacing = 6;
-        g.column_homogeneous = true;
-        g.column_spacing = 6;
-        g.visible = true;
-        dialog.set_child (g);
-
-        /* Label on button for combining sides in reordering dialog */
-        var b = make_reorder_button (_("Combine sides"), "F1F2F3B1B2B3-F1B1F2B2F3B3");
-        b.clicked.connect (() =>
+        /* Button for combining sides in reordering dialog */
+        dialog.combine_sides.clicked.connect (() =>
         {
             book.combine_sides ();
             dialog.close ();
         });
-        b.visible = true;
-        g.attach (b, 0, 0, 1, 1);
 
-        /* Label on button for combining sides in reverse order in reordering dialog */
-        b = make_reorder_button (_("Combine sides (reverse)"), "F1F2F3B3B2B1-F1B1F2B2F3B3");
-        b.clicked.connect (() =>
+        /* Button for combining sides in reverse order in reordering dialog */
+        dialog.combine_sides_rev.clicked.connect (() =>
         {
             book.combine_sides_reverse ();
             dialog.close ();
         });
-        b.visible = true;
-        g.attach (b, 1, 0, 1, 1);
 
-        /* Label on button for reversing in reordering dialog */
-        b = make_reorder_button (_("Reverse"), "C1C2C3C4C5C6-C6C5C4C3C2C1");
-        b.clicked.connect (() =>
+        /* Button for reversing in reordering dialog */
+        dialog.reverse.clicked.connect (() =>
         {
             book.reverse ();
             dialog.close ();
         });
-        b.visible = true;
-        g.attach (b, 0, 2, 1, 1);
 
-        /* Label on button for cancelling page reordering dialog */
-        b = make_reorder_button (_("Keep unchanged"), "C1C2C3C4C5C6-C1C2C3C4C5C6");
-        b.clicked.connect (() =>
+        /* Button for keeping the ordering, but flip every second upside down */
+        dialog.flip_odd.clicked.connect (() =>
         {
-            dialog.close ();
-        });
-        b.visible = true;
-        g.attach (b, 1, 2, 1, 1);
-
-        /* Label on button for keeping the ordering, but flip every second upside down */
-        b = make_reorder_button (_("Flip even pages upside-down"), "R1U2R3U4R5U6-R1R2R3R4R5R6");
-        b.clicked.connect (() =>
-        {
-            book.flip_every_second(FlipEverySecond.Even);
-            dialog.close ();
-        });
-        b.visible = true;
-        g.attach (b, 0, 3, 1, 1);
-
-
-        /* Label on button for keeping the ordering, but flip every second upside down */
-        b = make_reorder_button (_("Flip odd pages upside-down"), "U1R2U3R4U5R6-R1R2R3R4R5R6");
-        b.clicked.connect (() =>
-        {
-            dialog.close ();
             book.flip_every_second(FlipEverySecond.Odd);
+            dialog.close ();
         });
-        b.visible = true;
-        g.attach (b, 1, 3, 1, 1);
+
+        /* Button for keeping the ordering, but flip every second upside down */
+        dialog.flip_even.clicked.connect (() =>
+        {
+            dialog.close ();
+            book.flip_every_second(FlipEverySecond.Even);
+        });
 
         dialog.present ();
     }
 
-    private Gtk.Button make_reorder_button (string text, string items)
-    {
-        var b = new Gtk.Button ();
-
-        var vbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-        vbox.visible = true;
-        b.set_child (vbox);
-
-        var label = new Gtk.Label (text);
-        label.visible = true;
-        label.vexpand = true;
-        vbox.append (label);
-
-        var rb = make_reorder_box (items);
-        rb.visible = true;
-        rb.vexpand = true;
-        vbox.append (rb);
-
-        return b;
-    }
-
-    private Gtk.Box make_reorder_box (string items)
-    {
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        box.visible = true;
-
-        Gtk.Box? page_box = null;
-        for (var i = 0; items[i] != '\0'; i++)
-        {
-            if (items[i] == '-')
-            {
-                var a = new Gtk.Label ("➤");
-                a.visible = true;
-                box.append (a);
-                page_box = null;
-                continue;
-            }
-
-            /* First character describes side */
-            var side = items[i];
-            i++;
-            if (items[i] == '\0')
-                break;
-
-            if (page_box == null)
-            {
-                page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
-                page_box.visible = true;
-                box.append (page_box);
-            }
-            if (side == 'U') {
-                var icon = new PageIcon (side, items[i] - '1', 180);
-                icon.visible = true;
-                page_box.append (icon);
-            } else {
-                var icon = new PageIcon (side, items[i] - '1', 0);
-                icon.visible = true;
-                page_box.append (icon);
-            }
-        }
-
-        return box;
-    }
-
-    [GtkCallback]
-    private void save_file_button_clicked_cb (Gtk.Widget widget)
+    public void save_document_cb ()
     {
         save_document_async.begin ();
     }

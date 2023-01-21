@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+
+  <template class="ReorderPagesDialog" parent="GtkWindow">
+    <property name="modal">True</property>
+    <property name="resizable">False</property>
+    <property name="title" translatable="yes" context="dialog title">Reorder Pages</property>
+
+    <property name="titlebar">
+      <object class="AdwHeaderBar">
+      </object>
+    </property>
+
+    <child>
+      <object class="GtkWindowHandle">
+        <child>
+          <object class="GtkBox" id="dialog-vbox1">
+            <property name="orientation">vertical</property>
+            <property name="spacing">12</property>
+            <property name="margin-start">20</property>
+            <property name="margin-end">20</property>
+            <property name="margin-top">18</property>
+            <property name="margin-bottom">18</property>
+            <property name="halign">center</property>
+            
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">horizontal</property>
+
+                <child>
+                  <object class="ReorderPagesItem" id="combine_sides">
+                    <property name="label" translatable="yes">Combine sides</property>
+                    <property name="before">interleave-before</property>
+                    <property name="after">interleave-after</property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="ReorderPagesItem" id="combine_sides_rev">
+                    <property name="label" translatable="yes">Combine sides (reverse)</property>
+                    <property name="before">interleave-before</property>
+                    <property name="after">interleave-reverse-after</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">horizontal</property>
+                <child>
+                  <object class="ReorderPagesItem" id="flip_odd">
+                    <property name="label" translatable="yes">Flip odd pages upside-down</property>
+                    <property name="before">flip-before</property>
+                    <property name="after">flip-odd</property>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="ReorderPagesItem" id="flip_even">
+                    <property name="label" translatable="yes">Flip even pages upside-down</property>
+                    <property name="before">flip-before</property>
+                    <property name="after">flip-even</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">horizontal</property>
+                <property name="halign">center</property>
+
+                <child>
+                  <object class="ReorderPagesItem" id="reverse">
+                    <property name="label" translatable="yes">Reverse</property>
+                    <property name="before">reverse-before</property>
+                    <property name="after">reverse-after</property>
+                  </object>
+                </child>
+
+              </object>
+            </child>
+
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

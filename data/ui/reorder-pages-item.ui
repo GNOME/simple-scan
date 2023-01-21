@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+
+  <template class="ReorderPagesItem" parent="GtkButton">
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+
+        <child>
+          <object class="GtkLabel" id="title">
+            <property name="label"></property>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">horizontal</property>
+            <property name="spacing">12</property>
+            <property name="halign">center</property>
+
+            <child>
+              <object class="GtkImage" id="before_image">
+                <property name="pixel-size">140</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkImage">
+                <property name="icon-name">right-large-symbolic</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkImage" id="after_image">
+                <property name="pixel-size">140</property>
+              </object>
+            </child>
+
+          </object>
+        </child>
+
+      </object>
+    </child>
+
+    <style>
+      <class name="flat"/>
+    </style>
+  </template>
+</interface>
