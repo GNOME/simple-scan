@@ -44,8 +44,6 @@ flatpak:
     FLATPAK_MODULE: "simple-scan"
     APP_ID: "org.gnome.SimpleScan"
     RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
-    BUNDLE: "simple-scan-dev.flatpak"
+    BUNDLE: "simple-scan.flatpak"
   extends: '.flatpak'
-  # Make CI pass while I figure things out
-  allow_failure: true
 
