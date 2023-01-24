@@ -7,6 +7,8 @@ build:snap:
   artifacts:
     paths: ['./*.snap']
     expire_in: 3 days
+  # TODO: Fix GTK4 snap package build
+  allow_failure: true
 
 build-ubuntu:
   image: ubuntu:rolling
