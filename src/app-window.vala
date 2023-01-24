@@ -14,7 +14,7 @@ private const int DEFAULT_TEXT_DPI = 150;
 private const int DEFAULT_PHOTO_DPI = 300;
 
 [GtkTemplate (ui = "/org/gnome/SimpleScan/ui/app-window.ui")]
-public class AppWindow : Hdy.ApplicationWindow
+public class AppWindow : Adw.ApplicationWindow
 {
     private const GLib.ActionEntry[] action_entries =
     {
@@ -30,7 +30,7 @@ public class AppWindow : Hdy.ApplicationWindow
         { "copy_page", copy_page_cb },
         { "delete_page", delete_page_cb },
         { "reorder", reorder_document_cb },
-        { "save", save_document_activate_cb },
+        { "save", save_document_cb },
         { "email", email_document_cb },
         { "print", print_document_cb },
         { "preferences", preferences_cb },
@@ -38,6 +38,13 @@ public class AppWindow : Hdy.ApplicationWindow
         { "about", about_cb },
         { "quit", quit_cb }
     };
+    
+    private GLib.SimpleAction delete_page_action;
+    private GLib.SimpleAction page_move_left_action;
+    private GLib.SimpleAction page_move_right_action;
+    private GLib.SimpleAction copy_to_clipboard_action;
+    
+    private CropActions crop_actions;
 
     private Settings settings;
     private ScanType scan_type = ScanType.SINGLE;
@@ -48,13 +55,13 @@ public class AppWindow : Hdy.ApplicationWindow
     private bool user_selected_device;
 
     [GtkChild]
-    private unowned Hdy.HeaderBar header_bar;
+    private unowned Gtk.Popover scan_options_popover;
     [GtkChild]
-    private unowned Gtk.Menu page_menu;
+    private unowned Gtk.PopoverMenu page_menu;
     [GtkChild]
     private unowned Gtk.Stack stack;
     [GtkChild]
-    private unowned Hdy.StatusPage status_page;
+    private unowned Adw.StatusPage status_page;
     [GtkChild]
     private unowned Gtk.Label status_secondary_label;
     [GtkChild]
@@ -66,34 +73,6 @@ public class AppWindow : Hdy.ApplicationWindow
     [GtkChild]
     private unowned Gtk.Box main_vbox;
     [GtkChild]
-    private unowned Gtk.RadioMenuItem custom_crop_menuitem;
-    [GtkChild]
-    private unowned Gtk.RadioMenuItem a3_menuitem;
-    [GtkChild]
-    private unowned Gtk.RadioMenuItem a4_menuitem;
-    [GtkChild]
-    private unowned Gtk.RadioMenuItem a5_menuitem;
-    [GtkChild]
-    private unowned Gtk.RadioMenuItem a6_menuitem;
-    [GtkChild]
-    private unowned Gtk.RadioMenuItem letter_menuitem;
-    [GtkChild]
-    private unowned Gtk.RadioMenuItem legal_menuitem;
-    [GtkChild]
-    private unowned Gtk.RadioMenuItem four_by_six_menuitem;
-    [GtkChild]
-    private unowned Gtk.RadioMenuItem no_crop_menuitem;
-    [GtkChild]
-    private unowned Gtk.MenuItem page_move_left_menuitem;
-    [GtkChild]
-    private unowned Gtk.MenuItem page_move_right_menuitem;
-    [GtkChild]
-    private unowned Gtk.MenuItem page_delete_menuitem;
-    [GtkChild]
-    private unowned Gtk.MenuItem crop_rotate_menuitem;
-    [GtkChild]
-    private unowned Gtk.MenuItem copy_to_clipboard_menuitem;
-    [GtkChild]
     private unowned Gtk.Button save_button;
     [GtkChild]
     private unowned Gtk.Button stop_button;
@@ -101,23 +80,23 @@ public class AppWindow : Hdy.ApplicationWindow
     private unowned Gtk.Button scan_button;
     [GtkChild]
     private unowned Gtk.ActionBar action_bar;
-    private Gtk.ToggleButton crop_button;
-    private Gtk.Button delete_button;
+    [GtkChild]
+    private unowned Gtk.ToggleButton crop_button;
 
     [GtkChild]
     private unowned Gtk.Image scan_options_image;
     [GtkChild]
     private unowned Gtk.Image scan_hint_image;
     [GtkChild]
-    private unowned Gtk.RadioButton scan_single_radio;
+    private unowned Gtk.ToggleButton scan_single_radio;
     [GtkChild]
-    private unowned Gtk.RadioButton scan_adf_radio;
+    private unowned Gtk.ToggleButton scan_adf_radio;
     [GtkChild]
-    private unowned Gtk.RadioButton scan_batch_radio;
+    private unowned Gtk.ToggleButton scan_batch_radio;
     [GtkChild]
-    private unowned Gtk.RadioButton text_radio;
+    private unowned Gtk.ToggleButton text_radio;
     [GtkChild]
-    private unowned Gtk.RadioButton photo_radio;
+    private unowned Gtk.ToggleButton photo_radio;
 
     [GtkChild]
     private unowned Gtk.MenuButton menu_button;
@@ -156,8 +135,8 @@ public class AppWindow : Hdy.ApplicationWindow
         {
             scanning_ = value;
             stack.set_visible_child_name ("document");
-            page_delete_menuitem.sensitive = !value;
-            delete_button.sensitive = !value;
+            
+            delete_page_action.set_enabled (!value);
             scan_button.visible = !value;
             stop_button.visible = value;
         }
@@ -206,7 +185,7 @@ public class AppWindow : Hdy.ApplicationWindow
         book.reordered.connect (reordered_cb);
         book.page_removed.connect (page_removed_cb);
         book.changed.connect (book_changed_cb);
-
+        
         load ();
 
         clear_document ();
@@ -221,29 +200,22 @@ public class AppWindow : Hdy.ApplicationWindow
 
     public void show_error_dialog (string error_title, string error_text)
     {
-        var dialog = new Gtk.MessageDialog (this,
-                                            Gtk.DialogFlags.MODAL,
-                                            Gtk.MessageType.WARNING,
-                                            Gtk.ButtonsType.NONE,
-                                            "%s", error_title);
-        dialog.add_button (_("_Close"), 0);
-        dialog.format_secondary_markup  ("%s", error_text);
-        dialog.run ();
-        dialog.destroy ();
+        var dialog = new Adw.MessageDialog (this,
+                                            error_title,
+                                            error_text);
+        dialog.add_response ("close", _("_Close"));
+        dialog.set_response_appearance ("close", Adw.ResponseAppearance.SUGGESTED);
+        dialog.show ();
     }
 
-    public void authorize (string resource, out string username, out string password)
+    public async AuthorizeDialogResponse authorize (string resource)
     {
         /* Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization */
         var description = _("Username and password required to access “%s”").printf (resource);
-        var authorize_dialog = new AuthorizeDialog (description);
-        authorize_dialog.visible = true;
+        var authorize_dialog = new AuthorizeDialog (this, description);
         authorize_dialog.transient_for = this;
-        authorize_dialog.run ();
-        authorize_dialog.destroy ();
 
-        username = authorize_dialog.get_username ();
-        password = authorize_dialog.get_password ();
+        return yield authorize_dialog.open ();
     }
 
     private void update_scan_status ()
@@ -378,18 +350,33 @@ public class AppWindow : Hdy.ApplicationWindow
         update_scan_status ();
     }
 
-    private bool prompt_to_load_autosaved_book ()
+    private async bool prompt_to_load_autosaved_book ()
     {
-        var dialog = new Gtk.MessageDialog (this,
-                                            Gtk.DialogFlags.MODAL,
-                                            Gtk.MessageType.QUESTION,
-                                            Gtk.ButtonsType.YES_NO,
+        var dialog = new Adw.MessageDialog (this,
+                                            "",
                                             /* Contents of dialog that shows if autosaved book should be loaded. */
                                             _("An autosaved book exists. Do you want to open it?"));
-        dialog.set_default_response(Gtk.ResponseType.YES);
-        var response = dialog.run ();
-        dialog.destroy ();
-        return response == Gtk.ResponseType.YES;
+
+        dialog.add_response ("no", _("_No"));
+        dialog.add_response ("yes", _("_Yes"));
+        
+        dialog.set_response_appearance ("no", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.set_response_appearance ("yes", Adw.ResponseAppearance.SUGGESTED);
+
+        dialog.set_default_response("yes");
+        dialog.show ();
+
+        string response = "yes";
+
+        SourceFunc callback = prompt_to_load_autosaved_book.callback;
+        dialog.response.connect((res) => {
+            response = res;
+            callback();
+        });
+        
+        yield;
+        
+        return response == "yes";
     }
 
     private string? get_selected_device ()
@@ -449,7 +436,7 @@ public class AppWindow : Hdy.ApplicationWindow
         return have_iter;
     }
 
-    private string? choose_file_location ()
+    private async string? choose_file_location ()
     {
         /* Get directory to save to */
         string? directory = null;
@@ -464,154 +451,107 @@ public class AppWindow : Hdy.ApplicationWindow
                                                      Gtk.FileChooserAction.SAVE,
                                                      _("_Save"),
                                                      _("_Cancel"));
-        save_dialog.local_only = false;
+        
+        save_dialog.set_modal(true);
+        // TODO(gtk4)
+        //  save_dialog.local_only = false;
 
         var save_format = settings.get_string ("save-format");
         if (book_uri != null)
-            save_dialog.set_uri (book_uri);
-        else {
-            save_dialog.set_current_folder_uri (directory);
+        {
+            var file = GLib.File.new_for_uri (book_uri);
+            
+            try
+            {
+                save_dialog.set_file (file);
+            }
+            catch (Error e)
+            {
+                warning ("Error file chooser set_file: %s", e.message);
+            }
+        }
+        else
+        {
+            var file = GLib.File.new_for_uri (directory);
+
+            try
+            {
+                save_dialog.set_current_folder (file);
+            }
+            catch (Error e)
+            {
+                warning ("Error file chooser set_current_folder: %s", e.message);
+            }
+
             /* Default filename to use when saving document. */
             /* To that filename the extension will be added, eg. "Scanned Document.pdf" */
             save_dialog.set_current_name (_("Scanned Document") + "." + mime_type_to_extension (save_format));
         }
+        
+        FilterDescriptor[] filters = {
+            FilterDescriptor (_("PDF (multi-page document)"), "application/pdf"),
+            FilterDescriptor (_("JPEG (compressed)"), "image/jpeg"),
+            FilterDescriptor (_("PNG (lossless)"), "image/png"),
+            FilterDescriptor (_("WebP (compressed)"), "image/webp"),
+            FilterDescriptor (_("All Files"), "*"),
+        };
+        
+        foreach (var item in filters) {
+            save_dialog.add_filter (item.filter);
 
-        /* Filter to only show images by default */
-        var filter = new Gtk.FileFilter ();
-        filter.set_filter_name (/* Save dialog: Filter name to show only supported image files */
-                                _("Image Files"));
-        filter.add_mime_type ("image/jpeg");
-        filter.add_mime_type ("image/png");
-#if HAVE_WEBP
-        filter.add_mime_type ("image/webp");
-#endif
-        filter.add_mime_type ("application/pdf");
-        save_dialog.add_filter (filter);
-        filter = new Gtk.FileFilter ();
-        filter.set_filter_name (/* Save dialog: Filter name to show all files */
-                                _("All Files"));
-        filter.add_pattern ("*");
-        save_dialog.add_filter (filter);
-
-        var file_type_store = new Gtk.ListStore (2, typeof (string), typeof (string));
-        Gtk.TreeIter iter;
-        file_type_store.append (out iter);
-        file_type_store.set (iter,
-                             /* Save dialog: Label for saving in PDF format */
-                             0, _("PDF (multi-page document)"),
-                             1, "application/pdf",
-                             -1);
-        file_type_store.append (out iter);
-        file_type_store.set (iter,
-                             /* Save dialog: Label for saving in JPEG format */
-                             0, _("JPEG (compressed)"),
-                             1, "image/jpeg",
-                             -1);
-        file_type_store.append (out iter);
-        file_type_store.set (iter,
-                             /* Save dialog: Label for saving in PNG format */
-                             0, _("PNG (lossless)"),
-                             1, "image/png",
-                             -1);
-#if HAVE_WEBP
-        file_type_store.append (out iter);
-        file_type_store.set (iter,
-                             /* Save dialog: Label for sabing in WEBP format */
-                             0, _("WebP (compressed)"),
-                             1, "image/webp",
-                             -1);
-#endif
-
+            if (item.pattern == save_format)
+            {
+                save_dialog.set_filter (item.filter);
+            }
+        }
+        
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         box.visible = true;
         box.spacing = 10;
-        save_dialog.set_extra_widget (box);
-
-        /* Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP) */
-        var label = new Gtk.Label (_("File format:"));
-        label.visible = true;
-        box.add (label);
-
-        var file_type_combo = new Gtk.ComboBox.with_model (file_type_store);
-        file_type_combo.visible = true;
-        var renderer = new Gtk.CellRendererText ();
-        file_type_combo.pack_start (renderer, true);
-        file_type_combo.add_attribute (renderer, "text", 0);
-        box.add (file_type_combo);
-
-        if (file_type_store.get_iter_first (out iter))
-        {
-            do
-            {
-                string mime_type;
-                file_type_store.get (iter, 1, out mime_type, -1);
-                if (mime_type == save_format)
-                    file_type_combo.set_active_iter (iter);
-            } while (file_type_store.iter_next (ref iter));
-        }
-
-        /* Label in save dialog beside compression slider */
-        var quality_label = new Gtk.Label (_("Compression:"));
-        box.add (quality_label);
-
-        var quality_adjustment = new Gtk.Adjustment (75, 0, 100, 1, 10, 0);
-        var quality_scale = new Gtk.Scale (Gtk.Orientation.HORIZONTAL, quality_adjustment);
-        quality_scale.width_request = 250;
-        quality_scale.draw_value = false;
-        var minimum_size_label = "<small>%s</small>".printf (_("Minimum size"));
-        quality_scale.add_mark (quality_adjustment.lower, Gtk.PositionType.BOTTOM, minimum_size_label);
-        quality_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
-        quality_scale.add_mark (90, Gtk.PositionType.BOTTOM, null);
-        var full_detail_label = "<small>%s</small>".printf (_("Full detail"));
-        quality_scale.add_mark (quality_adjustment.upper, Gtk.PositionType.BOTTOM, full_detail_label);
-        quality_adjustment.value = settings.get_int ("jpeg-quality");
-        quality_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", (int) quality_adjustment.value); });
-        box.add (quality_scale);
-
-        /* Quality not applicable to PNG */
-        quality_scale.visible = quality_label.visible = (save_format != "image/png");
-
-        file_type_combo.changed.connect (() =>
-        {
-            var mime_type = "";
-            Gtk.TreeIter i;
-            if (file_type_combo.get_active_iter (out i))
-            {
-                file_type_store.get (i, 1, out mime_type, -1);
-                settings.set_string ("save-format", mime_type);
-            }
-
-            var filename = save_dialog.get_current_name ();
-
-            /* Replace extension */
-            var extension_index = filename.last_index_of_char ('.');
-            if (extension_index >= 0)
-                filename = filename.slice (0, extension_index);
-            filename = filename + "." + mime_type_to_extension (mime_type);
-            save_dialog.set_current_name (filename);
-
-            /* Quality not applicable to PNG */
-            quality_scale.visible = quality_label.visible = (mime_type != "image/png");
-        });
+        box.set_halign (Gtk.Align.CENTER);
 
         while (true)
         {
-            var response = save_dialog.run ();
+            save_dialog.show ();
+            
+            var response = Gtk.ResponseType.NONE;
+            SourceFunc callback = choose_file_location.callback;
+
+            save_dialog.response.connect ((res) => {
+                response = (Gtk.ResponseType) res;
+                callback ();
+            });
+            
+            yield;
+
             if (response != Gtk.ResponseType.ACCEPT)
             {
                 save_dialog.destroy ();
                 return null;
             }
 
-            var mime_type = "";
-            Gtk.TreeIter i;
-            if (file_type_combo.get_active_iter (out i))
-                file_type_store.get (i, 1, out mime_type, -1);
+            var mime_type = "application/pdf";
+            foreach (var item in filters) {
+                if (save_dialog.filter.name == item.name && item.pattern != "*")
+                {
+                    mime_type = item.pattern;
+                    break;
+                }
+            }
 
-            var uri = save_dialog.get_uri ();
+            settings.set_string ("save-format", mime_type);
 
-            var extension_index = uri.last_index_of_char ('.');
-            if (extension_index < 0)
+            var file = save_dialog.get_file ();
+            
+            if (file == null)
+            {
+                return null;
+            }
+
+            var uri = file.get_uri ();
+
+            var extension = uri_extension(uri);
+            if (extension == null)
                 uri += "." + mime_type_to_extension (mime_type);
 
             /* Check the file(s) don't already exist */
@@ -624,7 +564,7 @@ public class AppWindow : Hdy.ApplicationWindow
             else
                 files.append (File.new_for_uri (uri));
 
-            if (check_overwrite (save_dialog.transient_for, files))
+            if (yield check_overwrite (save_dialog.transient_for, files))
             {
                 var directory_uri = uri.substring (0, uri.last_index_of ("/") + 1);
                 settings.set_string ("save-directory", directory_uri);
@@ -632,26 +572,38 @@ public class AppWindow : Hdy.ApplicationWindow
                 return uri;
             }
         }
-
     }
 
-    private bool check_overwrite (Gtk.Window parent, List<File> files)
+    private async bool check_overwrite (Gtk.Window parent, List<File> files)
     {
         foreach (var file in files)
         {
             if (!file.query_exists ())
                 continue;
 
-            var dialog = new Gtk.MessageDialog (parent, Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT, Gtk.MessageType.QUESTION, Gtk.ButtonsType.NONE,
+            var dialog = new Adw.MessageDialog (parent,
                                                 /* Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file. */
-                                                _("A file named “%s” already exists.  Do you want to replace it?"), file.get_basename ());
-            dialog.add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
-            dialog.add_button (/* Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file. */
-                               _("_Replace"), Gtk.ResponseType.ACCEPT);
-            var response = dialog.run ();
-            dialog.destroy ();
+                                                _("A file named “%s” already exists.  Do you want to replace it?"),
+                                                file.get_basename ());
 
-            if (response != Gtk.ResponseType.ACCEPT)
+            dialog.add_response ("cancel", _("_Cancel"));
+            dialog.add_response ("replace", _("_Replace"));
+            
+            dialog.set_response_appearance ("replace", Adw.ResponseAppearance.DESTRUCTIVE);
+
+            SourceFunc callback = check_overwrite.callback;
+            string response = "cancel";
+
+            dialog.response.connect ((res) => {
+                response = res;
+                callback ();
+            });
+            
+            dialog.show ();
+
+            yield;
+
+            if (response != "replace")
                 return false;
         }
 
@@ -687,12 +639,20 @@ public class AppWindow : Hdy.ApplicationWindow
             return null;
     }
 
-    private string uri_to_mime_type (string uri)
+    private string? uri_extension (string uri)
     {
         var extension_index = uri.last_index_of_char ('.');
         if (extension_index < 0)
+            return null;
+
+        return uri.substring (extension_index + 1);
+    }
+
+    private string uri_to_mime_type (string uri)
+    {
+        var extension = uri_extension(uri);
+        if (extension == null)
             return "image/jpeg";
-        var extension = uri.substring (extension_index + 1);
 
         var mime_type = extension_to_mime_type (extension);
         if (mime_type == null)
@@ -703,7 +663,7 @@ public class AppWindow : Hdy.ApplicationWindow
 
     private async bool save_document_async ()
     {
-        var uri = choose_file_location ();
+        var uri = yield choose_file_location ();
         if (uri == null)
             return false;
 
@@ -739,7 +699,7 @@ public class AppWindow : Hdy.ApplicationWindow
             return false;
         }
         save_button.sensitive = true;
-        progress_bar.destroy_with_delay (500);
+        progress_bar.remove_with_delay (500, action_bar);
 
         book_needs_saving = false;
         book_uri = uri;
@@ -751,29 +711,36 @@ public class AppWindow : Hdy.ApplicationWindow
         if (!book_needs_saving || (book.n_pages == 0))
             return true;
 
-        var dialog = new Gtk.MessageDialog (this,
-                                            Gtk.DialogFlags.MODAL,
-                                            Gtk.MessageType.WARNING,
-                                            Gtk.ButtonsType.NONE,
-                                            "%s", title);
-        dialog.format_secondary_text ("%s",
-                                      /* Text in dialog warning when a document is about to be lost*/
-                                      _("If you don’t save, changes will be permanently lost."));
-        dialog.add_button (discard_label, Gtk.ResponseType.NO);
-        dialog.add_button (_("_Cancel"), Gtk.ResponseType.CANCEL);
-        dialog.add_button (_("_Save"), Gtk.ResponseType.YES);
+        var dialog = new Adw.MessageDialog (this,
+                                            title,
+                                            _("If you don’t save, changes will be permanently lost."));
 
-        var response = dialog.run ();
-        dialog.destroy ();
+        dialog.add_response ("discard", discard_label);
+        dialog.add_response ("cancel", _("_Cancel"));
+        dialog.add_response ("save", _("_Save"));
+        
+        dialog.set_response_appearance ("discard", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.set_response_appearance ("save", Adw.ResponseAppearance.SUGGESTED);
+
+        dialog.show ();
+        
+        string response = "cancel";
+        SourceFunc callback = prompt_to_save_async.callback;
+        dialog.response.connect((res) => {
+            response = res;
+            callback ();
+        });
+
+        yield;
 
         switch (response)
         {
-        case Gtk.ResponseType.YES:
+        case "save":
             if (yield save_document_async ())
                 return true;
             else
                 return false;
-        case Gtk.ResponseType.NO:
+        case "discard":
             return true;
         default:
             return false;
@@ -786,7 +753,7 @@ public class AppWindow : Hdy.ApplicationWindow
         book_needs_saving = false;
         book_uri = null;
         save_button.sensitive = false;
-        copy_to_clipboard_menuitem.sensitive = false;
+        copy_to_clipboard_action.set_enabled (false);
         update_scan_status ();
         stack.set_visible_child_name ("startup");
     }
@@ -821,9 +788,22 @@ public class AppWindow : Hdy.ApplicationWindow
         return false;
     }
 
+    [GtkCallback]
     private void new_document_cb ()
     {
         new_document ();
+    }
+
+    [GtkCallback]
+    private void crop_toggle_cb (Gtk.ToggleButton btn)
+    {
+        if (updating_page_menu)
+            return;
+
+        if (btn.active)
+            set_crop ("custom");
+        else
+            set_crop (null);
     }
 
     [GtkCallback]
@@ -871,32 +851,48 @@ public class AppWindow : Hdy.ApplicationWindow
 
     private void rotate_left_cb ()
     {
-        rotate_left_button_clicked_cb ();
+        if (updating_page_menu)
+            return;
+        var page = book_view.selected_page;
+        if (page != null)
+            page.rotate_left ();
     }
 
     private void rotate_right_cb ()
     {
-        rotate_right_button_clicked_cb ();
+        if (updating_page_menu)
+            return;
+        var page = book_view.selected_page;
+        if (page != null)
+            page.rotate_right ();
     }
 
     private void move_left_cb ()
     {
-        page_move_left_menuitem_activate_cb ();
+        var page = book_view.selected_page;
+        var index = book.get_page_index (page);
+        if (index > 0)
+            book.move_page (page, index - 1);
     }
 
     private void move_right_cb ()
     {
-        page_move_right_menuitem_activate_cb ();
+        var page = book_view.selected_page;
+        var index = book.get_page_index (page);
+        if (index < book.n_pages - 1)
+            book.move_page (page, book.get_page_index (page) + 1);
     }
 
     private void copy_page_cb ()
     {
-        copy_to_clipboard_button_clicked_cb ();
+        var page = book_view.selected_page;
+        if (page != null)
+            page.copy_to_clipboard (this);
     }
 
     private void delete_page_cb ()
     {
-        page_delete_menuitem_activate_cb ();
+        book_view.book.delete_page (book_view.selected_page);
     }
 
     private void set_scan_type (ScanType scan_type)
@@ -980,7 +976,8 @@ public class AppWindow : Hdy.ApplicationWindow
     [GtkCallback]
     private void preferences_button_clicked_cb (Gtk.Button button)
     {
-        preferences_dialog.present ();
+        scan_options_popover.popdown ();
+        preferences_cb ();
     }
 
     private ScanOptions make_scan_options ()
@@ -1045,14 +1042,14 @@ public class AppWindow : Hdy.ApplicationWindow
         var page = book_view.selected_page;
         if (page == null)
         {
-            page_move_left_menuitem.sensitive = false;
-            page_move_right_menuitem.sensitive = false;
+            page_move_left_action.set_enabled (false);
+            page_move_right_action.set_enabled (false);
         }
         else
         {
             var index = book.get_page_index (page);
-            page_move_left_menuitem.sensitive = index > 0;
-            page_move_right_menuitem.sensitive = index < book.n_pages - 1;
+            page_move_left_action.set_enabled (index > 0);
+            page_move_right_action.set_enabled (index < book.n_pages - 1);
         }
     }
 
@@ -1064,33 +1061,8 @@ public class AppWindow : Hdy.ApplicationWindow
         updating_page_menu = true;
 
         update_page_menu ();
-
-        var menuitem = no_crop_menuitem;
-        if (page.has_crop)
-        {
-            var crop_name = page.crop_name;
-            if (crop_name != null)
-            {
-                if (crop_name == "A3")
-                    menuitem = a3_menuitem;
-                else if (crop_name == "A4")
-                    menuitem = a4_menuitem;
-                else if (crop_name == "A5")
-                    menuitem = a5_menuitem;
-                else if (crop_name == "A6")
-                    menuitem = a6_menuitem;
-                else if (crop_name == "letter")
-                    menuitem = letter_menuitem;
-                else if (crop_name == "legal")
-                    menuitem = legal_menuitem;
-                else if (crop_name == "4x6")
-                    menuitem = four_by_six_menuitem;
-            }
-            else
-                menuitem = custom_crop_menuitem;
-        }
-
-        menuitem.active = true;
+        
+        crop_actions.update_current_crop (page.crop_name);
         crop_button.active = page.has_crop;
 
         updating_page_menu = false;
@@ -1113,47 +1085,22 @@ public class AppWindow : Hdy.ApplicationWindow
             return;
         }
 
-        try
-        {
-            Gtk.show_uri (screen, file.get_uri (), Gtk.get_current_event_time ());
-        }
-        catch (Error e)
-        {
-            show_error_dialog (/* Error message display when unable to preview image */
-                               _("Unable to open image preview application"),
-                               e.message);
-        }
+        Gtk.show_uri (this, file.get_uri (), Gdk.CURRENT_TIME);
     }
 
-    private void show_page_menu_cb (BookView view, Gdk.Event event)
+    private void show_page_menu_cb (BookView view, Gtk.Widget from, double x, double y)
     {
-        page_menu.popup_at_pointer (event);
-    }
+        double tx, ty;
+        from.translate_coordinates(this, x, y, out tx, out ty);
 
-    [GtkCallback]
-    private void rotate_left_button_clicked_cb ()
-    {
-        if (updating_page_menu)
-            return;
-        var page = book_view.selected_page;
-        if (page != null)
-            page.rotate_left ();
-    }
+        Gdk.Rectangle rect = { x: (int) tx, y: (int) ty, w: 1, h: 1 };
 
-    [GtkCallback]
-    private void rotate_right_button_clicked_cb ()
-    {
-        if (updating_page_menu)
-            return;
-        var page = book_view.selected_page;
-        if (page != null)
-            page.rotate_right ();
+        page_menu.set_pointing_to (rect);
+        page_menu.popup ();
     }
 
     private void set_crop (string? crop_name)
     {
-        crop_rotate_menuitem.sensitive = crop_name != null;
-
         if (updating_page_menu)
             return;
 
@@ -1177,73 +1124,57 @@ public class AppWindow : Hdy.ApplicationWindow
         }
         else
             page.set_named_crop (crop_name);
+        
+        crop_actions.update_current_crop (page.crop_name);
+        crop_button.active = page.has_crop;
     }
 
-    [GtkCallback]
-    private void no_crop_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    public void crop_none_action_cb ()
     {
-        if (widget.active)
-            set_crop (null);
+        set_crop (null);
     }
 
-    [GtkCallback]
-    private void custom_crop_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    public void crop_custom_action_cb ()
     {
-        if (widget.active)
-            set_crop ("custom");
+        set_crop ("custom");
     }
 
-    [GtkCallback]
-    private void four_by_six_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    public void crop_four_by_six_action_cb ()
     {
-        if (widget.active)
-            set_crop ("4x6");
+        set_crop ("4x6");
     }
 
-    [GtkCallback]
-    private void legal_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    public void crop_legal_action_cb ()
     {
-        if (widget.active)
-            set_crop ("legal");
+        set_crop ("legal");
     }
 
-    [GtkCallback]
-    private void letter_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    public void crop_letter_action_cb ()
     {
-        if (widget.active)
-            set_crop ("letter");
+        set_crop ("letter");
     }
 
-    [GtkCallback]
-    private void a6_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    public void crop_a6_action_cb ()
     {
-        if (widget.active)
-            set_crop ("A6");
+        set_crop ("A6");
     }
 
-    [GtkCallback]
-    private void a5_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    public void crop_a5_action_cb ()
     {
-        if (widget.active)
-            set_crop ("A5");
+        set_crop ("A5");
     }
 
-    [GtkCallback]
-    private void a4_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    public void crop_a4_action_cb ()
     {
-        if (widget.active)
-            set_crop ("A4");
+        set_crop ("A4");
     }
 
-    [GtkCallback]
-    private void a3_menuitem_toggled_cb (Gtk.CheckMenuItem widget)
+    public void crop_a3_action_cb ()
     {
-        if (widget.active)
-            set_crop ("A3");
+        set_crop ("A3");
     }
 
-    [GtkCallback]
-    private void crop_rotate_menuitem_activate_cb ()
+    public void crop_rotate_action_cb ()
     {
         var page = book_view.selected_page;
         if (page == null)
@@ -1251,50 +1182,19 @@ public class AppWindow : Hdy.ApplicationWindow
         page.rotate_crop ();
     }
 
-    [GtkCallback]
-    private void page_move_left_menuitem_activate_cb ()
-    {
-        var page = book_view.selected_page;
-        var index = book.get_page_index (page);
-        if (index > 0)
-            book.move_page (page, index - 1);
-    }
-
-    [GtkCallback]
-    private void page_move_right_menuitem_activate_cb ()
-    {
-        var page = book_view.selected_page;
-        var index = book.get_page_index (page);
-        if (index < book.n_pages - 1)
-            book.move_page (page, book.get_page_index (page) + 1);
-    }
-
-    [GtkCallback]
-    private void page_delete_menuitem_activate_cb ()
-    {
-        book_view.book.delete_page (book_view.selected_page);
-    }
-
     private void reorder_document ()
     {
         var dialog = new Gtk.Window ();
-        dialog.type_hint = Gdk.WindowTypeHint.DIALOG;
         dialog.modal = true;
-        dialog.border_width = 12;
         /* Title of dialog to reorder pages */
         dialog.title = C_("dialog title", "Reorder Pages");
         dialog.set_transient_for (this);
-        dialog.key_press_event.connect ((e) =>
+        
+        dialog.add_binding (Gdk.Key.Escape, 0, (widget, args) => 
         {
-            if (e.state == 0 && e.keyval == Gdk.Key.Escape)
-            {
-                dialog.destroy ();
-                return true;
-            }
-
-            return false;
-        });
-        dialog.visible = true;
+            ((Gtk.Window) widget).close ();
+            return true;
+        }, null);
 
         var g = new Gtk.Grid ();
         g.row_homogeneous = true;
@@ -1302,14 +1202,14 @@ public class AppWindow : Hdy.ApplicationWindow
         g.column_homogeneous = true;
         g.column_spacing = 6;
         g.visible = true;
-        dialog.add (g);
+        dialog.set_child (g);
 
         /* Label on button for combining sides in reordering dialog */
         var b = make_reorder_button (_("Combine sides"), "F1F2F3B1B2B3-F1B1F2B2F3B3");
         b.clicked.connect (() =>
         {
             book.combine_sides ();
-            dialog.destroy ();
+            dialog.close ();
         });
         b.visible = true;
         g.attach (b, 0, 0, 1, 1);
@@ -1319,7 +1219,7 @@ public class AppWindow : Hdy.ApplicationWindow
         b.clicked.connect (() =>
         {
             book.combine_sides_reverse ();
-            dialog.destroy ();
+            dialog.close ();
         });
         b.visible = true;
         g.attach (b, 1, 0, 1, 1);
@@ -1329,7 +1229,7 @@ public class AppWindow : Hdy.ApplicationWindow
         b.clicked.connect (() =>
         {
             book.reverse ();
-            dialog.destroy ();
+            dialog.close ();
         });
         b.visible = true;
         g.attach (b, 0, 2, 1, 1);
@@ -1338,7 +1238,7 @@ public class AppWindow : Hdy.ApplicationWindow
         b = make_reorder_button (_("Keep unchanged"), "C1C2C3C4C5C6-C1C2C3C4C5C6");
         b.clicked.connect (() =>
         {
-            dialog.destroy ();
+            dialog.close ();
         });
         b.visible = true;
         g.attach (b, 1, 2, 1, 1);
@@ -1348,7 +1248,7 @@ public class AppWindow : Hdy.ApplicationWindow
         b.clicked.connect (() =>
         {
             book.flip_every_second(FlipEverySecond.Even);
-            dialog.destroy ();
+            dialog.close ();
         });
         b.visible = true;
         g.attach (b, 0, 3, 1, 1);
@@ -1358,18 +1258,13 @@ public class AppWindow : Hdy.ApplicationWindow
         b = make_reorder_button (_("Flip odd pages upside-down"), "U1R2U3R4U5R6-R1R2R3R4R5R6");
         b.clicked.connect (() =>
         {
+            dialog.close ();
             book.flip_every_second(FlipEverySecond.Odd);
-            dialog.destroy ();
         });
         b.visible = true;
         g.attach (b, 1, 3, 1, 1);
 
         dialog.present ();
-    }
-
-    private void reorder_document_cb ()
-    {
-        reorder_document ();
     }
 
     private Gtk.Button make_reorder_button (string text, string items)
@@ -1378,17 +1273,17 @@ public class AppWindow : Hdy.ApplicationWindow
 
         var vbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
         vbox.visible = true;
-        b.add (vbox);
+        b.set_child (vbox);
 
         var label = new Gtk.Label (text);
         label.visible = true;
         label.vexpand = true;
-        vbox.add (label);
+        vbox.append (label);
 
         var rb = make_reorder_box (items);
         rb.visible = true;
         rb.vexpand = true;
-        vbox.add (rb);
+        vbox.append (rb);
 
         return b;
     }
@@ -1405,7 +1300,7 @@ public class AppWindow : Hdy.ApplicationWindow
             {
                 var a = new Gtk.Label ("➤");
                 a.visible = true;
-                box.add (a);
+                box.append (a);
                 page_box = null;
                 continue;
             }
@@ -1420,16 +1315,16 @@ public class AppWindow : Hdy.ApplicationWindow
             {
                 page_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
                 page_box.visible = true;
-                box.add (page_box);
+                box.append (page_box);
             }
             if (side == 'U') {
                 var icon = new PageIcon (side, items[i] - '1', 180);
                 icon.visible = true;
-                page_box.add (icon);
+                page_box.append (icon);
             } else {
                 var icon = new PageIcon (side, items[i] - '1', 0);
                 icon.visible = true;
-                page_box.add (icon);
+                page_box.append (icon);
             }
         }
 
@@ -1440,19 +1335,6 @@ public class AppWindow : Hdy.ApplicationWindow
     private void save_file_button_clicked_cb (Gtk.Widget widget)
     {
         save_document_async.begin ();
-    }
-
-    public void save_document_activate_cb ()
-    {
-        save_document_async.begin ();
-    }
-
-    [GtkCallback]
-    private void copy_to_clipboard_button_clicked_cb ()
-    {
-        var page = book_view.selected_page;
-        if (page != null)
-            page.copy_to_clipboard (this);
     }
 
     private void draw_page (Gtk.PrintOperation operation,
@@ -1549,16 +1431,7 @@ public class AppWindow : Hdy.ApplicationWindow
 
     private void launch_help ()
     {
-        try
-        {
-            Gtk.show_uri (screen, "help:simple-scan", Gtk.get_current_event_time ());
-        }
-        catch (Error e)
-        {
-            show_error_dialog (/* Error message displayed when unable to launch help browser */
-                               _("Unable to open help file"),
-                               e.message);
-        }
+        Gtk.show_uri (this, "help:simple-scan", Gdk.CURRENT_TIME);
     }
 
     private void help_cb ()
@@ -1570,23 +1443,25 @@ public class AppWindow : Hdy.ApplicationWindow
     {
         string[] authors = { "Robert Ancell <robert.ancell@canonical.com>" };
 
-        string title = _("About Document Scanner");
-
         string description = _("Simple document scanning tool");
 
-        Gtk.show_about_dialog (this,
-                                "title", title,
-                                "authors", authors,
-                                "translator-credits", _("translator-credits"),
-                                "comments", description,
-                                "copyright", "Copyright © 2009-2018 Canonical Ltd.",
-                                "license-type", Gtk.License.GPL_3_0,
-                                "program-name", _("Document Scanner"),
-                                "logo-icon-name", "org.gnome.SimpleScan",
-                                "version", VERSION,
-                                "website", "https://gitlab.gnome.org/GNOME/simple-scan",
-                                "wrap-license", true);
-        }
+        var about = new Adw.AboutWindow ()
+        {
+            transient_for = this,
+            developers = authors,
+            translator_credits = _("translator-credits"),
+            comments = description,
+            copyright = "Copyright © 2009-2018 Canonical Ltd.",
+            license_type = Gtk.License.GPL_3_0,
+            application_name = _("Document Scanner"),
+            application_icon = "org.gnome.SimpleScan",
+            version = VERSION,
+            website = "https://gitlab.gnome.org/GNOME/simple-scan",
+            issue_url = "https://gitlab.gnome.org/GNOME/baobab/-/issues/new",
+        };
+        
+        about.present ();
+    }
 
     private void about_cb ()
     {
@@ -1617,13 +1492,14 @@ public class AppWindow : Hdy.ApplicationWindow
         on_quit ();
     }
 
-    public override void size_allocate (Gtk.Allocation allocation)
+    public override void size_allocate (int width, int height, int baseline)
     {
-        base.size_allocate (allocation);
+        base.size_allocate (width, height, baseline);
 
         if (!window_is_maximized && !window_is_fullscreen)
         {
-            get_size (out window_width, out window_height);
+            window_width = this.get_width();
+            window_height = this.get_height();
             save_state ();
         }
     }
@@ -1684,57 +1560,55 @@ public class AppWindow : Hdy.ApplicationWindow
         }
         var dialog = new Gtk.Dialog.with_buttons (/* Title of dialog giving instructions on how to install drivers */
                                                   _("Install drivers"), this, Gtk.DialogFlags.MODAL, _("_Close"), Gtk.ResponseType.CLOSE);
-        dialog.get_content_area ().border_width = 12;
-        dialog.get_content_area ().spacing = 6;
 
         var label = new Gtk.Label (message);
         label.visible = true;
         label.xalign = 0f;
         label.vexpand = true;
         label.use_markup = true;
-        dialog.get_content_area ().add (label);
+        dialog.get_content_area ().append (label);
 
         var instructions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         instructions_box.visible = true;
         instructions_box.vexpand = true;
-        dialog.get_content_area ().add (instructions_box);
+        dialog.get_content_area ().append (instructions_box);
 
         var stack = new Gtk.Stack ();
-        instructions_box.add (stack);
+        instructions_box.append (stack);
 
         var spinner = new Gtk.Spinner ();
         spinner.visible = true;
-        stack.add (spinner);
+        spinner.spinning = true;
+        stack.add_child (spinner);
 
         var status_label = new Gtk.Label ("");
         status_label.visible = true;
-        stack.add (status_label);
+        stack.add_child (status_label);
 
         var instructions_label = new Gtk.Label (instructions);
         instructions_label.visible = true;
         instructions_label.xalign = 0f;
         instructions_label.use_markup = true;
-        instructions_box.add (instructions_label);
+        instructions_box.append (instructions_label);
 
         label = new Gtk.Label (/* Message in driver install dialog */
                                _("Once installed you will need to restart this app."));
         label.visible = true;
         label.xalign = 0f;
         label.vexpand = true;
-        dialog.get_content_area ().border_width = 12;
-        dialog.get_content_area ().add (label);
+        dialog.get_content_area ().append (label);
 
         if (packages_to_install.length > 0)
         {
 #if HAVE_PACKAGEKIT
             stack.visible = true;
-            spinner.active = true;
+            spinner.spinning = true;
             instructions_label.set_text (/* Label shown while installing drivers */
                                          _("Installing drivers…"));
             install_packages.begin (packages_to_install, () => {}, (object, result) =>
             {
                 status_label.visible = true;
-                spinner.active = false;
+                spinner.spinning = false;
                 status_label.set_text ("☒");
                 stack.visible_child = status_label;
                 /* Label shown once drivers successfully installed */
@@ -1765,8 +1639,9 @@ public class AppWindow : Hdy.ApplicationWindow
 #endif
         }
 
-        dialog.run ();
-        dialog.destroy ();
+        dialog.response.connect ((dialog, res) => dialog.close ());
+
+        dialog.show ();
     }
 
 #if HAVE_PACKAGEKIT
@@ -1788,29 +1663,17 @@ public class AppWindow : Hdy.ApplicationWindow
     }
 #endif
 
-    public override bool window_state_event (Gdk.EventWindowState event)
+    public override void unmap ()
     {
-        var result = Gdk.EVENT_PROPAGATE;
-
-        if (base.window_state_event != null)
-            result = base.window_state_event (event);
-
-        if ((event.changed_mask & Gdk.WindowState.MAXIMIZED) != 0)
-        {
-            window_is_maximized = (event.new_window_state & Gdk.WindowState.MAXIMIZED) != 0;
-            save_state ();
-        }
-        if ((event.changed_mask & Gdk.WindowState.FULLSCREEN) != 0)
-        {
-            window_is_fullscreen = (event.new_window_state & Gdk.WindowState.FULLSCREEN) != 0;
-            save_state ();
-        }
-
-        return result;
+        window_is_maximized = is_maximized ();
+        window_is_fullscreen = is_fullscreen ();
+        save_state ();
+        
+        base.unmap ();
     }
 
     [GtkCallback]
-    private bool window_delete_event_cb (Gtk.Widget widget, Gdk.EventAny event)
+    private bool window_close_request_cb (Gtk.Window window)
     {
         on_quit ();
         return true; /* Let us quit on our own terms */
@@ -1835,13 +1698,13 @@ public class AppWindow : Hdy.ApplicationWindow
     {
         save_button.sensitive = true;
         book_needs_saving = true;
-        copy_to_clipboard_menuitem.sensitive = true;
+        copy_to_clipboard_action.set_enabled (true);
     }
 
     private void load ()
     {
         preferences_dialog = new PreferencesDialog (settings);
-        preferences_dialog.delete_event.connect (() => {
+        preferences_dialog.close_request.connect (() => {
             preferences_dialog.visible = false;
             return true;
         });
@@ -1852,12 +1715,14 @@ public class AppWindow : Hdy.ApplicationWindow
 
         var app = Application.get_default () as Gtk.Application;
 
-        /* Set HeaderBar title here because Glade doesn't keep it translated */
-        /* https://bugzilla.gnome.org/show_bug.cgi?id=782753 */
-        /* Title of scan window */
-        header_bar.title = _("Document Scanner");
+        crop_actions = new CropActions (this);
 
         app.add_action_entries (action_entries, this);
+        
+        delete_page_action = (GLib.SimpleAction) app.lookup_action("delete_page");
+        page_move_left_action = (GLib.SimpleAction) app.lookup_action("move_left");
+        page_move_right_action = (GLib.SimpleAction) app.lookup_action("move_right");
+        copy_to_clipboard_action = (GLib.SimpleAction) app.lookup_action("copy_page");
 
         app.set_accels_for_action ("app.new_document", { "<Ctrl>N" });
         app.set_accels_for_action ("app.scan_single", { "<Ctrl>1" });
@@ -1894,79 +1759,15 @@ public class AppWindow : Hdy.ApplicationWindow
 
         app.add_window (this);
 
-        /* Populate ActionBar (not supported in Glade) */
-        /* https://bugzilla.gnome.org/show_bug.cgi?id=769966 */
-        var button = new Gtk.Button.with_mnemonic (/* Label on new document button */
-                                               _("_New Document"));
-        button.visible = true;
-        button.clicked.connect (new_document_cb);
-        action_bar.pack_start (button);
-
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 10);
-        box.visible = true;
-        action_bar.set_center_widget (box);
-
-        var rotate_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        rotate_box.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
-        rotate_box.visible = true;
-        box.add (rotate_box);
-
-        button = new Gtk.Button.from_icon_name ("object-rotate-left-symbolic");
-        button.visible = true;
-        button.image.margin_start = 18;
-        button.image.margin_end = 18;
-        /* Tooltip for rotate left (counter-clockwise) button */
-        button.tooltip_text = _("Rotate the page to the left (counter-clockwise)");
-        button.clicked.connect (rotate_left_button_clicked_cb);
-        rotate_box.add (button);
-
-        button = new Gtk.Button.from_icon_name ("object-rotate-right-symbolic");
-        button.visible = true;
-        button.image.margin_start = 18;
-        button.image.margin_end = 18;
-        /* Tooltip for rotate right (clockwise) button */
-        button.tooltip_text = _("Rotate the page to the right (clockwise)");
-        button.clicked.connect (rotate_right_button_clicked_cb);
-        rotate_box.add (button);
-
-        crop_button = new Gtk.ToggleButton ();
-        crop_button.visible = true;
-        var image = new Gtk.Image.from_icon_name ("crop-symbolic", Gtk.IconSize.BUTTON);
-        image.visible = true;
-        image.margin_start = 18;
-        image.margin_end = 18;
-        crop_button.add (image);
-        /* Tooltip for crop button */
-        crop_button.tooltip_text = _("Crop the selected page");
-        crop_button.toggled.connect ((widget) =>
-        {
-            if (updating_page_menu)
-                return;
-
-            if (widget.active)
-                custom_crop_menuitem.active = true;
-            else
-                no_crop_menuitem.active = true;
-        });
-        box.add (crop_button);
-
-        delete_button = new Gtk.Button.from_icon_name ("user-trash-symbolic");
-        delete_button.visible = true;
-        delete_button.image.margin_start = 18;
-        delete_button.image.margin_end = 18;
-        /* Tooltip for delete button */
-        delete_button.tooltip_text = _("Delete the selected page");
-        delete_button.clicked.connect (() => { book_view.book.delete_page (book_view.selected_page); });
-        box.add (delete_button);
-
         var document_type = settings.get_string ("document-type");
         if (document_type != null)
             set_document_hint (document_type);
 
         book_view = new BookView (book);
-        book_view.border_width = 18;
         book_view.vexpand = true;
-        main_vbox.add (book_view);
+
+        main_vbox.prepend (book_view);
+
         book_view.page_selected.connect (page_selected_cb);
         book_view.show_page.connect (show_page_cb);
         book_view.show_menu.connect (show_page_menu_cb);
@@ -2099,34 +1900,66 @@ public class AppWindow : Hdy.ApplicationWindow
         visible = true;
         autosave_manager = new AutosaveManager ();
         autosave_manager.book = book;
-
-        if (autosave_manager.exists () && prompt_to_load_autosaved_book ())
-            autosave_manager.load ();
-
-        if (book.n_pages == 0)
-            book_needs_saving = false;
-        else
+        
+        if (autosave_manager.exists ())
         {
-            stack.set_visible_child_name ("document");
-            book_view.selected_page = book.get_page (0);
-            book_needs_saving = true;
-            book_changed_cb (book);
+            prompt_to_load_autosaved_book.begin ((obj, res) => {
+                bool restore = prompt_to_load_autosaved_book.end (res);
+                
+                if (restore) 
+                {
+                    autosave_manager.load ();
+                }
+
+                if (book.n_pages == 0)
+                    book_needs_saving = false;
+                else
+                {
+                    stack.set_visible_child_name ("document");
+                    book_view.selected_page = book.get_page (0);
+                    book_needs_saving = true;
+                    book_changed_cb (book);
+                }
+            });
         }
     }
 }
 
-private class CancellableProgressBar : Gtk.HBox
+// TODO: Remove this type once `Gtk.FileFilter:mime-types` gets released in GTK 4.10
+private struct FilterDescriptor
+{
+    public Gtk.FileFilter filter;
+    public string pattern;
+
+    public string name
+    { 
+        owned get { return filter.name; }
+    }
+
+    public FilterDescriptor (string name, string pattern)
+    {
+        filter = new Gtk.FileFilter ();
+        filter.set_filter_name (name);
+        filter.add_pattern (pattern);
+        
+        this.pattern = pattern;
+    }
+}
+
+private class CancellableProgressBar : Gtk.Box
 {
     private Gtk.ProgressBar bar;
     private Gtk.Button? button;
 
     public CancellableProgressBar (string? text, Cancellable? cancellable)
     {
+        this.orientation = Gtk.Orientation.HORIZONTAL;
+
         bar = new Gtk.ProgressBar ();
         bar.visible = true;
         bar.set_text (text);
         bar.set_show_text (true);
-        pack_start (bar);
+        prepend (bar);
 
         if (cancellable != null)
         {
@@ -2138,7 +1971,7 @@ private class CancellableProgressBar : Gtk.HBox
                 set_visible (false);
                 cancellable.cancel ();
             });
-            pack_start (button);
+            prepend (button);
         }
     }
 
@@ -2147,14 +1980,118 @@ private class CancellableProgressBar : Gtk.HBox
         bar.set_fraction (fraction);
     }
 
-    public void destroy_with_delay (uint delay)
+    public void remove_with_delay (uint delay, Gtk.ActionBar parent)
     {
         button.set_sensitive (false);
 
         Timeout.add (delay, () =>
         {
-            this.destroy ();
+            parent.remove (this);
             return false;
         });
+    }
+}
+
+private class CropActions
+{
+    private GLib.SimpleActionGroup group;
+
+    private GLib.SimpleAction none;
+    private GLib.SimpleAction a4;
+    private GLib.SimpleAction a5;
+    private GLib.SimpleAction a6;
+    private GLib.SimpleAction letter;
+    private GLib.SimpleAction legal;
+    private GLib.SimpleAction four_by_six;
+    private GLib.SimpleAction a3;
+    private GLib.SimpleAction custom;
+    private GLib.SimpleAction rotate;
+
+    private GLib.ActionEntry[] crop_entries =
+    {
+        { "none", AppWindow.crop_none_action_cb },
+        { "a4", AppWindow.crop_a4_action_cb },
+        { "a5", AppWindow.crop_a5_action_cb },
+        { "a6", AppWindow.crop_a6_action_cb },
+        { "letter", AppWindow.crop_letter_action_cb },
+        { "legal", AppWindow.crop_legal_action_cb },
+        { "four_by_six", AppWindow.crop_four_by_six_action_cb },
+        { "a3", AppWindow.crop_a3_action_cb },
+        { "custom", AppWindow.crop_custom_action_cb },
+        { "rotate", AppWindow.crop_rotate_action_cb },
+    };
+
+    public CropActions (AppWindow window)
+    {
+        group = new GLib.SimpleActionGroup ();
+        group.add_action_entries (crop_entries, window);
+        
+        none = (GLib.SimpleAction) group.lookup_action ("none");
+        a4 = (GLib.SimpleAction) group.lookup_action ("a4");
+        a5 = (GLib.SimpleAction) group.lookup_action ("a5");
+        a6 = (GLib.SimpleAction) group.lookup_action ("a6");
+        letter = (GLib.SimpleAction) group.lookup_action ("letter");
+        legal = (GLib.SimpleAction) group.lookup_action ("legal");
+        four_by_six = (GLib.SimpleAction) group.lookup_action ("four_by_six");
+        a3 = (GLib.SimpleAction) group.lookup_action ("a3");
+        custom = (GLib.SimpleAction) group.lookup_action ("custom");
+        rotate = (GLib.SimpleAction) group.lookup_action ("rotate");
+
+        window.insert_action_group ("crop", group);
+    }
+
+    public void update_current_crop (string? crop_name)
+    {
+        rotate.set_enabled (crop_name != null);
+
+        if (crop_name == null)
+        {
+            crop_name = "none";
+        }
+
+        none.set_enabled (true);
+        a4.set_enabled (true);
+        a5.set_enabled (true);
+        a6.set_enabled (true);
+        letter.set_enabled (true);
+        legal.set_enabled (true);
+        four_by_six.set_enabled (true);
+        a3.set_enabled (true);
+        custom.set_enabled (true);
+        
+        GLib.SimpleAction active_action = none;
+
+        switch (crop_name)
+        {
+        case "A3":
+            active_action = a3;
+            break;
+        case "A4":
+            active_action = a4;
+            break;
+        case "A5":
+            active_action = a5;
+            break;
+        case "A6":
+            active_action = a6;
+            break;
+        case "letter":
+            active_action = letter;
+            break;
+        case "legal":
+            active_action = legal;
+            break;
+        case "4x6":
+            active_action = four_by_six;
+            break;
+        case "custom":
+            active_action = custom;
+            break;
+        default:
+            active_action = none;
+            break;
+        }
+        
+        active_action.set_enabled (false);
     }
 }

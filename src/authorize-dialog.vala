@@ -11,18 +11,21 @@
  */
 
 [GtkTemplate (ui = "/org/gnome/SimpleScan/ui/authorize-dialog.ui")]
-private class AuthorizeDialog : Gtk.Dialog
+private class AuthorizeDialog : Gtk.Window
 {
     [GtkChild]
-    private unowned Gtk.Label authorize_label;
+    private unowned Adw.PreferencesGroup preferences_group;
     [GtkChild]
-    private unowned Gtk.Entry username_entry;
+    private unowned Adw.EntryRow username_entry;
     [GtkChild]
-    private unowned Gtk.Entry password_entry;
+    private unowned Adw.PasswordEntryRow password_entry;
 
-    public AuthorizeDialog (string title)
+    public signal void authorized (AuthorizeDialogResponse res);
+
+    public AuthorizeDialog (Gtk.Window parent, string title)
     {
-        authorize_label.set_text (title);
+        preferences_group.set_title (title);
+        set_transient_for (parent);
     }
 
     public string get_username ()
@@ -33,5 +36,61 @@ private class AuthorizeDialog : Gtk.Dialog
     public string get_password ()
     {
         return password_entry.text;
+    }
+
+    [GtkCallback]
+    private void authorize_button_cb ()
+    {
+        authorized (AuthorizeDialogResponse.new_authorized (get_username (), get_password ()));
+    }
+
+    [GtkCallback]
+    private void cancel_button_cb ()
+    {
+        authorized (AuthorizeDialogResponse.new_canceled ());
+    }
+    
+    public async AuthorizeDialogResponse open()
+    {
+        SourceFunc callback = open.callback;
+        
+        AuthorizeDialogResponse response = {};
+
+        authorized.connect ((res) =>
+        {
+            response = res;
+            callback ();
+        });
+
+        present ();
+        yield;
+        close ();
+
+        return response;
+    }
+}
+
+public struct AuthorizeDialogResponse
+{
+    public string username;
+    public string password;
+    public bool success;
+    
+    public static AuthorizeDialogResponse new_canceled ()
+    {
+        return AuthorizeDialogResponse ()
+        {
+            success = false,
+        };
+    }
+
+    public static AuthorizeDialogResponse new_authorized (string username, string password)
+    {
+        return AuthorizeDialogResponse ()
+        {
+            username = username,
+            password = password,
+            success = true,
+        };
     }
 }

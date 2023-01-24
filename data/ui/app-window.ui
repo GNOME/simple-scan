@@ -1,208 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
 <interface>
-  <requires lib="gtk+" version="3.12"/>
-  <object class="GtkMenu" id="page_menu">
-    <property name="visible">True</property>
-    <child>
-      <object class="GtkMenuItem" id="rotate_left_menuitem">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes" comments="Menu item to rotate page to left (anti-clockwise)">Rotate _Left</property>
-        <property name="use_underline">True</property>
-        <signal name="activate" handler="rotate_left_button_clicked_cb" swapped="no"/>
-        <accelerator key="bracketleft" signal="activate"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="rotate_right_menuitem">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes" comments="Menu item to rotate page to right (clockwise)">Rotate _Right</property>
-        <property name="use_underline">True</property>
-        <signal name="activate" handler="rotate_right_button_clicked_cb" swapped="no"/>
-        <accelerator key="bracketright" signal="activate"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="crop_menuitem">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes" comments="Label for page crop submenu">_Crop</property>
-        <property name="use_underline">True</property>
-        <child type="submenu">
-          <object class="GtkMenu" id="crop_menu">
-            <property name="visible">True</property>
-            <child>
-              <object class="GtkRadioMenuItem" id="no_crop_menuitem">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="Radio button for no crop">_None</property>
-                <property name="use_underline">True</property>
-                <property name="active">True</property>
-                <property name="draw_as_radio">True</property>
-                <signal name="toggled" handler="no_crop_menuitem_toggled_cb" swapped="no"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRadioMenuItem" id="a4_menuitem">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="Radio button for cropping page to A4 size">A_4</property>
-                <property name="use_underline">True</property>
-                <property name="draw_as_radio">True</property>
-                <property name="group">no_crop_menuitem</property>
-                <signal name="toggled" handler="a4_menuitem_toggled_cb" swapped="no"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRadioMenuItem" id="a5_menuitem">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="Radio button for cropping page to A5 size">A_5</property>
-                <property name="use_underline">True</property>
-                <property name="draw_as_radio">True</property>
-                <property name="group">no_crop_menuitem</property>
-                <signal name="toggled" handler="a5_menuitem_toggled_cb" swapped="no"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRadioMenuItem" id="a6_menuitem">
-                <property name="visible">True</property>
-                <property name="use_underline">True</property>
-                <property name="draw_as_radio">True</property>
-                <property name="group">no_crop_menuitem</property>
-                <signal name="toggled" handler="a6_menuitem_toggled_cb" swapped="no"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRadioMenuItem" id="letter_menuitem">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="Radio button for cropping page to US letter size">_Letter</property>
-                <property name="use_underline">True</property>
-                <property name="draw_as_radio">True</property>
-                <property name="group">no_crop_menuitem</property>
-                <signal name="toggled" handler="letter_menuitem_toggled_cb" swapped="no"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRadioMenuItem" id="legal_menuitem">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="Radio button for cropping to page to US legal size">Le_gal</property>
-                <property name="use_underline">True</property>
-                <property name="draw_as_radio">True</property>
-                <property name="group">no_crop_menuitem</property>
-                <signal name="toggled" handler="legal_menuitem_toggled_cb" swapped="no"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRadioMenuItem" id="four_by_six_menuitem">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="Radio button for cropping page to 4x6 inch">4×6</property>
-                <property name="use_underline">True</property>
-                <property name="draw_as_radio">True</property>
-                <property name="group">no_crop_menuitem</property>
-                <signal name="toggled" handler="four_by_six_menuitem_toggled_cb" swapped="no"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRadioMenuItem" id="a3_menuitem">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="Radio button for cropping page to A3">A_3</property>
-                <property name="use_underline">True</property>
-                <property name="draw_as_radio">True</property>
-                <property name="group">no_crop_menuitem</property>
-                <signal name="toggled" handler="a3_menuitem_toggled_cb" swapped="no"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkRadioMenuItem" id="custom_crop_menuitem">
-                <property name="visible">True</property>
-                <property name="label" translatable="yes" comments="Radio button for cropping to custom page size">_Custom</property>
-                <property name="use_underline">True</property>
-                <property name="draw_as_radio">True</property>
-                <property name="group">no_crop_menuitem</property>
-                <signal name="toggled" handler="custom_crop_menuitem_toggled_cb" swapped="no"/>
-              </object>
-            </child>
-            <child>
-              <object class="GtkSeparatorMenuItem" id="crop_sep_menuitem">
-                <property name="visible">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkMenuItem" id="crop_rotate_menuitem">
-                <property name="visible">True</property>
-                <property name="sensitive">False</property>
-                <property name="label" translatable="yes" comments="Menu item to rotate the crop area">_Rotate Crop</property>
-                <property name="use_underline">True</property>
-                <signal name="activate" handler="crop_rotate_menuitem_activate_cb" swapped="no"/>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="page_move_left_menuitem">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes" comments="Menu item to move the selected page to the left">Move Left</property>
-        <signal name="activate" handler="page_move_left_menuitem_activate_cb" swapped="no"/>
-        <accelerator key="less" signal="activate"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="page_move_right_menuitem">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes" comments="Menu item to move the selected page to the right">Move Right</property>
-        <property name="use_underline">True</property>
-        <signal name="activate" handler="page_move_right_menuitem_activate_cb" swapped="no"/>
-        <accelerator key="greater" signal="activate"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="copy_to_clipboard_menuitem">
-        <property name="label">gtk-copy</property>
-        <property name="visible">True</property>
-        <property name="sensitive">False</property>
-        <property name="use_underline">True</property>
-        <property name="use_stock">True</property>
-        <signal name="activate" handler="copy_to_clipboard_button_clicked_cb" swapped="no"/>
-        <accelerator key="c" signal="activate" modifiers="GDK_CONTROL_MASK"/>
-      </object>
-    </child>
-    <child>
-      <object class="GtkImageMenuItem" id="page_delete_menuitem">
-        <property name="label">gtk-delete</property>
-        <property name="visible">True</property>
-        <property name="use_underline">True</property>
-        <property name="use_stock">True</property>
-        <signal name="activate" handler="page_delete_menuitem_activate_cb" swapped="no"/>
-        <accelerator key="Delete" signal="activate"/>
-      </object>
-    </child>
-  </object>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  
+  <menu id="app-menu">
+    <item>
+      <attribute name="label" translatable="yes" comments="Menu item to rotate page to left (anti-clockwise)">Rotate _Left</attribute>
+      <attribute name="action">app.rotate_left</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes" comments="Menu item to rotate page to right (clockwise)">Rotate _Right</attribute>
+      <attribute name="action">app.rotate_right</attribute>
+    </item>
+    <submenu>
+      <attribute name="label" translatable="yes" comments="Label for page crop submenu">_Crop</attribute>
+
+      <section>
+        <item>
+          <attribute name="label" translatable="yes" comments="Radio button for no crop">_None</attribute>
+          <attribute name="action">crop.none</attribute>
+        </item>
+
+        <item>
+          <attribute name="label" translatable="yes" comments="Radio button for cropping page to A4 size">A_4</attribute>
+          <attribute name="action">crop.a4</attribute>
+        </item>
+
+        <item>
+          <attribute name="label" translatable="yes" comments="Radio button for cropping page to A5 size">A_5</attribute>
+          <attribute name="action">crop.a5</attribute>
+        </item>
+
+        <item>
+          <attribute name="label" translatable="yes" comments="Radio button for cropping page to A6 size">A_6</attribute>
+          <attribute name="action">crop.a6</attribute>
+        </item>
+
+        <item>
+          <attribute name="label" translatable="yes" comments="Radio button for cropping page to US letter size">_Letter</attribute>
+          <attribute name="action">crop.letter</attribute>
+        </item>
+
+        <item>
+          <attribute name="label" translatable="yes" comments="Radio button for cropping to page to US legal size">Le_gal</attribute>
+          <attribute name="action">crop.legal</attribute>
+        </item>
+
+        <item>
+          <attribute name="label" translatable="yes" comments="Radio button for cropping page to 4x6 inch">4×6</attribute>
+          <attribute name="action">crop.four_by_six</attribute>
+        </item>
+
+        <item>
+          <attribute name="label" translatable="yes" comments="Radio button for cropping page to A3">A_3</attribute>
+          <attribute name="action">crop.a3</attribute>
+        </item>
+
+        <item>
+          <attribute name="label" translatable="yes" comments="Radio button for cropping to custom page size">_Custom</attribute>
+          <attribute name="action">crop.custom</attribute>
+        </item>
+      </section>
+
+      <section>
+        <item>
+          <attribute name="label" translatable="yes" comments="Menu item to rotate the crop area">_Rotate Crop</attribute>
+          <attribute name="action">crop.rotate</attribute>
+        </item>
+      </section>
+
+    </submenu>
+    <item>
+      <attribute name="label" translatable="yes" comments="Menu item to move the selected page to the left">Move Left</attribute>
+      <attribute name="action">app.move_left</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes" comments="Menu item to move the selected page to the right">Move Right</attribute>
+      <attribute name="action">app.move_right</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Copy</attribute>
+      <attribute name="action">app.copy_page</attribute>
+    </item>
+    <item>
+      <attribute name="label" translatable="yes">Delete</attribute>
+      <attribute name="action">app.delete_page</attribute>
+    </item>
+  </menu>
+
   <object class="GtkListStore" id="device_model">
     <columns>
-      <!-- column-name device_name -->
       <column type="gchararray"/>
-      <!-- column-name label -->
       <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkPopover" id="scan_options_popover">
-    <child>
+    <property name="child">
       <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="margin_left">12</property>
-        <property name="margin_right">12</property>
+        <property name="margin-start">12</property>
+        <property name="margin-end">12</property>
         <property name="margin_top">12</property>
         <property name="margin_bottom">12</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
-          <object class="GtkRadioButton" id="scan_single_radio">
-            <property name="visible">True</property>
-            <property name="receives_default">False</property>
-            <property name="draw_indicator">False</property>
+          <object class="GtkToggleButton" id="scan_single_radio">
             <signal name="toggled" handler="scan_single_radio_toggled_cb" swapped="no"/>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
                 <property name="margin_start">12</property>
                 <property name="margin_end">12</property>
                 <property name="margin_top">6</property>
@@ -210,46 +115,25 @@
                 <property name="spacing">12</property>
                 <child>
                   <object class="GtkImage">
-                    <property name="visible">True</property>
                     <property name="icon_name">scanner-symbolic</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Single Page</property>
-                    <property name="use_underline">True</property>
+                    <property name="label" translatable="1">_Single Page</property>
+                    <property name="use_underline">1</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="scan_adf_radio">
-            <property name="visible">True</property>
-            <property name="receives_default">False</property>
-            <property name="draw_indicator">False</property>
+          <object class="GtkToggleButton" id="scan_adf_radio">
             <property name="group">scan_single_radio</property>
             <signal name="toggled" handler="scan_adf_radio_toggled_cb" swapped="no"/>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
                 <property name="margin_start">12</property>
                 <property name="margin_end">12</property>
                 <property name="margin_top">6</property>
@@ -257,46 +141,25 @@
                 <property name="spacing">12</property>
                 <child>
                   <object class="GtkImage">
-                    <property name="visible">True</property>
                     <property name="icon_name">scan-type-adf-symbolic</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">All Pages From _Feeder</property>
-                    <property name="use_underline">True</property>
+                    <property name="label" translatable="1">All Pages From _Feeder</property>
+                    <property name="use_underline">1</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="scan_batch_radio">
-            <property name="visible">True</property>
-            <property name="receives_default">False</property>
-            <property name="draw_indicator">False</property>
+          <object class="GtkToggleButton" id="scan_batch_radio">
             <property name="group">scan_single_radio</property>
             <signal name="toggled" handler="scan_batch_radio_toggled_cb" swapped="no"/>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
                 <property name="margin_start">12</property>
                 <property name="margin_end">12</property>
                 <property name="margin_top">6</property>
@@ -304,46 +167,25 @@
                 <property name="spacing">12</property>
                 <child>
                   <object class="GtkImage">
-                    <property name="visible">True</property>
                     <property name="icon_name">scan-type-batch-symbolic</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Multiple Pages From Flatbed</property>
-                    <property name="use_underline">True</property>
+                    <property name="label" translatable="1">_Multiple Pages From Flatbed</property>
+                    <property name="use_underline">1</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="text_radio">
-            <property name="visible">True</property>
-            <property name="receives_default">False</property>
+          <object class="GtkToggleButton" id="text_radio">
             <property name="margin_top">12</property>
-            <property name="draw_indicator">False</property>
             <signal name="toggled" handler="text_radio_toggled_cb" swapped="no"/>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
                 <property name="margin_start">12</property>
                 <property name="margin_end">12</property>
                 <property name="margin_top">6</property>
@@ -351,46 +193,25 @@
                 <property name="spacing">12</property>
                 <child>
                   <object class="GtkImage">
-                    <property name="visible">True</property>
                     <property name="icon_name">x-office-document-symbolic</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Text</property>
-                    <property name="use_underline">True</property>
+                    <property name="label" translatable="1">_Text</property>
+                    <property name="use_underline">1</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
         </child>
         <child>
-          <object class="GtkRadioButton" id="photo_radio">
-            <property name="visible">True</property>
-            <property name="receives_default">False</property>
-            <property name="draw_indicator">False</property>
+          <object class="GtkToggleButton" id="photo_radio">
             <property name="group">text_radio</property>
             <signal name="toggled" handler="photo_radio_toggled_cb" swapped="no"/>
             <child>
               <object class="GtkBox">
-                <property name="visible">True</property>
                 <property name="margin_start">12</property>
                 <property name="margin_end">12</property>
                 <property name="margin_top">6</property>
@@ -398,108 +219,79 @@
                 <property name="spacing">12</property>
                 <child>
                   <object class="GtkImage">
-                    <property name="visible">True</property>
                     <property name="icon_name">image-x-generic-symbolic</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes">_Image</property>
-                    <property name="use_underline">True</property>
+                    <property name="label" translatable="1">_Image</property>
+                    <property name="use_underline">1</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
               </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
         </child>
         <child>
           <object class="GtkButton" id="preferences_button">
-            <property name="label" translatable="yes">_Preferences</property>
+            <property name="label" translatable="1">_Preferences</property>
             <property name="height_request">40</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
+            <property name="focusable">1</property>
+            <property name="receives_default">1</property>
             <property name="margin_top">12</property>
-            <property name="use_underline">True</property>
+            <property name="use_underline">1</property>
             <signal name="clicked" handler="preferences_button_clicked_cb" swapped="no"/>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">5</property>
-          </packing>
         </child>
       </object>
-    </child>
+    </property>
   </object>
-  <template class="AppWindow" parent="HdyApplicationWindow">
+  <template class="AppWindow" parent="AdwApplicationWindow">
     <property name="width_request">320</property>
     <property name="height_request">480</property>
-    <property name="title" translatable="yes" comments="Title of scan window">Document Scanner</property>
+    <property name="title" translatable="1" comments="Title of scan window">Document Scanner</property>
     <property name="icon_name">org.gnome.SimpleScan</property>
-    <signal name="delete-event" handler="window_delete_event_cb" swapped="no"/>
-    <child>
+    <signal name="close-request" handler="window_close_request_cb" swapped="no"/>
+    <property name="content">
       <object class="GtkBox">
-        <property name="visible">True</property>
         <property name="orientation">vertical</property>
+        
         <child>
-          <object class="HdyHeaderBar" id="header_bar">
+          <object class="GtkPopoverMenu" id="page_menu">
+            <property name="menu-model">app-menu</property>
+            <property name="has_arrow">false</property>
+            <property name="halign">start</property>
+          </object>
+        </child>
+        
+        <child>
+          <object class="AdwHeaderBar" id="header_bar">
             <property name="visible">True</property>
-            <property name="show_close_button">True</property>
-            <child>
+
+            <child type="start">
               <object class="GtkBox" id="open_box">
-                <property name="visible">True</property>
                 <property name="valign">center</property>
                 <child>
                   <object class="GtkButton" id="stop_button">
-                    <property name="receives_default">False</property>
-                    <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
-                    <property name="use_underline">True</property>
+                    <property name="visible">0</property>
+                    <property name="tooltip_text" translatable="1" comments="Tooltip for stop button">Stop the current scan</property>
+                    <property name="use_underline">1</property>
                     <signal name="clicked" handler="stop_scan_button_clicked_cb" swapped="no"/>
                     <child>
                       <object class="GtkBox">
-                        <property name="visible">True</property>
                         <property name="spacing">6</property>
                         <child>
                           <object class="GtkSpinner" id="stop_button_spinner">
-                            <property name="visible">True</property>
-                            <property name="active">True</property>
+                            <property name="spinning">True</property>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
                         </child>
                         <child>
                           <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="label" translatable="yes">S_top</property>
-                            <property name="use_underline">True</property>
+                            <property name="label" translatable="1">S_top</property>
+                            <property name="use_underline">1</property>
                             <property name="width_chars">6</property>
                             <property name="xalign">0.33</property>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
                         </child>
                       </object>
                     </child>
@@ -508,49 +300,29 @@
                       <class name="destructive-action"/>
                     </style>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkButton" id="scan_button">
-                    <property name="visible">True</property>
-                    <property name="sensitive">False</property>
-                    <property name="receives_default">False</property>
-                    <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button. Replaced by text associated with each scan type."></property>
-                    <property name="use_underline">True</property>
+                    <property name="sensitive">0</property>
+                    <property name="tooltip_text" translatable="1" comments="Tooltip for scan toolbar button. Replaced by text associated with each scan type."></property>
+                    <property name="use_underline">1</property>
                     <signal name="clicked" handler="scan_button_clicked_cb" swapped="no"/>
                     <child>
                       <object class="GtkBox">
-                        <property name="visible">True</property>
                         <property name="spacing">6</property>
                         <child>
                           <object class="GtkImage" id="scan_options_image">
-                            <property name="visible">True</property>
                             <property name="icon_name">scanner-symbolic</property>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
                         </child>
                         <child>
                           <object class="GtkLabel">
-                            <property name="visible">True</property>
-                            <property name="margin_right">1</property>
-                            <property name="label" translatable="yes">_Scan</property>
-                            <property name="use_underline">True</property>
+                            <property name="margin-end">1</property>
+                            <property name="label" translatable="1">_Scan</property>
+                            <property name="use_underline">1</property>
                             <property name="width_chars">6</property>
                             <property name="xalign">0.33</property>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
                         </child>
                       </object>
                     </child>
@@ -559,208 +331,234 @@
                       <class name="suggested-action"/>
                     </style>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
                 </child>
                 <child>
                   <object class="GtkMenuButton">
-                    <property name="visible">True</property>
-                    <property name="receives_default">False</property>
                     <property name="popover">scan_options_popover</property>
                     <child>
                       <object class="GtkBox">
-                        <property name="visible">True</property>
                         <property name="spacing">6</property>
                         <child>
                           <object class="GtkImage" id="scan_hint_image">
-                            <property name="visible">True</property>
                             <property name="icon_name">x-office-document-symbolic</property>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
                         </child>
                         <child>
                           <object class="GtkImage">
-                            <property name="visible">True</property>
                             <property name="icon_name">pan-down-symbolic</property>
                           </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
                         </child>
                       </object>
                     </child>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
                 </child>
                 <style>
                   <class name="linked"/>
                 </style>
               </object>
             </child>
-            <child>
+            <child type="end">
               <object class="GtkMenuButton" id="menu_button">
-                <property name="visible">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
-                <accelerator key="F10" signal="activate"/>
+                <property name="use_underline">1</property>
+                <!-- <accelerator key="F10" signal="activate"/> -->
                 <child>
                   <object class="GtkImage">
-                    <property name="visible">True</property>
                     <property name="icon_name">open-menu-symbolic</property>
-                    <property name="icon_size">1</property>
+                    <property name="icon_size">normal</property>
                   </object>
                 </child>
                 <style>
                   <class name="image-button"/>
                 </style>
               </object>
-              <packing>
-                <property name="pack_type">end</property>
-                <property name="position">1</property>
-              </packing>
             </child>
-            <child>
+            <child type="end">
               <object class="GtkButton" id="save_button">
-                <property name="visible">True</property>
-                <property name="sensitive">False</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes" comments="Tooltip for save toolbar button">Save document to a file</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="save_file_button_clicked_cb" swapped="no"/>
+                <property name="sensitive">0</property>
+                <property name="tooltip_text" translatable="1" comments="Tooltip for save toolbar button">Save document to a file</property>
+                <property name="use_underline">1</property>
+                <property name="action-name">app.save</property>
                 <child>
                   <object class="GtkImage" id="save_image">
-                    <property name="visible">True</property>
                     <property name="icon_name">document-save-symbolic</property>
-                    <property name="icon_size">1</property>
+                    <property name="icon_size">normal</property>
                   </object>
                 </child>
                 <style>
                   <class name="image-button"/>
                 </style>
               </object>
-              <packing>
-                <property name="pack_type">end</property>
-                <property name="position">2</property>
-              </packing>
             </child>
             <style>
               <class name="titlebar"/>
             </style>
           </object>
         </child>
+
         <child>
           <object class="GtkStack" id="stack">
             <property name="visible">True</property>
             <property name="vexpand">True</property>
             <child>
-              <object class="HdyStatusPage" id="status_page">
-                <property name="visible">True</property>
-                <property name="icon_name">org.gnome.SimpleScan-symbolic</property>
-                <child>
-                  <object class="GtkBox">
+              <object class="GtkStackPage">
+                <property name="name">startup</property>
+                <property name="child">
+                  <object class="AdwStatusPage" id="status_page">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">12</property>
+                    <property name="icon_name">org.gnome.SimpleScan-symbolic</property>
                     <child>
-                      <object class="GtkLabel" id="status_secondary_label">
-                        <property name="visible">False</property>
-                        <property name="wrap">True</property>
-                        <property name="wrap-mode">word-char</property>
-                        <property name="justify">center</property>
-                        <property name="use-markup">True</property>
-                        <property name="track_visited_links">False</property>
-                        <signal name="activate-link" handler="status_label_activate_link_cb" swapped="no"/>
-                        <style>
-                          <class name="body"/>
-                          <class name="description"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="device_buttons_box">
-                        <property name="visible">False</property>
-                        <property name="orientation">horizontal</property>
-                        <property name="halign">center</property>
-                        <property name="spacing">10</property>
+                      <object class="GtkBox">
+                        <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">12</property>
                         <child>
-                          <object class="GtkComboBox" id="device_combo">
-                            <property name="width_request">200</property>
-                            <property name="visible">True</property>
-                            <property name="model">device_model</property>
-                            <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
+                          <object class="GtkLabel" id="status_secondary_label">
+                            <property name="visible">False</property>
+                            <property name="wrap">True</property>
+                            <property name="wrap-mode">word-char</property>
+                            <property name="justify">center</property>
+                            <property name="use-markup">True</property>
+                            <!-- <property name="track_visited_links">False</property> -->
+                            <signal name="activate-link" handler="status_label_activate_link_cb" swapped="no"/>
+                            <style>
+                              <class name="body"/>
+                              <class name="description"/>
+                            </style>
                           </object>
-                          <packing>
-                            <property name="fill">False</property>
-                          </packing>
                         </child>
                         <child>
-                          <object class="GtkButton" id="refresh_devices">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Refresh device list</property>
-                            <signal name="clicked" handler="redetect_button_clicked_cb" swapped="no"/>
+                          <object class="GtkBox" id="device_buttons_box">
+                            <property name="visible">False</property>
+                            <property name="orientation">horizontal</property>
+                            <property name="halign">center</property>
+                            <property name="spacing">10</property>
                             <child>
-                              <object class="GtkImage">
+                              <object class="GtkComboBox" id="device_combo">
+                                <property name="width_request">200</property>
                                 <property name="visible">True</property>
-                                <property name="icon_name">view-refresh-symbolic</property>
-                                <property name="icon_size">1</property>
+                                <property name="model">device_model</property>
+                                <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton" id="refresh_devices">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Refresh device list</property>
+
+                                <signal name="clicked" handler="redetect_button_clicked_cb" swapped="no"/>
+
+                                <child>
+                                  <object class="GtkImage">
+                                    <property name="visible">True</property>
+                                    <property name="icon_name">view-refresh-symbolic</property>
+                                    <property name="icon_size">1</property>
+                                  </object>
+                                </child>
+                                <style>
+                                  <class name="image-button"/>
+                                </style>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkStackPage">
+                <property name="name">document</property>
+                <property name="child">
+                  <object class="GtkBox" id="main_vbox">
+                    <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkActionBar" id="action_bar">
+                        <property name="visible">True</property>
+                        
+                        <child type="start">
+                          <object class="GtkButton">
+                            <property name="margin-start">6</property>
+                            <signal name="clicked" handler="new_document_cb" swapped="no"/>
+
+                            <child>
+                              <object class="GtkBox">
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkImage">
+                                    <property name="icon_name">list-add-symbolic</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel">
+                                    <property name="margin-end">1</property>
+                                    <property name="label" translatable="yes">New Document</property>
+                                    <property name="width_chars">6</property>
+                                    <property name="xalign">0.33</property>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                             <style>
                               <class name="image-button"/>
                             </style>
                           </object>
-                          <packing>
-                            <property name="fill">False</property>
-                          </packing>
                         </child>
+
+                        <child type="center">
+                          <object class="GtkBox">
+                            <property name="orientation">horizontal</property>
+                            <property name="spacing">5</property>
+
+                            <child>
+                              <object class="GtkButton">
+                                <property name="icon-name">object-rotate-left-symbolic</property>
+                                <property name="tooltip-text">Rotate the page to the left (counter-clockwise)</property>
+                                <property name="action-name">app.rotate_left</property>
+                              </object>
+                            </child>
+
+                            <child>
+                              <object class="GtkButton">
+                                <property name="icon-name">object-rotate-right-symbolic</property>
+                                <property name="tooltip-text">Rotate the page to the right (clockwise)</property>
+                                <property name="action-name">app.rotate_right</property>
+                              </object>
+                            </child>
+
+                            <child>
+                              <object class="GtkToggleButton" id="crop_button">
+                                <property name="icon-name">crop-symbolic</property>
+                                <property name="tooltip-text">Crop the selected page</property>
+                                <signal name="toggled" handler="crop_toggle_cb" swapped="no"/>
+                              </object>
+                            </child>
+
+                            <child>
+                              <object class="GtkButton" id="delete_button">
+                                <property name="icon-name">user-trash-symbolic</property>
+                                <property name="tooltip-text" translatable="yes">Delete the selected page</property>
+                                <property name="action-name">app.delete_page</property>
+                              </object>
+                            </child>
+
+                          </object>
+                        </child>
+
                       </object>
                     </child>
                   </object>
-                </child>
+                </property>
               </object>
-              <packing>
-                <property name="name">startup</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="main_vbox">
-                <property name="visible">True</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkActionBar" id="action_bar">
-                    <property name="visible">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="pack_type">end</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="name">document</property>
-                <property name="position">1</property>
-              </packing>
             </child>
           </object>
         </child>
+
       </object>
-    </child>
+    </property>
   </template>
 </interface>

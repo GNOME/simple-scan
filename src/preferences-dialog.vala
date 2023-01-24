@@ -11,7 +11,7 @@
  */
 
 [GtkTemplate (ui = "/org/gnome/SimpleScan/ui/preferences-dialog.ui")]
-private class PreferencesDialog : Hdy.PreferencesWindow
+private class PreferencesDialog : Adw.PreferencesWindow
 {
     private Settings settings;
 
@@ -26,31 +26,35 @@ private class PreferencesDialog : Hdy.PreferencesWindow
     [GtkChild]
     private unowned Gtk.Scale contrast_scale;
     [GtkChild]
-    private unowned Gtk.RadioButton page_delay_0s_button;
+    private unowned Gtk.Scale compression_scale;
     [GtkChild]
-    private unowned Gtk.RadioButton page_delay_3s_button;
+    private unowned Gtk.ToggleButton page_delay_0s_button;
     [GtkChild]
-    private unowned Gtk.RadioButton page_delay_6s_button;
+    private unowned Gtk.ToggleButton page_delay_3s_button;
     [GtkChild]
-    private unowned Gtk.RadioButton page_delay_10s_button;
+    private unowned Gtk.ToggleButton page_delay_6s_button;
     [GtkChild]
-    private unowned Gtk.RadioButton page_delay_15s_button;
+    private unowned Gtk.ToggleButton page_delay_10s_button;
+    [GtkChild]
+    private unowned Gtk.ToggleButton page_delay_15s_button;
     [GtkChild]
     private unowned Gtk.ListStore text_dpi_model;
     [GtkChild]
     private unowned Gtk.ListStore photo_dpi_model;
     [GtkChild]
-    private unowned Gtk.RadioButton front_side_button;
+    private unowned Gtk.ToggleButton front_side_button;
     [GtkChild]
-    private unowned Gtk.RadioButton back_side_button;
+    private unowned Gtk.ToggleButton back_side_button;
     [GtkChild]
-    private unowned Gtk.RadioButton both_side_button;
+    private unowned Gtk.ToggleButton both_side_button;
     [GtkChild]
     private unowned Gtk.ListStore paper_size_model;
     [GtkChild]
     private unowned Gtk.Adjustment brightness_adjustment;
     [GtkChild]
     private unowned Gtk.Adjustment contrast_adjustment;
+    [GtkChild]
+    private unowned Gtk.Adjustment compression_adjustment;
     [GtkChild]
     private unowned Gtk.Switch postproc_enable_switch;
     [GtkChild]
@@ -123,6 +127,15 @@ private class PreferencesDialog : Hdy.PreferencesWindow
         contrast_scale.add_mark (upper, Gtk.PositionType.BOTTOM, more_label);
         contrast_adjustment.value = settings.get_int ("contrast");
         contrast_adjustment.value_changed.connect (() => { settings.set_int ("contrast", get_contrast ()); });
+        
+        var minimum_size_label = "<small>%s</small>".printf (_("Minimum size"));
+        compression_scale.add_mark (compression_adjustment.lower, Gtk.PositionType.BOTTOM, minimum_size_label);
+        compression_scale.add_mark (75, Gtk.PositionType.BOTTOM, null);
+        compression_scale.add_mark (90, Gtk.PositionType.BOTTOM, null);
+        var full_detail_label = "<small>%s</small>".printf (_("Full detail"));
+        compression_scale.add_mark (compression_adjustment.upper, Gtk.PositionType.BOTTOM, full_detail_label);
+        compression_adjustment.value = settings.get_int ("jpeg-quality");
+        compression_adjustment.value_changed.connect (() => { settings.set_int ("jpeg-quality", (int) compression_adjustment.value); });
 
         var paper_width = settings.get_int ("paper-width");
         var paper_height = settings.get_int ("paper-height");

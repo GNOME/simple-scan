@@ -20,10 +20,10 @@ icondir = join_paths (datadir, 'simple-scan', 'icons')
 
 # Dependencies
 glib_dep = dependency ('glib-2.0', version: '>= 2.38')
-gtk_dep = dependency ('gtk+-3.0', version: '>=3.24')
+gtk_dep = dependency ('gtk4', version: '>=4.8.1')
 gmodule_dep = dependency ('gmodule-export-2.0')
 gthread_dep = dependency ('gthread-2.0')
-libhandy_dep = dependency ('libhandy-1', version: '>= 1.6.0', required: false)
+libadwaita_dep = dependency('libadwaita-1', version: '>= 1.2.0')
 zlib_dep = dependency ('zlib')
 cairo_dep = dependency ('cairo')
 gdk_pixbuf_dep = dependency ('gdk-pixbuf-2.0')
@@ -35,26 +35,6 @@ webpmux_dep = dependency ('libwebpmux', required: false)
 sane_dep = dependency ('sane-backends')
 msgfmt = find_program  ('msgfmt')
 itstool = find_program  ('itstool')
-
-libhandy_subproj = libhandy_dep
-if not libhandy_dep.found()
-  libhandy_subproj = subproject(
-    'libhandy',
-    default_options: [
-      'examples=false',
-      'glade_catalog=disabled',
-      'tests=false',
-    ]
-  )
-
-  # When using libhandy as subproject, make sure we get the VAPI file
-  libhandy_dep = declare_dependency(
-    dependencies: [
-      libhandy_subproj.get_variable('libhandy_dep'),
-      libhandy_subproj.get_variable('libhandy_vapi'),
-    ]
-  )
-endif
 
 subdir ('po')
 subdir ('data')

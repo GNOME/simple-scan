@@ -50,8 +50,7 @@ public class SimpleScan : Gtk.Application
     {
         base.startup ();
 
-        Hdy.init ();
-        Hdy.StyleManager.get_default ().color_scheme = PREFER_LIGHT;
+        Adw.init ();
 
         app = new AppWindow ();
         book = app.book;
@@ -1580,9 +1579,14 @@ public class SimpleScan : Gtk.Application
 
     private void authorize_cb (Scanner scanner, string resource)
     {
-        string username, password;
-        app.authorize (resource, out username, out password);
-        scanner.authorize (username, password);
+        app.authorize.begin (resource, (obj, res) =>
+        {
+            var data = app.authorize.end(res);
+            if (data.success)
+            {
+                scanner.authorize (data.username, data.password);
+            }
+        });
     }
 
     private Page append_page (int width = 100, int height = 100, int dpi = 100)
@@ -1956,7 +1960,6 @@ public class SimpleScan : Gtk.Application
         var c = new OptionContext (/* Arguments and description for --help text */
                                    _("[DEVICE…] — Scanning utility"));
         c.add_main_entries (options, GETTEXT_PACKAGE);
-        c.add_group (Gtk.get_option_group (true));
         try
         {
             c.parse (ref args);
@@ -2014,7 +2017,7 @@ public class SimpleScan : Gtk.Application
 
         debug ("Starting %s %s, PID=%i", args[0], VERSION, Posix.getpid ());
 
-        Gtk.init (ref args);
+        Gtk.init ();
 
         var app = new SimpleScan (device);
         return app.run ();

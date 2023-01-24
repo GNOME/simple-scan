@@ -237,7 +237,8 @@ private class BookSaver
         encoder = new ThreadPool<EncodeTask>.with_owned_data (encode_delegate, (int) get_num_processors (), false);
 
         /* Configure a writer */
-        ThreadFunc<Error?>? write_delegate = null;
+        Thread<Error?> writer;
+
         switch (mime_type)
         {
         case "image/jpeg":
@@ -245,13 +246,15 @@ private class BookSaver
 #if HAVE_WEBP
         case "image/webp":
 #endif
-            write_delegate = write_multifile;
+            writer = new Thread<Error?> (null, write_multifile);
             break;
         case "application/pdf":
-            write_delegate = write_pdf;
+            writer = new Thread<Error?> (null, write_pdf);
+            break;
+        default:
+            writer = new Thread<Error?> (null, () => null);
             break;
         }
-        var writer = new Thread<Error?> (null, write_delegate);
 
         /* Issue encode tasks */
         for (var i = 0; i < n_pages; i++)

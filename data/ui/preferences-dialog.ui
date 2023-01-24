@@ -14,6 +14,14 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
+  <object class="GtkAdjustment" id="compression_adjustment">
+    <property name="value">75</property>
+    <property name="lower">0</property>
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+    <property name="page_size">0</property>
+  </object>
   <object class="GtkListStore" id="paper_size_model">
     <columns>
       <!-- column-name width -->
@@ -40,18 +48,18 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <template class="PreferencesDialog" parent="HdyPreferencesWindow">
+  <template class="PreferencesDialog" parent="AdwPreferencesWindow">
     <property name="icon_name">org.gnome.SimpleScan</property>
     <property name="search_enabled">False</property>
     <child>
-      <object class="HdyPreferencesPage">
+      <object class="AdwPreferencesPage">
         <property name="visible">True</property>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="visible">True</property>
             <property name="title" translatable="yes" comments="Preferences Dialog: Section label for scanning settings">Scanning</property>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Label beside scan side combo box">Scan _Sides</property>
                 <property name="use_underline">True</property>
@@ -62,32 +70,28 @@
                     <property name="valign">center</property>
                     <property name="homogeneous">True</property>
                     <child>
-                      <object class="GtkRadioButton" id="front_side_button">
+                      <object class="GtkToggleButton" id="front_side_button">
                         <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">Front</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="active">True</property>
-                        <property name="draw_indicator">False</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="back_side_button">
+                      <object class="GtkToggleButton" id="back_side_button">
                         <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on the back side of a page">Back</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="draw_indicator">False</property>
                         <property name="group">front_side_button</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="both_side_button">
+                      <object class="GtkToggleButton" id="both_side_button">
                         <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on both sides of a page">Both</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="draw_indicator">False</property>
                         <property name="group">front_side_button</property>
                       </object>
                     </child>
@@ -99,7 +103,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Label beside page size combo box">_Page Size</property>
                 <property name="use_underline">True</property>
@@ -115,7 +119,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Label beside page delay scale">_Delay in Seconds</property>
                 <property name="subtitle" translatable="yes" comments="Provides context for the page delay scale">Interval to scan multiple pages</property>
@@ -127,56 +131,46 @@
                     <property name="valign">center</property>
                     <property name="homogeneous">True</property>
                     <child>
-                      <object class="GtkRadioButton" id="page_delay_0s_button">
+                      <object class="GtkToggleButton" id="page_delay_0s_button">
                         <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">0</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="active">True</property>
-                        <property name="draw_indicator">False</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="page_delay_3s_button">
+                      <object class="GtkToggleButton" id="page_delay_3s_button">
                         <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">3</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="active">True</property>
-                        <property name="draw_indicator">False</property>
                         <property name="group">page_delay_0s_button</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="page_delay_6s_button">
+                      <object class="GtkToggleButton" id="page_delay_6s_button">
                         <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">6</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="active">True</property>
-                        <property name="draw_indicator">False</property>
                         <property name="group">page_delay_0s_button</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="page_delay_10s_button">
+                      <object class="GtkToggleButton" id="page_delay_10s_button">
                         <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">10</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="active">True</property>
-                        <property name="draw_indicator">False</property>
                         <property name="group">page_delay_0s_button</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="page_delay_15s_button">
+                      <object class="GtkToggleButton" id="page_delay_15s_button">
                         <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">15</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="active">True</property>
-                        <property name="draw_indicator">False</property>
                         <property name="group">page_delay_0s_button</property>
                       </object>
                     </child>
@@ -190,11 +184,11 @@
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="visible">True</property>
             <property name="title" translatable="yes" comments="Preferences Dialog: Section label for quality settings">Quality</property>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Label beside scan resolution combo box">_Text Resolution</property>
                 <property name="use_underline">True</property>
@@ -209,7 +203,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Label beside scan resolution combo box">_Image Resolution</property>
                 <property name="use_underline">True</property>
@@ -224,7 +218,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Label beside brightness scale">_Brightness</property>
                 <property name="use_underline">True</property>
@@ -242,7 +236,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Label beside contrast scale">_Contrast</property>
                 <property name="use_underline">True</property>
@@ -259,14 +253,32 @@
                 </child>
               </object>
             </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="visible">True</property>
+                <property name="title" translatable="yes" comments="Label beside compression scale">Compression:</property>
+                <property name="use_underline">True</property>
+                <property name="activatable_widget">compression_scale</property>
+                <child>
+                  <object class="GtkScale" id="compression_scale">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">True</property>
+                    <property name="adjustment">compression_adjustment</property>
+                    <property name="draw_value">False</property>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="visible">True</property>
             <property name="title" translatable="yes" comments="Preferences Dialog: Section label for postprocessing settings">Postprocessing</property>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Switch to enable postprocessing">_Enable Postprocessing</property>
                 <property name="use_underline">True</property>
@@ -289,7 +301,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Label beside postprocesing script name entry">_Script</property>
                 <property name="use_underline">True</property>
@@ -312,7 +324,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Label beside postprocesing arguments entry">_Script arguments</property>
                 <property name="use_underline">True</property>
@@ -335,7 +347,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="visible">True</property>
                 <property name="title" translatable="yes" comments="Label beside keep keep original file radio">_Keep original file</property>
                 <property name="use_underline">True</property>

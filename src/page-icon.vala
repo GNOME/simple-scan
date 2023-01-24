@@ -22,41 +22,52 @@ public class PageIcon : Gtk.DrawingArea
         this.side = side;
         this.position = position;
         this.angle = angle;
+        
+        set_draw_func(draw);
+    }
+    
+    public override void measure (Gtk.Orientation orientation, int for_size, out int minimum, out int natural, out int minimum_baseline, out int natural_baseline)
+    {
+        if (orientation == Gtk.Orientation.VERTICAL)
+        {
+            if (for_size == -1)
+            {
+                minimum = natural = (int) Math.round (MINIMUM_WIDTH * Math.SQRT2);
+            }
+            else
+            {
+                minimum = natural = (int) (for_size * Math.SQRT2);
+            }
+        }
+        else
+        {
+            if (for_size == -1)
+            {
+                minimum = natural = MINIMUM_WIDTH;
+            }
+            else
+            {
+                minimum = natural = (int) (for_size / Math.SQRT2);
+            }
+        }
+
+        minimum_baseline = -1;
+        natural_baseline = -1;
     }
 
-    public override void get_preferred_width (out int minimum_width, out int natural_width)
+    void draw (Gtk.DrawingArea drawing_area, Cairo.Context c, int width, int height)
     {
-        minimum_width = natural_width = MINIMUM_WIDTH;
-    }
-
-    public override void get_preferred_height (out int minimum_height, out int natural_height)
-    {
-        minimum_height = natural_height = (int) Math.round (MINIMUM_WIDTH * Math.SQRT2);
-    }
-
-    public override void get_preferred_height_for_width (int width, out int minimum_height, out int natural_height)
-    {
-        minimum_height = natural_height = (int) (width * Math.SQRT2);
-    }
-
-    public override void get_preferred_width_for_height (int height, out int minimum_width, out int natural_width)
-    {
-        minimum_width = natural_width = (int) (height / Math.SQRT2);
-    }
-
-    public override bool draw (Cairo.Context c)
-    {
-        var w = get_allocated_width ();
-        var h = get_allocated_height ();
+        var w = width;
+        var h = height;
         if (w * Math.SQRT2 > h)
             w = (int) Math.round (h / Math.SQRT2);
         else
             h = (int) Math.round (w * Math.SQRT2);
 
-        c.translate ((get_allocated_width () - w) / 2, (get_allocated_height () - h) / 2);
+        c.translate ((width - w) / 2, (height - h) / 2);
 
-        bool dark = Hdy.StyleManager.get_default ().dark;
-        bool hc = Hdy.StyleManager.get_default ().high_contrast;
+        bool dark = Adw.StyleManager.get_default ().dark;
+        bool hc = Adw.StyleManager.get_default ().high_contrast;
 
         if (dark && !hc)
             c.rectangle (1, 1, w - 2, h - 2);
@@ -89,14 +100,14 @@ public class PageIcon : Gtk.DrawingArea
             start.parse ("#f6d32d");
             end.parse ("#ed333b");
 
-            double progress = position / 5.0;
+            float progress = position / 5.0f;
             rgba.red   = start.red   + (end.red   - start.red)   * progress;
             rgba.green = start.green + (end.green - start.green) * progress;
             rgba.blue  = start.blue  + (end.blue  - start.blue)  * progress;
             break;
         }
 
-        rgba.alpha = 0.3;
+        rgba.alpha = 0.3f;
 
         Gdk.cairo_set_source_rgba (c, rgba);
         c.fill ();
@@ -122,14 +133,13 @@ public class PageIcon : Gtk.DrawingArea
 
         var rad =  Math.PI / 180.0 * angle;
         c.text_extents (text, out extents);
-        c.translate ((w - extents.width) * 0.5 - 0.5, extents.height + (h - extents.height) * 0.5 - 0.5);
-        c.rotate(rad);
-        //  only correct for 0 and 180 degree
-        var tx = (1.0 - Math.sin(rad)) * extents.width / 2;
-        var ty = (1.0 - Math.sin(rad)) * extents.height / 2;
-        c.translate(-tx, +ty);
-        c.show_text (text);
 
-        return true;
+        c.translate ((w - extents.width) * 0.5 - 0.5, extents.height + (h - extents.height) * 0.5 - 0.5);
+        c.rotate (rad);
+        //  only correct for 0 and 180 degree
+        var tx = (1.0 - Math.cos(rad)) * extents.width / 2;
+        var ty = (1.0 - Math.cos(rad)) * extents.height / 2;
+        c.translate (-tx, +ty);
+        c.show_text (text);
     }
 }

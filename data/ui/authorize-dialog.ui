@@ -1,111 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
 <interface>
-  <requires lib="gtk+" version="3.10"/>
-  <template class="AuthorizeDialog" parent="GtkDialog">
-    <property name="border_width">12</property>
-    <property name="resizable">False</property>
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="AuthorizeDialog" parent="GtkWindow">
     <property name="modal">True</property>
-    <property name="type_hint">normal</property>
-    <property name="urgency_hint">True</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox1">
-        <property name="visible">True</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">12</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area1">
-            <property name="visible">True</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="authorize_button">
-                <property name="label" translatable="yes" comments="Button to submit authorization dialog">_Authorize</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="pack_type">end</property>
-          </packing>
-        </child>
+    <property name="resizable">False</property>
+    <property name="hide-on-close">True</property>
+
+    <property name="titlebar">
+      <object class="GtkBox">
+      </object>
+    </property>
+
+    <child>
+      <object class="GtkWindowHandle">
         <child>
-          <object class="GtkBox" id="vbox5">
+          <object class="GtkBox" id="dialog-vbox1">
             <property name="visible">True</property>
-            <property name="border_width">5</property>
             <property name="orientation">vertical</property>
             <property name="spacing">12</property>
+            <property name="margin-start">20</property>
+            <property name="margin-end">20</property>
+            <property name="margin-top">18</property>
+            <property name="margin-bottom">18</property>
+
             <child>
-              <object class="GtkLabel" id="authorize_label">
-                <property name="visible">True</property>
-                <property name="vexpand">True</property>
-                <property name="label" comments="This label is set dynamically and is not translated">To connect to ? you need to authorize</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkGrid" id="grid2">
-                <property name="visible">True</property>
-                <property name="row_spacing">6</property>
-                <property name="column_spacing">6</property>
+              <object class="AdwPreferencesGroup" id="preferences_group">
+                <property name="title" comments="This label is set dynamically and is not translated">To connect to ? you need to authorize</property>
+
                 <child>
-                  <object class="GtkEntry" id="username_entry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="hexpand">True</property>
-                    <property name="invisible_char">●</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="password_entry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="hexpand">True</property>
-                    <property name="visibility">False</property>
-                    <property name="invisible_char">●</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="username_label">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes" comments="Label beside username entry">_Username for resource:</property>
+                  <object class="AdwEntryRow" id="username_entry">
+                    <property name="title" translatable="yes">_Username for resource:</property>
                     <property name="use_underline">True</property>
-                    <property name="mnemonic_widget">username_entry</property>
                   </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                  </packing>
                 </child>
+
                 <child>
-                  <object class="GtkLabel" id="password_label">
-                    <property name="visible">True</property>
-                    <property name="label" translatable="yes" comments="Label beside password entry">_Password:</property>
+                  <object class="AdwPasswordEntryRow" id="password_entry">
+                    <property name="title" translatable="yes">_Password:</property>
                     <property name="use_underline">True</property>
-                    <property name="mnemonic_widget">password_entry</property>
                   </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
-                  </packing>
                 </child>
               </object>
             </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">horizontal</property>
+                <property name="spacing">5</property>
+                <property name="halign">end</property>
+
+                <child>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">_Cancel</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="cancel_button_cb" swapped="no"/>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkButton" id="authorize_button">
+                    <property name="label" translatable="yes" comments="Button to submit authorization dialog">_Authorize</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="authorize_button_cb" swapped="no"/>
+
+                    <style>
+                      <class name="suggested-action"/>
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+
           </object>
         </child>
       </object>
     </child>
-    <action-widgets>
-      <action-widget response="0">authorize_button</action-widget>
-    </action-widgets>
   </template>
 </interface>

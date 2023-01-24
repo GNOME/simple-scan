@@ -75,7 +75,7 @@ public class PageView : Object
     private int selected_crop_h;
 
     /* Cursor over this page */
-    public Gdk.CursorType cursor { get; private set; default = Gdk.CursorType.ARROW; }
+    public string cursor { get; private set; default = "arrow"; }
 
     private int animate_n_segments = 7;
     private int animate_segment;
@@ -642,38 +642,39 @@ public class PageView : Object
     public void motion (int x, int y)
     {
         var location = get_crop_location (x, y);
-        Gdk.CursorType cursor;
+
+        string cursor;
         switch (location)
         {
         case CropLocation.MIDDLE:
-            cursor = Gdk.CursorType.HAND1;
+            cursor = "hand1";
             break;
         case CropLocation.TOP:
-            cursor = Gdk.CursorType.TOP_SIDE;
+            cursor = "top_side";
             break;
         case CropLocation.BOTTOM:
-            cursor = Gdk.CursorType.BOTTOM_SIDE;
+            cursor = "bottom_side";
             break;
         case CropLocation.LEFT:
-            cursor = Gdk.CursorType.LEFT_SIDE;
+            cursor = "left_side";
             break;
         case CropLocation.RIGHT:
-            cursor = Gdk.CursorType.RIGHT_SIDE;
+            cursor = "right_side";
             break;
         case CropLocation.TOP_LEFT:
-            cursor = Gdk.CursorType.TOP_LEFT_CORNER;
+            cursor = "top_left_corner";
             break;
         case CropLocation.TOP_RIGHT:
-            cursor = Gdk.CursorType.TOP_RIGHT_CORNER;
+            cursor = "top_right_corner";
             break;
         case CropLocation.BOTTOM_LEFT:
-            cursor = Gdk.CursorType.BOTTOM_LEFT_CORNER;
+            cursor = "bottom_left_corner";
             break;
         case CropLocation.BOTTOM_RIGHT:
-            cursor = Gdk.CursorType.BOTTOM_RIGHT_CORNER;
+            cursor = "bottom_right_corner";
             break;
         default:
-            cursor = Gdk.CursorType.ARROW;
+            cursor = "arrow";
             break;
         }
 

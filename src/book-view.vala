@@ -22,7 +22,7 @@ public class BookView : Gtk.Box
     private bool need_layout;
     private bool laying_out;
     private bool show_selected_page;
-
+    
     /* Currently selected page */
     private PageView? selected_page_view = null;
     public Page? selected_page
@@ -47,17 +47,24 @@ public class BookView : Gtk.Box
     }
 
     /* Widget being rendered to */
-    private Gtk.Widget drawing_area;
+    private Gtk.DrawingArea drawing_area;
 
     /* Horizontal scrollbar */
     private Gtk.Scrollbar scroll;
     private Gtk.Adjustment adjustment;
 
-    private Gdk.CursorType cursor;
+    private new string cursor;
+    
+    private Gtk.EventControllerMotion motion_controller;
+    private Gtk.EventControllerKey key_controller; 
+    private Gtk.GestureClick primary_click_gesture; 
+    private Gtk.GestureClick secondary_click_gesture; 
+    private Gtk.EventControllerFocus focus_controller;
+
 
     public signal void page_selected (Page? page);
     public signal void show_page (Page page);
-    public signal void show_menu (Gdk.Event event);
+    public signal void show_menu (Gtk.Widget from, double x, double y);
 
     public int x_offset
     {
@@ -93,27 +100,47 @@ public class BookView : Gtk.Box
 
         need_layout = true;
         page_data = new HashTable<Page, PageView> (direct_hash, direct_equal);
-        cursor = Gdk.CursorType.ARROW;
+        cursor = "arrow";
 
         drawing_area = new Gtk.DrawingArea ();
         drawing_area.set_size_request (200, 100);
         drawing_area.can_focus = true;
-        drawing_area.events = Gdk.EventMask.POINTER_MOTION_MASK | Gdk.EventMask.BUTTON_PRESS_MASK | Gdk.EventMask.BUTTON_RELEASE_MASK | Gdk.EventMask.FOCUS_CHANGE_MASK | Gdk.EventMask.STRUCTURE_MASK | Gdk.EventMask.SCROLL_MASK;
         drawing_area.vexpand = true;
-        add (drawing_area);
+        drawing_area.set_draw_func(draw_cb);
+
+        append (drawing_area);
 
         scroll = new Gtk.Scrollbar (Gtk.Orientation.HORIZONTAL, null);
         adjustment = scroll.adjustment;
-        add (scroll);
+        append (scroll);
 
-        drawing_area.configure_event.connect (configure_cb);
-        drawing_area.draw.connect (draw_cb);
-        drawing_area.motion_notify_event.connect (motion_cb);
-        drawing_area.key_press_event.connect (key_cb);
-        drawing_area.button_press_event.connect (button_cb);
-        drawing_area.button_release_event.connect (button_cb);
-        drawing_area.focus_in_event.connect_after (focus_cb);
-        drawing_area.focus_out_event.connect_after (focus_cb);
+        drawing_area.resize.connect (drawing_area_resize_cb);
+
+        motion_controller = new Gtk.EventControllerMotion ();
+        motion_controller.motion.connect (motion_cb);
+        drawing_area.add_controller(motion_controller);
+
+        key_controller = new Gtk.EventControllerKey (); 
+        key_controller.key_pressed.connect (key_cb);
+        drawing_area.add_controller(key_controller);
+
+        primary_click_gesture = new Gtk.GestureClick (); 
+        primary_click_gesture.button = Gdk.BUTTON_PRIMARY;
+        primary_click_gesture.pressed.connect (primary_pressed_cb);
+        primary_click_gesture.released.connect (primary_released_cb);
+        drawing_area.add_controller(primary_click_gesture);
+
+        secondary_click_gesture = new Gtk.GestureClick (); 
+        secondary_click_gesture.button = Gdk.BUTTON_SECONDARY;
+        secondary_click_gesture.pressed.connect (secondary_pressed_cb);
+        secondary_click_gesture.released.connect (secondary_released_cb);
+        drawing_area.add_controller(secondary_click_gesture);
+
+        focus_controller = new Gtk.EventControllerFocus ();
+        focus_controller.enter.connect_after (focus_cb);
+        focus_controller.leave.connect_after (focus_cb);
+        drawing_area.add_controller(focus_controller);
+
         adjustment.value_changed.connect (scroll_cb);
 
         drawing_area.visible = true;
@@ -125,14 +152,15 @@ public class BookView : Gtk.Box
         book.page_removed.disconnect (remove_cb);
         book.reordered.disconnect (reorder_cb);
         book.cleared.disconnect (clear_cb);
-        drawing_area.configure_event.disconnect (configure_cb);
-        drawing_area.draw.disconnect (draw_cb);
-        drawing_area.motion_notify_event.disconnect (motion_cb);
-        drawing_area.key_press_event.disconnect (key_cb);
-        drawing_area.button_press_event.disconnect (button_cb);
-        drawing_area.button_release_event.disconnect (button_cb);
-        drawing_area.focus_in_event.disconnect (focus_cb);
-        drawing_area.focus_out_event.disconnect (focus_cb);
+        drawing_area.resize.disconnect (drawing_area_resize_cb);
+        motion_controller.motion.disconnect (motion_cb);
+        key_controller.key_pressed.disconnect (key_cb);
+        primary_click_gesture.pressed.disconnect (primary_pressed_cb);
+        primary_click_gesture.released.disconnect (primary_released_cb);
+        secondary_click_gesture.pressed.disconnect (secondary_pressed_cb);
+        secondary_click_gesture.released.disconnect (secondary_released_cb);
+        focus_controller.enter.disconnect (focus_cb);
+        focus_controller.leave.disconnect (focus_cb);
         adjustment.value_changed.disconnect (scroll_cb);
     }
 
@@ -289,10 +317,12 @@ public class BookView : Gtk.Box
         redraw ();
     }
 
-    private bool configure_cb (Gtk.Widget widget, Gdk.EventConfigure event)
+    public void drawing_area_resize_cb ()
     {
         need_layout = true;
-        return false;
+        // Let's layout ahead of time 
+        // to avoid "Trying to snapshot GtkGizmo without a current allocation" error
+        layout ();
     }
 
     private void layout_into (int width, int height, out int book_width, out int book_height)
@@ -392,7 +422,7 @@ public class BookView : Gtk.Box
 
         /* Try and fit without scrollbar */
         var width = (int) allocation.width;
-        var height = (int) (box_allocation.height - get_border_width () * 2);
+        var height = (int) (box_allocation.height);
         int book_width, book_height;
         layout_into (width, height, out book_width, out book_height);
 
@@ -402,17 +432,17 @@ public class BookView : Gtk.Box
             /* Re-layout leaving space for scrollbar */
             height = allocation.height;
             layout_into (width, height, out book_width, out book_height);
-
+ 
             /* Set scrollbar limits */
             adjustment.lower = 0;
             adjustment.upper = book_width;
             adjustment.page_size = allocation.width;
-
+ 
             /* Keep right-aligned */
             var max_offset = book_width - allocation.width;
             if (right_aligned || x_offset > max_offset)
                 x_offset = max_offset;
-
+ 
             scroll.visible = true;
         }
         else
@@ -433,7 +463,7 @@ public class BookView : Gtk.Box
         laying_out = false;
     }
 
-    private bool draw_cb (Gtk.Widget widget, Cairo.Context context)
+    public void draw_cb (Gtk.DrawingArea drawing_area, Cairo.Context context, int width, int height)
     {
         layout ();
 
@@ -444,7 +474,7 @@ public class BookView : Gtk.Box
         for (var i = 0; i < book.n_pages; i++)
             pages.append (get_nth_page (i));
 
-        var ruler_color = get_style_context ().get_color (get_state_flags ());
+        var ruler_color = get_style_context ().get_color ();
         Gdk.RGBA ruler_color_selected = {};
         ruler_color_selected.parse("#3584e4");  /* Gnome Blue 3 */
 
@@ -470,8 +500,6 @@ public class BookView : Gtk.Box
                                                                 page.width,
                                                                 page.height);
         }
-
-        return false;
     }
 
     private PageView? get_page_at (int x, int y, out int x_, out int y_)
@@ -495,65 +523,86 @@ public class BookView : Gtk.Box
         return null;
     }
 
-    private bool button_cb (Gtk.Widget widget, Gdk.EventButton event)
+    private void primary_pressed_cb (Gtk.GestureClick controler, int n_press, double x, double y)
+    {
+        button_cb(controler, Gdk.BUTTON_PRIMARY, true, n_press, x, y);
+    }
+
+    private void primary_released_cb (Gtk.GestureClick controler, int n_press, double x, double y)
+    {
+        button_cb(controler, Gdk.BUTTON_PRIMARY, false, n_press, x, y);
+    }
+
+    private void secondary_pressed_cb (Gtk.GestureClick controler, int n_press, double x, double y)
+    {
+        button_cb(controler, Gdk.BUTTON_SECONDARY, true, n_press, x, y);
+    }
+
+    private void secondary_released_cb (Gtk.GestureClick controler, int n_press, double x, double y)
+    {
+        button_cb(controler, Gdk.BUTTON_SECONDARY, false, n_press, x, y);
+    }
+
+    private void button_cb (Gtk.GestureClick controler, int button, bool press, int n_press, double dx, double dy)
     {
         layout ();
 
         drawing_area.grab_focus ();
 
         int x = 0, y = 0;
-        if (event.type == Gdk.EventType.BUTTON_PRESS)
-            select_page_view (get_page_at ((int) (event.x + x_offset), (int) event.y, out x, out y));
+        if (press)
+            select_page_view (get_page_at ((int) ((int) dx + x_offset), (int) dy, out x, out y));
 
         if (selected_page_view == null)
-            return false;
+            return;
 
         /* Modify page */
-        if (event.button == 1)
+        if (button == Gdk.BUTTON_PRIMARY)
         {
-            if (event.type == Gdk.EventType.BUTTON_PRESS)
+            if (press)
                 selected_page_view.button_press (x, y);
-            else if (event.type == Gdk.EventType.BUTTON_RELEASE)
-                selected_page_view.button_release (x, y);
-            else if (event.type == Gdk.EventType.2BUTTON_PRESS)
+            else if (press && n_press == 2)
                 show_page (selected_page);
+            else if (!press)
+                selected_page_view.button_release (x, y);
         }
 
         /* Show pop-up menu on right click */
-        if (event.button == 3)
-            show_menu (event);
-
-        return false;
+        if (button == Gdk.BUTTON_SECONDARY)
+            show_menu (drawing_area, dx, dy);
     }
 
-    private void set_cursor (Gdk.CursorType cursor)
+    private new void set_cursor (string cursor)
     {
-        Gdk.Cursor c;
-
         if (this.cursor == cursor)
             return;
         this.cursor = cursor;
 
-        c = new Gdk.Cursor.for_display (get_display (), cursor);
-        drawing_area.get_window ().set_cursor (c);
+        Gdk.Cursor c = new Gdk.Cursor.from_name (cursor, null);
+        drawing_area.set_cursor (c);
     }
 
-    private bool motion_cb (Gtk.Widget widget, Gdk.EventMotion event)
+    private void motion_cb (Gtk.EventControllerMotion controler, double dx, double dy)
     {
-        Gdk.CursorType cursor = Gdk.CursorType.ARROW;
+        string cursor = "arrow";
+        
+        int event_x = (int) dx;
+        int event_y = (int) dy;
+        
+        var event_state = controler.get_current_event_state();
 
         /* Dragging */
-        if (selected_page_view != null && (event.state & Gdk.ModifierType.BUTTON1_MASK) != 0)
+        if (selected_page_view != null && (event_state & Gdk.ModifierType.BUTTON1_MASK) != 0)
         {
-            var x = (int) (event.x + x_offset - selected_page_view.x_offset);
-            var y = (int) (event.y - selected_page_view.y_offset);
+            var x = (int) (event_x + x_offset - selected_page_view.x_offset);
+            var y = (int) (event_y - selected_page_view.y_offset);
             selected_page_view.motion (x, y);
             cursor = selected_page_view.cursor;
         }
         else
         {
             int x, y;
-            var over_page = get_page_at ((int) (event.x + x_offset), (int) event.y, out x, out y);
+            var over_page = get_page_at ((int) (event_x + x_offset), (int) event_y, out x, out y);
             if (over_page != null)
             {
                 over_page.motion (x, y);
@@ -562,13 +611,11 @@ public class BookView : Gtk.Box
         }
 
         set_cursor (cursor);
-
-        return false;
     }
 
-    private bool key_cb (Gtk.Widget widget, Gdk.EventKey event)
+    private bool key_cb (Gtk.EventControllerKey controler, uint keyval, uint keycode, Gdk.ModifierType state)
     {
-        switch (event.keyval)
+        switch (keyval)
         {
         case 0xff50: /* FIXME: GDK_Home */
             selected_page = book.get_page (0);
@@ -588,10 +635,9 @@ public class BookView : Gtk.Box
         }
     }
 
-    private bool focus_cb (Gtk.Widget widget, Gdk.EventFocus event)
+    private void focus_cb (Gtk.EventControllerFocus controler)
     {
         set_selected_page_view (selected_page_view);
-        return false;
     }
 
     private void scroll_cb (Gtk.Adjustment adjustment)
