@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 07:56+0000\n"
-"PO-Revision-Date: 2022-12-08 02:34+0300\n"
+"POT-Creation-Date: 2023-01-25 22:01+0000\n"
+"PO-Revision-Date: 2023-01-26 01:37+0300\n"
 "Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -307,7 +307,7 @@ msgstr "_Тэкст"
 msgid "_Image"
 msgstr "_Выява"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Налады"
 
@@ -451,10 +451,15 @@ msgstr "Адкрыць меню"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "Паказаць налады"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Спалучэнні клавіш"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Выйсці"
@@ -694,7 +699,7 @@ msgstr "Поўныя звесткі"
 #: src/app-window.vala:647
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
-msgstr "Файл з назвай “%s” ужо існуе. Вы жадаеце яго замяніць?"
+msgstr "Файл з назвай «%s» ужо існуе. Хочаце яго замяніць?"
 
 #. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
 #: src/app-window.vala:650
@@ -776,13 +781,13 @@ msgstr "Пакінуць без змяненняў"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "Перакуліць няцотныя старонкі"
+msgid "Flip even pages upside-down"
+msgstr "Перакуліць цотныя старонкі"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "Перакуліць цотныя старонкі"
+msgid "Flip odd pages upside-down"
+msgstr "Перакуліць няцотныя старонкі"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -819,8 +824,8 @@ msgstr "Падобна, што ў вас сканер кампаніі Brother."
 #. Instructions on how to install Brother scanner drivers
 #: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
 "Драйверы для яго даступны на <a href=\"http://support.brother.com\">сайце "
 "Brother</a>."
@@ -828,8 +833,9 @@ msgstr ""
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
 "Падобна, што ў вас сканер Canon, які падтрымліваецца праз <a href=\"http://"
 "www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
@@ -886,8 +892,8 @@ msgstr "Падобна, што ў вас сканер кампаніі Epson."
 #. Instructions on how to install Epson scanner drivers
 #: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
 "Драйверы для яго даступны на <a href=\"http://support.epson.com\">сайце "
 "Epson</a>."
@@ -900,8 +906,8 @@ msgstr "Падобна, што ў вас сканер кампаніі Lexmark."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
 "Драйверы для яго даступны на <a href=\"http://support.lexmark.com\">сайце "
 "Lexmark</a>."
@@ -946,64 +952,64 @@ msgstr[0] "Вам неабходна ўсталяваць %s пакет."
 msgstr[1] "Вам неабходна ўсталяваць %s пакеты."
 msgstr[2] "Вам неабходна ўсталяваць %s пакетаў."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "_Электронная пошта"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "_Друк"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Пераўпарадкаваць старонкі"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "_Спалучэнні клавіш"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "_Даведка"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "_Аб праграме"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "_Новы дакумент"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Павярнуць старонку ўлева (супраць ходу гадзіннікавай стрэлкі)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Павярнуць старонку ўправа (па ходу гадзіннікавай стрэлкі)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "Абрэзаць выбраную старонку"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "Выдаліць выбраную старонку"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "Скасаваць"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Немагчыма пераўтварыць старонку %i"
@@ -1126,7 +1132,7 @@ msgstr "[DEVICE…] — прылада сканавання"
 #: src/simple-scan.vala:1968
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
-msgstr "Выканайце “%s --help”, каб паглядзець поўны спіс даступных параметраў."
+msgstr "Выканайце «%s --help», каб паглядзець поўны спіс даступных параметраў."
 
 #~ msgid "A_6"
 #~ msgstr "A_6"
@@ -1165,9 +1171,6 @@ msgstr "Выканайце “%s --help”, каб паглядзець поўн
 
 #~ msgid "Print"
 #~ msgstr "Друк"
-
-#~ msgid "Preferences"
-#~ msgstr "Налады"
 
 #~ msgid "Help"
 #~ msgstr "Даведка"
@@ -1213,11 +1216,11 @@ msgstr "Выканайце “%s --help”, каб паглядзець поўн
 #~ msgstr "Пра Просты сканер"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
-#~ "Драйверы для яго вы можаце знайсці на <a href=\"http://samsung.com/support"
-#~ "\">сайт Samsung</a>."
+#~ "Драйверы для яго вы можаце знайсці на <a href=\"http://samsung.com/"
+#~ "support\">сайт Samsung</a>."
 
 #~ msgid "About"
 #~ msgstr "Пра праграму"
