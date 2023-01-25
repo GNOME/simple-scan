@@ -9,7 +9,7 @@
  * license.
  */
 
-public class SimpleScan : Gtk.Application
+public class SimpleScan : Adw.Application
 {
     static bool show_version;
     static bool debug_enabled;
@@ -49,8 +49,6 @@ public class SimpleScan : Gtk.Application
     public override void startup ()
     {
         base.startup ();
-
-        Adw.init ();
 
         app = new AppWindow ();
         book = app.book;
