@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 19:57+0000\n"
-"PO-Revision-Date: 2022-09-22 22:33+0200\n"
-"Last-Translator: Matej Urbančič <mateju@src.gnome.org>\n"
+"POT-Creation-Date: 2023-01-25 22:01+0000\n"
+"PO-Revision-Date: 2023-01-26 19:00+0100\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
 "n%100==4 ? 3 : 0);\n"
 "X-Launchpad-Export-Date: 2016-12-19 05:08+0000\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -306,7 +306,7 @@ msgstr "_Besedilo"
 msgid "_Image"
 msgstr "_Slika"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Možnosti"
 
@@ -450,10 +450,15 @@ msgstr "Odpre meni"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "Pokaži možnosti"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Tipkovne bližnjice‫"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Konča program"
@@ -775,13 +780,13 @@ msgstr "Ohrani nespremenjeno"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "Obrni lihe strani na glavo"
+msgid "Flip even pages upside-down"
+msgstr "Obrni sode strani na glavo"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "Obrni sode strani na glavo"
+msgid "Flip odd pages upside-down"
+msgstr "Obrni lihe strani na glavo"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -959,64 +964,64 @@ msgstr[1] "Namestiti je treba %s paket."
 msgstr[2] "Namestiti je treba %s paketa."
 msgstr[3] "Namestiti je treba %s pakete."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "_Elektronski naslov"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "_Natisni"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Prerazporedi strani"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "Pomo_č"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "_O programu"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "Nov _dokument"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Obrni stran v levo (nasprotna smer urinega kazalca)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Obrni stran v desno (smer urinega kazalca)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "Obreži izbrano stran"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "Izbriši izbrano stran"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "Prekliči"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Ni mogoče kodirati strani %i"
@@ -1140,283 +1145,3 @@ msgstr "[NAPRAVA ...] – orodje za optično branje"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Za popoln seznam možnosti ukazne vrstice zaženite »%s --help«."
-
-#~ msgid ""
-#~ "This program is free software: you can redistribute it and/or modify\n"
-#~ "it under the terms of the GNU General Public License as published by\n"
-#~ "the Free Software Foundation, either version 3 of the License, or\n"
-#~ "(at your option) any later version.\n"
-#~ "\n"
-#~ "This program is distributed in the hope that it will be useful,\n"
-#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-#~ "GNU General Public License for more details.\n"
-#~ "\n"
-#~ "You should have received a copy of the GNU General Public License\n"
-#~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
-#~ msgstr ""
-#~ "Ta program je prosta programska oprema; program lahko širite in/ali "
-#~ "spreminjate\n"
-#~ "pod pogoji Splošnega javnega dovoljenja kot je objavljena s strani Free "
-#~ "Software \n"
-#~ "Foundation; ali različico 3 Licence ali (na vašo željo) katerakoli "
-#~ "kasnejša različica.\n"
-#~ "\n"
-#~ "Ta program je distribuiran v upanju da bo uporaben,\n"
-#~ "toda BREZ KAKRŠNIHKOLI ZAGOTOVIL; tudi brez impliciranih\n"
-#~ "zagotovila za PRODAJO ali PRIMERNOST ZA DOLOČEN NAMEN. \n"
-#~ "Oglejte si GNU General Public Licence za več podrobnosti.\n"
-#~ "\n"
-#~ "Skupaj s programom bi morali prejeti tudi kopijo splošnega javnega "
-#~ "potrdila; \n"
-#~ "v primeru, da kopije niste prejeli si oglejte <http://www.gnu.org/"
-#~ "licenses/>."
-
-#~ msgid "A_6"
-#~ msgstr "A_6"
-
-#~ msgid "Email"
-#~ msgstr "Elektronski naslov"
-
-#~ msgid "Print"
-#~ msgstr "Natisni"
-
-#~ msgid "Preferences"
-#~ msgstr "Možnosti"
-
-#~ msgid "Help"
-#~ msgstr "Pomoč"
-
-#~ msgid "_Delay"
-#~ msgstr "_Zakasnitev"
-
-#~ msgid "Multiple pages from flatbed"
-#~ msgstr "Več strani z namiznim optičnim bralnikom"
-
-#~ msgid "Seconds"
-#~ msgstr "Sekunde"
-
-#~ msgid "_Scanning"
-#~ msgstr "_Optično branje"
-
-#~ msgid "Start Again…"
-#~ msgstr "Začni znova …"
-
-#~ msgid "5"
-#~ msgstr "5"
-
-#~ msgid "7"
-#~ msgstr "7"
-
-#~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
-#~ "support\">Samsung website</a>."
-#~ msgstr ""
-#~ "Gonilniki so na voljo na spletišču podjetja <a href=\"http://samsung.com/"
-#~ "support\">Samsung</a>."
-
-#~ msgid "Resolution for photo scans"
-#~ msgstr "Ločljivost za optično branje fotografij"
-
-#~ msgid "The resolution in dots-per-inch to use when scanning photos."
-#~ msgstr "Ločljivost optičnega branja fotografij v točkah na palec (dpi)"
-
-#~ msgid "Scan Documents"
-#~ msgstr "Optično preberi dokumente"
-
-#~ msgid "Stop"
-#~ msgstr "Zaustavi"
-
-#~ msgid "_Scanner"
-#~ msgstr "_Optični bralnik"
-
-#~ msgid "_Photo Resolution"
-#~ msgstr "_Ločljivost fotografije"
-
-#~ msgid "Simple Scan"
-#~ msgstr "Enostavno optično branje"
-
-#~ msgid "scanner"
-#~ msgstr "optični bralnik"
-
-#~ msgid "About Simple Scan"
-#~ msgstr "O programu"
-
-#~ msgid "Photo"
-#~ msgstr "Fotografija"
-
-#~ msgid "_Document"
-#~ msgstr "_Dokument"
-
-#~ msgid "Sc_an"
-#~ msgstr "Op_tično branje"
-
-#~ msgid "_Stop Scan"
-#~ msgstr "_Zaustavi optično branje"
-
-#~ msgid "_Page"
-#~ msgstr "_Stran"
-
-#~ msgid "_Contents"
-#~ msgstr "_Vsebina"
-
-#~ msgid "Save"
-#~ msgstr "Shrani"
-
-#~ msgid "About"
-#~ msgstr "O programu"
-
-#~ msgid "Front and Back"
-#~ msgstr "Prednja in hrbtna stran"
-
-#~ msgid "New"
-#~ msgstr "Novo"
-
-#~ msgid "Rotate Left"
-#~ msgstr "Zavrti levo"
-
-#~ msgid "Rotate Right"
-#~ msgstr "Zavrti desno"
-
-#~ msgid "Crop"
-#~ msgstr "Obreži"
-
-#~ msgid "Scan S_ource:"
-#~ msgstr "_Vir optičnega bralnika:"
-
-#~ msgid "Document"
-#~ msgstr "Dokument"
-
-#~ msgid "Email..."
-#~ msgstr "Elektronska pošta ..."
-
-#~ msgid "_Install Drivers"
-#~ msgstr "_Namesti gonilnike"
-
-#~ msgid "Maximum"
-#~ msgstr "Največ"
-
-#~ msgid "Saving document..."
-#~ msgstr "Shranjevanje dokumenta ..."
-
-#~ msgid "Saving page %d out of %d"
-#~ msgstr "Shranjevanje strani %d od %d"
-
-#~ msgid "4&#xD7;6"
-#~ msgstr "4&#xD7;6"
-
-#~ msgid "Files missing"
-#~ msgstr "Datoteke manjkajo"
-
-#~ msgid "TRUE if the application window is maximized"
-#~ msgstr "PRAV, če je okno programa razpeto"
-
-#~ msgid "Window height in pixels"
-#~ msgstr "Višina okna v točkah"
-
-#~ msgid "Window width in pixels"
-#~ msgstr "Širina okna v točkah"
-
-#~ msgid ""
-#~ "Help Options:\n"
-#~ "  -d, --debug                     Print debugging messages\n"
-#~ "  -v, --version                   Show release version\n"
-#~ "  -h, --help                      Show help options\n"
-#~ "  --help-all                      Show all help options\n"
-#~ "  --help-gtk                      Show GTK+ options"
-#~ msgstr ""
-#~ "Možnosti pomoči\n"
-#~ "  -d, --debug Natisne sporočila razhroščevanja\n"
-#~ "  -v, --version Pokaže podrobnosti različice\n"
-#~ "  -h, --help Pokaže možnosti pomoči\n"
-#~ "  --help-all Pokaže vse možnosti pomoči\n"
-#~ "  --help-gtk Pokaže možnosti GTK+"
-
-#~ msgid "Select File _Type"
-#~ msgstr "Izberite _vrsto datoteke"
-
-#~ msgid ""
-#~ "The page side to scan. It can be one of the following: 'both' 'front' "
-#~ "'back'"
-#~ msgstr ""
-#~ "Stran strani za optično branje. Lahko je eno od naslednjega: 'obe' "
-#~ "'spredaj' 'zadaj'"
-
-#~ msgid "Height of scanned image in pixels"
-#~ msgstr "Višina optično prebrane slike v točkah"
-
-#~ msgid "Direction of scan"
-#~ msgstr "Smer optičnega branja"
-
-#~ msgid "Resolution of last scanned image"
-#~ msgstr "Ločljivost zadnjega optičnega branja"
-
-#~ msgid ""
-#~ "The direction of the scanner across the scanned page. It can be one of "
-#~ "the following: 'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-"
-#~ "left'"
-#~ msgstr ""
-#~ "Smer optičnega branja čez optično brano stran. Lahko je ena od "
-#~ "naslednjih: 'od-zgoraj-navzdol' 'od-spodaj-navzgor' 'od-leve-proti-desni' "
-#~ "'od-desne-proti-levi'"
-
-#~ msgid ""
-#~ "The height of scanned image in pixels. This value is updated to what the "
-#~ "last scanned page was."
-#~ msgstr ""
-#~ "Višina optično brane slike v točkah. Ta vrednost je posodobljena na "
-#~ "vrednost zadnje optično prebrane strani."
-
-#~ msgid "The resolution in dots-per-inch of the previously scanned image."
-#~ msgstr "Ločljivost zadnjega optičnega branja v točkah na palec (dpi)"
-
-#~ msgid ""
-#~ "Type of document being scanned. 'text' for text documents, 'photo' for "
-#~ "photos. This setting decides on the scan resolution, colors and post-"
-#~ "processing."
-#~ msgstr ""
-#~ "Vrsta optično branega dokumenta. 'besedilo' za dokumente z besedilom, "
-#~ "'fotografije' za fotografije. Ta nastavitev določi ločljivost optičnega "
-#~ "branja, barve in nadaljnje obdvelovanje"
-
-#~ msgid ""
-#~ "The width of scanned image in pixels. This value is updated to what the "
-#~ "last scanned page was."
-#~ msgstr ""
-#~ "Širina optično brane slike v točkah. Ta vrednost je posodobljena na "
-#~ "vrednost zadnje optično brane strani."
-
-#~ msgid "Width of scanned image in pixels"
-#~ msgstr "Širina optično brane slike v točkah"
-
-#~ msgid ""
-#~ "Usage:\n"
-#~ "  %s [DEVICE...] - Scanning utility"
-#~ msgstr ""
-#~ "Uporaba:\n"
-#~ "  %s [NAPRAVA ...] - Pripomoček optičnega branja"
-
-#~ msgid ""
-#~ "GTK+ Options:\n"
-#~ "  --class=CLASS                   Program class as used by the window "
-#~ "manager\n"
-#~ "  --name=NAME                     Program name as used by the window "
-#~ "manager\n"
-#~ "  --screen=SCREEN                 X screen to use\n"
-#~ "  --sync                          Make X calls synchronous\n"
-#~ "  --gtk-module=MODULES            Load additional GTK+ modules\n"
-#~ "  --g-fatal-warnings              Make all warnings fatal"
-#~ msgstr ""
-#~ "Možnosti GTK+:\n"
-#~ "  --class=CLASS Programski razred uporabljen v upravljalniku oken\n"
-#~ "  --name=NAME Ime programa, ki je uporabljen v upravljalniku oken\n"
-#~ "  --screen=SCREEN Zaslon X za uporabo\n"
-#~ "  --sync Uskladi klice X\n"
-#~ "  --gtk-module=MODULES Naloži dodatnemodule GTK+\n"
-#~ "  --g-fatal-warnings Naredi vsa opozorila usodna"
-
-#~ msgid "Please check your installation"
-#~ msgstr "Preverite svojo namestitev"
-
-#~ msgid "The direction of the scanner across the scanned page."
-#~ msgstr "Smer optičnega bralnika na optično brani strani."
