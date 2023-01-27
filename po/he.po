@@ -3,24 +3,25 @@
 # This file is distributed under the same license as the simple-scan package.
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
-# Yosef Or Boczko <yoseforb@gmail.com>, 2020-2022.
 # Yaron Shahrabani <sh.yaron@gmail.com>, 2022.
+# Yosef Or Boczko <yoseforb@gmail.com>, 2020-2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 07:56+0000\n"
-"PO-Revision-Date: 2022-10-06 15:12+0300\n"
-"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
-"Language-Team: Hebrew <heb-bugzap@hamakor.org.il>\n"
+"POT-Creation-Date: 2023-01-25 22:01+0000\n"
+"PO-Revision-Date: 2023-01-27 10:49+0200\n"
+"Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
+"Language-Team: Hebrew <>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? 2 :"
-" 3)\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
+"2 : 3)\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Gtranslator 42.0\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -306,7 +307,7 @@ msgstr "_טקסט"
 msgid "_Image"
 msgstr "_תמונה"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_העדפות"
 
@@ -450,10 +451,15 @@ msgstr "פתיחת תפריט"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "הצגת העדפות"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "צירופי מקשים"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "יציאה"
@@ -774,13 +780,13 @@ msgstr "להשאיר ללא שינוי"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "היפוך אנכי של דפים אי־זוגיים"
+msgid "Flip even pages upside-down"
+msgstr "היפוך אנכי של דפים זוגיים"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "היפוך אנכי של דפים זוגיים"
+msgid "Flip odd pages upside-down"
+msgstr "היפוך אנכי של דפים אי־זוגיים"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -828,8 +834,8 @@ msgstr "נראה כי הסורק המחובר הוא מתוצרת Brother."
 #. Instructions on how to install Brother scanner drivers
 #: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
 "מנהלי ההתקן זמינים ב<a href=\"http://support.brother.com\">אתר של Brother</"
 "a>."
@@ -837,8 +843,9 @@ msgstr ""
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
 "נראה שיש ברשותך סורק Canon, אשר נתמך על ידי <a href=\"http://www.sane-"
 "project.org/man/sane-pixma.5.html\">Pixma SANE מנוע </a>."
@@ -868,8 +875,8 @@ msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"מנהלי התקן עבור ההתקן זמינים ב<a href=\"https://support.hp.com\">אתר HP</a> ‏"
-"(HP נקנתה על ידי עסקי הדפסות של Samsung)."
+"מנהלי התקן עבור ההתקן זמינים ב<a href=\"https://support.hp.com\">אתר HP</a> "
+"‏(HP נקנתה על ידי עסקי הדפסות של Samsung)."
 
 #. Message to indicate a HP scanner has been detected
 #: src/app-window.vala:1662
@@ -896,8 +903,8 @@ msgstr "נראה כי הסורק המחובר הוא מתוצרת Epson."
 #. Instructions on how to install Epson scanner drivers
 #: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
 "מנהלי התקן עבור ההתקן זמינים ב<a href=\"http://support.epson.com\">אתר של "
 "Epson</a>."
@@ -910,8 +917,8 @@ msgstr "נראה כי הסורק המחובר הוא מתוצרת Lexmark."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
 "מנהלי ההתקן זמינים ב<a href=\"http://support.lexmark.com\">אתר של lexmark</"
 "a>."
@@ -957,64 +964,64 @@ msgstr[1] "יהיה עליך להתקין את החבילות %s."
 msgstr[2] "יהיה עליך להתקין את החבילות %s."
 msgstr[3] "יהיה עליך להתקין את החבילות %s."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "_דוא״ל"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "הד_פסה"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_סידור הדפים מחדש"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "צירופי מ_קשים"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "ע_זרה"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "_על סורק המסמכים"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "מסמך _חדש"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "סיבוב העמוד לשמאל (נגד כיוון השעון)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "סיבוב העמוד לימין (עם כיוון השעון)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "חיתוך העמוד שנבחר"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "מחיקת העמוד שנבחר"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "ביטול"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "לא ניתן לקודד את עמוד %i"
@@ -1152,9 +1159,10 @@ msgstr "Run “%s --help” to see a full list of available command line options
 #~ "You should have received a copy of the GNU General Public License\n"
 #~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 #~ msgstr ""
-#~ "תכנית זו היא תוכנה חופשית; באפשרותך יכול להפיצה מחדש ו/או לשנות אותה על-"
-#~ "פי תנאי הרישיון הציבורי הכללי של GNU כפי שפורסם על ידי קרן התכנה החופשית; "
-#~ "בין אם גרסה 3 של הרישיון, ובין אם (לפי בחירתך) כל גרסה מאוחרת שלו.\n"
+#~ "תכנית זו היא תוכנה חופשית; באפשרותך יכול להפיצה מחדש ו/או לשנות אותה "
+#~ "על-פי תנאי הרישיון הציבורי הכללי של GNU כפי שפורסם על ידי קרן התכנה "
+#~ "החופשית; בין אם גרסה 3 של הרישיון, ובין אם (לפי בחירתך) כל גרסה מאוחרת "
+#~ "שלו.\n"
 #~ "\n"
 #~ "תכנית זו מופצת בתקווה שתהיה מועילה, אבל בלא אחריות כלשהי; ואפילו ללא "
 #~ "האחריות המשתמעת בדבר מסחריותה או התאמתה למטרה מסוימת. לפרטים נוספים, ניתן "
@@ -1168,9 +1176,6 @@ msgstr "Run “%s --help” to see a full list of available command line options
 
 #~ msgid "Print"
 #~ msgstr "הדפסה"
-
-#~ msgid "Preferences"
-#~ msgstr "העדפות"
 
 #~ msgid "Help"
 #~ msgstr "עזרה"
@@ -1255,8 +1260,8 @@ msgstr "Run “%s --help” to see a full list of available command line options
 #~ msgstr "על אודות Simple Scan"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
 #~ "מנהלי ההתקן זמינים ב<a href=\"http://samsung.com/support\">אתר של "
 #~ "Samsung</a>."
