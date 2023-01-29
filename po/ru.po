@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 07:56+0000\n"
-"PO-Revision-Date: 2022-09-22 15:16+0300\n"
+"POT-Creation-Date: 2023-01-25 22:01+0000\n"
+"PO-Revision-Date: 2023-01-26 01:27+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Launchpad-Export-Date: 2016-12-19 05:08+0000\n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-DL-Team: ru\n"
 "X-DL-Module: simple-scan\n"
 "X-DL-Branch: master\n"
@@ -194,7 +194,7 @@ msgstr "Сканер документов"
 
 #: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
-msgstr "Сделайте цифровую копию своих фотографий и документов"
+msgstr "Делайте цифровые копии своих фотографий и документов"
 
 #: data/simple-scan.appdata.xml.in:9
 msgid ""
@@ -215,7 +215,7 @@ msgstr ""
 
 #: data/simple-scan.appdata.xml.in:27
 msgid "The GNOME Project"
-msgstr "Проект GNOME"
+msgstr "The GNOME Project"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
@@ -312,7 +312,7 @@ msgstr "_Текст"
 msgid "_Image"
 msgstr "_Изображение"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Параметры"
 
@@ -456,13 +456,18 @@ msgstr "Открыть меню"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
-msgid "Keyboard shortcuts"
-msgstr "Комбинации клавиш"
+msgid "Show preferences"
+msgstr "Показать параметры"
 
 #: data/ui/help-overlay.ui:154
 msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Комбинации клавиш"
+
+#: data/ui/help-overlay.ui:161
+msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Выйти"
+msgstr "Закрыть"
 
 #. Preferences Dialog: Section label for scanning settings
 #: data/ui/preferences-dialog.ui:52
@@ -781,13 +786,13 @@ msgstr "Оставить без изменений"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "Перевернуть нечетные страницы"
+msgid "Flip even pages upside-down"
+msgstr "Перевернуть четные страницы"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "Перевернуть четные страницы"
+msgid "Flip odd pages upside-down"
+msgstr "Перевернуть нечетные страницы"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -796,7 +801,7 @@ msgstr "Не удалось открыть файл справки"
 
 #: src/app-window.vala:1573
 msgid "About Document Scanner"
-msgstr "О Сканере документов"
+msgstr "О приложении"
 
 #: src/app-window.vala:1575
 msgid "Simple document scanning tool"
@@ -807,17 +812,17 @@ msgid "translator-credits"
 msgstr ""
 "Stas Solovey <whats_up@tut.by>, 2015-2018\n"
 "Роман Верменко <dargodet@gmail.com>, 2017\n"
-"Aleksandr Melman <alexmelman88@gmail.com>, 2021"
+"Aleksandr Melman <alexmelman88@gmail.com>, 2021-2023"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:1599
 msgid "Save document before quitting?"
-msgstr "Сохранить документ перед выходом?"
+msgstr "Сохранить документ перед закрытием?"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:1601
 msgid "_Quit without Saving"
-msgstr "_Выйти без сохранения"
+msgstr "_Закрыть без сохранения"
 
 #. Message to indicate a Brother scanner has been detected
 #: src/app-window.vala:1642
@@ -957,64 +962,64 @@ msgstr[0] "Необходимо установить %s пакет."
 msgstr[1] "Необходимо установить %s пакета."
 msgstr[2] "Необходимо установить %s пакетов."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "Отправить _почтой"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "Рас_печатать"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Организация страниц"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "_Комбинации клавиш"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "_Справка"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
-msgstr "_О Сканере документов"
+msgstr "_О приложении"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "_Новый документ"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Повернуть страницу влево (против часовой стрелки)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Повернуть страницу вправо (по часовой стрелке)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "Обрезать выбранную страницу"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "Удалить выбранную страницу"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "Отменить"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Не удалось преобразовать страницу %i"
