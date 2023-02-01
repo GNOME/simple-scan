@@ -615,10 +615,12 @@ public class AppWindow : Adw.ApplicationWindow
             if (!file.query_exists ())
                 continue;
 
+            var title = _("A file named “%s” already exists.  Do you want to replace it?").printf(file.get_basename ());
+
             var dialog = new Adw.MessageDialog (parent,
                                                 /* Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file. */
-                                                _("A file named “%s” already exists.  Do you want to replace it?"),
-                                                file.get_basename ());
+                                                title,
+                                                null);
 
             dialog.add_response ("cancel", _("_Cancel"));
             dialog.add_response ("replace", _("_Replace"));
