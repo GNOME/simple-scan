@@ -487,22 +487,51 @@ public class AppWindow : Adw.ApplicationWindow
             /* To that filename the extension will be added, eg. "Scanned Document.pdf" */
             save_dialog.set_current_name (_("Scanned Document") + "." + mime_type_to_extension (save_format));
         }
-        
-        FilterDescriptor[] filters = {
-            FilterDescriptor (_("PDF (multi-page document)"), "application/pdf"),
-            FilterDescriptor (_("JPEG (compressed)"), "image/jpeg"),
-            FilterDescriptor (_("PNG (lossless)"), "image/png"),
-            FilterDescriptor (_("WebP (compressed)"), "image/webp"),
-            FilterDescriptor (_("All Files"), "*"),
-        };
-        
-        foreach (var item in filters) {
-            save_dialog.add_filter (item.filter);
 
-            if (item.pattern == save_format)
-            {
-                save_dialog.set_filter (item.filter);
-            }
+        var pdf_filter = new Gtk.FileFilter ();
+        pdf_filter.set_filter_name (_("PDF (multi-page document)"));
+        pdf_filter.add_pattern ("*.pdf" );
+        pdf_filter.add_mime_type ("application/pdf");
+        save_dialog.add_filter (pdf_filter);
+        
+        var jpeg_filter = new Gtk.FileFilter ();
+        jpeg_filter.set_filter_name (_("JPEG (compressed)"));
+        jpeg_filter.add_pattern ("*.jpg" );
+        jpeg_filter.add_pattern ("*.jpeg" );
+        jpeg_filter.add_mime_type ("image/jpeg");
+        save_dialog.add_filter (jpeg_filter);
+
+        var png_filter = new Gtk.FileFilter ();
+        png_filter.set_filter_name (_("PNG (lossless)"));
+        png_filter.add_pattern ("*.png" );
+        png_filter.add_mime_type ("image/png");
+        save_dialog.add_filter (png_filter);
+
+        var webp_filter = new Gtk.FileFilter ();
+        webp_filter.set_filter_name (_("WebP (compressed)"));
+        webp_filter.add_pattern ("*.webp" );
+        webp_filter.add_mime_type ("image/webp");
+        save_dialog.add_filter (webp_filter);
+
+        var all_filter = new Gtk.FileFilter ();
+        all_filter.set_filter_name (_("All Files"));
+        all_filter.add_pattern ("*");
+        save_dialog.add_filter (all_filter);
+        
+        switch (save_format)
+        {
+            case "application/pdf":
+                save_dialog.set_filter (pdf_filter);
+                break;
+            case "image/jpeg":
+                save_dialog.set_filter (jpeg_filter);
+                break;
+            case "image/png":
+                save_dialog.set_filter (png_filter);
+                break;
+            case "image/webp":
+                save_dialog.set_filter (webp_filter);
+                break;
         }
         
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -530,17 +559,6 @@ public class AppWindow : Adw.ApplicationWindow
                 return null;
             }
 
-            var mime_type = "application/pdf";
-            foreach (var item in filters) {
-                if (save_dialog.filter.name == item.name && item.pattern != "*")
-                {
-                    mime_type = item.pattern;
-                    break;
-                }
-            }
-
-            settings.set_string ("save-format", mime_type);
-
             var file = save_dialog.get_file ();
             
             if (file == null)
@@ -551,6 +569,12 @@ public class AppWindow : Adw.ApplicationWindow
             var uri = file.get_uri ();
 
             var extension = uri_extension(uri);
+
+            var mime_type = extension_to_mime_type(extension);
+            mime_type = mime_type != null ? mime_type : "application/pdf";
+
+            settings.set_string ("save-format", mime_type);
+
             if (extension == null)
                 uri += "." + mime_type_to_extension (mime_type);
 
@@ -563,8 +587,18 @@ public class AppWindow : Adw.ApplicationWindow
             }
             else
                 files.append (File.new_for_uri (uri));
+                
+            var overwrite_check = true;
+            
+            // We assume that GTK or system file dialog asked about overwrite already so we reask only if there is more than one file or we changed the name
+            // Ideally in flatpack era we should not modify file name after save dialog is done 
+            // but for the sake of keeping old functionality in tact we leave it as it 
+            if (files.length () > 1 || file.get_uri () != uri)
+            {
+                overwrite_check = yield check_overwrite (save_dialog.transient_for, files);
+            }
 
-            if (yield check_overwrite (save_dialog.transient_for, files))
+            if (overwrite_check)
             {
                 var directory_uri = uri.substring (0, uri.last_index_of ("/") + 1);
                 settings.set_string ("save-directory", directory_uri);
@@ -629,7 +663,7 @@ public class AppWindow : Adw.ApplicationWindow
         var extension_lower = extension.down ();
         if (extension_lower == "pdf")
             return "application/pdf";
-        else if (extension_lower == "jpg")
+        else if (extension_lower == "jpg" || extension_lower == "jpeg")
             return "image/jpeg";
         else if (extension_lower == "png")
             return "image/png";
@@ -1815,27 +1849,6 @@ public class AppWindow : Adw.ApplicationWindow
                 }
             });
         }
-    }
-}
-
-// TODO: Remove this type once `Gtk.FileFilter:mime-types` gets released in GTK 4.10
-private struct FilterDescriptor
-{
-    public Gtk.FileFilter filter;
-    public string pattern;
-
-    public string name
-    { 
-        owned get { return filter.name; }
-    }
-
-    public FilterDescriptor (string name, string pattern)
-    {
-        filter = new Gtk.FileFilter ();
-        filter.set_filter_name (name);
-        filter.add_pattern (pattern);
-        
-        this.pattern = pattern;
     }
 }
 
