@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 07:56+0000\n"
-"PO-Revision-Date: 2022-09-27 09:05+0200\n"
+"POT-Creation-Date: 2023-01-30 20:25+0000\n"
+"PO-Revision-Date: 2023-02-05 20:16+0100\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Gtranslator 40.0\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -312,7 +312,7 @@ msgstr "_Text"
 msgid "_Image"
 msgstr "O_brázok"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Nastavenia"
 
@@ -457,10 +457,15 @@ msgstr "Otvorenie ponuky"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "Zobrazenie predvolieb"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Klávesové skratky"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Ukončenie"
@@ -783,13 +788,13 @@ msgstr "Ponechať nezmenené"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "Preklopiť nepárne stránky hore nohami"
+msgid "Flip even pages upside-down"
+msgstr "Preklopiť párne stránky hore nohami"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "Preklopiť párne stránky hore nohami"
+msgid "Flip odd pages upside-down"
+msgstr "Preklopiť nepárne stránky hore nohami"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -911,9 +916,9 @@ msgstr ""
 "Ovládače pre tento skener sú dostupné na <a href=\"http://www.epson.sk/sk/sk/"
 "viewcon/corporatesite/support\">webovej stránke výrobcu Epson</a>."
 
-#. Message to indicate an Lexmark scanner has been detected
+#. Message to indicate a Lexmark scanner has been detected
 #: src/app-window.vala:1680
-msgid "You appear to have an Lexmark scanner."
+msgid "You appear to have a Lexmark scanner."
 msgstr "Zdá sa, že máte skener značky Lexmark."
 
 #. Instructions on how to install Lexmark scanner drivers
@@ -965,66 +970,66 @@ msgstr[0] "Musíte nainštalovať balík %s."
 msgstr[1] "Musíte nainštalovať balíky %s."
 msgstr[2] "Musíte nainštalovať balíky %s."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "_Email"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "_Tlač"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "Zmeniť _poradie stránok"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové skratky"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "_Pomocník"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "_O aplikácii Skener dokumentov"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "_Nový dokument"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Otočí stránku doľava (v protismere hodinových ručičiek)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Otočí stránku doprava (v smere hodinových ručičiek)"
 
 # tooltip
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "Oreže vybranú stránku"
 
 # tooltip
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "Odstráni vybranú stránku"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Nie je možné dekódovať stránku č. %i"
@@ -1187,9 +1192,6 @@ msgstr ""
 
 #~ msgid "Print"
 #~ msgstr "Tlačiť"
-
-#~ msgid "Preferences"
-#~ msgstr "Nastavenia"
 
 #~ msgid "Help"
 #~ msgstr "Pomocník"
