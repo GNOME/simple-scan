@@ -120,7 +120,7 @@
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="label" translatable="1">_Single Page</property>
+                    <property name="label" translatable="yes">_Single Page</property>
                     <property name="use_underline">1</property>
                   </object>
                 </child>
@@ -146,7 +146,7 @@
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="label" translatable="1">All Pages From _Feeder</property>
+                    <property name="label" translatable="yes">All Pages From _Feeder</property>
                     <property name="use_underline">1</property>
                   </object>
                 </child>
@@ -172,7 +172,7 @@
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="label" translatable="1">_Multiple Pages From Flatbed</property>
+                    <property name="label" translatable="yes">_Multiple Pages From Flatbed</property>
                     <property name="use_underline">1</property>
                   </object>
                 </child>
@@ -198,7 +198,7 @@
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="label" translatable="1">_Text</property>
+                    <property name="label" translatable="yes">_Text</property>
                     <property name="use_underline">1</property>
                   </object>
                 </child>
@@ -224,7 +224,7 @@
                 </child>
                 <child>
                   <object class="GtkLabel">
-                    <property name="label" translatable="1">_Image</property>
+                    <property name="label" translatable="yes">_Image</property>
                     <property name="use_underline">1</property>
                   </object>
                 </child>
@@ -234,7 +234,7 @@
         </child>
         <child>
           <object class="GtkButton" id="preferences_button">
-            <property name="label" translatable="1">_Preferences</property>
+            <property name="label" translatable="yes">_Preferences</property>
             <property name="height_request">40</property>
             <property name="focusable">1</property>
             <property name="receives_default">1</property>
@@ -249,7 +249,7 @@
   <template class="AppWindow" parent="AdwApplicationWindow">
     <property name="width_request">320</property>
     <property name="height_request">480</property>
-    <property name="title" translatable="1" comments="Title of scan window">Document Scanner</property>
+    <property name="title" translatable="yes" comments="Title of scan window">Document Scanner</property>
     <property name="icon_name">org.gnome.SimpleScan</property>
     <signal name="close-request" handler="window_close_request_cb" swapped="no"/>
     <property name="content">
@@ -274,7 +274,7 @@
                 <child>
                   <object class="GtkButton" id="stop_button">
                     <property name="visible">0</property>
-                    <property name="tooltip_text" translatable="1" comments="Tooltip for stop button">Stop the current scan</property>
+                    <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
                     <property name="use_underline">1</property>
                     <signal name="clicked" handler="stop_scan_button_clicked_cb" swapped="no"/>
                     <child>
@@ -287,7 +287,7 @@
                         </child>
                         <child>
                           <object class="GtkLabel">
-                            <property name="label" translatable="1">S_top</property>
+                            <property name="label" translatable="yes">S_top</property>
                             <property name="use_underline">1</property>
                             <property name="width_chars">6</property>
                             <property name="xalign">0.33</property>
@@ -304,7 +304,7 @@
                 <child>
                   <object class="GtkButton" id="scan_button">
                     <property name="sensitive">0</property>
-                    <property name="tooltip_text" translatable="1" comments="Tooltip for scan toolbar button. Replaced by text associated with each scan type."></property>
+                    <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button. Replaced by text associated with each scan type."></property>
                     <property name="use_underline">1</property>
                     <signal name="clicked" handler="scan_button_clicked_cb" swapped="no"/>
                     <child>
@@ -318,7 +318,7 @@
                         <child>
                           <object class="GtkLabel">
                             <property name="margin-end">1</property>
-                            <property name="label" translatable="1">_Scan</property>
+                            <property name="label" translatable="yes">_Scan</property>
                             <property name="use_underline">1</property>
                             <property name="width_chars">6</property>
                             <property name="xalign">0.33</property>
@@ -375,7 +375,7 @@
             <child type="end">
               <object class="GtkButton" id="save_button">
                 <property name="sensitive">0</property>
-                <property name="tooltip_text" translatable="1" comments="Tooltip for save toolbar button">Save document to a file</property>
+                <property name="tooltip_text" translatable="yes" comments="Tooltip for save toolbar button">Save document to a file</property>
                 <property name="use_underline">1</property>
                 <property name="action-name">app.save</property>
                 <child>
