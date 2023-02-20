@@ -236,8 +236,6 @@
           <object class="GtkButton" id="preferences_button">
             <property name="label" translatable="yes">_Preferences</property>
             <property name="height_request">40</property>
-            <property name="focusable">1</property>
-            <property name="receives_default">1</property>
             <property name="margin_top">12</property>
             <property name="use_underline">1</property>
             <signal name="clicked" handler="preferences_button_clicked_cb" swapped="no"/>
@@ -266,8 +264,6 @@
         
         <child>
           <object class="AdwHeaderBar" id="header_bar">
-            <property name="visible">True</property>
-
             <child type="start">
               <object class="GtkBox" id="open_box">
                 <property name="valign">center</property>
@@ -397,14 +393,12 @@
 
         <child>
           <object class="GtkStack" id="stack">
-            <property name="visible">True</property>
             <property name="vexpand">True</property>
             <child>
               <object class="GtkStackPage">
                 <property name="name">startup</property>
                 <property name="child">
                   <object class="AdwStatusPage" id="status_page">
-                    <property name="visible">True</property>
                     <property name="icon_name">org.gnome.SimpleScan-symbolic</property>
                     <child>
                       <object class="GtkBox">
@@ -435,23 +429,18 @@
                             <child>
                               <object class="GtkComboBox" id="device_combo">
                                 <property name="width_request">200</property>
-                                <property name="visible">True</property>
                                 <property name="model">device_model</property>
                                 <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
                               </object>
                             </child>
                             <child>
                               <object class="GtkButton" id="refresh_devices">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
                                 <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Refresh device list</property>
 
                                 <signal name="clicked" handler="redetect_button_clicked_cb" swapped="no"/>
 
                                 <child>
                                   <object class="GtkImage">
-                                    <property name="visible">True</property>
                                     <property name="icon_name">view-refresh-symbolic</property>
                                     <property name="icon_size">1</property>
                                   </object>
@@ -474,12 +463,9 @@
                 <property name="name">document</property>
                 <property name="child">
                   <object class="GtkBox" id="main_vbox">
-                    <property name="visible">True</property>
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkActionBar" id="action_bar">
-                        <property name="visible">True</property>
-                        
                         <child type="start">
                           <object class="GtkButton">
                             <property name="margin-start">6</property>

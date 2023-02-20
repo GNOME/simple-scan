@@ -15,7 +15,6 @@
       <object class="GtkWindowHandle">
         <child>
           <object class="GtkBox" id="dialog-vbox1">
-            <property name="visible">True</property>
             <property name="orientation">vertical</property>
             <property name="spacing">12</property>
             <property name="margin-start">20</property>
@@ -52,9 +51,6 @@
                 <child>
                   <object class="GtkButton">
                     <property name="label" translatable="yes">_Cancel</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
                     <property name="use_underline">True</property>
                     <signal name="clicked" handler="cancel_button_cb" swapped="no"/>
                   </object>
@@ -63,9 +59,6 @@
                 <child>
                   <object class="GtkButton" id="authorize_button">
                     <property name="label" translatable="yes" comments="Button to submit authorization dialog">_Authorize</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
                     <property name="use_underline">True</property>
                     <signal name="clicked" handler="authorize_button_cb" swapped="no"/>
 
