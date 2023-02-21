@@ -1372,14 +1372,11 @@ public class AppWindow : Adw.ApplicationWindow
     {
         string[] authors = { "Robert Ancell <robert.ancell@canonical.com>" };
 
-        string description = _("Simple document scanning tool");
-
         var about = new Adw.AboutWindow ()
         {
             transient_for = this,
             developers = authors,
             translator_credits = _("translator-credits"),
-            comments = description,
             copyright = "Copyright © 2009-2018 Canonical Ltd.",
             license_type = Gtk.License.GPL_3_0,
             application_name = _("Document Scanner"),
