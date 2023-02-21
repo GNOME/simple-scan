@@ -329,23 +329,10 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkMenuButton">
+                  <object class="GtkMenuButton" id="scan_options_menu">
                     <property name="popover">scan_options_popover</property>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="spacing">6</property>
-                        <child>
-                          <object class="GtkImage" id="scan_hint_image">
-                            <property name="icon_name">x-office-document-symbolic</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkImage">
-                            <property name="icon_name">pan-down-symbolic</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
+                    <property name="icon_name">x-office-document-symbolic</property>
+                    <property name="always-show-arrow">True</property>
                   </object>
                 </child>
                 <style>
@@ -357,15 +344,7 @@
               <object class="GtkMenuButton" id="menu_button">
                 <property name="use_underline">1</property>
                 <property name="primary">True</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="icon_name">open-menu-symbolic</property>
-                    <property name="icon_size">normal</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="image-button"/>
-                </style>
+                <property name="icon_name">open-menu-symbolic</property>
               </object>
             </child>
             <child type="end">
