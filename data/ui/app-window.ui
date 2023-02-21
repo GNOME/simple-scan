@@ -121,7 +121,7 @@
                 <child>
                   <object class="GtkLabel">
                     <property name="label" translatable="yes">_Single Page</property>
-                    <property name="use_underline">1</property>
+                    <property name="use_underline">True</property>
                   </object>
                 </child>
               </object>
@@ -147,7 +147,7 @@
                 <child>
                   <object class="GtkLabel">
                     <property name="label" translatable="yes">All Pages From _Feeder</property>
-                    <property name="use_underline">1</property>
+                    <property name="use_underline">True</property>
                   </object>
                 </child>
               </object>
@@ -173,7 +173,7 @@
                 <child>
                   <object class="GtkLabel">
                     <property name="label" translatable="yes">_Multiple Pages From Flatbed</property>
-                    <property name="use_underline">1</property>
+                    <property name="use_underline">True</property>
                   </object>
                 </child>
               </object>
@@ -199,7 +199,7 @@
                 <child>
                   <object class="GtkLabel">
                     <property name="label" translatable="yes">_Text</property>
-                    <property name="use_underline">1</property>
+                    <property name="use_underline">True</property>
                   </object>
                 </child>
               </object>
@@ -225,7 +225,7 @@
                 <child>
                   <object class="GtkLabel">
                     <property name="label" translatable="yes">_Image</property>
-                    <property name="use_underline">1</property>
+                    <property name="use_underline">True</property>
                   </object>
                 </child>
               </object>
@@ -237,7 +237,7 @@
             <property name="label" translatable="yes">_Preferences</property>
             <property name="height_request">40</property>
             <property name="margin_top">12</property>
-            <property name="use_underline">1</property>
+            <property name="use_underline">True</property>
             <signal name="clicked" handler="preferences_button_clicked_cb" swapped="no"/>
           </object>
         </child>
@@ -271,7 +271,7 @@
                   <object class="GtkButton" id="stop_button">
                     <property name="visible">0</property>
                     <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
-                    <property name="use_underline">1</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="stop_scan_button_clicked_cb" swapped="no"/>
                     <child>
                       <object class="GtkBox">
@@ -284,7 +284,7 @@
                         <child>
                           <object class="GtkLabel">
                             <property name="label" translatable="yes">S_top</property>
-                            <property name="use_underline">1</property>
+                            <property name="use_underline">True</property>
                             <property name="width_chars">6</property>
                             <property name="xalign">0.33</property>
                           </object>
@@ -301,7 +301,7 @@
                   <object class="GtkButton" id="scan_button">
                     <property name="sensitive">0</property>
                     <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button. Replaced by text associated with each scan type."></property>
-                    <property name="use_underline">1</property>
+                    <property name="use_underline">True</property>
                     <signal name="clicked" handler="scan_button_clicked_cb" swapped="no"/>
 
                     <property name="child">
@@ -331,7 +331,7 @@
             </child>
             <child type="end">
               <object class="GtkMenuButton" id="menu_button">
-                <property name="use_underline">1</property>
+                <property name="use_underline">True</property>
                 <property name="primary">True</property>
                 <property name="icon_name">open-menu-symbolic</property>
               </object>
@@ -340,7 +340,7 @@
               <object class="GtkButton" id="save_button">
                 <property name="sensitive">0</property>
                 <property name="tooltip_text" translatable="yes" comments="Tooltip for save toolbar button">Save document to a file</property>
-                <property name="use_underline">1</property>
+                <property name="use_underline">True</property>
                 <property name="action-name">app.save</property>
                 <property name="icon_name">document-save-symbolic</property>
               </object>
