@@ -303,27 +303,16 @@
                     <property name="tooltip_text" translatable="yes" comments="Tooltip for scan toolbar button. Replaced by text associated with each scan type."></property>
                     <property name="use_underline">1</property>
                     <signal name="clicked" handler="scan_button_clicked_cb" swapped="no"/>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="spacing">6</property>
-                        <child>
-                          <object class="GtkImage" id="scan_options_image">
-                            <property name="icon_name">scanner-symbolic</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="margin-end">1</property>
-                            <property name="label" translatable="yes">_Scan</property>
-                            <property name="use_underline">1</property>
-                            <property name="width_chars">6</property>
-                            <property name="xalign">0.33</property>
-                          </object>
-                        </child>
+
+                    <property name="child">
+                      <object class="AdwButtonContent" id="scan_button_content">
+                        <property name="icon-name">scanner-symbolic</property>
+                        <property name="label" translatable="yes">_Scan</property>
+                        <property name="use-underline">True</property>
                       </object>
-                    </child>
+                    </property>
+
                     <style>
-                      <class name="text-button"/>
                       <class name="suggested-action"/>
                     </style>
                   </object>
@@ -353,15 +342,7 @@
                 <property name="tooltip_text" translatable="yes" comments="Tooltip for save toolbar button">Save document to a file</property>
                 <property name="use_underline">1</property>
                 <property name="action-name">app.save</property>
-                <child>
-                  <object class="GtkImage" id="save_image">
-                    <property name="icon_name">document-save-symbolic</property>
-                    <property name="icon_size">normal</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="image-button"/>
-                </style>
+                <property name="icon_name">document-save-symbolic</property>
               </object>
             </child>
             <style>
@@ -415,18 +396,9 @@
                             <child>
                               <object class="GtkButton" id="refresh_devices">
                                 <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Refresh device list</property>
+                                <property name="icon_name">view-refresh-symbolic</property>
 
                                 <signal name="clicked" handler="redetect_button_clicked_cb" swapped="no"/>
-
-                                <child>
-                                  <object class="GtkImage">
-                                    <property name="icon_name">view-refresh-symbolic</property>
-                                    <property name="icon_size">1</property>
-                                  </object>
-                                </child>
-                                <style>
-                                  <class name="image-button"/>
-                                </style>
                               </object>
                             </child>
                           </object>
@@ -450,27 +422,12 @@
                             <property name="margin-start">6</property>
                             <signal name="clicked" handler="new_document_cb" swapped="no"/>
 
-                            <child>
-                              <object class="GtkBox">
-                                <property name="spacing">6</property>
-                                <child>
-                                  <object class="GtkImage">
-                                    <property name="icon_name">list-add-symbolic</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel">
-                                    <property name="margin-end">1</property>
-                                    <property name="label" translatable="yes">New Document</property>
-                                    <property name="width_chars">6</property>
-                                    <property name="xalign">0.33</property>
-                                  </object>
-                                </child>
+                            <property name="child">
+                              <object class="AdwButtonContent">
+                                <property name="icon-name">list-add-symbolic</property>
+                                <property name="label" translatable="yes">New Document</property>
                               </object>
-                            </child>
-                            <style>
-                              <class name="image-button"/>
-                            </style>
+                            </property>
                           </object>
                         </child>
 

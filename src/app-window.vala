@@ -84,7 +84,7 @@ public class AppWindow : Adw.ApplicationWindow
     private unowned Gtk.ToggleButton crop_button;
 
     [GtkChild]
-    private unowned Gtk.Image scan_options_image;
+    private unowned Adw.ButtonContent scan_button_content;
     [GtkChild]
     private unowned Gtk.MenuButton scan_options_menu;
     [GtkChild]
@@ -939,17 +939,17 @@ public class AppWindow : Adw.ApplicationWindow
         {
         case ScanType.SINGLE:
             scan_single_radio.active = true;
-            scan_options_image.icon_name = "scanner-symbolic";
+            scan_button_content.icon_name = "scanner-symbolic";
             scan_button.tooltip_text = _("Scan a single page from the scanner");
             break;
         case ScanType.ADF:
             scan_adf_radio.active = true;
-            scan_options_image.icon_name = "scan-type-adf-symbolic";
+            scan_button_content.icon_name = "scan-type-adf-symbolic";
             scan_button.tooltip_text = _("Scan multiple pages from the scanner");
             break;
         case ScanType.BATCH:
             scan_batch_radio.active = true;
-            scan_options_image.icon_name = "scan-type-batch-symbolic";
+            scan_button_content.icon_name = "scan-type-batch-symbolic";
             scan_button.tooltip_text = _("Scan multiple pages from the scanner");
             break;
         }
