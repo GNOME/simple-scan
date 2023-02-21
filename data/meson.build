@@ -38,6 +38,7 @@ resource_files = files([
     'icons/scalable/actions/flip-odd.svg',
     'ui/app-window.ui',
     'ui/authorize-dialog.ui',
+    'ui/drivers-dialog.ui',
     'ui/help-overlay.ui',
     'ui/preferences-dialog.ui',
     'ui/reorder-pages-item.ui',
