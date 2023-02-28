@@ -1,23 +1,23 @@
 # French translation for simple-scan
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
-# Charles Monzat <charles.monzat@free.fr>, 2018-2020.
 # Claude Paroz <claude@2xlibre.net>, 2021-2022.
+# Charles Monzat <charles.monzat@free.fr>, 2018-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-27 19:18+0000\n"
-"PO-Revision-Date: 2022-09-29 17:55+0200\n"
-"Last-Translator: Guillaume Bernard <associations@guillaume-bernard.fr>\n"
+"POT-Creation-Date: 2023-01-30 20:25+0000\n"
+"PO-Revision-Date: 2023-02-26 15:38+0100\n"
+"Last-Translator: Charles Monzat <charles.monzat@free.fr>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Gtranslator 42.0\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -311,7 +311,7 @@ msgstr "_Texte"
 msgid "_Image"
 msgstr "_Image"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Préférences"
 
@@ -455,10 +455,15 @@ msgstr "Ouvrir le menu"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "Afficher les préférences"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Raccourcis clavier"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Quitter"
@@ -783,13 +788,13 @@ msgstr "Maintenir inchangé"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "Retourner les pages impaires verticalement"
+msgid "Flip even pages upside-down"
+msgstr "Retourner les pages paires verticalement"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "Retourner les pages paires verticalement"
+msgid "Flip odd pages upside-down"
+msgstr "Retourner les pages impaires verticalement"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -861,17 +866,18 @@ msgstr "Il semblerait que vous ayez un périphérique de numérisation Brother."
 #. Instructions on how to install Brother scanner drivers
 #: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
-"Les pilotes sont disponibles sur le <a href=\"http://support.brother.com"
-"\">site web de Brother</a>."
+"Les pilotes sont disponibles sur le <a href=\"http://support.brother."
+"com\">site web de Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
 "Il semblerait que vous ayez un périphérique de numérisation Canon, qui est "
 "pris en charge par <a href=\"http://www.sane-project.org/man/sane-pixma.5."
@@ -887,9 +893,9 @@ msgid ""
 msgstr ""
 "Veuillez vérifier si votre <a href=\"http://www.sane-project.org/sane-"
 "supported-devices.html\">périphérique de numérisation est pris en charge par "
-"SANE</a>, à défaut veuillez signaler le problème (en anglais) sur la <a href="
-"\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel"
-"\">liste de discussion de SANE</a>."
+"SANE</a>, à défaut veuillez signaler le problème (en anglais) sur la <a "
+"href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-"
+"devel\">liste de discussion de SANE</a>."
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/app-window.vala:1654
@@ -931,25 +937,25 @@ msgstr "Il semblerait que vous ayez un périphérique de numérisation Epson."
 #. Instructions on how to install Epson scanner drivers
 #: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
-"Les pilotes sont disponibles sur le <a href=\"http://support.epson.com"
-"\">site web d’Epson</a>."
+"Les pilotes sont disponibles sur le <a href=\"http://support.epson."
+"com\">site web d’Epson</a>."
 
-#. Message to indicate an Lexmark scanner has been detected
+#. Message to indicate a Lexmark scanner has been detected
 #: src/app-window.vala:1680
-msgid "You appear to have an Lexmark scanner."
+msgid "You appear to have a Lexmark scanner."
 msgstr "Il semblerait que vous ayez un périphérique de numérisation Lexmark."
 
 #. Instructions on how to install Lexmark scanner drivers
 #: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
-"Les pilotes sont disponibles sur le <a href=\"http://support.brother.com"
-"\">site web de Lexmark</a>."
+"Les pilotes sont disponibles sur le <a href=\"http://support.brother."
+"com\">site web de Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
 #: src/app-window.vala:1686
@@ -990,64 +996,64 @@ msgid_plural "You need to install the %s packages."
 msgstr[0] "Vous devez installer le paquet %s."
 msgstr[1] "Vous devez installer les paquets %s."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "_Courriel"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "_Imprimer"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Réorganiser les pages"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "Raccourcis _clavier"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "Aid_e"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "À _propos du Numériseur de documents"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "_Nouveau document"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Faire pivoter la page vers la gauche (sens antihoraire)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Faire pivoter la page vers la droite (sens horaire)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "Recadrer la page sélectionnée"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "Supprimer la page sélectionnée"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "Annuler"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Impossible de coder la page %i"
