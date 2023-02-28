@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 07:56+0000\n"
-"PO-Revision-Date: 2022-12-28 12:04+0200\n"
-"Last-Translator: Kimmo Kujansuu <mrkujansuu@gmail.com>\n"
+"POT-Creation-Date: 2023-01-30 20:25+0000\n"
+"PO-Revision-Date: 2023-02-28 22:08+0200\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
-msgstr "Laite jolta luetaan"
+msgstr "Laite jolta skannataan"
 
 #: data/org.gnome.SimpleScan.gschema.xml:12
 msgid "SANE device to acquire images from."
@@ -306,14 +306,14 @@ msgstr "_Teksti"
 msgid "_Image"
 msgstr "_Kuva"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Asetukset"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:472
 msgid "Stop the current scan"
-msgstr "Pysäytä lukeminen"
+msgstr "Pysäytä skannaus"
 
 #: data/ui/app-window.ui:493
 msgid "S_top"
@@ -450,10 +450,15 @@ msgstr "Avaa valikko"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "Näytä asetukset"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Pikanäppäimet"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Lopeta"
@@ -776,13 +781,13 @@ msgstr "Säilytä muuttumattomana"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "Käännä parittomat sivut ylösalaisin"
+msgid "Flip even pages upside-down"
+msgstr "Käännä parilliset sivut ylösalaisin"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "Käännä parilliset sivut ylösalaisin"
+msgid "Flip odd pages upside-down"
+msgstr "Käännä parittomat sivut ylösalaisin"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -828,13 +833,13 @@ msgstr "_Sulje tallentamatta"
 #. Message to indicate a Brother scanner has been detected
 #: src/app-window.vala:1642
 msgid "You appear to have a Brother scanner."
-msgstr "Käytössäsi vaikuttaa olevan Brother skanneri."
+msgstr "Käytössäsi vaikuttaa olevan Brother-skanneri."
 
 #. Instructions on how to install Brother scanner drivers
 #: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
 "Sen ajurit voi ladata <a href=\"http://support.brother.com\">Brotherin "
 "verkkosivustolta</a>."
@@ -842,10 +847,11 @@ msgstr ""
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
-"Käytössäsi vaikuttaa olevan Canon skanneri, joka on tuettu <a href=\"http://"
+"Käytössäsi vaikuttaa olevan Canon-skanneri, joka on tuettu <a href=\"http://"
 "www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE -taustaosan</a> "
 "toimesta."
 
@@ -865,7 +871,7 @@ msgstr ""
 #. Message to indicate a Samsung scanner has been detected
 #: src/app-window.vala:1654
 msgid "You appear to have a Samsung scanner."
-msgstr "Käytössäsi vaikuttaa olevan Samsung skanneri."
+msgstr "Käytössäsi vaikuttaa olevan Samsung-skanneri."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
@@ -880,7 +886,7 @@ msgstr ""
 #. Message to indicate a HP scanner has been detected
 #: src/app-window.vala:1662
 msgid "You appear to have an HP scanner."
-msgstr "Käytössäsi vaikuttaa olevan HP skanneri."
+msgstr "Käytössäsi vaikuttaa olevan HP-skanneri."
 
 #. Instructions on how to install HP scanner drivers.
 #. smfp is rebranded and slightly modified Samsung devices,
@@ -897,27 +903,27 @@ msgstr ""
 #. Message to indicate an Epson scanner has been detected
 #: src/app-window.vala:1674
 msgid "You appear to have an Epson scanner."
-msgstr "Käytössäsi vaikuttaa olevan Epson skanneri."
+msgstr "Käytössäsi vaikuttaa olevan Epson-skanneri."
 
 #. Instructions on how to install Epson scanner drivers
 #: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
 "Sen ajurit voi ladata <a href=\"http://support.epson.com\">Epsonin "
 "verkkosivustolta</a>."
 
-#. Message to indicate an Lexmark scanner has been detected
+#. Message to indicate a Lexmark scanner has been detected
 #: src/app-window.vala:1680
-msgid "You appear to have an Lexmark scanner."
-msgstr "Käytössäsi vaikuttaa olevan Lexmark skanneri."
+msgid "You appear to have a Lexmark scanner."
+msgstr "Käytössäsi vaikuttaa olevan Lexmark-skanneri."
 
 #. Instructions on how to install Lexmark scanner drivers
 #: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
 "Sen ajurit voi ladata <a href=\"http://support.lexmark.com\">Lexmarkin "
 "verkkosivustolta</a>."
@@ -961,64 +967,64 @@ msgid_plural "You need to install the %s packages."
 msgstr[0] "%s paketti/paketit tulee asentaa."
 msgstr[1] "%s paketti/paketit tulee asentaa."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "_Sähköposti"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "T_ulosta"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Järjestä sivut"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "_Pikanäppäimet"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "O_hje"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "_Tietoja - Asiakirjaskanneri"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "_Uusi asiakirja"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Kierrä sivua vasemmalle (vastapäivään)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Kierrä sivua oikealle (myötäpäivään)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "Rajaa nykyistä sivua"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "Poista valittu sivu"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "Peru"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Sivun %i koodaus epäonnistui"
@@ -1125,12 +1131,12 @@ msgstr "Korjaa tämän sovelluksen vanhemmilla versioilla luodut PDF-tiedostot"
 #. Title of error dialog when scan failed
 #: src/simple-scan.vala:1758
 msgid "Failed to scan"
-msgstr "Luku epäonnistui"
+msgstr "Skannaus epäonnistui"
 
 #. Attempt to inhibit the screensaver when scanning
 #: src/simple-scan.vala:1773
 msgid "Scan in progress"
-msgstr "Lukeminen meneillään"
+msgstr "Skannaus meneillään"
 
 #. Arguments and description for --help text
 #: src/simple-scan.vala:1957
@@ -1182,9 +1188,6 @@ msgstr "Näet kaikki komentorivivalitsimet komennolla “%s --help”."
 #~ msgid "Print"
 #~ msgstr "Tulosta"
 
-#~ msgid "Preferences"
-#~ msgstr "Asetukset"
-
 #~ msgid "Help"
 #~ msgstr "Ohje"
 
@@ -1210,8 +1213,8 @@ msgstr "Näet kaikki komentorivivalitsimet komennolla “%s --help”."
 #~ msgstr "Kuva_nluku"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
 #~ "Sen ajurit voi ladata <a href=\"http://samsung.com/support\">Samsungin "
 #~ "verkkosivustolta</a>."
