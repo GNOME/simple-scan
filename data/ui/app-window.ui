@@ -267,6 +267,8 @@
             <child type="start">
               <object class="GtkBox" id="open_box">
                 <property name="valign">center</property>
+                <property name="margin-start">6</property>
+                <property name="spacing">6</property>
                 <child>
                   <object class="GtkButton" id="stop_button">
                     <property name="visible">0</property>
@@ -276,6 +278,7 @@
                     <child>
                       <object class="GtkBox">
                         <property name="spacing">6</property>
+                        <property name="halign">center</property>
                         <child>
                           <object class="GtkSpinner" id="stop_button_spinner">
                             <property name="spinning">True</property>
@@ -287,6 +290,7 @@
                             <property name="use_underline">True</property>
                             <property name="width_chars">6</property>
                             <property name="xalign">0.33</property>
+                            <property name="halign">center</property>
                           </object>
                         </child>
                       </object>
@@ -311,22 +315,14 @@
                         <property name="use-underline">True</property>
                       </object>
                     </property>
-
-                    <style>
-                      <class name="suggested-action"/>
-                    </style>
                   </object>
                 </child>
                 <child>
                   <object class="GtkMenuButton" id="scan_options_menu">
                     <property name="popover">scan_options_popover</property>
-                    <property name="icon_name">x-office-document-symbolic</property>
-                    <property name="always-show-arrow">True</property>
+                    <property name="icon_name">emblem-system-symbolic</property>
                   </object>
                 </child>
-                <style>
-                  <class name="linked"/>
-                </style>
               </object>
             </child>
             <child type="end">

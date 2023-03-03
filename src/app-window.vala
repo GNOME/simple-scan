@@ -86,8 +86,6 @@ public class AppWindow : Adw.ApplicationWindow
     [GtkChild]
     private unowned Adw.ButtonContent scan_button_content;
     [GtkChild]
-    private unowned Gtk.MenuButton scan_options_menu;
-    [GtkChild]
     private unowned Gtk.ToggleButton scan_single_radio;
     [GtkChild]
     private unowned Gtk.ToggleButton scan_adf_radio;
@@ -984,12 +982,10 @@ public class AppWindow : Adw.ApplicationWindow
         if (document_hint == "text")
         {
             text_radio.active = true;
-            scan_options_menu.icon_name = "x-office-document-symbolic";
         }
         else if (document_hint == "photo")
         {
             photo_radio.active = true;
-            scan_options_menu.icon_name = "image-x-generic-symbolic";
         }
 
         if (save)
