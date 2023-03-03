@@ -835,10 +835,23 @@ public class AppWindow : Adw.ApplicationWindow
         if (updating_page_menu)
             return;
 
+        var page = book_view.selected_page;
+        if (page == null)
+        {
+            warning ("Trying to set crop but no selected page");
+            return;
+        }
+
         if (btn.active)
-            set_crop ("custom");
+        {
+            // Avoid overwriting crop name if there is already different crop active
+            if (!page.has_crop)
+                set_crop ("custom");
+        }
         else
+        {
             set_crop (null);
+        }
     }
 
     [GtkCallback]
@@ -1137,6 +1150,9 @@ public class AppWindow : Adw.ApplicationWindow
         if (updating_page_menu)
             return;
 
+        if (crop_name == "none")
+            crop_name = null;
+
         var page = book_view.selected_page;
         if (page == null)
         {
@@ -1158,53 +1174,13 @@ public class AppWindow : Adw.ApplicationWindow
         else
             page.set_named_crop (crop_name);
         
-        crop_actions.update_current_crop (page.crop_name);
+        crop_actions.update_current_crop (crop_name);
         crop_button.active = page.has_crop;
     }
-
-    public void crop_none_action_cb ()
+    
+    public void crop_set_action_cb (SimpleAction action, Variant? value)
     {
-        set_crop (null);
-    }
-
-    public void crop_custom_action_cb ()
-    {
-        set_crop ("custom");
-    }
-
-    public void crop_four_by_six_action_cb ()
-    {
-        set_crop ("4x6");
-    }
-
-    public void crop_legal_action_cb ()
-    {
-        set_crop ("legal");
-    }
-
-    public void crop_letter_action_cb ()
-    {
-        set_crop ("letter");
-    }
-
-    public void crop_a6_action_cb ()
-    {
-        set_crop ("A6");
-    }
-
-    public void crop_a5_action_cb ()
-    {
-        set_crop ("A5");
-    }
-
-    public void crop_a4_action_cb ()
-    {
-        set_crop ("A4");
-    }
-
-    public void crop_a3_action_cb ()
-    {
-        set_crop ("A3");
+        set_crop (value.get_string ());
     }
 
     public void crop_rotate_action_cb ()
@@ -1739,28 +1715,12 @@ private class CropActions
 {
     private GLib.SimpleActionGroup group;
 
-    private GLib.SimpleAction none;
-    private GLib.SimpleAction a4;
-    private GLib.SimpleAction a5;
-    private GLib.SimpleAction a6;
-    private GLib.SimpleAction letter;
-    private GLib.SimpleAction legal;
-    private GLib.SimpleAction four_by_six;
-    private GLib.SimpleAction a3;
-    private GLib.SimpleAction custom;
-    private GLib.SimpleAction rotate;
+    private GLib.SimpleAction crop_set;
+    private GLib.SimpleAction crop_rotate;
 
     private GLib.ActionEntry[] crop_entries =
     {
-        { "none", AppWindow.crop_none_action_cb },
-        { "a4", AppWindow.crop_a4_action_cb },
-        { "a5", AppWindow.crop_a5_action_cb },
-        { "a6", AppWindow.crop_a6_action_cb },
-        { "letter", AppWindow.crop_letter_action_cb },
-        { "legal", AppWindow.crop_legal_action_cb },
-        { "four_by_six", AppWindow.crop_four_by_six_action_cb },
-        { "a3", AppWindow.crop_a3_action_cb },
-        { "custom", AppWindow.crop_custom_action_cb },
+        { "set", AppWindow.crop_set_action_cb, "s", "'none'" },
         { "rotate", AppWindow.crop_rotate_action_cb },
     };
 
@@ -1769,72 +1729,19 @@ private class CropActions
         group = new GLib.SimpleActionGroup ();
         group.add_action_entries (crop_entries, window);
         
-        none = (GLib.SimpleAction) group.lookup_action ("none");
-        a4 = (GLib.SimpleAction) group.lookup_action ("a4");
-        a5 = (GLib.SimpleAction) group.lookup_action ("a5");
-        a6 = (GLib.SimpleAction) group.lookup_action ("a6");
-        letter = (GLib.SimpleAction) group.lookup_action ("letter");
-        legal = (GLib.SimpleAction) group.lookup_action ("legal");
-        four_by_six = (GLib.SimpleAction) group.lookup_action ("four_by_six");
-        a3 = (GLib.SimpleAction) group.lookup_action ("a3");
-        custom = (GLib.SimpleAction) group.lookup_action ("custom");
-        rotate = (GLib.SimpleAction) group.lookup_action ("rotate");
+        crop_set = (GLib.SimpleAction) group.lookup_action ("set");
+        crop_rotate = (GLib.SimpleAction) group.lookup_action ("rotate");
 
         window.insert_action_group ("crop", group);
     }
 
     public void update_current_crop (string? crop_name)
     {
-        rotate.set_enabled (crop_name != null);
-
+        crop_rotate.set_enabled (crop_name != null);
+        
         if (crop_name == null)
-        {
-            crop_name = "none";
-        }
-
-        none.set_enabled (true);
-        a4.set_enabled (true);
-        a5.set_enabled (true);
-        a6.set_enabled (true);
-        letter.set_enabled (true);
-        legal.set_enabled (true);
-        four_by_six.set_enabled (true);
-        a3.set_enabled (true);
-        custom.set_enabled (true);
-        
-        GLib.SimpleAction active_action = none;
-
-        switch (crop_name)
-        {
-        case "A3":
-            active_action = a3;
-            break;
-        case "A4":
-            active_action = a4;
-            break;
-        case "A5":
-            active_action = a5;
-            break;
-        case "A6":
-            active_action = a6;
-            break;
-        case "letter":
-            active_action = letter;
-            break;
-        case "legal":
-            active_action = legal;
-            break;
-        case "4x6":
-            active_action = four_by_six;
-            break;
-        case "custom":
-            active_action = custom;
-            break;
-        default:
-            active_action = none;
-            break;
-        }
-        
-        active_action.set_enabled (false);
+            crop_set.set_state ("none");
+        else
+            crop_set.set_state (crop_name);
     }
 }
