@@ -3,7 +3,7 @@
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
   
-  <menu id="app-menu">
+  <menu id="context-menu">
     <item>
       <attribute name="label" translatable="yes" comments="Menu item to rotate page to left (anti-clockwise)">Rotate _Left</attribute>
       <attribute name="action">app.rotate_left</attribute>
@@ -97,161 +97,47 @@
     </item>
   </menu>
 
+  <menu id="scan-menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Single Page</attribute>
+        <attribute name="action">app.scan_type</attribute>
+        <attribute name="target">single</attribute>
+      </item>
+
+      <item>
+        <attribute name="label" translatable="yes">All Pages From _Feeder</attribute>
+        <attribute name="action">app.scan_type</attribute>
+        <attribute name="target">adf</attribute>
+      </item>
+
+      <item>
+        <attribute name="label" translatable="yes">_Multiple Pages From Flatbed</attribute>
+        <attribute name="action">app.scan_type</attribute>
+        <attribute name="target">batch</attribute>
+      </item>
+    </section>
+
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Text</attribute>
+        <attribute name="action">app.document_hint</attribute>
+        <attribute name="target">text</attribute>
+      </item>
+
+      <item>
+        <attribute name="label" translatable="yes">_Image</attribute>
+        <attribute name="action">app.document_hint</attribute>
+        <attribute name="target">photo</attribute>
+      </item>
+    </section>
+  </menu>
+
   <object class="GtkListStore" id="device_model">
     <columns>
       <column type="gchararray"/>
       <column type="gchararray"/>
     </columns>
-  </object>
-  <object class="GtkPopover" id="scan_options_popover">
-    <property name="child">
-      <object class="GtkBox">
-        <property name="margin-start">12</property>
-        <property name="margin-end">12</property>
-        <property name="margin_top">12</property>
-        <property name="margin_bottom">12</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child>
-          <object class="GtkToggleButton" id="scan_single_radio">
-            <signal name="toggled" handler="scan_single_radio_toggled_cb" swapped="no"/>
-            <child>
-              <object class="GtkBox">
-                <property name="margin_start">12</property>
-                <property name="margin_end">12</property>
-                <property name="margin_top">6</property>
-                <property name="margin_bottom">6</property>
-                <property name="spacing">12</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="icon_name">scanner-symbolic</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="label" translatable="yes">_Single Page</property>
-                    <property name="use_underline">True</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="scan_adf_radio">
-            <property name="group">scan_single_radio</property>
-            <signal name="toggled" handler="scan_adf_radio_toggled_cb" swapped="no"/>
-            <child>
-              <object class="GtkBox">
-                <property name="margin_start">12</property>
-                <property name="margin_end">12</property>
-                <property name="margin_top">6</property>
-                <property name="margin_bottom">6</property>
-                <property name="spacing">12</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="icon_name">scan-type-adf-symbolic</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="label" translatable="yes">All Pages From _Feeder</property>
-                    <property name="use_underline">True</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="scan_batch_radio">
-            <property name="group">scan_single_radio</property>
-            <signal name="toggled" handler="scan_batch_radio_toggled_cb" swapped="no"/>
-            <child>
-              <object class="GtkBox">
-                <property name="margin_start">12</property>
-                <property name="margin_end">12</property>
-                <property name="margin_top">6</property>
-                <property name="margin_bottom">6</property>
-                <property name="spacing">12</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="icon_name">scan-type-batch-symbolic</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="label" translatable="yes">_Multiple Pages From Flatbed</property>
-                    <property name="use_underline">True</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="text_radio">
-            <property name="margin_top">12</property>
-            <signal name="toggled" handler="text_radio_toggled_cb" swapped="no"/>
-            <child>
-              <object class="GtkBox">
-                <property name="margin_start">12</property>
-                <property name="margin_end">12</property>
-                <property name="margin_top">6</property>
-                <property name="margin_bottom">6</property>
-                <property name="spacing">12</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="icon_name">x-office-document-symbolic</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="label" translatable="yes">_Text</property>
-                    <property name="use_underline">True</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="photo_radio">
-            <property name="group">text_radio</property>
-            <signal name="toggled" handler="photo_radio_toggled_cb" swapped="no"/>
-            <child>
-              <object class="GtkBox">
-                <property name="margin_start">12</property>
-                <property name="margin_end">12</property>
-                <property name="margin_top">6</property>
-                <property name="margin_bottom">6</property>
-                <property name="spacing">12</property>
-                <child>
-                  <object class="GtkImage">
-                    <property name="icon_name">image-x-generic-symbolic</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="label" translatable="yes">_Image</property>
-                    <property name="use_underline">True</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="preferences_button">
-            <property name="label" translatable="yes">_Preferences</property>
-            <property name="height_request">40</property>
-            <property name="margin_top">12</property>
-            <property name="use_underline">True</property>
-            <signal name="clicked" handler="preferences_button_clicked_cb" swapped="no"/>
-          </object>
-        </child>
-      </object>
-    </property>
   </object>
   <template class="AppWindow" parent="AdwApplicationWindow">
     <property name="width_request">320</property>
@@ -265,12 +151,12 @@
         
         <child>
           <object class="GtkPopoverMenu" id="page_menu">
-            <property name="menu-model">app-menu</property>
+            <property name="menu-model">context-menu</property>
             <property name="has_arrow">false</property>
             <property name="halign">start</property>
           </object>
         </child>
-        
+
         <child>
           <object class="AdwHeaderBar" id="header_bar">
             <child type="start">
@@ -328,7 +214,7 @@
                 </child>
                 <child>
                   <object class="GtkMenuButton" id="scan_options_menu">
-                    <property name="popover">scan_options_popover</property>
+                    <property name="menu_model">scan-menu</property>
                     <property name="icon_name">emblem-system-symbolic</property>
                   </object>
                 </child>

@@ -19,6 +19,8 @@ public class AppWindow : Adw.ApplicationWindow
     private const GLib.ActionEntry[] action_entries =
     {
         { "new_document", new_document_cb },
+        { "scan_type", scan_type_action_cb, "s", "'single'"},
+        { "document_hint", document_hint_action_cb, "s", "'text'"},
         { "scan_single", scan_single_cb },
         { "scan_adf", scan_adf_cb },
         { "scan_batch", scan_batch_cb },
@@ -39,6 +41,9 @@ public class AppWindow : Adw.ApplicationWindow
         { "quit", quit_cb }
     };
     
+    private GLib.SimpleAction scan_type_action;
+    private GLib.SimpleAction document_hint_action;
+
     private GLib.SimpleAction delete_page_action;
     private GLib.SimpleAction page_move_left_action;
     private GLib.SimpleAction page_move_right_action;
@@ -54,8 +59,6 @@ public class AppWindow : Adw.ApplicationWindow
     private bool setting_devices;
     private bool user_selected_device;
 
-    [GtkChild]
-    private unowned Gtk.Popover scan_options_popover;
     [GtkChild]
     private unowned Gtk.PopoverMenu page_menu;
     [GtkChild]
@@ -85,16 +88,6 @@ public class AppWindow : Adw.ApplicationWindow
 
     [GtkChild]
     private unowned Adw.ButtonContent scan_button_content;
-    [GtkChild]
-    private unowned Gtk.ToggleButton scan_single_radio;
-    [GtkChild]
-    private unowned Gtk.ToggleButton scan_adf_radio;
-    [GtkChild]
-    private unowned Gtk.ToggleButton scan_batch_radio;
-    [GtkChild]
-    private unowned Gtk.ToggleButton text_radio;
-    [GtkChild]
-    private unowned Gtk.ToggleButton photo_radio;
 
     [GtkChild]
     private unowned Gtk.MenuButton menu_button;
@@ -871,6 +864,31 @@ public class AppWindow : Adw.ApplicationWindow
         start_scan (get_selected_device (), options);
     }
 
+    private void scan_type_action_cb (SimpleAction action, Variant? value)
+    {
+        var type = value.get_string ();
+       
+        switch (type) {
+            case "single":
+                set_scan_type (ScanType.SINGLE);
+                break;
+            case "adf":
+                set_scan_type (ScanType.ADF);
+                break;
+            case "batch":
+                set_scan_type (ScanType.BATCH);
+                break;
+            default:
+                return;
+        }
+    }
+
+    private void document_hint_action_cb (SimpleAction action, Variant? value)
+    {
+        var hint = value.get_string ();
+        set_document_hint(hint, true);
+    }
+
     private void scan_single_cb ()
     {
         var options = make_scan_options ();
@@ -950,80 +968,31 @@ public class AppWindow : Adw.ApplicationWindow
         switch (scan_type)
         {
         case ScanType.SINGLE:
-            scan_single_radio.active = true;
+            scan_type_action.set_state ("single");
             scan_button_content.icon_name = "scanner-symbolic";
             scan_button.tooltip_text = _("Scan a single page from the scanner");
             break;
         case ScanType.ADF:
-            scan_adf_radio.active = true;
+            scan_type_action.set_state ("adf");
             scan_button_content.icon_name = "scan-type-adf-symbolic";
             scan_button.tooltip_text = _("Scan multiple pages from the scanner");
             break;
         case ScanType.BATCH:
-            scan_batch_radio.active = true;
+            scan_type_action.set_state ("batch");
             scan_button_content.icon_name = "scan-type-batch-symbolic";
             scan_button.tooltip_text = _("Scan multiple pages from the scanner");
             break;
         }
     }
 
-    [GtkCallback]
-    private void scan_single_radio_toggled_cb (Gtk.ToggleButton button)
-    {
-        if (button.active)
-            set_scan_type (ScanType.SINGLE);
-    }
-
-    [GtkCallback]
-    private void scan_adf_radio_toggled_cb (Gtk.ToggleButton button)
-    {
-        if (button.active)
-            set_scan_type (ScanType.ADF);
-    }
-
-    [GtkCallback]
-    private void scan_batch_radio_toggled_cb (Gtk.ToggleButton button)
-    {
-        if (button.active)
-            set_scan_type (ScanType.BATCH);
-    }
-
     private void set_document_hint (string document_hint, bool save = false)
     {
         this.document_hint = document_hint;
 
-        if (document_hint == "text")
-        {
-            text_radio.active = true;
-        }
-        else if (document_hint == "photo")
-        {
-            photo_radio.active = true;
-        }
+        document_hint_action.set_state (document_hint);
 
         if (save)
             settings.set_string ("document-type", document_hint);
-    }
-
-    [GtkCallback]
-    private void text_radio_toggled_cb (Gtk.ToggleButton button)
-    {
-        if (button.active)
-            set_document_hint ("text", true);
-    }
-
-    [GtkCallback]
-    private void photo_radio_toggled_cb (Gtk.ToggleButton button)
-    {
-        if (button.active)
-            set_document_hint ("photo", true);
-    }
-
-    [GtkCallback]
-    private void preferences_button_clicked_cb (Gtk.Button button)
-    {
-        scan_options_popover.popdown ();
-        preferences_cb ();
     }
 
     private ScanOptions make_scan_options ()
@@ -1458,6 +1427,9 @@ public class AppWindow : Adw.ApplicationWindow
         crop_actions = new CropActions (this);
 
         app.add_action_entries (action_entries, this);
+
+        scan_type_action = (GLib.SimpleAction) app.lookup_action("scan_type");
+        document_hint_action = (GLib.SimpleAction) app.lookup_action("document_hint");
         
         delete_page_action = (GLib.SimpleAction) app.lookup_action("delete_page");
         page_move_left_action = (GLib.SimpleAction) app.lookup_action("move_left");
