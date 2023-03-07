@@ -2,14 +2,14 @@
 # Copyright (c) 2016 Rosetta Contributors and Canonical Ltd 2016
 # This file is distributed under the same license as the simple-scan package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
-# DaeHyun Sung <sungdh86+git@gmail.com>, 2018-2022.
+# DaeHyun Sung <sungdh86+git@gmail.com>, 2018-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-01-27 14:26+0000\n"
-"PO-Revision-Date: 2022-03-02 14:06+0900\n"
+"POT-Creation-Date: 2023-01-30 20:25+0000\n"
+"PO-Revision-Date: 2023-03-07 01:59+0900\n"
 "Last-Translator: DaeHyun Sung <sungdh86+git@gmail.com>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -179,7 +179,7 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1558 src/app-window.vala:1832
+#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "문서 스캐너"
 
@@ -204,7 +204,7 @@ msgstr ""
 "이 프로그램은 현존하는 거의 모든 스캐너를 지원하는 SANE 프레임워크를 사용합니"
 "다."
 
-#: data/simple-scan.appdata.xml.in:26
+#: data/simple-scan.appdata.xml.in:27
 msgid "The GNOME Project"
 msgstr "그놈 프로젝트"
 
@@ -304,7 +304,7 @@ msgstr "텍스트(_T)"
 msgid "_Image"
 msgstr "이미지(_I)"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1862
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "기본 설정(_P)"
 
@@ -448,10 +448,15 @@ msgstr "메뉴 열기"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "기본 설정 보기"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "키보드 바로 가기"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "끝내기"
@@ -571,7 +576,7 @@ msgstr "스크립트 인수(_S)"
 msgid "_Keep original file"
 msgstr "원본 파일 유지(_K)"
 
-#: src/app-window.vala:229 src/app-window.vala:1660
+#: src/app-window.vala:229 src/app-window.vala:1686
 msgid "_Close"
 msgstr "닫기(_C)"
 
@@ -771,20 +776,30 @@ msgstr "역순"
 msgid "Keep unchanged"
 msgstr "바꾸지 않은 상태 유지"
 
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1347
+msgid "Flip even pages upside-down"
+msgstr "짝수 페이지를 거꾸로 뒤집기"
+
+#. Label on button for keeping the ordering, but flip every second upside down
+#: src/app-window.vala:1358
+msgid "Flip odd pages upside-down"
+msgstr "홀수 페이지를 거꾸로 뒤집기"
+
 #. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1533
+#: src/app-window.vala:1559
 msgid "Unable to open help file"
 msgstr "도움말 파일을 열 수 없습니다"
 
-#: src/app-window.vala:1547
+#: src/app-window.vala:1573
 msgid "About Document Scanner"
 msgstr "문서 스캐너 정보"
 
-#: src/app-window.vala:1549
+#: src/app-window.vala:1575
 msgid "Simple document scanning tool"
 msgstr "간단한 문서 스캐닝 도구"
 
-#: src/app-window.vala:1554
+#: src/app-window.vala:1580
 msgid "translator-credits"
 msgstr ""
 "그놈 기여자:\n"
@@ -802,40 +817,41 @@ msgstr ""
 " atto https://launchpad.net/~kpsman"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1573
+#: src/app-window.vala:1599
 msgid "Save document before quitting?"
 msgstr "종료하기 전에 문서를 저장하시겠습니까?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1575
+#: src/app-window.vala:1601
 msgid "_Quit without Saving"
 msgstr "저장하지 않고 종료(_Q)"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1616
+#: src/app-window.vala:1642
 msgid "You appear to have a Brother scanner."
 msgstr "브라더 스캐너를 가지고 계신 것 같습니다."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1618
+#: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
-"사용 가능한 드라이버 확인 <a href=\"http://support.brother.com\">Brother "
-"website</a>."
+"<a href=\"http://support.brother.com\">Brother 웹사이트</a>에서 드라이버를 구"
+"할 수 있습니다."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1622
+#: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
 "<a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE 백엔"
 "드</a> 를 지원하는 캐논 스캐너를 가지고 계신 것 같습니다."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1624
+#: src/app-window.vala:1650
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -848,22 +864,22 @@ msgstr ""
 "에 문제를 보고하십시오."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1628
+#: src/app-window.vala:1654
 msgid "You appear to have a Samsung scanner."
 msgstr "삼성 스캐너를 가지고 계신 것 같습니다."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1631
+#: src/app-window.vala:1657
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"사용 가능한 드라이버는 <a href=\"https://support.hp.com\">HP 웹사이트</a>에 "
-"있습니다. (HP가 삼성의 프린터 사업부를 인수)"
+"<a href=\"https://support.hp.com\">HP 웹사이트</a>에서 드라이버를 구할 수 있"
+"습니다. (HP가 삼성의 프린터 사업부를 인수)"
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1636
+#: src/app-window.vala:1662
 msgid "You appear to have an HP scanner."
 msgstr "HP 스캐너를 가지고 계신 것 같습니다."
 
@@ -871,137 +887,138 @@ msgstr "HP 스캐너를 가지고 계신 것 같습니다."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1644
+#: src/app-window.vala:1670
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
 msgstr ""
-"사용 가능한 드라이버 확인 <a href=\"https://support.hp.com\">HP website</a>."
+"<a href=\"https://support.hp.com\">HP 웹사이트</a>에서 드라이버를 구할 수 있"
+"습니다."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1648
+#: src/app-window.vala:1674
 msgid "You appear to have an Epson scanner."
 msgstr "Epson 스캐너를 가지고 계신 것 같습니다."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1650
+#: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
-"사용 가능한 드라이버 확인 <a href=\"http://support.epson.com\">Epson "
-"website</a>."
+"<a href=\"http://support.epson.com\">Epson 웹사이트</a>에서 드라이버를 구할 "
+"수 있습니다."
 
-#. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1654
-msgid "You appear to have an Lexmark scanner."
+#. Message to indicate a Lexmark scanner has been detected
+#: src/app-window.vala:1680
+msgid "You appear to have a Lexmark scanner."
 msgstr "Lexmark 스캐너를 가지고 계신 것 같습니다."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1656
+#: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
-"사용 가능한 드라이버 확인 <a href=\"http://support.lexmark.com\">Lexmark "
-"website</a>."
+"<a href=\"http://support.lexmark.com\">Lexmark 웹사이트</a>에서 드라이버를 구"
+"할 수 있습니다."
 
 #. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1660
+#: src/app-window.vala:1686
 msgid "Install drivers"
 msgstr "드라이버 설치"
 
 #. Message in driver install dialog
-#: src/app-window.vala:1694
+#: src/app-window.vala:1720
 msgid "Once installed you will need to restart this app."
 msgstr "드라이버 설치 후엔 이 프로그램을 다시 시작해야 합니다."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1707
+#: src/app-window.vala:1733
 msgid "Installing drivers…"
 msgstr "드라이버를 설치하고 있습니다…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1715
+#: src/app-window.vala:1741
 msgid "Drivers installed successfully!"
 msgstr "드라이버를 설치했습니다!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1725
+#: src/app-window.vala:1751
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "드라이버 설치 실패 (에러 코드 %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1731
+#: src/app-window.vala:1757
 msgid "Failed to install drivers."
 msgstr "드라이버 설치에 실패했습니다."
 
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1738
+#: src/app-window.vala:1764
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "%s 패키지를 꼭 설치해야 합니다."
 
-#: src/app-window.vala:1857
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "전자메일(_E)"
 
-#: src/app-window.vala:1858
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "출력(_N)"
 
-#: src/app-window.vala:1859
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "페이지 다시 정렬(_R)"
 
-#: src/app-window.vala:1863
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "키보드 바로 가기(_K)"
 
-#: src/app-window.vala:1864
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "도움말(_H)"
 
-#: src/app-window.vala:1865
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "문서 스캐너 정보(_A)"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1873
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "새 문서(_N)"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1892
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "페이지를 왼쪽으로 회전 (시계 반대 방향)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1901
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "페이지를 오른쪽으로 회전 (시계 방향)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1913
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "선택한 페이지 자르기"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1931
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "선택한 페이지 삭제"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2107
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "취소"
 
-#: src/book.vala:355 src/book.vala:361
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "%i 페이지를 인코딩할 수 없습니다"
@@ -1052,24 +1069,24 @@ msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:897
+#: src/scanner.vala:901
 msgid "No scanners available.  Please connect a scanner."
 msgstr "사용할 수 있는 스캐너가 없습니다. 스캐너를 연결하십시오."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:927
+#: src/scanner.vala:931
 msgid "Unable to connect to scanner"
 msgstr "스캐너에 연결할 수 없음"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1357 src/scanner.vala:1492
+#: src/scanner.vala:1361 src/scanner.vala:1495
 msgid "Document feeder empty"
 msgstr "문서공급장치가 비었습니다"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1365
+#: src/scanner.vala:1369
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1081,12 +1098,12 @@ msgstr ""
 "십시요. 몇몇 스캐너에서 고해상도로 스캔할때, 스캔 크기가 제한됩니다."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1378
+#: src/scanner.vala:1382
 msgid "Unable to start scan"
 msgstr "스캔을 시작할 수 없음"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1391 src/scanner.vala:1502
+#: src/scanner.vala:1395 src/scanner.vala:1505
 msgid "Error communicating with scanner"
 msgstr "스캐너와의 통신 에러"
 
@@ -1161,9 +1178,6 @@ msgstr "사용 가능한 모든 선택의 목록을 보려면 “%s --help” �
 #~ msgid "Print"
 #~ msgstr "인쇄"
 
-#~ msgid "Preferences"
-#~ msgstr "기본 설정"
-
 #~ msgid "Help"
 #~ msgstr "도움말"
 
@@ -1189,8 +1203,8 @@ msgstr "사용 가능한 모든 선택의 목록을 보려면 “%s --help” �
 #~ msgstr "스캔하기(_S)"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
 #~ "사용 가능한 드라이버 확인 <a href=\"http://samsung.com/support\">Samsung "
 #~ "website</a>."
