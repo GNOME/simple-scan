@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan gnome-3-26\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 07:56+0000\n"
-"PO-Revision-Date: 2022-09-23 02:57+0330\n"
-"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
+"POT-Creation-Date: 2023-01-30 20:25+0000\n"
+"PO-Revision-Date: 2023-03-16 10:09+0330\n"
+"Last-Translator: MohammadSaleh Kamyab <mskf1383@envs.net>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-DamnedLies-Scope: partial\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -298,7 +298,7 @@ msgstr "_متن"
 msgid "_Image"
 msgstr "_تصویر"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_ترجیحات"
 
@@ -442,10 +442,15 @@ msgstr "گشودن فهرست"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "نمایش ترجیحات"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "میان‌برهای صفحه‌کلید"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "خروج"
@@ -767,13 +772,13 @@ msgstr "نگه‌داشتن بدون تغییر"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "سر و ته کردن صفحه‌های فرد"
+msgid "Flip even pages upside-down"
+msgstr "سر و ته کردن صفحه‌های زوج"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "سر و ته کردن صفحه‌های زوج"
+msgid "Flip odd pages upside-down"
+msgstr "سر و ته کردن صفحه‌های فرد"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -888,9 +893,9 @@ msgstr ""
 "راه‌اندازهای این دستگاه روی <a href=\"http://support.epson.com\">پایگاه وب اپسون</"
 "a> موجودند."
 
-#. Message to indicate an Lexmark scanner has been detected
+#. Message to indicate a Lexmark scanner has been detected
 #: src/app-window.vala:1680
-msgid "You appear to have an Lexmark scanner."
+msgid "You appear to have a Lexmark scanner."
 msgstr "به نظر می‌رسد یک پویشگر Lexmark دارید."
 
 #. Instructions on how to install Lexmark scanner drivers
@@ -940,64 +945,64 @@ msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "لازم است بستهٔ %s را نصب کنید."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "_رایانامه"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "چا_پ"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_ترتیب دوبارهٔ صفحه‌ها"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "_میان‌برهای صفحه‌کلید"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "_راهنما"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "_دربارهٔ پویشگر سند"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "_سند جدید"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "چرخاندن صفحه به چپ (خلاف جهت عقربه‌های ساعت)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "چرخاندن صفحه به راست (در جهت عقربه‌های ساعت)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "برش صفحه انتخاب شده"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "حذف صفحه انتخاب شده"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "لغو"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "خطا در رمزگذاری صفحه %Ii"
@@ -1160,9 +1165,6 @@ msgstr "برای مشاهده راهنمای خط فرمان (%s --help) را و
 
 #~ msgid "Print"
 #~ msgstr "چاپ"
-
-#~ msgid "Preferences"
-#~ msgstr "ترجیحات"
 
 #~ msgid "Help"
 #~ msgstr "راهنما"
