@@ -1,5 +1,5 @@
 project ('simple-scan', ['vala', 'c'],
-         version: '42.5',
+         version: '44.0',
          license: 'GPLv3+',
          default_options: [
              'warning_level=1',
