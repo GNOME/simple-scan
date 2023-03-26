@@ -2,24 +2,24 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
 #
-# Nathan Follens <nfollens@gnome.org>, 2017, 2019-2020, 2022.
+# Nathan Follens <nfollens@gnome.org>, 2017, 2019-2020, 2022-2023.
 # Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2017, 2018, 2021.
 # Justin van Steijn <jvs@fsfe.org>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 07:56+0000\n"
-"PO-Revision-Date: 2022-11-02 00:25+0100\n"
+"POT-Creation-Date: 2023-03-21 16:33+0000\n"
+"PO-Revision-Date: 2023-03-26 15:15+0200\n"
 "Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
-"Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
+"Language-Team: Dutch <https://matrix.to/#/#nl:gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -219,7 +219,7 @@ msgstr ""
 
 #: data/simple-scan.appdata.xml.in:27
 msgid "The GNOME Project"
-msgstr "Het Gnome-project"
+msgstr "Het GNOME-project"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
@@ -316,7 +316,7 @@ msgstr "_Tekst"
 msgid "_Image"
 msgstr "_Afbeelding"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Voorkeuren"
 
@@ -460,10 +460,15 @@ msgstr "Menu openen"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "Voorkeuren tonen"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Sneltoetsen"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Afsluiten"
@@ -785,13 +790,13 @@ msgstr "Onveranderd laten"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "Oneven pagina’s verticaal spiegelen"
+msgid "Flip even pages upside-down"
+msgstr "Even pagina’s verticaal spiegelen"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "Even pagina’s verticaal spiegelen"
+msgid "Flip odd pages upside-down"
+msgstr "Oneven pagina’s verticaal spiegelen"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -812,7 +817,7 @@ msgstr ""
 "Nathan Follens <nfollens@gnome.org>\n"
 "Justin van Steijn <jvs@fsfe.org>\n"
 "\n"
-"Meer info over Gnome-NL http://nl.gnome.org\n"
+"Meer info over GNOME-NL https://nl.gnome.org\n"
 "\n"
 "Launchpad-bijdragen:\n"
 "  Dionysos https://launchpad.net/~dionysoz\n"
@@ -853,8 +858,8 @@ msgstr "U lijkt een Brother-scanner te hebben."
 #. Instructions on how to install Brother scanner drivers
 #: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
 "Stuurprogramma’s hiervoor zijn beschikbaar op de <a href=\"http://support."
 "brother.com\">Brother-website</a>."
@@ -862,12 +867,13 @@ msgstr ""
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
-"U lijkt een Canon-scanner te hebben, die ondersteund wordt door de <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma-SANE-back-end</"
-"a>."
+"U lijkt een Canon-scanner te hebben, die ondersteund wordt door de <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma-SANE-back-"
+"end</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/app-window.vala:1650
@@ -922,22 +928,22 @@ msgstr "U lijkt een Epson-scanner te hebben."
 #. Instructions on how to install Epson scanner drivers
 #: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
 "Stuurprogramma's hiervoor zijn beschikbaar op de <a href=\"http://support."
 "epson.com\">Epson-website</a>."
 
-#. Message to indicate an Lexmark scanner has been detected
+#. Message to indicate a Lexmark scanner has been detected
 #: src/app-window.vala:1680
-msgid "You appear to have an Lexmark scanner."
+msgid "You appear to have a Lexmark scanner."
 msgstr "U lijkt een Lexmark-scanner te hebben."
 
 #. Instructions on how to install Lexmark scanner drivers
 #: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
 "Stuurprogramma’s hiervoor zijn beschikbaar op de <a href=\"http://support."
 "lexmark.com\">Lexmark-website</a>."
@@ -981,64 +987,64 @@ msgid_plural "You need to install the %s packages."
 msgstr[0] "U dient het %s pakket te installeren."
 msgstr[1] "U dient de %s pakketten te installeren."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "_E-mailen"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "Afdrukke_n"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "Pagina’s he_rschikken"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "Snel_toetsen"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "_Hulp"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "_Over Documentenscanner"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "_Nieuw document"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "De pagina linksom draaien (tegen de klok in)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "De pagina rechtsom draaien (met de klok mee)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "De geselecteerde pagina bijsnijden"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "De geselecteerde pagina verwijderen"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Coderen van pagina %i mislukt"
@@ -1208,9 +1214,6 @@ msgstr ""
 #~ msgid "Print"
 #~ msgstr "Afdrukken"
 
-#~ msgid "Preferences"
-#~ msgstr "Voorkeuren"
-
 #~ msgid "Help"
 #~ msgstr "Hulp"
 
@@ -1236,8 +1239,8 @@ msgstr ""
 #~ msgstr "_Scannen"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
 #~ "Stuurprogramma's hiervoor zijn beschikbaar op de <a href=\"http://samsung."
 #~ "com/support\">website van Samsung</a>."
