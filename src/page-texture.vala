@@ -575,3 +575,89 @@ public class PageViewTexture : Object
         new_buffer ();
     }
 }
+
+public class PagePaintable: Gdk.Paintable, Object
+{
+    private Page page;
+    private PageViewTexture page_texture;
+    private Gdk.Texture? texture;
+    
+    public PagePaintable (Page page)
+    {
+        this.page = page;
+        page.pixels_changed.connect (pixels_changed);
+        page.size_changed.connect (pixels_changed);
+        page.scan_direction_changed.connect (pixels_changed);
+
+        page_texture = new PageViewTexture (page);
+        page_texture.new_buffer.connect (texture_updated);
+
+        pixels_changed ();
+    }
+    
+    ~PagePaintable ()
+    {
+        page.pixels_changed.disconnect (pixels_changed);
+        page.size_changed.disconnect (pixels_changed);
+        page.scan_direction_changed.disconnect (pixels_changed);
+        page_texture.new_buffer.disconnect (texture_updated);
+    }
+    
+    private void pixels_changed ()
+    {
+        page_texture.request_update ();
+        try {
+            page_texture.queue_update ();
+        }
+        catch (Error e)
+        {
+            warning ("Failed to queue_update of the texture: %s", e.message);
+            invalidate_contents ();
+        }
+    }
+
+    private void texture_updated ()
+    {
+        if (page_texture.pixbuf != null)
+            texture = Gdk.Texture.for_pixbuf(page_texture.pixbuf);
+        else
+            texture = null;
+
+        invalidate_contents ();
+    }
+
+	public override double get_intrinsic_aspect_ratio ()
+    {
+        return (double) page.width / (double) page.height;
+    }
+
+    public void snapshot (Gdk.Snapshot gdk_snapshot, double width, double height) {
+        var snapshot = (Gtk.Snapshot) gdk_snapshot;
+
+        var rect = Graphene.Rect();
+        rect.size.width = (float) width;
+        rect.size.height = (float) height;
+
+        page_texture.request_resize ((int) width, (int) height);
+
+        try {
+            page_texture.queue_update ();
+        }
+        catch (Error e)
+        {
+            warning ("Failed to queue_update of the texture: %s", e.message);
+            // Ask for another redraw
+            invalidate_contents ();
+        }
+
+        if (texture != null)
+        {
+            snapshot.append_texture(texture, rect);
+        }
+        else
+        {
+            snapshot.append_color ({1.0f, 1.0f, 1.0f, 1.0f}, rect);
+        }
+    }
+
+}
