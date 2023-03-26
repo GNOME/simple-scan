@@ -219,6 +219,31 @@ public class Page : Object
         this.crop_width = (crop_x + crop_width > scan_width) ? scan_width : crop_width;
         this.crop_height = (crop_y + crop_height > scan_height) ? scan_height : crop_height;
     }
+    
+    public Page copy()
+    {
+        var copy = new Page.from_data (
+            scan_width,
+            scan_height,
+            rowstride,
+            n_channels,
+            depth,
+            dpi,
+            scan_direction,
+            color_profile,
+            pixels,
+            has_crop,
+            crop_name,
+            crop_x,
+            crop_y,
+            crop_width,
+            crop_height
+        );
+        
+        copy.scan_line = scan_line;
+        
+        return copy;
+    }
 
     public void set_page_info (ScanPageInfo info)
     {
