@@ -5,14 +5,15 @@
 # Mingcong Bai <jeffbai@aosc.xyz>, 2017, 2018.
 # Dingzhong Chen <wsxy162@gmail.com>, 2019.
 # lumingzh <lumingzh@qq.com>, 2022.
+# Nanling <neithern@outlook.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 07:56+0000\n"
-"PO-Revision-Date: 2022-10-12 09:19+0800\n"
-"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"POT-Creation-Date: 2023-03-26 13:16+0000\n"
+"PO-Revision-Date: 2023-03-26 18:23+0800\n"
+"Last-Translator: Nanling <neithern@outlook.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -297,7 +298,7 @@ msgstr "文本(_T)"
 msgid "_Image"
 msgstr "图像(_I)"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "首选项(_P)"
 
@@ -441,10 +442,15 @@ msgstr "打开菜单"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "显示首选项"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "键盘快捷键"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "退出"
@@ -764,13 +770,13 @@ msgstr "保持不变"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "上下颠倒奇数页面"
+msgid "Flip even pages upside-down"
+msgstr "上下颠倒偶数页面"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "上下颠倒偶数页面"
+msgid "Flip odd pages upside-down"
+msgstr "上下颠倒奇数页面"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -828,16 +834,17 @@ msgstr "您似乎有一个 Brother 扫描仪。"
 #. Instructions on how to install Brother scanner drivers
 #: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
 "该驱动程序可在 <a href=\"http://support.brother.com\"> Brother 网站</a>获得。"
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
 "您似乎有一个佳能扫描仪，它目前由<a href=\"http://www.sane-project.org/man/"
 "sane-pixma.5.html\">Pixma SANE 后端</a>提供支持。"
@@ -850,10 +857,10 @@ msgid ""
 "to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
 "sane-devel\">SANE mailing list</a>."
 msgstr ""
-"请检查您的<a href=\"http://www.sane-project.org/sane-supported-devices.html"
-"\">扫描仪是否由 SANE 提供支持</a>；若不受支持，请向 <a href=\"https://alioth-"
-"lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE 邮件列表</a>报告"
-"问题。"
+"请检查您的<a href=\"http://www.sane-project.org/sane-supported-devices."
+"html\">扫描仪是否由 SANE 提供支持</a>；若不受支持，请向 <a href=\"https://"
+"alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE 邮件列表</"
+"a>报告问题。"
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/app-window.vala:1654
@@ -893,23 +900,23 @@ msgstr "您似乎有一个爱普生扫描仪。"
 #. Instructions on how to install Epson scanner drivers
 #: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
 "该驱动程序可在<a href=\"http://support.epson.com\">爱普生网站</a>获得。"
 
-#. Message to indicate an Lexmark scanner has been detected
+#. Message to indicate a Lexmark scanner has been detected
 #: src/app-window.vala:1680
-msgid "You appear to have an Lexmark scanner."
-msgstr "您似乎有一个 Lexmark 扫描仪。"
+msgid "You appear to have a Lexmark scanner."
+msgstr "您似乎有一个利盟扫描仪。"
 
 #. Instructions on how to install Lexmark scanner drivers
 #: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
-"该驱动程序可在 <a href=\"http://support.lexmark.com\">Lexmark 网站</a>获得。"
+"该驱动程序可在 <a href=\"http://support.lexmark.com\">利盟网站</a>获得。"
 
 #. Title of dialog giving instructions on how to install drivers
 #: src/app-window.vala:1686
@@ -949,64 +956,64 @@ msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "您需要安装 %s 软件包。"
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "电子邮件(_E)"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "打印(_N)"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "页面重新排序(_R)"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "键盘快捷键(_K)"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "关于文档扫描仪(_A)"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "新建文档(_N)"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "左旋页面（逆时针）"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "右旋页面（顺时针）"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "裁剪选中的页面"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "删除选中的页面"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "取消"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "无法编码页面 %i"
@@ -1163,9 +1170,6 @@ msgstr "运行“%s --help”来查看可用命令行选项的完整列表。"
 #~ msgid "Print"
 #~ msgstr "打印"
 
-#~ msgid "Preferences"
-#~ msgstr "首选项"
-
 #~ msgid "Help"
 #~ msgstr "帮助"
 
@@ -1191,8 +1195,8 @@ msgstr "运行“%s --help”来查看可用命令行选项的完整列表。"
 #~ msgstr "扫描(_S)"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
 #~ "该驱动程序可在<a href=\"http://samsung.com/support\">三星网站</a>获得。"
 
