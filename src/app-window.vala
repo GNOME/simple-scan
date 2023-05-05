@@ -383,93 +383,76 @@ public class AppWindow : Adw.ApplicationWindow
 
         if (directory == null || directory == "")
             directory = GLib.Filename.to_uri(Environment.get_user_special_dir (UserDirectory.DOCUMENTS));
-
-        var save_dialog = new Gtk.FileChooserNative (/* Save dialog: Dialog title */
-                                                     _("Save As…"),
-                                                     this,
-                                                     Gtk.FileChooserAction.SAVE,
-                                                     _("_Save"),
-                                                     _("_Cancel"));
         
-        save_dialog.set_modal(true);
+        var save_dialog = new Gtk.FileDialog ();
+        save_dialog.title = _("Save As…");
+        save_dialog.modal = true;
+        save_dialog.accept_label = _("_Save");
+
         // TODO(gtk4)
         //  save_dialog.local_only = false;
 
         var save_format = settings.get_string ("save-format");
         if (book_uri != null)
         {
-            var file = GLib.File.new_for_uri (book_uri);
-            
-            try
-            {
-                save_dialog.set_file (file);
-            }
-            catch (Error e)
-            {
-                warning ("Error file chooser set_file: %s", e.message);
-            }
+            save_dialog.initial_file = GLib.File.new_for_uri (book_uri);
         }
         else
         {
-            var file = GLib.File.new_for_uri (directory);
-
-            try
-            {
-                save_dialog.set_current_folder (file);
-            }
-            catch (Error e)
-            {
-                warning ("Error file chooser set_current_folder: %s", e.message);
-            }
+            save_dialog.initial_folder = GLib.File.new_for_uri (directory);
 
             /* Default filename to use when saving document. */
             /* To that filename the extension will be added, eg. "Scanned Document.pdf" */
-            save_dialog.set_current_name (_("Scanned Document") + "." + mime_type_to_extension (save_format));
+            save_dialog.initial_name = (_("Scanned Document") + "." + mime_type_to_extension (save_format));
         }
+        
+        var filters = new ListStore (typeof (Gtk.FileFilter));
 
         var pdf_filter = new Gtk.FileFilter ();
         pdf_filter.set_filter_name (_("PDF (multi-page document)"));
         pdf_filter.add_pattern ("*.pdf" );
         pdf_filter.add_mime_type ("application/pdf");
-        save_dialog.add_filter (pdf_filter);
+        filters.append (pdf_filter);
         
         var jpeg_filter = new Gtk.FileFilter ();
         jpeg_filter.set_filter_name (_("JPEG (compressed)"));
         jpeg_filter.add_pattern ("*.jpg" );
         jpeg_filter.add_pattern ("*.jpeg" );
         jpeg_filter.add_mime_type ("image/jpeg");
-        save_dialog.add_filter (jpeg_filter);
+        filters.append (jpeg_filter);
 
         var png_filter = new Gtk.FileFilter ();
         png_filter.set_filter_name (_("PNG (lossless)"));
         png_filter.add_pattern ("*.png" );
         png_filter.add_mime_type ("image/png");
-        save_dialog.add_filter (png_filter);
+        filters.append (png_filter);
 
         var webp_filter = new Gtk.FileFilter ();
         webp_filter.set_filter_name (_("WebP (compressed)"));
         webp_filter.add_pattern ("*.webp" );
         webp_filter.add_mime_type ("image/webp");
-        save_dialog.add_filter (webp_filter);
+        filters.append (webp_filter);
 
         var all_filter = new Gtk.FileFilter ();
         all_filter.set_filter_name (_("All Files"));
         all_filter.add_pattern ("*");
-        save_dialog.add_filter (all_filter);
+        filters.append (all_filter);
+        
+        save_dialog.filters = filters;
         
         switch (save_format)
         {
             case "application/pdf":
-                save_dialog.set_filter (pdf_filter);
+                save_dialog.default_filter = pdf_filter;
                 break;
             case "image/jpeg":
-                save_dialog.set_filter (jpeg_filter);
+                save_dialog.default_filter = jpeg_filter;
                 break;
             case "image/png":
-                save_dialog.set_filter (png_filter);
+                save_dialog.default_filter = png_filter;
                 break;
             case "image/webp":
-                save_dialog.set_filter (webp_filter);
+                save_dialog.default_filter = webp_filter;
                 break;
         }
         
@@ -480,26 +463,15 @@ public class AppWindow : Adw.ApplicationWindow
 
         while (true)
         {
-            save_dialog.show ();
-            
-            var response = Gtk.ResponseType.NONE;
-            SourceFunc callback = choose_file_location.callback;
-
-            save_dialog.response.connect ((res) => {
-                response = (Gtk.ResponseType) res;
-                callback ();
-            });
-            
-            yield;
-
-            if (response != Gtk.ResponseType.ACCEPT)
+            File? file = null;
+            try {
+                file = yield save_dialog.save (this, null);
+            }
+            catch (Error e) 
             {
-                save_dialog.destroy ();
-                return null;
+                warning ("Failed to open save dialog: %s", e.message);
             }
 
-            var file = save_dialog.get_file ();
-            
             if (file == null)
             {
                 return null;
@@ -534,14 +506,13 @@ public class AppWindow : Adw.ApplicationWindow
             // but for the sake of keeping old functionality in tact we leave it as it 
             if (files.length () > 1 || file.get_uri () != uri)
             {
-                overwrite_check = yield check_overwrite (save_dialog.transient_for, files);
+                overwrite_check = yield check_overwrite (this, files);
             }
 
             if (overwrite_check)
             {
                 var directory_uri = uri.substring (0, uri.last_index_of ("/") + 1);
                 settings.set_string ("save-directory", directory_uri);
-                save_dialog.destroy ();
                 return uri;
             }
         }
