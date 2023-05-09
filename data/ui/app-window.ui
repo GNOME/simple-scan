@@ -133,12 +133,6 @@
     </section>
   </menu>
 
-  <object class="GtkListStore" id="device_model">
-    <columns>
-      <column type="gchararray"/>
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <template class="AppWindow" parent="AdwApplicationWindow">
     <property name="width_request">320</property>
     <property name="height_request">480</property>
@@ -278,10 +272,9 @@
                             <property name="halign">center</property>
                             <property name="spacing">10</property>
                             <child>
-                              <object class="GtkComboBox" id="device_combo">
+                              <object class="GtkDropDown" id="device_drop_down">
                                 <property name="width_request">200</property>
-                                <property name="model">device_model</property>
-                                <signal name="changed" handler="device_combo_changed_cb" swapped="no"/>
+                                <signal name="notify::selected" handler="device_drop_down_changed_cb" swapped="no"/>
                               </object>
                             </child>
                             <child>
