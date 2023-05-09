@@ -1019,7 +1019,8 @@ public class AppWindow : Adw.ApplicationWindow
             return;
         }
 
-        Gtk.show_uri (this, file.get_uri (), Gdk.CURRENT_TIME);
+        var launcher = new Gtk.FileLauncher(file);
+        launcher.launch.begin (this, null);
     }
 
     private void show_page_menu_cb (BookView view, Gtk.Widget from, double x, double y)
@@ -1221,7 +1222,8 @@ public class AppWindow : Adw.ApplicationWindow
 
     private void launch_help ()
     {
-        Gtk.show_uri (this, "help:simple-scan", Gdk.CURRENT_TIME);
+        var launcher = new Gtk.UriLauncher ("help:simple-scan");
+        launcher.launch.begin (this, null);
     }
 
     private void help_cb ()
