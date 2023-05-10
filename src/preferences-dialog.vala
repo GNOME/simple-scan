@@ -10,17 +10,43 @@
  * license.
  */
 
+private class DpiItem: Object
+{
+    public int dpi;
+    public string label;
+    
+    public DpiItem(int dpi, string label)
+    {
+        this.dpi = dpi;
+        this.label = label;
+    }
+}
+
+private class PaperSizeItem: Object
+{
+    public string label;
+    public int width;
+    public int height;
+    
+    public PaperSizeItem(string label, int width, int height)
+    {
+        this.label = label;
+        this.width = width;
+        this.height = height;
+    }
+}
+
 [GtkTemplate (ui = "/org/gnome/SimpleScan/ui/preferences-dialog.ui")]
 private class PreferencesDialog : Adw.PreferencesWindow
 {
     private Settings settings;
 
     [GtkChild]
-    private unowned Gtk.ComboBox text_dpi_combo;
+    private unowned Gtk.DropDown text_dpi_drop_down;
     [GtkChild]
-    private unowned Gtk.ComboBox photo_dpi_combo;
+    private unowned Gtk.DropDown photo_dpi_drop_down;
     [GtkChild]
-    private unowned Gtk.ComboBox paper_size_combo;
+    private unowned Gtk.DropDown paper_size_drop_down;
     [GtkChild]
     private unowned Gtk.Scale brightness_scale;
     [GtkChild]
@@ -37,18 +63,15 @@ private class PreferencesDialog : Adw.PreferencesWindow
     private unowned Gtk.ToggleButton page_delay_10s_button;
     [GtkChild]
     private unowned Gtk.ToggleButton page_delay_15s_button;
-    [GtkChild]
-    private unowned Gtk.ListStore text_dpi_model;
-    [GtkChild]
-    private unowned Gtk.ListStore photo_dpi_model;
+    private ListStore text_dpi_model;
+    private ListStore photo_dpi_model;
     [GtkChild]
     private unowned Gtk.ToggleButton front_side_button;
     [GtkChild]
     private unowned Gtk.ToggleButton back_side_button;
     [GtkChild]
     private unowned Gtk.ToggleButton both_side_button;
-    [GtkChild]
-    private unowned Gtk.ListStore paper_size_model;
+    private ListStore paper_size_model;
     [GtkChild]
     private unowned Gtk.Adjustment brightness_adjustment;
     [GtkChild]
@@ -64,49 +87,76 @@ private class PreferencesDialog : Adw.PreferencesWindow
     [GtkChild]
     private unowned Gtk.Switch postproc_keep_original_switch;
 
+    static string get_dpi_label (DpiItem device) {
+        return device.label;
+    }
+
+    static string get_page_size_label (PaperSizeItem size) {
+        return size.label;
+    }
+
     public PreferencesDialog (Settings settings)
     {
         this.settings = settings;
 
-        Gtk.TreeIter iter;
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 0, 1, 0, 2,
-                              /* Combo box value for automatic paper size */
-                              _("Automatic"), -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 1050, 1, 1480, 2, "A6", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 1480, 1, 2100, 2, "A5", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 2100, 1, 2970, 2, "A4", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 2970, 1, 4200, 2, "A3", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 2159, 1, 2794, 2, "Letter", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 2159, 1, 3556, 2, "Legal", -1);
-        paper_size_model.append (out iter);
-        paper_size_model.set (iter, 0, 1016, 1, 1524, 2, "4×6", -1);
+        paper_size_drop_down.expression = new Gtk.CClosureExpression (
+            typeof (string),
+            null,
+            {},
+            (Callback) get_page_size_label,
+            null,
+            null
+        );
+
+        paper_size_model = new ListStore (typeof (PaperSizeItem));
+        /* Combo box value for automatic paper size */
+        paper_size_model.append (new PaperSizeItem (_("Automatic"), 0, 0));
+        paper_size_model.append (new PaperSizeItem ("A6", 1050, 1480));
+        paper_size_model.append (new PaperSizeItem ("A5", 1480, 2100));
+        paper_size_model.append (new PaperSizeItem ("A4", 2100, 2970));
+        paper_size_model.append (new PaperSizeItem ("A3", 2970, 4200));
+        paper_size_model.append (new PaperSizeItem ("Letter", 2159, 2794));
+        paper_size_model.append (new PaperSizeItem ("Legal", 2159, 3556));
+        paper_size_model.append (new PaperSizeItem ("4×6", 1016, 1524));
+        paper_size_drop_down.model = paper_size_model;
+
+        text_dpi_drop_down.expression = new Gtk.CClosureExpression (
+            typeof (string),
+            null,
+            {},
+            (Callback) get_dpi_label,
+            null,
+            null
+        );
+        text_dpi_model = new ListStore (typeof (DpiItem));
+        text_dpi_drop_down.model = text_dpi_model;
+
+        photo_dpi_drop_down.expression = new Gtk.CClosureExpression (
+            typeof (string),
+            null,
+            {},
+            (Callback) get_dpi_label,
+            null,
+            null
+        );
+        photo_dpi_model = new ListStore (typeof (DpiItem));
+        photo_dpi_drop_down.model = photo_dpi_model;
 
         var dpi = settings.get_int ("text-dpi");
         if (dpi <= 0)
             dpi = DEFAULT_TEXT_DPI;
-        set_dpi_combo (text_dpi_combo, DEFAULT_TEXT_DPI, dpi);
-        text_dpi_combo.changed.connect (() => { settings.set_int ("text-dpi", get_text_dpi ()); });
+        set_dpi_combo (text_dpi_drop_down, DEFAULT_TEXT_DPI, dpi);
+        text_dpi_drop_down.notify["selected"].connect (() => { settings.set_int ("text-dpi", get_text_dpi ()); });
         dpi = settings.get_int ("photo-dpi");
         if (dpi <= 0)
             dpi = DEFAULT_PHOTO_DPI;
-        set_dpi_combo (photo_dpi_combo, DEFAULT_PHOTO_DPI, dpi);
-        photo_dpi_combo.changed.connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
+        set_dpi_combo (photo_dpi_drop_down, DEFAULT_PHOTO_DPI, dpi);
+        photo_dpi_drop_down.notify["selected"].connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
 
         set_page_side ((ScanSide) settings.get_enum ("page-side"));
         front_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanSide.FRONT); });
         back_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanSide.BACK); });
         both_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanSide.BOTH); });
-
-        var renderer = new Gtk.CellRendererText ();
-        paper_size_combo.pack_start (renderer, true);
-        paper_size_combo.add_attribute (renderer, "text", 2);
 
         var lower = brightness_adjustment.lower;
         var darker_label = "<small>%s</small>".printf (_("Darker"));
@@ -140,7 +190,7 @@ private class PreferencesDialog : Adw.PreferencesWindow
         var paper_width = settings.get_int ("paper-width");
         var paper_height = settings.get_int ("paper-height");
         set_paper_size (paper_width, paper_height);
-        paper_size_combo.changed.connect (() =>
+        paper_size_drop_down.notify["selected"].connect (() =>
         {
             int w, h;
             get_paper_size (out w, out h);
@@ -212,55 +262,47 @@ private class PreferencesDialog : Adw.PreferencesWindow
 
     public void set_paper_size (int width, int height)
     {
-        Gtk.TreeIter iter;
-        bool have_iter;
-
-        for (have_iter = paper_size_model.get_iter_first (out iter);
-             have_iter;
-             have_iter = paper_size_model.iter_next (ref iter))
+        for (uint i = 0; i < paper_size_model.n_items; i++)
         {
-            int w, h;
-            paper_size_model.get (iter, 0, out w, 1, out h, -1);
-            if (w == width && h == height)
-               break;
+            var item = paper_size_model.get_item (i) as PaperSizeItem;
+            if (item.width == width && item.height == height)
+            {
+                paper_size_drop_down.selected = i;
+                break;
+            }
         }
-
-        if (!have_iter)
-            have_iter = paper_size_model.get_iter_first (out iter);
-        if (have_iter)
-            paper_size_combo.set_active_iter (iter);
     }
 
     public int get_text_dpi ()
     {
-        Gtk.TreeIter iter;
-        int dpi = DEFAULT_TEXT_DPI;
+        if (text_dpi_drop_down.selected != Gtk.INVALID_LIST_POSITION)
+        {
+            var item = text_dpi_model.get_item (text_dpi_drop_down.selected) as DpiItem;
+            return item.dpi;
+        }
 
-        if (text_dpi_combo.get_active_iter (out iter))
-            text_dpi_model.get (iter, 0, out dpi, -1);
-
-        return dpi;
+        return DEFAULT_TEXT_DPI;
     }
 
     public int get_photo_dpi ()
     {
-        Gtk.TreeIter iter;
-        int dpi = DEFAULT_PHOTO_DPI;
+        if (photo_dpi_drop_down.selected != Gtk.INVALID_LIST_POSITION)
+        {
+            var item = photo_dpi_model.get_item (photo_dpi_drop_down.selected) as DpiItem;
+            return item.dpi;
+        }
 
-        if (photo_dpi_combo.get_active_iter (out iter))
-            photo_dpi_model.get (iter, 0, out dpi, -1);
-
-        return dpi;
+        return DEFAULT_PHOTO_DPI;
     }
 
     public bool get_paper_size (out int width, out int height)
     {
-        Gtk.TreeIter iter;
-
         width = height = 0;
-        if (paper_size_combo.get_active_iter (out iter))
+        if (paper_size_drop_down.selected != Gtk.INVALID_LIST_POSITION)
         {
-            paper_size_model.get (iter, 0, ref width, 1, ref height, -1);
+            var item = paper_size_model.get_item (paper_size_drop_down.selected) as PaperSizeItem;
+            width = item.width;
+            height = item.height;
             return true;
         }
 
@@ -315,16 +357,15 @@ private class PreferencesDialog : Adw.PreferencesWindow
             page_delay_0s_button.active = true;
     }
 
-    private void set_dpi_combo (Gtk.ComboBox combo, int default_dpi, int current_dpi)
+    private void set_dpi_combo (Gtk.DropDown combo, int default_dpi, int current_dpi)
     {
-        var renderer = new Gtk.CellRendererText ();
-        combo.pack_start (renderer, true);
-        combo.add_attribute (renderer, "text", 1);
-
-        var model = combo.model as Gtk.ListStore;
+        var model = combo.model as ListStore;
         int[] scan_resolutions = {75, 150, 200, 300, 600, 1200, 2400};
-        foreach (var dpi in scan_resolutions)
+        
+        for (var i = 0; i < scan_resolutions.length; i++)
         {
+            var dpi = scan_resolutions[i];
+
             string label;
             if (dpi == default_dpi)
                 /* Preferences dialog: Label for default resolution in resolution list */
@@ -338,13 +379,12 @@ private class PreferencesDialog : Adw.PreferencesWindow
             else
                 /* Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch) */
                 label = _("%d dpi").printf (dpi);
-
-            Gtk.TreeIter iter;
-            model.append (out iter);
-            model.set (iter, 0, dpi, 1, label, -1);
+            
+            model.append (new DpiItem (dpi, label));
 
             if (dpi == current_dpi)
-                combo.set_active_iter (iter);
+                combo.selected = i;
+
         }
     }
 }

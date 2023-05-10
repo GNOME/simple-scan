@@ -22,32 +22,6 @@
     <property name="page_increment">10</property>
     <property name="page_size">0</property>
   </object>
-  <object class="GtkListStore" id="paper_size_model">
-    <columns>
-      <!-- column-name width -->
-      <column type="gint"/>
-      <!-- column-name height -->
-      <column type="gint"/>
-      <!-- column-name label -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="photo_dpi_model">
-    <columns>
-      <!-- column-name dpi -->
-      <column type="gint"/>
-      <!-- column-name label -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="text_dpi_model">
-    <columns>
-      <!-- column-name dpi -->
-      <column type="gint"/>
-      <!-- column-name label -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <template class="PreferencesDialog" parent="AdwPreferencesWindow">
     <property name="icon_name">org.gnome.SimpleScan</property>
     <property name="search_enabled">False</property>
@@ -93,12 +67,11 @@
               <object class="AdwActionRow">
                 <property name="title" translatable="yes" comments="Label beside page size combo box">_Page Size</property>
                 <property name="use_underline">True</property>
-                <property name="activatable_widget">paper_size_combo</property>
+                <property name="activatable_widget">paper_size_drop_down</property>
                 <child>
-                  <object class="GtkComboBox" id="paper_size_combo">
+                  <object class="GtkDropDown" id="paper_size_drop_down">
                     <property name="hexpand">True</property>
                     <property name="valign">center</property>
-                    <property name="model">paper_size_model</property>
                   </object>
                 </child>
               </object>
@@ -158,11 +131,10 @@
               <object class="AdwActionRow">
                 <property name="title" translatable="yes" comments="Label beside scan resolution combo box">_Text Resolution</property>
                 <property name="use_underline">True</property>
-                <property name="activatable_widget">text_dpi_combo</property>
+                <property name="activatable_widget">text_dpi_drop_down</property>
                 <child>
-                  <object class="GtkComboBox" id="text_dpi_combo">
+                  <object class="GtkDropDown" id="text_dpi_drop_down">
                     <property name="valign">center</property>
-                    <property name="model">text_dpi_model</property>
                   </object>
                 </child>
               </object>
@@ -171,11 +143,10 @@
               <object class="AdwActionRow">
                 <property name="title" translatable="yes" comments="Label beside scan resolution combo box">_Image Resolution</property>
                 <property name="use_underline">True</property>
-                <property name="activatable_widget">photo_dpi_combo</property>
+                <property name="activatable_widget">photo_dpi_drop_down</property>
                 <child>
-                  <object class="GtkComboBox" id="photo_dpi_combo">
+                  <object class="GtkDropDown" id="photo_dpi_drop_down">
                     <property name="valign">center</property>
-                    <property name="model">photo_dpi_model</property>
                   </object>
                 </child>
               </object>
