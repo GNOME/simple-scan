@@ -7,14 +7,14 @@
 # Bruno Lopes da Silva <brunolopesbldsb@gmail.com>, 2018.
 # Enrico Nicoletto <liverig@gmail.com>, 2017, 2020.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2017-2022.
-# Leônidas Araújo <leorusvellt@hotmail.com>, 2022.
+# Leônidas Araújo <leorusvellt@hotmail.com>, 2022-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 13:49+0000\n"
-"PO-Revision-Date: 2022-09-22 11:39-0300\n"
+"POT-Creation-Date: 2023-03-27 16:34+0000\n"
+"PO-Revision-Date: 2023-04-07 16:07-0300\n"
 "Last-Translator: Leônidas Araújo <leorusvellt@hotmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 40.0\n"
+"X-Generator: Gtranslator 42.0\n"
 "X-Launchpad-Export-Date: 2016-12-19 05:08+0000\n"
 "X-DL-Team: pt_BR\n"
 "X-DL-Module: simple-scan\n"
@@ -326,7 +326,7 @@ msgstr "_Texto"
 msgid "_Image"
 msgstr "_Imagem"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Preferências"
 
@@ -361,12 +361,12 @@ msgstr "_Autorizar"
 #. Label beside username entry
 #: data/ui/authorize-dialog.ui:80
 msgid "_Username for resource:"
-msgstr "Nome de _usuário para o recurso:"
+msgstr "Nome de _usuário par o recurso"
 
 #. Label beside password entry
 #: data/ui/authorize-dialog.ui:92
 msgid "_Password:"
-msgstr "_Senha:"
+msgstr "_Senha"
 
 #: data/ui/help-overlay.ui:12
 msgctxt "shortcut window"
@@ -470,10 +470,15 @@ msgstr "Abre o menu"
 
 #: data/ui/help-overlay.ui:147
 msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "Mostra as preferências"
+
+#: data/ui/help-overlay.ui:154
+msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Atalhos de teclado"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Sai"
@@ -796,13 +801,13 @@ msgstr "Manter inalterado"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "Virar as páginas ímpares de cabeça para baixo"
+msgid "Flip even pages upside-down"
+msgstr "Virar as páginas pares de cabeça para baixo"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "Virar as páginas pares de cabeça para baixo"
+msgid "Flip odd pages upside-down"
+msgstr "Virar as páginas ímpares de cabeça para baixo"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -869,17 +874,18 @@ msgstr "Você parece ter um scanner da Brother."
 #. Instructions on how to install Brother scanner drivers
 #: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
-"Drivers para ele estão disponíveis no <a href=\"http://support.brother.com"
-"\">site da Brother</a>."
+"Drivers para ele estão disponíveis no <a href=\"http://support.brother."
+"com\">site da Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
 "Você parece ter um scanner da Canon, que é suportado pelo <a href=\"http://"
 "www.sane-project.org/man/sane-pixma.5.html\">backend Pixma SANE</a>."
@@ -937,25 +943,25 @@ msgstr "Você parece ter um scanner da Epson."
 #. Instructions on how to install Epson scanner drivers
 #: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
-"Drivers para ele estão disponíveis no <a href=\"http://support.epson.com"
-"\">site da Epson</a>."
+"Drivers para ele estão disponíveis no <a href=\"http://support.epson."
+"com\">site da Epson</a>."
 
-#. Message to indicate an Lexmark scanner has been detected
+#. Message to indicate a Lexmark scanner has been detected
 #: src/app-window.vala:1680
-msgid "You appear to have an Lexmark scanner."
-msgstr "Você parece ter um scanner da Lexmark."
+msgid "You appear to have a Lexmark scanner."
+msgstr "Você parece ter um scanner Lexmark."
 
 #. Instructions on how to install Lexmark scanner drivers
 #: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
-"Drivers para ele estão disponíveis no <a href=\"http://support.lexmark.com"
-"\">site da Lexmark</a>."
+"Drivers para ele estão disponíveis no <a href=\"http://support.lexmark."
+"com\">site da Lexmark</a>."
 
 #. Title of dialog giving instructions on how to install drivers
 #: src/app-window.vala:1686
@@ -996,64 +1002,64 @@ msgid_plural "You need to install the %s packages."
 msgstr[0] "Você precisa instalar o pacote %s."
 msgstr[1] "Você precisa instalar os pacotes %s."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "_E-mail"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "_Imprimir"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Reordenar páginas"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "Atalhos de _teclado"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "A_juda"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "_Sobre o Digitalizador de documentos"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
-msgstr "_Novo documento"
+msgstr "Novo documento"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Gira a página à esquerda (sentido anti-horário)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Gira a página à direita (sentido horário)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "Recorta a página selecionada"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "Exclui a página selecionada"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Não foi possível codificar a página %i"
@@ -1180,6 +1186,21 @@ msgstr ""
 "Execute “%s --help” para ver a lista completa de opções disponíveis para "
 "linha de comando."
 
+#~ msgid "A_6"
+#~ msgstr "A_6"
+
+#~ msgid "Copy"
+#~ msgstr "Copiar"
+
+#~ msgid "Delete"
+#~ msgstr "Excluir"
+
+#~ msgid "_No"
+#~ msgstr "_Não"
+
+#~ msgid "_Yes"
+#~ msgstr "_Sim"
+
 #~ msgid ""
 #~ "This program is free software: you can redistribute it and/or modify\n"
 #~ "it under the terms of the GNU General Public License as published by\n"
@@ -1209,17 +1230,11 @@ msgstr ""
 #~ "a\n"
 #~ "este programa. Caso contrário, acesse <http://www.gnu.org/licenses/>."
 
-#~ msgid "A_6"
-#~ msgstr "A_6"
-
 #~ msgid "Email"
 #~ msgstr "E-mail"
 
 #~ msgid "Print"
 #~ msgstr "Imprimir"
-
-#~ msgid "Preferences"
-#~ msgstr "Preferências"
 
 #~ msgid "Help"
 #~ msgstr "Ajuda"
@@ -1246,11 +1261,11 @@ msgstr ""
 #~ msgstr "7"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
-#~ "Drivers para ele estão disponíveis no <a href=\"http://samsung.com/support"
-#~ "\">site da Samsung</a>."
+#~ "Drivers para ele estão disponíveis no <a href=\"http://samsung.com/"
+#~ "support\">site da Samsung</a>."
 
 #~ msgid "Scan Documents"
 #~ msgstr "Digitalização de documentos"
