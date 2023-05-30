@@ -18,5 +18,6 @@ gnome.yelp ('simple-scan',
                        'scanning.page' ],
             media: [ 'figures/icon.svg',
                      'figures/preferences.png',
-                     'figures/scan_toolbar.png' ],
+                     'figures/scan_toolbar.png',
+                     'figures/scanner_selection.png' ],
             symlink_media: false)
