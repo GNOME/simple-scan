@@ -1,13 +1,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Sveinn í Felli <sv1@fellsnet.is>, 2019, 2021, 2022.
+# Sveinn í Felli <sv1@fellsnet.is>, 2019, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2022-09-22 07:56+0000\n"
-"PO-Revision-Date: 2022-09-22 11:41+0000\n"
+"POT-Creation-Date: 2023-05-09 12:15+0000\n"
+"PO-Revision-Date: 2023-06-18 09:06+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -303,7 +303,7 @@ msgstr "_Texti"
 msgid "_Image"
 msgstr "M_ynd"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1888
+#: data/ui/app-window.ui:433 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Kjörstillingar"
 
@@ -446,11 +446,17 @@ msgid "Open menu"
 msgstr "Opna valmynd"
 
 #: data/ui/help-overlay.ui:147
+#| msgid "Preferences"
+msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "Birta kjörstillingar"
+
+#: data/ui/help-overlay.ui:154
 msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Flýtilyklar"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:161
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Hætta"
@@ -773,13 +779,13 @@ msgstr "Halda óbreyttu"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1347
-msgid "Flip odd pages upside-down"
-msgstr "Fletta oddatölusíðum á hvolf"
+msgid "Flip even pages upside-down"
+msgstr "Fletta jafntölusíðum á hvolf"
 
 #. Label on button for keeping the ordering, but flip every second upside down
 #: src/app-window.vala:1358
-msgid "Flip even pages upside-down"
-msgstr "Fletta jafntölusíðum á hvolf"
+msgid "Flip odd pages upside-down"
+msgstr "Fletta oddatölusíðum á hvolf"
 
 #. Error message displayed when unable to launch help browser
 #: src/app-window.vala:1559
@@ -816,21 +822,22 @@ msgstr "Það lítur út fyrir að þú sért með Brother-skanna."
 #. Instructions on how to install Brother scanner drivers
 #: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
-"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a href="
-"\"http://support.brother.com\">Brother vefsvæðinu</a>."
+"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a "
+"href=\"http://support.brother.com\">Brother vefsvæðinu</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
-"Það lítur út fyrir að þú sért með Canon-skanna, sem er studdur af <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE bakendanum</"
-"a>."
+"Það lítur út fyrir að þú sért með Canon-skanna, sem er studdur af <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"bakendanum</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/app-window.vala:1650
@@ -857,8 +864,8 @@ msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a href="
-"\"https://support.hp.com\">HP vefsvæðinu</a> (HP keypti prentunardeild "
+"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a "
+"href=\"https://support.hp.com\">HP vefsvæðinu</a> (HP keypti prentunardeild "
 "Samsung)."
 
 #. Message to indicate a HP scanner has been detected
@@ -875,8 +882,8 @@ msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
 msgstr ""
-"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a href="
-"\"http://support.epson.com\">HP vefsvæðinu</a>."
+"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a "
+"href=\"http://support.epson.com\">HP vefsvæðinu</a>."
 
 #. Message to indicate an Epson scanner has been detected
 #: src/app-window.vala:1674
@@ -886,25 +893,26 @@ msgstr "Það lítur út fyrir að þú sért með Epson-skanna."
 #. Instructions on how to install Epson scanner drivers
 #: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
-"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a href="
-"\"http://support.epson.com\">Epson vefsvæðinu</a>."
+"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a "
+"href=\"http://support.epson.com\">Epson vefsvæðinu</a>."
 
-#. Message to indicate an Lexmark scanner has been detected
+#. Message to indicate a Lexmark scanner has been detected
 #: src/app-window.vala:1680
-msgid "You appear to have an Lexmark scanner."
+#| msgid "You appear to have an Lexmark scanner."
+msgid "You appear to have a Lexmark scanner."
 msgstr "Það lítur út fyrir að þú sért með Lexmark-skanna."
 
 #. Instructions on how to install Lexmark scanner drivers
 #: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
-"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a href="
-"\"http://support.lexmark.com\">Lexmark vefsvæðinu</a>."
+"Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a "
+"href=\"http://support.lexmark.com\">Lexmark vefsvæðinu</a>."
 
 #. Title of dialog giving instructions on how to install drivers
 #: src/app-window.vala:1686
@@ -945,64 +953,64 @@ msgid_plural "You need to install the %s packages."
 msgstr[0] "Þú þarft að setja upp %s pakkann."
 msgstr[1] "Þú þarft að setja upp %s pakkana."
 
-#: src/app-window.vala:1883
+#: src/app-window.vala:1884
 msgid "_Email"
 msgstr "_Tölvupóstur"
 
-#: src/app-window.vala:1884
+#: src/app-window.vala:1885
 msgid "Pri_nt"
 msgstr "Pre_nta"
 
-#: src/app-window.vala:1885
+#: src/app-window.vala:1886
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "Endu_rraða síðum"
 
-#: src/app-window.vala:1889
+#: src/app-window.vala:1890
 msgid "_Keyboard Shortcuts"
 msgstr "Flýtileiðir á ly_klaborði"
 
-#: src/app-window.vala:1890
+#: src/app-window.vala:1891
 msgid "_Help"
 msgstr "_Hjálp"
 
-#: src/app-window.vala:1891
+#: src/app-window.vala:1892
 msgid "_About Document Scanner"
 msgstr "Um forritið Skj_alaskanni"
 
 #. Populate ActionBar (not supported in Glade)
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
-#: src/app-window.vala:1899
+#: src/app-window.vala:1900
 msgid "_New Document"
 msgstr "_Nýtt skjal"
 
 #. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1918
+#: src/app-window.vala:1919
 msgid "Rotate the page to the left (counter-clockwise)"
 msgstr "Snúa síðunni til vinstri (rangsælis)"
 
 #. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1927
+#: src/app-window.vala:1928
 msgid "Rotate the page to the right (clockwise)"
 msgstr "Snúa síðunni til hægri (réttsælis)"
 
 #. Tooltip for crop button
-#: src/app-window.vala:1939
+#: src/app-window.vala:1940
 msgid "Crop the selected page"
 msgstr "Skera utan af valinni síðu"
 
 #. Tooltip for delete button
-#: src/app-window.vala:1957
+#: src/app-window.vala:1958
 msgid "Delete the selected page"
 msgstr "Eyða valinni síðu"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:2133
+#: src/app-window.vala:2134
 msgid "Cancel"
 msgstr "Hætta við"
 
-#: src/book.vala:375 src/book.vala:381
+#: src/book.vala:381 src/book.vala:387
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Tókst ekki að kóða síðu %i"
@@ -1166,9 +1174,6 @@ msgstr ""
 #~ msgid "Print"
 #~ msgstr "Prenta"
 
-#~ msgid "Preferences"
-#~ msgstr "Kjörstillingar"
-
 #~ msgid "Help"
 #~ msgstr "Hjálp"
 
@@ -1192,11 +1197,11 @@ msgstr ""
 #~ msgstr "Um einfalda skönnunarforritið Simple Scan"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
-#~ "Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a href="
-#~ "\"http://samsung.com/support\">Samsung vefsvæðinu</a>."
+#~ "Vélbúnaðarreklar fyrir þennan skanna ættu að vera til taks á <a "
+#~ "href=\"http://samsung.com/support\">Samsung vefsvæðinu</a>."
 
 #~ msgid "Start Again…"
 #~ msgstr "Byrja aftur…"
