@@ -42,11 +42,11 @@ private class PreferencesDialog : Adw.PreferencesWindow
     private Settings settings;
 
     [GtkChild]
-    private unowned Gtk.DropDown text_dpi_drop_down;
+    private unowned Adw.ComboRow text_dpi_row;
     [GtkChild]
-    private unowned Gtk.DropDown photo_dpi_drop_down;
+    private unowned Adw.ComboRow photo_dpi_row;
     [GtkChild]
-    private unowned Gtk.DropDown paper_size_drop_down;
+    private unowned Adw.ComboRow paper_size_row;
     [GtkChild]
     private unowned Gtk.Scale brightness_scale;
     [GtkChild]
@@ -99,7 +99,7 @@ private class PreferencesDialog : Adw.PreferencesWindow
     {
         this.settings = settings;
 
-        paper_size_drop_down.expression = new Gtk.CClosureExpression (
+        paper_size_row.expression = new Gtk.CClosureExpression (
             typeof (string),
             null,
             {},
@@ -118,9 +118,9 @@ private class PreferencesDialog : Adw.PreferencesWindow
         paper_size_model.append (new PaperSizeItem ("Letter", 2159, 2794));
         paper_size_model.append (new PaperSizeItem ("Legal", 2159, 3556));
         paper_size_model.append (new PaperSizeItem ("4×6", 1016, 1524));
-        paper_size_drop_down.model = paper_size_model;
+        paper_size_row.model = paper_size_model;
 
-        text_dpi_drop_down.expression = new Gtk.CClosureExpression (
+        text_dpi_row.expression = new Gtk.CClosureExpression (
             typeof (string),
             null,
             {},
@@ -129,9 +129,9 @@ private class PreferencesDialog : Adw.PreferencesWindow
             null
         );
         text_dpi_model = new ListStore (typeof (DpiItem));
-        text_dpi_drop_down.model = text_dpi_model;
+        text_dpi_row.model = text_dpi_model;
 
-        photo_dpi_drop_down.expression = new Gtk.CClosureExpression (
+        photo_dpi_row.expression = new Gtk.CClosureExpression (
             typeof (string),
             null,
             {},
@@ -140,18 +140,18 @@ private class PreferencesDialog : Adw.PreferencesWindow
             null
         );
         photo_dpi_model = new ListStore (typeof (DpiItem));
-        photo_dpi_drop_down.model = photo_dpi_model;
+        photo_dpi_row.model = photo_dpi_model;
 
         var dpi = settings.get_int ("text-dpi");
         if (dpi <= 0)
             dpi = DEFAULT_TEXT_DPI;
-        set_dpi_combo (text_dpi_drop_down, DEFAULT_TEXT_DPI, dpi);
-        text_dpi_drop_down.notify["selected"].connect (() => { settings.set_int ("text-dpi", get_text_dpi ()); });
+        set_dpi_combo (text_dpi_row, DEFAULT_TEXT_DPI, dpi);
+        text_dpi_row.notify["selected"].connect (() => { settings.set_int ("text-dpi", get_text_dpi ()); });
         dpi = settings.get_int ("photo-dpi");
         if (dpi <= 0)
             dpi = DEFAULT_PHOTO_DPI;
-        set_dpi_combo (photo_dpi_drop_down, DEFAULT_PHOTO_DPI, dpi);
-        photo_dpi_drop_down.notify["selected"].connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
+        set_dpi_combo (photo_dpi_row, DEFAULT_PHOTO_DPI, dpi);
+        photo_dpi_row.notify["selected"].connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
 
         set_page_side ((ScanSide) settings.get_enum ("page-side"));
         front_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanSide.FRONT); });
@@ -190,7 +190,7 @@ private class PreferencesDialog : Adw.PreferencesWindow
         var paper_width = settings.get_int ("paper-width");
         var paper_height = settings.get_int ("paper-height");
         set_paper_size (paper_width, paper_height);
-        paper_size_drop_down.notify["selected"].connect (() =>
+        paper_size_row.notify["selected"].connect (() =>
         {
             int w, h;
             get_paper_size (out w, out h);
@@ -267,7 +267,7 @@ private class PreferencesDialog : Adw.PreferencesWindow
             var item = paper_size_model.get_item (i) as PaperSizeItem;
             if (item.width == width && item.height == height)
             {
-                paper_size_drop_down.selected = i;
+                paper_size_row.selected = i;
                 break;
             }
         }
@@ -275,9 +275,9 @@ private class PreferencesDialog : Adw.PreferencesWindow
 
     public int get_text_dpi ()
     {
-        if (text_dpi_drop_down.selected != Gtk.INVALID_LIST_POSITION)
+        if (text_dpi_row.selected != Gtk.INVALID_LIST_POSITION)
         {
-            var item = text_dpi_model.get_item (text_dpi_drop_down.selected) as DpiItem;
+            var item = text_dpi_model.get_item (text_dpi_row.selected) as DpiItem;
             return item.dpi;
         }
 
@@ -286,9 +286,9 @@ private class PreferencesDialog : Adw.PreferencesWindow
 
     public int get_photo_dpi ()
     {
-        if (photo_dpi_drop_down.selected != Gtk.INVALID_LIST_POSITION)
+        if (photo_dpi_row.selected != Gtk.INVALID_LIST_POSITION)
         {
-            var item = photo_dpi_model.get_item (photo_dpi_drop_down.selected) as DpiItem;
+            var item = photo_dpi_model.get_item (photo_dpi_row.selected) as DpiItem;
             return item.dpi;
         }
 
@@ -298,9 +298,9 @@ private class PreferencesDialog : Adw.PreferencesWindow
     public bool get_paper_size (out int width, out int height)
     {
         width = height = 0;
-        if (paper_size_drop_down.selected != Gtk.INVALID_LIST_POSITION)
+        if (paper_size_row.selected != Gtk.INVALID_LIST_POSITION)
         {
-            var item = paper_size_model.get_item (paper_size_drop_down.selected) as PaperSizeItem;
+            var item = paper_size_model.get_item (paper_size_row.selected) as PaperSizeItem;
             width = item.width;
             height = item.height;
             return true;
@@ -357,7 +357,7 @@ private class PreferencesDialog : Adw.PreferencesWindow
             page_delay_0s_button.active = true;
     }
 
-    private void set_dpi_combo (Gtk.DropDown combo, int default_dpi, int current_dpi)
+    private void set_dpi_combo (Adw.ComboRow combo, int default_dpi, int current_dpi)
     {
         var model = combo.model as ListStore;
         int[] scan_resolutions = {75, 150, 200, 300, 600, 1200, 2400};

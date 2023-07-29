@@ -64,16 +64,9 @@
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="AdwComboRow" id="paper_size_row">
                 <property name="title" translatable="yes" comments="Label beside page size combo box">_Page Size</property>
                 <property name="use_underline">True</property>
-                <property name="activatable_widget">paper_size_drop_down</property>
-                <child>
-                  <object class="GtkDropDown" id="paper_size_drop_down">
-                    <property name="hexpand">True</property>
-                    <property name="valign">center</property>
-                  </object>
-                </child>
               </object>
             </child>
             <child>
@@ -128,27 +121,15 @@
           <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes" comments="Preferences Dialog: Section label for quality settings">Quality</property>
             <child>
-              <object class="AdwActionRow">
+              <object class="AdwComboRow" id="text_dpi_row">
                 <property name="title" translatable="yes" comments="Label beside scan resolution combo box">_Text Resolution</property>
                 <property name="use_underline">True</property>
-                <property name="activatable_widget">text_dpi_drop_down</property>
-                <child>
-                  <object class="GtkDropDown" id="text_dpi_drop_down">
-                    <property name="valign">center</property>
-                  </object>
-                </child>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="AdwComboRow" id="photo_dpi_row">
                 <property name="title" translatable="yes" comments="Label beside scan resolution combo box">_Image Resolution</property>
                 <property name="use_underline">True</property>
-                <property name="activatable_widget">photo_dpi_drop_down</property>
-                <child>
-                  <object class="GtkDropDown" id="photo_dpi_drop_down">
-                    <property name="valign">center</property>
-                  </object>
-                </child>
               </object>
             </child>
             <child>
