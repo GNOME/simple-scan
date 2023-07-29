@@ -32,33 +32,15 @@
             <property name="title" translatable="yes" comments="Preferences Dialog: Section label for scanning settings">Scanning</property>
             <child>
               <object class="AdwActionRow">
-                <property name="title" translatable="yes" comments="Label beside scan side combo box">Scan _Sides</property>
-                <property name="use_underline">True</property>
-                <property name="activatable_widget">front_side_button</property>
+                <property name="title" translatable="yes" comments="Label beside scan side combo box">Scan Sides</property>
                 <child>
-                  <object class="GtkBox" id="scan_side_box">
+                  <object class="AdwToggleGroup" id="scan_side_toggles">
                     <property name="valign">center</property>
-                    <property name="homogeneous">True</property>
-                    <child>
-                      <object class="GtkToggleButton" id="front_side_button">
-                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">Front</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkToggleButton" id="back_side_button">
-                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on the back side of a page">Back</property>
-                        <property name="group">front_side_button</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkToggleButton" id="both_side_button">
-                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on both sides of a page">Both</property>
-                        <property name="group">front_side_button</property>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="linked"/>
-                    </style>
+                    <toggles>
+                      <toggle id="front" use-underline="yes" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">_Front</toggle>
+                      <toggle id="back" use-underline="yes" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on the back side of a page">B_ack</toggle>
+                      <toggle id="both" use-underline="yes" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on both sides of a page">B_oth</toggle>
+                    </toggles>
                   </object>
                 </child>
               </object>
@@ -81,43 +63,16 @@
                 <property name="title" translatable="yes" comments="Label beside page delay scale">_Delay in Seconds</property>
                 <property name="subtitle" translatable="yes" comments="Provides context for the page delay scale">Interval to scan multiple pages</property>
                 <property name="use_underline">True</property>
-                <property name="activatable_widget">page_delay_0s_button</property>
                 <child>
-                  <object class="GtkBox">
+                  <object class="AdwToggleGroup" id="page_delay_toggles">
                     <property name="valign">center</property>
-                    <property name="homogeneous">True</property>
-                    <child>
-                      <object class="GtkToggleButton" id="page_delay_0s_button">
-                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">0</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkToggleButton" id="page_delay_3s_button">
-                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">3</property>
-                        <property name="group">page_delay_0s_button</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkToggleButton" id="page_delay_6s_button">
-                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">6</property>
-                        <property name="group">page_delay_0s_button</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkToggleButton" id="page_delay_10s_button">
-                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">10</property>
-                        <property name="group">page_delay_0s_button</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkToggleButton" id="page_delay_15s_button">
-                        <property name="label" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">15</property>
-                        <property name="group">page_delay_0s_button</property>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="linked"/>
-                    </style>
+                    <toggles>
+                      <toggle id="0" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">0</toggle>
+                      <toggle id="3" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">3</toggle>
+                      <toggle id="6" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">6</toggle>
+                      <toggle id="10" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">10</toggle>
+                      <toggle id="15" translatable="yes" comments="Preferences Dialog: Toggle button to select scanning on front side of a page">15</toggle>
+                    </toggles>
                   </object>
                 </child>
               </object>
