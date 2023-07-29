@@ -36,6 +36,10 @@ private class PaperSizeItem: Object
     }
 }
 
+const string SIDE_ID_FRONT = "front";
+const string SIDE_ID_BACK = "back";
+const string SIDE_ID_BOTH = "both";
+
 [GtkTemplate (ui = "/org/gnome/SimpleScan/ui/preferences-dialog.ui")]
 private class PreferencesDialog : Adw.PreferencesDialog
 {
@@ -54,23 +58,11 @@ private class PreferencesDialog : Adw.PreferencesDialog
     [GtkChild]
     private unowned Gtk.Scale compression_scale;
     [GtkChild]
-    private unowned Gtk.ToggleButton page_delay_0s_button;
-    [GtkChild]
-    private unowned Gtk.ToggleButton page_delay_3s_button;
-    [GtkChild]
-    private unowned Gtk.ToggleButton page_delay_6s_button;
-    [GtkChild]
-    private unowned Gtk.ToggleButton page_delay_10s_button;
-    [GtkChild]
-    private unowned Gtk.ToggleButton page_delay_15s_button;
+    private unowned Adw.ToggleGroup page_delay_toggles;
     private ListStore text_dpi_model;
     private ListStore photo_dpi_model;
     [GtkChild]
-    private unowned Gtk.ToggleButton front_side_button;
-    [GtkChild]
-    private unowned Gtk.ToggleButton back_side_button;
-    [GtkChild]
-    private unowned Gtk.ToggleButton both_side_button;
+    private unowned Adw.ToggleGroup scan_side_toggles;
     private ListStore paper_size_model;
     [GtkChild]
     private unowned Gtk.Adjustment brightness_adjustment;
@@ -154,9 +146,16 @@ private class PreferencesDialog : Adw.PreferencesDialog
         photo_dpi_row.notify["selected"].connect (() => { settings.set_int ("photo-dpi", get_photo_dpi ()); });
 
         set_page_side ((ScanSide) settings.get_enum ("page-side"));
-        front_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanSide.FRONT); });
-        back_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanSide.BACK); });
-        both_side_button.toggled.connect ((button) => { if (button.active) settings.set_enum ("page-side", ScanSide.BOTH); });
+        scan_side_toggles.notify["active-name"].connect (() => {
+            var active_side_id = scan_side_toggles.active_name;
+
+            if (active_side_id == SIDE_ID_FRONT)
+                settings.set_enum ("page-side", ScanSide.FRONT);
+            else if (active_side_id == SIDE_ID_BACK)
+                settings.set_enum ("page-side", ScanSide.BACK);
+            else
+                settings.set_enum ("page-side", ScanSide.BOTH);
+        });
 
         var lower = brightness_adjustment.lower;
         var darker_label = "<small>%s</small>".printf (_("Darker"));
@@ -199,11 +198,9 @@ private class PreferencesDialog : Adw.PreferencesDialog
         });
 
         set_page_delay (settings.get_int ("page-delay"));
-        page_delay_0s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 0); });
-        page_delay_3s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 3000); });
-        page_delay_6s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 6000); });
-        page_delay_10s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 10000); });
-        page_delay_15s_button.toggled.connect ((button) => { if (button.active) settings.set_int ("page-delay", 15000); });
+        page_delay_toggles.notify["active-name"].connect(() => {
+            settings.set_int ("page-delay", page_delay_toggles.active_name.to_int() * 1000);
+        });
 
         // Postprocessing settings
         var postproc_enabled = settings.get_boolean ("postproc-enabled");
@@ -235,26 +232,32 @@ private class PreferencesDialog : Adw.PreferencesDialog
 
     private void set_page_side (ScanSide page_side)
     {
+        string active_side_id;
+
         switch (page_side)
         {
         case ScanSide.FRONT:
-            front_side_button.active = true;
+            active_side_id = SIDE_ID_FRONT;
             break;
         case ScanSide.BACK:
-            back_side_button.active = true;
+            active_side_id = SIDE_ID_BACK;
             break;
         default:
         case ScanSide.BOTH:
-            both_side_button.active = true;
+            active_side_id = SIDE_ID_BOTH;
             break;
         }
+
+        scan_side_toggles.active_name = active_side_id;
     }
 
     public ScanSide get_page_side ()
     {
-        if (front_side_button.active)
+        var active_side_id = scan_side_toggles.active_name;
+
+        if (active_side_id == SIDE_ID_FRONT)
             return ScanSide.FRONT;
-        else if (back_side_button.active)
+        else if (active_side_id == SIDE_ID_BACK)
             return ScanSide.BACK;
         else
             return ScanSide.BOTH;
@@ -331,30 +334,12 @@ private class PreferencesDialog : Adw.PreferencesDialog
 
     public int get_page_delay ()
     {
-        if (page_delay_15s_button.active)
-            return 15000;
-        else if (page_delay_10s_button.active)
-            return 10000;
-        else if (page_delay_6s_button.active)
-            return 6000;
-        else if (page_delay_3s_button.active)
-            return 3000;
-        else
-            return 0;
+        return page_delay_toggles.active_name.to_int() * 1000;
     }
 
     public void set_page_delay (int page_delay)
     {
-        if (page_delay >= 15000)
-            page_delay_15s_button.active = true;
-        else if (page_delay >= 10000)
-            page_delay_10s_button.active = true;
-        else if (page_delay >= 6000)
-            page_delay_6s_button.active = true;
-        else if (page_delay >= 3000)
-            page_delay_3s_button.active = true;
-        else
-            page_delay_0s_button.active = true;
+        page_delay_toggles.active_name = (page_delay / 1000).to_string();
     }
 
     private void set_dpi_combo (Adw.ComboRow combo, int default_dpi, int current_dpi)
