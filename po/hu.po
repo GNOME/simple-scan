@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-03-21 18:37+0000\n"
-"PO-Revision-Date: 2023-04-13 23:56+0200\n"
+"POT-Creation-Date: 2023-07-02 10:22+0000\n"
+"PO-Revision-Date: 2023-07-30 23:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 23.04.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -180,7 +180,7 @@ msgstr ""
 
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:145 src/app-window.vala:1324
+#: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "Szkenner"
 
@@ -245,7 +245,6 @@ msgstr "A_5"
 
 #. Radio button for cropping page to A6 size
 #: data/ui/app-window.ui:38
-#| msgid "A_4"
 msgid "A_6"
 msgstr "A_6"
 
@@ -294,8 +293,6 @@ msgid "Copy"
 msgstr "Másolás"
 
 #: data/ui/app-window.ui:95
-#| msgctxt "shortcut window"
-#| msgid "Delete page"
 msgid "Delete"
 msgstr "Törlés"
 
@@ -320,49 +317,46 @@ msgid "_Image"
 msgstr "_Kép"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:170
+#: data/ui/app-window.ui:164
 msgid "Stop the current scan"
 msgstr "A jelenlegi szkennelés leállítása"
 
-#: data/ui/app-window.ui:184
+#: data/ui/app-window.ui:178
 msgid "S_top"
 msgstr "_Leállítás"
 
-#: data/ui/app-window.ui:209
+#: data/ui/app-window.ui:203
 msgid "_Scan"
 msgstr "_Szkennelés"
 
 #. Tooltip for save toolbar button
-#: data/ui/app-window.ui:233
+#: data/ui/app-window.ui:227
 msgid "Save document to a file"
 msgstr "Dokumentum fájlba mentése"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:289
+#: data/ui/app-window.ui:282
 msgid "Refresh device list"
 msgstr "Eszközlista frissítése"
 
-#: data/ui/app-window.ui:319
-#| msgid "_New Document"
+#: data/ui/app-window.ui:312
 msgid "New Document"
 msgstr "Új dokumentum"
 
-#: data/ui/app-window.ui:357
+#: data/ui/app-window.ui:350
 msgid "Delete the selected page"
 msgstr "A kiválasztott oldal törlése"
 
 #: data/ui/authorize-dialog.ui:31
-#| msgid "_Username for resource:"
 msgid "_Username for resource"
 msgstr "_Felhasználónév az erőforráshoz"
 
 #: data/ui/authorize-dialog.ui:38
-#| msgid "_Password:"
 msgid "_Password"
 msgstr "_Jelszó"
 
-#: data/ui/authorize-dialog.ui:53 src/app-window.vala:444
-#: src/app-window.vala:616 src/app-window.vala:746
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
+#: src/app-window.vala:665
 msgid "_Cancel"
 msgstr "_Mégse"
 
@@ -491,123 +485,122 @@ msgid "Quit"
 msgstr "Kilépés"
 
 #. Preferences Dialog: Section label for scanning settings
-#: data/ui/preferences-dialog.ui:58
+#: data/ui/preferences-dialog.ui:32
 msgid "Scanning"
 msgstr "Szkennelés"
 
 #. Label beside scan side combo box
-#: data/ui/preferences-dialog.ui:61
+#: data/ui/preferences-dialog.ui:35
 msgid "Scan _Sides"
-msgstr "Szé_lek szkennelése"
+msgstr "Oldalak _szkennelése"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:70
+#: data/ui/preferences-dialog.ui:44
 msgid "Front"
 msgstr "Előlap"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: data/ui/preferences-dialog.ui:75
+#: data/ui/preferences-dialog.ui:49
 msgid "Back"
 msgstr "Hátlap"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: data/ui/preferences-dialog.ui:81
+#: data/ui/preferences-dialog.ui:55
 msgid "Both"
 msgstr "Mindkettő"
 
 #. Label beside page size combo box
-#: data/ui/preferences-dialog.ui:94
+#: data/ui/preferences-dialog.ui:68
 msgid "_Page Size"
 msgstr "_Oldalméret"
 
 #. Label beside page delay scale
-#: data/ui/preferences-dialog.ui:108
+#: data/ui/preferences-dialog.ui:81
 msgid "_Delay in Seconds"
 msgstr "_Késleltetés másodpercben"
 
 #. Provides context for the page delay scale
-#: data/ui/preferences-dialog.ui:109
+#: data/ui/preferences-dialog.ui:82
 msgid "Interval to scan multiple pages"
 msgstr "Több oldal szkennelésének időköze"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:118
+#: data/ui/preferences-dialog.ui:91
 msgid "0"
 msgstr "0"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:123
+#: data/ui/preferences-dialog.ui:96
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:129
+#: data/ui/preferences-dialog.ui:102
 msgid "6"
 msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:135
+#: data/ui/preferences-dialog.ui:108
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:141
+#: data/ui/preferences-dialog.ui:114
 msgid "15"
 msgstr "15"
 
 #. Preferences Dialog: Section label for quality settings
-#: data/ui/preferences-dialog.ui:156
+#: data/ui/preferences-dialog.ui:129
 msgid "Quality"
 msgstr "Minőség"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:159
+#: data/ui/preferences-dialog.ui:132
 msgid "_Text Resolution"
 msgstr "Szöveg _felbontása"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:172
+#: data/ui/preferences-dialog.ui:144
 msgid "_Image Resolution"
-msgstr "_Kép felbontása"
+msgstr "Kép fel_bontása"
 
 #. Label beside brightness scale
-#: data/ui/preferences-dialog.ui:185
+#: data/ui/preferences-dialog.ui:156
 msgid "_Brightness"
 msgstr "Fénye_rő"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:200
+#: data/ui/preferences-dialog.ui:171
 msgid "_Contrast"
 msgstr "Kon_traszt"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:215
-#| msgid "Compression:"
+#: data/ui/preferences-dialog.ui:186
 msgid "Compression"
 msgstr "Tömörítés"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:232
+#: data/ui/preferences-dialog.ui:203
 msgid "Postprocessing"
 msgstr "Utófeldolgozás"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:235
+#: data/ui/preferences-dialog.ui:206
 msgid "_Enable Postprocessing"
 msgstr "Utófeldolgozás _engedélyezése"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:254
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script"
 msgstr "_Parancsfájl"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:273
+#: data/ui/preferences-dialog.ui:244
 msgid "_Script arguments"
 msgstr "_Parancsfájl argumentumai"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:292
+#: data/ui/preferences-dialog.ui:263
 msgid "_Keep original file"
 msgstr "_Eredeti fájl megtartása"
 
@@ -636,33 +629,33 @@ msgstr "Páros oldalak fejjel lefelé fordítása"
 msgid "Reverse"
 msgstr "Fordított"
 
-#: src/app-window.vala:197
+#: src/app-window.vala:206
 msgid "_Close"
 msgstr "_Bezárás"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:205
+#: src/app-window.vala:214
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "A(z) „%s” eléréséhez felhasználónév és jelszó szükséges"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:218
+#: src/app-window.vala:227
 msgid "Searching for Scanners…"
 msgstr "Szkennerek keresése…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:226
+#: src/app-window.vala:235
 msgid "Ready to Scan"
 msgstr "Szkennelésre kész"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:236
+#: src/app-window.vala:245
 msgid "Additional Software Needed"
 msgstr "További szoftverek szükségesek"
 
 #. Instructions to install driver software
-#: src/app-window.vala:238
+#: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -671,116 +664,114 @@ msgstr ""
 "telepíteni</a>."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:245
+#: src/app-window.vala:254
 msgid "No Scanners Detected"
 msgstr "Nem találhatók szkennerek"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:247
+#: src/app-window.vala:256
 msgid "Please check your scanner is connected and powered on."
 msgstr ""
 "Ellenőrizze, hogy a szkenner csatlakoztatva van, és be van-e kapcsolva."
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:349
+#: src/app-window.vala:306
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Már létezik automatikusan mentett könyv. Szeretné megnyitni?"
 
-#: src/app-window.vala:351
-#| msgid "_None"
+#: src/app-window.vala:308
 msgid "_No"
 msgstr "_Nem"
 
-#: src/app-window.vala:352
+#: src/app-window.vala:309
 msgid "_Yes"
 msgstr "_Igen"
 
-#. Save dialog: Dialog title
-#: src/app-window.vala:440
+#: src/app-window.vala:388
 msgid "Save As…"
 msgstr "Mentés másként…"
 
-#: src/app-window.vala:443 src/app-window.vala:747
+#: src/app-window.vala:390 src/app-window.vala:666
 msgid "_Save"
 msgstr "_Mentés"
 
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:479
+#: src/app-window.vala:406
 msgid "Scanned Document"
 msgstr "Szkennelt dokumentum"
 
-#: src/app-window.vala:483
+#: src/app-window.vala:412
 msgid "PDF (multi-page document)"
 msgstr "PDF (többoldalas dokumentum)"
 
-#: src/app-window.vala:489
+#: src/app-window.vala:418
 msgid "JPEG (compressed)"
 msgstr "JPEG (tömörített)"
 
-#: src/app-window.vala:496
+#: src/app-window.vala:425
 msgid "PNG (lossless)"
 msgstr "PNG (veszteségmentes)"
 
-#: src/app-window.vala:502
+#: src/app-window.vala:431
 msgid "WebP (compressed)"
 msgstr "WebP (tömörített)"
 
-#: src/app-window.vala:508
+#: src/app-window.vala:437
 msgid "All Files"
 msgstr "Minden fájl"
 
-#: src/app-window.vala:609
+#: src/app-window.vala:528
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Már létezik „%s” nevű fájl. Le akarja cserélni?"
 
-#: src/app-window.vala:617
+#: src/app-window.vala:536
 msgid "_Replace"
 msgstr "_Csere"
 
-#: src/app-window.vala:704
+#: src/app-window.vala:623
 msgid "Saving"
 msgstr "Mentés"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:724
+#: src/app-window.vala:643
 msgid "Failed to save file"
 msgstr "A fájl mentése sikertelen"
 
-#: src/app-window.vala:743
+#: src/app-window.vala:662
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Ha nem menti, akkor a változtatások véglegesen elvesznek."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:791
+#: src/app-window.vala:710
 msgid "Save current document?"
 msgstr "Menti a jelenlegi dokumentumot?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:793
+#: src/app-window.vala:712
 msgid "_Discard Changes"
 msgstr "Módosítások el_vetése"
 
 #. Label shown when scan started
-#: src/app-window.vala:861
+#: src/app-window.vala:780
 msgid "Contacting Scanner…"
 msgstr "Kapcsolatfelvétel a szkennerrel…"
 
-#: src/app-window.vala:973
+#: src/app-window.vala:892
 msgid "Scan a single page from the scanner"
 msgstr "Egy oldal szkennelése az eszközről"
 
-#: src/app-window.vala:978 src/app-window.vala:983
+#: src/app-window.vala:897 src/app-window.vala:902
 msgid "Scan multiple pages from the scanner"
 msgstr "Több oldal szkennelése az eszközről"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1098
+#: src/app-window.vala:1017
 msgid "Unable to save image for preview"
 msgstr "A képfájlt nem lehet elmenteni előnézethez"
 
-#: src/app-window.vala:1321
+#: src/app-window.vala:1242
 msgid "translator-credits"
 msgstr ""
 "Meskó Balázs <mesko dot balazs at fsf dot hu>\n"
@@ -799,46 +790,46 @@ msgstr ""
 "  Úr Balázs https://launchpad.net/~urbalazs"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1342
+#: src/app-window.vala:1263
 msgid "Save document before quitting?"
 msgstr "Menti a dokumentumot kilépés előtt?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1344
+#: src/app-window.vala:1265
 msgid "_Quit without Saving"
 msgstr "_Kilépés mentés nélkül"
 
-#: src/app-window.vala:1461
+#: src/app-window.vala:1382
 msgid "_Email"
 msgstr "Küldés _e-mailben"
 
-#: src/app-window.vala:1462
+#: src/app-window.vala:1383
 msgid "Pri_nt"
 msgstr "Nyom_tatás"
 
-#: src/app-window.vala:1463
+#: src/app-window.vala:1384
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "Oldalak át_rendezése"
 
-#: src/app-window.vala:1466
+#: src/app-window.vala:1387
 msgid "_Preferences"
 msgstr "_Beállítások"
 
-#: src/app-window.vala:1467
+#: src/app-window.vala:1388
 msgid "_Keyboard Shortcuts"
 msgstr "_Gyorsbillentyűk"
 
-#: src/app-window.vala:1468
+#: src/app-window.vala:1389
 msgid "_Help"
 msgstr "_Súgó"
 
-#: src/app-window.vala:1469
+#: src/app-window.vala:1390
 msgid "_About Document Scanner"
 msgstr "A Szkenner _névjegye"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1658
+#: src/app-window.vala:1579
 msgid "Cancel"
 msgstr "Mégse"
 
@@ -979,54 +970,54 @@ msgstr[0] "Telepíteni kell a következő csomagot: %s."
 msgstr[1] "Telepíteni kell a következő csomagokat: %s."
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:75
+#: src/preferences-dialog.vala:113
 msgid "Automatic"
 msgstr "Automatikus"
 
-#: src/preferences-dialog.vala:112
+#: src/preferences-dialog.vala:162
 msgid "Darker"
 msgstr "Sötétebb"
 
-#: src/preferences-dialog.vala:114
+#: src/preferences-dialog.vala:164
 msgid "Lighter"
 msgstr "Világosabb"
 
-#: src/preferences-dialog.vala:122
+#: src/preferences-dialog.vala:172
 msgid "Less"
 msgstr "Kevesebb"
 
-#: src/preferences-dialog.vala:124
+#: src/preferences-dialog.vala:174
 msgid "More"
 msgstr "Több"
 
-#: src/preferences-dialog.vala:131
+#: src/preferences-dialog.vala:181
 msgid "Minimum size"
 msgstr "Legkisebb méret"
 
-#: src/preferences-dialog.vala:135
+#: src/preferences-dialog.vala:185
 msgid "Full detail"
 msgstr "Teljes részletek"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:331
+#: src/preferences-dialog.vala:372
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (alapértelmezett)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:334
+#: src/preferences-dialog.vala:375
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (vázlat)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:337
+#: src/preferences-dialog.vala:378
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (nagy felbontás)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:340
+#: src/preferences-dialog.vala:381
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
