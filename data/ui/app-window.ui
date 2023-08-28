@@ -323,7 +323,7 @@
                             <child>
                               <object class="GtkButton">
                                 <property name="icon-name">object-rotate-left-symbolic</property>
-                                <property name="tooltip-text">Rotate the page to the left (counter-clockwise)</property>
+                                <property name="tooltip-text" translatable="yes">Rotate the page to the left (counter-clockwise)</property>
                                 <property name="action-name">app.rotate_left</property>
                               </object>
                             </child>
@@ -331,7 +331,7 @@
                             <child>
                               <object class="GtkButton">
                                 <property name="icon-name">object-rotate-right-symbolic</property>
-                                <property name="tooltip-text">Rotate the page to the right (clockwise)</property>
+                                <property name="tooltip-text" translatable="yes">Rotate the page to the right (clockwise)</property>
                                 <property name="action-name">app.rotate_right</property>
                               </object>
                             </child>
@@ -339,7 +339,7 @@
                             <child>
                               <object class="GtkToggleButton" id="crop_button">
                                 <property name="icon-name">crop-symbolic</property>
-                                <property name="tooltip-text">Crop the selected page</property>
+                                <property name="tooltip-text" translatable="yes">Crop the selected page</property>
                                 <signal name="toggled" handler="crop_toggle_cb" swapped="no"/>
                               </object>
                             </child>
