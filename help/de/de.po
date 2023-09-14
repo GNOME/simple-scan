@@ -8,21 +8,23 @@
 #
 # Tobias Bannert <tobannert@gmail.com>, 2016.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2017, 2020.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2021-03-17 15:15+0000\n"
-"PO-Revision-Date: 2021-03-18 22:49+0100\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2023-09-11 13:58+0000\n"
+"PO-Revision-Date: 2023-09-11 19:15+0200\n"
+"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-04-19 06:11+0000\n"
-"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Launchpad-Export-Date: 2017-04-19 06:11+0000\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -36,7 +38,8 @@ msgstr ""
 "  Tobias Bannert https://launchpad.net/~toba\n"
 "\n"
 "Mario Blättermann <mario.blaettermann@gmail.com>, 2017, 2020\n"
-"Christian Kirbach <christian.kirbach@gmail.com>, 2019, 2020, 2021"
+"Christian Kirbach <christian.kirbach@gmail.com>, 2019, 2020, 2021\n"
+"Jürgen Benvenuti <gastornis@posteo.org>, 2023"
 
 #. (itstool) path: page/title
 #: C/adf.page:19
@@ -70,9 +73,9 @@ msgstr "Aus der Werkzeugleiste"
 #. (itstool) path: item/p
 #: C/adf.page:35 C/scanning.page:29
 msgid ""
-"Click the arrow to the right of the <gui style=\"button\">Scan</gui> button."
+"Click the cog to the right of the <gui style=\"button\">Scan</gui> button."
 msgstr ""
-"Klicken Sie auf den Pfeil rechts vom <gui style=\"button\">Scannen</gui>-"
+"Klicken Sie auf das Zahnrad rechts vom <gui style=\"button\">Scannen</gui>-"
 "Knopf."
 
 #. (itstool) path: item/p
@@ -87,10 +90,15 @@ msgstr ""
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
 #: C/adf.page:39 C/scanning.page:31
+#, fuzzy
+#| msgctxt "_"
+#| msgid ""
+#| "external ref='figures/scan_toolbar.png' "
+#| "md5='22ed3eed519db31aa827728dbf3a867b'"
 msgctxt "_"
 msgid ""
 "external ref='figures/scan_toolbar.png' "
-"md5='22ed3eed519db31aa827728dbf3a867b'"
+"md5='be86b81747d2736119577a5f6a3eb1ca'"
 msgstr "ok"
 
 #. (itstool) path: page/p
@@ -104,7 +112,7 @@ msgstr ""
 "ein:"
 
 #. (itstool) path: item/p
-#: C/adf.page:49 C/brightness-contrast.page:28 C/dpi.page:28
+#: C/adf.page:49 C/brightness-contrast.page:28 C/dpi.page:28 C/quality.page:29
 msgid ""
 "Press the menu button in the top-right corner of the window and select <gui "
 "style=\"menuitem\">Preferences</gui>."
@@ -114,16 +122,15 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/adf.page:53
-msgid "Select <gui style=\"tab\">Scanning</gui>."
-msgstr "Wählen Sie <gui style=\"tab\">Scannen</gui>."
+msgid ""
+"In <gui style=\"group\">Scanning</gui> section change the <gui>Scan Sides</"
+"gui> value."
+msgstr ""
+"Ändern Sie im Abschnitt <gui style=\"group\">Scannen</gui> den Wert von "
+"<gui>Zu scannende Seiten</gui>."
 
 #. (itstool) path: item/p
-#: C/adf.page:56
-msgid "Change the <gui>Scan Sides</gui> value."
-msgstr "Ändern Sie den Wert von <gui>Zu scannende Seiten</gui>."
-
-#. (itstool) path: item/p
-#: C/adf.page:59 C/brightness-contrast.page:38 C/dpi.page:38
+#: C/adf.page:56 C/brightness-contrast.page:35 C/dpi.page:35 C/quality.page:36
 msgid "Close the dialog."
 msgstr "Schließen Sie den Dialog."
 
@@ -132,10 +139,15 @@ msgstr "Schließen Sie den Dialog."
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/adf.page:60
+#: C/adf.page:57 C/brightness-contrast.page:36 C/quality.page:37
+#, fuzzy
+#| msgctxt "_"
+#| msgid ""
+#| "external ref='figures/preferences.png' "
+#| "md5='6b6b3b901e59567fba3a758f9ae64193'"
 msgctxt "_"
 msgid ""
-"external ref='figures/preferences.png' md5='6b6b3b901e59567fba3a758f9ae64193'"
+"external ref='figures/preferences.png' md5='e394fc611576fcb504d785060a9d6b08'"
 msgstr "ok"
 
 #. (itstool) path: page/title
@@ -155,16 +167,13 @@ msgstr ""
 "diese Einstellungen ändern:"
 
 #. (itstool) path: item/p
-#: C/brightness-contrast.page:32 C/dpi.page:32
-msgid "Select <gui style=\"tab\">Quality</gui>."
-msgstr "Wählen Sie <gui style=\"tab\">Qualität</gui>."
-
-#. (itstool) path: item/p
-#: C/brightness-contrast.page:35
-msgid "Drag the <gui>Brightness</gui> and/or <gui>Contrast</gui> sliders."
+#: C/brightness-contrast.page:32
+msgid ""
+"In <gui style=\"group\">Quality</gui> section drag the <gui>Brightness</gui> "
+"and/or <gui>Contrast</gui> sliders."
 msgstr ""
-"Bewegen Sie die Schieberegler <gui>Helligkeit</gui> und/oder <gui>Kontrast</"
-"gui>."
+"Bewegen Sie im Abschnitt <gui style=\"group\">Qualität</gui> die "
+"Schieberegler <gui>Helligkeit</gui> und/oder <gui>Kontrast</gui>."
 
 #. (itstool) path: page/title
 #: C/crop.page:19
@@ -266,15 +275,16 @@ msgstr ""
 "em></gui>. So ändern Sie diese Einstellungen:"
 
 #. (itstool) path: item/p
-#: C/dpi.page:35
+#: C/dpi.page:32
 msgid ""
-"Change the <gui>Text Resolution</gui> or <gui>Image Resolution</gui> value."
+"In <gui style=\"group\">Quality</gui> section change the <gui>Text "
+"Resolution</gui> or <gui>Image Resolution</gui> value."
 msgstr ""
-"Wählen Sie einen der Werte <gui>Textauflösung</gui> oder <gui>Bildauflösung</"
-"gui>."
+"Ändern Sie im Abschnitt <gui style=\"group\">Qualität</gui> einen der Werte "
+"<gui>Textauflösung</gui> oder <gui>Bildauflösung</gui>."
 
 #. (itstool) path: page/p
-#: C/dpi.page:42
+#: C/dpi.page:39
 msgid ""
 "The available scanning resolutions for both document types (Text and Image) "
 "are the same and are listed in the following table:"
@@ -283,57 +293,62 @@ msgstr ""
 "verfügbar (Text und Bild) und in der folgenden Tabelle aufgelistet:"
 
 #. (itstool) path: td/p
-#: C/dpi.page:47
+#: C/dpi.page:44
 msgid "<em>Text Resolution</em>"
 msgstr "<em>Textauflösung</em>"
 
 #. (itstool) path: td/p
-#: C/dpi.page:48
+#: C/dpi.page:45
 msgid "<em>Image Resolution</em>"
 msgstr "<em>Bildauflösung</em>"
 
 #. (itstool) path: td/p
-#: C/dpi.page:51 C/dpi.page:52
+#: C/dpi.page:48 C/dpi.page:49
 msgid "75 dpi (draft)"
 msgstr "75 dpi (Vorschau)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:55
+#: C/dpi.page:52
 msgid "150 dpi (default)"
 msgstr "150 dpi (Standard)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:56
+#: C/dpi.page:53
 msgid "150 dpi"
 msgstr "150 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:59
+#: C/dpi.page:56 C/dpi.page:57
+msgid "200 dpi"
+msgstr "200 dpi"
+
+#. (itstool) path: td/p
+#: C/dpi.page:60
 msgid "300 dpi"
 msgstr "300 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:60
+#: C/dpi.page:61
 msgid "300 dpi (default)"
 msgstr "300 dpi (Standard)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:63 C/dpi.page:64
+#: C/dpi.page:64 C/dpi.page:65
 msgid "600 dpi"
 msgstr "600 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:67 C/dpi.page:68
+#: C/dpi.page:68 C/dpi.page:69
 msgid "1200 dpi (high resolution)"
 msgstr "1200 dpi (Hochauflösend)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:71 C/dpi.page:72
+#: C/dpi.page:72 C/dpi.page:73
 msgid "2400 dpi"
 msgstr "2400 dpi"
 
 #. (itstool) path: note/p
-#: C/dpi.page:76
+#: C/dpi.page:77
 msgid ""
 "<gui><em>Text</em></gui> documents are always scanned in black and white, "
 "while <gui><em>Image</em></gui> documents are always scanned in color, at "
@@ -358,17 +373,17 @@ msgid ""
 "attachment."
 msgstr ""
 "Um das Dokument per E-Mail zu versenden, klicken Sie auf den Menüknopf in "
-"der rechten oberen Ecke des Fensters und wählen Sie <gui style=\"menuitem"
-"\">E-Mail</gui>. Alternativ drücken Sie <keyseq><key>Strg</key><key>E</key></"
-"keyseq>. Dadurch wird Ihr E-Mail-Programm mit einer neuen Nachricht "
-"geöffnet, die das eingelesene Dokument als Anhang enthält."
+"der rechten oberen Ecke des Fensters und wählen Sie <gui "
+"style=\"menuitem\">E-Mail</gui>. Alternativ drücken Sie <keyseq><key>Strg</"
+"key><key>E</key></keyseq>. Dadurch wird Ihr E-Mail-Programm mit einer neuen "
+"Nachricht geöffnet, die das eingelesene Dokument als Anhang enthält."
 
 #. (itstool) path: page/p
 #: C/email.page:27
 msgid ""
 "If the document type was set to \"Text\" the email will have a PDF "
-"attachment for each page. Conversely, if the document type was set to \"Image"
-"\", the email will have a JPEG attachment for each page."
+"attachment for each page. Conversely, if the document type was set to "
+"\"Image\", the email will have a JPEG attachment for each page."
 msgstr ""
 "Wenn der Dokumenttyp auf <gui>Text</gui> gesetzt war, erhält die E-Mail "
 "einen PDF-Anhang für jede Seite. War der Dokumenttyp auf <gui>Bild</gui> "
@@ -477,8 +492,8 @@ msgid ""
 "press <gui style=\"button\">Print</gui>."
 msgstr ""
 "Wählen Sie Ihre gewünschten Druckeinstellungen und/oder "
-"Vorschaueinstellungen und klicken anschließend auf den Knopf <gui style="
-"\"button\">Drucken</gui>."
+"Vorschaueinstellungen und klicken anschließend auf den Knopf <gui "
+"style=\"button\">Drucken</gui>."
 
 #. (itstool) path: note/p
 #: C/print.page:37
@@ -500,20 +515,30 @@ msgstr "Einstellen der Bildqualität"
 #: C/quality.page:20
 msgid ""
 "You can adjust the image quality that is used when the scan is converted to "
-"a file by changing this setting in the save dialog. Using a low quality will "
-"result in a small file size but may show some blurring or blockiness in the "
-"image. A high quality will keep all the scanned information but require a "
-"larger file size. See the <link href=\"https://en.wikipedia.org/wiki/"
-"Lossy_compression\">Lossy compression Wikipedia page</link> for more "
-"information."
+"a file by changing this setting in the preferences dialog. Using a low "
+"quality will result in a small file size but may show some blurring or "
+"blockiness in the image. A high quality will keep all the scanned "
+"information but require a larger file size. See the <link href=\"https://en."
+"wikipedia.org/wiki/Lossy_compression\">Lossy compression Wikipedia page</"
+"link> for more information."
 msgstr ""
-"Im Speichern-Dialog können Sie die Bildqualität bei der Umwandlung in eine "
-"Datei ändern. Eine geringe Qualität ergibt eine geringe Dateigröße, aber das "
-"Bild kann unscharf sein oder ein Klötzchenmuster zeigen. Eine hohe Qualität "
-"erhält alle eingescannten Informationen, führt aber zu einer größeren Datei. "
-"Auf der <link href=\"https://en.wikipedia.org/wiki/Lossy_compression"
-"\">Wikipedia-Seite zur verlustbehafteten Kompression</link> erhalten Sie "
-"weitere Informationen dazu (derzeit nur auf Englisch, Juli 2017)."
+"Im Einstellungen-Dialog können Sie die Bildqualität bei der Umwandlung in "
+"eine Datei ändern. Eine geringe Qualität ergibt eine geringe Dateigröße, "
+"aber das Bild kann unscharf sein oder ein Klötzchenmuster zeigen. Eine hohe "
+"Qualität erhält alle eingescannten Informationen, führt aber zu einer "
+"größeren Datei. Auf der <link href=\"https://en.wikipedia.org/wiki/"
+"Lossy_compression\">Wikipedia-Seite zur verlustbehafteten Kompression</link> "
+"erhalten Sie weitere Informationen dazu (derzeit nur auf Englisch, September "
+"2023)."
+
+#. (itstool) path: item/p
+#: C/quality.page:33
+msgid ""
+"In <gui style=\"group\">Quality</gui> section drag the <gui>Compression</"
+"gui> slider."
+msgstr ""
+"Bewegen Sie im Abschnitt <gui style=\"group\">Qualität</gui> den "
+"Schieberegler <gui>Kompression</gui>."
 
 #. (itstool) path: page/title
 #: C/reorder.page:19
@@ -576,11 +601,11 @@ msgstr ""
 #. (itstool) path: item/p
 #: C/rotate.page:34
 msgid ""
-"Select <gui style=\"menuitem\">Rotate Left</gui> or <gui style=\"menuitem"
-"\">Rotate Right</gui>."
+"Select <gui style=\"menuitem\">Rotate Left</gui> or <gui "
+"style=\"menuitem\">Rotate Right</gui>."
 msgstr ""
-"Wählen Sie <gui style=\"menuitem\">Links herum drehen</gui> oder <gui style="
-"\"menuitem\">Rechts herum drehen</gui>."
+"Wählen Sie <gui style=\"menuitem\">Links herum drehen</gui> oder <gui "
+"style=\"menuitem\">Rechts herum drehen</gui>."
 
 #. (itstool) path: steps/title
 #: C/rotate.page:39
@@ -692,10 +717,10 @@ msgstr ""
 "Wie ein Buch kann ein PDF-Dokument mehrere Seiten enthalten und lässt sich "
 "leicht weitergeben. Es gibt nur wenige Linux-Programme, die PDF-Dokumente "
 "bearbeiten können, daher wird dieses Format primär für Archivierungszwecke "
-"empfohlen. Die Größe des PDF-Dokuments ist von der <link xref=\"quality"
-"\">Bildqualität</link> abhängig. Auf der <link href=\"https://de.wikipedia."
-"org/wiki/Portable_Document_Format\">Wikipedia-Seite zu PDF</link> finden Sie "
-"weitere Informationen darüber."
+"empfohlen. Die Größe des PDF-Dokuments ist von der <link "
+"xref=\"quality\">Bildqualität</link> abhängig. Auf der <link href=\"https://"
+"de.wikipedia.org/wiki/Portable_Document_Format\">Wikipedia-Seite zu PDF</"
+"link> finden Sie weitere Informationen darüber."
 
 #. (itstool) path: td/p
 #: C/save.page:53
@@ -710,9 +735,9 @@ msgid ""
 "uploading to social networking sites. Most operating systems come with a "
 "JPEG editor by default. If you have scanned multiple pages, a JPEG file will "
 "be created for each page. Use this file type if you want to modify or upload "
-"the scanned images. The size of the JPEG file is affected by the <link xref="
-"\"quality\">image quality</link>. See the <link href=\"https://en.wikipedia."
-"org/wiki/JPEG\">JPEG Wikipedia page</link> for more information."
+"the scanned images. The size of the JPEG file is affected by the <link "
+"xref=\"quality\">image quality</link>. See the <link href=\"https://en."
+"wikipedia.org/wiki/JPEG\">JPEG Wikipedia page</link> for more information."
 msgstr ""
 "JPEG ist das Dateiformat, das von Digitalkameras für die Bildspeicherung "
 "verwendet wird. Eine JPEG-Datei ist relativ klein, einfach weiterzugeben und "
@@ -720,10 +745,10 @@ msgstr ""
 "liefern bereits einen JPEG-Editor mit. Wenn Sie mehrere Seiten eingescannt "
 "haben, wird eine JPEG-Datei für jede Seite erzeugt. Verwenden Sie diesen "
 "Dateityp, wenn Sie die eingescannten Bilder bearbeiten oder irgendwo "
-"hochladen wollen. Die Größe der JPEG-Datei ist von der <link xref=\"quality"
-"\">Bildqualität</link> abhängig. Auf der <link href=\"https://de.wikipedia."
-"org/wiki/JPEG\">Wikipedia-Seite zu JPEG</link> finden Sie weitere "
-"Informationen darüber."
+"hochladen wollen. Die Größe der JPEG-Datei ist von der <link "
+"xref=\"quality\">Bildqualität</link> abhängig. Auf der <link href=\"https://"
+"de.wikipedia.org/wiki/JPEG\">Wikipedia-Seite zu JPEG</link> finden Sie "
+"weitere Informationen darüber."
 
 #. (itstool) path: td/p
 #: C/save.page:63
@@ -773,6 +798,23 @@ msgstr ""
 "läuft, müssen Sie <app>Dokument-Scanner</app> neu starten, damit der Scanner "
 "erkannt wird."
 
+#. (itstool) path: page/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/scanner.page:32
+#, fuzzy
+#| msgctxt "_"
+#| msgid ""
+#| "external ref='figures/scan_toolbar.png' "
+#| "md5='22ed3eed519db31aa827728dbf3a867b'"
+msgctxt "_"
+msgid ""
+"external ref='figures/scanner_selection.png' "
+"md5='7a220bce6e6f34b44bedb2a848957016'"
+msgstr "ok"
+
 #. (itstool) path: info/title
 #: C/scanning.page:7
 msgctxt "sort"
@@ -806,8 +848,8 @@ msgid ""
 "Select the type of document you are scanning: <gui style=\"button\">Text</"
 "gui> or <gui style=\"button\">Image</gui>."
 msgstr ""
-"Wählen Sie den Typ des Dokuments aus, das Sie scannen: <gui style=\"button"
-"\">Text</gui> oder <gui style=\"button\">Bild</gui>."
+"Wählen Sie den Typ des Dokuments aus, das Sie scannen: <gui "
+"style=\"button\">Text</gui> oder <gui style=\"button\">Bild</gui>."
 
 #. (itstool) path: item/p
 #: C/scanning.page:32
@@ -834,6 +876,12 @@ msgstr ""
 msgid "To change the quality of a scanned page, see <link xref=\"dpi\"/>."
 msgstr ""
 "Zum Ändern der Qualität der gescannten Seite, siehe <link xref=\"dpi\"/>."
+
+#~ msgid "Select <gui style=\"tab\">Scanning</gui>."
+#~ msgstr "Wählen Sie <gui style=\"tab\">Scannen</gui>."
+
+#~ msgid "Select <gui style=\"tab\">Quality</gui>."
+#~ msgstr "Wählen Sie <gui style=\"tab\">Qualität</gui>."
 
 #~ msgid "Use a Menu"
 #~ msgstr "Aus dem Menü"
@@ -934,15 +982,16 @@ msgstr ""
 #~ msgid ""
 #~ "TIFF files contain the raw data from the scanner. This makes them very "
 #~ "large and not suitable for distributing. If you have scanned multipe "
-#~ "pages, a TIFF file will be created for each page. See the <link href="
-#~ "\"http://en.wikipedia.org/wiki/Tagged_Image_File_Format\">TIFF Wikipedia "
-#~ "page</link> for more information."
+#~ "pages, a TIFF file will be created for each page. See the <link "
+#~ "href=\"http://en.wikipedia.org/wiki/Tagged_Image_File_Format\">TIFF "
+#~ "Wikipedia page</link> for more information."
 #~ msgstr ""
 #~ "TIFF-Dateien enthalten die Rohdaten aus dem Scanner. Dadurch werden sie "
 #~ "sehr groß und eignen sich nicht für die Weitergabe. Wenn Sie mehrere "
 #~ "Seiten eingescannt haben, wird eine TIFF-Datei für jede Seite erzeugt. "
-#~ "Auf der <link href=\"http://de.wikipedia.org/wiki/Tagged_Image_File_Format"
-#~ "\">Wikipedia-Seite zu TIFF</link> finden Sie weitere Informationen."
+#~ "Auf der <link href=\"http://de.wikipedia.org/wiki/"
+#~ "Tagged_Image_File_Format\">Wikipedia-Seite zu TIFF</link> finden Sie "
+#~ "weitere Informationen."
 
 #~ msgid ""
 #~ "Click the arrow to the right of the \"Scan\" button and choose the type "
