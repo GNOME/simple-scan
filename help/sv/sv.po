@@ -1,15 +1,15 @@
 # Swedish translation for simple-scan.
-# Copyright © 2017-2021 simple-scan's COPYRIGHT HOLDER
+# Copyright © 2017-2023 simple-scan's COPYRIGHT HOLDER
 # This file is distributed under the same license as the simple-scan package.
 # Isak Östlund <translate@catnip.nu>, 2017, 2020.
 # Sebastian Rasmussen <sebras@gmail.com>, 2019.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2019, 2021, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
-"POT-Creation-Date: 2022-07-17 17:45+0000\n"
-"PO-Revision-Date: 2022-09-18 18:13+0200\n"
+"POT-Creation-Date: 2023-07-15 15:28+0000\n"
+"PO-Revision-Date: 2023-07-27 21:38+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
@@ -59,9 +59,10 @@ msgstr "Använd verktygsfältet"
 #. (itstool) path: item/p
 #: C/adf.page:35 C/scanning.page:29
 msgid ""
-"Click the arrow to the right of the <gui style=\"button\">Scan</gui> button."
+"Click the cog to the right of the <gui style=\"button\">Scan</gui> button."
 msgstr ""
-"Klicka på pilen till höger om knappen <gui style=\"button\">Skanna</gui>."
+"Klicka på kugghjulet till höger om knappen <gui style=\"button\">Skanna</"
+"gui>."
 
 #. (itstool) path: item/p
 #: C/adf.page:38
@@ -77,10 +78,10 @@ msgstr "Välj <gui style=\"button\">Alla sidor från matare</gui>."
 msgctxt "_"
 msgid ""
 "external ref='figures/scan_toolbar.png' "
-"md5='22ed3eed519db31aa827728dbf3a867b'"
+"md5='be86b81747d2736119577a5f6a3eb1ca'"
 msgstr ""
 "external ref='figures/scan_toolbar.png' "
-"md5='22ed3eed519db31aa827728dbf3a867b'"
+"md5='be86b81747d2736119577a5f6a3eb1ca'"
 
 #. (itstool) path: page/p
 #: C/adf.page:43
@@ -92,7 +93,7 @@ msgstr ""
 "bildläsare har sådan funktionalitet. För att endast läsa in en sida:"
 
 #. (itstool) path: item/p
-#: C/adf.page:49 C/brightness-contrast.page:28 C/dpi.page:28
+#: C/adf.page:49 C/brightness-contrast.page:28 C/dpi.page:28 C/quality.page:29
 msgid ""
 "Press the menu button in the top-right corner of the window and select <gui "
 "style=\"menuitem\">Preferences</gui>."
@@ -102,16 +103,15 @@ msgstr ""
 
 #. (itstool) path: item/p
 #: C/adf.page:53
-msgid "Select <gui style=\"tab\">Scanning</gui>."
-msgstr "Välj <gui style=\"tab\">Skanning</gui>."
+msgid ""
+"In <gui style=\"group\">Scanning</gui> section change the <gui>Scan Sides</"
+"gui> value."
+msgstr ""
+"Ändra i avsnittet <gui style=\"group\">Skanning</gui> värdet på "
+"<gui>Inläsningssida</gui>."
 
 #. (itstool) path: item/p
-#: C/adf.page:56
-msgid "Change the <gui>Scan Sides</gui> value."
-msgstr "Ändra värdet på <gui>Inläsningssida</gui>."
-
-#. (itstool) path: item/p
-#: C/adf.page:59 C/brightness-contrast.page:38 C/dpi.page:38
+#: C/adf.page:56 C/brightness-contrast.page:35 C/dpi.page:35 C/quality.page:36
 msgid "Close the dialog."
 msgstr "Stäng dialogrutan."
 
@@ -120,12 +120,12 @@ msgstr "Stäng dialogrutan."
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/adf.page:60
+#: C/adf.page:57 C/brightness-contrast.page:36 C/quality.page:37
 msgctxt "_"
 msgid ""
-"external ref='figures/preferences.png' md5='6b6b3b901e59567fba3a758f9ae64193'"
+"external ref='figures/preferences.png' md5='e394fc611576fcb504d785060a9d6b08'"
 msgstr ""
-"external ref='figures/preferences.png' md5='6b6b3b901e59567fba3a758f9ae64193'"
+"external ref='figures/preferences.png' md5='e394fc611576fcb504d785060a9d6b08'"
 
 #. (itstool) path: page/title
 #: C/brightness-contrast.page:19
@@ -144,15 +144,13 @@ msgstr ""
 "justera dessa inställningar:"
 
 #. (itstool) path: item/p
-#: C/brightness-contrast.page:32 C/dpi.page:32
-msgid "Select <gui style=\"tab\">Quality</gui>."
-msgstr "Välj <gui style=\"tab\">Kvalitet</gui>."
-
-#. (itstool) path: item/p
-#: C/brightness-contrast.page:35
-msgid "Drag the <gui>Brightness</gui> and/or <gui>Contrast</gui> sliders."
+#: C/brightness-contrast.page:32
+msgid ""
+"In <gui style=\"group\">Quality</gui> section drag the <gui>Brightness</gui> "
+"and/or <gui>Contrast</gui> sliders."
 msgstr ""
-"Dra i skjutreglaget för <gui>Ljusstyrka</gui> och/eller <gui>Kontrast</gui>."
+"Dra i skjutreglaget för <gui>Ljusstyrka</gui> och/eller <gui>Kontrast</gui> "
+"i avsnittet <gui style=\"group\">Kvalitet</gui>."
 
 #. (itstool) path: page/title
 #: C/crop.page:19
@@ -249,14 +247,16 @@ msgstr ""
 "För att ändra dessa inställningar:"
 
 #. (itstool) path: item/p
-#: C/dpi.page:35
+#: C/dpi.page:32
 msgid ""
-"Change the <gui>Text Resolution</gui> or <gui>Image Resolution</gui> value."
+"In <gui style=\"group\">Quality</gui> section change the <gui>Text "
+"Resolution</gui> or <gui>Image Resolution</gui> value."
 msgstr ""
-"Ändra värdet på <gui>Textupplösning</gui> eller <gui>Bildupplösning</gui>."
+"Ändra värdet på <gui>Textupplösning</gui> eller <gui>Bildupplösning</gui> i "
+"avsnittet <gui style=\"group\">Kvalitet</gui>."
 
 #. (itstool) path: page/p
-#: C/dpi.page:42
+#: C/dpi.page:39
 msgid ""
 "The available scanning resolutions for both document types (Text and Image) "
 "are the same and are listed in the following table:"
@@ -265,57 +265,62 @@ msgstr ""
 "bild) är desamma och visas i följande tabell:"
 
 #. (itstool) path: td/p
-#: C/dpi.page:47
+#: C/dpi.page:44
 msgid "<em>Text Resolution</em>"
 msgstr "<em>Textupplösning</em>"
 
 #. (itstool) path: td/p
-#: C/dpi.page:48
+#: C/dpi.page:45
 msgid "<em>Image Resolution</em>"
 msgstr "<em>Bildupplösning</em>"
 
 #. (itstool) path: td/p
-#: C/dpi.page:51 C/dpi.page:52
+#: C/dpi.page:48 C/dpi.page:49
 msgid "75 dpi (draft)"
 msgstr "75 dpi (utkast)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:55
+#: C/dpi.page:52
 msgid "150 dpi (default)"
 msgstr "150 dpi (standard)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:56
+#: C/dpi.page:53
 msgid "150 dpi"
 msgstr "150 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:59
+#: C/dpi.page:56 C/dpi.page:57
+msgid "200 dpi"
+msgstr "200 dpi"
+
+#. (itstool) path: td/p
+#: C/dpi.page:60
 msgid "300 dpi"
 msgstr "300 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:60
+#: C/dpi.page:61
 msgid "300 dpi (default)"
 msgstr "300 dpi (standard)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:63 C/dpi.page:64
+#: C/dpi.page:64 C/dpi.page:65
 msgid "600 dpi"
 msgstr "600 dpi"
 
 #. (itstool) path: td/p
-#: C/dpi.page:67 C/dpi.page:68
+#: C/dpi.page:68 C/dpi.page:69
 msgid "1200 dpi (high resolution)"
 msgstr "1200 dpi (hög upplösning)"
 
 #. (itstool) path: td/p
-#: C/dpi.page:71 C/dpi.page:72
+#: C/dpi.page:72 C/dpi.page:73
 msgid "2400 dpi"
 msgstr "2400 dpi"
 
 #. (itstool) path: note/p
-#: C/dpi.page:76
+#: C/dpi.page:77
 msgid ""
 "<gui><em>Text</em></gui> documents are always scanned in black and white, "
 "while <gui><em>Image</em></gui> documents are always scanned in color, at "
@@ -477,20 +482,29 @@ msgstr "Ställa in bildkvaliteten"
 #: C/quality.page:20
 msgid ""
 "You can adjust the image quality that is used when the scan is converted to "
-"a file by changing this setting in the save dialog. Using a low quality will "
-"result in a small file size but may show some blurring or blockiness in the "
-"image. A high quality will keep all the scanned information but require a "
-"larger file size. See the <link href=\"https://en.wikipedia.org/wiki/"
-"Lossy_compression\">Lossy compression Wikipedia page</link> for more "
-"information."
+"a file by changing this setting in the preferences dialog. Using a low "
+"quality will result in a small file size but may show some blurring or "
+"blockiness in the image. A high quality will keep all the scanned "
+"information but require a larger file size. See the <link href=\"https://en."
+"wikipedia.org/wiki/Lossy_compression\">Lossy compression Wikipedia page</"
+"link> for more information."
 msgstr ""
 "Du kan justera bildkvaliteten som används när skanningen konverteras till en "
-"fil genom att ändra inställningen i dialogen spara. Låg kvalitet resulterar "
-"i liten filstorlek men kan göra bilden suddig eller blockeffekter synliga. "
-"Hög kvalitet behåller all skannad information men kräver en större "
+"fil genom att ändra inställningen i inställningsdialogen. Låg kvalitet "
+"resulterar i liten filstorlek men kan göra bilden suddig eller blockeffekter "
+"synliga. Hög kvalitet behåller all skannad information men kräver en större "
 "filstorlek. Läs <link href=\"https://sv.wikipedia.org/wiki/"
-"Destruktiv_komprimering\">Wikipedias artikel om destruktiv komprimering</"
+"Destruktiv_komprimering\">Wikipedias artikel om destruktiv komprimering</"
 "link> för mer information."
+
+#. (itstool) path: item/p
+#: C/quality.page:33
+msgid ""
+"In <gui style=\"group\">Quality</gui> section drag the <gui>Compression</"
+"gui> slider."
+msgstr ""
+"Dra i skjutreglaget för <gui>Komprimering</gui> i avsnittet <gui "
+"style=\"group\">Kvalitet</gui>."
 
 #. (itstool) path: page/title
 #: C/reorder.page:19
@@ -741,6 +755,20 @@ msgstr ""
 "bildläsare. Om du kopplar in en nätverksansluten bildläsare måste du starta "
 "om <app>Dokumentbildläsare</app> för att bildläsaren ska upptäckas."
 
+#. (itstool) path: page/media
+#. This is a reference to an external file such as an image or video. When
+#. the file changes, the md5 hash will change to let you know you need to
+#. update your localized copy. The msgstr is not used at all. Set it to
+#. whatever you like once you have updated your copy of the file.
+#: C/scanner.page:32
+msgctxt "_"
+msgid ""
+"external ref='figures/scanner_selection.png' "
+"md5='7a220bce6e6f34b44bedb2a848957016'"
+msgstr ""
+"external ref='figures/scanner_selection.png' "
+"md5='7a220bce6e6f34b44bedb2a848957016'"
+
 #. (itstool) path: info/title
 #: C/scanning.page:7
 msgctxt "sort"
@@ -800,6 +828,12 @@ msgstr ""
 #: C/scanning.page:40
 msgid "To change the quality of a scanned page, see <link xref=\"dpi\"/>."
 msgstr "För att ändra kvaliteten på en skannad sida, läs <link xref=\"dpi\"/>."
+
+#~ msgid "Select <gui style=\"tab\">Scanning</gui>."
+#~ msgstr "Välj <gui style=\"tab\">Skanning</gui>."
+
+#~ msgid "Select <gui style=\"tab\">Quality</gui>."
+#~ msgstr "Välj <gui style=\"tab\">Kvalitet</gui>."
 
 #~ msgid "Use a Menu"
 #~ msgstr "Använd en meny"
