@@ -276,7 +276,7 @@ private class BookSaver
         timer.stop ();
         debug ("Save time: %f seconds", timer.elapsed (null));
 
-        if ( postproc_enabled ) {
+        if ( postproc_enabled && postproc_script.length != 0 ) {
         /* Perform post-processing */
             timer = new Timer ();
             var return_code = postprocessor.process(postproc_script,
