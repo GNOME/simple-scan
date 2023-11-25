@@ -15,8 +15,8 @@ i18n.merge_file (input: 'simple-scan.desktop.in',
                  po_dir: '../po',
                  type: 'desktop')
 
-i18n.merge_file (input: 'simple-scan.appdata.xml.in',
-                 output: 'simple-scan.appdata.xml',
+i18n.merge_file (input: 'org.gnome.SimpleScan.appdata.xml.in',
+                 output: 'org.gnome.SimpleScan.appdata.xml',
                  install: true,
                  install_dir: join_paths (datadir, 'metainfo'),
                  po_dir: '../po')
