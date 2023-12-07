@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-05-16 17:32+0000\n"
+"POT-Creation-Date: 2023-12-06 13:28+0000\n"
 "PO-Revision-Date: 2023-08-20 11:22+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -181,16 +181,16 @@ msgstr ""
 "Filnamnet ”_orig” kommer läggas till filnamnet just före filändelsen."
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "Dokumentbildläsare"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr "Gör en digital kopia av dina foton och dokument"
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -201,13 +201,13 @@ msgstr ""
 "det du skannat in, exportera till pdf, eller spara det i ett brett utbud av "
 "bildformat."
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Detta program använder ramverket SANE för att hantera de flesta bildläsare "
 "som finns på marknaden."
 
-#: data/simple-scan.appdata.xml.in:27
+#: data/org.gnome.SimpleScan.appdata.xml.in:28
 msgid "The GNOME Project"
 msgstr "GNOME-projektet"
 
@@ -345,6 +345,18 @@ msgstr "Uppdatera enhetslistan"
 #: data/ui/app-window.ui:312
 msgid "New Document"
 msgstr "Nytt dokument"
+
+#: data/ui/app-window.ui:326
+msgid "Rotate the page to the left (counter-clockwise)"
+msgstr "Rotera sidan åt vänster (moturs)"
+
+#: data/ui/app-window.ui:334
+msgid "Rotate the page to the right (clockwise)"
+msgstr "Rotera sidan åt höger (medurs)"
+
+#: data/ui/app-window.ui:342
+msgid "Crop the selected page"
+msgstr "Beskär den valda sidan"
 
 #: data/ui/app-window.ui:350
 msgid "Delete the selected page"
@@ -518,92 +530,92 @@ msgid "_Page Size"
 msgstr "Si_dstorlek"
 
 #. Label beside page delay scale
-#: data/ui/preferences-dialog.ui:81
+#: data/ui/preferences-dialog.ui:74
 msgid "_Delay in Seconds"
 msgstr "_Fördröjning i sekunder"
 
 #. Provides context for the page delay scale
-#: data/ui/preferences-dialog.ui:82
+#: data/ui/preferences-dialog.ui:75
 msgid "Interval to scan multiple pages"
 msgstr "Intervall för att skanna flera sidor"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:91
+#: data/ui/preferences-dialog.ui:84
 msgid "0"
 msgstr "0"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:96
+#: data/ui/preferences-dialog.ui:89
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:102
+#: data/ui/preferences-dialog.ui:95
 msgid "6"
 msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:108
+#: data/ui/preferences-dialog.ui:101
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:114
+#: data/ui/preferences-dialog.ui:107
 msgid "15"
 msgstr "15"
 
 #. Preferences Dialog: Section label for quality settings
-#: data/ui/preferences-dialog.ui:129
+#: data/ui/preferences-dialog.ui:122
 msgid "Quality"
 msgstr "Kvalitet"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:132
+#: data/ui/preferences-dialog.ui:125
 msgid "_Text Resolution"
 msgstr "_Textupplösning"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:144
+#: data/ui/preferences-dialog.ui:131
 msgid "_Image Resolution"
 msgstr "_Bildupplösning"
 
 #. Label beside brightness scale
-#: data/ui/preferences-dialog.ui:156
+#: data/ui/preferences-dialog.ui:137
 msgid "_Brightness"
 msgstr "_Ljusstyrka"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:171
+#: data/ui/preferences-dialog.ui:152
 msgid "_Contrast"
 msgstr "_Kontrast"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:186
+#: data/ui/preferences-dialog.ui:167
 msgid "Compression"
 msgstr "Komprimering"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
 msgstr "Efterbehandling"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:206
+#: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
 msgstr "_Aktivera efterbehandling"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:225
+#: data/ui/preferences-dialog.ui:206
 msgid "_Script"
 msgstr "_Skript"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:244
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
 msgstr "_Argument för skript"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:263
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "_Behåll ursprunglig fil"
 
@@ -1119,15 +1131,6 @@ msgstr ""
 
 #~ msgid "Simple document scanning tool"
 #~ msgstr "Enkelt verktyg för att skanna dokument"
-
-#~ msgid "Rotate the page to the left (counter-clockwise)"
-#~ msgstr "Rotera sidan åt vänster (moturs)"
-
-#~ msgid "Rotate the page to the right (clockwise)"
-#~ msgstr "Rotera sidan åt höger (medurs)"
-
-#~ msgid "Crop the selected page"
-#~ msgstr "Beskär den valda sidan"
 
 #~ msgid ""
 #~ "This program is free software: you can redistribute it and/or modify\n"
