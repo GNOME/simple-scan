@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-10-14 07:02+0000\n"
-"PO-Revision-Date: 2023-10-17 18:30+0300\n"
+"POT-Creation-Date: 2023-12-06 13:28+0000\n"
+"PO-Revision-Date: 2023-12-06 19:00+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -184,16 +184,16 @@ msgstr ""
 "önce dosya adına \"_orig\" eklenecektir."
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "Belge Tarayıcı"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr "Resim ve belgelerinizin sayısal kopyasını oluşturun"
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -203,12 +203,12 @@ msgstr ""
 "yanlış yöndeyse döndürebilirsiniz. Taramalarınızı yazdırabilir, pdf’ye "
 "aktarabilir veya resim biçimlerinde kaydedebilirsiniz."
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Bu uygulama var olan birçok tarayıcı desteği için SANE altyapısını kullanır."
 
-#: data/simple-scan.appdata.xml.in:27
+#: data/org.gnome.SimpleScan.appdata.xml.in:28
 msgid "The GNOME Project"
 msgstr "GNOME Projesi"
 
@@ -348,6 +348,18 @@ msgstr "Aygıt listesini yenile"
 #: data/ui/app-window.ui:312
 msgid "New Document"
 msgstr "Yeni Belge"
+
+#: data/ui/app-window.ui:326
+msgid "Rotate the page to the left (counter-clockwise)"
+msgstr "Sayfayı sola döndür (saat yönünün tersine)"
+
+#: data/ui/app-window.ui:334
+msgid "Rotate the page to the right (clockwise)"
+msgstr "Sayfayı sağa döndür (saat yönünde)"
+
+#: data/ui/app-window.ui:342
+msgid "Crop the selected page"
+msgstr "Seçili sayfayı kırp"
 
 #: data/ui/app-window.ui:350
 msgid "Delete the selected page"
@@ -653,7 +665,7 @@ msgstr "Tarayıcılar aranıyor…"
 #. Label shown when detected a scanner
 #: src/app-window.vala:235
 msgid "Ready to Scan"
-msgstr "Taramaya hazır"
+msgstr "Taramaya Hazır"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
 #: src/app-window.vala:245
@@ -840,8 +852,8 @@ msgstr "Bir Brother tarayıcınız olduğu görünüyor."
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother."
-"com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother.com"
+"\">Brother website</a>."
 msgstr ""
 "Bunun sürücüleri <a href=\"http://support.brother.com\">Brother web "
 "sitesinde</a> bulunabilir."
@@ -849,9 +861,8 @@ msgstr ""
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a "
-"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
-"backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
 msgstr ""
 "<a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
 "arka ucu</a> tarafından desteklenen bir Canon tarayıcınız olduğu görünüyor."
@@ -864,10 +875,10 @@ msgid ""
 "to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
 "sane-devel\">SANE mailing list</a>."
 msgstr ""
-"<a href=\"http://www.sane-project.org/sane-supported-devices."
-"html\">Tarayıcınızın SANE tarafından desteklenip desteklenmediğini</a> "
-"gözden geçirin, olmazsa <a href=\"https://alioth-lists.debian.net/cgi-bin/"
-"mailman/listinfo/sane-devel\">SANE postalaşma listesine</a> sorun bildirin."
+"<a href=\"http://www.sane-project.org/sane-supported-devices.html"
+"\">Tarayıcınızın SANE tarafından desteklenip desteklenmediğini</a> gözden "
+"geçirin, olmazsa <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/"
+"listinfo/sane-devel\">SANE postalaşma listesine</a> sorun bildirin."
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/drivers-dialog.vala:88
@@ -909,8 +920,8 @@ msgstr "Bir Epson tarayıcınız olduğu görünüyor."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson."
-"com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson.com"
+"\">Epson website</a>."
 msgstr ""
 "Bunun sürücüleri <a href=\"http://support.epson.com\">Epson web sitesinde</"
 "a> bulunabilir."
@@ -923,8 +934,8 @@ msgstr "Bir Lexmark tarayıcınız olduğu görünüyor."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark."
-"com\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark.com"
+"\">Lexmark website</a>."
 msgstr ""
 "Bunun sürücüleri <a href=\"http://support.lexmark.com\">Lexmark web "
 "sitesinde</a> bulunabilir."
