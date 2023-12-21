@@ -15,11 +15,20 @@ i18n.merge_file (input: 'simple-scan.desktop.in',
                  po_dir: '../po',
                  type: 'desktop')
 
-i18n.merge_file (input: 'org.gnome.SimpleScan.appdata.xml.in',
+appdata_file = i18n.merge_file (input: 'org.gnome.SimpleScan.appdata.xml.in',
                  output: 'org.gnome.SimpleScan.appdata.xml',
                  install: true,
                  install_dir: join_paths (datadir, 'metainfo'),
                  po_dir: '../po')
+
+# Validate Appdata
+appstreamcli = find_program('appstreamcli', required: false)
+if appstreamcli.found()
+  test('validate-appdata',
+        appstreamcli,
+        args: ['validate', '--no-net', '--explain', appdata_file.full_path()],
+        depends: appdata_file)
+endif
 
 install_man ('simple-scan.1')
 
