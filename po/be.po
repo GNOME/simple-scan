@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-01-30 20:25+0000\n"
-"PO-Revision-Date: 2023-02-14 14:59+0300\n"
+"POT-Creation-Date: 2023-12-31 08:52+0000\n"
+"PO-Revision-Date: 2024-01-23 05:53+0300\n"
 "Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -184,7 +184,7 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
+#: data/ui/app-window.ui:455 src/app-window.vala:1584 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "Сканер дакументаў"
 
@@ -247,90 +247,95 @@ msgstr "A_4"
 msgid "A_5"
 msgstr "A_5"
 
+#. Radio button for cropping page to A6 size
+#: data/ui/app-window.ui:66
+msgid "A_6"
+msgstr "A_6"
+
 #. Radio button for cropping page to US letter size
-#: data/ui/app-window.ui:75
+#: data/ui/app-window.ui:76
 msgid "_Letter"
 msgstr "_Ліст"
 
 #. Radio button for cropping to page to US legal size
-#: data/ui/app-window.ui:85
+#: data/ui/app-window.ui:86
 msgid "Le_gal"
 msgstr "Стан_дартны"
 
 #. Radio button for cropping page to 4x6 inch
-#: data/ui/app-window.ui:95
+#: data/ui/app-window.ui:96
 msgid "4×6"
 msgstr "4×6"
 
 #. Radio button for cropping page to A3
-#: data/ui/app-window.ui:105
+#: data/ui/app-window.ui:106
 msgid "A_3"
 msgstr "A_3"
 
 #. Radio button for cropping to custom page size
-#: data/ui/app-window.ui:115
+#: data/ui/app-window.ui:116
 msgid "_Custom"
 msgstr "_Уласны"
 
 #. Menu item to rotate the crop area
-#: data/ui/app-window.ui:131
+#: data/ui/app-window.ui:132
 msgid "_Rotate Crop"
 msgstr "_Павярнуць абрэзку"
 
 #. Menu item to move the selected page to the left
-#: data/ui/app-window.ui:143
+#: data/ui/app-window.ui:144
 msgid "Move Left"
 msgstr "Улева"
 
 #. Menu item to move the selected page to the right
-#: data/ui/app-window.ui:151
+#: data/ui/app-window.ui:152
 msgid "Move Right"
 msgstr "Управа"
 
-#: data/ui/app-window.ui:225
+#: data/ui/app-window.ui:226
 msgid "_Single Page"
 msgstr "Адна _старонка"
 
-#: data/ui/app-window.ui:272
+#: data/ui/app-window.ui:273
 msgid "All Pages From _Feeder"
 msgstr "Усе старонкі з прылады _аўтападачы"
 
-#: data/ui/app-window.ui:319
+#: data/ui/app-window.ui:320
 msgid "_Multiple Pages From Flatbed"
 msgstr "_Некалькі старонак з планшэта"
 
-#: data/ui/app-window.ui:366
+#: data/ui/app-window.ui:367
 msgid "_Text"
 msgstr "_Тэкст"
 
-#: data/ui/app-window.ui:413
+#: data/ui/app-window.ui:414
 msgid "_Image"
 msgstr "_Выява"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1889
+#: data/ui/app-window.ui:434 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Налады"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:472
+#: data/ui/app-window.ui:473
 msgid "Stop the current scan"
 msgstr "Спыніць сканаванне"
 
-#: data/ui/app-window.ui:493
+#: data/ui/app-window.ui:494
 msgid "S_top"
 msgstr "С_пыніць"
 
-#: data/ui/app-window.ui:544
+#: data/ui/app-window.ui:545
 msgid "_Scan"
 msgstr "_Сканаваць"
 
 #. Tooltip for save toolbar button
-#: data/ui/app-window.ui:640
+#: data/ui/app-window.ui:641
 msgid "Save document to a file"
 msgstr "Запісаць дакумент у файл"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:714
+#: data/ui/app-window.ui:715
 msgid "Refresh device list"
 msgstr "Абнавіць спіс прылад"
 
@@ -1133,9 +1138,6 @@ msgstr "[DEVICE…] — прылада сканавання"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Выканайце «%s --help», каб паглядзець поўны спіс даступных параметраў."
-
-#~ msgid "A_6"
-#~ msgstr "A_6"
 
 #~ msgid ""
 #~ "This program is free software: you can redistribute it and/or modify\n"
