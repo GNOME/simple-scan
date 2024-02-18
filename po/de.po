@@ -54,9 +54,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-07-30 21:43+0000\n"
-"PO-Revision-Date: 2023-09-24 11:18+0200\n"
-"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
+"POT-Creation-Date: 2024-02-06 00:16+0000\n"
+"PO-Revision-Date: 2024-02-18 18:19+0100\n"
+"Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -224,16 +224,16 @@ msgstr ""
 "»_orig« wird dem Dateinamen direkt vor der Dateierweiterung hinzugefügt."
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "Dokument-Scanner"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr "Eine digitale Kopie Ihrer Fotos und Dokumente erstellen"
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -245,13 +245,14 @@ msgstr ""
 "Dokument exportiert oder in einer Anzahl verschiedener Bildformate "
 "gespeichert werden."
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Diese Anwendung verwendet das SANE-Framework für die Unterstützung der "
 "meisten verfügbaren Scanner."
 
-#: data/simple-scan.appdata.xml.in:27
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
 msgid "The GNOME Project"
 msgstr "Das GNOME-Projekt"
 
@@ -389,6 +390,18 @@ msgstr "Geräteliste aktualisieren"
 #: data/ui/app-window.ui:312
 msgid "New Document"
 msgstr "Neues Dokument"
+
+#: data/ui/app-window.ui:326
+msgid "Rotate the page to the left (counter-clockwise)"
+msgstr "Die Seite links herum drehen (gegen den Uhrzeigersinn)"
+
+#: data/ui/app-window.ui:334
+msgid "Rotate the page to the right (clockwise)"
+msgstr "Die Seite rechts herum drehen (im Uhrzeigersinn)"
+
+#: data/ui/app-window.ui:342
+msgid "Crop the selected page"
+msgstr "Die gewählte Seite zurechtschneiden"
 
 #: data/ui/app-window.ui:350
 msgid "Delete the selected page"
@@ -562,92 +575,92 @@ msgid "_Page Size"
 msgstr "Seiten_größe"
 
 #. Label beside page delay scale
-#: data/ui/preferences-dialog.ui:81
+#: data/ui/preferences-dialog.ui:74
 msgid "_Delay in Seconds"
 msgstr "_Verzögerung in Sekunden"
 
 #. Provides context for the page delay scale
-#: data/ui/preferences-dialog.ui:82
+#: data/ui/preferences-dialog.ui:75
 msgid "Interval to scan multiple pages"
 msgstr "Intervall zum Scannen mehrerer Seiten"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:91
+#: data/ui/preferences-dialog.ui:84
 msgid "0"
 msgstr "0"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:96
+#: data/ui/preferences-dialog.ui:89
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:102
+#: data/ui/preferences-dialog.ui:95
 msgid "6"
 msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:108
+#: data/ui/preferences-dialog.ui:101
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:114
+#: data/ui/preferences-dialog.ui:107
 msgid "15"
 msgstr "15"
 
 #. Preferences Dialog: Section label for quality settings
-#: data/ui/preferences-dialog.ui:129
+#: data/ui/preferences-dialog.ui:122
 msgid "Quality"
 msgstr "Qualität"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:132
+#: data/ui/preferences-dialog.ui:125
 msgid "_Text Resolution"
 msgstr "_Textauflösung"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:144
+#: data/ui/preferences-dialog.ui:131
 msgid "_Image Resolution"
 msgstr "_Bildauflösung"
 
 #. Label beside brightness scale
-#: data/ui/preferences-dialog.ui:156
+#: data/ui/preferences-dialog.ui:137
 msgid "_Brightness"
 msgstr "_Helligkeit"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:171
+#: data/ui/preferences-dialog.ui:152
 msgid "_Contrast"
 msgstr "_Kontrast"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:186
+#: data/ui/preferences-dialog.ui:167
 msgid "Compression"
 msgstr "Kompression"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
 msgstr "Nachbearbeitung"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:206
+#: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
 msgstr "Nachbearbeitung _einschalten"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:225
+#: data/ui/preferences-dialog.ui:206
 msgid "_Script"
 msgstr "_Skript"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:244
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
 msgstr "_Skriptargumente"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:263
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "Originaldatei _beibehalten"
 
@@ -927,8 +940,8 @@ msgstr "Anscheinend ist ein Brother-Scanner angeschlossen."
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother."
-"com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother.com"
+"\">Brother website</a>."
 msgstr ""
 "Treiber hierfür sind auf der <a href=\"http://support.brother.com\">Brother-"
 "Webseite</a> verfügbar."
@@ -936,13 +949,12 @@ msgstr ""
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a "
-"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
-"backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
 msgstr ""
-"Anscheinend haben Sie einen Canon-Scanner, der vom SANE-Backend <a "
-"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma</a> "
-"unterstützt wird."
+"Anscheinend haben Sie einen Canon-Scanner, der vom SANE-Backend <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma</a> unterstützt "
+"wird."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/drivers-dialog.vala:84
@@ -997,8 +1009,8 @@ msgstr "Anscheinend ist ein Epson-Scanner angeschlossen."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson."
-"com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson.com"
+"\">Epson website</a>."
 msgstr ""
 "Treiber hierfür sind auf der <a href=\"http://support.epson.com\">Epson-"
 "Webseite</a> verfügbar."
@@ -1011,8 +1023,8 @@ msgstr "Anscheinend ist ein Lexmark-Scanner angeschlossen."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark."
-"com\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark.com"
+"\">Lexmark website</a>."
 msgstr ""
 "Treiber hierfür sind auf der <a href=\"http://support.lexmark.com\">Lexmark-"
 "Webseite</a> verfügbar."
@@ -1203,15 +1215,6 @@ msgstr ""
 #~ msgid "Simple document scanning tool"
 #~ msgstr "Einfaches Werkzeug zum Scannen von Dokumenten"
 
-#~ msgid "Rotate the page to the left (counter-clockwise)"
-#~ msgstr "Die Seite links herum drehen (gegen den Uhrzeigersinn)"
-
-#~ msgid "Rotate the page to the right (clockwise)"
-#~ msgstr "Die Seite rechts herum drehen (im Uhrzeigersinn)"
-
-#~ msgid "Crop the selected page"
-#~ msgstr "Die gewählte Seite zurechtschneiden"
-
 #~ msgid ""
 #~ "This program is free software: you can redistribute it and/or modify\n"
 #~ "it under the terms of the GNU General Public License as published by\n"
@@ -1275,8 +1278,8 @@ msgstr ""
 #~ msgstr "7"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
-#~ "support\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
+#~ "\">Samsung website</a>."
 #~ msgstr ""
 #~ "Treiber hierfür sind verfügbar auf der <a href=\"http://samsung.com/"
 #~ "support\">Samsung Webseite</a>."
