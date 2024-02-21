@@ -8,17 +8,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2021-03-03 18:48+0000\n"
-"PO-Revision-Date: 2021-04-03 11:55+0800\n"
-"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
-"Language-Team: Chinese <zh-l10n@linux.org.tw>\n"
+"POT-Creation-Date: 2023-12-05 18:06+0000\n"
+"PO-Revision-Date: 2024-02-21 14:27+0000\n"
+"Last-Translator: Chao-Hsiung Liao <pesder@mail.edu.tw>\n"
+"Language-Team: Chinese (Traditional) <http://darkbear.mercusysddns.com/"
+"projects/gnome-45/simple-scan-po-ui-master/zh_Hant/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.3.1\n"
+"X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -136,12 +137,44 @@ msgstr "每頁之間的延遲毫秒"
 msgid "Delay in millisecond between pages."
 msgstr "每頁之間的延遲毫秒數。"
 
-#. Title of scan window
-#. Set HeaderBar title here because Glade doesn't keep it translated
-#. https://bugzilla.gnome.org/show_bug.cgi?id=782753
+#: data/org.gnome.SimpleScan.gschema.xml:82
+msgid "Whether or not postprocessing is enabled"
+msgstr "是否啟用後處理"
+
+#: data/org.gnome.SimpleScan.gschema.xml:83
+msgid "Whether or not postprocessing is enabled."
+msgstr "是否啟用後處理。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:87
+msgid "The path to the postprocessing script"
+msgstr "後處理命令稿的路徑"
+
+#: data/org.gnome.SimpleScan.gschema.xml:88
+msgid "The path to the postprocessing script."
+msgstr "後處理命令稿的路徑。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:92
+msgid "Additional arguments for the postprocessing script"
+msgstr "後處理命令稿的額外參數"
+
+#: data/org.gnome.SimpleScan.gschema.xml:93
+msgid "Additional arguments for the postprocessing script."
+msgstr "後處理命令稿的額外參數。"
+
+#: data/org.gnome.SimpleScan.gschema.xml:97
+msgid "Whether or not to keep the original, unprocessed file"
+msgstr "是否保留未處理的原始檔案"
+
+#: data/org.gnome.SimpleScan.gschema.xml:98
+msgid ""
+"Whether or not to keep the original, unprocessed file. The \"_orig\" "
+"filename will be added to the filename immediately before the file extension."
+msgstr "是否保留未處理的原始檔案。「_orig」字串將添加到緊接在附加檔名之前的檔案名稱中"
+"。"
+
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:498 src/app-window.vala:1582 src/app-window.vala:1862
+#: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "文件掃描"
 
@@ -164,7 +197,7 @@ msgstr ""
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "這個應用程式使用 SANE 框架以支援大部分現存掃描器。"
 
-#: data/simple-scan.appdata.xml.in:26
+#: data/simple-scan.appdata.xml.in:27
 msgid "The GNOME Project"
 msgstr "GNOME 專案"
 
@@ -174,582 +207,576 @@ msgid "scan;scanner;flatbed;adf;"
 msgstr "scan;scanner;flatbed;adf;"
 
 #. Menu item to rotate page to left (anti-clockwise)
-#: data/ui/app-window.ui:12
+#: data/ui/app-window.ui:8
 msgid "Rotate _Left"
 msgstr "向左旋轉(_L)"
 
 #. Menu item to rotate page to right (clockwise)
-#: data/ui/app-window.ui:22
+#: data/ui/app-window.ui:12
 msgid "Rotate _Right"
 msgstr "向右旋轉(_R)"
 
 #. Label for page crop submenu
-#: data/ui/app-window.ui:32
+#: data/ui/app-window.ui:16
 msgid "_Crop"
 msgstr "裁切(_C)"
 
 #. Radio button for no crop
-#: data/ui/app-window.ui:42
+#: data/ui/app-window.ui:20
 msgid "_None"
 msgstr "無(_N)"
 
 #. Radio button for cropping page to A4 size
-#: data/ui/app-window.ui:53
+#: data/ui/app-window.ui:26
 msgid "A_4"
 msgstr "A_4"
 
 #. Radio button for cropping page to A5 size
-#: data/ui/app-window.ui:64
+#: data/ui/app-window.ui:32
 msgid "A_5"
 msgstr "A_5"
 
 #. Radio button for cropping page to A6 size
-#: data/ui/app-window.ui:75
+#: data/ui/app-window.ui:38
 msgid "A_6"
 msgstr "A_6"
 
 #. Radio button for cropping page to US letter size
-#: data/ui/app-window.ui:86
+#: data/ui/app-window.ui:44
 msgid "_Letter"
 msgstr "美規信紙(_Letter)"
 
 #. Radio button for cropping to page to US legal size
-#: data/ui/app-window.ui:97
+#: data/ui/app-window.ui:50
 msgid "Le_gal"
 msgstr "美規長信紙(Le_gal)"
 
 #. Radio button for cropping page to 4x6 inch
-#: data/ui/app-window.ui:108
+#: data/ui/app-window.ui:56
 msgid "4×6"
 msgstr "4×6"
 
 #. Radio button for cropping page to A3
-#: data/ui/app-window.ui:119
+#: data/ui/app-window.ui:62
 msgid "A_3"
 msgstr "A_3"
 
 #. Radio button for cropping to custom page size
-#: data/ui/app-window.ui:130
+#: data/ui/app-window.ui:68
 msgid "_Custom"
 msgstr "自訂(_C)"
 
 #. Menu item to rotate the crop area
-#: data/ui/app-window.ui:148
+#: data/ui/app-window.ui:76
 msgid "_Rotate Crop"
 msgstr "旋轉裁切區域(_R)"
 
 #. Menu item to move the selected page to the left
-#: data/ui/app-window.ui:161
+#: data/ui/app-window.ui:83
 msgid "Move Left"
 msgstr "左移"
 
 #. Menu item to move the selected page to the right
-#: data/ui/app-window.ui:170
+#: data/ui/app-window.ui:87
 msgid "Move Right"
 msgstr "右移"
 
-#: data/ui/app-window.ui:252
+#: data/ui/app-window.ui:91
+msgid "Copy"
+msgstr "複製"
+
+#: data/ui/app-window.ui:95
+msgid "Delete"
+msgstr "刪除"
+
+#: data/ui/app-window.ui:103
 msgid "_Single Page"
 msgstr "單頁(_S)"
 
-#: data/ui/app-window.ui:303
+#: data/ui/app-window.ui:109
 msgid "All Pages From _Feeder"
 msgstr "從饋紙器掃描所有頁面(_F)"
 
-#: data/ui/app-window.ui:354
+#: data/ui/app-window.ui:115
 msgid "_Multiple Pages From Flatbed"
 msgstr "從平臺多頁掃描(_M)"
 
-#: data/ui/app-window.ui:405
+#: data/ui/app-window.ui:123
 msgid "_Text"
 msgstr "文字(_T)"
 
-#: data/ui/app-window.ui:456
+#: data/ui/app-window.ui:129
 msgid "_Image"
 msgstr "圖片(_I)"
 
-#: data/ui/app-window.ui:476
-msgid "_Preferences"
-msgstr "偏好設定(_P)"
-
 #. Tooltip for stop button
-#: data/ui/app-window.ui:520
+#: data/ui/app-window.ui:164
 msgid "Stop the current scan"
 msgstr "停止目前的掃描"
 
 # 新增翻譯
-#: data/ui/app-window.ui:544
+#: data/ui/app-window.ui:178
 msgid "S_top"
 msgstr "停止(_T)"
 
-#. Tooltip for scan toolbar button
-#: data/ui/app-window.ui:574
-msgid "Scan a single page from the scanner"
-msgstr "從掃描器掃描單一頁面"
-
-#: data/ui/app-window.ui:599
+#: data/ui/app-window.ui:203
 msgid "_Scan"
 msgstr "掃描(_S)"
 
 #. Tooltip for save toolbar button
-#: data/ui/app-window.ui:702
+#: data/ui/app-window.ui:227
 msgid "Save document to a file"
 msgstr "將文件儲存至檔案"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:779
+#: data/ui/app-window.ui:282
 msgid "Refresh device list"
 msgstr "重新整理裝置列表"
 
+#: data/ui/app-window.ui:312
+msgid "New Document"
+msgstr "新文件"
+
+#: data/ui/app-window.ui:326
+msgid "Rotate the page to the left (counter-clockwise)"
+msgstr "將頁面向左旋轉 (逆時針方向)"
+
+#: data/ui/app-window.ui:334
+msgid "Rotate the page to the right (clockwise)"
+msgstr "將頁面向右旋轉 (順時針方向)"
+
+#: data/ui/app-window.ui:342
+msgid "Crop the selected page"
+msgstr "裁切所選的頁面"
+
+#: data/ui/app-window.ui:350
+msgid "Delete the selected page"
+msgstr "刪除所選頁面"
+
+#: data/ui/authorize-dialog.ui:31
+msgid "_Username for resource"
+msgstr "資源的使用者名稱(_U)"
+
+#: data/ui/authorize-dialog.ui:38
+msgid "_Password"
+msgstr "密碼(_P)"
+
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
+#: src/app-window.vala:665
+msgid "_Cancel"
+msgstr "取消(_C)"
+
 #. Button to submit authorization dialog
-#: data/ui/authorize-dialog.ui:22
+#: data/ui/authorize-dialog.ui:61
 msgid "_Authorize"
 msgstr "授權(_A)"
 
-#. Label beside username entry
-#: data/ui/authorize-dialog.ui:80
-msgid "_Username for resource:"
-msgstr "資源的使用者名稱(_U)："
+#: data/ui/drivers-dialog.ui:17
+msgid "Install drivers"
+msgstr "安裝驅動程式"
 
-#. Label beside password entry
-#: data/ui/authorize-dialog.ui:92
-msgid "_Password:"
-msgstr "密碼(_P)："
-
-#: data/ui/help-overlay.ui:12
+#: data/ui/help-overlay.ui:10
 msgctxt "shortcut window"
 msgid "Scanning"
 msgstr "掃描"
 
-#: data/ui/help-overlay.ui:17
+#: data/ui/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Scan a single page"
 msgstr "掃描單一頁面"
 
-#: data/ui/help-overlay.ui:24
+#: data/ui/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Scan all pages from document feeder"
 msgstr "從饋紙器掃描所有頁面"
 
-#: data/ui/help-overlay.ui:31
+#: data/ui/help-overlay.ui:26
 msgctxt "shortcut window"
 msgid "Scan continuously from a flatbed scanner"
 msgstr "從平臺式掃描器連續掃描"
 
-#: data/ui/help-overlay.ui:38
+#: data/ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Stop scan in progress"
 msgstr "停止進行中的掃描"
 
-#: data/ui/help-overlay.ui:46
+#: data/ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Document Modification"
 msgstr "文件修改"
 
-#: data/ui/help-overlay.ui:51
+#: data/ui/help-overlay.ui:43
 msgctxt "shortcut window"
 msgid "Move page left"
 msgstr "頁面左移"
 
-#: data/ui/help-overlay.ui:58
+#: data/ui/help-overlay.ui:49
 msgctxt "shortcut window"
 msgid "Move page right"
 msgstr "頁面右移"
 
-#: data/ui/help-overlay.ui:65
+#: data/ui/help-overlay.ui:55
 msgctxt "shortcut window"
 msgid "Rotate page to the left (anti-clockwise)"
 msgstr "將頁面向左旋轉（逆時針方向）"
 
-#: data/ui/help-overlay.ui:72
+#: data/ui/help-overlay.ui:61
 msgctxt "shortcut window"
 msgid "Rotate page to the right (clockwise)"
 msgstr "將頁面向右旋轉（順時針方向）"
 
-#: data/ui/help-overlay.ui:79
+#: data/ui/help-overlay.ui:67
 msgctxt "shortcut window"
 msgid "Delete page"
 msgstr "刪除頁面裁切所選的頁面"
 
-#: data/ui/help-overlay.ui:87
+#: data/ui/help-overlay.ui:74
 msgctxt "shortcut window"
 msgid "Document Management"
 msgstr "文件管理"
 
-#: data/ui/help-overlay.ui:92
+#: data/ui/help-overlay.ui:78
 msgctxt "shortcut window"
 msgid "Start new document"
 msgstr "起始新文件"
 
-#: data/ui/help-overlay.ui:99
+#: data/ui/help-overlay.ui:84
 msgctxt "shortcut window"
 msgid "Save scanned document"
 msgstr "儲存掃描的文件"
 
-#: data/ui/help-overlay.ui:106
+#: data/ui/help-overlay.ui:90
 msgctxt "shortcut window"
 msgid "Email scanned document"
 msgstr "寄送掃描的文件"
 
-#: data/ui/help-overlay.ui:113
+#: data/ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Print scanned document"
 msgstr "列印掃描的文件"
 
-#: data/ui/help-overlay.ui:120
+#: data/ui/help-overlay.ui:102
 msgctxt "shortcut window"
 msgid "Copy current page to clipboard"
 msgstr "複製目前頁面到剪貼簿中"
 
-#: data/ui/help-overlay.ui:128
+#: data/ui/help-overlay.ui:109
 msgctxt "shortcut window"
 msgid "General"
 msgstr "一般"
 
 # 新增翻譯
-#: data/ui/help-overlay.ui:133
+#: data/ui/help-overlay.ui:113
 msgctxt "shortcut window"
 msgid "Show help"
 msgstr "顯示說明"
 
-#: data/ui/help-overlay.ui:140
+#: data/ui/help-overlay.ui:119
 msgctxt "shortcut window"
 msgid "Open menu"
 msgstr "開啟選單"
 
-#: data/ui/help-overlay.ui:147
+#: data/ui/help-overlay.ui:125
+msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "顯示偏好設定"
+
+#: data/ui/help-overlay.ui:131
 msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "鍵盤快捷鍵"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:137
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "退出"
 
 #. Preferences Dialog: Section label for scanning settings
-#: data/ui/preferences-dialog.ui:53
+#: data/ui/preferences-dialog.ui:32
 msgid "Scanning"
 msgstr "正在掃描"
 
 #. Label beside scan side combo box
-#: data/ui/preferences-dialog.ui:57
+#: data/ui/preferences-dialog.ui:35
 msgid "Scan _Sides"
 msgstr "掃描面(_S)"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:68
+#: data/ui/preferences-dialog.ui:44
 msgid "Front"
 msgstr "正面"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: data/ui/preferences-dialog.ui:78
+#: data/ui/preferences-dialog.ui:49
 msgid "Back"
 msgstr "背面"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: data/ui/preferences-dialog.ui:88
+#: data/ui/preferences-dialog.ui:55
 msgid "Both"
 msgstr "雙面"
 
 #. Label beside page size combo box
-#: data/ui/preferences-dialog.ui:106
+#: data/ui/preferences-dialog.ui:68
 msgid "_Page Size"
 msgstr "頁面大小(_P)"
 
 #. Label beside page delay scale
-#: data/ui/preferences-dialog.ui:123
+#: data/ui/preferences-dialog.ui:74
 msgid "_Delay in Seconds"
 msgstr "延遲秒數(_D)"
 
 #. Provides context for the page delay scale
-#: data/ui/preferences-dialog.ui:124
+#: data/ui/preferences-dialog.ui:75
 msgid "Interval to scan multiple pages"
 msgstr "掃描多頁間隔"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:135
+#: data/ui/preferences-dialog.ui:84
 msgid "0"
 msgstr "0"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:145
+#: data/ui/preferences-dialog.ui:89
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:156
+#: data/ui/preferences-dialog.ui:95
 msgid "6"
 msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:167
+#: data/ui/preferences-dialog.ui:101
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:178
+#: data/ui/preferences-dialog.ui:107
 msgid "15"
 msgstr "15"
 
 #. Preferences Dialog: Section label for quality settings
-#: data/ui/preferences-dialog.ui:199
+#: data/ui/preferences-dialog.ui:122
 msgid "Quality"
 msgstr "品質"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:125
 msgid "_Text Resolution"
 msgstr "文字解析度(_T)"
 
 # 翻譯建議修改
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:219
+#: data/ui/preferences-dialog.ui:131
 msgid "_Image Resolution"
 msgstr "影像解析度(_I)"
 
 #. Label beside brightness scale
-#: data/ui/preferences-dialog.ui:236
+#: data/ui/preferences-dialog.ui:137
 msgid "_Brightness"
 msgstr "亮度(_B)"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:255
+#: data/ui/preferences-dialog.ui:152
 msgid "_Contrast"
 msgstr "對比(_C)"
 
-#: src/app-window.vala:229 src/app-window.vala:1690
+#. Label beside compression scale
+#: data/ui/preferences-dialog.ui:167
+msgid "Compression"
+msgstr "壓縮"
+
+#. Preferences Dialog: Section label for postprocessing settings
+#: data/ui/preferences-dialog.ui:184
+msgid "Postprocessing"
+msgstr "進行後處理"
+
+#. Switch to enable postprocessing
+#: data/ui/preferences-dialog.ui:187
+msgid "_Enable Postprocessing"
+msgstr "啟用後處理(_E)"
+
+#. Label beside postprocesing script name entry
+#: data/ui/preferences-dialog.ui:206
+msgid "_Script"
+msgstr "命令稿(_S)"
+
+#. Label beside postprocesing arguments entry
+#: data/ui/preferences-dialog.ui:225
+msgid "_Script arguments"
+msgstr "命令稿參數(_S)"
+
+#. Label beside keep keep original file radio
+#: data/ui/preferences-dialog.ui:244
+msgid "_Keep original file"
+msgstr "保留原始檔案(_K)"
+
+#: data/ui/reorder-pages-dialog.ui:9
+msgctxt "dialog title"
+msgid "Reorder Pages"
+msgstr "重新排列頁面"
+
+#: data/ui/reorder-pages-dialog.ui:34
+msgid "Combine sides"
+msgstr "合併邊緣"
+
+#: data/ui/reorder-pages-dialog.ui:42
+msgid "Combine sides (reverse)"
+msgstr "合併邊緣 (相反次序)"
+
+#: data/ui/reorder-pages-dialog.ui:55
+msgid "Flip odd pages upside-down"
+msgstr "將奇數頁面倒置"
+
+#: data/ui/reorder-pages-dialog.ui:63
+msgid "Flip even pages upside-down"
+msgstr "將偶數頁面倒置"
+
+#: data/ui/reorder-pages-dialog.ui:78
+msgid "Reverse"
+msgstr "反轉"
+
+#: src/app-window.vala:206
 msgid "_Close"
 msgstr "關閉(_C)"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:238
+#: src/app-window.vala:214
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "若要存取「%s」則必須提供使用者名稱與密碼"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:255
+#: src/app-window.vala:227
 msgid "Searching for Scanners…"
 msgstr "正在搜尋掃描器…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:263
+#: src/app-window.vala:235
 msgid "Ready to Scan"
 msgstr "準備掃描"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:273
+#: src/app-window.vala:245
 msgid "Additional Software Needed"
 msgstr "需要的額外軟體"
 
 #. Instructions to install driver software
-#: src/app-window.vala:275
+#: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
 msgstr "您需要為您的掃描器<a href=\"install-firmware\">安裝驅動程式</a>。"
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:282
+#: src/app-window.vala:254
 msgid "No Scanners Detected"
 msgstr "未偵測到掃描器"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:284
+#: src/app-window.vala:256
 msgid "Please check your scanner is connected and powered on."
 msgstr "請檢查您的掃描器是否連接，並開啟電源。"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:388
+#: src/app-window.vala:306
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "自動存檔的書本已經存在。您是否希望開啟它？"
 
-#. Save dialog: Dialog title
-#: src/app-window.vala:462
+#: src/app-window.vala:308
+msgid "_No"
+msgstr "否(_N)"
+
+#: src/app-window.vala:309
+msgid "_Yes"
+msgstr "是(_Y)"
+
+#: src/app-window.vala:388
 msgid "Save As…"
 msgstr "另存為…"
 
-#: src/app-window.vala:465 src/app-window.vala:761
+#: src/app-window.vala:390 src/app-window.vala:666
 msgid "_Save"
 msgstr "儲存(_S)"
 
-#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:760
-msgid "_Cancel"
-msgstr "取消(_C)"
-
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:476
+#: src/app-window.vala:406
 msgid "Scanned Document"
 msgstr "掃描的文件"
 
-#. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:482
-msgid "Image Files"
-msgstr "影像檔"
-
-#. Save dialog: Filter name to show all files
-#: src/app-window.vala:492
-msgid "All Files"
-msgstr "所有檔案"
-
-#. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:501
+#: src/app-window.vala:412
 msgid "PDF (multi-page document)"
 msgstr "PDF（多頁文件）"
 
-#. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:507
+#: src/app-window.vala:418
 msgid "JPEG (compressed)"
 msgstr "JPEG（壓縮）"
 
-#. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:513
+#: src/app-window.vala:425
 msgid "PNG (lossless)"
 msgstr "PNG（無損）"
 
-#. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:520
+#: src/app-window.vala:431
 msgid "WebP (compressed)"
 msgstr "WebP（壓縮）"
 
-#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:531
-msgid "File format:"
-msgstr "檔案格式："
+#: src/app-window.vala:437
+msgid "All Files"
+msgstr "所有檔案"
 
-#. Label in save dialog beside compression slider
-#: src/app-window.vala:554
-msgid "Compression:"
-msgstr "壓縮："
-
-#: src/app-window.vala:561
-msgid "Minimum size"
-msgstr "最小大小"
-
-#: src/app-window.vala:565
-msgid "Full detail"
-msgstr "完整細節"
-
-#. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:647
+#: src/app-window.vala:528
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "「%s」檔名已經存在。您是否希望取代該檔案？"
 
-#. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:650
+#: src/app-window.vala:536
 msgid "_Replace"
 msgstr "取代(_R)"
 
-#: src/app-window.vala:717
+#: src/app-window.vala:623
 msgid "Saving"
 msgstr "儲存"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:734
+#: src/app-window.vala:643
 msgid "Failed to save file"
 msgstr "儲存檔案失敗"
 
-#. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:758
+#: src/app-window.vala:662
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "如果您不儲存，所做變更將會永遠失去。"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:794
+#: src/app-window.vala:710
 msgid "Save current document?"
 msgstr "是否儲存目前文件？"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:796
-msgid "Discard Changes"
-msgstr "放棄變更"
+#: src/app-window.vala:712
+msgid "_Discard Changes"
+msgstr "放棄變更(_D)"
 
 #. Label shown when scan started
-#: src/app-window.vala:836
+#: src/app-window.vala:780
 msgid "Contacting Scanner…"
 msgstr "聯繫掃描器…"
 
+#: src/app-window.vala:892
+msgid "Scan a single page from the scanner"
+msgstr "從掃描器掃描單一頁面"
+
+#: src/app-window.vala:897 src/app-window.vala:902
+msgid "Scan multiple pages from the scanner"
+msgstr "從掃描器掃描多個頁面"
+
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1106
+#: src/app-window.vala:1017
 msgid "Unable to save image for preview"
 msgstr "無法儲存影像以供預覽"
 
-#. Error message display when unable to preview image
-#: src/app-window.vala:1118
-msgid "Unable to open image preview application"
-msgstr "無法開啟影像預覽應用程式"
-
-#. Title of dialog to reorder pages
-#: src/app-window.vala:1280
-msgctxt "dialog title"
-msgid "Reorder Pages"
-msgstr "重新排列頁面"
-
-#. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1303
-msgid "Combine sides"
-msgstr "合併邊緣"
-
-#. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1313
-msgid "Combine sides (reverse)"
-msgstr "合併邊緣 (相反次序)"
-
-#. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1323
-msgid "Reverse"
-msgstr "反轉"
-
-#. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1333
-msgid "Keep unchanged"
-msgstr "維持不變"
-
-#. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1557
-msgid "Unable to open help file"
-msgstr "無法開啟幫助說明檔案"
-
-#. The license this software is under (GPL3+)
-#: src/app-window.vala:1572
-msgid ""
-"This program is free software: you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation, either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program.  If not, see <http://www.gnu.org/licenses/>."
-msgstr ""
-"本程式為自由軟體；您可依據自由軟體基金會所發表的 GNU 通用公眾授權條款，對本程"
-"式再次發佈和/或修改；無論您依據的是本授權的第三版，或（依您的選擇而定）任何較"
-"新的版本。\n"
-"\n"
-"本程式發佈的目的是希望它有用，然而沒有任何保證；亦無對適售性或特定目的適用性"
-"所為的暗示性保證。詳情請參照 GNU 通用公眾授權。\n"
-"\n"
-"您應已收到附隨於本程式的 GNU 通用公眾授權的副本；如果沒有，請參照 <http://"
-"www.gnu.org/licenses/>。"
-
-#. Title of about dialog
-#: src/app-window.vala:1575 src/app-window.vala:1895
-msgid "About Document Scanner"
-msgstr "關於《文件掃描》"
-
-#. Description of program
-#: src/app-window.vala:1578
-msgid "Simple document scanning tool"
-msgstr "簡易文件掃描工具"
-
-#: src/app-window.vala:1587
+#: src/app-window.vala:1242
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -763,40 +790,80 @@ msgstr ""
 "  tomoe_musashi https://launchpad.net/~musashi"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1603
+#: src/app-window.vala:1263
 msgid "Save document before quitting?"
 msgstr "在結束前要儲存文件嗎？"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1605
-msgid "Quit without Saving"
-msgstr "直接退出而不儲存"
+#: src/app-window.vala:1265
+msgid "_Quit without Saving"
+msgstr "直接退出而不儲存(_Q)"
+
+#: src/app-window.vala:1382
+msgid "_Email"
+msgstr "電子郵件(_E)"
+
+#: src/app-window.vala:1383
+msgid "Pri_nt"
+msgstr "列印(_N)"
+
+#: src/app-window.vala:1384
+msgctxt "menu"
+msgid "_Reorder Pages"
+msgstr "重新排列頁面(_R)"
+
+#: src/app-window.vala:1387
+msgid "_Preferences"
+msgstr "偏好設定(_P)"
+
+#: src/app-window.vala:1388
+msgid "_Keyboard Shortcuts"
+msgstr "鍵盤捷徑鍵(_K)"
+
+#: src/app-window.vala:1389
+msgid "_Help"
+msgstr "幫助(_H)"
+
+#: src/app-window.vala:1390
+msgid "_About Document Scanner"
+msgstr "關於《文件掃描》(_A)"
+
+#. Text of button for cancelling save
+#: src/app-window.vala:1579
+msgid "Cancel"
+msgstr "取消"
+
+#: src/book.vala:384 src/book.vala:390
+#, c-format
+msgid "Unable to encode page %i"
+msgstr "無法編碼頁面 %i"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1646
+#: src/drivers-dialog.vala:76
 msgid "You appear to have a Brother scanner."
 msgstr "您似乎有一臺 Brother 掃描器。"
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1648
+#: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
-"您可以在這裡找到這臺掃描器的驅動程式：<a href=\"http://support.brother.com"
-"\">Brother 網站</a>。"
+"您可以在這裡找到這臺掃描器的驅動程式：<a href=\"http://support.brother."
+"com\">Brother 網站</a>。"
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1652
+#: src/drivers-dialog.vala:82
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
 "您似乎有一臺 Canon 掃描器，<a href=\"http://www.sane-project.org/man/sane-"
 "pixma.5.html\">Pixma SANE 後端</a>有支援。"
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1654
+#: src/drivers-dialog.vala:84
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -809,13 +876,13 @@ msgstr ""
 "a>。"
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1658
+#: src/drivers-dialog.vala:88
 msgid "You appear to have a Samsung scanner."
 msgstr "您似乎有一臺 Samsung 掃描器。"
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1661
+#: src/drivers-dialog.vala:91
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -824,7 +891,7 @@ msgstr ""
 "（HP 併購了 Samsung 三星的列印事業）。"
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1666
+#: src/drivers-dialog.vala:96
 msgid "You appear to have an HP scanner."
 msgstr "您似乎有一臺 HP 掃描器。"
 
@@ -832,7 +899,7 @@ msgstr "您似乎有一臺 HP 掃描器。"
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1674
+#: src/drivers-dialog.vala:104
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -840,197 +907,137 @@ msgstr ""
 "此裝置的驅動程式可以在 <a href=\"http://support.hp.com\">HP 網站</a> 上找到。"
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1678
+#: src/drivers-dialog.vala:108
 msgid "You appear to have an Epson scanner."
 msgstr "您似乎有一臺 Epson 掃描器。"
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1680
+#: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
 "此裝置的驅動程式可以在 <a href=\"http://support.epson.com\">Epson 網站</a> 上"
 "找到。"
 
-#. Message to indicate an Lexmark scanner has been detected
-#: src/app-window.vala:1684
-msgid "You appear to have an Lexmark scanner."
+#. Message to indicate a Lexmark scanner has been detected
+#: src/drivers-dialog.vala:114
+msgid "You appear to have a Lexmark scanner."
 msgstr "您似乎有一臺 Lexmark 掃描器。"
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1686
+#: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
-"您可以在這裡找到這臺掃描器的驅動程式：<a href=\"http://support.lexmark.com"
-"\">Lexmark 網站</a>。"
-
-#. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1690
-msgid "Install drivers"
-msgstr "安裝驅動程式"
-
-#. Message in driver install dialog
-#: src/app-window.vala:1724
-msgid "Once installed you will need to restart this app."
-msgstr "一旦安裝，您將需要重新啟動此應用程式。"
+"您可以在這裡找到這臺掃描器的驅動程式：<a href=\"http://support.lexmark."
+"com\">Lexmark 網站</a>。"
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1737
+#: src/drivers-dialog.vala:130
 msgid "Installing drivers…"
 msgstr "正在安裝驅動程式…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1745
+#: src/drivers-dialog.vala:135
 msgid "Drivers installed successfully!"
 msgstr "成功安裝驅動程式！"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1755
+#: src/drivers-dialog.vala:145
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "驅動程式安裝失敗 (錯誤碼 %d)。"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1761
+#: src/drivers-dialog.vala:152
 msgid "Failed to install drivers."
 msgstr "驅動程式安裝失敗。"
 
+#: src/drivers-dialog.vala:161
+msgid "Once installed you will need to restart this app."
+msgstr "一旦安裝，您將需要重新啟動此應用程式。"
+
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1768
+#: src/drivers-dialog.vala:176
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
 msgstr[0] "您得先安裝 %s 軟體包。"
 
-#: src/app-window.vala:1887
-msgid "Email"
-msgstr "電子郵件"
-
-#: src/app-window.vala:1888
-msgid "Print"
-msgstr "列印"
-
-#: src/app-window.vala:1889
-msgctxt "menu"
-msgid "Reorder Pages"
-msgstr "重新排列頁面"
-
-#: src/app-window.vala:1892
-msgid "Preferences"
-msgstr "偏好設定"
-
-#: src/app-window.vala:1893
-msgid "Keyboard Shortcuts"
-msgstr "鍵盤捷徑鍵"
-
-#: src/app-window.vala:1894
-msgid "Help"
-msgstr "求助"
-
-#. Populate ActionBar (not supported in Glade)
-#. https://bugzilla.gnome.org/show_bug.cgi?id=769966
-#. Label on new document button
-#: src/app-window.vala:1903
-msgid "New Document"
-msgstr "新文件"
-
-#. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1922
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "將頁面向左旋轉 (逆時針方向)"
-
-#. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1931
-msgid "Rotate the page to the right (clockwise)"
-msgstr "將頁面向右旋轉 (順時針方向)"
-
-#. Tooltip for crop button
-#: src/app-window.vala:1943
-msgid "Crop the selected page"
-msgstr "裁切所選的頁面"
-
-#. Tooltip for delete button
-#: src/app-window.vala:1961
-msgid "Delete the selected page"
-msgstr "刪除所選頁面"
-
-#. Text of button for cancelling save
-#: src/app-window.vala:2135
-msgid "Cancel"
-msgstr "取消"
-
-#: src/book.vala:331 src/book.vala:337
-#, c-format
-msgid "Unable to encode page %i"
-msgstr "無法編碼頁面 %i"
-
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:63
+#: src/preferences-dialog.vala:113
 msgid "Automatic"
 msgstr "自動"
 
-#: src/preferences-dialog.vala:100
+#: src/preferences-dialog.vala:162
 msgid "Darker"
 msgstr "較深"
 
-#: src/preferences-dialog.vala:102
+#: src/preferences-dialog.vala:164
 msgid "Lighter"
 msgstr "較淺"
 
-#: src/preferences-dialog.vala:110
+#: src/preferences-dialog.vala:172
 msgid "Less"
 msgstr "少"
 
-#: src/preferences-dialog.vala:112
+#: src/preferences-dialog.vala:174
 msgid "More"
 msgstr "多"
 
+#: src/preferences-dialog.vala:181
+msgid "Minimum size"
+msgstr "最小大小"
+
+#: src/preferences-dialog.vala:185
+msgid "Full detail"
+msgstr "完整細節"
+
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:283
+#: src/preferences-dialog.vala:372
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (預設)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:286
+#: src/preferences-dialog.vala:375
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (草稿)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:289
+#: src/preferences-dialog.vala:378
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (高解析度)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:292
+#: src/preferences-dialog.vala:381
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:875
+#: src/scanner.vala:901
 msgid "No scanners available.  Please connect a scanner."
 msgstr "沒有可用的掃描器。請連接一部掃描器。"
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:905
+#: src/scanner.vala:931
 msgid "Unable to connect to scanner"
 msgstr "無法連接到掃描器"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1302 src/scanner.vala:1437
+#: src/scanner.vala:1361 src/scanner.vala:1495
 msgid "Document feeder empty"
 msgstr "空的文件送紙匣"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1310
+#: src/scanner.vala:1369
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1042,12 +1049,12 @@ msgstr ""
 "tt>」。有些掃描器在執行高解析度掃描時，能掃描的尺寸大小會受到限制。"
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1323
+#: src/scanner.vala:1382
 msgid "Unable to start scan"
 msgstr "無法起始掃描"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1336 src/scanner.vala:1447
+#: src/scanner.vala:1395 src/scanner.vala:1505
 msgid "Error communicating with scanner"
 msgstr "與掃描器溝通時發生錯誤"
 
@@ -1066,25 +1073,76 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "修正由舊版本應用程式產生的 PDF 檔案"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1757
+#: src/simple-scan.vala:1760
 msgid "Failed to scan"
 msgstr "掃描失敗"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1772
+#: src/simple-scan.vala:1775
 msgid "Scan in progress"
 msgstr "掃描進行中"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1956
+#: src/simple-scan.vala:1959
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[裝置...] — 掃描公用程式"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1969
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "執行「%s --help」來查看所有命令列可用選項的完整清單。"
+
+#~ msgid "Image Files"
+#~ msgstr "影像檔"
+
+#~ msgid "File format:"
+#~ msgstr "檔案格式："
+
+#~ msgid "Unable to open image preview application"
+#~ msgstr "無法開啟影像預覽應用程式"
+
+#~ msgid "Keep unchanged"
+#~ msgstr "維持不變"
+
+#~ msgid "Unable to open help file"
+#~ msgstr "無法開啟幫助說明檔案"
+
+#~ msgid ""
+#~ "This program is free software: you can redistribute it and/or modify\n"
+#~ "it under the terms of the GNU General Public License as published by\n"
+#~ "the Free Software Foundation, either version 3 of the License, or\n"
+#~ "(at your option) any later version.\n"
+#~ "\n"
+#~ "This program is distributed in the hope that it will be useful,\n"
+#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+#~ "GNU General Public License for more details.\n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License\n"
+#~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "本程式為自由軟體；您可依據自由軟體基金會所發表的 GNU 通用公眾授權條款，對"
+#~ "本程式再次發佈和/或修改；無論您依據的是本授權的第三版，或（依您的選擇而"
+#~ "定）任何較新的版本。\n"
+#~ "\n"
+#~ "本程式發佈的目的是希望它有用，然而沒有任何保證；亦無對適售性或特定目的適用"
+#~ "性所為的暗示性保證。詳情請參照 GNU 通用公眾授權。\n"
+#~ "\n"
+#~ "您應已收到附隨於本程式的 GNU 通用公眾授權的副本；如果沒有，請參照 <http://"
+#~ "www.gnu.org/licenses/>。"
+
+#~ msgid "Simple document scanning tool"
+#~ msgstr "簡易文件掃描工具"
+
+#~ msgid "Email"
+#~ msgstr "電子郵件"
+
+#~ msgid "Print"
+#~ msgstr "列印"
+
+#~ msgid "Help"
+#~ msgstr "求助"
 
 #~ msgid "Start Again…"
 #~ msgstr "再次開始…"
@@ -1108,11 +1166,11 @@ msgstr "執行「%s --help」來查看所有命令列可用選項的完整清單
 #~ msgstr "掃描中(_S)"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
-#~ "您可以在這裡找到這台掃描器的驅動程式：<a href=\"http://samsung.com/support"
-#~ "\">Samsung 網站</a>。"
+#~ "您可以在這裡找到這台掃描器的驅動程式：<a href=\"http://samsung.com/"
+#~ "support\">Samsung 網站</a>。"
 
 #~ msgid "Resolution for photo scans"
 #~ msgstr "相片掃描的解析度"
@@ -1153,14 +1211,8 @@ msgstr "執行「%s --help」來查看所有命令列可用選項的完整清單
 #~ msgid "_Stop Scan"
 #~ msgstr "停止掃描(_S)"
 
-#~ msgid "_Email"
-#~ msgstr "電子郵件(_E)"
-
 #~ msgid "_Page"
 #~ msgstr "頁面(_P)"
-
-#~ msgid "_Help"
-#~ msgstr "幫助(_H)"
 
 #~ msgid "_Contents"
 #~ msgstr "內容(_C)"
