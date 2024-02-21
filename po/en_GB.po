@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-03-21 16:33+0000\n"
-"PO-Revision-Date: 2023-06-19 22:08+0100\n"
+"POT-Creation-Date: 2024-02-15 06:25+0000\n"
+"PO-Revision-Date: 2024-02-21 20:11+0000\n"
 "Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Language-Team: English - United Kingdom <en_GB@li.org>\n"
 "Language: en_GB\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -183,7 +183,7 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
+#: data/ui/app-window.ui:455 src/app-window.vala:1584 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "Document Scanner"
 
@@ -245,90 +245,95 @@ msgstr "A_4"
 msgid "A_5"
 msgstr "A_5"
 
+#. Radio button for cropping page to A6 size
+#: data/ui/app-window.ui:66
+msgid "A_6"
+msgstr "A_6"
+
 #. Radio button for cropping page to US letter size
-#: data/ui/app-window.ui:75
+#: data/ui/app-window.ui:76
 msgid "_Letter"
 msgstr "_Letter"
 
 #. Radio button for cropping to page to US legal size
-#: data/ui/app-window.ui:85
+#: data/ui/app-window.ui:86
 msgid "Le_gal"
 msgstr "Le_gal"
 
 #. Radio button for cropping page to 4x6 inch
-#: data/ui/app-window.ui:95
+#: data/ui/app-window.ui:96
 msgid "4×6"
 msgstr "4×6"
 
 #. Radio button for cropping page to A3
-#: data/ui/app-window.ui:105
+#: data/ui/app-window.ui:106
 msgid "A_3"
 msgstr "A_3"
 
 #. Radio button for cropping to custom page size
-#: data/ui/app-window.ui:115
+#: data/ui/app-window.ui:116
 msgid "_Custom"
 msgstr "_Custom"
 
 #. Menu item to rotate the crop area
-#: data/ui/app-window.ui:131
+#: data/ui/app-window.ui:132
 msgid "_Rotate Crop"
 msgstr "_Rotate Crop"
 
 #. Menu item to move the selected page to the left
-#: data/ui/app-window.ui:143
+#: data/ui/app-window.ui:144
 msgid "Move Left"
 msgstr "Move Left"
 
 #. Menu item to move the selected page to the right
-#: data/ui/app-window.ui:151
+#: data/ui/app-window.ui:152
 msgid "Move Right"
 msgstr "Move Right"
 
-#: data/ui/app-window.ui:225
+#: data/ui/app-window.ui:226
 msgid "_Single Page"
 msgstr "_Single Page"
 
-#: data/ui/app-window.ui:272
+#: data/ui/app-window.ui:273
 msgid "All Pages From _Feeder"
 msgstr "All Pages From _Feeder"
 
-#: data/ui/app-window.ui:319
+#: data/ui/app-window.ui:320
 msgid "_Multiple Pages From Flatbed"
 msgstr "_Multiple Pages From Flatbed"
 
-#: data/ui/app-window.ui:366
+#: data/ui/app-window.ui:367
 msgid "_Text"
 msgstr "_Text"
 
-#: data/ui/app-window.ui:413
+#: data/ui/app-window.ui:414
 msgid "_Image"
 msgstr "_Image"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1889
+#: data/ui/app-window.ui:434 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Preferences"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:472
+#: data/ui/app-window.ui:473
 msgid "Stop the current scan"
 msgstr "Stop the current scan"
 
-#: data/ui/app-window.ui:493
+#: data/ui/app-window.ui:494
 msgid "S_top"
 msgstr "S_top"
 
-#: data/ui/app-window.ui:544
+#: data/ui/app-window.ui:545
 msgid "_Scan"
 msgstr "_Scan"
 
 #. Tooltip for save toolbar button
-#: data/ui/app-window.ui:640
+#: data/ui/app-window.ui:641
 msgid "Save document to a file"
 msgstr "Save document to a file"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:714
+#: data/ui/app-window.ui:715
 msgid "Refresh device list"
 msgstr "Refresh device list"
 
@@ -448,7 +453,6 @@ msgid "Open menu"
 msgstr "Open menu"
 
 #: data/ui/help-overlay.ui:147
-#| msgid "Preferences"
 msgctxt "shortcut window"
 msgid "Show preferences"
 msgstr "Show preferences"
@@ -555,7 +559,6 @@ msgstr "_Contrast"
 
 #. Preferences Dialog: Section label for postprocessing settings
 #: data/ui/preferences-dialog.ui:267
-#| msgid "Compression:"
 msgid "Postprocessing"
 msgstr "Postprocessing"
 
@@ -740,7 +743,6 @@ msgid "Scan a single page from the scanner"
 msgstr "Scan a single page from the scanner"
 
 #: src/app-window.vala:916 src/app-window.vala:921
-#| msgid "Scan a single page from the scanner"
 msgid "Scan multiple pages from the scanner"
 msgstr "Scan multiple pages from the scanner"
 
@@ -808,10 +810,10 @@ msgid "translator-credits"
 msgstr ""
 "Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Zander Brown <zbrown@gnome.org>\n"
+"Andi Chandler <andi@gowling.com>\n"
 "\n"
 "Launchpad Contributions:\n"
 "  Alex Denvir https://launchpad.net/~coldfff\n"
-"  Andi Chandler https://launchpad.net/~bing\n"
 "  Anthony Harrington 😁 https://launchpad.net/~untaintableangel\n"
 "  GeorgeB https://launchpad.net/~solar.george-deactivatedaccount\n"
 "  James Thorrold https://launchpad.net/~jthorrold\n"
@@ -827,7 +829,6 @@ msgstr "Save document before quitting?"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:1601
-#| msgid "Quit without Saving"
 msgid "_Quit without Saving"
 msgstr "_Quit without Saving"
 
@@ -917,7 +918,6 @@ msgstr ""
 
 #. Message to indicate a Lexmark scanner has been detected
 #: src/app-window.vala:1680
-#| msgid "You appear to have an Lexmark scanner."
 msgid "You appear to have a Lexmark scanner."
 msgstr "You appear to have a Lexmark scanner."
 
@@ -978,14 +978,11 @@ msgid "Pri_nt"
 msgstr "Pri_nt"
 
 #: src/app-window.vala:1886
-#| msgctxt "menu"
-#| msgid "Reorder Pages"
 msgctxt "menu"
 msgid "_Reorder Pages"
 msgstr "_Reorder Pages"
 
 #: src/app-window.vala:1890
-#| msgid "Keyboard Shortcuts"
 msgid "_Keyboard Shortcuts"
 msgstr "_Keyboard Shortcuts"
 
@@ -994,7 +991,6 @@ msgid "_Help"
 msgstr "_Help"
 
 #: src/app-window.vala:1892
-#| msgid "About Document Scanner"
 msgid "_About Document Scanner"
 msgstr "_About Document Scanner"
 
@@ -1002,7 +998,6 @@ msgstr "_About Document Scanner"
 #. https://bugzilla.gnome.org/show_bug.cgi?id=769966
 #. Label on new document button
 #: src/app-window.vala:1900
-#| msgid "New Document"
 msgid "_New Document"
 msgstr "_New Document"
 
@@ -1155,9 +1150,6 @@ msgstr "[DEVICE…] — Scanning utility"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Run “%s --help” to see a full list of available command line options."
-
-#~ msgid "A_6"
-#~ msgstr "A_6"
 
 #~ msgid ""
 #~ "This program is free software: you can redistribute it and/or modify\n"
