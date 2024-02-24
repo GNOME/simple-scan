@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the simple-scan package.
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
-# Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-03-21 16:33+0000\n"
-"PO-Revision-Date: 2023-03-24 22:52+0200\n"
+"POT-Creation-Date: 2023-12-05 18:06+0000\n"
+"PO-Revision-Date: 2024-02-24 17:02+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.1\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
 " 2);\n"
 
@@ -180,11 +180,8 @@ msgstr ""
 "paplašinājuma tiks pievienots “_orig”."
 
 #. Title of scan window
-#. Set HeaderBar title here because Glade doesn't keep it translated
-#. https://bugzilla.gnome.org/show_bug.cgi?id=782753
-#. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
+#: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "Dokumentu skenētājs"
 
@@ -217,395 +214,466 @@ msgid "scan;scanner;flatbed;adf;"
 msgstr "skenēt;skeneris;plakanvirsma;adf;"
 
 #. Menu item to rotate page to left (anti-clockwise)
-#: data/ui/app-window.ui:10
+#: data/ui/app-window.ui:8
 msgid "Rotate _Left"
 msgstr "Pagriezt pa _kreisi"
 
 #. Menu item to rotate page to right (clockwise)
-#: data/ui/app-window.ui:19
+#: data/ui/app-window.ui:12
 msgid "Rotate _Right"
 msgstr "Pag_riezt pa labi"
 
 #. Label for page crop submenu
-#: data/ui/app-window.ui:28
+#: data/ui/app-window.ui:16
 msgid "_Crop"
 msgstr "_Kadrēt"
 
 #. Radio button for no crop
-#: data/ui/app-window.ui:36
+#: data/ui/app-window.ui:20
 msgid "_None"
 msgstr "_Bez"
 
 #. Radio button for cropping page to A4 size
-#: data/ui/app-window.ui:46
+#: data/ui/app-window.ui:26
 msgid "A_4"
 msgstr "A_4"
 
 #. Radio button for cropping page to A5 size
-#: data/ui/app-window.ui:56
+#: data/ui/app-window.ui:32
 msgid "A_5"
 msgstr "A_5"
 
+#. Radio button for cropping page to A6 size
+#: data/ui/app-window.ui:38
+msgid "A_6"
+msgstr "A_6"
+
 #. Radio button for cropping page to US letter size
-#: data/ui/app-window.ui:75
+#: data/ui/app-window.ui:44
 msgid "_Letter"
 msgstr "_Vēstules forma"
 
 #. Radio button for cropping to page to US legal size
-#: data/ui/app-window.ui:85
+#: data/ui/app-window.ui:50
 msgid "Le_gal"
 msgstr "Le_gāls"
 
 #. Radio button for cropping page to 4x6 inch
-#: data/ui/app-window.ui:95
+#: data/ui/app-window.ui:56
 msgid "4×6"
 msgstr "4×6"
 
 #. Radio button for cropping page to A3
-#: data/ui/app-window.ui:105
+#: data/ui/app-window.ui:62
 msgid "A_3"
 msgstr "A_3"
 
 #. Radio button for cropping to custom page size
-#: data/ui/app-window.ui:115
+#: data/ui/app-window.ui:68
 msgid "_Custom"
 msgstr "_Pielāgots"
 
 #. Menu item to rotate the crop area
-#: data/ui/app-window.ui:131
+#: data/ui/app-window.ui:76
 msgid "_Rotate Crop"
 msgstr "Pag_riezt kadrējumu"
 
 #. Menu item to move the selected page to the left
-#: data/ui/app-window.ui:143
+#: data/ui/app-window.ui:83
 msgid "Move Left"
 msgstr "Pārvietot pa kreisi"
 
 #. Menu item to move the selected page to the right
-#: data/ui/app-window.ui:151
+#: data/ui/app-window.ui:87
 msgid "Move Right"
 msgstr "Pārvietot pa labi"
 
-#: data/ui/app-window.ui:225
+#: data/ui/app-window.ui:91
+msgid "Copy"
+msgstr "Kopēt"
+
+#: data/ui/app-window.ui:95
+#| msgctxt "shortcut window"
+#| msgid "Delete page"
+msgid "Delete"
+msgstr "Dzēst"
+
+#: data/ui/app-window.ui:103
 msgid "_Single Page"
 msgstr "_Viena lapa"
 
-#: data/ui/app-window.ui:272
+#: data/ui/app-window.ui:109
 msgid "All Pages From _Feeder"
 msgstr "Visas lapas no _padeves"
 
-#: data/ui/app-window.ui:319
+#: data/ui/app-window.ui:115
 msgid "_Multiple Pages From Flatbed"
 msgstr "_Vairākas lappuses no plakanvirsmas"
 
-#: data/ui/app-window.ui:366
+#: data/ui/app-window.ui:123
 msgid "_Text"
 msgstr "_Teksts"
 
-#: data/ui/app-window.ui:413
+#: data/ui/app-window.ui:129
 msgid "_Image"
 msgstr "_Attēls"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1889
-msgid "_Preferences"
-msgstr "_Iestatījumi"
-
 #. Tooltip for stop button
-#: data/ui/app-window.ui:472
+#: data/ui/app-window.ui:164
 msgid "Stop the current scan"
 msgstr "Apturēt pašreizējo skenēšanu"
 
-#: data/ui/app-window.ui:493
+#: data/ui/app-window.ui:178
 msgid "S_top"
 msgstr "Ap_turēt"
 
-#: data/ui/app-window.ui:544
+#: data/ui/app-window.ui:203
 msgid "_Scan"
 msgstr "_Skenēt"
 
 #. Tooltip for save toolbar button
-#: data/ui/app-window.ui:640
+#: data/ui/app-window.ui:227
 msgid "Save document to a file"
 msgstr "Saglabāt dokumentu datnē"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:714
+#: data/ui/app-window.ui:282
 msgid "Refresh device list"
 msgstr "Atsvaidzināt ierīču sarakstu"
 
+#: data/ui/app-window.ui:312
+#| msgid "_New Document"
+msgid "New Document"
+msgstr "Jauns dokuments"
+
+#: data/ui/app-window.ui:326
+msgid "Rotate the page to the left (counter-clockwise)"
+msgstr "Pagriezt lapu pa kreisi (pretēji pulksteņa rādītāja virzienam)"
+
+#: data/ui/app-window.ui:334
+msgid "Rotate the page to the right (clockwise)"
+msgstr "Pagriezt lapu pa labi (pulksteņa rādītāja virzienā)"
+
+#: data/ui/app-window.ui:342
+msgid "Crop the selected page"
+msgstr "Kadrēt izvēlēto lapu"
+
+#: data/ui/app-window.ui:350
+msgid "Delete the selected page"
+msgstr "Dzēst izvēlēto lapu"
+
+#: data/ui/authorize-dialog.ui:31
+#| msgid "_Username for resource:"
+msgid "_Username for resource"
+msgstr "Res_ursa lietotājvārds"
+
+#: data/ui/authorize-dialog.ui:38
+#| msgid "_Password:"
+msgid "_Password"
+msgstr "_Parole"
+
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
+#: src/app-window.vala:665
+msgid "_Cancel"
+msgstr "At_celt"
+
 #. Button to submit authorization dialog
-#: data/ui/authorize-dialog.ui:22
+#: data/ui/authorize-dialog.ui:61
 msgid "_Authorize"
 msgstr "_Autorizēties"
 
-#. Label beside username entry
-#: data/ui/authorize-dialog.ui:80
-msgid "_Username for resource:"
-msgstr "Res_ursa lietotājvārds:"
+#: data/ui/drivers-dialog.ui:17
+msgid "Install drivers"
+msgstr "Instalēt draiverus"
 
-#. Label beside password entry
-#: data/ui/authorize-dialog.ui:92
-msgid "_Password:"
-msgstr "_Parole:"
-
-#: data/ui/help-overlay.ui:12
+#: data/ui/help-overlay.ui:10
 msgctxt "shortcut window"
 msgid "Scanning"
 msgstr "Skenēšana"
 
-#: data/ui/help-overlay.ui:17
+#: data/ui/help-overlay.ui:14
 msgctxt "shortcut window"
 msgid "Scan a single page"
 msgstr "Ieskenēt vienu lapu"
 
-#: data/ui/help-overlay.ui:24
+#: data/ui/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Scan all pages from document feeder"
 msgstr "Ieskenēt visas lapas no dokumentu padevēja"
 
-#: data/ui/help-overlay.ui:31
+#: data/ui/help-overlay.ui:26
 msgctxt "shortcut window"
 msgid "Scan continuously from a flatbed scanner"
 msgstr "Ieskenēt nepārtraukti no plakanvirsmas skenera"
 
-#: data/ui/help-overlay.ui:38
+#: data/ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Stop scan in progress"
 msgstr "Apturēt skenēšanu"
 
-#: data/ui/help-overlay.ui:46
+#: data/ui/help-overlay.ui:39
 msgctxt "shortcut window"
 msgid "Document Modification"
 msgstr "Dokumenta modifikācijas"
 
-#: data/ui/help-overlay.ui:51
+#: data/ui/help-overlay.ui:43
 msgctxt "shortcut window"
 msgid "Move page left"
 msgstr "Pārvietot lapu pa kreisi"
 
-#: data/ui/help-overlay.ui:58
+#: data/ui/help-overlay.ui:49
 msgctxt "shortcut window"
 msgid "Move page right"
 msgstr "Pārvietot lapu pa labi"
 
-#: data/ui/help-overlay.ui:65
+#: data/ui/help-overlay.ui:55
 msgctxt "shortcut window"
 msgid "Rotate page to the left (anti-clockwise)"
 msgstr "Pagriezt lapu pa kreisi (pretēji pulksteņa rādītāja virzienam)"
 
-#: data/ui/help-overlay.ui:72
+#: data/ui/help-overlay.ui:61
 msgctxt "shortcut window"
 msgid "Rotate page to the right (clockwise)"
 msgstr "Pagriezt lapu pa labi (pulksteņa rādītāja virzienā)"
 
-#: data/ui/help-overlay.ui:79
+#: data/ui/help-overlay.ui:67
 msgctxt "shortcut window"
 msgid "Delete page"
 msgstr "Dzēst lapu"
 
-#: data/ui/help-overlay.ui:87
+#: data/ui/help-overlay.ui:74
 msgctxt "shortcut window"
 msgid "Document Management"
 msgstr "Dokumentu pārvaldība"
 
-#: data/ui/help-overlay.ui:92
+#: data/ui/help-overlay.ui:78
 msgctxt "shortcut window"
 msgid "Start new document"
 msgstr "Sākt jaunu dokumentu"
 
-#: data/ui/help-overlay.ui:99
+#: data/ui/help-overlay.ui:84
 msgctxt "shortcut window"
 msgid "Save scanned document"
 msgstr "Saglabāt skenēto dokumentu"
 
-#: data/ui/help-overlay.ui:106
+#: data/ui/help-overlay.ui:90
 msgctxt "shortcut window"
 msgid "Email scanned document"
 msgstr "Sūtīt skenēto dokumentu pa e-pastu"
 
-#: data/ui/help-overlay.ui:113
+#: data/ui/help-overlay.ui:96
 msgctxt "shortcut window"
 msgid "Print scanned document"
 msgstr "Drukāt skenēto dokumentu"
 
-#: data/ui/help-overlay.ui:120
+#: data/ui/help-overlay.ui:102
 msgctxt "shortcut window"
 msgid "Copy current page to clipboard"
 msgstr "Kopēt šo lapu uz starpliktuvi"
 
-#: data/ui/help-overlay.ui:128
+#: data/ui/help-overlay.ui:109
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Vispārīgi"
 
-#: data/ui/help-overlay.ui:133
+#: data/ui/help-overlay.ui:113
 msgctxt "shortcut window"
 msgid "Show help"
 msgstr "Rādīt palīdzību"
 
-#: data/ui/help-overlay.ui:140
+#: data/ui/help-overlay.ui:119
 msgctxt "shortcut window"
 msgid "Open menu"
 msgstr "Atvērt izvēlni"
 
-#: data/ui/help-overlay.ui:147
-#| msgid "Preferences"
+#: data/ui/help-overlay.ui:125
 msgctxt "shortcut window"
 msgid "Show preferences"
 msgstr "Rādīt iestatījumus"
 
-#: data/ui/help-overlay.ui:154
+#: data/ui/help-overlay.ui:131
 msgctxt "shortcut window"
 msgid "Keyboard shortcuts"
 msgstr "Tastatūras īsinājumtaustiņi"
 
-#: data/ui/help-overlay.ui:161
+#: data/ui/help-overlay.ui:137
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Iziet"
 
 #. Preferences Dialog: Section label for scanning settings
-#: data/ui/preferences-dialog.ui:52
+#: data/ui/preferences-dialog.ui:32
 msgid "Scanning"
 msgstr "Skenēšana"
 
 #. Label beside scan side combo box
-#: data/ui/preferences-dialog.ui:56
+#: data/ui/preferences-dialog.ui:35
 msgid "Scan _Sides"
 msgstr "_Skenēt puses"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:66
+#: data/ui/preferences-dialog.ui:44
 msgid "Front"
 msgstr "Priekšpuse"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: data/ui/preferences-dialog.ui:76
+#: data/ui/preferences-dialog.ui:49
 msgid "Back"
 msgstr "Aizmugure"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: data/ui/preferences-dialog.ui:86
+#: data/ui/preferences-dialog.ui:55
 msgid "Both"
 msgstr "Abas"
 
 #. Label beside page size combo box
-#: data/ui/preferences-dialog.ui:104
+#: data/ui/preferences-dialog.ui:68
 msgid "_Page Size"
 msgstr "La_pas izmērs"
 
 #. Label beside page delay scale
-#: data/ui/preferences-dialog.ui:120
+#: data/ui/preferences-dialog.ui:74
 msgid "_Delay in Seconds"
 msgstr "Aizture sekun_dēs"
 
 #. Provides context for the page delay scale
-#: data/ui/preferences-dialog.ui:121
+#: data/ui/preferences-dialog.ui:75
 msgid "Interval to scan multiple pages"
 msgstr "Intervāls, kurā skenēt vairākas lappuses"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:131
+#: data/ui/preferences-dialog.ui:84
 msgid "0"
 msgstr "0"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:141
+#: data/ui/preferences-dialog.ui:89
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:152
+#: data/ui/preferences-dialog.ui:95
 msgid "6"
 msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:163
+#: data/ui/preferences-dialog.ui:101
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:174
+#: data/ui/preferences-dialog.ui:107
 msgid "15"
 msgstr "15"
 
 #. Preferences Dialog: Section label for quality settings
-#: data/ui/preferences-dialog.ui:195
+#: data/ui/preferences-dialog.ui:122
 msgid "Quality"
 msgstr "Kvalitāte"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:199
+#: data/ui/preferences-dialog.ui:125
 msgid "_Text Resolution"
 msgstr "_Teksta izšķirtspēja"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:214
+#: data/ui/preferences-dialog.ui:131
 msgid "_Image Resolution"
 msgstr "Attēla _izšķirtspēja"
 
 #. Label beside brightness scale
-#: data/ui/preferences-dialog.ui:229
+#: data/ui/preferences-dialog.ui:137
 msgid "_Brightness"
 msgstr "_Gaišums"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:247
+#: data/ui/preferences-dialog.ui:152
 msgid "_Contrast"
 msgstr "_Kontrasts"
 
+#. Label beside compression scale
+#: data/ui/preferences-dialog.ui:167
+#| msgid "Compression:"
+msgid "Compression"
+msgstr "Saspiešana"
+
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:267
+#: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
 msgstr "Pēcapstrāde"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:271
+#: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
 msgstr "I_eslēgt pēcapstrādi"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:294
+#: data/ui/preferences-dialog.ui:206
 msgid "_Script"
 msgstr "_Skripts"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:317
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
 msgstr "_Skripta argumenti"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:340
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "_Paturēt oriģinālo datni"
 
-#: src/app-window.vala:229 src/app-window.vala:1686
+#: data/ui/reorder-pages-dialog.ui:9
+msgctxt "dialog title"
+msgid "Reorder Pages"
+msgstr "Pārkārtot lapas"
+
+#: data/ui/reorder-pages-dialog.ui:34
+msgid "Combine sides"
+msgstr "Apvienot puses"
+
+#: data/ui/reorder-pages-dialog.ui:42
+msgid "Combine sides (reverse)"
+msgstr "Apvienot puses (apgriezti)"
+
+#: data/ui/reorder-pages-dialog.ui:55
+msgid "Flip odd pages upside-down"
+msgstr "Nepāra lappuses pagriezt kājām gaisā"
+
+#: data/ui/reorder-pages-dialog.ui:63
+msgid "Flip even pages upside-down"
+msgstr "Pāra lappuses pagriezt kājām gaisā"
+
+#: data/ui/reorder-pages-dialog.ui:78
+msgid "Reverse"
+msgstr "Pagriezt"
+
+#: src/app-window.vala:206
 msgid "_Close"
 msgstr "_Aizvērt"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:238
+#: src/app-window.vala:214
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Lai piekļūtu “%s”, ir vajadzīgs lietotājvārds un parole"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:255
+#: src/app-window.vala:227
 msgid "Searching for Scanners…"
 msgstr "Meklē skenerus…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:263
+#: src/app-window.vala:235
 msgid "Ready to Scan"
 msgstr "Gatavs skenēt"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:273
+#: src/app-window.vala:245
 msgid "Additional Software Needed"
 msgstr "Nepieciešama papildu programmatūra"
 
 #. Instructions to install driver software
-#: src/app-window.vala:275
+#: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner."
@@ -613,195 +681,114 @@ msgstr ""
 "Vajadzēs <a href=\"install-firmware\">uzinstalēt draiveri</a> šim skenerim."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:282
+#: src/app-window.vala:254
 msgid "No Scanners Detected"
 msgstr "Nav atrasts neviens skeneris"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:284
+#: src/app-window.vala:256
 msgid "Please check your scanner is connected and powered on."
 msgstr "Lūdzu, pārbaudiet, vai skeneris ir pievienots un ieslēgts."
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:388
+#: src/app-window.vala:306
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Automātiski saglabātā grāmata jau eksistē. Vai vēlaties to atvērt?"
 
-#. Save dialog: Dialog title
-#: src/app-window.vala:462
+#: src/app-window.vala:308
+#| msgid "_None"
+msgid "_No"
+msgstr "_Nē"
+
+#: src/app-window.vala:309
+msgid "_Yes"
+msgstr "_Jā"
+
+#: src/app-window.vala:388
 msgid "Save As…"
 msgstr "Saglabāt kā…"
 
-#: src/app-window.vala:465 src/app-window.vala:764
+#: src/app-window.vala:390 src/app-window.vala:666
 msgid "_Save"
 msgstr "_Saglabāt"
 
-#: src/app-window.vala:466 src/app-window.vala:648 src/app-window.vala:763
-msgid "_Cancel"
-msgstr "At_celt"
-
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:476
+#: src/app-window.vala:406
 msgid "Scanned Document"
 msgstr "Skenēts dokuments"
 
-#. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:482
-msgid "Image Files"
-msgstr "Attēlu datnes"
-
-#. Save dialog: Filter name to show all files
-#: src/app-window.vala:492
-msgid "All Files"
-msgstr "Visas datnes"
-
-#. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:501
+#: src/app-window.vala:412
 msgid "PDF (multi-page document)"
 msgstr "PDF (vairāku lapu dokuments)"
 
-#. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:507
+#: src/app-window.vala:418
 msgid "JPEG (compressed)"
 msgstr "JPEG (saspiests)"
 
-#. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:513
+#: src/app-window.vala:425
 msgid "PNG (lossless)"
 msgstr "PNG (bez zudumiem)"
 
-#. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:520
+#: src/app-window.vala:431
 msgid "WebP (compressed)"
 msgstr "WebP (saspiests)"
 
-#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:531
-msgid "File format:"
-msgstr "Datnes formāts:"
+#: src/app-window.vala:437
+msgid "All Files"
+msgstr "Visas datnes"
 
-#. Label in save dialog beside compression slider
-#: src/app-window.vala:554
-msgid "Compression:"
-msgstr "Saspiešana:"
-
-#: src/app-window.vala:561
-msgid "Minimum size"
-msgstr "Minimālais izmērs"
-
-#: src/app-window.vala:565
-msgid "Full detail"
-msgstr "Pilna informācija"
-
-#. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:647
+#: src/app-window.vala:528
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Datne ar nosaukumu “%s” jau eksistē. Vai jūs vēlaties to aizstāt?"
 
-#. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:650
+#: src/app-window.vala:536
 msgid "_Replace"
 msgstr "_Aizstāt"
 
-#: src/app-window.vala:717
+#: src/app-window.vala:623
 msgid "Saving"
 msgstr "Saglabā"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:737
+#: src/app-window.vala:643
 msgid "Failed to save file"
 msgstr "Neizdevās saglabāt datni"
 
-#. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:761
+#: src/app-window.vala:662
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Ja nesaglabāsiet, izmaiņas neatgriezeniski pazudīs."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:797
+#: src/app-window.vala:710
 msgid "Save current document?"
 msgstr "Saglabāt šo dokumentu?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:799
+#: src/app-window.vala:712
 msgid "_Discard Changes"
 msgstr "_Atmest izmaiņas"
 
 #. Label shown when scan started
-#: src/app-window.vala:840
+#: src/app-window.vala:780
 msgid "Contacting Scanner…"
 msgstr "Sazinās ar skeneri…"
 
-#: src/app-window.vala:911
+#: src/app-window.vala:892
 msgid "Scan a single page from the scanner"
 msgstr "Ieskenēt vienu lapu no skenera"
 
-#: src/app-window.vala:916 src/app-window.vala:921
+#: src/app-window.vala:897 src/app-window.vala:902
 msgid "Scan multiple pages from the scanner"
 msgstr "Ieskenēt vairākas lapas no skenera"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1111
+#: src/app-window.vala:1017
 msgid "Unable to save image for preview"
 msgstr "Nevar saglabāt attēlu priekšskatīšanai"
 
-#. Error message display when unable to preview image
-#: src/app-window.vala:1123
-msgid "Unable to open image preview application"
-msgstr "Neizdevās atvērt attēlu priekšskatīšanas lietotni"
-
-#. Title of dialog to reorder pages
-#: src/app-window.vala:1285
-msgctxt "dialog title"
-msgid "Reorder Pages"
-msgstr "Pārkārtot lapas"
-
-#. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:1308
-msgid "Combine sides"
-msgstr "Apvienot puses"
-
-#. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1318
-msgid "Combine sides (reverse)"
-msgstr "Apvienot puses (apgriezti)"
-
-#. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1328
-msgid "Reverse"
-msgstr "Pagriezt"
-
-#. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1338
-msgid "Keep unchanged"
-msgstr "Paturēt nemainīti"
-
-#. Label on button for keeping the ordering, but flip every second upside down
-#: src/app-window.vala:1347
-msgid "Flip even pages upside-down"
-msgstr "Pāra lappuses pagriezt kājām gaisā"
-
-#. Label on button for keeping the ordering, but flip every second upside down
-#: src/app-window.vala:1358
-msgid "Flip odd pages upside-down"
-msgstr "Nepāra lappuses pagriezt kājām gaisā"
-
-#. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1559
-msgid "Unable to open help file"
-msgstr "Nevar atvērt palīdzības datni"
-
-#: src/app-window.vala:1573
-msgid "About Document Scanner"
-msgstr "Par Dokumentu skenētāju"
-
-#: src/app-window.vala:1575
-msgid "Simple document scanning tool"
-msgstr "Vienkāršs dokumentu skenēšanas rīks"
-
-#: src/app-window.vala:1580
+#: src/app-window.vala:1242
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -811,22 +798,61 @@ msgstr ""
 "  Rūdolfs Mazurs https://launchpad.net/~rudolfs-mazurs"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1599
+#: src/app-window.vala:1263
 msgid "Save document before quitting?"
 msgstr "Pirms iziešanas saglabāt dokumentu?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1601
+#: src/app-window.vala:1265
 msgid "_Quit without Saving"
 msgstr "_Iziet nesaglabājot"
 
+#: src/app-window.vala:1382
+msgid "_Email"
+msgstr "_E-pasts"
+
+#: src/app-window.vala:1383
+msgid "Pri_nt"
+msgstr "_Drukāt"
+
+#: src/app-window.vala:1384
+msgctxt "menu"
+msgid "_Reorder Pages"
+msgstr "Pā_rkārtot lapas"
+
+#: src/app-window.vala:1387
+msgid "_Preferences"
+msgstr "_Iestatījumi"
+
+#: src/app-window.vala:1388
+msgid "_Keyboard Shortcuts"
+msgstr "_Tastatūras īsinājumtaustiņi"
+
+#: src/app-window.vala:1389
+msgid "_Help"
+msgstr "_Palīdzība"
+
+#: src/app-window.vala:1390
+msgid "_About Document Scanner"
+msgstr "P_ar Dokumentu skenētāju"
+
+#. Text of button for cancelling save
+#: src/app-window.vala:1579
+msgid "Cancel"
+msgstr "Atcelt"
+
+#: src/book.vala:384 src/book.vala:390
+#, c-format
+msgid "Unable to encode page %i"
+msgstr "Nevar iekodēt lapu %i"
+
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1642
+#: src/drivers-dialog.vala:76
 msgid "You appear to have a Brother scanner."
 msgstr "Izskatās, ka jums ir Brother skeneris."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1644
+#: src/drivers-dialog.vala:78
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.brother."
 "com\">Brother website</a>."
@@ -835,7 +861,7 @@ msgstr ""
 "tīmekļa vietnē</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
-#: src/app-window.vala:1648
+#: src/drivers-dialog.vala:82
 msgid ""
 "You appear to have a Canon scanner, which is supported by the <a "
 "href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
@@ -845,7 +871,7 @@ msgstr ""
 "project.org/man/sane-pixma.5.html\">Pixma SANE aizmugure</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
-#: src/app-window.vala:1650
+#: src/drivers-dialog.vala:84
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
 "devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
@@ -858,13 +884,13 @@ msgstr ""
 "sane-devel\">SANE vēstkopā</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1654
+#: src/drivers-dialog.vala:88
 msgid "You appear to have a Samsung scanner."
 msgstr "Izskatās, ka jums ir Samsung skeneris."
 
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
-#: src/app-window.vala:1657
+#: src/drivers-dialog.vala:91
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
@@ -873,7 +899,7 @@ msgstr ""
 "vietnē</a> (HP nopirka Samsung printeru biznesu)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1662
+#: src/drivers-dialog.vala:96
 msgid "You appear to have an HP scanner."
 msgstr "Izskatās, ka jums ir HP skeneris."
 
@@ -881,7 +907,7 @@ msgstr "Izskatās, ka jums ir HP skeneris."
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
-#: src/app-window.vala:1670
+#: src/drivers-dialog.vala:104
 msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
@@ -890,12 +916,12 @@ msgstr ""
 "vietnē</a>."
 
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1674
+#: src/drivers-dialog.vala:108
 msgid "You appear to have an Epson scanner."
 msgstr "Izskatās, ka jums ir Epson skeneris."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1676
+#: src/drivers-dialog.vala:110
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.epson."
 "com\">Epson website</a>."
@@ -904,13 +930,12 @@ msgstr ""
 "vietnē</a>."
 
 #. Message to indicate a Lexmark scanner has been detected
-#: src/app-window.vala:1680
-#| msgid "You appear to have an Lexmark scanner."
+#: src/drivers-dialog.vala:114
 msgid "You appear to have a Lexmark scanner."
 msgstr "Izskatās, ka jums ir Lexmark skeneris."
 
 #. Instructions on how to install Lexmark scanner drivers
-#: src/app-window.vala:1682
+#: src/drivers-dialog.vala:116
 msgid ""
 "Drivers for this are available on the <a href=\"http://support.lexmark."
 "com\">Lexmark website</a>."
@@ -918,39 +943,33 @@ msgstr ""
 "Tam draiveri ir pieejami <a href=\"http://support.lexmark.com\">Lexmark "
 "tīmekļa vietnē</a>."
 
-#. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1686
-msgid "Install drivers"
-msgstr "Instalēt draiverus"
-
-#. Message in driver install dialog
-#: src/app-window.vala:1720
-msgid "Once installed you will need to restart this app."
-msgstr "Kad tie ir instalēti, jums vajadzēs pārstartēt šo lietotni."
-
 #. Label shown while installing drivers
-#: src/app-window.vala:1733
+#: src/drivers-dialog.vala:130
 msgid "Installing drivers…"
 msgstr "Instalē draiverus…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1741
+#: src/drivers-dialog.vala:135
 msgid "Drivers installed successfully!"
 msgstr "Draiveri ir veiksmīgi uzinstalēti!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1751
+#: src/drivers-dialog.vala:145
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Neizdevās uzinstalēt draiverus (kļūdas kods %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1757
+#: src/drivers-dialog.vala:152
 msgid "Failed to install drivers."
 msgstr "Neizdevās uzinstalēt draiverus."
 
+#: src/drivers-dialog.vala:161
+msgid "Once installed you will need to restart this app."
+msgstr "Kad tie ir instalēti, jums vajadzēs pārstartēt šo lietotni."
+
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1764
+#: src/drivers-dialog.vala:176
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
@@ -958,109 +977,55 @@ msgstr[0] "Jums jāuzinstalē %s pakotne."
 msgstr[1] "Jums jāuzinstalē %s pakotnes."
 msgstr[2] "Jums jāuzinstalē %s pakotņu."
 
-#: src/app-window.vala:1884
-msgid "_Email"
-msgstr "_E-pasts"
-
-#: src/app-window.vala:1885
-msgid "Pri_nt"
-msgstr "_Drukāt"
-
-#: src/app-window.vala:1886
-msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Pā_rkārtot lapas"
-
-#: src/app-window.vala:1890
-msgid "_Keyboard Shortcuts"
-msgstr "_Tastatūras īsinājumtaustiņi"
-
-#: src/app-window.vala:1891
-msgid "_Help"
-msgstr "_Palīdzība"
-
-#: src/app-window.vala:1892
-msgid "_About Document Scanner"
-msgstr "P_ar Dokumentu skenētāju"
-
-#. Populate ActionBar (not supported in Glade)
-#. https://bugzilla.gnome.org/show_bug.cgi?id=769966
-#. Label on new document button
-#: src/app-window.vala:1900
-msgid "_New Document"
-msgstr "Jau_ns dokuments"
-
-#. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1919
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Pagriezt lapu pa kreisi (pretēji pulksteņa rādītāja virzienam)"
-
-#. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1928
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Pagriezt lapu pa labi (pulksteņa rādītāja virzienā)"
-
-#. Tooltip for crop button
-#: src/app-window.vala:1940
-msgid "Crop the selected page"
-msgstr "Kadrēt izvēlēto lapu"
-
-#. Tooltip for delete button
-#: src/app-window.vala:1958
-msgid "Delete the selected page"
-msgstr "Dzēst izvēlēto lapu"
-
-#. Text of button for cancelling save
-#: src/app-window.vala:2134
-msgid "Cancel"
-msgstr "Atcelt"
-
-#: src/book.vala:381 src/book.vala:387
-#, c-format
-msgid "Unable to encode page %i"
-msgstr "Nevar iekodēt lapu %i"
-
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:71
+#: src/preferences-dialog.vala:113
 msgid "Automatic"
 msgstr "Automātiski"
 
-#: src/preferences-dialog.vala:108
+#: src/preferences-dialog.vala:162
 msgid "Darker"
 msgstr "Tumšāks"
 
-#: src/preferences-dialog.vala:110
+#: src/preferences-dialog.vala:164
 msgid "Lighter"
 msgstr "Gaišāks"
 
-#: src/preferences-dialog.vala:118
+#: src/preferences-dialog.vala:172
 msgid "Less"
 msgstr "Mazāk"
 
-#: src/preferences-dialog.vala:120
+#: src/preferences-dialog.vala:174
 msgid "More"
 msgstr "Vairāk"
 
+#: src/preferences-dialog.vala:181
+msgid "Minimum size"
+msgstr "Minimālais izmērs"
+
+#: src/preferences-dialog.vala:185
+msgid "Full detail"
+msgstr "Pilna informācija"
+
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:318
+#: src/preferences-dialog.vala:372
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (noklusējuma)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:321
+#: src/preferences-dialog.vala:375
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (melraksts)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:324
+#: src/preferences-dialog.vala:378
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (augsta izšķirtspēja)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:327
+#: src/preferences-dialog.vala:381
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
@@ -1120,30 +1085,48 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Salabot PDF datnes, kas ir veidotas ar vecākām šīs lietotnes versijām"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1758
+#: src/simple-scan.vala:1760
 msgid "Failed to scan"
 msgstr "Neizdevās skenēt"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1773
+#: src/simple-scan.vala:1775
 msgid "Scan in progress"
 msgstr "Notiek skenēšana"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1957
+#: src/simple-scan.vala:1959
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[IERĪCE…] — skenēšanas utilītprogramma"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1968
+#: src/simple-scan.vala:1969
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Palaidiet “%s --help”, lai redzētu pilnu pieejamo komandrindas opciju "
 "sarakstu."
 
-#~ msgid "A_6"
-#~ msgstr "A_6"
+#~ msgid "Image Files"
+#~ msgstr "Attēlu datnes"
+
+#~ msgid "File format:"
+#~ msgstr "Datnes formāts:"
+
+#~ msgid "Unable to open image preview application"
+#~ msgstr "Neizdevās atvērt attēlu priekšskatīšanas lietotni"
+
+#~ msgid "Keep unchanged"
+#~ msgstr "Paturēt nemainīti"
+
+#~ msgid "Unable to open help file"
+#~ msgstr "Nevar atvērt palīdzības datni"
+
+#~ msgid "About Document Scanner"
+#~ msgstr "Par Dokumentu skenētāju"
+
+#~ msgid "Simple document scanning tool"
+#~ msgstr "Vienkāršs dokumentu skenēšanas rīks"
 
 #~ msgid ""
 #~ "This program is free software: you can redistribute it and/or modify\n"
@@ -1344,3 +1327,4 @@ msgstr ""
 
 #~ msgid "Files missing"
 #~ msgstr "Pietrūkst datņu"
+
