@@ -54,7 +54,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-01-30 20:25+0000\n"
+"POT-Creation-Date: 2024-02-21 20:12+0000\n"
 "PO-Revision-Date: 2023-02-03 18:15+0100\n"
 "Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
@@ -228,7 +228,7 @@ msgstr ""
 #. https://bugzilla.gnome.org/show_bug.cgi?id=782753
 #. Title of scan window
 #: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:454 src/app-window.vala:1584 src/app-window.vala:1858
+#: data/ui/app-window.ui:455 src/app-window.vala:1584 src/app-window.vala:1858
 msgid "Document Scanner"
 msgstr "Dokument-Scanner"
 
@@ -293,90 +293,95 @@ msgstr "A_4"
 msgid "A_5"
 msgstr "A_5"
 
+#. Radio button for cropping page to A6 size
+#: data/ui/app-window.ui:66
+msgid "A_6"
+msgstr "A_6"
+
 #. Radio button for cropping page to US letter size
-#: data/ui/app-window.ui:75
+#: data/ui/app-window.ui:76
 msgid "_Letter"
 msgstr "US _Letter"
 
 #. Radio button for cropping to page to US legal size
-#: data/ui/app-window.ui:85
+#: data/ui/app-window.ui:86
 msgid "Le_gal"
 msgstr "US _Legal"
 
 #. Radio button for cropping page to 4x6 inch
-#: data/ui/app-window.ui:95
+#: data/ui/app-window.ui:96
 msgid "4×6"
 msgstr "4×6 Zoll"
 
 #. Radio button for cropping page to A3
-#: data/ui/app-window.ui:105
+#: data/ui/app-window.ui:106
 msgid "A_3"
 msgstr "A_3"
 
 #. Radio button for cropping to custom page size
-#: data/ui/app-window.ui:115
+#: data/ui/app-window.ui:116
 msgid "_Custom"
 msgstr "_Benutzerdefiniert"
 
 #. Menu item to rotate the crop area
-#: data/ui/app-window.ui:131
+#: data/ui/app-window.ui:132
 msgid "_Rotate Crop"
 msgstr "Zuschneideauswahl _drehen"
 
 #. Menu item to move the selected page to the left
-#: data/ui/app-window.ui:143
+#: data/ui/app-window.ui:144
 msgid "Move Left"
 msgstr "Nach links schieben"
 
 #. Menu item to move the selected page to the right
-#: data/ui/app-window.ui:151
+#: data/ui/app-window.ui:152
 msgid "Move Right"
 msgstr "Nach rechts schieben"
 
-#: data/ui/app-window.ui:225
+#: data/ui/app-window.ui:226
 msgid "_Single Page"
 msgstr "_Einzelne Seite"
 
-#: data/ui/app-window.ui:272
+#: data/ui/app-window.ui:273
 msgid "All Pages From _Feeder"
 msgstr "Alle Seiten aus dem _Papiereinzug"
 
-#: data/ui/app-window.ui:319
+#: data/ui/app-window.ui:320
 msgid "_Multiple Pages From Flatbed"
 msgstr "_Mehrere Seiten aus Flachbett"
 
-#: data/ui/app-window.ui:366
+#: data/ui/app-window.ui:367
 msgid "_Text"
 msgstr "_Text"
 
-#: data/ui/app-window.ui:413
+#: data/ui/app-window.ui:414
 msgid "_Image"
 msgstr "_Bild"
 
-#: data/ui/app-window.ui:433 src/app-window.vala:1889
+#: data/ui/app-window.ui:434 src/app-window.vala:1889
 msgid "_Preferences"
 msgstr "_Einstellungen"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:472
+#: data/ui/app-window.ui:473
 msgid "Stop the current scan"
 msgstr "Aktuellen Scanvorgang unterbrechen"
 
-#: data/ui/app-window.ui:493
+#: data/ui/app-window.ui:494
 msgid "S_top"
 msgstr "S_topp"
 
-#: data/ui/app-window.ui:544
+#: data/ui/app-window.ui:545
 msgid "_Scan"
 msgstr "_Scannen"
 
 #. Tooltip for save toolbar button
-#: data/ui/app-window.ui:640
+#: data/ui/app-window.ui:641
 msgid "Save document to a file"
 msgstr "Dokument als Datei speichern"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:714
+#: data/ui/app-window.ui:715
 msgid "Refresh device list"
 msgstr "Geräteliste aktualisieren"
 
@@ -919,8 +924,8 @@ msgstr "Anscheinend ist ein Brother-Scanner angeschlossen."
 #. Instructions on how to install Brother scanner drivers
 #: src/app-window.vala:1644
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
 "Treiber hierfür sind auf der <a href=\"http://support.brother.com\">Brother-"
 "Webseite</a> verfügbar."
@@ -928,12 +933,13 @@ msgstr ""
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/app-window.vala:1648
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
-"Anscheinend haben Sie einen Canon-Scanner, der vom SANE-Backend <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma</a> unterstützt "
-"wird."
+"Anscheinend haben Sie einen Canon-Scanner, der vom SANE-Backend <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma</a> "
+"unterstützt wird."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/app-window.vala:1650
@@ -988,8 +994,8 @@ msgstr "Anscheinend ist ein Epson-Scanner angeschlossen."
 #. Instructions on how to install Epson scanner drivers
 #: src/app-window.vala:1676
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
 "Treiber hierfür sind auf der <a href=\"http://support.epson.com\">Epson-"
 "Webseite</a> verfügbar."
@@ -1002,8 +1008,8 @@ msgstr "Anscheinend ist ein Lexmark-Scanner angeschlossen."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/app-window.vala:1682
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
 "Treiber hierfür sind auf der <a href=\"http://support.lexmark.com\">Lexmark-"
 "Webseite</a> verfügbar."
@@ -1265,9 +1271,6 @@ msgstr ""
 #~ "ist, finden Sie diese im Internet unter\n"
 #~ "<http://www.gnu.org/licenses/>."
 
-#~ msgid "A_6"
-#~ msgstr "A_6"
-
 #~ msgid "Email"
 #~ msgstr "E-Mail"
 
@@ -1299,8 +1302,8 @@ msgstr ""
 #~ msgstr "7"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
 #~ "Treiber hierfür sind verfügbar auf der <a href=\"http://samsung.com/"
 #~ "support\">Samsung Webseite</a>."
