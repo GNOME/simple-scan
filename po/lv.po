@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-12-05 18:06+0000\n"
-"PO-Revision-Date: 2024-02-24 17:02+0200\n"
+"POT-Creation-Date: 2024-02-27 23:00+0000\n"
+"PO-Revision-Date: 2024-03-08 23:20+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -106,13 +106,13 @@ msgstr "Skenējamās lapas puse."
 
 #: data/org.gnome.SimpleScan.gschema.xml:60
 msgid "Directory to save files to"
-msgstr "Direktorija, kurā saglabāt datnes"
+msgstr "Direktorijs, kurā saglabāt datnes"
 
 #: data/org.gnome.SimpleScan.gschema.xml:61
 msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
 msgstr ""
-"Direktorija, kurā saglabāt datnes. Pēc noklusējuma datnes tiks glabātas "
+"Direktorijs, kurā saglabāt datnes. Pēc noklusējuma datnes tiks glabātas "
 "dokumentu direktorijā."
 
 #: data/org.gnome.SimpleScan.gschema.xml:65
@@ -180,16 +180,16 @@ msgstr ""
 "paplašinājuma tiks pievienots “_orig”."
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "Dokumentu skenētājs"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr "Izveidojiet digitālas kopijas jūsu fotogrāfijām un dokumentiem"
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -200,11 +200,12 @@ msgstr ""
 "izdrukāt ieskanētos dokumentus, eksportēt tos pdf formātā vai saglabāt tos "
 "dažādos attēlu formātos."
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "Šī lietotne izmanto SANE ietvaru, kas atbalsta vairumu esošo skeneru."
 
-#: data/simple-scan.appdata.xml.in:27
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
 msgid "The GNOME Project"
 msgstr "GNOME projekts"
 
@@ -293,8 +294,6 @@ msgid "Copy"
 msgstr "Kopēt"
 
 #: data/ui/app-window.ui:95
-#| msgctxt "shortcut window"
-#| msgid "Delete page"
 msgid "Delete"
 msgstr "Dzēst"
 
@@ -342,7 +341,6 @@ msgid "Refresh device list"
 msgstr "Atsvaidzināt ierīču sarakstu"
 
 #: data/ui/app-window.ui:312
-#| msgid "_New Document"
 msgid "New Document"
 msgstr "Jauns dokuments"
 
@@ -363,12 +361,10 @@ msgid "Delete the selected page"
 msgstr "Dzēst izvēlēto lapu"
 
 #: data/ui/authorize-dialog.ui:31
-#| msgid "_Username for resource:"
 msgid "_Username for resource"
 msgstr "Res_ursa lietotājvārds"
 
 #: data/ui/authorize-dialog.ui:38
-#| msgid "_Password:"
 msgid "_Password"
 msgstr "_Parole"
 
@@ -593,7 +589,6 @@ msgstr "_Kontrasts"
 
 #. Label beside compression scale
 #: data/ui/preferences-dialog.ui:167
-#| msgid "Compression:"
 msgid "Compression"
 msgstr "Saspiešana"
 
@@ -696,7 +691,6 @@ msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Automātiski saglabātā grāmata jau eksistē. Vai vēlaties to atvērt?"
 
 #: src/app-window.vala:308
-#| msgid "_None"
 msgid "_No"
 msgstr "_Nē"
 
