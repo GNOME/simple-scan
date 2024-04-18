@@ -6,7 +6,9 @@ install_data (join_paths ('icons', 'hicolor', 'symbolic', '@0@-symbolic.svg'.for
 
 install_data ('org.gnome.SimpleScan.gschema.xml',
               install_dir: join_paths (datadir, 'glib-2.0', 'schemas'))
-meson.add_install_script ('meson_compile_gschema.py')
+
+gnome.post_install (glib_compile_schemas: true,
+                    gtk_update_icon_cache: true)
 
 i18n.merge_file (input: 'simple-scan.desktop.in',
                  output: 'simple-scan.desktop',
