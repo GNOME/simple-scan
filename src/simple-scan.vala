@@ -40,7 +40,7 @@ public class SimpleScan : Adw.Application
     public SimpleScan (ScanDevice? device = null)
     {
         /* The inhibit () method use this */
-        Object (application_id: "simple-scan");
+        Object (application_id: "org.gnome.SimpleScan");
         register_session = true;
 
         default_device = device;
