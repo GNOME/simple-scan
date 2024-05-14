@@ -1246,7 +1246,7 @@ public class AppWindow : Adw.ApplicationWindow
             application_icon = "org.gnome.SimpleScan",
             version = VERSION,
             website = "https://gitlab.gnome.org/GNOME/simple-scan",
-            issue_url = "https://gitlab.gnome.org/GNOME/baobab/-/issues/new",
+            issue_url = "https://gitlab.gnome.org/GNOME/simple-scan/-/issues/",
         };
         
         about.present ();
