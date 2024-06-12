@@ -26,8 +26,7 @@ Install the dependencies
 
 For Ubuntu/Debian:
 ```
-$ sudo apt install -y meson valac gcc gettext itstool libfribidi-dev libgirepository1.0-dev libgtk-4-dev libadwaita-1 libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev git ca-certificates
-
+$ sudo apt install -y meson valac gcc gettext itstool libfribidi-dev libgirepository1.0-dev libgtk-4-dev libadwaita-1-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev git ca-certificates
 ```
 
 For Fedora:
