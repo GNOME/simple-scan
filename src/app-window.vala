@@ -244,7 +244,7 @@ public class AppWindow : Adw.ApplicationWindow
             status_page.set_title (/* Warning displayed when no drivers are installed but a compatible scanner is detected */
                                    _("Additional Software Needed"));
             /* Instructions to install driver software */
-            status_secondary_label.set_markup (_("You need to <a href=\"install-firmware\">install driver software</a> for your scanner."));
+            status_secondary_label.set_markup (_("You need to <a href=\"install-firmware\">install driver software</a> for your scanner"));
             status_secondary_label.visible = true;
             device_buttons_box.visible = false;
         }
@@ -253,7 +253,7 @@ public class AppWindow : Adw.ApplicationWindow
             /* Warning displayed when no scanners are detected */
             status_page.set_title (_("No Scanners Detected"));
             /* Hint to user on why there are no scanners detected */
-            status_secondary_label.set_text (_("Please check your scanner is connected and powered on."));
+            status_secondary_label.set_text (_("Please check your scanner is connected and powered on"));
             status_secondary_label.visible = true;
             device_buttons_box.visible = true;
             device_buttons_box.sensitive = true;
@@ -889,17 +889,17 @@ public class AppWindow : Adw.ApplicationWindow
         case ScanType.SINGLE:
             scan_type_action.set_state ("single");
             scan_button_content.icon_name = "scanner-symbolic";
-            scan_button.tooltip_text = _("Scan a single page from the scanner");
+            scan_button.tooltip_text = _("Scan a Single Page");
             break;
         case ScanType.ADF:
             scan_type_action.set_state ("adf");
             scan_button_content.icon_name = "scan-type-adf-symbolic";
-            scan_button.tooltip_text = _("Scan multiple pages from the scanner");
+            scan_button.tooltip_text = _("Scan Multiple Pages");
             break;
         case ScanType.BATCH:
             scan_type_action.set_state ("batch");
             scan_button_content.icon_name = "scan-type-batch-symbolic";
-            scan_button.tooltip_text = _("Scan multiple pages from the scanner");
+            scan_button.tooltip_text = _("Scan Multiple Pages");
             break;
         }
     }
@@ -1379,9 +1379,9 @@ public class AppWindow : Adw.ApplicationWindow
         var gear_menu = new Menu ();
         var section = new Menu ();
         gear_menu.append_section (null, section);
-        section.append (_("_Email"), "app.email");
-        section.append (_("Pri_nt"), "app.print");
-        section.append (C_("menu", "_Reorder Pages"), "app.reorder");
+        section.append (_("_Email…"), "app.email");
+        section.append (_("Pri_nt…"), "app.print");
+        section.append (C_("menu", "_Reorder Pages…"), "app.reorder");
         section = new Menu ();
         gear_menu.append_section (null, section);
         section.append (_("_Preferences"), "app.preferences");

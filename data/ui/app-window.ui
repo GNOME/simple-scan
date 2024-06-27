@@ -161,7 +161,7 @@
                 <child>
                   <object class="GtkButton" id="stop_button">
                     <property name="visible">0</property>
-                    <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop the current scan</property>
+                    <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Stop</property>
                     <property name="use_underline">True</property>
                     <signal name="clicked" handler="stop_scan_button_clicked_cb" swapped="no"/>
                     <child>
@@ -208,6 +208,7 @@
                 </child>
                 <child>
                   <object class="GtkMenuButton" id="scan_options_menu">
+                    <property name="tooltip-text" translatable="yes">Scan Options</property>
                     <property name="menu_model">scan-menu</property>
                     <property name="icon_name">emblem-system-symbolic</property>
                   </object>
@@ -216,7 +217,7 @@
             </child>
             <child type="end">
               <object class="GtkMenuButton" id="menu_button">
-                <property name="use_underline">True</property>
+                <property name="tooltip-text" translatable="yes">Main Menu</property>
                 <property name="primary">True</property>
                 <property name="icon_name">open-menu-symbolic</property>
               </object>
@@ -224,7 +225,7 @@
             <child type="end">
               <object class="GtkButton" id="save_button">
                 <property name="sensitive">0</property>
-                <property name="tooltip_text" translatable="yes" comments="Tooltip for save toolbar button">Save document to a file</property>
+                <property name="tooltip_text" translatable="yes">Export</property>
                 <property name="use_underline">True</property>
                 <property name="action-name">app.save</property>
                 <property name="icon_name">document-save-symbolic</property>
@@ -279,7 +280,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="refresh_devices">
-                                <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Refresh device list</property>
+                                <property name="tooltip_text" translatable="yes" comments="Tooltip for stop button">Refresh Device List</property>
                                 <property name="icon_name">view-refresh-symbolic</property>
 
                                 <signal name="clicked" handler="redetect_button_clicked_cb" swapped="no"/>
@@ -323,7 +324,7 @@
                             <child>
                               <object class="GtkButton">
                                 <property name="icon-name">object-rotate-left-symbolic</property>
-                                <property name="tooltip-text" translatable="yes">Rotate the page to the left (counter-clockwise)</property>
+                                <property name="tooltip-text" translatable="yes">Rotate Left (counter-clockwise)</property>
                                 <property name="action-name">app.rotate_left</property>
                               </object>
                             </child>
@@ -331,7 +332,7 @@
                             <child>
                               <object class="GtkButton">
                                 <property name="icon-name">object-rotate-right-symbolic</property>
-                                <property name="tooltip-text" translatable="yes">Rotate the page to the right (clockwise)</property>
+                                <property name="tooltip-text" translatable="yes">Rotate Right (clockwise)</property>
                                 <property name="action-name">app.rotate_right</property>
                               </object>
                             </child>
@@ -339,7 +340,7 @@
                             <child>
                               <object class="GtkToggleButton" id="crop_button">
                                 <property name="icon-name">crop-symbolic</property>
-                                <property name="tooltip-text" translatable="yes">Crop the selected page</property>
+                                <property name="tooltip-text" translatable="yes">Crop Selected Page</property>
                                 <signal name="toggled" handler="crop_toggle_cb" swapped="no"/>
                               </object>
                             </child>
@@ -347,7 +348,7 @@
                             <child>
                               <object class="GtkButton" id="delete_button">
                                 <property name="icon-name">user-trash-symbolic</property>
-                                <property name="tooltip-text" translatable="yes">Delete the selected page</property>
+                                <property name="tooltip-text" translatable="yes">Delete Selected Page</property>
                                 <property name="action-name">app.delete_page</property>
                               </object>
                             </child>
