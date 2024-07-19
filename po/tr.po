@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-18 17:21+0000\n"
-"PO-Revision-Date: 2023-12-06 19:00+0300\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"POT-Creation-Date: 2024-02-27 23:00+0000\n"
+"PO-Revision-Date: 2024-05-07 11:52+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -213,10 +213,11 @@ msgstr ""
 msgid "The GNOME Project"
 msgstr "GNOME Projesi"
 
+# https://gitlab.gnome.org/GNOME/glib/-/issues/443 hatası sebebiyle uygulama adı dahil ingilizce hallerini de koruyalım.
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
 msgid "scan;scanner;flatbed;adf;"
-msgstr "tara;tarama;tarayıcı;düz yatak;flatbed;adf;"
+msgstr "simple scan;scan;scanner;flatbed;adf;tara;tarama;tarayıcı;düz yatak;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -853,8 +854,8 @@ msgstr "Bir Brother tarayıcınız olduğu görünüyor."
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother."
-"com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother.com"
+"\">Brother website</a>."
 msgstr ""
 "Bunun sürücüleri <a href=\"http://support.brother.com\">Brother web "
 "sitesinde</a> bulunabilir."
@@ -862,9 +863,8 @@ msgstr ""
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a "
-"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
-"backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a href="
+"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
 msgstr ""
 "<a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
 "arka ucu</a> tarafından desteklenen bir Canon tarayıcınız olduğu görünüyor."
@@ -877,10 +877,10 @@ msgid ""
 "to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
 "sane-devel\">SANE mailing list</a>."
 msgstr ""
-"<a href=\"http://www.sane-project.org/sane-supported-devices."
-"html\">Tarayıcınızın SANE tarafından desteklenip desteklenmediğini</a> "
-"gözden geçirin, olmazsa <a href=\"https://alioth-lists.debian.net/cgi-bin/"
-"mailman/listinfo/sane-devel\">SANE postalaşma listesine</a> sorun bildirin."
+"<a href=\"http://www.sane-project.org/sane-supported-devices.html"
+"\">Tarayıcınızın SANE tarafından desteklenip desteklenmediğini</a> gözden "
+"geçirin, olmazsa <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/"
+"listinfo/sane-devel\">SANE postalaşma listesine</a> sorun bildirin."
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/drivers-dialog.vala:88
@@ -922,8 +922,8 @@ msgstr "Bir Epson tarayıcınız olduğu görünüyor."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson."
-"com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson.com"
+"\">Epson website</a>."
 msgstr ""
 "Bunun sürücüleri <a href=\"http://support.epson.com\">Epson web sitesinde</"
 "a> bulunabilir."
@@ -936,8 +936,8 @@ msgstr "Bir Lexmark tarayıcınız olduğu görünüyor."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark."
-"com\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark.com"
+"\">Lexmark website</a>."
 msgstr ""
 "Bunun sürücüleri <a href=\"http://support.lexmark.com\">Lexmark web "
 "sitesinde</a> bulunabilir."
