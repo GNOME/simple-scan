@@ -48,15 +48,15 @@
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2017, 2020-2021.
 # Tim Sabsch <tim@sabsch.com>, 2019-2020.
 # Philipp Kiemle <philipp.kiemle@gmail.com>, 2020.
-# Jürgen Benvenuti <gastornis@posteo.org>, 2022, 2023.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2022-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-06 00:16+0000\n"
-"PO-Revision-Date: 2024-02-18 18:19+0100\n"
-"Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-04 11:14+0200\n"
+"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -264,12 +264,12 @@ msgstr "scan;einlesen;scanner;Flachbett;flatbed;AVW;Vorlagenwechsler;adf;"
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
 msgid "Rotate _Left"
-msgstr "_Links herum drehen"
+msgstr "_Linksherum drehen"
 
 #. Menu item to rotate page to right (clockwise)
 #: data/ui/app-window.ui:12
 msgid "Rotate _Right"
-msgstr "_Rechts herum drehen"
+msgstr "_Rechtsherum drehen"
 
 #. Label for page crop submenu
 #: data/ui/app-window.ui:16
@@ -366,8 +366,8 @@ msgstr "_Bild"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Aktuellen Scanvorgang unterbrechen"
+msgid "Stop"
+msgstr "Anhalten"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -377,35 +377,42 @@ msgstr "S_topp"
 msgid "_Scan"
 msgstr "_Scannen"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Dokument als Datei speichern"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Scan-Optionen"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Hauptmenü"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exportieren"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Geräteliste aktualisieren"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Neues Dokument"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Die Seite links herum drehen (gegen den Uhrzeigersinn)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Linksherum drehen (gegen den Uhrzeigersinn)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Die Seite rechts herum drehen (im Uhrzeigersinn)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Rechtsherum drehen (im Uhrzeigersinn)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
-msgstr "Die gewählte Seite zurechtschneiden"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
+msgstr "Gewählte Seite zurechtschneiden"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
-msgstr "Die gewählte Seite löschen"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
+msgstr "Gewählte Seite löschen"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
@@ -469,15 +476,19 @@ msgctxt "shortcut window"
 msgid "Move page right"
 msgstr "Nach rechts schieben"
 
+# »linksherum« würde ich hier zusammenschreiben. - jb
+# https://www.duden.de/rechtschreibung/linksherum
 #: data/ui/help-overlay.ui:55
 msgctxt "shortcut window"
 msgid "Rotate page to the left (anti-clockwise)"
-msgstr "Die Seite links herum drehen (gegen den Uhrzeigersinn)"
+msgstr "Die Seite linksherum drehen (gegen den Uhrzeigersinn)"
 
+# »rechtsherum« würde ich hier zusammenschreiben (siehe auch »linksherum«). - jb
+# https://www.duden.de/rechtschreibung/rechtsherum
 #: data/ui/help-overlay.ui:61
 msgctxt "shortcut window"
 msgid "Rotate page to the right (clockwise)"
-msgstr "Die Seite rechts herum drehen (im Uhrzeigersinn)"
+msgstr "Die Seite rechtsherum drehen (im Uhrzeigersinn)"
 
 #: data/ui/help-overlay.ui:67
 msgctxt "shortcut window"
@@ -719,10 +730,10 @@ msgstr "Zusätzliche Software wird benötigt"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Sie müssen die <a href=\"install-firmware\">Treibersoftware</a> für Ihren "
-"Scanner installieren."
+"Scanner installieren"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -731,9 +742,9 @@ msgstr "Kein Scanner gefunden"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
+msgid "Please check your scanner is connected and powered on"
 msgstr ""
-"Bitte überprüfen Sie, ob Ihr Scanner angeschlossen und eingeschaltet ist."
+"Bitte überprüfen Sie, ob Ihr Scanner angeschlossen und eingeschaltet ist"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -822,12 +833,12 @@ msgid "Contacting Scanner…"
 msgstr "Scanner wird kontaktiert …"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
+msgid "Scan a Single Page"
 msgstr "Eine einzelne Seite vom Scanner einscannen"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Mehrere Seiten vom Scanner einlesen"
+msgid "Scan Multiple Pages"
+msgstr "Mehrere Seiten vom Scanner einscannen"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -894,17 +905,17 @@ msgid "_Quit without Saving"
 msgstr "Beenden, _ohne zu speichern"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_E-Mail"
+msgid "_Email…"
+msgstr "_E-Mail …"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "_Drucken"
+msgid "Pri_nt…"
+msgstr "_Drucken …"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Seiten _umsortieren"
+msgid "_Reorder Pages…"
+msgstr "Seiten _umsortieren …"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -940,8 +951,8 @@ msgstr "Anscheinend ist ein Brother-Scanner angeschlossen."
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
 "Treiber hierfür sind auf der <a href=\"http://support.brother.com\">Brother-"
 "Webseite</a> verfügbar."
@@ -949,12 +960,13 @@ msgstr ""
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
-"Anscheinend haben Sie einen Canon-Scanner, der vom SANE-Backend <a href="
-"\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma</a> unterstützt "
-"wird."
+"Anscheinend haben Sie einen Canon-Scanner, der vom SANE-Backend <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma</a> "
+"unterstützt wird."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/drivers-dialog.vala:84
@@ -1009,8 +1021,8 @@ msgstr "Anscheinend ist ein Epson-Scanner angeschlossen."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
 "Treiber hierfür sind auf der <a href=\"http://support.epson.com\">Epson-"
 "Webseite</a> verfügbar."
@@ -1023,8 +1035,8 @@ msgstr "Anscheinend ist ein Lexmark-Scanner angeschlossen."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com"
-"\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
 "Treiber hierfür sind auf der <a href=\"http://support.lexmark.com\">Lexmark-"
 "Webseite</a> verfügbar."
@@ -1194,6 +1206,21 @@ msgstr ""
 "Rufen Sie »%s --help« auf, um eine vollständige Liste der verfügbaren "
 "Befehlszeilenoptionen zu erhalten."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Aktuellen Scanvorgang unterbrechen"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Dokument als Datei speichern"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Die Seite rechts herum drehen (im Uhrzeigersinn)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Eine einzelne Seite vom Scanner einscannen"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Mehrere Seiten vom Scanner einlesen"
+
 #~ msgid "Image Files"
 #~ msgstr "Bilddateien"
 
@@ -1278,8 +1305,8 @@ msgstr ""
 #~ msgstr "7"
 
 #~ msgid ""
-#~ "Drivers for this are available on the <a href=\"http://samsung.com/support"
-#~ "\">Samsung website</a>."
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
 #~ msgstr ""
 #~ "Treiber hierfür sind verfügbar auf der <a href=\"http://samsung.com/"
 #~ "support\">Samsung Webseite</a>."
@@ -1289,12 +1316,6 @@ msgstr ""
 
 #~ msgid "The resolution in dots-per-inch to use when scanning photos."
 #~ msgstr "Die für Fotos zu verwendende Auflösung in DPI (Punkte pro Zoll)."
-
-#~ msgid "Scan Documents"
-#~ msgstr "Dokumente scannen"
-
-#~ msgid "Stop"
-#~ msgstr "Anhalten"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Scanner"
