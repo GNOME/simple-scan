@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-22 01:12+0000\n"
-"PO-Revision-Date: 2024-02-22 07:56+0100\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-04 18:44+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Tot En Òc\n"
 "Language: oc\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -322,8 +322,8 @@ msgstr "_Imatge"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Arrestar la numerizacion en cors"
+msgid "Stop"
+msgstr "Arrèsta"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -333,35 +333,41 @@ msgstr "Arres_tar"
 msgid "_Scan"
 msgstr "_Numerizar"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Enregistrar lo document dins un fichièr"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Opcions de numerizacion"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exportar"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Refrescar la lista dels periferics"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Document novèl"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr ""
-"Pivotar la pagina cap a esquèrra (sens invèrse de las agulhas d'una mòstra)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Rotacion a esquèrra (sens antiorari)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Pivotar la pagina cap a dreita (sens de las agulhas d'una mòstra)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Rotacion a dreita (sens orari)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Requadrar la pagina seleccionada"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Suprimir la pagina seleccionada"
 
 #: data/ui/authorize-dialog.ui:31
@@ -675,10 +681,10 @@ msgstr "Logicial suplementari necessari"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Vos cal <a href=\"install-firmware\">installar lo logicial del pilòt</a> de "
-"vòstre periferic de numerizacion."
+"vòstre periferic de numerizacion"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -687,8 +693,8 @@ msgstr "Cap de numerizador es pas estat detectat"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Verificatz que vòstre numerizador es connectat e jos tension."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Verificatz que vòstre numerizador es connectat e jos tension"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -775,12 +781,12 @@ msgid "Contacting Scanner…"
 msgstr "Contacte del periferic de numerizacion…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Numerizar una sola pagina a partir del numerizador"
+msgid "Scan a Single Page"
+msgstr "Numerizar una sola pagina"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Numerizar mantuna pagina a partir del numerizador"
+msgid "Scan Multiple Pages"
+msgstr "Numerizar mantuna pagina"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -805,17 +811,17 @@ msgid "_Quit without Saving"
 msgstr "_Quitar sens enregistrar"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_Corrièl"
+msgid "_Email…"
+msgstr "_Corrièl…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "I_mprimir"
+msgid "Pri_nt…"
+msgstr "I_mprimir…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Reorganizar las paginas"
+msgid "_Reorder Pages…"
+msgstr "_Reorganizar las paginas…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1103,6 +1109,21 @@ msgstr ""
 "Executatz « %s --help » per veire la lista completa de las opcions "
 "disponiblas en linha de comanda."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Arrestar la numerizacion en cors"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Enregistrar lo document dins un fichièr"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Pivotar la pagina cap a dreita (sens de las agulhas d'una mòstra)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Numerizar una sola pagina a partir del numerizador"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Numerizar mantuna pagina a partir del numerizador"
+
 #~ msgid "Image Files"
 #~ msgstr "Fichièrs imatges"
 
@@ -1193,9 +1214,6 @@ msgstr ""
 #~ msgid "Simple Scan"
 #~ msgstr "Aisina de numerizacion simpla"
 
-#~ msgid "Scan Documents"
-#~ msgstr "Numerizar de documents"
-
 #~ msgid "scanner"
 #~ msgstr "scanner"
 
@@ -1219,9 +1237,6 @@ msgstr ""
 
 #~ msgid "Save"
 #~ msgstr "Enregistrar"
-
-#~ msgid "Stop"
-#~ msgstr "Arrèsta"
 
 #~ msgid "About Simple Scan"
 #~ msgstr "A prepaus de Simple Scan"
