@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the simple-scan package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2023-2024.
+# Daniel Mustieles García <daniel.mustieles@gmail.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-27 23:00+0000\n"
-"PO-Revision-Date: 2024-03-04 10:46+0100\n"
-"Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-05 12:52+0200\n"
+"Last-Translator: Daniel Mustieles García <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Gtranslator 45.3\n"
+"X-Generator: Gtranslator 46.1\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -321,8 +322,8 @@ msgstr "_Imagen"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Detiene el escaneado actual"
+msgid "Stop"
+msgstr "Detener"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -332,34 +333,41 @@ msgstr "De_tener"
 msgid "_Scan"
 msgstr "E_scanear"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Guardar documento a un archivo"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Opciones de escaneado"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exportar"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Actualizar la lista de dispositivos"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Documento nuevo"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Girar la página a la izquierda (contrario a las agujas del reloj)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Rotar a la izquierda (sentido antihorario)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Girar la página a la derecha (sentido de las agujas del reloj)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Rotar a la derecha (sentido horario)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Recortar la página seleccionada"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Eliminar la página seleccionada"
 
 #: data/ui/authorize-dialog.ui:31
@@ -673,10 +681,10 @@ msgstr "Se necesita software adicional"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Es necesario <a href=\"install-firmware\">instalar controladores software</"
-"a> para el escáner."
+"a> para el escáner"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -685,8 +693,8 @@ msgstr "No se detectó ningún escáner"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Compruebe que su escáner está conectado y encendido."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Compruebe que su escáner está conectado y encendido"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -773,12 +781,12 @@ msgid "Contacting Scanner…"
 msgstr "Contactando con el escáner…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Escanear una sola página desde el escáner"
+msgid "Scan a Single Page"
+msgstr "Escanear una sola página"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Escanear varias páginas desde el escáner"
+msgid "Scan Multiple Pages"
+msgstr "Escanear varias páginas"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -828,17 +836,17 @@ msgid "_Quit without Saving"
 msgstr "_Salir sin guardar"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_Correo electrónico"
+msgid "_Email…"
+msgstr "_Correo electrónico…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "I_mprimir"
+msgid "Pri_nt…"
+msgstr "I_mprimir…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Reordenar las páginas"
+msgid "_Reorder Pages…"
+msgstr "_Reordenar las páginas…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1128,6 +1136,24 @@ msgstr ""
 "Ejecute «%s --help» para ver una lista completa de las opciones de línea de "
 "órdenes disponibles."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Detiene el escaneado actual"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Guardar documento a un archivo"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Girar la página a la derecha (sentido de las agujas del reloj)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Escanear una sola página desde el escáner"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Escanear varias páginas desde el escáner"
+
+#~ msgid "_Email"
+#~ msgstr "_Correo electrónico"
+
 #~ msgid "Image Files"
 #~ msgstr "Archivos de imagen"
 
@@ -1215,9 +1241,6 @@ msgstr ""
 #~ "En el <a href=\"http://samsung.com/support\">sitio web de Samsung</a> "
 #~ "encontrará controladores."
 
-#~ msgid "Scan Documents"
-#~ msgstr "Escanear documentos"
-
 #~ msgid "Resolution for photo scans"
 #~ msgstr "Resolución para los escaneados de fotografías"
 
@@ -1230,9 +1253,6 @@ msgstr ""
 
 #~ msgid "_Scanner"
 #~ msgstr "_Escáner"
-
-#~ msgid "Stop"
-#~ msgstr "Detener"
 
 #~ msgid "Simple Scan"
 #~ msgstr "Simple Scan"
@@ -1293,10 +1313,6 @@ msgstr ""
 
 #~ msgid "Document"
 #~ msgstr "Documento"
-
-#~| msgid "_Email"
-#~ msgid "Email…"
-#~ msgstr "Correo electrónico…"
 
 #~ msgid "_Install Drivers"
 #~ msgstr "_Instalar controladores"
