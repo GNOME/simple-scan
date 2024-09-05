@@ -1,6 +1,6 @@
 # Bulgarian translation of simple-scan po-file
 # Copyright (C) 2009 Rosetta Contributors and Canonical Ltd 2009
-# Copyright (C) 2021, 2022, 2023 Alexander Shopov.
+# Copyright (C) 2021, 2022, 2023, 2024 Alexander Shopov.
 # Copyright (C) 2024 twlvnn kraftwerk <kraft_werk@tutanota.com>.
 # This file is distributed under the same license as the simple-scan package.
 # Svetoslav Stefanov <svetlisashkov@yahoo.com>, 2009.
@@ -11,10 +11,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-06-17 13:36+0000\n"
-"PO-Revision-Date: 2024-08-31 09:09+0200\n"
+"POT-Creation-Date: 2024-09-05 18:11+0000\n"
+"PO-Revision-Date: 2024-09-05 21:08+0200\n"
 "Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
-"Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
+"Language-Team: Bulgarian <dict@ludost.net>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -318,8 +318,8 @@ msgstr "_Изображение"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Спиране на текущото сканиране"
+msgid "Stop"
+msgstr "Спиране"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -329,34 +329,41 @@ msgstr "_Спиране"
 msgid "_Scan"
 msgstr "_Сканиране"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Запазване на документа във файл"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Настройки на сканиране"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Основно меню"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Изнасяне"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Опресняване на списъка с устройства"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Нов документ"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
 msgstr "Завъртане на страницата наляво ↶"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
 msgstr "Завъртане на страницата надясно ↷"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Изрязване на избраната страница"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Изтриване на избраната страница"
 
 #: data/ui/authorize-dialog.ui:31
@@ -564,7 +571,7 @@ msgstr "15"
 #. Preferences Dialog: Section label for quality settings
 #: data/ui/preferences-dialog.ui:122
 msgid "Quality"
-msgstr "Количество"
+msgstr "Качество"
 
 #. Label beside scan resolution combo box
 #: data/ui/preferences-dialog.ui:125
@@ -670,9 +677,9 @@ msgstr "Необходим е допълнителен софтуер"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
-"Трябва да инсталирате <a href='install-firmware'>драйвера</a> на скенера си."
+"Трябва да инсталирате <a href='install-firmware'>драйвера</a> на скенера си"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -681,8 +688,8 @@ msgstr "Не са открити скенери"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Проверете дали скенерът ви е свързан и включен."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Проверете дали скенерът ви е свързан и включен"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -769,11 +776,11 @@ msgid "Contacting Scanner…"
 msgstr "Свързване със скенера…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Сканиране на една страница със скенера"
+msgid "Scan a Single Page"
+msgstr "Сканиране на единична страница със скенера"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
+msgid "Scan Multiple Pages"
 msgstr "Сканиране на множество страници със скенера"
 
 #. Error message display when unable to save image for preview
@@ -784,13 +791,18 @@ msgstr "Изображението не може да бъде запазено 
 #: src/app-window.vala:1242
 msgid "translator-credits"
 msgstr ""
-"Светослав Стефанов &lt;<a href='mailto:svetlisashkov@yahoo.com'>svetlisashkov@yahoo.com</a>&gt;\n"
-"Александър Шопов &lt;<a href='mailto:ash@kambanaria.org'>ash@kambanaria.org</a>&gt;\n"
-"Twlvnn Kraftwerk &lt;<a href='mailto:kraft_werk@tutanota.com'>kraft_werk@tutanota.com</a>&gt;\n"
+"Светослав Стефанов &lt;<a href='mailto:svetlisashkov@yahoo."
+"com'>svetlisashkov@yahoo.com</a>&gt;\n"
+"Александър Шопов &lt;<a href='mailto:ash@kambanaria.org'>ash@kambanaria.org</"
+"a>&gt;\n"
+"Twlvnn Kraftwerk &lt;<a href='mailto:kraft_werk@tutanota."
+"com'>kraft_werk@tutanota.com</a>&gt;\n"
 "\n"
 "Проектът за превод на GNOME има нужда от подкрепа.\n"
-"Научете повече за нас на <a href='https://fsa-bg.org/project/gtp'>уеб сайта</a> ни.\n"
-"Докладвайте за грешки в превода в <a href='https://fsa-bg.org/project/gtp/newticket'>съответния раздел</a>.<\n"
+"Научете повече за нас на <a href='https://fsa-bg.org/project/gtp'>уеб сайта</"
+"a> ни.\n"
+"Докладвайте за грешки в превода в <a href='https://fsa-bg.org/project/gtp/"
+"newticket'>съответния раздел</a>.<\n"
 "\n"
 "Сътрудници в Launchpad:\n"
 "<a href='https://launchpad.net/~zdar'>Атанас Ковачки</a>\n"
@@ -812,17 +824,17 @@ msgid "_Quit without Saving"
 msgstr "Спиране _без запазване"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_E-поща"
+msgid "_Email…"
+msgstr "_E-поща…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "_Печат"
+msgid "Pri_nt…"
+msgstr "_Печат…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "П_реподреждане на страниците"
+msgid "_Reorder Pages…"
+msgstr "П_реподреждане на страниците…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1110,6 +1122,21 @@ msgstr "[УСТРОЙСТВО…] — инструмент за сканиран
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Изпълнете „%s --help“, за да видите списъка с всички опции на командния ред."
+
+#~ msgid "Stop the current scan"
+#~ msgstr "Спиране на текущото сканиране"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Запазване на документа във файл"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Завъртане на страницата надясно ↷"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Сканиране на една страница със скенера"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Сканиране на множество страници със скенера"
 
 #~ msgid "Image Files"
 #~ msgstr "Файлове с изображения"
