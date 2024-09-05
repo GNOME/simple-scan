@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-27 23:00+0000\n"
-"PO-Revision-Date: 2023-09-11 20:07+0100\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-05 11:17+0200\n"
 "Last-Translator: Jordi Mas i Heranàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "Language: ca\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -331,8 +331,8 @@ msgstr "_Imatge"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Atura l'escaneig actual"
+msgid "Stop"
+msgstr "Atura"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -342,34 +342,41 @@ msgstr "_Atura"
 msgid "_Scan"
 msgstr "_Escaneja"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Desa el document en un fitxer"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Opcions de l'escaneig"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exporta"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Actualitza la llista de dispositius"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Document nou"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Gira la pàgina cap a l'esquerra (en sentit antihorari)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Gira cap a l'esquerra (en sentit antihorari)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Gira la pàgina cap a la dreta (en sentit horari)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Gira cap a la dreta (en sentit horari)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Escapça la pàgina seleccionada"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Suprimeix la pàgina seleccionada"
 
 #: data/ui/authorize-dialog.ui:31
@@ -683,10 +690,10 @@ msgstr "Programari addicional necessari"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Heu <a href=\"install-firmware\">d'instal·lar un controlador</a> per al "
-"vostre escàner."
+"vostre escàner"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -695,8 +702,8 @@ msgstr "No s'ha detectat cap escàner"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Comproveu que l'escàner està connectat i engegat."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Comproveu que l'escàner està connectat i engegat"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -783,12 +790,12 @@ msgid "Contacting Scanner…"
 msgstr "S'està contactant amb l'escàner…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Escaneja una sola pàgina a l'escàner"
+msgid "Scan a Single Page"
+msgstr "Escaneja una sola pàgina"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Escaneja diverses pàgines des de l'escàner"
+msgid "Scan Multiple Pages"
+msgstr "Escaneja diverses pàgines"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -815,17 +822,17 @@ msgid "_Quit without Saving"
 msgstr "_Surt sense desar"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_Correu electrònic"
+msgid "_Email…"
+msgstr "_Correu electrònic..."
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "Imp_rimeix"
+msgid "Pri_nt…"
+msgstr "Imp_rimeix..."
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Reordena les pàgines"
+msgid "_Reorder Pages…"
+msgstr "_Reordena les pàgines..."
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1113,6 +1120,21 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Executeu «%s --help» per a veure la llista completa d'opcions disponibles de "
 "la línia d'ordres."
+
+#~ msgid "Stop the current scan"
+#~ msgstr "Atura l'escaneig actual"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Desa el document en un fitxer"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Gira la pàgina cap a la dreta (en sentit horari)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Escaneja una sola pàgina a l'escàner"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Escaneja diverses pàgines des de l'escàner"
 
 #~ msgid "Image Files"
 #~ msgstr "Fitxers d'imatge"
