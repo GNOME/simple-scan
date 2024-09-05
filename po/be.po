@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-06 00:16+0000\n"
-"PO-Revision-Date: 2024-02-07 02:45+0300\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-05 13:35+0300\n"
 "Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -213,17 +213,19 @@ msgstr "Праект GNOME"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
 msgid "scan;scanner;flatbed;adf;"
-msgstr "сканіраванне;сканаванне;сканер;планшэт;adf;"
+msgstr ""
+"scan;scanner;flatbed;adf;сканіраванне;сканаванне;планшэтны;сканер;аўтападача;"
+"аўтападатчык;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
 msgid "Rotate _Left"
-msgstr "Павярнуць _налева"
+msgstr "Павярнуць у_лева"
 
 #. Menu item to rotate page to right (clockwise)
 #: data/ui/app-window.ui:12
 msgid "Rotate _Right"
-msgstr "Павярнуць _направа"
+msgstr "Павярнуць у_права"
 
 #. Label for page crop submenu
 #: data/ui/app-window.ui:16
@@ -320,8 +322,8 @@ msgstr "_Выява"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Спыніць сканаванне"
+msgid "Stop"
+msgstr "Стоп"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -331,34 +333,41 @@ msgstr "С_пыніць"
 msgid "_Scan"
 msgstr "_Сканаваць"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Запісаць дакумент у файл"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Параметры сканавання"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Галоўнае меню"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Экспартаваць"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Абнавіць спіс прылад"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Новы дакумент"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Павярнуць старонку ўлева (супраць ходу гадзіннікавай стрэлкі)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Павярнуць улева (супраць гадзіннікавай стрэлкі)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Павярнуць старонку ўправа (па ходу гадзіннікавай стрэлкі)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Павярнуць управа (па ходу гадзіннікавай стрэлкі)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Абрэзаць выбраную старонку"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Выдаліць выбраную старонку"
 
 #: data/ui/authorize-dialog.ui:31
@@ -672,10 +681,10 @@ msgstr "Патрэбна дадатковае праграмнае забесп�
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
-"Вам неабходна ўсталяваць <a href=\"install-firmware\">драйвер </a> для "
-"вашага сканера."
+"Вам неабходна <a href=\"install-firmware\">ўсталяваць драйвер </a> для "
+"сканера"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -684,13 +693,13 @@ msgstr "Сканераў не знойдзена"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Праверце ці падлучаны і ўключаны сканер."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Праверце ці падлучаны і ўключаны сканер"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
 msgid "An autosaved book exists. Do you want to open it?"
-msgstr "Існуе кніга захаваная аўтаматычна. Хочаце яе адкрыць?"
+msgstr "Маецца кніга захаваная аўтаматычна. Хочаце яе адкрыць?"
 
 #: src/app-window.vala:308
 msgid "_No"
@@ -772,12 +781,12 @@ msgid "Contacting Scanner…"
 msgstr "Злучэнне са сканерам…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Сканаваць адну старонку са сканера"
+msgid "Scan a Single Page"
+msgstr "Сканаваць адну старонку"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Сканаваць некалькі старонак са сканера"
+msgid "Scan Multiple Pages"
+msgstr "Сканаваць некалькі старонак"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -799,17 +808,17 @@ msgid "_Quit without Saving"
 msgstr "_Выйсці без захавання"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_Электронная пошта"
+msgid "_Email…"
+msgstr "_Электронная пошта…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "_Друк"
+msgid "Pri_nt…"
+msgstr "_Друк…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Пераўпарадкаваць старонкі"
+msgid "_Reorder Pages…"
+msgstr "_Пераўпарадкаваць старонкі…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1095,6 +1104,21 @@ msgstr "[DEVICE…] — прылада сканавання"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Выканайце «%s --help», каб паглядзець поўны спіс даступных параметраў."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Спыніць сканаванне"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Запісаць дакумент у файл"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Павярнуць старонку ўправа (па ходу гадзіннікавай стрэлкі)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Сканаваць адну старонку са сканера"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Сканаваць некалькі старонак са сканера"
+
 #~ msgid "Image Files"
 #~ msgstr "Файлы выяў"
 
@@ -1164,9 +1188,6 @@ msgstr "Выканайце «%s --help», каб паглядзець поўны
 #~ msgid "Simple Scan"
 #~ msgstr "Простае сканаванне"
 
-#~ msgid "Scan Documents"
-#~ msgstr "Сканаванне дакументаў"
-
 #~ msgid "scanner"
 #~ msgstr "scanner"
 
@@ -1187,9 +1208,6 @@ msgstr "Выканайце «%s --help», каб паглядзець поўны
 
 #~ msgid "Save"
 #~ msgstr "Захаваць"
-
-#~ msgid "Stop"
-#~ msgstr "Стоп"
 
 #~ msgid "About Simple Scan"
 #~ msgstr "Пра Просты сканер"
