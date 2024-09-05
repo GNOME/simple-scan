@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-12-05 18:06+0000\n"
-"PO-Revision-Date: 2023-08-13 02:36+0200\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-06 00:30+0200\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: čeština <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -182,16 +182,16 @@ msgstr ""
 "Bezprostředně před příponu názvu tohoto souboru bude přidáno „_orig“."
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "Skenování dokumentů"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr "Udělejte si digitální kopie svých fotografií a dokumentů"
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -202,13 +202,14 @@ msgstr ""
 "vzhůru nohama. Až budete hotovi, výsledek si vytiskněte, převeďte do PDF, "
 "nebo uložte v některém z rozmanité nabídky formátů."
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Tato aplikace používá jako základ rohraní SANE, aby pokryla co největší "
 "množství skenerů."
 
-#: data/simple-scan.appdata.xml.in:27
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
 msgid "The GNOME Project"
 msgstr "Projekt GNOME"
 
@@ -323,8 +324,8 @@ msgstr "_Obrázek"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Zastavit probíhající skenování"
+msgid "Stop"
+msgstr "Zastavit"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -334,34 +335,41 @@ msgstr "Zas_tavit"
 msgid "_Scan"
 msgstr "_Skenovat"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Uložit dokument do souboru"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Volby skenování"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Hlavní nabídka"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exportovat"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Aktualizovat seznam zařízení"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Nový dokument"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Otočit stránku doleva (proti směru hodinových ručiček)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Otočit doleva (proti směru hodinových ručiček)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Otočit stránku doprava (po směru hodinových ručiček)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Otočit doprava (po směru hodinových ručiček)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Oříznout vybranou stránku"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Smazat vybranou stránku"
 
 #: data/ui/authorize-dialog.ui:31
@@ -529,7 +537,7 @@ msgstr "Obě"
 #. Label beside page size combo box
 #: data/ui/preferences-dialog.ui:68
 msgid "_Page Size"
-msgstr "_Velikost stránky:"
+msgstr "_Velikost stránky"
 
 #. Label beside page delay scale
 #: data/ui/preferences-dialog.ui:74
@@ -675,10 +683,10 @@ msgstr "Jsou zapotřebí ovladače skeneru"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Potřebujete <a href=\"install-firmware\">nainstalovat ovladače</a> pro svůj "
-"skener."
+"skener"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -687,7 +695,7 @@ msgstr "Nebyl nalezen žádný skener"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
+msgid "Please check your scanner is connected and powered on"
 msgstr "Zkontrolujte prosím, že je váš skener připojený a zapnutý"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
@@ -775,12 +783,12 @@ msgid "Contacting Scanner…"
 msgstr "Kontaktuje se skener…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Naskenovat jednu stránku ze skeneru"
+msgid "Scan a Single Page"
+msgstr "Naskenovat jednu stránku"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Naskenovat více stránek ze skeneru"
+msgid "Scan Multiple Pages"
+msgstr "Naskenovat více stránek"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -816,17 +824,17 @@ msgid "_Quit without Saving"
 msgstr "U_končit bez uložení"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_E-mail"
+msgid "_Email…"
+msgstr "_E-mail…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "_Tisk"
+msgid "Pri_nt…"
+msgstr "_Tisk…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Přeskupit st_ránky"
+msgid "_Reorder Pages…"
+msgstr "Přeskupit st_ránky…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1114,6 +1122,21 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Spuštěním „%s --help“ si zobrazíte úplný seznam dostupných přepínačů "
 "příkazové řádky."
+
+#~ msgid "Stop the current scan"
+#~ msgstr "Zastavit probíhající skenování"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Uložit dokument do souboru"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Otočit stránku doprava (po směru hodinových ručiček)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Naskenovat jednu stránku ze skeneru"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Naskenovat více stránek ze skeneru"
 
 #~ msgid "Image Files"
 #~ msgstr "Soubory obrázků"
