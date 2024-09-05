@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-27 23:00+0000\n"
-"PO-Revision-Date: 2023-12-06 19:00+0300\n"
-"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-05 08:00+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -325,8 +325,8 @@ msgstr "_Resim"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Geçerli taramayı durdur"
+msgid "Stop"
+msgstr "Durdur"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -336,35 +336,42 @@ msgstr "_Durdur"
 msgid "_Scan"
 msgstr "_Tara"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Belgeyi dosyaya kaydet"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Tarama Seçenekleri"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Ana Menü"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Dışa Aktar"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
-msgstr "Aygıt listesini yenile"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
+msgstr "Aygıt Listesini Yenile"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Yeni Belge"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Sayfayı sola döndür (saat yönünün tersine)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Sola Döndür (saat yönü tersinde)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Sayfayı sağa döndür (saat yönünde)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Sağa Döndür (saat yönünde)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
-msgstr "Seçili sayfayı kırp"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
+msgstr "Seçili Sayfayı Kırp"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
-msgstr "Seçili sayfayı sil"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
+msgstr "Seçili Sayfayı Sil"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
@@ -677,10 +684,8 @@ msgstr "Ek Yazılım Gerekiyor"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
-msgstr ""
-"Tarayıcınız için <a href=\"install-firmware\">sürücü yazılımını kurmanız</a> "
-"gerekir."
+"your scanner"
+msgstr "Tarayıcınız için <a href=\"install-firmware\">sürücü yazılımını kurmalısınız</a>"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -689,8 +694,8 @@ msgstr "Tarayıcı Bulunamadı"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Lütfen tarayıcınızın bağlı ve açık olduğundan emin olun."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Lütfen tarayıcınızın bağlı ve açık olduğundan emin olun"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -777,12 +782,12 @@ msgid "Contacting Scanner…"
 msgstr "Tarayıcıyla İletişim Kuruluyor…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Tarayıcıdan tek bir sayfa tara"
+msgid "Scan a Single Page"
+msgstr "Tek Sayfa Tara"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Tarayıcıdan çoklu sayfa tara"
+msgid "Scan Multiple Pages"
+msgstr "Çoklu Sayfa Tara"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -807,17 +812,17 @@ msgid "_Quit without Saving"
 msgstr "_Kaydetmeden Çık"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_E-posta"
+msgid "_Email…"
+msgstr "_E-posta…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "Y_azdır"
+msgid "Pri_nt…"
+msgstr "Y_azdır…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Sayfaları _Yeniden Sırala"
+msgid "_Reorder Pages…"
+msgstr "Sayfaları _Yeniden Sırala…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1103,3 +1108,18 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Kullanılabilir komut satırı seçeneklerinin tam listesini görmek için “%s --"
 "help” komutunu çalıştırın."
+
+#~ msgid "Stop the current scan"
+#~ msgstr "Geçerli taramayı durdur"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Belgeyi dosyaya kaydet"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Sayfayı sağa döndür (saat yönünde)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Tarayıcıdan tek bir sayfa tara"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Tarayıcıdan çoklu sayfa tara"
