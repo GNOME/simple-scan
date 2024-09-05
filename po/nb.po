@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-03-16 13:55+0000\n"
-"PO-Revision-Date: 2024-08-31 01:18+0200\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-05 18:12+0200\n"
 "Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: \n"
 "Language: nb\n"
@@ -323,8 +323,8 @@ msgstr "_Bilde"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Stans skanning"
+msgid "Stop"
+msgstr "Stans"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -334,34 +334,41 @@ msgstr "St_ans"
 msgid "_Scan"
 msgstr "_Skann"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Lagre"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Skanneinnstillinger"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Hovedmeny"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Eksporter"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Last inn på nytt"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Nytt dokument"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Roter mot klokken"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Roter mot venstre"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Roter med klokken"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Roter mot høyre"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Beskjær valgt side"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Slett valgt side"
 
 #: data/ui/authorize-dialog.ui:31
@@ -675,10 +682,9 @@ msgstr "Installer drivere"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
-"Det må installeres <a href=\"install-firmware\">dedikerte drivere</a> for å "
-"bruke denne skanneren."
+"Denne skanneren trenger <a href=\"install-firmware\">dedikerte drivere</a>"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -687,8 +693,8 @@ msgstr "Fant ingen skannere"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Pass på at skanneren er på og tilkoblet."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Pass på at skanneren er på og tilkoblet"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -775,12 +781,12 @@ msgid "Contacting Scanner…"
 msgstr "Kobler til skanner…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Skann én side fra skanneren"
+msgid "Scan a Single Page"
+msgstr "Skann én side"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Skann flere sider fra skanneren"
+msgid "Scan Multiple Pages"
+msgstr "Skann flere sider"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -802,17 +808,17 @@ msgid "_Quit without Saving"
 msgstr "_Forkast"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "Send _e-post"
+msgid "_Email…"
+msgstr "Send _e-post…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "_Skriv ut"
+msgid "Pri_nt…"
+msgstr "_Skriv ut…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Side_rekkefølge"
+msgid "_Reorder Pages…"
+msgstr "Endre _rekkefølge…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1096,3 +1102,18 @@ msgstr "[ENHET…] – Skanner"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Kjør «%s --help» for å se en full liste over tilgjengelige kommandoer."
+
+#~ msgid "Stop the current scan"
+#~ msgstr "Stans skanning"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Lagre"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Roter med klokken"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Skann én side fra skanneren"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Skann flere sider fra skanneren"
