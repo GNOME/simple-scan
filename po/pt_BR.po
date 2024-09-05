@@ -8,21 +8,22 @@
 # Enrico Nicoletto <liverig@gmail.com>, 2017, 2020.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2017-2022.
 # Leônidas Araújo <leorusvellt@hotmail.com>, 2022-2023.
+# Juliano de Souza Camargo <julianosc@pm.me>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-12-05 18:06+0000\n"
-"PO-Revision-Date: 2024-03-28 08:55-0300\n"
-"Last-Translator: Leônidas Araújo <leorusvellt@hotmail.com>\n"
-"Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-05 09:51-0300\n"
+"Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
+"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Gtranslator 46.1\n"
 "X-Launchpad-Export-Date: 2016-12-19 05:08+0000\n"
 "X-DL-Team: pt_BR\n"
 "X-DL-Module: simple-scan\n"
@@ -194,16 +195,16 @@ msgstr ""
 "do arquivo."
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "Digitalizador de documentos"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr "Faça uma cópia digital de suas fotos e documentos"
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -214,13 +215,14 @@ msgstr ""
 "esteja do lado errado. Você pode imprimir as suas digitalizações, exportá-"
 "las em pdf ou salvá-las em uma variedade de formatos de imagem."
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Esse aplicativo usa o framework SANE para prover suporte à maioria dos "
 "scanners existentes."
 
-#: data/simple-scan.appdata.xml.in:27
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
 msgid "The GNOME Project"
 msgstr "O Projeto GNOME"
 
@@ -338,8 +340,8 @@ msgstr "_Imagem"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Interrompe a digitalização atual"
+msgid "Stop"
+msgstr "Parar"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -349,34 +351,41 @@ msgstr "Pa_rar"
 msgid "_Scan"
 msgstr "_Digitalizar"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Salva o documento em um arquivo"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Opções de digitalização"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Menu principal"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exportar"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Atualiza a lista de dispositivos"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Novo documento"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Gira a página à esquerda (sentido anti-horário)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Gira à esquerda (sentido anti-horário)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Gira a página à direita (sentido horário)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Gira à direita (sentido horário)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Recorta a página selecionada"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Exclui a página selecionada"
 
 #: data/ui/authorize-dialog.ui:31
@@ -691,10 +700,10 @@ msgstr "Necessário software adicional"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Você precisa <a href=\"install-firmware\">instalar o software de driver</a> "
-"para o seu scanner."
+"para o seu scanner"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -703,8 +712,8 @@ msgstr "Nenhum scanner detectado"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Por favor, verifique se o seu scanner está conectado e ligado."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Por favor, verifique se o seu scanner está conectado e ligado"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -791,12 +800,12 @@ msgid "Contacting Scanner…"
 msgstr "Contatando o scanner…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Digitaliza uma única página no scanner"
+msgid "Scan a Single Page"
+msgstr "Digitaliza uma única página"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Digitaliza várias páginas no scanner"
+msgid "Scan Multiple Pages"
+msgstr "Digitaliza múltiplas páginas"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -812,6 +821,7 @@ msgstr ""
 "  Isaac F. Ferreira Filho <isaacmob@riseup.net>\n"
 "  Rafael Fontenelle <rafaelff@gnome.org>\n"
 "  Leônidas Araújo <leorusvellt@hotmail.com>\n"
+"  Juliano de Souza Camargo <julianosc@pm.me>\n"
 "\n"
 "Tradutores do Launchpad:\n"
 "  André Gondim https://launchpad.net/~andregondim\n"
@@ -849,17 +859,17 @@ msgid "_Quit without Saving"
 msgstr "_Sair sem salvar"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_E-mail"
+msgid "_Email…"
+msgstr "_E-mail…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "_Imprimir"
+msgid "Pri_nt…"
+msgstr "_Imprimir…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Reordenar páginas"
+msgid "_Reorder Pages…"
+msgstr "_Reordenar páginas…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1147,6 +1157,24 @@ msgstr ""
 "Execute “%s --help” para ver a lista completa de opções disponíveis para "
 "linha de comando."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Interrompe a digitalização atual"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Salva o documento em um arquivo"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Gira a página à direita (sentido horário)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Digitaliza uma única página no scanner"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Digitaliza várias páginas no scanner"
+
+#~ msgid "_Email"
+#~ msgstr "_E-mail"
+
 #~ msgid "Image Files"
 #~ msgstr "Arquivos de imagem"
 
@@ -1234,9 +1262,6 @@ msgstr ""
 #~ "Drivers para ele estão disponíveis no <a href=\"http://samsung.com/"
 #~ "support\">site da Samsung</a>."
 
-#~ msgid "Scan Documents"
-#~ msgstr "Digitalização de documentos"
-
 #~ msgid "Resolution for photo scans"
 #~ msgstr "Resolução para digitalização de fotos"
 
@@ -1248,9 +1273,6 @@ msgstr ""
 #~| msgid "_Photo Resolution"
 #~ msgid "Photo Resolution"
 #~ msgstr "Resolução da foto"
-
-#~ msgid "Stop"
-#~ msgstr "Parar"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Scanner"
@@ -1308,9 +1330,6 @@ msgstr ""
 
 #~ msgid "Document"
 #~ msgstr "Documentos"
-
-#~ msgid "Email…"
-#~ msgstr "E-mail…"
 
 #~ msgid "_Install Drivers"
 #~ msgstr "_Instalar drivers"
