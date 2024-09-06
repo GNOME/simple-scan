@@ -1,7 +1,7 @@
 # Swedish translation for simple-scan
 # Copyright © 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Josef Andersson <l10nl18nsweja@gmail.com>, 2017.
 # Luna Jernberg <droidbittin@gmail.com>, 2021.
 #
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-12-06 13:28+0000\n"
-"PO-Revision-Date: 2023-08-20 11:22+0200\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-04 00:03+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -207,7 +207,8 @@ msgstr ""
 "Detta program använder ramverket SANE för att hantera de flesta bildläsare "
 "som finns på marknaden."
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:28
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
 msgid "The GNOME Project"
 msgstr "GNOME-projektet"
 
@@ -321,8 +322,8 @@ msgstr "_Bild"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Stoppa den aktuella skanningen"
+msgid "Stop"
+msgstr "Stoppa"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -332,35 +333,42 @@ msgstr "S_toppa"
 msgid "_Scan"
 msgstr "_Skanna"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Spara dokument till en fil"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Bildläsningsalternativ"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Huvudmeny"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exportera"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Uppdatera enhetslistan"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Nytt dokument"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Rotera sidan åt vänster (moturs)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Rotera åt vänster (moturs)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Rotera sidan åt höger (medurs)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Rotera åt höger (medurs)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
-msgstr "Beskär den valda sidan"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
+msgstr "Beskär vald sida"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
-msgstr "Radera den valda sidan"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
+msgstr "Radera vald sida"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
@@ -673,10 +681,10 @@ msgstr "Ytterligare programvara behövs"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Du behöver <a href=\"install-firmware\">installera drivrutiner</a> för din "
-"bildläsare."
+"bildläsare"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -685,8 +693,8 @@ msgstr "Ingen bildläsare hittades"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Kontrollera att din bildläsare är ansluten och påslagen."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Kontrollera att din bildläsare är ansluten och påslagen"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -773,12 +781,12 @@ msgid "Contacting Scanner…"
 msgstr "Kontaktar bildläsare…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Skanna in en enstaka sida från bildläsaren"
+msgid "Scan a Single Page"
+msgstr "Skanna in en enstaka sida"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Skanna in flera sidor från bildläsaren"
+msgid "Scan Multiple Pages"
+msgstr "Skanna in flera sidor"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -814,17 +822,17 @@ msgid "_Quit without Saving"
 msgstr "A_vsluta utan att spara"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_E-post"
+msgid "_Email…"
+msgstr "_E-post…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "S_kriv ut"
+msgid "Pri_nt…"
+msgstr "S_kriv ut…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Änd_ra sidordning"
+msgid "_Reorder Pages…"
+msgstr "Änd_ra sidordning…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1111,6 +1119,24 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Kör ”%s --help” för en komplett lista över tillgängliga kommandoradsflaggor."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Stoppa den aktuella skanningen"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Spara dokument till en fil"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Rotera sidan åt höger (medurs)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Skanna in en enstaka sida från bildläsaren"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Skanna in flera sidor från bildläsaren"
+
+#~ msgid "_Email"
+#~ msgstr "_E-post"
+
 #~ msgid "Image Files"
 #~ msgstr "Bildfiler"
 
@@ -1197,17 +1223,11 @@ msgstr ""
 #~ "Drivrutinerna finns på <a href=\"http://samsung.com/support\">Samsungs "
 #~ "webbplats</a>."
 
-#~ msgid "Scan Documents"
-#~ msgstr "Skanna dokument"
-
 #~ msgid "Resolution for photo scans"
 #~ msgstr "Upplösning för fotoinläsningar"
 
 #~ msgid "The resolution in dots-per-inch to use when scanning photos."
 #~ msgstr "Upplösningen i punkter per tum att använda när foton skannas in."
-
-#~ msgid "Stop"
-#~ msgstr "Stoppa"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Bildläsare"
@@ -1277,9 +1297,6 @@ msgstr ""
 
 #~ msgid "Document"
 #~ msgstr "Dokument"
-
-#~ msgid "Email…"
-#~ msgstr "E-post…"
 
 #~ msgid "Maximum"
 #~ msgstr "Maximum"
