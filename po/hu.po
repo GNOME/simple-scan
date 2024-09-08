@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-18 17:21+0000\n"
-"PO-Revision-Date: 2024-02-22 02:10+0100\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-08 09:03+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -319,8 +319,8 @@ msgstr "_Kép"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "A jelenlegi szkennelés leállítása"
+msgid "Stop"
+msgstr "Leállítás"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -330,40 +330,49 @@ msgstr "_Leállítás"
 msgid "_Scan"
 msgstr "_Szkennelés"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Dokumentum fájlba mentése"
+#: data/ui/app-window.ui:211
+#| msgid "Scan _Sides"
+msgid "Scan Options"
+msgstr "Szkennelési beállítások"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Főmenü"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exportálás"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+#| msgid "Refresh device list"
+msgid "Refresh Device List"
 msgstr "Eszközlista frissítése"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Új dokumentum"
 
-#: data/ui/app-window.ui:326
-#| msgctxt "shortcut window"
-#| msgid "Rotate page to the left (anti-clockwise)"
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Az oldal elforgatása balra (az óra járásával ellentétesen)"
+#: data/ui/app-window.ui:327
+#| msgid "Rotate the page to the left (counter-clockwise)"
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Forgatás balra (az óra járásával ellentétesen)"
 
-#: data/ui/app-window.ui:334
+#: data/ui/app-window.ui:335
 #| msgctxt "shortcut window"
 #| msgid "Rotate page to the right (clockwise)"
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Az oldal elforgatása jobbra (az óra járásával egyezően)"
+msgid "Rotate Right (clockwise)"
+msgstr "Forgatás jobbra (az óra járásával egyezően)"
 
-#: data/ui/app-window.ui:342
+#: data/ui/app-window.ui:343
+#| msgid "Crop the selected page"
+msgid "Crop Selected Page"
+msgstr "Kiválasztott oldal vágása"
+
+#: data/ui/app-window.ui:351
 #| msgid "Delete the selected page"
-msgid "Crop the selected page"
-msgstr "A kiválasztott oldal vágása"
-
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
-msgstr "A kiválasztott oldal törlése"
+msgid "Delete Selected Page"
+msgstr "Kiválasztott oldal törlése"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
@@ -674,12 +683,15 @@ msgstr "További szoftverek szükségesek"
 
 #. Instructions to install driver software
 #: src/app-window.vala:247
+#| msgid ""
+#| "You need to <a href=\"install-firmware\">install driver software</a> for "
+#| "your scanner."
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
-"A szkennerhez <a href=\"install-firmware\">illesztőprogramot kell "
-"telepíteni</a>."
+"A szkennerhez <a href=\"install-firmware\">illesztőprogramot kell telepíteni<"
+"/a>"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -688,9 +700,9 @@ msgstr "Nem találhatók szkennerek"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr ""
-"Ellenőrizze, hogy a szkenner csatlakoztatva van, és be van-e kapcsolva."
+#| msgid "Please check your scanner is connected and powered on."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Ellenőrizze, hogy a szkenner csatlakoztatva van, és be van-e kapcsolva"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -777,12 +789,16 @@ msgid "Contacting Scanner…"
 msgstr "Kapcsolatfelvétel a szkennerrel…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Egy oldal szkennelése az eszközről"
+#| msgctxt "shortcut window"
+#| msgid "Scan a single page"
+msgid "Scan a Single Page"
+msgstr "Egy oldal szkennelése"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Több oldal szkennelése az eszközről"
+#| msgctxt "shortcut window"
+#| msgid "Scan a single page"
+msgid "Scan Multiple Pages"
+msgstr "Több oldal szkennelése"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -818,17 +834,21 @@ msgid "_Quit without Saving"
 msgstr "_Kilépés mentés nélkül"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "Küldés _e-mailben"
+#| msgid "_Email"
+msgid "_Email…"
+msgstr "Küldés _e-mailben…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "Nyom_tatás"
+#| msgid "Pri_nt"
+msgid "Pri_nt…"
+msgstr "Nyom_tatás…"
 
 #: src/app-window.vala:1384
+#| msgctxt "menu"
+#| msgid "_Reorder Pages"
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Oldalak át_rendezése"
+msgid "_Reorder Pages…"
+msgstr "Oldalak át_rendezése…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
