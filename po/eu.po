@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the simple-scan package.
 #
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2017.
-# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2019, 2020, 2021, 2022, 2023.
+# Asier Sarasua Garmendia  <asiersarasua@ni.eus>, 2019, 2020, 2021, 2022, 2023, 2024.
 #
 msgid ""
 msgstr "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-06 00:16+0000\n"
-"PO-Revision-Date: 2023-08-06 10:00+0100\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-08 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -301,8 +301,8 @@ msgstr "_Irudia"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Gelditu uneko eskaneatzea"
+msgid "Stop"
+msgstr "Gelditu"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -312,35 +312,42 @@ msgstr "_Gelditu"
 msgid "_Scan"
 msgstr "E_skaneatu"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Gorde dokumentua fitxategi batean"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Eskaneatze-aukerak"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Menu nagusia"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Esportatu"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Freskatu gailuen zerrenda"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Dokumentu berria"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Biratu orrialdea ezkerrera (erlojuaren kontrako noranzkoan)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Biratu ezkerrera (erlojuaren kontrako noranzkoan)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Biratu orrialdea eskuinera (erlojuaren noranzkoan)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Biratu eskuinera (erlojuaren noranzkoan)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Moztu hautatutako orrialdea"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
-msgstr "Ezabatu hautatutako orria"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
+msgstr "Ezabatu hautatutako orrialdea"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
@@ -653,8 +660,8 @@ msgstr "Software gehigarria behar da"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
-msgstr "Zure eskanerrentzako <a href=\"install-firmware\">kontrolatzaile softwarea instalatu</a> behar duzu."
+"your scanner"
+msgstr "Zure eskanerrentzako <a href=\"install-firmware\">kontrolatzaile softwarea instalatu</a> behar duzu"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -663,8 +670,8 @@ msgstr "Ez da eskanerrik detektatu"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Egiaztatu zure eskanerra konektatuta eta piztuta dagoela."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Egiaztatu zure eskanerra konektatuta eta piztuta dagoela"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -743,7 +750,7 @@ msgstr "Gorde uneko dokumentua?"
 #. Button in dialog to create new document and discard unsaved document
 #: src/app-window.vala:712
 msgid "_Discard Changes"
-msgstr "_Baztertu aldaketak"
+msgstr "Ba_ztertu aldaketak"
 
 #. Label shown when scan started
 #: src/app-window.vala:780
@@ -751,12 +758,12 @@ msgid "Contacting Scanner…"
 msgstr "Eskanerrarekin kontaktuan jartzen…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Eskaneatu eskanerreko orrialde bakarra"
+msgid "Scan a Single Page"
+msgstr "Eskaneatu orrialde bakarra"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Eskaneatu eskanerreko orrialde anitz"
+msgid "Scan Multiple Pages"
+msgstr "Eskaneatu orrialde anitz"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -765,7 +772,7 @@ msgstr "Ezin izan da aurrebistarako irudia gorde"
 
 #: src/app-window.vala:1242
 msgid "translator-credits"
-msgstr "translator-credits"
+msgstr "Asier Sarasua Garmendia <asiersarasua@ni.eus>"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:1263
@@ -778,17 +785,17 @@ msgid "_Quit without Saving"
 msgstr "_Irten gorde gabe"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_Posta elektronikoa"
+msgid "_Email…"
+msgstr "Posta _elektronikoa…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "I_nprimatu"
+msgid "Pri_nt…"
+msgstr "I_nprimatu…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Be_rrordenatu orrialdeak"
+msgid "_Reorder Pages…"
+msgstr "Be_rrordenatu orrialdeak…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1053,7 +1060,22 @@ msgstr "[DEVICE…] — Eskaneatze-tresna"
 #: src/simple-scan.vala:1969
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
-msgstr "Exekutatu “%s --help” komando-lerroko aukera guztiak zerrendatzeko."
+msgstr "Exekutatu “%s --help“ komando-lerroko aukera erabilgarrien zerrenda ikusteko."
+
+#~ msgid "Stop the current scan"
+#~ msgstr "Gelditu uneko eskaneatzea"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Gorde dokumentua fitxategi batean"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Biratu orrialdea eskuinera (erlojuaren noranzkoan)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Eskaneatu eskanerreko orrialde bakarra"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Eskaneatu eskanerreko orrialde anitz"
 
 #~ msgid "Image Files"
 #~ msgstr "Irudi-fitxategiak"
@@ -1140,17 +1162,11 @@ msgstr "Exekutatu “%s --help” komando-lerroko aukera guztiak zerrendatzeko."
 #~ "Honentzako kontrolatzaileak <a href=\"http://samsung.com/"
 #~ "support\">Samsung webgunean</a> erabilgarri daude."
 
-#~ msgid "Scan Documents"
-#~ msgstr "Eskaneatu dokumentuak"
-
 #~ msgid "Resolution for photo scans"
 #~ msgstr "Bereizmena argazkien eskaneatzerako"
 
 #~ msgid "The resolution in dots-per-inch to use when scanning photos."
 #~ msgstr "Argazkiak eskaneatzen erabiliko den bereizmena (puntuak hazbeteko)."
-
-#~ msgid "Stop"
-#~ msgstr "Gelditu"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Eskanerra"
