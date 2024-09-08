@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-29 20:44+0000\n"
-"PO-Revision-Date: 2023-08-07 19:22+0300\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-08 10:46+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: suomi <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -319,8 +319,8 @@ msgstr "_Kuva"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Pysäytä skannaus"
+msgid "Stop"
+msgstr "Pysäytä"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -330,34 +330,41 @@ msgstr "_Pysäytä"
 msgid "_Scan"
 msgstr "_Lue"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Tallenna asiakirja tiedostoon"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Skannausasetukset"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Päävalikko"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Vie"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Päivitä laiteluettelo"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Uusi asiakirja"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
 msgstr "Kierrä sivua vasemmalle (vastapäivään)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Kierrä sivua oikealle (myötäpäivään)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Kierrä sivua (myötäpäivään)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Rajaa nykyistä sivua"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Poista valittu sivu"
 
 #: data/ui/authorize-dialog.ui:31
@@ -671,10 +678,10 @@ msgstr "Lisäohjelmistoja vaaditaan"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Skanneria varten on <a href=\"install-firmware\">asennettava erillinen "
-"ajuri</a>."
+"ajuri</a>"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -683,8 +690,8 @@ msgstr "Skanneria ei havaittu"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Varmista, että skanneri on kytketty päälle."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Varmista, että skanneri on yhdistetty ja kytketty päälle"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -772,12 +779,12 @@ msgid "Contacting Scanner…"
 msgstr "Yhdistetään skanneriin…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Lue skannerilla"
+msgid "Scan a Single Page"
+msgstr "Skannaa yksi sivu"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Lue skannerilla useita sivuja"
+msgid "Scan Multiple Pages"
+msgstr "Skannaa useita sivuja"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -813,17 +820,17 @@ msgid "_Quit without Saving"
 msgstr "_Sulje tallentamatta"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_Sähköposti"
+msgid "_Email…"
+msgstr "_Sähköposti…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "T_ulosta"
+msgid "Pri_nt…"
+msgstr "T_ulosta…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Järjestä sivut"
+msgid "_Reorder Pages…"
+msgstr "_Järjestä sivut…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1110,6 +1117,21 @@ msgstr "[LAITE...] — Skannaustyökalu"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Näet kaikki komentorivivalitsimet komennolla “%s --help”."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Pysäytä skannaus"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Tallenna asiakirja tiedostoon"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Kierrä sivua oikealle (myötäpäivään)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Lue skannerilla"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Lue skannerilla useita sivuja"
+
 #~ msgid "Image Files"
 #~ msgstr "Kuvatiedostot"
 
@@ -1198,17 +1220,11 @@ msgstr "Näet kaikki komentorivivalitsimet komennolla “%s --help”."
 #~ "Sen ajurit voi ladata <a href=\"http://samsung.com/support\">Samsungin "
 #~ "verkkosivustolta</a>."
 
-#~ msgid "Scan Documents"
-#~ msgstr "Lue asiakirjoja kuvanlukijalta"
-
 #~ msgid "Resolution for photo scans"
 #~ msgstr "Tarkkuus valokuvien luvulle"
 
 #~ msgid "The resolution in dots-per-inch to use when scanning photos."
 #~ msgstr "Käytettävä resoluutio pisteinä tuumaa kohti skannattaessa kuvia."
-
-#~ msgid "Stop"
-#~ msgstr "Pysäytä"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Kuvanlukija"
