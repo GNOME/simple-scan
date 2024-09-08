@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the simple-scan package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 # Zander Brown <zbrown@gnome.org>, 2019-2021.
-# Bruce Cowan <bruce@bcowan.me.uk>, 2017-2023.
+# Bruce Cowan <bruce@bcowan.me.uk>, 2017-2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-12-05 18:06+0000\n"
-"PO-Revision-Date: 2023-12-06 13:27+0000\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-08 13:48+0100\n"
 "Last-Translator: Bruce Cowan <bruce@bcowan.me.uk>\n"
 "Language-Team: English - United Kingdom <en_GB@li.org>\n"
 "Language: en_GB\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -179,16 +179,16 @@ msgstr ""
 "filename will be added to the filename immediately before the file extension."
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "Document Scanner"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr "Make a digital copy of your photos and documents"
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -198,12 +198,13 @@ msgstr ""
 "parts of an image and rotate it if it is the wrong way round. You can print "
 "your scans, export them to pdf, or save them in a range of image formats."
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Simple Scan uses the SANE framework which supports most existing scanners."
 
-#: data/simple-scan.appdata.xml.in:27
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
 msgid "The GNOME Project"
 msgstr "The GNOME Project"
 
@@ -292,8 +293,6 @@ msgid "Copy"
 msgstr "Copy"
 
 #: data/ui/app-window.ui:95
-#| msgctxt "shortcut window"
-#| msgid "Delete page"
 msgid "Delete"
 msgstr "Delete"
 
@@ -319,8 +318,8 @@ msgstr "_Image"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Stop the current scan"
+msgid "Stop"
+msgstr "Stop"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -330,44 +329,55 @@ msgstr "S_top"
 msgid "_Scan"
 msgstr "_Scan"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Save document to a file"
+#: data/ui/app-window.ui:211
+#| msgid "Scan Documents"
+msgid "Scan Options"
+msgstr "Scan Options"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Main Menu"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Export"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
-msgstr "Refresh device list"
+#: data/ui/app-window.ui:283
+#| msgid "Refresh device list"
+msgid "Refresh Device List"
+msgstr "Refresh Device List"
 
-#: data/ui/app-window.ui:312
-#| msgid "_New Document"
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "New Document"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Rotate the page to the left (anti-clockwise)"
+#: data/ui/app-window.ui:327
+#| msgid "Rotate the page to the left (counter-clockwise)"
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Rotate Left (anti-clockwise)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Rotate the page to the right (clockwise)"
+#: data/ui/app-window.ui:335
+#| msgctxt "shortcut window"
+#| msgid "Rotate page to the right (clockwise)"
+msgid "Rotate Right (clockwise)"
+msgstr "Rotate Right (clockwise)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
-msgstr "Crop the selected page"
+#: data/ui/app-window.ui:343
+#| msgid "Crop the selected page"
+msgid "Crop Selected Page"
+msgstr "Crop Selected Page"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
-msgstr "Delete the selected page"
+#: data/ui/app-window.ui:351
+#| msgid "Delete the selected page"
+msgid "Delete Selected Page"
+msgstr "Delete Selected Page"
 
 #: data/ui/authorize-dialog.ui:31
-#| msgid "_Username for resource:"
 msgid "_Username for resource"
 msgstr "_Username for resource"
 
 #: data/ui/authorize-dialog.ui:38
-#| msgid "_Password:"
 msgid "_Password"
 msgstr "_Password"
 
@@ -458,7 +468,7 @@ msgstr "Save scanned document"
 #: data/ui/help-overlay.ui:90
 msgctxt "shortcut window"
 msgid "Email scanned document"
-msgstr "E-mail scanned document"
+msgstr "Email scanned document"
 
 #: data/ui/help-overlay.ui:96
 msgctxt "shortcut window"
@@ -592,7 +602,6 @@ msgstr "_Contrast"
 
 #. Label beside compression scale
 #: data/ui/preferences-dialog.ui:167
-#| msgid "Compression:"
 msgid "Compression"
 msgstr "Compression"
 
@@ -673,12 +682,15 @@ msgstr "Additional Software Needed"
 
 #. Instructions to install driver software
 #: src/app-window.vala:247
+#| msgid ""
+#| "You need to <a href=\"install-firmware\">install driver software</a> for "
+#| "your scanner."
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -687,8 +699,9 @@ msgstr "No Scanners Detected"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Please check your scanner is connected and powered on."
+#| msgid "Please check your scanner is connected and powered on."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Please check your scanner is connected and powered on"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -696,7 +709,6 @@ msgid "An autosaved book exists. Do you want to open it?"
 msgstr "An autosaved book exists. Do you want to open it?"
 
 #: src/app-window.vala:308
-#| msgid "_None"
 msgid "_No"
 msgstr "_No"
 
@@ -776,12 +788,16 @@ msgid "Contacting Scanner…"
 msgstr "Contacting Scanner…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Scan a single page from the scanner"
+#| msgctxt "shortcut window"
+#| msgid "Scan a single page"
+msgid "Scan a Single Page"
+msgstr "Scan a Single Page"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Scan multiple pages from the scanner"
+#| msgctxt "shortcut window"
+#| msgid "Scan a single page"
+msgid "Scan Multiple Pages"
+msgstr "Scan Multiple Pages"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -816,17 +832,21 @@ msgid "_Quit without Saving"
 msgstr "_Quit without Saving"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_E-mail"
+#| msgid "_Email"
+msgid "_Email…"
+msgstr "_Email…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "Pri_nt"
+#| msgid "Pri_nt"
+msgid "Pri_nt…"
+msgstr "Pri_nt…"
 
 #: src/app-window.vala:1384
+#| msgctxt "menu"
+#| msgid "_Reorder Pages"
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Reorder Pages"
+msgid "_Reorder Pages…"
+msgstr "_Reorder Pages…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1113,6 +1133,21 @@ msgstr "[DEVICE…] — Scanning utility"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Run “%s --help” to see a full list of available command line options."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Stop the current scan"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Save document to a file"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Rotate the page to the right (clockwise)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Scan a single page from the scanner"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Scan multiple pages from the scanner"
+
 #~ msgid "Image Files"
 #~ msgstr "Image Files"
 
@@ -1203,12 +1238,6 @@ msgstr "Run “%s --help” to see a full list of available command line options
 
 #~ msgid "The resolution in dots-per-inch to use when scanning photos."
 #~ msgstr "The resolution in dots-per-inch to use when scanning photos."
-
-#~ msgid "Scan Documents"
-#~ msgstr "Scan Documents"
-
-#~ msgid "Stop"
-#~ msgstr "Stop"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Scanner"
