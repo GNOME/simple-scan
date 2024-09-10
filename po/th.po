@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-12-05 18:06+0000\n"
-"PO-Revision-Date: 2024-08-16 18:48+0700\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-10 16:14+0700\n"
 "Last-Translator: Rockworld <sumoisrock@gmail.com>\n"
 "Language-Team: Thai <th@li.org>\n"
 "Language: th\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -33,8 +33,8 @@ msgstr "ชนิดของเอกสารที่ถูกสแกน"
 
 #: data/org.gnome.SimpleScan.gschema.xml:21
 msgid ""
-"Type of document being scanned. This setting decides on the scan resolution, colors and "
-"post-processing."
+"Type of document being scanned. This setting decides on the scan resolution, colors and post-"
+"processing."
 msgstr "ชนิดของเอกสารที่จะสแกน การตั้งค่านี้มีผลต่อความละเอียดการสแกน สี และการประมวลผลหลังสแกน"
 
 #: data/org.gnome.SimpleScan.gschema.xml:25
@@ -95,23 +95,22 @@ msgstr "ด้านกระดาษที่จะสแกน"
 
 #: data/org.gnome.SimpleScan.gschema.xml:60
 msgid "Directory to save files to"
-msgstr "ไดเรกทอรีที่ใช้บันทึกแฟ้ม"
+msgstr "ไดเรกทอรีที่ใช้บันทึกไฟล์"
 
 #: data/org.gnome.SimpleScan.gschema.xml:61
 msgid "The directory to save files to. Defaults to the documents directory if unset."
-msgstr "ไดเรกทอรีที่ใช้บันทึกแฟ้ม ค่าเริ่มต้นไดเรกทอรีสำหรับเอกสารถ้าไม่มีการตั้งค่า"
+msgstr "ไดเรกทอรีที่ใช้บันทึกไฟล์ ค่าเริ่มต้นไดเรกทอรีสำหรับเอกสารถ้าไม่มีการตั้งค่า"
 
 #: data/org.gnome.SimpleScan.gschema.xml:65
 msgid "File format that is used for saving image files"
-msgstr "รูปแบบแฟ้มที่ใช้บันทึกแฟ้มภาพ"
+msgstr "รูปแบบไฟล์ที่ใช้บันทึกไฟล์ภาพ"
 
 #: data/org.gnome.SimpleScan.gschema.xml:66
 msgid ""
-"MIME type that is used for saving image files. Examples of supported MIME types: image/"
-"jpeg, image/png, application/pdf"
+"MIME type that is used for saving image files. Examples of supported MIME types: image/jpeg, "
+"image/png, application/pdf"
 msgstr ""
-"ชนิด MIME ที่ใช้บันทึกแฟ้มภาพ ตัวอย่างของชนิด MIME ที่รองรับได้แก่ image/jpeg, image/png, application/"
-"pdf"
+"ชนิด MIME ที่ใช้บันทึกไฟล์ภาพ ตัวอย่างของชนิด MIME ที่รองรับได้แก่ image/jpeg, image/png, application/pdf"
 
 #: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
@@ -155,41 +154,41 @@ msgstr "อาร์กิวเมนต์เพิ่มเติมสำห
 
 #: data/org.gnome.SimpleScan.gschema.xml:97
 msgid "Whether or not to keep the original, unprocessed file"
-msgstr "กำหนดว่าจะเก็บแฟ้มดั้งเดิมที่ไม่ได้ทำการโพรเซสเอาไว้หรือไม่"
+msgstr "กำหนดว่าจะเก็บไฟล์ดั้งเดิมที่ไม่ได้ทำการโพรเซสเอาไว้หรือไม่"
 
 #: data/org.gnome.SimpleScan.gschema.xml:98
 msgid ""
-"Whether or not to keep the original, unprocessed file. The \"_orig\" filename will be "
-"added to the filename immediately before the file extension."
+"Whether or not to keep the original, unprocessed file. The \"_orig\" filename will be added "
+"to the filename immediately before the file extension."
 msgstr ""
-"กำหนดว่าจะเก็บแฟ้มดั้งเดิมที่ไม่ได้ทำการโพรเซสเอาไว้หรือไม่ โดยจะมีการเติม \"_orig\" "
-"ต่อท้ายบริเวณชื่อแฟ้มก่อนนามสกุลแฟ้ม"
+"กำหนดว่าจะเก็บไฟล์ดั้งเดิมที่ไม่ได้ทำการโพรเซสเอาไว้หรือไม่ โดยจะมีการเติม \"_orig\" "
+"ต่อท้ายบริเวณชื่อไฟล์ก่อนนามสกุลไฟล์"
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "เครื่องสแกนเอกสาร"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr "ทำสำเนาดิจิทัลของภาพถ่ายและเอกสารของคุณ"
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
-"A really easy way to scan both text and images. You can crop out the bad parts of an "
-"image and rotate it if it is the wrong way round. You can print your scans, export them "
-"to pdf, or save them in a range of image formats."
+"A really easy way to scan both text and images. You can crop out the bad parts of an image "
+"and rotate it if it is the wrong way round. You can print your scans, export them to pdf, or "
+"save them in a range of image formats."
 msgstr ""
-"วิธีที่ง่ายดายในการสแกนทั้งข้อความและภาพ คุณสามารถตัดส่วนที่ไม่ดีออกจากภาพ "
-"รวมทั้งหมุนภาพหากภาพอยู่ในทิศทางที่ผิดได้ คุณยังสามารถพิมพ์งานสแกนของคุณ ส่งออกเป็นแฟ้มรูปแบบ PDF "
-"หรือบันทึกเป็นแฟ้มภาพรูปแบบต่าง ๆ ก็ได้"
+"วิธีที่ง่ายดายในการสแกนทั้งข้อความและภาพ คุณสามารถตัดส่วนที่ไม่ดีออกจากภาพ รวมทั้งหมุนภาพหากภาพอยู่ในทิศทางที่ผิดได้ "
+"คุณยังสามารถพิมพ์งานสแกนของคุณ ส่งออกเป็นไฟล์รูปแบบ PDF หรือบันทึกเป็นไฟล์ภาพรูปแบบต่าง ๆ ก็ได้"
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "แอปนี้ใช้ขอบข่ายงาน SANE เพื่อรองรับเครื่องสแกนที่มีการใช้งานจริงซึ่งพบได้บ่อย"
 
-#: data/simple-scan.appdata.xml.in:27
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
 msgid "The GNOME Project"
 msgstr "The GNOME Project"
 
@@ -303,8 +302,8 @@ msgstr "_ภาพ"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "หยุดการสแกนขณะนี้"
+msgid "Stop"
+msgstr "หยุด"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -314,34 +313,41 @@ msgstr "ห_ยุด"
 msgid "_Scan"
 msgstr "_สแกน"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "บันทึกเอกสารเป็นแฟ้ม"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "ตัวเลือกการสแกน"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "เมนูหลัก"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "ส่งออก"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "เรียกรายชื่ออุปกรณ์ใหม่"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "เอกสารใหม่"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "หมุนหน้าไปทางซ้าย (ทวนเข็มนาฬิกา)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "หมุนไปทางซ้าย (ทวนเข็มนาฬิกา)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "หมุนหน้าไปทางขวา (ตามเข็มนาฬิกา)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "หมุนไปทางขวา (ตามเข็มนาฬิกา)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "ตัดหน้าที่เลือก"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "ลบหน้าที่เลือก"
 
 #: data/ui/authorize-dialog.ui:31
@@ -598,7 +604,7 @@ msgstr "อาร์กิวเมนต์ของ_สคริปต์"
 #. Label beside keep keep original file radio
 #: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
-msgstr "_คงแฟ้มดั้งเดิมไว้"
+msgstr "_คงไฟล์ดั้งเดิมไว้"
 
 #: data/ui/reorder-pages-dialog.ui:9
 msgctxt "dialog title"
@@ -652,8 +658,7 @@ msgstr "ต้องติดตั้งซอฟต์แวร์เพิ่
 
 #. Instructions to install driver software
 #: src/app-window.vala:247
-msgid ""
-"You need to <a href=\"install-firmware\">install driver software</a> for your scanner."
+msgid "You need to <a href=\"install-firmware\">install driver software</a> for your scanner"
 msgstr "คุณต้อง<a href=\"install-firmware\">ติดตั้งซอฟต์แวร์ไดรเวอร์</a>สำหรับสแกนเนอร์ของคุณ"
 
 #. Warning displayed when no scanners are detected
@@ -663,7 +668,7 @@ msgstr "ไม่พบเครื่องสแกน"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
+msgid "Please check your scanner is connected and powered on"
 msgstr "กรุณาตรวจสอบการเชื่อมต่อเครื่องสแกนของคุณและเปิดเครื่อง"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
@@ -711,12 +716,12 @@ msgstr "WebP (บีบอัดแล้ว)"
 
 #: src/app-window.vala:437
 msgid "All Files"
-msgstr "แฟ้มทั้งหมด"
+msgstr "ไฟล์ทั้งหมด"
 
 #: src/app-window.vala:528
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
-msgstr "มีแฟ้มชื่อ “%s” อยู่แล้ว คุณต้องการแทนที่หรือไม่?"
+msgstr "มีไฟล์ชื่อ “%s” อยู่แล้ว คุณต้องการแทนที่หรือไม่?"
 
 #: src/app-window.vala:536
 msgid "_Replace"
@@ -729,7 +734,7 @@ msgstr "กำลังบันทึก"
 #. Title of error dialog when save failed
 #: src/app-window.vala:643
 msgid "Failed to save file"
-msgstr "การบันทึกแฟ้มล้มเหลว"
+msgstr "การบันทึกไฟล์ล้มเหลว"
 
 #: src/app-window.vala:662
 msgid "If you don’t save, changes will be permanently lost."
@@ -751,12 +756,12 @@ msgid "Contacting Scanner…"
 msgstr "กำลังติดต่อเครื่องสแกน…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "สแกนหน้าเดียวจากเครื่องสแกน"
+msgid "Scan a Single Page"
+msgstr "สแกนหน้าเดียว"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "สแกนหลายหน้าจากเครื่องสแกน"
+msgid "Scan Multiple Pages"
+msgstr "สแกนหลายหน้า"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -769,11 +774,13 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Anuchit Chalothorn https://launchpad.net/~anuchit-redlinesoft\n"
 "  AnuchitChalothorn https://launchpad.net/~anuchit\n"
-"  Manop Pornpeanvichanon(มานพ พรเพียรวิชานนท์) https://launchpad.net/"
-"~manoppornpeanvichanon\n"
+"  Manop Pornpeanvichanon(มานพ พรเพียรวิชานนท์) https://launchpad.net/~manoppornpeanvichanon\n"
 "  Rockworld https://launchpad.net/~rockrock2222222\n"
 "  SiraNokyoongtong https://launchpad.net/~gumara\n"
-"  kijjaz https://launchpad.net/~kijjaz-gmail"
+"  kijjaz https://launchpad.net/~kijjaz-gmail\n"
+"\n"
+"GNOME L10n Contributions:\n"
+"  Aefgh Threenine <aefgh39622@gmail.com>"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:1263
@@ -786,17 +793,17 @@ msgid "_Quit without Saving"
 msgstr "_ปิดโดยไม่บันทึก"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_อีเมล"
+msgid "_Email…"
+msgstr "_อีเมล…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "_พิมพ์"
+msgid "Pri_nt…"
+msgstr "_พิมพ์…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_จัดลำดับหน้าใหม่"
+msgid "_Reorder Pages…"
+msgstr "_จัดลำดับหน้าใหม่…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -832,11 +839,10 @@ msgstr "ดูเหมือนว่าคุณจะมีเครื่อ
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com\">Brother "
-"website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother.com\">Brother website</"
+"a>."
 msgstr ""
-"ไดรเวอร์ของ Brother สามารถพบได้ใน<a href=\"http://support.brother.com\">เว็บไซต์ของ Brother</"
-"a>"
+"ไดรเวอร์ของ Brother สามารถพบได้ใน<a href=\"http://support.brother.com\">เว็บไซต์ของ Brother</a>"
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
@@ -851,13 +857,12 @@ msgstr ""
 #: src/drivers-dialog.vala:84
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-devices."
-"html\">scanner is supported by SANE</a>, otherwise report the issue to the <a "
-"href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE "
-"mailing list</a>."
+"html\">scanner is supported by SANE</a>, otherwise report the issue to the <a href=\"https://"
+"alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE mailing list</a>."
 msgstr ""
 "กรุณาตรวจสอบว่า <a href=\"http://www.sane-project.org/sane-supported-devices.html\">SANE "
-"นั้นรองรับเครื่องสแกนของคุณ</a> หรือไม่ก็รายงานปัญหาดังกล่าวทาง<a href=\"https://alioth-lists.debian."
-"net/cgi-bin/mailman/listinfo/sane-devel\">เมลลิงลิสต์ของ SANE</a>"
+"นั้นรองรับเครื่องสแกนของคุณ</a> หรือไม่ก็รายงานปัญหาดังกล่าวทาง<a href=\"https://alioth-lists.debian.net/"
+"cgi-bin/mailman/listinfo/sane-devel\">เมลลิงลิสต์ของ SANE</a>"
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/drivers-dialog.vala:88
@@ -868,8 +873,8 @@ msgstr "ดูเหมือนว่าคุณจะมีเครื่อ
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
 #: src/drivers-dialog.vala:91
 msgid ""
-"Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a> "
-"(HP acquired Samsung's printing business)."
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a> (HP "
+"acquired Samsung's printing business)."
 msgstr ""
 "ไดรเวอร์ของ Samsung สามารถพบได้ใน<a href=\"https://support.hp.com\">เว็บไซต์ของ HP</a> (HP "
 "ได้เข้าซื้อกิจการสิ่งพิมพ์ของ Samsung แล้ว)"
@@ -884,8 +889,7 @@ msgstr "ดูเหมือนว่าคุณจะมีเครื่อ
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
 #: src/drivers-dialog.vala:104
-msgid ""
-"Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a>."
+msgid "Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a>."
 msgstr "ไดรเวอร์ของ HP สามารถพบได้ใน<a href=\"https://support.hp.com\">เว็บไซต์ของ HP</a>"
 
 #. Message to indicate an Epson scanner has been detected
@@ -896,10 +900,8 @@ msgstr "ดูเหมือนว่าคุณจะมีเครื่อ
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com\">Epson "
-"website</a>."
-msgstr ""
-"ไดรเวอร์ของ Epson สามารถพบได้ใน<a href=\"http://support.epson.com\">เว็บไซต์ของ Epson</a>"
+"Drivers for this are available on the <a href=\"http://support.epson.com\">Epson website</a>."
+msgstr "ไดรเวอร์ของ Epson สามารถพบได้ใน<a href=\"http://support.epson.com\">เว็บไซต์ของ Epson</a>"
 
 #. Message to indicate a Lexmark scanner has been detected
 #: src/drivers-dialog.vala:114
@@ -909,11 +911,10 @@ msgstr "ดูเหมือนว่าคุณจะมีเครื่อ
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com\">Lexmark "
-"website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark.com\">Lexmark website</"
+"a>."
 msgstr ""
-"ไดรเวอร์ของ Lexmark สามารถพบได้ใน<a href=\"http://support.lexmark.com\">เว็บไซต์ของ Lexmark</"
-"a>"
+"ไดรเวอร์ของ Lexmark สามารถพบได้ใน<a href=\"http://support.lexmark.com\">เว็บไซต์ของ Lexmark</a>"
 
 #. Label shown while installing drivers
 #: src/drivers-dialog.vala:130
@@ -1021,8 +1022,8 @@ msgstr "ตัวป้อนเอกสารว่างเปล่า"
 #: src/scanner.vala:1369
 msgid ""
 "Insufficient memory to perform scan.\n"
-"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in <tt>Preferences</tt> menu. "
-"For some scanners when scanning in high resolution, the scan size is restricted."
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in <tt>Preferences</tt> menu. For "
+"some scanners when scanning in high resolution, the scan size is restricted."
 msgstr ""
 "มีหน่วยความจำไม่เพียงพอที่จะสั่งสแกนได้\n"
 "กรุณาลองลด<tt>ความละเอียด</tt>หรือ<tt>ขนาดกระดาษ</tt>ในเมนู <tt>ปรับแต่ง</tt> "
@@ -1050,7 +1051,7 @@ msgstr "แสดงข้อความข้อบกพร่อง"
 
 #: src/simple-scan.vala:26
 msgid "Fix PDF files generated with older versions of this app"
-msgstr "ซ่อมแฟ้ม PDF ที่ถูกสร้างด้วยรุ่นที่เก่ากว่าของแอปนี้"
+msgstr "ซ่อมไฟล์ PDF ที่ถูกสร้างด้วยรุ่นที่เก่ากว่าของแอปนี้"
 
 #. Title of error dialog when scan failed
 #: src/simple-scan.vala:1760
@@ -1072,6 +1073,21 @@ msgstr "[DEVICE...] — เครื่องมือสแกน"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "เรียก “%s --help” เพื่อดูตัวเลือกทั้งหมดที่มีของบรรทัดคำสั่ง"
+
+#~ msgid "Stop the current scan"
+#~ msgstr "หยุดการสแกนขณะนี้"
+
+#~ msgid "Save document to a file"
+#~ msgstr "บันทึกเอกสารเป็นแฟ้ม"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "หมุนหน้าไปทางขวา (ตามเข็มนาฬิกา)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "สแกนหน้าเดียวจากเครื่องสแกน"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "สแกนหลายหน้าจากเครื่องสแกน"
 
 #~ msgid "Front and Back"
 #~ msgstr "หน้าและหลัง"
@@ -1103,9 +1119,6 @@ msgstr "เรียก “%s --help” เพื่อดูตัวเลื�
 #~ msgid "Save"
 #~ msgstr "บันทึก"
 
-#~ msgid "Stop"
-#~ msgstr "หยุด"
-
 #~ msgid "Rotate Left"
 #~ msgstr "หมุนซ้าย"
 
@@ -1120,9 +1133,6 @@ msgstr "เรียก “%s --help” เพื่อดูตัวเลื�
 
 #~ msgid "_Photo Resolution:"
 #~ msgstr "ความละเอียด_ภาพถ่าย:"
-
-#~ msgid "Scan Documents"
-#~ msgstr "สแกนเอกสาร"
 
 #~ msgid "Scanned Document.pdf"
 #~ msgstr "สแกน Document.pdf แล้ว"
@@ -1176,8 +1186,7 @@ msgstr "เรียก “%s --help” เพื่อดูตัวเลื�
 #~ "Drivers for this are available on the <a href=\"http://samsung.com/support\">Samsung "
 #~ "website</a>."
 #~ msgstr ""
-#~ "ไดรเวอร์ของ Samsung สามารถพบได้ใน<a href=\"http://samsung.com/support\">เว็บไซต์ Samsung</"
-#~ "a>"
+#~ "ไดรเวอร์ของ Samsung สามารถพบได้ใน<a href=\"http://samsung.com/support\">เว็บไซต์ Samsung</a>"
 
 #~ msgid "Document"
 #~ msgstr "เอกสาร"
@@ -1226,15 +1235,14 @@ msgstr "เรียก “%s --help” เพื่อดูตัวเลื�
 #~ msgstr "เป็นจริง ถ้าหน้าต่างโปรแกรมขนายเต็มหน้าจอ"
 
 #~ msgid ""
-#~ "The direction of the scanner across the scanned page. It can be one of the following: "
-#~ "'top-to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
+#~ "The direction of the scanner across the scanned page. It can be one of the following: 'top-"
+#~ "to-bottom' 'bottom-to-top' 'left-to-right' 'right-to-left'"
 #~ msgstr ""
-#~ "ทิศทางการสแกนข้ามหน้าสแกน มีความสามารถดังนี้: 'บน-ไป-ล่าง' 'ล่าง-ไป-บน' 'ซ้าย-ไป-ขวา' 'ขวา-ไป-"
-#~ "ซ้าย'"
+#~ "ทิศทางการสแกนข้ามหน้าสแกน มีความสามารถดังนี้: 'บน-ไป-ล่าง' 'ล่าง-ไป-บน' 'ซ้าย-ไป-ขวา' 'ขวา-ไป-ซ้าย'"
 
 #~ msgid ""
-#~ "The height of scanned image in pixels. This value is updated to what the last scanned "
-#~ "page was."
+#~ "The height of scanned image in pixels. This value is updated to what the last scanned page "
+#~ "was."
 #~ msgstr "ความสูงของภาพที่สแกน เป็นพิกเซล ค่านี้มีการปรับปรุงจากหน้าที่สแกนล่าสุด"
 
 #~ msgid "The page side to scan. It can be one of the following: 'both' 'front' 'back'"
@@ -1247,8 +1255,8 @@ msgstr "เรียก “%s --help” เพื่อดูตัวเลื�
 #~ msgstr "ความละเอียด เป็นจุดต่อนิ้วที่จะใช้เมื่อการสแกนภาพ"
 
 #~ msgid ""
-#~ "The width of scanned image in pixels. This value is updated to what the last scanned "
-#~ "page was."
+#~ "The width of scanned image in pixels. This value is updated to what the last scanned page "
+#~ "was."
 #~ msgstr "ความกว้างของภาพที่สแกน เป็นพิกเซล ค่านี้มีการปรับปรุงจากหน้าที่สแกนล่าสุด"
 
 #~ msgid ""
