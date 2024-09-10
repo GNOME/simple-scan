@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-06 00:16+0000\n"
-"PO-Revision-Date: 2024-02-16 11:07+0300\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-04 14:17+0300\n"
 "Last-Translator: Artur So <arturios2005@mail.ru>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Launchpad-Export-Date: 2016-12-19 05:08+0000\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -320,8 +320,8 @@ msgstr "_Изображение"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Прервать выполняемое сканирование"
+msgid "Stop"
+msgstr "Остановить"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -331,34 +331,41 @@ msgstr "_Остановить"
 msgid "_Scan"
 msgstr "_Сканировать"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Сохранить документ в файл"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Параметры сканирования"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Главное меню"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Экспортировать"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
-msgstr "Обнов. список устр-в"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
+msgstr "Обновить список устройств"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Новый документ"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Повернуть страницу влево (против часовой стрелки)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Повернуть влево (против часовой стрелки)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Повернуть страницу вправо (по часовой стрелке)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Повернуть вправо (по часовой стрелке)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Обрезать выбранную страницу"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Удалить выбранную страницу"
 
 #: data/ui/authorize-dialog.ui:31
@@ -401,12 +408,12 @@ msgstr "Сканировать все страницы с устройства �
 #: data/ui/help-overlay.ui:26
 msgctxt "shortcut window"
 msgid "Scan continuously from a flatbed scanner"
-msgstr "Непрерывное сканирование с планшетного сканера"
+msgstr "Сканировать непрерывно с планшетного сканера"
 
 #: data/ui/help-overlay.ui:32
 msgctxt "shortcut window"
 msgid "Stop scan in progress"
-msgstr "Выполняется остановка сканирования"
+msgstr "Остановить выполняемое сканирование"
 
 #: data/ui/help-overlay.ui:39
 msgctxt "shortcut window"
@@ -672,10 +679,10 @@ msgstr "Требуется дополнительное программное �
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Необходимо <a href=\"install-firmware\">установить драйвер</a> для вашего "
-"сканера."
+"сканера"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -684,8 +691,8 @@ msgstr "Сканеры не обнаружены"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Убедитесь, что сканер подключен и включён."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Убедитесь, что сканер подключен и включён"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -772,12 +779,12 @@ msgid "Contacting Scanner…"
 msgstr "Связываюсь со сканером…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Сканировать одну страницу со сканера"
+msgid "Scan a Single Page"
+msgstr "Сканировать одну страницу"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Сканировать несколько страниц со сканера"
+msgid "Scan Multiple Pages"
+msgstr "Сканировать несколько страниц"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -802,17 +809,17 @@ msgid "_Quit without Saving"
 msgstr "_Закрыть без сохранения"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "Отправить _почтой"
+msgid "_Email…"
+msgstr "_Эл. почта…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "Пе_чать"
+msgid "Pri_nt…"
+msgstr "Пе_чать…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Организация страниц"
+msgid "_Reorder Pages…"
+msgstr "О_рганизация страниц…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1099,6 +1106,21 @@ msgstr "[DEVICE…] — Устройство сканирования"
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Выполните «%s --help», чтобы вывести полный список доступных опций."
+
+#~ msgid "Stop the current scan"
+#~ msgstr "Прервать выполняемое сканирование"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Сохранить документ в файл"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Повернуть страницу вправо (по часовой стрелке)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Сканировать одну страницу со сканера"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Сканировать несколько страниц со сканера"
 
 #~ msgid "Image Files"
 #~ msgstr "Файлы изображений"
