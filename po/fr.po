@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-22 01:12+0000\n"
-"PO-Revision-Date: 2023-09-07 21:57+0200\n"
+"POT-Creation-Date: 2024-09-03 20:58+0000\n"
+"PO-Revision-Date: 2024-09-10 19:03+0200\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -324,8 +324,8 @@ msgstr "_Image"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Arrêter la numérisation en cours"
+msgid "Stop"
+msgstr "Arrêter"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -335,34 +335,41 @@ msgstr "_Arrêter"
 msgid "_Scan"
 msgstr "_Numériser"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Enregistrer le document dans un fichier"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Options de numérisation"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Menu principal"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exporter"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Actualiser la liste des périphériques"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Nouveau document"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Faire pivoter la page vers la gauche (sens antihoraire)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Faire pivoter vers la gauche (sens antihoraire)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Faire pivoter la page vers la droite (sens horaire)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Faire pivoter vers la droite (sens horaire)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Recadrer la page sélectionnée"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Supprimer la page sélectionnée"
 
 #: data/ui/authorize-dialog.ui:31
@@ -676,7 +683,7 @@ msgstr "Logiciel supplémentaire nécessaire"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Vous devez <a href=\"install-firmware\">installer le logiciel du pilote</a> "
 "de votre périphérique de numérisation."
@@ -688,10 +695,10 @@ msgstr "Aucun périphérique de numérisation détecté"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
+msgid "Please check your scanner is connected and powered on"
 msgstr ""
 "Veuillez vérifier que votre périphérique de numérisation est connecté et "
-"sous tension."
+"sous tension"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -779,12 +786,12 @@ msgid "Contacting Scanner…"
 msgstr "Contact du périphérique de numérisation…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Numériser une seule page depuis le numériseur"
+msgid "Scan a Single Page"
+msgstr "Numériser une seule page"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Numériser plusieurs pages depuis le numériseur"
+msgid "Scan Multiple Pages"
+msgstr "Numériser plusieurs pages"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -841,17 +848,17 @@ msgid "_Quit without Saving"
 msgstr "_Quitter sans enregistrer"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_Courriel"
+msgid "_Email…"
+msgstr "_Courriel…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "_Imprimer"
+msgid "Pri_nt…"
+msgstr "Im_primer…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Réorganiser les pages"
+msgid "_Reorder Pages…"
+msgstr "_Réorganiser les pages…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1144,6 +1151,21 @@ msgstr ""
 "Exécutez « %s --help » pour voir la liste complète des options disponibles "
 "en ligne de commande."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Arrêter la numérisation en cours"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Enregistrer le document dans un fichier"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Faire pivoter la page vers la droite (sens horaire)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Numériser une seule page depuis le numériseur"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Numériser plusieurs pages depuis le numériseur"
+
 #~ msgid "Image Files"
 #~ msgstr "Fichiers image"
 
@@ -1212,12 +1234,6 @@ msgstr ""
 #~ msgstr ""
 #~ "La résolution en points par pouce à utiliser lors de la numérisation de "
 #~ "photos."
-
-#~ msgid "Scan Documents"
-#~ msgstr "Numériser des documents"
-
-#~ msgid "Stop"
-#~ msgstr "Arrêter"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Numériseur"
