@@ -2,16 +2,16 @@
 # Copyright (C) 2024 simple-scan's COPYRIGHT HOLDER
 # This file is distributed under the same license as the simple-scan package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# ButterflyOfFire <ButterflyOfFire@protonmail.com>, 2024.
+# ButterflyOfFire <butterflyoffire@protonmail.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-03-11 11:35+0000\n"
-"PO-Revision-Date: 2024-03-29 07:04+0100\n"
-"Last-Translator: sa\n"
-"Language-Team: Kabyle <>\n"
+"POT-Creation-Date: 2024-09-29 16:06+0000\n"
+"PO-Revision-Date: 2024-10-06 13:19+0100\n"
+"Last-Translator: ButterflyOfFire <butterflyoffire@protonmail.com>\n"
+"Language-Team: Kabyle\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,8 @@ msgstr ""
 "X-DL-Branch: master\n"
 "X-DL-Domain: po\n"
 "X-DL-State: Translating\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Gtranslator 47.0\n"
+"X-DL-Lang: kab\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -324,8 +325,8 @@ msgstr "Tugna (_I)"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Seḥbes aḍummu amiran"
+msgid "Stop"
+msgstr "Seḥbes"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -335,34 +336,43 @@ msgstr "Seḥbes (_S)"
 msgid "_Scan"
 msgstr "Ḍumm (_S)"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Sekles isemli deg ufaylu"
+#: data/ui/app-window.ui:211
+#, fuzzy
+#| msgid "Scan _Sides"
+msgid "Scan Options"
+msgstr "Ḍumm idisan (_S)"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Umuɣ agejdan"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Sifeḍ"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
-msgstr "Smiren tabdart n yibenk"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
+msgstr "Smiren tabdart n yibenkan"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Isemli amaynut"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Sezzi asebter ɣer uyeffus (tuzzya mgal usrig)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Tuzzya ɣer azlmaḍ (mgal tamrilt)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Sezzi asebter ɣer uyeffus (tuzzya tusrigt)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Tuzzya ɣer yeffus (mgal tamrilt)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Gzem asebter i yettwafernen"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Kkes asebter i yettwafernen"
 
 #: data/ui/authorize-dialog.ui:31
@@ -676,10 +686,10 @@ msgstr "Aseɣẓan niḍen yettwasra"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "Tesriḍ <a href=\"install-firmware\">ad tesbeddeḍ aseɣẓan n unuḍaf</a> i "
-"unafraḍ(ik."
+"unafraḍ-ik·im."
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -688,8 +698,8 @@ msgstr "Ulac inafraḍen yettwafen"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Ttxil-k senqed anafraḍ-ik ma yella yeqqen akked ma yella yecεel."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Ttxil-k senqed anafraḍ-ik ma yella yeqqen akked ma yella yecεel"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -776,12 +786,18 @@ msgid "Contacting Scanner…"
 msgstr "Anermes n unafraḍ…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Ḍumm asebter asuf seg unafraḍ"
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Scan a single page"
+msgid "Scan a Single Page"
+msgstr "Ḍumm asebter asuf"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Ḍumm aṭas n yisebtar asuf seg unafraḍ"
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "Scan a single page"
+msgid "Scan Multiple Pages"
+msgstr "Ḍumm asebter asuf"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -790,7 +806,9 @@ msgstr "D awezɣi asekles n tugna i teskant"
 
 #: src/app-window.vala:1242
 msgid "translator-credits"
-msgstr "amsuqqel-isemdan"
+msgstr ""
+"ButterflyOfFire\n"
+"tasutlelli"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:1263
@@ -803,17 +821,17 @@ msgid "_Quit without Saving"
 msgstr "Ffeɣ war asekles (_Q)"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "Imayl (_E)"
+msgid "_Email…"
+msgstr "Imayl (_E)…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "Siggez (_n)"
+msgid "Pri_nt…"
+msgstr "Siggez (_n)…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Ales asmizwer n yisebtar (_R)"
+msgid "_Reorder Pages…"
+msgstr "Ales asmizwer n yisebtar (_R)…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1099,3 +1117,18 @@ msgid "Run “%s --help” to see a full list of available command line options.
 msgstr ""
 "Selkem '%s --help' i wakken ad twaliḍ akk tibdarin n textiṛiyin n izirig "
 "iwejden."
+
+#~ msgid "Stop the current scan"
+#~ msgstr "Seḥbes aḍummu amiran"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Sekles isemli deg ufaylu"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Sezzi asebter ɣer uyeffus (tuzzya tusrigt)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Ḍumm asebter asuf seg unafraḍ"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Ḍumm aṭas n yisebtar asuf seg unafraḍ"
