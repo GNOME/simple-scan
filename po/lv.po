@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-27 23:00+0000\n"
-"PO-Revision-Date: 2024-03-08 23:20+0200\n"
+"POT-Creation-Date: 2024-09-29 16:06+0000\n"
+"PO-Revision-Date: 2024-10-13 11:16+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.5\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 :"
 " 2);\n"
 
@@ -319,8 +319,8 @@ msgstr "_Attēls"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Apturēt pašreizējo skenēšanu"
+msgid "Stop"
+msgstr "Apturēt"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -330,35 +330,49 @@ msgstr "Ap_turēt"
 msgid "_Scan"
 msgstr "_Skenēt"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Saglabāt dokumentu datnē"
+#: data/ui/app-window.ui:211
+#| msgid "Scan Documents"
+msgid "Scan Options"
+msgstr "Skenēšanas opcijas"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Galvenā izvēlne"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Eksportēt"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+#| msgid "Refresh device list"
+msgid "Refresh Device List"
 msgstr "Atsvaidzināt ierīču sarakstu"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Jauns dokuments"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Pagriezt lapu pa kreisi (pretēji pulksteņa rādītāja virzienam)"
+#: data/ui/app-window.ui:327
+#| msgid "Rotate the page to the left (counter-clockwise)"
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Pagriezt pa kreisi (pretēji pulksteņa rādītāja virzienam)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Pagriezt lapu pa labi (pulksteņa rādītāja virzienā)"
+#: data/ui/app-window.ui:335
+#| msgctxt "shortcut window"
+#| msgid "Rotate page to the right (clockwise)"
+msgid "Rotate Right (clockwise)"
+msgstr "Pagriezt pa labi (pulksteņa rādītāja virzienā)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
-msgstr "Kadrēt izvēlēto lapu"
+#: data/ui/app-window.ui:343
+#| msgid "Crop the selected page"
+msgid "Crop Selected Page"
+msgstr "Kadrēt atlasīto lapu"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
-msgstr "Dzēst izvēlēto lapu"
+#: data/ui/app-window.ui:351
+#| msgid "Delete the selected page"
+msgid "Delete Selected Page"
+msgstr "Dzēst atlasīto lapu"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
@@ -669,11 +683,14 @@ msgstr "Nepieciešama papildu programmatūra"
 
 #. Instructions to install driver software
 #: src/app-window.vala:247
+#| msgid ""
+#| "You need to <a href=\"install-firmware\">install driver software</a> for "
+#| "your scanner."
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
-"Vajadzēs <a href=\"install-firmware\">uzinstalēt draiveri</a> šim skenerim."
+"Vajadzēs <a href=\"install-firmware\">uzinstalēt draiveri</a> šim skenerim"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -682,8 +699,9 @@ msgstr "Nav atrasts neviens skeneris"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Lūdzu, pārbaudiet, vai skeneris ir pievienots un ieslēgts."
+#| msgid "Please check your scanner is connected and powered on."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Lūdzu, pārbaudiet, vai skeneris ir pievienots un ieslēgts"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -770,12 +788,16 @@ msgid "Contacting Scanner…"
 msgstr "Sazinās ar skeneri…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Ieskenēt vienu lapu no skenera"
+#| msgctxt "shortcut window"
+#| msgid "Scan a single page"
+msgid "Scan a Single Page"
+msgstr "Ieskenēt vienu lapu"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Ieskenēt vairākas lapas no skenera"
+#| msgctxt "shortcut window"
+#| msgid "Scan a single page"
+msgid "Scan Multiple Pages"
+msgstr "Ieskenēt vairākas lapas"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -802,17 +824,21 @@ msgid "_Quit without Saving"
 msgstr "_Iziet nesaglabājot"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_E-pasts"
+#| msgid "_Email"
+msgid "_Email…"
+msgstr "_E-pasts…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "_Drukāt"
+#| msgid "Pri_nt"
+msgid "Pri_nt…"
+msgstr "_Drukāt…"
 
 #: src/app-window.vala:1384
+#| msgctxt "menu"
+#| msgid "_Reorder Pages"
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Pā_rkārtot lapas"
+msgid "_Reorder Pages…"
+msgstr "Pā_rkārtot lapas…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1101,6 +1127,21 @@ msgstr ""
 "Palaidiet “%s --help”, lai redzētu pilnu pieejamo komandrindas opciju "
 "sarakstu."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Apturēt pašreizējo skenēšanu"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Saglabāt dokumentu datnē"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Pagriezt lapu pa labi (pulksteņa rādītāja virzienā)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Ieskenēt vienu lapu no skenera"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Ieskenēt vairākas lapas no skenera"
+
 #~ msgid "Image Files"
 #~ msgstr "Attēlu datnes"
 
@@ -1183,12 +1224,6 @@ msgstr ""
 
 #~ msgid "The resolution in dots-per-inch to use when scanning photos."
 #~ msgstr "Izšķirtspēja punktos/collā, skenējot fotogrāfijas."
-
-#~ msgid "Scan Documents"
-#~ msgstr "Skenēt dokumentus"
-
-#~ msgid "Stop"
-#~ msgstr "Apturēt"
 
 #~ msgid ""
 #~ "Drivers for this are available on the <a href=\"http://samsung.com/"
