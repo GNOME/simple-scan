@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-27 23:00+0000\n"
-"PO-Revision-Date: 2023-07-29 13:44+0300\n"
+"POT-Creation-Date: 2024-09-29 16:06+0000\n"
+"PO-Revision-Date: 2024-10-16 12:48+0300\n"
 "Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
 "gmail [dot] com>\n"
 "Language-Team: Gnome Romanian Translation Team <gnomero-list@lists."
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -325,8 +325,8 @@ msgstr "_Imagine"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Oprește scanarea curentă"
+msgid "Stop"
+msgstr "Oprește"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -336,34 +336,41 @@ msgstr "Opreș_te"
 msgid "_Scan"
 msgstr "_Scanează"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Salvează documentul ca fișier"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Opțiuni scanare"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Meniu principal"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exportă"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Reîmprospătează lista de dispozitive"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Document nou"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Rotește pagina la stânga (în sens invers acelor de ceasornic)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Rotește la stânga (în sens anti-orar)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Rotește pagina la dreapta (în sensul acelor de ceasornic)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Rotește la dreapta (în sens orar)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "Decupează pagina selectată"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "Șterge pagina selectată"
 
 #: data/ui/authorize-dialog.ui:31
@@ -677,10 +684,10 @@ msgstr "Programe adiționale sunt necesare"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
-"Trebuie să <a href=\"install-firmware\">instalați drivere</a> pentru "
-"scanerul dumneavoastră."
+"Trebuie să <a href=\"install-firmware\">instalați software-ul driver</a> "
+"pentru scaner"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -689,8 +696,8 @@ msgstr "Nu a fost detectat niciun scaner"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Verificați dacă scanerul este conectat și pornit."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Verificați dacă scanerul este conectat și pornit"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -777,12 +784,12 @@ msgid "Contacting Scanner…"
 msgstr "Se contactează scanerul…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Scanați o singură pagină din scaner"
+msgid "Scan a Single Page"
+msgstr "Scanează o singură pagină"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Scanează pagini multiple din scaner"
+msgid "Scan Multiple Pages"
+msgstr "Scanează pagini multiple"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -793,7 +800,7 @@ msgstr "Nu se poate salva imaginea pentru a prezenta o previzualizare"
 msgid "translator-credits"
 msgstr ""
 "Florentina Mușat <florentina [dot] musat [dot] 28 [at] gmail [dot] com>, "
-"2019-2020, 2023\n"
+"2019-2020, 2023-2024\n"
 "Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>, 2019-2021\n"
 "Launchpad Contributions:\n"
 "  Adi Roiban https://launchpad.net/~adiroiban\n"
@@ -816,17 +823,17 @@ msgid "_Quit without Saving"
 msgstr "Î_nchide fără a salva"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_Email"
+msgid "_Email…"
+msgstr "_Email…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "_Tipărește"
+msgid "Pri_nt…"
+msgstr "_Tipărește…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Reordonează paginile"
+msgid "_Reorder Pages…"
+msgstr "_Reordonează paginile…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1116,6 +1123,21 @@ msgstr ""
 "Rulați „%s --help” pentru a consulta lista completă a opțiunilor pentru "
 "comenzile din lina de comandă."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Oprește scanarea curentă"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Salvează documentul ca fișier"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Rotește pagina la dreapta (în sensul acelor de ceasornic)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Scanați o singură pagină din scaner"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Scanează pagini multiple din scaner"
+
 #~ msgid "Image Files"
 #~ msgstr "Fișiere imagine"
 
@@ -1207,12 +1229,6 @@ msgstr ""
 #~ msgid "The resolution in dots-per-inch to use when scanning photos."
 #~ msgstr ""
 #~ "Rezoluția în dpi (dots-per-inch) folosită la scanarea fotografiilor."
-
-#~ msgid "Scan Documents"
-#~ msgstr "Scanează documente"
-
-#~ msgid "Stop"
-#~ msgstr "Oprește"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Scaner"
