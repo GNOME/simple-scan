@@ -2,15 +2,15 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
 #
-# Nathan Follens <nfollens@gnome.org>, 2017, 2019-2020, 2022-2023.
+# Nathan Follens <nfollens@gnome.org>, 2017, 2019-2020, 2022-2024.
 # Hannie Dumoleyn <hannie@ubuntu-nl.org>, 2017, 2018, 2021.
 # Justin van Steijn <jvs@fsfe.org>, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-18 17:21+0000\n"
-"PO-Revision-Date: 2023-09-03 15:34+0200\n"
+"POT-Creation-Date: 2024-09-29 16:06+0000\n"
+"PO-Revision-Date: 2024-10-27 22:20+0100\n"
 "Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
 "Language-Team: GNOME-NL <https://matrix.to/#/#nl:gnome.org>\n"
 "Language: nl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -329,8 +329,8 @@ msgstr "_Afbeelding"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "De huidige scan stoppen"
+msgid "Stop"
+msgstr "Stoppen"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -340,35 +340,42 @@ msgstr "S_toppen"
 msgid "_Scan"
 msgstr "_Scannen"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Document naar een bestand opslaan"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Scanopties"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Hoofdmenu"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Exporteren"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "Apparatenlijst vernieuwen"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Nieuw document"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "De pagina linksom draaien (tegen de klok in)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Linksom draaien (tegen de klok in)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "De pagina rechtsom draaien (met de klok mee)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Rechtsom draaien (met de klok mee)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
-msgstr "De geselecteerde pagina bijsnijden"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
+msgstr "Geselecteerde pagina bijsnijden"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
-msgstr "De geselecteerde pagina verwijderen"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
+msgstr "Geselecteerde pagina verwijderen"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
@@ -681,10 +688,10 @@ msgstr "Extra software nodig"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
 "U dient <a href=\"install-firmware\">een stuurprogramma te installeren</a> "
-"voor uw scanner."
+"voor uw scanner"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -693,8 +700,8 @@ msgstr "Geen scanners gevonden"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Controleer of uw scanner aangesloten en ingeschakeld is."
+msgid "Please check your scanner is connected and powered on"
+msgstr "Controleer of uw scanner aangesloten en ingeschakeld is"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -781,11 +788,11 @@ msgid "Contacting Scanner…"
 msgstr "Contact maken met scanner…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
+msgid "Scan a Single Page"
 msgstr "Een enkele pagina scannen"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
+msgid "Scan Multiple Pages"
 msgstr "Meerdere pagina’s scannen"
 
 #. Error message display when unable to save image for preview
@@ -831,17 +838,17 @@ msgid "_Quit without Saving"
 msgstr "_Afsluiten zonder opslaan"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_E-mailen"
+msgid "_Email…"
+msgstr "_E-mailen…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "Afdrukke_n"
+msgid "Pri_nt…"
+msgstr "Afdrukke_n…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "Pagina’s he_rschikken"
+msgid "_Reorder Pages…"
+msgstr "Pagina’s he_rschikken…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1134,6 +1141,21 @@ msgstr ""
 "Voer ‘%s --help’ uit om een volledige lijst van beschikbare "
 "opdrachtregelopties te zien."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "De huidige scan stoppen"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Document naar een bestand opslaan"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "De pagina rechtsom draaien (met de klok mee)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Een enkele pagina scannen"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Meerdere pagina’s scannen"
+
 #~ msgid "Image Files"
 #~ msgstr "Afbeeldingsbestanden"
 
@@ -1229,12 +1251,6 @@ msgstr ""
 #~ msgstr ""
 #~ "De te gebruiken resolutie in punten-per-inch (dtp) tijdens het scannen "
 #~ "van foto's."
-
-#~ msgid "Scan Documents"
-#~ msgstr "Documenten scannen"
-
-#~ msgid "Stop"
-#~ msgstr "Stoppen"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Scanner"
