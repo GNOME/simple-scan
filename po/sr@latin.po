@@ -1,24 +1,25 @@
 # Serbian translation for simple-scan
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011—2016.
 # Borisav Živanović <borisavzivanovic@gmail.com>, 2017.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2011—2022.
+# Marko M. Kostić <marko.m.kostic@gmail.com>, 2024.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=simple-scan&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2017-08-15 20:17+0000\n"
-"PO-Revision-Date: 2017-08-06 13:06+0200\n"
-"Last-Translator: Borisav Živanović <borisavzivanovic@gmail.com>\n"
-"Language-Team: Serbian\n"
+"Project-Id-Version: unnamed project\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
+"POT-Creation-Date: 2024-09-29 16:06+0000\n"
+"PO-Revision-Date: 2024-11-01 00:37+0100\n"
+"Last-Translator: Marko M. Kostić <marko.m.kostic@gmail.com>\n"
+"Language-Team: Serbian <srpski <gnome-sr@googlegroups.org>>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.0.3\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Gtranslator 46.1\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -26,7 +27,7 @@ msgstr "Uređaj za skeniranje"
 
 #: data/org.gnome.SimpleScan.gschema.xml:12
 msgid "SANE device to acquire images from."
-msgstr "SANE uređaj za stvaranje slika."
+msgstr "Sa kog SANE uređaja će se uzimati slike."
 
 #: data/org.gnome.SimpleScan.gschema.xml:20
 msgid "Type of document being scanned"
@@ -86,15 +87,15 @@ msgstr "Rezolucija skeniranja teksta"
 
 #: data/org.gnome.SimpleScan.gschema.xml:46
 msgid "The resolution in dots-per-inch to use when scanning text."
-msgstr "Rezolucija u tačkama po inču za probno skeniranje."
+msgstr "Rezolucija u tačkama po inču za korišćenje prilikom skeniranja teksta."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
-msgid "Resolution for photo scans"
+msgid "Resolution for image scans"
 msgstr "Rezolucija skeniranja slika"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
-msgid "The resolution in dots-per-inch to use when scanning photos."
-msgstr "Rezolucija u tačkama po inču za skeniranje slika."
+msgid "The resolution in dots-per-inch to use when scanning images."
+msgstr "Rezolucija u tačkama po inču za korišćenje prilikom skeniranja slika."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -112,893 +113,974 @@ msgstr "Direktorijum za čuvanje datoteka"
 msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
 msgstr ""
-"Direktorijum za čuvanje datoteka. Podrazumevana lokacija je direktorijum za "
-"dokumente."
+"Direktorijum za čuvanje datoteka. Ako nije postavljeno podrazumeva se "
+"direktorijum za dokumente."
+
+#: data/org.gnome.SimpleScan.gschema.xml:65
+msgid "File format that is used for saving image files"
+msgstr "Format datoteke koji se koristi za čuvanje slika"
 
 #: data/org.gnome.SimpleScan.gschema.xml:66
+msgid ""
+"MIME type that is used for saving image files. Examples of supported MIME "
+"types: image/jpeg, image/png, application/pdf"
+msgstr ""
+"MIME vrsta koja se koristi za čuvanje slika. Primeri podržanih MIME vrsta: "
+"image/jpeg, image/png, application/pdf"
+
+#: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
 msgstr "Kvalitet JPEG kompresije"
 
-#: data/org.gnome.SimpleScan.gschema.xml:67
-msgid "Quality value to use for JPEG compression."
-msgstr "Kvalitet JPEG kompresije."
-
 #: data/org.gnome.SimpleScan.gschema.xml:72
+msgid "Quality value to use for JPEG compression."
+msgstr "Vrednost kvaliteta za korišćenje prilikom JPEG kompresije."
+
+#: data/org.gnome.SimpleScan.gschema.xml:77
 msgid "Delay in millisecond between pages"
 msgstr "Razmak u milisekundama između stranica"
 
-#: data/org.gnome.SimpleScan.gschema.xml:73
+#: data/org.gnome.SimpleScan.gschema.xml:78
 msgid "Delay in millisecond between pages."
 msgstr "Razmak u milisekundama između stranica."
 
-#. Title of scan window
-#. Set HeaderBar title here because Glade doesn't keep it translated
-#. https://bugzilla.gnome.org/show_bug.cgi?id=782753
-#. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: src/app-window.ui:76 src/app-window.vala:1560
-msgid "Simple Scan"
-msgstr "Jednostavno ckeniranje"
+#: data/org.gnome.SimpleScan.gschema.xml:82
+msgid "Whether or not postprocessing is enabled"
+msgstr "Da li je naknadna obrada omogućena"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:5
-msgid "Scan Documents"
-msgstr "Skenirajte dokumente"
+#: data/org.gnome.SimpleScan.gschema.xml:83
+msgid "Whether or not postprocessing is enabled."
+msgstr "Da li je naknadna obrada omogućena."
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.gschema.xml:87
+msgid "The path to the postprocessing script"
+msgstr "Putanja do skripte za naknadnu obradu"
+
+#: data/org.gnome.SimpleScan.gschema.xml:88
+msgid "The path to the postprocessing script."
+msgstr "Putanja do skripte za naknadnu obradu."
+
+#: data/org.gnome.SimpleScan.gschema.xml:92
+msgid "Additional arguments for the postprocessing script"
+msgstr "Dodatni argumenti za skriptu naknadne obrade"
+
+#: data/org.gnome.SimpleScan.gschema.xml:93
+msgid "Additional arguments for the postprocessing script."
+msgstr "Dodatni argumenti za skriptu naknadne obrade."
+
+#: data/org.gnome.SimpleScan.gschema.xml:97
+msgid "Whether or not to keep the original, unprocessed file"
+msgstr "Da li treba zadržati izvornu, neobrađenu datoteku"
+
+#: data/org.gnome.SimpleScan.gschema.xml:98
 msgid ""
-"A really easy way to scan both documents and photos. You can crop out the "
-"bad parts of a photo and rotate it if it is the wrong way round. You can "
-"print your scans, export them to pdf, or save them in a range of image "
-"formats."
+"Whether or not to keep the original, unprocessed file. The \"_orig\" "
+"filename will be added to the filename immediately before the file extension."
 msgstr ""
-"Veoma jednostavan način za skeniranje dokumenata i slika. Možete iseći loše "
+"Da li treba zadržati izvornu, neobrađenu datoteku. Sufiks \"_orig\" biće "
+"dodat nazivu datoteke odmah pre proširenja datoteke."
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/ui/app-window.ui:139 src/app-window.vala:1245
+msgid "Document Scanner"
+msgstr "Skener za dokumente"
+
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+msgid "Make a digital copy of your photos and documents"
+msgstr "Napravite digitalne kopije vaših fotografija i dokumenata"
+
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
+msgid ""
+"A really easy way to scan both text and images. You can crop out the bad "
+"parts of an image and rotate it if it is the wrong way round. You can print "
+"your scans, export them to pdf, or save them in a range of image formats."
+msgstr ""
+"Veoma jednostavan način za skeniranje teksta i slika. Možete iseći loše "
 "delove slike i rotirati je ako je okrenuta na pogrešnu stranu. Možete "
 "štampati skenirane datoteke, sačuvati ih u formatu PDF ili u velikom izboru "
 "ostalih formata."
 
-#: data/simple-scan.appdata.xml.in:14
-msgid "Simple Scan uses the SANE framework to support most existing scanners."
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
+msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
-"Jednostavno Skeniranje koristi SANE frejmvork kao podršku za veliki broj "
-"skenera."
+"Ovaj program koristi SANE radni okvir kao podršku za veliki broj skenera."
 
-#: data/simple-scan.desktop.in:4
-msgid "Document Scanner"
-msgstr "Skener za dokumente"
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
+msgid "The GNOME Project"
+msgstr "Gnomov projekat"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/simple-scan.desktop.in:7
+#: data/simple-scan.desktop.in:6
 msgid "scan;scanner;flatbed;adf;"
 msgstr ""
 "scan;scanner;flatbed;adf;skeniranje;skener;kopiranje;skeniranje;skener;"
 "kopiranje;"
 
-#. Translators: Do NOT translate or transliterate this text (this is an icon file name)!
-#: data/simple-scan.desktop.in:10
-msgid "scanner"
-msgstr "scanner"
-
-#. Toolbar scan menu item to scan a single page from the scanner
-#. Scan menu item to scan a single page from the scanner
-#. Toolbar scan menu item to scan a single page from the scanner
-#: src/app-window.ui:22 src/app-window.ui:123 src/app-window.ui:820
-msgid "Single _Page"
-msgstr "_Jedonostrano"
-
-#. Toolbar scan menu item to scan all pages from a document feeder
-#. Scan menu item to scan all pages from a document feeder
-#. Toolbar scan menu item to scan all pages from a document feeder
-#: src/app-window.ui:31 src/app-window.ui:133 src/app-window.ui:829
-msgid "All Pages From _Feeder"
-msgstr "Sve stranice iz _fioke skenera"
-
-#. Toolbar scan menu item to scan continuously from the flatbed
-#. Scan menu item to scan continuously from the flatbed
-#. Toolbar scan menu item to scan continuously from the flatbed
-#: src/app-window.ui:40 src/app-window.ui:143 src/app-window.ui:838
-msgid "_Multiple Pages From Flatbed"
-msgstr "_Više stranica sa položenog skenera"
-
-#: src/app-window.ui:55 src/app-window.ui:170 src/app-window.ui:853
-msgid "Text"
-msgstr "Tekst"
-
-#: src/app-window.ui:65 src/app-window.ui:180 src/app-window.ui:863
-msgid "Photo"
-msgstr "Slika"
-
-#. Label on document menu (contains actions for this document, e.g. save, print)
-#: src/app-window.ui:91
-msgid "_Document"
-msgstr "_Dokument"
-
-#. Scan menu item
-#: src/app-window.ui:110
-msgid "Sc_an"
-msgstr "_Skeniraj"
-
-#. Menu entry to stop current scan
-#: src/app-window.ui:154
-msgid "_Stop Scan"
-msgstr "_Zaustavi skeniranje"
-
-#. Menu item to reorder pages
-#. Title of dialog to reorder pages
-#: src/app-window.ui:196 src/app-window.vala:967 src/app-window.vala:1590
-msgid "Reorder Pages"
-msgstr "Promenite raspored stranica"
-
-#. Label on email menu item
-#: src/app-window.ui:215
-msgid "_Email"
-msgstr "_E-pošta"
-
-#. Page menu (contains action for each page, e.g. delete, crop)
-#: src/app-window.ui:280
-msgid "_Page"
-msgstr "St_ranica"
-
 #. Menu item to rotate page to left (anti-clockwise)
-#: src/app-window.ui:290
+#: data/ui/app-window.ui:8
 msgid "Rotate _Left"
 msgstr "Rotiraj na_levo"
 
 #. Menu item to rotate page to right (clockwise)
-#: src/app-window.ui:300
+#: data/ui/app-window.ui:12
 msgid "Rotate _Right"
 msgstr "Rotiraj na_desno"
 
 #. Label for page crop submenu
-#: src/app-window.ui:310
+#: data/ui/app-window.ui:16
 msgid "_Crop"
 msgstr "_Iseci"
 
 #. Radio button for no crop
-#: src/app-window.ui:320
+#: data/ui/app-window.ui:20
 msgid "_None"
 msgstr "_Ništa"
 
 #. Radio button for cropping page to A4 size
-#: src/app-window.ui:331
+#: data/ui/app-window.ui:26
 msgid "A_4"
 msgstr "A_4"
 
 #. Radio button for cropping page to A5 size
-#: src/app-window.ui:342
+#: data/ui/app-window.ui:32
 msgid "A_5"
 msgstr "A_5"
 
 #. Radio button for cropping page to A6 size
-#: src/app-window.ui:353
+#: data/ui/app-window.ui:38
 msgid "A_6"
 msgstr "A_6"
 
 #. Radio button for cropping page to US letter size
-#: src/app-window.ui:364
+#: data/ui/app-window.ui:44
 msgid "_Letter"
 msgstr "_Pismo"
 
 #. Radio button for cropping to page to US legal size
-#: src/app-window.ui:375
+#: data/ui/app-window.ui:50
 msgid "Le_gal"
 msgstr "_US legal"
 
 #. Radio button for cropping page to 4x6 inch
-#: src/app-window.ui:386
+#: data/ui/app-window.ui:56
 msgid "4×6"
 msgstr "4×6"
 
+#. Radio button for cropping page to A3
+#: data/ui/app-window.ui:62
+msgid "A_3"
+msgstr "A_3"
+
 #. Radio button for cropping to custom page size
-#: src/app-window.ui:397
+#: data/ui/app-window.ui:68
 msgid "_Custom"
 msgstr "_Proizvoljno"
 
 #. Menu item to rotate the crop area
-#: src/app-window.ui:415
+#: data/ui/app-window.ui:76
 msgid "_Rotate Crop"
 msgstr "Ro_tiraj isečak"
 
 #. Menu item to move the selected page to the left
-#: src/app-window.ui:428
+#: data/ui/app-window.ui:83
 msgid "Move Left"
 msgstr "Pomeri nalevo"
 
 #. Menu item to move the selected page to the right
-#: src/app-window.ui:437
+#: data/ui/app-window.ui:87
 msgid "Move Right"
 msgstr "Pomeri nadesno"
 
-#. Label on help menu
-#: src/app-window.ui:474
-msgid "_Help"
-msgstr "_Pomoć"
+#: data/ui/app-window.ui:91
+msgid "Copy"
+msgstr "Kopiraj"
 
-#. Help|Contents menu
-#: src/app-window.ui:482
-msgid "_Contents"
-msgstr "Sadr_žaj"
+#: data/ui/app-window.ui:95
+msgid "Delete"
+msgstr "Obriši"
 
-#. Tooltip for scan toolbar button
-#: src/app-window.ui:520 src/app-window.ui:720
-msgid "Scan a single page from the scanner"
-msgstr "Skeniraj jednu stanu sa skenera"
+#: data/ui/app-window.ui:103
+msgid "_Single Page"
+msgstr "Jedono_strano"
 
-#. Label on scan toolbar item
-#: src/app-window.ui:522 src/app-window.ui:716
-msgid "Scan"
-msgstr "Skeniraj"
+#: data/ui/app-window.ui:109
+msgid "All Pages From _Feeder"
+msgstr "Sve stranice iz _fioke skenera"
 
-#. Tooltip for save toolbar button
-#: src/app-window.ui:538 src/app-window.ui:787
-msgid "Save document to a file"
-msgstr "Sačuvaj dokument u datoteku"
+#: data/ui/app-window.ui:115
+msgid "_Multiple Pages From Flatbed"
+msgstr "_Više stranica sa položenog skenera"
 
-#: src/app-window.ui:540
-msgid "Save"
-msgstr "Sačuvaj"
+#: data/ui/app-window.ui:123
+msgid "_Text"
+msgstr "_Tekst"
+
+#: data/ui/app-window.ui:129
+msgid "_Image"
+msgstr "Sl_ika"
 
 #. Tooltip for stop button
-#: src/app-window.ui:555 src/app-window.ui:700
-msgid "Stop the current scan"
-msgstr "Zaustavi skeniranje"
-
-#: src/app-window.ui:556 src/app-window.ui:697
+#: data/ui/app-window.ui:164
 msgid "Stop"
 msgstr "Zaustavi"
 
-#. Label shown when searching for scanners
-#: src/app-window.ui:611
-msgid "Searching for Scanners…"
-msgstr "Traženje skenera…"
+#: data/ui/app-window.ui:178
+msgid "S_top"
+msgstr "Zau_stavi"
 
-#: src/app-window.vala:237 src/app-window.vala:1380
+#: data/ui/app-window.ui:203
+msgid "_Scan"
+msgstr "_Skeniraj"
+
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "Opcije skener"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Glavni meni"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Izvezi"
+
+#. Tooltip for stop button
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
+msgstr "Osveži spisak uređaja"
+
+#: data/ui/app-window.ui:313
+msgid "New Document"
+msgstr "Novi dokument"
+
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Rotiraj nalevo (suprotno kazaljci na satu)"
+
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "Rotiranje nadesno (smer kazaljke na satu)"
+
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
+msgstr "Iseci izabranu stranicu"
+
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
+msgstr "Obriši izabranu stranicu"
+
+#: data/ui/authorize-dialog.ui:31
+msgid "_Username for resource"
+msgstr "_Korisničko ime za resurs"
+
+#: data/ui/authorize-dialog.ui:38
+msgid "_Password"
+msgstr "_Lozinka"
+
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
+#: src/app-window.vala:665
+msgid "_Cancel"
+msgstr "_Otkaži"
+
+#. Button to submit authorization dialog
+#: data/ui/authorize-dialog.ui:61
+msgid "_Authorize"
+msgstr "Daj _pristup"
+
+#: data/ui/drivers-dialog.ui:17
+msgid "Install drivers"
+msgstr "Intaliraj upravljački program"
+
+#: data/ui/help-overlay.ui:10
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Skeniranje"
+
+#: data/ui/help-overlay.ui:14
+msgctxt "shortcut window"
+msgid "Scan a single page"
+msgstr "Skeniranje jedne stranice"
+
+#: data/ui/help-overlay.ui:20
+msgctxt "shortcut window"
+msgid "Scan all pages from document feeder"
+msgstr "Skeniranje svih stranica iz fijoke"
+
+#: data/ui/help-overlay.ui:26
+msgctxt "shortcut window"
+msgid "Scan continuously from a flatbed scanner"
+msgstr "Skeniranje bez prekida sa položenog skenera"
+
+#: data/ui/help-overlay.ui:32
+msgctxt "shortcut window"
+msgid "Stop scan in progress"
+msgstr "Prekid tekućeg skeniranja"
+
+#: data/ui/help-overlay.ui:39
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Izmena dokumenta"
+
+#: data/ui/help-overlay.ui:43
+msgctxt "shortcut window"
+msgid "Move page left"
+msgstr "Pomeranje stranice nalevo"
+
+#: data/ui/help-overlay.ui:49
+msgctxt "shortcut window"
+msgid "Move page right"
+msgstr "Pomeranje stranice nadesno"
+
+#: data/ui/help-overlay.ui:55
+msgctxt "shortcut window"
+msgid "Rotate page to the left (anti-clockwise)"
+msgstr "Rotiranje stranice nalevo (suprotno kazaljci na satu)"
+
+#: data/ui/help-overlay.ui:61
+msgctxt "shortcut window"
+msgid "Rotate page to the right (clockwise)"
+msgstr "Rotiranje stranice nadesno (smer kazaljke na satu)"
+
+#: data/ui/help-overlay.ui:67
+msgctxt "shortcut window"
+msgid "Delete page"
+msgstr "Brisanje stranice"
+
+#: data/ui/help-overlay.ui:74
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Upravljanje dokumentima"
+
+#: data/ui/help-overlay.ui:78
+msgctxt "shortcut window"
+msgid "Start new document"
+msgstr "Pravljenje novog dokumenta"
+
+#: data/ui/help-overlay.ui:84
+msgctxt "shortcut window"
+msgid "Save scanned document"
+msgstr "Čuvanje skeniranog dokumenta"
+
+#: data/ui/help-overlay.ui:90
+msgctxt "shortcut window"
+msgid "Email scanned document"
+msgstr "Slanje skeniranog dokumenta e-poštom"
+
+#: data/ui/help-overlay.ui:96
+msgctxt "shortcut window"
+msgid "Print scanned document"
+msgstr "Štampanje skeniranog dokumenta"
+
+#: data/ui/help-overlay.ui:102
+msgctxt "shortcut window"
+msgid "Copy current page to clipboard"
+msgstr "Kopiranje trenutne stranice na ostavu"
+
+#: data/ui/help-overlay.ui:109
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Opšte"
+
+#: data/ui/help-overlay.ui:113
+msgctxt "shortcut window"
+msgid "Show help"
+msgstr "Prikaži pomoć"
+
+#: data/ui/help-overlay.ui:119
+msgctxt "shortcut window"
+msgid "Open menu"
+msgstr "Otvara meni"
+
+#: data/ui/help-overlay.ui:125
+msgctxt "shortcut window"
+msgid "Show preferences"
+msgstr "Prikazuje prozor postavki"
+
+#: data/ui/help-overlay.ui:131
+msgctxt "shortcut window"
+msgid "Keyboard shortcuts"
+msgstr "Prečice na tastaturi"
+
+#: data/ui/help-overlay.ui:137
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Izlazak"
+
+#. Preferences Dialog: Section label for scanning settings
+#: data/ui/preferences-dialog.ui:32
+msgid "Scanning"
+msgstr "Skeniram"
+
+#. Label beside scan side combo box
+#: data/ui/preferences-dialog.ui:35
+msgid "Scan _Sides"
+msgstr "Skeniranje _stranica"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:44
+msgid "Front"
+msgstr "Prednja strana"
+
+#. Preferences Dialog: Toggle button to select scanning on the back side of a page
+#: data/ui/preferences-dialog.ui:49
+msgid "Back"
+msgstr "Zadnja strana"
+
+#. Preferences Dialog: Toggle button to select scanning on both sides of a page
+#: data/ui/preferences-dialog.ui:55
+msgid "Both"
+msgstr "Obe strane"
+
+#. Label beside page size combo box
+#: data/ui/preferences-dialog.ui:68
+msgid "_Page Size"
+msgstr "Veličina st_ranice"
+
+#. Label beside page delay scale
+#: data/ui/preferences-dialog.ui:74
+msgid "_Delay in Seconds"
+msgstr "Zastoj u sekun_dama"
+
+#. Provides context for the page delay scale
+#: data/ui/preferences-dialog.ui:75
+msgid "Interval to scan multiple pages"
+msgstr "Razmak za skeniranje više strana"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:84
+msgid "0"
+msgstr "0"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:89
+msgid "3"
+msgstr "3"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:95
+msgid "6"
+msgstr "6"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:101
+msgid "10"
+msgstr "10"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:107
+msgid "15"
+msgstr "15"
+
+#. Preferences Dialog: Section label for quality settings
+#: data/ui/preferences-dialog.ui:122
+msgid "Quality"
+msgstr "Kvalitet"
+
+#. Label beside scan resolution combo box
+#: data/ui/preferences-dialog.ui:125
+msgid "_Text Resolution"
+msgstr "Rezolucija _teksta"
+
+#. Label beside scan resolution combo box
+#: data/ui/preferences-dialog.ui:131
+msgid "_Image Resolution"
+msgstr "Rezolucija sl_ike"
+
+#. Label beside brightness scale
+#: data/ui/preferences-dialog.ui:137
+msgid "_Brightness"
+msgstr "_Osvetljenost"
+
+#. Label beside contrast scale
+#: data/ui/preferences-dialog.ui:152
+msgid "_Contrast"
+msgstr "_Kontrast"
+
+#. Label beside compression scale
+#: data/ui/preferences-dialog.ui:167
+msgid "Compression"
+msgstr "Sažimanje"
+
+#. Preferences Dialog: Section label for postprocessing settings
+#: data/ui/preferences-dialog.ui:184
+msgid "Postprocessing"
+msgstr "Naknadna obrada"
+
+#. Switch to enable postprocessing
+#: data/ui/preferences-dialog.ui:187
+msgid "_Enable Postprocessing"
+msgstr "Omo_gući naknadnu obradu"
+
+#. Label beside postprocesing script name entry
+#: data/ui/preferences-dialog.ui:206
+msgid "_Script"
+msgstr "_Skripta"
+
+#. Label beside postprocesing arguments entry
+#: data/ui/preferences-dialog.ui:225
+msgid "_Script arguments"
+msgstr "Argumenti _skripte"
+
+#. Label beside keep keep original file radio
+#: data/ui/preferences-dialog.ui:244
+msgid "_Keep original file"
+msgstr "Zadrži izvornu datote_ku"
+
+#: data/ui/reorder-pages-dialog.ui:9
+msgctxt "dialog title"
+msgid "Reorder Pages"
+msgstr "Promena rasporeda stranica"
+
+#: data/ui/reorder-pages-dialog.ui:34
+msgid "Combine sides"
+msgstr "Kombinuj stranice"
+
+#: data/ui/reorder-pages-dialog.ui:42
+msgid "Combine sides (reverse)"
+msgstr "Kombinuj stranice (unazad)"
+
+#: data/ui/reorder-pages-dialog.ui:55
+msgid "Flip odd pages upside-down"
+msgstr "Izvrni neparne stranice naglavačke"
+
+#: data/ui/reorder-pages-dialog.ui:63
+msgid "Flip even pages upside-down"
+msgstr "Izvrni parne stranice naglavačke"
+
+#: data/ui/reorder-pages-dialog.ui:78
+msgid "Reverse"
+msgstr "Izokreni"
+
+#: src/app-window.vala:206
 msgid "_Close"
 msgstr "_Zatvori"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:246
+#: src/app-window.vala:214
 #, c-format
 msgid "Username and password required to access “%s”"
-msgstr "Ime naloga i lozinka koji su potrebni za pristup “%s”"
+msgstr "Korisničko ime i lozinka su potrebni za pristup „%s“"
+
+#. Label shown when searching for scanners
+#: src/app-window.vala:227
+msgid "Searching for Scanners…"
+msgstr "Traženje skenera…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:266 src/app-window.vala:584
+#: src/app-window.vala:235
 msgid "Ready to Scan"
 msgstr "Spreman za skeniranje"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:273
-msgid "Additional software needed"
+#: src/app-window.vala:245
+msgid "Additional Software Needed"
 msgstr "Potreban je dodatni softver"
 
 #. Instructions to install driver software
-#: src/app-window.vala:275
+#: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
-"Morate da <a href=\"install-firmware\">instalirate upravljački program</a> za "
-"Vaš skener."
+"Treba da <a href=\"install-firmware\">instalirate upravljački program</a> za "
+"vaš skener."
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:281
-msgid "No scanners detected"
+#: src/app-window.vala:254
+msgid "No Scanners Detected"
 msgstr "Nijedan skener nije pronađen"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:283
+#: src/app-window.vala:256
 msgid "Please check your scanner is connected and powered on"
-msgstr "Proveri da li je skener povezan i uključen"
+msgstr "Proverite da li je skener povezan i uključen"
 
-#. Save dialog: Dialog title
-#: src/app-window.vala:298
+#. Contents of dialog that shows if autosaved book should be loaded.
+#: src/app-window.vala:306
+msgid "An autosaved book exists. Do you want to open it?"
+msgstr "Samostalno sačuvana knjiga već postoji. Da li želite da je otvorite?"
+
+#: src/app-window.vala:308
+msgid "_No"
+msgstr "_Ne"
+
+#: src/app-window.vala:309
+msgid "_Yes"
+msgstr "_Da"
+
+#: src/app-window.vala:388
 msgid "Save As…"
 msgstr "Sačuvaj kao…"
 
-#: src/app-window.vala:301 src/app-window.vala:471 src/app-window.vala:552
-msgid "_Cancel"
-msgstr "_Otkaži"
-
-#: src/app-window.vala:302 src/app-window.vala:553
+#: src/app-window.vala:390 src/app-window.vala:666
 msgid "_Save"
 msgstr "_Sačuvaj"
 
-#. Default filename to use when saving document
-#: src/app-window.vala:310
-msgid "Scanned Document.pdf"
-msgstr "Skenirani dokument.pdf"
+#. Default filename to use when saving document.
+#. To that filename the extension will be added, eg. "Scanned Document.pdf"
+#: src/app-window.vala:406
+msgid "Scanned Document"
+msgstr "Skenirani dokument"
 
-#. Save dialog: Filter name to show only supported image files
-#: src/app-window.vala:316
-msgid "Image Files"
-msgstr "Datoteke slika"
-
-#. Save dialog: Filter name to show all files
-#: src/app-window.vala:326
-msgid "All Files"
-msgstr "Sve datoteke"
-
-#. Save dialog: Label for saving in PDF format
-#: src/app-window.vala:335
+#: src/app-window.vala:412
 msgid "PDF (multi-page document)"
 msgstr "PDF (dokument sa više strana)"
 
-#. Save dialog: Label for saving in JPEG format
-#: src/app-window.vala:341
+#: src/app-window.vala:418
 msgid "JPEG (compressed)"
 msgstr "JPEG (komprimovani)"
 
-#. Save dialog: Label for saving in PNG format
-#: src/app-window.vala:347
+#: src/app-window.vala:425
 msgid "PNG (lossless)"
 msgstr "PNG (bez gubitaka)"
 
-#. Save dialog: Label for sabing in WEBP format
-#: src/app-window.vala:354
+#: src/app-window.vala:431
 msgid "WebP (compressed)"
 msgstr "VebP (komprimovani)"
 
-#. Label in save dialog beside combo box to choose file format (PDF, JPEG, PNG, WEBP)
-#: src/app-window.vala:364
-msgid "File format:"
-msgstr "Format datoteke:"
+#: src/app-window.vala:437
+msgid "All Files"
+msgstr "Sve datoteke"
 
-#. Label in save dialog beside compression slider
-#: src/app-window.vala:376
-msgid "Compression:"
-msgstr "Kompresija:"
-
-#. Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file.
-#: src/app-window.vala:470
+#: src/app-window.vala:528
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
-msgstr "Datoteka sa nazivom “%s” već postoji.  Da li želite da je zamenite?"
+msgstr "Datoteka sa nazivom „%s“ već postoji.  Da li želite da je zamenite?"
 
-#. Button in dialog that shows if saving would overwrite and existing file. Clicking the button allows simple-scan to overwrite the file.
-#: src/app-window.vala:473
+#: src/app-window.vala:536
 msgid "_Replace"
 msgstr "_Zameni"
 
-#: src/app-window.vala:512
+#: src/app-window.vala:623
 msgid "Saving"
 msgstr "Čuvanje"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:527
+#: src/app-window.vala:643
 msgid "Failed to save file"
 msgstr "Čuvanje datoteke nije uspelo"
 
-#. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:550
+#: src/app-window.vala:662
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Ako ne sačuvate izmene će biti izgubljene zauvek."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:591
+#: src/app-window.vala:710
 msgid "Save current document?"
 msgstr "Sačuvati trenutni dokument?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:593
-msgid "Discard Changes"
-msgstr "Odbaci izmene"
+#: src/app-window.vala:712
+msgid "_Discard Changes"
+msgstr "O_dbaci izmene"
 
 #. Label shown when scan started
-#: src/app-window.vala:692
-msgid "Contacting scanner…"
-msgstr "Kontaktiranje skenera…"
+#: src/app-window.vala:780
+msgid "Contacting Scanner…"
+msgstr "Kontaktiram skener…"
+
+#: src/app-window.vala:892
+msgid "Scan a Single Page"
+msgstr "Skeniraj jednu stranicu"
+
+#: src/app-window.vala:897 src/app-window.vala:902
+msgid "Scan Multiple Pages"
+msgstr "Skeniranje više stranica"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:800
+#: src/app-window.vala:1017
 msgid "Unable to save image for preview"
 msgstr "Čuvanje probne slike nije uspelo"
 
-#. Error message display when unable to preview image
-#: src/app-window.vala:812
-msgid "Unable to open image preview application"
-msgstr "Pokretanje programa za prikaz slike nije uspelo"
-
-#. Label on button for combining sides in reordering dialog
-#: src/app-window.vala:990
-msgid "Combine sides"
-msgstr "Kombinuj stranice"
-
-#. Label on button for combining sides in reverse order in reordering dialog
-#: src/app-window.vala:1000
-msgid "Combine sides (reverse)"
-msgstr "Kombinuj stranice (unazad)"
-
-#. Label on button for reversing in reordering dialog
-#: src/app-window.vala:1010
-msgid "Reverse"
-msgstr "Izokreni"
-
-#. Label on button for cancelling page reordering dialog
-#: src/app-window.vala:1020
-msgid "Keep unchanged"
-msgstr "Bez izmena"
-
-#. Error message displayed when unable to launch help browser
-#: src/app-window.vala:1250
-msgid "Unable to open help file"
-msgstr "Nije moguće otvoriti datoteku pomoći"
-
-#. The license this software is under (GPL3+)
-#: src/app-window.vala:1271
-msgid ""
-"This program is free software: you can redistribute it and/or modify\n"
-"it under the terms of the GNU General Public License as published by\n"
-"the Free Software Foundation, either version 3 of the License, or\n"
-"(at your option) any later version.\n"
-"\n"
-"This program is distributed in the hope that it will be useful,\n"
-"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-"GNU General Public License for more details.\n"
-"\n"
-"You should have received a copy of the GNU General Public License\n"
-"along with this program.  If not, see <http://www.gnu.org/licenses/>."
-msgstr ""
-"Ovaj pogram je slobodan softver: možete ga deliti i/ili modifikovati\n"
-"pod uslovima GNU-ove Opšte javne licence koju je objavila\n"
-"Zadužbina za Slobodan Softver, verzija 3 ili\n"
-"po vašoj želji bilo koja starija verzija.\n"
-"\n"
-"Ovaj program je dostupan u nadi da će biti koristan,\n"
-"ali BEZ BILO KAKVE GARANCIJE; čak i bez pretpostavljene garancije\n"
-"na MOGUĆNOST PRODAJE i SLUŽENJA NAMENI. Pogledajte\n"
-"GNU-ovu Opštu javnu licencu za više detalja.\n"
-"\n"
-"Trebalo bi da ste dobili kopiju GNU-ove Opšte javne licence\n"
-"uz ovaj program. Ako niste posetite <http://www.gnu.org/licenses/>."
-
-#. Title of about dialog
-#: src/app-window.vala:1274
-msgid "About Simple Scan"
-msgstr "O programu Jednostavno Skeniranje"
-
-#. Description of program
-#: src/app-window.vala:1277
-msgid "Simple document scanning tool"
-msgstr "Jednostavna alatka za skeniranje dokumenata"
-
-#: src/app-window.vala:1286
+#: src/app-window.vala:1242
 msgid "translator-credits"
 msgstr ""
-"Launchpad Contributions:\n"
 "  Ivan Petrovic https://launchpad.net/~ivanpetrovic\n"
 "  Kosava https://launchpad.net/~kosava\n"
 "  Launchpad Translations Administrators https://launchpad.net/~rosetta\n"
 "  Michael Hoth https://launchpad.net/~hoth-einbeck\n"
 "  Marko M. Kostić https://launchpad.net/~marko-m-kostic\n"
 "  Miroslav Nikolić https://launchpad.net/~lipek\n"
-"Serbian GNOME Translation Project:\n"
-"  Borisav Živanović <borisavzivanovic@gmail.com>"
+"\n"
+"Srpski tim na Gnomovoj prevodilačkoj platformi:\n"
+"  Borisav Živanović <borisavzivanovic@gmail.com>\n"
+"  Marko M. Kostić <marko.m.kostic@gmail.com>\n"
+"  https://gnom.srb - prevod Gnoma na srpski jezik."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1308
+#: src/app-window.vala:1263
 msgid "Save document before quitting?"
 msgstr "Da sačuvam dokument pre nego što izađem?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1310
-msgid "Quit without Saving"
-msgstr "Zatvori bez čuvanja"
+#: src/app-window.vala:1265
+msgid "_Quit without Saving"
+msgstr "_Zatvori bez čuvanja"
+
+#: src/app-window.vala:1382
+msgid "_Email…"
+msgstr "_E-pošta…"
+
+#: src/app-window.vala:1383
+msgid "Pri_nt…"
+msgstr "Šta_mpaj…"
+
+#: src/app-window.vala:1384
+msgctxt "menu"
+msgid "_Reorder Pages…"
+msgstr "P_romeni redosled stranica…"
+
+#: src/app-window.vala:1387
+msgid "_Preferences"
+msgstr "_Postavke"
+
+#: src/app-window.vala:1388
+msgid "_Keyboard Shortcuts"
+msgstr "Prečice na _tastaturi"
+
+#: src/app-window.vala:1389
+msgid "_Help"
+msgstr "_Pomoć"
+
+#: src/app-window.vala:1390
+msgid "_About Document Scanner"
+msgstr "O Skeneru dokumen_ata"
+
+#. Text of button for cancelling save
+#: src/app-window.vala:1579
+msgid "Cancel"
+msgstr "Otkaži"
+
+#: src/book.vala:384 src/book.vala:390
+#, c-format
+msgid "Unable to encode page %i"
+msgstr "Kodiranje stranice %i nije moguće"
 
 #. Message to indicate a Brother scanner has been detected
-#: src/app-window.vala:1357
+#: src/drivers-dialog.vala:76
 msgid "You appear to have a Brother scanner."
-msgstr "Izgleda da imate Braderov skener."
+msgstr "Izgleda da imate Braderov (Brother) skener."
 
 #. Instructions on how to install Brother scanner drivers
-#: src/app-window.vala:1359
+#: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com"
-"\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://support.brother."
+"com\">Brother website</a>."
 msgstr ""
-"Upravljački programi se nalaze na  <a href=\"http://support.brother.com"
-"\">vebsajtu Bradera</a>."
+"Upravljački programi se nalaze na  <a href=\"http://support.brother."
+"com\">vebsajtu Bradera</a>."
+
+#. Message to indicate a Canon Pixma scanner has been detected
+#: src/drivers-dialog.vala:82
+msgid ""
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
+msgstr ""
+"Izgleda da imate Kenon (Canon) skener, koji je podržan od strane <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"pozadinca</a>."
+
+#. Instructions on how to resolve issue with SANE scanner drivers
+#: src/drivers-dialog.vala:84
+msgid ""
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">SANE mailing list</a>."
+msgstr ""
+"Proverite da li je vaš <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">skener podržan od strane SANE-a</a>, u suprotnom, prijavite "
+"problem na <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/"
+"listinfo/sane-devel\">SANE dopisnoj listi</a>."
 
 #. Message to indicate a Samsung scanner has been detected
-#: src/app-window.vala:1363
+#: src/drivers-dialog.vala:88
 msgid "You appear to have a Samsung scanner."
 msgstr "Izgleda da imate Samsungov skener."
 
-#. Instructions on how to install Samsung scanner drivers
-#: src/app-window.vala:1365
+#. Instructions on how to install Samsung scanner drivers.
+#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
+#: src/drivers-dialog.vala:91
 msgid ""
-"Drivers for this are available on the <a href=\"http://samsung.com/support"
-"\">Samsung website</a>."
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"Upravljački programi se nalaze na  <a href=\"http://samsung.com/support"
-"\">vebsajtu Samsunga</a>."
+"Upravljački programi se nalaze na  <a href=\"https://support.hp."
+"com\">vebsajtu HP-a</a> (HP je kupio Samsungove štampače)."
 
 #. Message to indicate a HP scanner has been detected
-#: src/app-window.vala:1369
+#: src/drivers-dialog.vala:96
 msgid "You appear to have an HP scanner."
 msgstr "Izgleda da imate HP-ov skener."
 
+#. Instructions on how to install HP scanner drivers.
+#. smfp is rebranded and slightly modified Samsung devices,
+#. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
+#. It require custom drivers, not available in hpaio package
+#: src/drivers-dialog.vala:104
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a>."
+msgstr ""
+"Upravljački programi se nalaze na  <a href=\"https://support.hp."
+"com\">vebsajtu HP-a</a>."
+
 #. Message to indicate an Epson scanner has been detected
-#: src/app-window.vala:1374
+#: src/drivers-dialog.vala:108
 msgid "You appear to have an Epson scanner."
 msgstr "Izgleda da imate Epsonov skener."
 
 #. Instructions on how to install Epson scanner drivers
-#: src/app-window.vala:1376
+#: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com"
-"\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://support.epson."
+"com\">Epson website</a>."
 msgstr ""
-"Upravljački programi se nalaze na  <a href=\"http://support.epson.com"
-"\">vebsajtu Epsona</a>."
+"Upravljački programi se nalaze na  <a href=\"http://support.epson."
+"com\">vebsajtu Epsona</a>."
 
-#. Title of dialog giving instructions on how to install drivers
-#: src/app-window.vala:1380
-msgid "Install drivers"
-msgstr "Intaliraj upravljački program"
+#. Message to indicate a Lexmark scanner has been detected
+#: src/drivers-dialog.vala:114
+msgid "You appear to have a Lexmark scanner."
+msgstr "Izgleda da imate Leksmarkov skener."
 
-#. Message in driver install dialog
-#: src/app-window.vala:1411
-msgid "Once installed you will need to restart Simple Scan."
+#. Instructions on how to install Lexmark scanner drivers
+#: src/drivers-dialog.vala:116
+msgid ""
+"Drivers for this are available on the <a href=\"http://support.lexmark."
+"com\">Lexmark website</a>."
 msgstr ""
-"Kada instalirate upravljački program morate ponovo pokrenuti Jednostavno "
-"Skeniranje."
+"Upravljački programi se nalaze na  <a href=\"http://support.lexmark."
+"com\">vebsajtu Leksmarka</a>."
 
 #. Label shown while installing drivers
-#: src/app-window.vala:1423
+#: src/drivers-dialog.vala:130
 msgid "Installing drivers…"
 msgstr "Instalacija upravljačkog programa u toku…"
 
 #. Label shown once drivers successfully installed
-#: src/app-window.vala:1431
+#: src/drivers-dialog.vala:135
 msgid "Drivers installed successfully!"
 msgstr "Upravljački program uspešno instaliran!"
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1441
+#: src/drivers-dialog.vala:145
 #, c-format
 msgid "Failed to install drivers (error code %d)."
 msgstr "Instalacija upravljačkog programa nije uspela (kod greške  %d)."
 
 #. Label shown if failed to install drivers
-#: src/app-window.vala:1447
+#: src/drivers-dialog.vala:152
 msgid "Failed to install drivers."
 msgstr "Instalacija upravljačkog programa nije uspela."
 
+#: src/drivers-dialog.vala:161
+msgid "Once installed you will need to restart this app."
+msgstr "Nakon instaliranja, biće potrebno da ponovo pokrenete ovaj program."
+
 #. Label shown to prompt user to install packages (when PackageKit not available)
-#: src/app-window.vala:1454
+#: src/drivers-dialog.vala:176
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
-msgstr[0] "Morate instalirati %s paket"
-msgstr[1] "Morate instalirati %s paketa"
-msgstr[2] "Morate instalirati %s paketa"
-
-#. Title of preferences dialog
-#: src/app-window.vala:1568 src/app-window.vala:1591
-#: src/preferences-dialog.ui:53
-msgid "Preferences"
-msgstr "Postavke"
-
-#: src/app-window.vala:1572
-msgid "Keyboard Shortcuts"
-msgstr "Prečice na tastaturi"
-
-#: src/app-window.vala:1573
-msgid "Help"
-msgstr "Pomoć"
-
-#: src/app-window.vala:1574
-msgid "About"
-msgstr "O programu"
-
-#: src/app-window.vala:1575
-msgid "Quit"
-msgstr "Izlaz"
-
-#: src/app-window.vala:1589
-msgid "Email"
-msgstr "E-pošta"
-
-#. Populate ActionBar (not supported in Glade)
-#. https://bugzilla.gnome.org/show_bug.cgi?id=769966
-#. Label on new document button
-#: src/app-window.vala:1599
-msgid "Start Again…"
-msgstr "_Ponovo pokreni…"
-
-#. Tooltip for rotate left (counter-clockwise) button
-#: src/app-window.vala:1616
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Rotiraj stranicu nalevo (suprotno kazaljci na satu)"
-
-#. Tooltip for rotate right (clockwise) button
-#: src/app-window.vala:1623
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Rotiraj stranicu nadesno (smer kazaljke na satu)"
-
-#. Tooltip for crop button
-#: src/app-window.vala:1633
-msgid "Crop the selected page"
-msgstr "Iseci označenu stranicu"
-
-#. Tooltip for delete button
-#: src/app-window.vala:1649
-msgid "Delete the selected page"
-msgstr "Obriši označenu stranicu"
-
-#. Text of button for cancelling save
-#: src/app-window.vala:1814
-msgid "Cancel"
-msgstr "Otkaži"
-
-#. Button to submit authorization dialog
-#: src/authorize-dialog.ui:25
-msgid "_Authorize"
-msgstr "Daj _pristup"
-
-#. Label beside username entry
-#: src/authorize-dialog.ui:99
-msgid "_Username for resource:"
-msgstr "_Korisničko ime:"
-
-#. Label beside password entry
-#: src/authorize-dialog.ui:112
-msgid "_Password:"
-msgstr "_Šifra:"
-
-#: src/book.vala:331 src/book.vala:337
-#, c-format
-msgid "Unable to encode page %i"
-msgstr "Kodiranje stranice %i nije moguće"
-
-#: src/help-overlay.ui:12
-msgctxt "shortcut window"
-msgid "Scanning"
-msgstr "Skeniranje"
-
-#: src/help-overlay.ui:17
-msgctxt "shortcut window"
-msgid "Scan a single page"
-msgstr "Skeniranje jedne stranice"
-
-#: src/help-overlay.ui:24
-msgctxt "shortcut window"
-msgid "Scan all pages from document feeder"
-msgstr "Skeniranje svih stranica iz fijoke"
-
-#: src/help-overlay.ui:31
-msgctxt "shortcut window"
-msgid "Scan continuously from a flatbed scanner"
-msgstr "Skeniranje bez prekida sa položenog skenera"
-
-#: src/help-overlay.ui:38
-msgctxt "shortcut window"
-msgid "Stop scan in progress"
-msgstr "Prekid tekućeg skeniranja"
-
-#: src/help-overlay.ui:46
-msgctxt "shortcut window"
-msgid "Document Modification"
-msgstr "Izmena dokumenta"
-
-#: src/help-overlay.ui:51
-msgctxt "shortcut window"
-msgid "Move page left"
-msgstr "Pomeranje stanice nalevo"
-
-#: src/help-overlay.ui:58
-msgctxt "shortcut window"
-msgid "Move page right"
-msgstr "Pomeranje stanice nadesno"
-
-#: src/help-overlay.ui:65
-msgctxt "shortcut window"
-msgid "Rotate page to the left (anti-clockwise)"
-msgstr "Rotiranje stranice nalevo (suprotno kazaljci na satu)"
-
-#: src/help-overlay.ui:72
-msgctxt "shortcut window"
-msgid "Rotate page to the right (clockwise)"
-msgstr "Rotiranje stranice nadesno (smer kazaljke na satu)"
-
-#: src/help-overlay.ui:79
-msgctxt "shortcut window"
-msgid "Delete page"
-msgstr "Brisanje stranice"
-
-#: src/help-overlay.ui:87
-msgctxt "shortcut window"
-msgid "Document Management"
-msgstr "Upravljanje dokumentima"
-
-#: src/help-overlay.ui:92
-msgctxt "shortcut window"
-msgid "Start new document"
-msgstr "Pravljenje novog dokumenta"
-
-#: src/help-overlay.ui:99
-msgctxt "shortcut window"
-msgid "Save scanned document"
-msgstr "Čuvanje skeniranog dokumenta"
-
-#: src/help-overlay.ui:106
-msgctxt "shortcut window"
-msgid "Email scanned document"
-msgstr "Slanje skeniranog dokumenta e-poštom"
-
-#: src/help-overlay.ui:113
-msgctxt "shortcut window"
-msgid "Print scanned document"
-msgstr "Štampanje skeniranog dokumenta"
-
-#: src/help-overlay.ui:120
-msgctxt "shortcut window"
-msgid "Copy current page to clipboard"
-msgstr "Kopiranje trenutne stranice na ostavu"
-
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:113
-msgid "_Scanner"
-msgstr "_Skener"
-
-#. Label beside scan side combo box
-#: src/preferences-dialog.ui:143
-msgid "Scan Sides"
-msgstr "Stranice za skeniranje"
-
-#. Label beside page size combo box
-#: src/preferences-dialog.ui:160
-msgid "Page Size"
-msgstr "Veličina stranice"
-
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:191
-msgid "Front"
-msgstr "Prednja strana"
-
-#. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: src/preferences-dialog.ui:206
-msgid "Back"
-msgstr "Zadnja strana"
-
-#. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: src/preferences-dialog.ui:221
-msgid "Both"
-msgstr "Obe strane"
-
-#. Label beside page delay scale
-#: src/preferences-dialog.ui:260
-msgid "Delay"
-msgstr "Vremenski razmak"
-
-#. Preferences dialog: Label above settings for scanning multiple pages from a flatbed
-#: src/preferences-dialog.ui:276
-msgid "Multiple pages from flatbed"
-msgstr "Više strana sa položenog skenera"
-
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:295
-msgid "3"
-msgstr "3"
-
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:310
-msgid "5"
-msgstr "5"
-
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:326
-msgid "7"
-msgstr "7"
-
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:342
-msgid "10"
-msgstr "10"
-
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: src/preferences-dialog.ui:358
-msgid "15"
-msgstr "15"
-
-#. Label after page delay radio buttons
-#: src/preferences-dialog.ui:385
-msgid "Seconds"
-msgstr "sekundi"
-
-#. Preferences Dialog: Tab label for scanning settings
-#: src/preferences-dialog.ui:413
-msgid "Scanning"
-msgstr "Skeniranje"
-
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:436
-msgid "_Text Resolution"
-msgstr "Rezolucija _teksta"
-
-#. Label beside scan source combo box
-#: src/preferences-dialog.ui:452
-msgid "_Photo Resolution"
-msgstr "Rezolucija _slike"
-
-#. Label beside brightness scale
-#: src/preferences-dialog.ui:505
-msgid "Brightness"
-msgstr "Osvetljenje"
-
-#. Label beside contrast scale
-#: src/preferences-dialog.ui:521
-msgid "Contrast"
-msgstr "Kontrast"
-
-#. Preferences Dialog: Tab for quality settings
-#: src/preferences-dialog.ui:576
-msgid "Quality"
-msgstr "Kvalitet"
+msgstr[0] "Morate instalirati %s paket."
+msgstr[1] "Morate instalirati %s paketa."
+msgstr[2] "Morate instalirati %s paketa."
+msgstr[3] "Morate instalirati %s paket."
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:77
+#: src/preferences-dialog.vala:113
 msgid "Automatic"
 msgstr "Automatski"
 
-#: src/preferences-dialog.vala:116
+#: src/preferences-dialog.vala:162
 msgid "Darker"
 msgstr "Tamnije"
 
-#: src/preferences-dialog.vala:118
+#: src/preferences-dialog.vala:164
 msgid "Lighter"
 msgstr "Svetlije"
 
-#: src/preferences-dialog.vala:126
+#: src/preferences-dialog.vala:172
 msgid "Less"
 msgstr "Manje"
 
-#: src/preferences-dialog.vala:128
+#: src/preferences-dialog.vala:174
 msgid "More"
 msgstr "Više"
 
+#: src/preferences-dialog.vala:181
+msgid "Minimum size"
+msgstr "Najmanja veličina"
+
+#: src/preferences-dialog.vala:185
+msgid "Full detail"
+msgstr "Sve pojedinosti"
+
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:440
+#: src/preferences-dialog.vala:372
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d tačaka po inču (podrazumevano)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:443
+#: src/preferences-dialog.vala:375
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d tačaka po inču (beleška)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:446
+#: src/preferences-dialog.vala:378
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d tačaka po inču (visoka rezolucija)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:449
+#: src/preferences-dialog.vala:381
 #, c-format
 msgid "%d dpi"
 msgstr "%d tačaka po inču"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:844
+#: src/scanner.vala:901
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Nijedan skener nije dostupan. Poveži skener."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:874
+#: src/scanner.vala:931
 msgid "Unable to connect to scanner"
 msgstr "Nije moguće kontaktirati skener"
 
+#. Error displayed when no documents at the start of scanning
+#: src/scanner.vala:1361 src/scanner.vala:1495
+msgid "Document feeder empty"
+msgstr "Držač papira je prazan"
+
+#. Out of memory error message with help instruction.
+#. Message written in Pango text markup language,
+#. A carriage return makes a line break, <tt> tag makes a monospace font
+#: src/scanner.vala:1369
+msgid ""
+"Insufficient memory to perform scan.\n"
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
+"<tt>Preferences</tt> menu. For some scanners when scanning in high "
+"resolution, the scan size is restricted."
+msgstr ""
+"Nedovoljno memorije za pokretanje skeniranja.\n"
+"Smanjite <tt>rezoluciju</tt> ili <tt>veličinu strane</tt> u meniju "
+"<tt>Postavke</tt>. Za neke skenere je karakteristično da je veličina "
+"skeniranja ograničena u visokim rezolucijama."
+
 #. Error display when unable to start scan
-#: src/scanner.vala:1227
+#: src/scanner.vala:1382
 msgid "Unable to start scan"
 msgstr "Nije moguće početi skeniranje"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1240 src/scanner.vala:1340
+#: src/scanner.vala:1395 src/scanner.vala:1505
 msgid "Error communicating with scanner"
 msgstr "Greška u komunikaciji sa skenerom"
 
@@ -1013,28 +1095,169 @@ msgid "Print debugging messages"
 msgstr "Ispiši poruke za debagovanje"
 
 #: src/simple-scan.vala:26
-msgid "Fix PDF files generated with older versions of Simple Scan"
-msgstr ""
-"Popravi PDF datoteke koje su napravile starije verzije Jednostavnog Skeniranja"
+msgid "Fix PDF files generated with older versions of this app"
+msgstr "Popravi PDF datoteke koje su napravile starija izdanja ovog programa"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:392
+#: src/simple-scan.vala:1760
 msgid "Failed to scan"
 msgstr "Skeniranje nije uspelo"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:407
+#: src/simple-scan.vala:1775
 msgid "Scan in progress"
 msgstr "Skeniranje u toku"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:584
+#: src/simple-scan.vala:1959
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[UREĐAJ…] — Alat za skeniranje"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:595
+#: src/simple-scan.vala:1969
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Pokrenite “%s --help” da biste videli listu svih opcija komandne linije."
+
+#~ msgid "Stop the current scan"
+#~ msgstr "Zaustavi skeniranje"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Sačuvaj dokument u datoteku"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Skeniraj jednu stranu sa skenera"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Skeniraj više strana sa skenera"
+
+#~ msgid "Image Files"
+#~ msgstr "Datoteke slika"
+
+#~ msgid "File format:"
+#~ msgstr "Format datoteke:"
+
+#~ msgid "Unable to open image preview application"
+#~ msgstr "Pokretanje programa za prikaz slike nije uspelo"
+
+#~ msgid "Keep unchanged"
+#~ msgstr "Bez izmena"
+
+#~ msgid "Unable to open help file"
+#~ msgstr "Ne mogu da otvorim datoteku pomoći"
+
+#~ msgid "About Document Scanner"
+#~ msgstr "O Skeneru dokumenata"
+
+#~ msgid "Simple document scanning tool"
+#~ msgstr "Jednostavna alatka za skeniranje dokumenata"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Rotiraj stranicu nadesno (smer kazaljke na satu)"
+
+#~ msgid ""
+#~ "This program is free software: you can redistribute it and/or modify\n"
+#~ "it under the terms of the GNU General Public License as published by\n"
+#~ "the Free Software Foundation, either version 3 of the License, or\n"
+#~ "(at your option) any later version.\n"
+#~ "\n"
+#~ "This program is distributed in the hope that it will be useful,\n"
+#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+#~ "GNU General Public License for more details.\n"
+#~ "\n"
+#~ "You should have received a copy of the GNU General Public License\n"
+#~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
+#~ msgstr ""
+#~ "Ovaj pogram je slobodan softver: možete ga deliti i/ili modifikovati\n"
+#~ "pod uslovima GNU-ove Opšte javne licence koju je objavila\n"
+#~ "Zadužbina za Slobodan Softver, verzija 3 ili\n"
+#~ "po vašoj želji bilo koja starija verzija.\n"
+#~ "\n"
+#~ "Ovaj program je dostupan u nadi da će biti koristan,\n"
+#~ "ali BEZ BILO KAKVE GARANCIJE; čak i bez pretpostavljene garancije\n"
+#~ "na MOGUĆNOST PRODAJE i SLUŽENJA NAMENI. Pogledajte\n"
+#~ "GNU-ovu Opštu javnu licencu za više detalja.\n"
+#~ "\n"
+#~ "Trebalo bi da ste dobili kopiju GNU-ove Opšte javne licence\n"
+#~ "uz ovaj program. Ako niste posetite <http://www.gnu.org/licenses/>."
+
+#~ msgid "Email"
+#~ msgstr "E-pošta"
+
+#~ msgid "Print"
+#~ msgstr "Odštampaj"
+
+#~ msgid "Help"
+#~ msgstr "Pomoć"
+
+#~ msgid "_Delay"
+#~ msgstr "Zas_toj"
+
+#~ msgid "Multiple pages from flatbed"
+#~ msgstr "Više strana sa položenog skenera"
+
+#~ msgid "Seconds"
+#~ msgstr "sekundi"
+
+#~ msgid "_Scanning"
+#~ msgstr "_Skeniranje"
+
+#~ msgid "Start Again…"
+#~ msgstr "_Ponovo pokreni…"
+
+#~ msgid "5"
+#~ msgstr "5"
+
+#~ msgid "7"
+#~ msgstr "7"
+
+#~ msgid ""
+#~ "Drivers for this are available on the <a href=\"http://samsung.com/"
+#~ "support\">Samsung website</a>."
+#~ msgstr ""
+#~ "Upravljački programi se nalaze na  <a href=\"http://samsung.com/"
+#~ "support\">vebsajtu Samsunga</a>."
+
+#~ msgid "Resolution for photo scans"
+#~ msgstr "Rezolucija skeniranja slika"
+
+#~ msgid "The resolution in dots-per-inch to use when scanning photos."
+#~ msgstr "Rezolucija u tačkama po inču za skeniranje slika."
+
+#~ msgid "_Scanner"
+#~ msgstr "_Skener"
+
+#~ msgid "_Photo Resolution"
+#~ msgstr "Rezolucija _slike"
+
+#~ msgid "Simple Scan"
+#~ msgstr "Jednostavno ckeniranje"
+
+#~ msgid "scanner"
+#~ msgstr "scanner"
+
+#~ msgid "About Simple Scan"
+#~ msgstr "O programu Jednostavno Skeniranje"
+
+#~ msgid "Photo"
+#~ msgstr "Slika"
+
+#~ msgid "Sc_an"
+#~ msgstr "_Skeniraj"
+
+#~ msgid "_Stop Scan"
+#~ msgstr "_Zaustavi skeniranje"
+
+#~ msgid "_Page"
+#~ msgstr "St_ranica"
+
+#~ msgid "_Contents"
+#~ msgstr "Sadr_žaj"
+
+#~ msgid "Save"
+#~ msgstr "Sačuvaj"
+
+#~ msgid "About"
+#~ msgstr "O programu"
