@@ -39,8 +39,12 @@ public class SimpleScan : Adw.Application
 
     public SimpleScan (ScanDevice? device = null)
     {
-        /* The inhibit () method use this */
-        Object (application_id: "org.gnome.SimpleScan");
+        Object (
+            /* The inhibit () method use this */
+            application_id: "org.gnome.SimpleScan",
+            /* Icon resources will be looked up starting from here */
+            resource_base_path: "/org/gnome/SimpleScan"
+        );
         register_session = true;
 
         default_device = device;
