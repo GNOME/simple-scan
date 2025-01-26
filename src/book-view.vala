@@ -105,6 +105,7 @@ public class BookView : Gtk.Box
         drawing_area = new Gtk.DrawingArea ();
         drawing_area.set_size_request (200, 100);
         drawing_area.can_focus = true;
+        drawing_area.focusable = true;
         drawing_area.vexpand = true;
         drawing_area.set_draw_func(draw_cb);
 
