@@ -8,17 +8,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-12-05 18:06+0000\n"
-"PO-Revision-Date: 2024-02-21 14:27+0000\n"
+"POT-Creation-Date: 2025-01-19 15:07+0000\n"
+"PO-Revision-Date: 2025-01-24 08:06+0000\n"
 "Last-Translator: Chao-Hsiung Liao <pesder@mail.edu.tw>\n"
-"Language-Team: Chinese (Traditional) <http://darkbear.mercusysddns.com/"
-"projects/gnome-45/simple-scan-po-ui-master/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional Han script) <http://"
+"darkbear.mercusysddns.com/projects/gnome-47/simple-scan-po-ui-master/zh_Hant/"
+">\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Weblate 5.9.2\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
@@ -169,22 +170,23 @@ msgstr "是否保留未處理的原始檔案"
 msgid ""
 "Whether or not to keep the original, unprocessed file. The \"_orig\" "
 "filename will be added to the filename immediately before the file extension."
-msgstr "是否保留未處理的原始檔案。「_orig」字串將添加到緊接在附加檔名之前的檔案名稱中"
-"。"
+msgstr ""
+"是否保留未處理的原始檔案。「_orig」字串將添加到緊接在附加檔名之前的檔案名稱"
+"中。"
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "文件掃描"
 
 # 新增翻譯
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr "為您的照片或文件建立數位複本"
 
 # 建議採用此翻譯
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -193,11 +195,12 @@ msgstr ""
 "您能輕鬆掃描文件和影像。您可以裁剪影像的不良部分，並將之旋轉至正確角度。您可"
 "以列印您的掃描檔，將掃描檔匯出為 pdf，或儲存為多種影像格式。"
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "這個應用程式使用 SANE 框架以支援大部分現存掃描器。"
 
-#: data/simple-scan.appdata.xml.in:27
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
 msgid "The GNOME Project"
 msgstr "GNOME 專案"
 
@@ -311,8 +314,8 @@ msgstr "圖片(_I)"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "停止目前的掃描"
+msgid "Stop"
+msgstr "停止"
 
 # 新增翻譯
 #: data/ui/app-window.ui:178
@@ -323,34 +326,41 @@ msgstr "停止(_T)"
 msgid "_Scan"
 msgstr "掃描(_S)"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "將文件儲存至檔案"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "掃描選項"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "主選單"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "匯出"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
 msgstr "重新整理裝置列表"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "新文件"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "將頁面向左旋轉 (逆時針方向)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "向左旋轉 (逆時針方向)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "將頁面向右旋轉 (順時針方向)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "向右旋轉（順時針方向）"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
 msgstr "裁切所選的頁面"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
 msgstr "刪除所選頁面"
 
 #: data/ui/authorize-dialog.ui:31
@@ -666,8 +676,8 @@ msgstr "需要的額外軟體"
 #: src/app-window.vala:247
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
-msgstr "您需要為您的掃描器<a href=\"install-firmware\">安裝驅動程式</a>。"
+"your scanner"
+msgstr "您需要為您的掃描器<a href=\"install-firmware\">安裝驅動程式</a>"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -676,8 +686,8 @@ msgstr "未偵測到掃描器"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "請檢查您的掃描器是否連接，並開啟電源。"
+msgid "Please check your scanner is connected and powered on"
+msgstr "請檢查您的掃描器是否連接，並開啟電源"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -764,12 +774,12 @@ msgid "Contacting Scanner…"
 msgstr "聯繫掃描器…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "從掃描器掃描單一頁面"
+msgid "Scan a Single Page"
+msgstr "掃描單一頁面"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "從掃描器掃描多個頁面"
+msgid "Scan Multiple Pages"
+msgstr "掃描多個頁面"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -800,17 +810,17 @@ msgid "_Quit without Saving"
 msgstr "直接退出而不儲存(_Q)"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "電子郵件(_E)"
+msgid "_Email…"
+msgstr "電子郵件(_E)…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "列印(_N)"
+msgid "Pri_nt…"
+msgstr "列印(_N)…"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "重新排列頁面(_R)"
+msgid "_Reorder Pages…"
+msgstr "重新排列頁面(_R)…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1093,6 +1103,21 @@ msgstr "[裝置...] — 掃描公用程式"
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "執行「%s --help」來查看所有命令列可用選項的完整清單。"
 
+#~ msgid "Stop the current scan"
+#~ msgstr "停止目前的掃描"
+
+#~ msgid "Save document to a file"
+#~ msgstr "將文件儲存至檔案"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "將頁面向右旋轉 (順時針方向)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "從掃描器掃描單一頁面"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "從掃描器掃描多個頁面"
+
 #~ msgid "Image Files"
 #~ msgstr "影像檔"
 
@@ -1177,12 +1202,6 @@ msgstr "執行「%s --help」來查看所有命令列可用選項的完整清單
 
 #~ msgid "The resolution in dots-per-inch to use when scanning photos."
 #~ msgstr "當掃描相片時使用的解析度，單位為 dpi。"
-
-#~ msgid "Scan Documents"
-#~ msgstr "掃描文件"
-
-#~ msgid "Stop"
-#~ msgstr "停止"
 
 #~ msgid "_Scanner"
 #~ msgstr "掃描器(_S)"
