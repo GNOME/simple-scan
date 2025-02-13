@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan:el\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-07-02 10:22+0000\n"
+"POT-Creation-Date: 2024-09-29 16:06+0000\n"
 "PO-Revision-Date: 2023-07-29 10:58+0300\n"
-"Last-Translator: Efstathios Iosifidis <iosifidis@opensuse.org>\n"
+"Last-Translator: Giannis Antypas <gianni.antypas@gmail.com>\n"
 "Language-Team: Greek, Modern (1453-) <gnome-el-list@gnome.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -183,17 +183,17 @@ msgstr ""
 "αρχείου, θα προστεθεί το \"_orig\" αμέσως πριν από την επέκταση αρχείου."
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
 #: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "Σαρωτής εγγράφων"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr ""
 "Δημιουργήστε ένα ψηφιακό αντίγραφο των φωτογραφιών και των εγγράφων σας"
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -204,13 +204,14 @@ msgstr ""
 "περιστρέψετε εφόσον χρειάζεται. Μπορείτε να εκτυπώσετε τις σαρώσεις σας, να "
 "τις εξάγετε ως pdf, ή να τις αποθηκεύσετε σε μια ποικιλία μορφών εικόνας."
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Αυτή η εφαρμογή χρησιμοποιεί το πλαίσιο SANE ώστε να υποστηρίζει τους "
 "περισσότερους σαρωτές."
 
-#: data/simple-scan.appdata.xml.in:27
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
 msgid "The GNOME Project"
 msgstr "Το έργο GNOME"
 
@@ -324,8 +325,8 @@ msgstr "_Εικόνα"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Διακοπή τρέχουσας σάρωσης"
+msgid "Stop"
+msgstr "Διακοπή"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -335,27 +336,53 @@ msgstr "_Διακοπή"
 msgid "_Scan"
 msgstr "_Σάρωση"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Αποθήκευση εγγράφου σε αρχείο"
+#: data/ui/app-window.ui:211
+#| msgid "Scan Documents"
+msgid "Scan Options"
+msgstr "Επιλογές σάρωσης"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "Κυρίως μενού"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "Εξαγωγή"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
+#: data/ui/app-window.ui:283
+#| msgid "Refresh device list"
+msgid "Refresh Device List"
 msgstr "Ανανέωση λίστας συσκευών"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "Νέο έγγραφο"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
-msgstr "Διαγραφή της επιλεγμένης σελίδας"
+#: data/ui/app-window.ui:327
+#| msgid "Rotate the page to the left (counter-clockwise)"
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Περιστροφή αριστερά (αντίστροφα προς τη φορά του ρολογιού)"
+
+#: data/ui/app-window.ui:335
+#| msgctxt "shortcut window"
+#| msgid "Rotate page to the right (clockwise)"
+msgid "Rotate Right (clockwise)"
+msgstr "Περιστροφή δεξιά (φορά του ρολογιού)"
+
+#: data/ui/app-window.ui:343
+#| msgid "Crop the selected page"
+msgid "Crop Selected Page"
+msgstr "Περικοπή επιλεγμένης σελίδας"
+
+#: data/ui/app-window.ui:351
+#| msgid "Delete the selected page"
+msgid "Delete Selected Page"
+msgstr "Διαγραφή επιλεγμένης σελίδας"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
-msgstr "Όνομα χρήστη για πόρο"
+msgstr "Όν_ομα χρήστη για πόρο"
 
 #: data/ui/authorize-dialog.ui:38
 msgid "_Password"
@@ -521,92 +548,92 @@ msgid "_Page Size"
 msgstr "Μέγεθος _σελίδας"
 
 #. Label beside page delay scale
-#: data/ui/preferences-dialog.ui:81
+#: data/ui/preferences-dialog.ui:74
 msgid "_Delay in Seconds"
 msgstr "_Καθυστέρηση σε δευτερόλεπτα"
 
 #. Provides context for the page delay scale
-#: data/ui/preferences-dialog.ui:82
+#: data/ui/preferences-dialog.ui:75
 msgid "Interval to scan multiple pages"
 msgstr "Διάστημα για σάρωση πολλαπλών σελίδων"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:91
+#: data/ui/preferences-dialog.ui:84
 msgid "0"
 msgstr "0"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:96
+#: data/ui/preferences-dialog.ui:89
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:102
+#: data/ui/preferences-dialog.ui:95
 msgid "6"
 msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:108
+#: data/ui/preferences-dialog.ui:101
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:114
+#: data/ui/preferences-dialog.ui:107
 msgid "15"
 msgstr "15"
 
 #. Preferences Dialog: Section label for quality settings
-#: data/ui/preferences-dialog.ui:129
+#: data/ui/preferences-dialog.ui:122
 msgid "Quality"
 msgstr "Ποιότητα"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:132
+#: data/ui/preferences-dialog.ui:125
 msgid "_Text Resolution"
 msgstr "Ανάλυση _κειμένου"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:144
+#: data/ui/preferences-dialog.ui:131
 msgid "_Image Resolution"
 msgstr "Ανάλυση _εικόνας"
 
 #. Label beside brightness scale
-#: data/ui/preferences-dialog.ui:156
+#: data/ui/preferences-dialog.ui:137
 msgid "_Brightness"
 msgstr "_Φωτεινότητα"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:171
+#: data/ui/preferences-dialog.ui:152
 msgid "_Contrast"
 msgstr "_Αντίθεση"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:186
+#: data/ui/preferences-dialog.ui:167
 msgid "Compression"
 msgstr "Συμπίεση"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
 msgstr "Μεταγενέστερη επεξεργασία"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:206
+#: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
 msgstr "_Ενεργοποίηση μεταγενέστερης επεξεργασίας"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:225
+#: data/ui/preferences-dialog.ui:206
 msgid "_Script"
 msgstr "_Script"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:244
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
 msgstr "Ορίσματα _script"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:263
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "_Διατήρηση αρχικού αρχείου"
 
@@ -662,12 +689,15 @@ msgstr "Απαιτείται επιπρόσθετο λογισμικό"
 
 #. Instructions to install driver software
 #: src/app-window.vala:247
+#| msgid ""
+#| "You need to <a href=\"install-firmware\">install driver software</a> for "
+#| "your scanner."
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
+"your scanner"
 msgstr ""
-"Χρειάζεται να <a href=\"install-firmware\">εγκαταστήσετε οδηγό υλικού</a> "
-"για τον σαρωτή σας."
+"Χρειάζεται να <a href=\"install-firmware\">εγκαταστήσετε λογισμικό οδηγού υλικού</a> "
+"για τον σαρωτή σας"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -676,10 +706,11 @@ msgstr "Δεν ανιχνεύθηκαν σαρωτές"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
+#| msgid "Please check your scanner is connected and powered on."
+msgid "Please check your scanner is connected and powered on"
 msgstr ""
 "Παρακαλούμε βεβαιωθείτε ότι ο σαρωτής σας είναι συνδεδεμένος και σε "
-"λειτουργία."
+"λειτουργία"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -767,12 +798,16 @@ msgid "Contacting Scanner…"
 msgstr "Γίνεται επικοινωνία με σαρωτή…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Σάρωση μίας σελίδας από τον σαρωτή"
+#| msgctxt "shortcut window"
+#| msgid "Scan a single page"
+msgid "Scan a Single Page"
+msgstr "Σάρωση μίας μεμονωμένης σελίδας"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Σάρωση πολλαπλών σελίδων από τον σαρωτή"
+#| msgctxt "shortcut window"
+#| msgid "Scan a single page"
+msgid "Scan Multiple Pages"
+msgstr "Σάρωση πολλαπλών σελίδων"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -814,17 +849,21 @@ msgid "_Quit without Saving"
 msgstr "Έ_ξοδος χωρίς αποθήκευση"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "Ηλ. _αλληλογγραφία"
+#| msgid "_Email"
+msgid "_Email…"
+msgstr "Ηλ. _αλληλογγραφία…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "Ε_κτύπωση"
+#| msgid "Pri_nt"
+msgid "Pri_nt…"
+msgstr "Ε_κτύπωση…"
 
 #: src/app-window.vala:1384
+#| msgctxt "menu"
+#| msgid "_Reorder Pages"
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "_Αναδιάταξη σελίδων"
+msgid "_Reorder Pages…"
+msgstr "_Αναδιάταξη σελίδων…"
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -1115,6 +1154,18 @@ msgstr ""
 "Εκτελέστε «%s --help» για να δείτε την πλήρη λίστα των διαθέσιμων επιλογών "
 "της γραμμής εντολών."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "Διακοπή τρέχουσας σάρωσης"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Αποθήκευση εγγράφου σε αρχείο"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Σάρωση μίας σελίδας από τον σαρωτή"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Σάρωση πολλαπλών σελίδων από τον σαρωτή"
+
 #~ msgid "Image Files"
 #~ msgstr "Αρχεία εικόνων"
 
@@ -1136,14 +1187,8 @@ msgstr ""
 #~ msgid "Simple document scanning tool"
 #~ msgstr "Απλό εργαλείο σάρωσης εγγράφων"
 
-#~ msgid "Rotate the page to the left (counter-clockwise)"
-#~ msgstr "Περιστροφή της σελίδας αριστερά"
-
 #~ msgid "Rotate the page to the right (clockwise)"
 #~ msgstr "Περιστροφή της σελίδας δεξιά"
-
-#~ msgid "Crop the selected page"
-#~ msgstr "Περικοπή της επιλεγμένης σελίδας"
 
 #~ msgid ""
 #~ "This program is free software: you can redistribute it and/or modify\n"
@@ -1219,12 +1264,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Η ανάλυση σε κουκκίδες ανά ίντσα που θα χρησιμοποιηθεί στην σάρωση "
 #~ "φωτογραφιών."
-
-#~ msgid "Scan Documents"
-#~ msgstr "Σάρωση εγγράφων"
-
-#~ msgid "Stop"
-#~ msgstr "Διακοπή"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Σαρωτής"
