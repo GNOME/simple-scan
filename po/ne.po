@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Nepali Translation Project\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2023-12-05 18:06+0000\n"
-"PO-Revision-Date: 2024-06-16 17:00+0545\n"
+"POT-Creation-Date: 2025-03-11 02:27+0000\n"
+"PO-Revision-Date: 2025-03-12 21:27+0545\n"
 "Last-Translator: Pawan Chitrakar <chautari@gmail.com>\n"
 "Language-Team: Nepali Translation Team <chautari@gmail.com>\n"
 "Language: ne\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -165,16 +165,16 @@ msgstr ""
 "थपिनेछ ।."
 
 #. Title of scan window
-#: data/simple-scan.appdata.xml.in:6 data/simple-scan.desktop.in:3 data/ui/app-window.ui:139
-#: src/app-window.vala:1245
+#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
+#: data/ui/app-window.ui:139 src/app-window.vala:1245
 msgid "Document Scanner"
 msgstr "कागजात स्क्यानर"
 
-#: data/simple-scan.appdata.xml.in:7 data/simple-scan.desktop.in:4
+#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
 msgid "Make a digital copy of your photos and documents"
 msgstr "तपाईँको फोटो र कागजातको डिजिटल प्रतिलिपि बनाउनुहोस्"
 
-#: data/simple-scan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.appdata.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad parts of an image "
 "and rotate it if it is the wrong way round. You can print your scans, export them to pdf, or "
@@ -184,11 +184,12 @@ msgstr ""
 "भाग काटछाँट गर्न र घुमाउन सक्नुहुन्छ । तपाईँले आफ्नो स्क्यान मुद्रण गर्न, तिनीहरूलाई pdf मा निर्यात गर्न, वा "
 "तिनीहरूलाई छवि ढाँचाको दायरामा बचत गर्न सक्नुहुन्छ ।."
 
-#: data/simple-scan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.appdata.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "यो अनुप्रयोगले धेरै अवस्थित स्क्यानर समर्थन गर्न SANE फ्रेमवर्क प्रयोग गर्दछ ।."
 
-#: data/simple-scan.appdata.xml.in:27
+#. developer_name tag deprecated with Appstream 1.0
+#: data/org.gnome.SimpleScan.appdata.xml.in:29
 msgid "The GNOME Project"
 msgstr "जिनोम परियोजना"
 
@@ -302,8 +303,8 @@ msgstr "सबै छविहरू"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "हालको स्क्यान रोक्नुहोस्"
+msgid "Stop"
+msgstr "रोक्नुहोस्"
 
 #: data/ui/app-window.ui:178
 msgid "S_top"
@@ -313,35 +314,42 @@ msgstr "रोक्नुहोस्"
 msgid "_Scan"
 msgstr "स्क्यान"
 
-#. Tooltip for save toolbar button
-#: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "फाइल बचत गर्नुहोस्"
+#: data/ui/app-window.ui:211
+msgid "Scan Options"
+msgstr "स्क्यान विकल्पहरू"
+
+#: data/ui/app-window.ui:220
+msgid "Main Menu"
+msgstr "मुख्य मेनु"
+
+#: data/ui/app-window.ui:228
+msgid "Export"
+msgstr "निर्यात गर्नुहोस्"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
-msgid "Refresh device list"
-msgstr "यन्त्र सूची ताजा पार्नुहोस्"
+#: data/ui/app-window.ui:283
+msgid "Refresh Device List"
+msgstr "उपकरण सूची रिफ्रेस गर्नुहोस्"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:313
 msgid "New Document"
 msgstr "नयाँ कागजात"
 
-#: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "पृष्ठलाई बायाँतिर घुमाउनुहोस् (घडीको विपरीत दिशामा)"
+#: data/ui/app-window.ui:327
+msgid "Rotate Left (counter-clockwise)"
+msgstr "बायाँ घुमाउनुहोस् (घडीको विपरीत दिशामा)"
 
-#: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "पृष्ठलाई दायाँतिर घुमाउनुहोस् (घडीको दिशामा)"
+#: data/ui/app-window.ui:335
+msgid "Rotate Right (clockwise)"
+msgstr "दायाँ घुमाउनुहोस् (घडीको दिशामा)"
 
-#: data/ui/app-window.ui:342
-msgid "Crop the selected page"
-msgstr "छानिएको पृष्ठलाई काँटछाँट गर्नुहोस्"
+#: data/ui/app-window.ui:343
+msgid "Crop Selected Page"
+msgstr "चयन गरिएको पृष्ठ क्रप गर्नुहोस्"
 
-#: data/ui/app-window.ui:350
-msgid "Delete the selected page"
-msgstr "चयन गरिएको पृष्ठ मेट्नुहोस्"
+#: data/ui/app-window.ui:351
+msgid "Delete Selected Page"
+msgstr "चयन गरिएको पृष्ठ मेटाउनुहोस्"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
@@ -651,10 +659,8 @@ msgstr "थप सफ्टवेयर आवश्यक"
 
 #. Instructions to install driver software
 #: src/app-window.vala:247
-msgid "You need to <a href=\"install-firmware\">install driver software</a> for your scanner."
-msgstr ""
-"तपाईंले आफ्नो स्क्यानरको लागि ड्राइभर सफ्टवेयर  <a href=\"install-firmware\">ड्राइभर सफ्टवेयर स्थापना</"
-"a> गर्न आवश्यक छ।."
+msgid "You need to <a href=\"install-firmware\">install driver software</a> for your scanner"
+msgstr "तपाईंले आफ्नो स्क्यानरको लागि <a href=\"install-firmware\">ड्राइभर सफ्टवेयर स्थापना</a> गर्नुपर्छ।"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -663,8 +669,8 @@ msgstr "स्क्यानरहरू फेला परेन"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "कृपया तपाईँको स्क्यानर जडान गरिएको छ छैन जाँच गर्नुहोस् र पावर अन गर्नुहोस् ।."
+msgid "Please check your scanner is connected and powered on"
+msgstr "कृपया तपाईँको स्क्यानर जडान गरिएको छ छैन जाँच गर्नुहोस् र पावर अन गर्नुहोस् ।"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:306
@@ -751,12 +757,12 @@ msgid "Contacting Scanner…"
 msgstr "स्क्यानरलाई सम्पर्क गर्दैछ…"
 
 #: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "स्क्यानरबाट एकल पृष्ठ स्क्यान गर्नुहोस्"
+msgid "Scan a Single Page"
+msgstr "एकल पृष्ठ स्क्यान"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "स्क्यानरबाट बहुविध पृष्ठहरू स्क्यान गर्नुहोस्"
+msgid "Scan Multiple Pages"
+msgstr "बहु पृष्ठ स्क्यान"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1017
@@ -778,17 +784,17 @@ msgid "_Quit without Saving"
 msgstr "बचत नगरी छोड्नुहोस्"
 
 #: src/app-window.vala:1382
-msgid "_Email"
-msgstr "इमेल"
+msgid "_Email…"
+msgstr "इमेल…"
 
 #: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "मुद्रण गर्नुहोस्"
+msgid "Pri_nt…"
+msgstr "मुद्रण"
 
 #: src/app-window.vala:1384
 msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr "पृष्ठहरू पुन: क्रमबद्ध गर्नुहोस्"
+msgid "_Reorder Pages…"
+msgstr "_पृष्ठहरू पुन: क्रमबद्ध गर्नुहोस्..."
 
 #: src/app-window.vala:1387
 msgid "_Preferences"
@@ -824,10 +830,9 @@ msgstr "तपाईंसँग ब्रदर स्क्यानर जस
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother.com\">Brother "
-"website</a>."
-msgstr ""
-"यसको लागि ड्राइभरहरू <a href=\"http://support.brother.com\" >ब्रदर वेबसाइट</a>मा उपलब्ध छन्।."
+"Drivers for this are available on the <a href=\"http://support.brother.com\">Brother website</"
+"a>."
+msgstr "यसको लागि ड्राइभरहरू <a href=\"http://support.brother.com\" >ब्रदर वेबसाइट</a>मा उपलब्ध छन्।."
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
@@ -835,19 +840,21 @@ msgid ""
 "You appear to have a Canon scanner, which is supported by the <a href=\"http://www.sane-"
 "project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
 msgstr ""
-"तपाईंसँग क्यानन स्क्यानर देखिन्छ, जुन <a href=\"http://www.sane-project.org/man/sane-pixma.5."
-"html\">पिक्स्मा एसएएनई ब्याकइन्ड</a>द्वारा समर्थित छ।."
+"तपाईंसँग क्यानन स्क्यानर देखिन्छ, जुन <a href=\"http://www.sane-project.org/man/sane-"
+"pixma.5.html\">पिक्स्मा एसएएनई ब्याकइन्ड</a>द्वारा समर्थित छ।."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/drivers-dialog.vala:84
 msgid ""
-"Please check if your <a href=\"http://www.sane-project.org/sane-supported-devices."
-"html\">scanner is supported by SANE</a>, otherwise report the issue to the <a href=\"https://"
-"alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE mailing list</a>."
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue to the <a "
+"href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE mailing "
+"list</a>."
 msgstr ""
-"कृपया जाँच्नुहोस् यदि तपाईँको <a href=\"http://www.sane-project.org/sane-supported-devices."
-"html\">स्क्यानर SANE द्वारा समर्थित छ</a>भने , अन्यथा <a href=\"https://alioth-lists.debian.net/"
-"cgi-bin/mailman/listinfo/sane-devel\">साने पत्राचार सूचीमा</a>यो मुद्दा रिपोर्ट गर्नुहोस् ।."
+"कृपया जाँच्नुहोस् यदि तपाईँको <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">स्क्यानर SANE द्वारा समर्थित छ</a>भने , अन्यथा <a href=\"https://alioth-"
+"lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">साने पत्राचार सूचीमा</a>यो मुद्दा रिपोर्ट "
+"गर्नुहोस् ।."
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/drivers-dialog.vala:88
@@ -874,8 +881,7 @@ msgstr "तपाईँसँग HP स्क्यानर भएको दे
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
 #: src/drivers-dialog.vala:104
-msgid ""
-"Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a>."
+msgid "Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a>."
 msgstr "यसको लागि ड्राइभरहरू <a href=\"https://support.hp.com\" >एचपी वेबसाइट</a>मा उपलब्ध छन्।."
 
 #. Message to indicate an Epson scanner has been detected
@@ -897,8 +903,8 @@ msgstr "तपाईँसँग लेक्समार्क स्क्य�
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark.com\">Lexmark "
-"website</a>."
+"Drivers for this are available on the <a href=\"http://support.lexmark.com\">Lexmark website</"
+"a>."
 msgstr ""
 "यसको लागि ड्राइभरहरू <a href=\"http://support.lexmark.com\" >लेक्समार्क वेबसाइट</a>मा उपलब्ध छन्।."
 
@@ -1061,6 +1067,21 @@ msgstr "[यन्त्र...] — स्क्यानिङ युटिल�
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "उपलब्ध आदेश रेखा विकल्पको पूरा सूची हेर्न \"%s --help\" चलाउनुहोस् ।."
 
+#~ msgid "Stop the current scan"
+#~ msgstr "हालको स्क्यान रोक्नुहोस्"
+
+#~ msgid "Save document to a file"
+#~ msgstr "फाइल बचत गर्नुहोस्"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "पृष्ठलाई दायाँतिर घुमाउनुहोस् (घडीको दिशामा)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "स्क्यानरबाट एकल पृष्ठ स्क्यान गर्नुहोस्"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "स्क्यानरबाट बहुविध पृष्ठहरू स्क्यान गर्नुहोस्"
+
 #~ msgid "Image Files"
 #~ msgstr "छवि फाइल"
 
@@ -1129,9 +1150,6 @@ msgstr "उपलब्ध आदेश रेखा विकल्पको �
 #~ msgid "Simple Scan"
 #~ msgstr "सरल स्क्यान"
 
-#~ msgid "Scan Documents"
-#~ msgstr "कागजात स्क्यान"
-
 #~ msgid "scanner"
 #~ msgstr "scanner"
 
@@ -1152,9 +1170,6 @@ msgstr "उपलब्ध आदेश रेखा विकल्पको �
 
 #~ msgid "Save"
 #~ msgstr "बचत गर्नुहोस्"
-
-#~ msgid "Stop"
-#~ msgstr "रोक्नुहोस्"
 
 #~ msgid "About Simple Scan"
 #~ msgstr "सरल स्क्यान बारेमा"
