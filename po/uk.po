@@ -2,13 +2,13 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
 #
-# Yuri Chornoivan <yurchor@gmail.com>, 2009, 2019, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@gmail.com>, 2009, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-09-03 20:58+0000\n"
-"PO-Revision-Date: 2024-09-04 19:34+0300\n"
+"POT-Creation-Date: 2025-03-22 08:38+0000\n"
+"PO-Revision-Date: 2025-03-22 19:19+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -116,8 +116,7 @@ msgstr ""
 
 #: data/org.gnome.SimpleScan.gschema.xml:65
 msgid "File format that is used for saving image files"
-msgstr ""
-"Формат файлів, яким слід користуватися для збереження файлів зображень"
+msgstr "Формат файлів, яким слід користуватися для збереження файлів зображень"
 
 #: data/org.gnome.SimpleScan.gschema.xml:66
 msgid ""
@@ -207,15 +206,17 @@ msgstr ""
 "більшості наявних сканерів."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:29
+#: data/org.gnome.SimpleScan.appdata.xml.in:44
 msgid "The GNOME Project"
 msgstr "Проєкт GNOME"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;"
+#| msgid "scan;scanner;flatbed;adf;"
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
 msgstr ""
-"scan;scanner;flatbed;adf;сканування;сканер;планшет;двобічне;автоматичне;"
+"scan;scanner;flatbed;adf;simple-scan;simplescan;сканування;сканер;планшет;двоб"
+"ічне;автоматичне;сімпл-скан;сімплскан;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -334,7 +335,6 @@ msgid "_Scan"
 msgstr "С_канувати"
 
 #: data/ui/app-window.ui:211
-#| msgid "Scan Documents"
 msgid "Scan Options"
 msgstr "Параметри сканування"
 
@@ -348,7 +348,6 @@ msgstr "Експортувати"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:283
-#| msgid "Refresh device list"
 msgid "Refresh Device List"
 msgstr "Освіжити список пристроїв"
 
@@ -357,23 +356,18 @@ msgid "New Document"
 msgstr "Створити документ"
 
 #: data/ui/app-window.ui:327
-#| msgid "Rotate the page to the left (counter-clockwise)"
 msgid "Rotate Left (counter-clockwise)"
 msgstr "Обертати ліворуч (проти годинникової стрілки)"
 
 #: data/ui/app-window.ui:335
-#| msgctxt "shortcut window"
-#| msgid "Rotate page to the right (clockwise)"
 msgid "Rotate Right (clockwise)"
 msgstr "Обертати праворуч (за годинниковою стрілкою)"
 
 #: data/ui/app-window.ui:343
-#| msgid "Crop the selected page"
 msgid "Crop Selected Page"
 msgstr "Обрізати позначену сторінку"
 
 #: data/ui/app-window.ui:351
-#| msgid "Delete the selected page"
 msgid "Delete Selected Page"
 msgstr "Вилучити позначену сторінку"
 
@@ -686,9 +680,6 @@ msgstr "Потрібне додаткове програмне забезпеч�
 
 #. Instructions to install driver software
 #: src/app-window.vala:247
-#| msgid ""
-#| "You need to <a href=\"install-firmware\">install driver software</a> for "
-#| "your scanner."
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner"
@@ -703,7 +694,6 @@ msgstr "Сканерів не виявлено"
 
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:256
-#| msgid "Please check your scanner is connected and powered on."
 msgid "Please check your scanner is connected and powered on"
 msgstr "Будь ласка, перевірте, чи з’єднано ваш сканер і чи увімкнено його"
 
@@ -792,14 +782,10 @@ msgid "Contacting Scanner…"
 msgstr "Встановлюємо зв'язок зі сканером…"
 
 #: src/app-window.vala:892
-#| msgctxt "shortcut window"
-#| msgid "Scan a single page"
 msgid "Scan a Single Page"
 msgstr "Сканувати одну сторінку"
 
 #: src/app-window.vala:897 src/app-window.vala:902
-#| msgctxt "shortcut window"
-#| msgid "Scan a single page"
 msgid "Scan Multiple Pages"
 msgstr "Сканувати декілька сторінок"
 
@@ -829,18 +815,14 @@ msgid "_Quit without Saving"
 msgstr "В_ийти без збереження"
 
 #: src/app-window.vala:1382
-#| msgid "_Email"
 msgid "_Email…"
 msgstr "_Надіслати поштою…"
 
 #: src/app-window.vala:1383
-#| msgid "Pri_nt"
 msgid "Pri_nt…"
 msgstr "Н_адрукувати…"
 
 #: src/app-window.vala:1384
-#| msgctxt "menu"
-#| msgid "_Reorder Pages"
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "П_еревпорядкувати сторінки…"
@@ -1116,22 +1098,22 @@ msgstr ""
 "програми"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1760
+#: src/simple-scan.vala:1764
 msgid "Failed to scan"
 msgstr "Помилка сканування"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1775
+#: src/simple-scan.vala:1779
 msgid "Scan in progress"
 msgstr "Виконуємо сканування"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1959
+#: src/simple-scan.vala:1963
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ПРИСТРІЙ…] — програма для сканування"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1969
+#: src/simple-scan.vala:1973
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
