@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-09-05 18:11+0000\n"
-"PO-Revision-Date: 2024-09-05 21:08+0200\n"
+"POT-Creation-Date: 2025-03-22 14:43+0000\n"
+"PO-Revision-Date: 2025-03-22 16:29+0100\n"
 "Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict@ludost.net>\n"
 "Language: bg\n"
@@ -204,14 +204,16 @@ msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "Тази програма ползва SANE за поддръжката на повечето скенери."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:29
+#: data/org.gnome.SimpleScan.appdata.xml.in:44
 msgid "The GNOME Project"
 msgstr "Проектът GNOME"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;"
-msgstr "scan;scanner;flatbed;adf;скенер;сканиране;копие;копиране;плоскост;"
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr ""
+"scan;scanner;flatbed;adf;скенер;simple-"
+"scan;сканиране;копие;копиране;плоскост;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -791,12 +793,12 @@ msgstr "Изображението не може да бъде запазено 
 #: src/app-window.vala:1242
 msgid "translator-credits"
 msgstr ""
-"Светослав Стефанов &lt;<a href='mailto:svetlisashkov@yahoo."
-"com'>svetlisashkov@yahoo.com</a>&gt;\n"
+"Светослав Стефанов &lt;<a "
+"href='mailto:svetlisashkov@yahoo.com'>svetlisashkov@yahoo.com</a>&gt;\n"
 "Александър Шопов &lt;<a href='mailto:ash@kambanaria.org'>ash@kambanaria.org</"
 "a>&gt;\n"
-"Twlvnn Kraftwerk &lt;<a href='mailto:kraft_werk@tutanota."
-"com'>kraft_werk@tutanota.com</a>&gt;\n"
+"Twlvnn Kraftwerk &lt;<a "
+"href='mailto:kraft_werk@tutanota.com'>kraft_werk@tutanota.com</a>&gt;\n"
 "\n"
 "Проектът за превод на GNOME има нужда от подкрепа.\n"
 "Научете повече за нас на <a href='https://fsa-bg.org/project/gtp'>уеб сайта</"
@@ -870,8 +872,8 @@ msgstr "Изглежда, че скенерът ви е произведен о�
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother."
-"com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.brother.com\">Brother website</a>."
 msgstr ""
 "Може да свалите драйвери за него от <a href='http://support.brother.com'>уеб "
 "сайта на Brother</a>."
@@ -940,8 +942,8 @@ msgstr "Изглежда, че скенерът ви е произведен о�
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson."
-"com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.epson.com\">Epson website</a>."
 msgstr ""
 "Може да свалите драйвери за него от <a href='http://support.epson.com'>уеб "
 "сайта на Epson</a>."
@@ -954,8 +956,8 @@ msgstr "Изглежда, че скенерът ви е произведен о�
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark."
-"com\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.lexmark.com\">Lexmark website</a>."
 msgstr ""
 "Може да свалите драйвери за него от <a href='http://support.lexmark.com'>уеб "
 "сайта на Lexmark</a>."
@@ -1102,59 +1104,23 @@ msgstr ""
 "Поправяне на документи PDF, създадени с по-стари версии на тази програма"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1760
+#: src/simple-scan.vala:1764
 msgid "Failed to scan"
 msgstr "Неуспешно сканиране"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1775
+#: src/simple-scan.vala:1779
 msgid "Scan in progress"
 msgstr "В момента се сканира"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1959
+#: src/simple-scan.vala:1963
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[УСТРОЙСТВО…] — инструмент за сканиране"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1969
+#: src/simple-scan.vala:1973
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Изпълнете „%s --help“, за да видите списъка с всички опции на командния ред."
-
-#~ msgid "Stop the current scan"
-#~ msgstr "Спиране на текущото сканиране"
-
-#~ msgid "Save document to a file"
-#~ msgstr "Запазване на документа във файл"
-
-#~ msgid "Rotate the page to the right (clockwise)"
-#~ msgstr "Завъртане на страницата надясно ↷"
-
-#~ msgid "Scan a single page from the scanner"
-#~ msgstr "Сканиране на една страница със скенера"
-
-#~ msgid "Scan multiple pages from the scanner"
-#~ msgstr "Сканиране на множество страници със скенера"
-
-#~ msgid "Image Files"
-#~ msgstr "Файлове с изображения"
-
-#~ msgid "File format:"
-#~ msgstr "Формат на файла:"
-
-#~ msgid "Unable to open image preview application"
-#~ msgstr "Невъзможно е отварянето на приложение за преглед на изображението"
-
-#~ msgid "Keep unchanged"
-#~ msgstr "Без промяна"
-
-#~ msgid "Unable to open help file"
-#~ msgstr "Помощният файл не може да бъде отворен"
-
-#~ msgid "About Document Scanner"
-#~ msgstr "Относно „Сканиране на документи“"
-
-#~ msgid "Simple document scanning tool"
-#~ msgstr "Инструмент за опростено сканиране на документи"
