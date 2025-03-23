@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-09-03 20:58+0000\n"
-"PO-Revision-Date: 2024-09-05 08:00+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2025-03-22 11:09+0000\n"
+"PO-Revision-Date: 2025-03-22 15:32+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -209,14 +209,17 @@ msgstr ""
 "Bu uygulama var olan birçok tarayıcı desteği için SANE altyapısını kullanır."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:29
+#: data/org.gnome.SimpleScan.appdata.xml.in:44
 msgid "The GNOME Project"
 msgstr "GNOME Projesi"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;"
-msgstr "tara;tarama;tarayıcı;düz yatak;flatbed;adf;"
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr ""
+"scan;scanner;flatbed;adf;simple-scan;simplescan;tara;tarama;tarayıcı;düz "
+"yatak;düzyatak;düz yataklı;düzyataklı;otomatik belge beslemeli;"
+"kendiliğinden belge beslemeli;obb;kbb;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -685,7 +688,9 @@ msgstr "Ek Yazılım Gerekiyor"
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner"
-msgstr "Tarayıcınız için <a href=\"install-firmware\">sürücü yazılımını kurmalısınız</a>"
+msgstr ""
+"Tarayıcınız için <a href=\"install-firmware\">sürücü yazılımını "
+"kurmalısınız</a>"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:254
@@ -1087,22 +1092,22 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Bu uygulamanın eski sürümlerince üretilen PDF dosyalarını düzelt"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1760
+#: src/simple-scan.vala:1764
 msgid "Failed to scan"
 msgstr "Taranamadı"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1775
+#: src/simple-scan.vala:1779
 msgid "Scan in progress"
 msgstr "Tarama sürüyor"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1959
+#: src/simple-scan.vala:1963
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[AYGIT…] — Tarama uygulaması"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1969
+#: src/simple-scan.vala:1973
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
