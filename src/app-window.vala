@@ -200,12 +200,11 @@ public class AppWindow : Adw.ApplicationWindow
 
     public void show_error_dialog (string error_title, string error_text)
     {
-        var dialog = new Adw.MessageDialog (this,
-                                            error_title,
-                                            error_text);
+        var dialog = new Adw.AlertDialog (error_title,
+                                          error_text);
         dialog.add_response ("close", _("_Close"));
         dialog.set_response_appearance ("close", Adw.ResponseAppearance.SUGGESTED);
-        dialog.show ();
+        dialog.present (this);
     }
 
     public async AuthorizeDialogResponse authorize (string resource)
@@ -300,10 +299,9 @@ public class AppWindow : Adw.ApplicationWindow
 
     private async bool prompt_to_load_autosaved_book ()
     {
-        var dialog = new Adw.MessageDialog (this,
-                                            "",
-                                            /* Contents of dialog that shows if autosaved book should be loaded. */
-                                            _("An autosaved book exists. Do you want to open it?"));
+        var dialog = new Adw.AlertDialog ("",
+                                          /* Contents of dialog that shows if autosaved book should be loaded. */
+                                          _("An autosaved book exists. Do you want to open it?"));
 
         dialog.add_response ("no", _("_No"));
         dialog.add_response ("yes", _("_Yes"));
@@ -312,7 +310,7 @@ public class AppWindow : Adw.ApplicationWindow
         dialog.set_response_appearance ("yes", Adw.ResponseAppearance.SUGGESTED);
 
         dialog.set_default_response("yes");
-        dialog.show ();
+        dialog.present (this);
 
         string response = "yes";
 
@@ -527,10 +525,9 @@ public class AppWindow : Adw.ApplicationWindow
 
             var title = _("A file named “%s” already exists.  Do you want to replace it?").printf(file.get_basename ());
 
-            var dialog = new Adw.MessageDialog (parent,
-                                                /* Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file. */
-                                                title,
-                                                null);
+            var dialog = new Adw.AlertDialog (/* Contents of dialog that shows if saving would overwrite and existing file. %s is replaced with the name of the file. */
+                                              title,
+                                              null);
 
             dialog.add_response ("cancel", _("_Cancel"));
             dialog.add_response ("replace", _("_Replace"));
@@ -545,7 +542,7 @@ public class AppWindow : Adw.ApplicationWindow
                 callback ();
             });
             
-            dialog.show ();
+            dialog.present (parent);
 
             yield;
 
@@ -657,9 +654,8 @@ public class AppWindow : Adw.ApplicationWindow
         if (!book_needs_saving || (book.n_pages == 0))
             return true;
 
-        var dialog = new Adw.MessageDialog (this,
-                                            title,
-                                            _("If you don’t save, changes will be permanently lost."));
+        var dialog = new Adw.AlertDialog (title,
+                                          _("If you don’t save, changes will be permanently lost."));
 
         dialog.add_response ("discard", discard_label);
         dialog.add_response ("cancel", _("_Cancel"));
@@ -668,7 +664,7 @@ public class AppWindow : Adw.ApplicationWindow
         dialog.set_response_appearance ("discard", Adw.ResponseAppearance.DESTRUCTIVE);
         dialog.set_response_appearance ("save", Adw.ResponseAppearance.SUGGESTED);
 
-        dialog.show ();
+        dialog.present (this);
         
         string response = "cancel";
         SourceFunc callback = prompt_to_save_async.callback;
@@ -968,7 +964,7 @@ public class AppWindow : Adw.ApplicationWindow
 
     private void preferences_cb ()
     {
-        preferences_dialog.present ();
+        preferences_dialog.present (this);
     }
 
     private void update_page_menu ()
@@ -1235,9 +1231,8 @@ public class AppWindow : Adw.ApplicationWindow
     {
         string[] authors = { "Robert Ancell <robert.ancell@canonical.com>" };
 
-        var about = new Adw.AboutWindow ()
+        var about = new Adw.AboutDialog ()
         {
-            transient_for = this,
             developers = authors,
             translator_credits = _("translator-credits"),
             copyright = "Copyright © 2009-2018 Canonical Ltd.",
@@ -1249,7 +1244,7 @@ public class AppWindow : Adw.ApplicationWindow
             issue_url = "https://gitlab.gnome.org/GNOME/simple-scan/-/issues/",
         };
         
-        about.present ();
+        about.present (this);
     }
 
     private void about_cb ()
@@ -1334,12 +1329,6 @@ public class AppWindow : Adw.ApplicationWindow
     private void load ()
     {
         preferences_dialog = new PreferencesDialog (settings);
-        preferences_dialog.close_request.connect (() => {
-            preferences_dialog.visible = false;
-            return true;
-        });
-        preferences_dialog.transient_for = this;
-        preferences_dialog.modal = true;
 
         Gtk.Window.set_default_icon_name ("org.gnome.SimpleScan");
 
@@ -1405,8 +1394,6 @@ public class AppWindow : Adw.ApplicationWindow
         book_view.show_page.connect (show_page_cb);
         book_view.show_menu.connect (show_page_menu_cb);
         book_view.visible = true;
-
-        preferences_dialog.transient_for = this;
 
         /* Load previous state */
         load_state ();

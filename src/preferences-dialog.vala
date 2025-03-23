@@ -37,7 +37,7 @@ private class PaperSizeItem: Object
 }
 
 [GtkTemplate (ui = "/org/gnome/SimpleScan/ui/preferences-dialog.ui")]
-private class PreferencesDialog : Adw.PreferencesWindow
+private class PreferencesDialog : Adw.PreferencesDialog
 {
     private Settings settings;
 
