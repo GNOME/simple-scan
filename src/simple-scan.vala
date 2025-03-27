@@ -90,13 +90,15 @@ public class SimpleScan : Adw.Application
             app.set_scan_devices (device_list);
             app.set_selected_device (default_device.name);
         }
+
+        app.start ();
+        scanner.start ();
     }
 
     public override void activate ()
     {
         base.activate ();
-        app.start ();
-        scanner.start ();
+        app.present ();
     }
 
     public override void shutdown ()
