@@ -10,8 +10,8 @@ install_data ('org.gnome.SimpleScan.gschema.xml',
 gnome.post_install (glib_compile_schemas: true,
                     gtk_update_icon_cache: true)
 
-i18n.merge_file (input: 'simple-scan.desktop.in',
-                 output: 'simple-scan.desktop',
+i18n.merge_file (input: 'org.gnome.SimpleScan.desktop.in',
+                 output: 'org.gnome.SimpleScan.desktop',
                  install: true,
                  install_dir: join_paths (datadir, 'applications'),
                  po_dir: '../po',
