@@ -363,7 +363,7 @@ public class AppWindow : Adw.ApplicationWindow
         for (uint i = 0; i < device_model.get_n_items (); i++)
         {
             var item = (ScanDevice?) device_model.get_item (i);
-            if (item.label == name) {
+            if (item.name == name) {
                 position = i;
                 return item;
             }
