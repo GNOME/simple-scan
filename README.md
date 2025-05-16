@@ -25,32 +25,37 @@ try to publish it on Flathub.
 Install the dependencies
 
 For Ubuntu/Debian:
+
 ```
-$ sudo apt install -y meson valac gcc gettext itstool libfribidi-dev libgirepository1.0-dev libgtk-4-dev libadwaita-1-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev git ca-certificates
+sudo apt install -y meson valac gcc gettext itstool libfribidi-dev libgirepository1.0-dev libgtk-4-dev libadwaita-1-dev libgusb-dev libcolord-dev libpackagekit-glib2-dev libwebp-dev libsane-dev git ca-certificates
 ```
 
 For Fedora:
+
 ```
-$ sudo dnf install -y meson vala gettext itstool fribidi-devel gtk4-devel libadwaita-devel gobject-introspection-devel libgusb-devel colord-devel PackageKit-glib-devel libwebp-devel sane-backends-devel git
+sudo dnf install -y meson vala gettext itstool fribidi-devel gtk4-devel libadwaita-devel gobject-introspection-devel libgusb-devel colord-devel PackageKit-glib-devel libwebp-devel sane-backends-devel git
 ```
 
 For Arch Linux:
+
 ```
 sudo pacman -S meson vala gettext itstool fribidi gtk4 libadwaita gobject-introspection libgusb colord libwebp sane git
 
 ```
 
 Get the source:
+
 ```
-$ git clone https://gitlab.gnome.org/GNOME/simple-scan.git
-$ cd simple-scan
+git clone https://gitlab.gnome.org/GNOME/simple-scan.git
+cd simple-scan
 ```
 
 Build and run:
+
 ```
-$ meson --prefix $PWD/_install _build
-$ ninja -C _build all install
-$ XDG_DATA_DIRS=_install/share:$XDG_DATA_DIRS ./_install/bin/simple-scan
+meson --prefix $PWD/_install _build
+ninja -C _build all install
+XDG_DATA_DIRS=_install/share:$XDG_DATA_DIRS ./_install/bin/simple-scan
 ```
 
 # Debugging
