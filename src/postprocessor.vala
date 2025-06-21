@@ -35,9 +35,9 @@ public class Postprocessor {
 						out process_status);
 	    debug ("status: %d\n", process_status);
 	    debug ("STDOUT: \n");
-	    debug ("process_stdout");
+	    debug (process_stdout);
 	    debug ("STDERR: \n");
-	    debug ("process_stderr");
+	    debug (process_stderr);
 
 	    return process_status;
     }
