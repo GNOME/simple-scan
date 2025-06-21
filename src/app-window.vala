@@ -624,8 +624,6 @@ public class AppWindow : Adw.ApplicationWindow
         try
         {
             yield book.save_async (mime_type, settings.get_int ("jpeg-quality"), file,
-                settings.get_boolean ("postproc-enabled"), settings.get_string ("postproc-script"),
-                settings.get_string ("postproc-arguments"), settings.get_boolean ("postproc-keep-original"),
                 (fraction) =>
             {
                 progress_bar.set_fraction (fraction);
@@ -643,6 +641,20 @@ public class AppWindow : Adw.ApplicationWindow
         }
         save_button.sensitive = true;
         progress_bar.remove_with_delay (500, action_bar);
+
+        try
+        {
+            yield book.postprocess_async (
+                mime_type, file, settings.get_boolean ("postproc-enabled"), settings.get_string ("postproc-script"),
+                settings.get_string ("postproc-arguments"), settings.get_boolean ("postproc-keep-original"));
+        }
+        catch (Error e)
+        {
+            warning ("Error running postprocessing: %s", e.message);
+            show_error_dialog (/* Title of error dialog when postprocessing failed */
+                              _("Failed to run postprocessing"),
+                              e.message);
+        }
 
         book_needs_saving = false;
         book_uri = uri;
@@ -1172,9 +1184,10 @@ public class AppWindow : Adw.ApplicationWindow
             }
             var file = File.new_for_path (Path.build_filename (dir, filename));
             yield book.save_async (mime_type, settings.get_int ("jpeg-quality"), file,
-                settings.get_boolean ("postproc-enabled"), settings.get_string ("postproc-script"),
-                settings.get_string ("postproc-arguments"), settings.get_boolean ("postproc-keep-original"),
                 null, null);
+            yield book.postprocess_async (mime_type, file, settings.get_boolean ("postproc-enabled"),
+                settings.get_string ("postproc-script"), settings.get_string ("postproc-arguments"),
+                settings.get_boolean ("postproc-keep-original"));
             var command_line = "xdg-email";
             if (mime_type == "application/pdf")
                 command_line += " --attach %s".printf (file.get_path ());
