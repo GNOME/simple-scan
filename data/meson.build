@@ -17,19 +17,19 @@ i18n.merge_file (input: 'org.gnome.SimpleScan.desktop.in',
                  po_dir: '../po',
                  type: 'desktop')
 
-appdata_file = i18n.merge_file (input: 'org.gnome.SimpleScan.appdata.xml.in',
-                 output: 'org.gnome.SimpleScan.appdata.xml',
+metainfo_file = i18n.merge_file (input: 'org.gnome.SimpleScan.metainfo.xml.in',
+                 output: 'org.gnome.SimpleScan.metainfo.xml',
                  install: true,
                  install_dir: join_paths (datadir, 'metainfo'),
                  po_dir: '../po')
 
-# Validate Appdata
+# Validate AppStream metadata
 appstreamcli = find_program('appstreamcli', required: false)
 if appstreamcli.found()
-  test('validate-appdata',
+  test('validate-metainfo',
         appstreamcli,
-        args: ['validate', '--no-net', '--explain', appdata_file.full_path()],
-        depends: appdata_file)
+        args: ['validate', '--no-net', '--explain', metainfo_file.full_path()],
+        depends: metainfo_file)
 endif
 
 install_man ('simple-scan.1')
