@@ -47,11 +47,8 @@ public class BookView : Gtk.Box
     }
 
     /* Widget being rendered to */
+    private Gtk.ScrolledWindow scrolled_window;
     private Gtk.DrawingArea drawing_area;
-
-    /* Horizontal scrollbar */
-    private Gtk.Scrollbar scroll;
-    private Gtk.Adjustment adjustment;
 
     private new string cursor;
 
@@ -67,17 +64,7 @@ public class BookView : Gtk.Box
     public signal void show_page (Page page);
     public signal void show_menu (Gtk.Widget from, double x, double y);
 
-    public int x_offset
-    {
-        get
-        {
-            return (int) adjustment.get_value ();
-        }
-        set
-        {
-            adjustment.value = value;
-        }
-    }
+    public int x_offset { get; set; }
 
     public BookView (Book book)
     {
@@ -110,11 +97,14 @@ public class BookView : Gtk.Box
         drawing_area.vexpand = true;
         drawing_area.set_draw_func(draw_cb);
 
-        append (drawing_area);
+        // Use GtkScrolledWindow for automatic scrollbar management
+        scrolled_window = new Gtk.ScrolledWindow();
+        scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER); // Horizontal only
+        scrolled_window.set_child(drawing_area);
+        scrolled_window.hexpand = true;
+        scrolled_window.vexpand = true;
 
-        scroll = new Gtk.Scrollbar (Gtk.Orientation.HORIZONTAL, null);
-        adjustment = scroll.adjustment;
-        append (scroll);
+        append(scrolled_window);
 
         drawing_area.resize.connect (drawing_area_resize_cb);
 
@@ -150,8 +140,6 @@ public class BookView : Gtk.Box
         focus_controller.leave.connect_after (focus_cb);
         drawing_area.add_controller(focus_controller);
 
-        adjustment.value_changed.connect (scroll_cb);
-
         drawing_area.visible = true;
     }
 
@@ -171,7 +159,6 @@ public class BookView : Gtk.Box
         secondary_click_gesture.released.disconnect (secondary_released_cb);
         focus_controller.enter.disconnect (focus_cb);
         focus_controller.leave.disconnect (focus_cb);
-        adjustment.value_changed.disconnect (scroll_cb);
     }
 
     private PageView get_nth_page (int n)
@@ -255,18 +242,17 @@ public class BookView : Gtk.Box
 
     private void show_page_view (PageView? page)
     {
-        if (page == null || !scroll.get_visible ())
+        if (page == null)
             return;
 
-        Gtk.Allocation allocation;
-        drawing_area.get_allocation (out allocation);
+        int allocation_width = drawing_area.get_allocated_width();
         var left_edge = page.x_offset;
         var right_edge = page.x_offset + page.width;
 
         if (left_edge - x_offset < 0)
             x_offset = left_edge;
-        else if (right_edge - x_offset > allocation.width)
-            x_offset = right_edge - allocation.width;
+        else if (right_edge - x_offset > allocation_width)
+            x_offset = right_edge - allocation_width;
     }
 
     private void select_page_view (PageView? page)
@@ -330,8 +316,6 @@ public class BookView : Gtk.Box
     public void drawing_area_resize_cb ()
     {
         need_layout = true;
-        // Let's layout ahead of time 
-        // to avoid "Trying to snapshot GtkGizmo without a current allocation" error
         layout ();
     }
 
@@ -401,12 +385,12 @@ public class BookView : Gtk.Box
         if (pages != null)
             book_width -= spacing;
 
-        int x_offset = 0;
+        int x_offset_local = 0;
         foreach (var page in pages)
         {
             /* Layout pages left to right */
-            page.x_offset = x_offset;
-            x_offset += page.width + spacing;
+            page.x_offset = x_offset_local;
+            x_offset_local += page.width + spacing;
 
             /* Centre page vertically */
             page.y_offset = (height - page.height) / 2;
@@ -420,53 +404,15 @@ public class BookView : Gtk.Box
 
         laying_out = true;
 
-        Gtk.Allocation allocation;
-        drawing_area.get_allocation(out allocation);
-        Gtk.Allocation box_allocation;
-        get_allocation(out box_allocation);
+        int width = drawing_area.get_allocated_width();
+        int height = this.get_allocated_height();
 
-        /* If scroll is right aligned then keep that after layout */
-        bool right_aligned = true;
-        if (adjustment.get_value () < adjustment.get_upper () - adjustment.get_page_size ())
-            right_aligned = false;
-
-        /* Try and fit without scrollbar */
-        var width = (int) allocation.width;
-        var height = (int) (box_allocation.height);
         int book_width, book_height;
         layout_into (width, height, out book_width, out book_height);
 
-        /* Relayout with scrollbar */
-        if (book_width > allocation.width)
-        {
-            /* Re-layout leaving space for scrollbar */
-            height = allocation.height;
-            layout_into (width, height, out book_width, out book_height);
- 
-            /* Set scrollbar limits */
-            adjustment.lower = 0;
-            adjustment.upper = book_width;
-            adjustment.page_size = allocation.width;
- 
-            /* Keep right-aligned */
-            var max_offset = book_width - allocation.width;
-            if (right_aligned || x_offset > max_offset)
-                x_offset = max_offset;
- 
-            scroll.visible = true;
-        }
-        else
-        {
-            scroll.visible = false;
-            var offset = (book_width - allocation.width) / 2;
-            adjustment.lower = offset;
-            adjustment.upper = offset;
-            adjustment.page_size = 0;
-            x_offset = offset;
-        }
-
+        drawing_area.set_size_request(book_width, -1);
         if (show_selected_page)
-           show_page_view (selected_page_view);
+            show_page_view (selected_page_view);
 
         need_layout = false;
         show_selected_page = false;
@@ -648,12 +594,6 @@ public class BookView : Gtk.Box
     private void focus_cb (Gtk.EventControllerFocus controler)
     {
         set_selected_page_view (selected_page_view);
-    }
-
-    private void scroll_cb (Gtk.Adjustment adjustment)
-    {
-       if (!laying_out)
-           redraw ();
     }
 
     private bool cursor_scroll_cb (Gtk.EventControllerScroll controller, double dx, double dy)
