@@ -1354,11 +1354,27 @@ public class Scanner : Object
             state = ScanState.GET_PARAMETERS;
         else if (status == Sane.Status.NO_DOCS)
         {
-            do_complete_document ();
-            if (page_number == 0)
-                fail_scan (status,
-                    /* Error displayed when no documents at the start of scanning */
-                    _("Document feeder empty"));
+            var job = (ScanJob) job_queue.data;
+            if (job.type == ScanType.BATCH)
+            {
+                /* In BATCH mode ("Multiple Pages from Flatbed") some scanners return
+                   NO_DOCS after the first page is scanned. Try cancelling and restarting
+                   to continue scanning more pages. */
+                debug ("sane_start received NO_DOCS in BATCH mode -> cancelling and restarting");
+
+                Sane.cancel(handle);
+
+                state = ScanState.START;
+                return;
+            }
+            else
+            {
+                do_complete_document ();
+                if (page_number == 0)
+                    fail_scan (status,
+                        /* Error displayed when no documents at the start of scanning */
+                        _("Document feeder empty"));
+            }
         }
         else if (status == Sane.Status.NO_MEM)
         {
