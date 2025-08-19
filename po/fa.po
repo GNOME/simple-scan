@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan gnome-3-26\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2025-03-23 18:13+0000\n"
-"PO-Revision-Date: 2025-03-24 00:34+0330\n"
+"POT-Creation-Date: 2025-08-11 00:23+0000\n"
+"PO-Revision-Date: 2025-08-19 17:41+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -17,8 +17,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.6\n"
 "X-DamnedLies-Scope: partial\n"
-"X-Generator: Poedit 3.5\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1253
+msgid "Document Scanner"
+msgstr "پویشگر پرونده"
+
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "گرفتن یک رونوشت دیجیتالی از عکس‌ها و سندهایتان"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr "scan;scanner;flatbed;adf;simple-scan;simplescan;پویش;پویشگر;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -30,15 +47,15 @@ msgstr "دستگاه SANE برای دریافت تصاویر از طریق آن.
 
 #: data/org.gnome.SimpleScan.gschema.xml:20
 msgid "Type of document being scanned"
-msgstr "گونهٔ نوشتار در حال پویش"
+msgstr "گونهٔ سند در حال پویش"
 
 #: data/org.gnome.SimpleScan.gschema.xml:21
 msgid ""
 "Type of document being scanned. This setting decides on the scan resolution, "
 "colors and post-processing."
 msgstr ""
-"گونهٔ نوشتار درحال پویش شدن. این تنظیمات روی تفکیک‌پذیری پویش، رنگ‌ها و پردازش پس "
-"از پویش اعمال می‌شود."
+"گونهٔ سند در حال پویش. این تنظیمات روی تفکیک‌پذیری پویش، رنگ‌ها و پردازش پس از "
+"پویش اعمال می‌شود."
 
 #: data/org.gnome.SimpleScan.gschema.xml:25
 msgid "Width of paper in tenths of a mm"
@@ -46,7 +63,8 @@ msgstr "پهنای کاغذ به دهم میلی‌متر"
 
 #: data/org.gnome.SimpleScan.gschema.xml:26
 msgid ""
-"The width of the paper in tenths of a mm (or 0 for automatic paper detection)."
+"The width of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
 msgstr "پهنای کاغذ به دهم میلی‌متر (یا ۰ برای تشخیص خودکار کاغذ)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:30
@@ -55,7 +73,8 @@ msgstr "بلندای کاغذ به دهم میلی‌متر"
 
 #: data/org.gnome.SimpleScan.gschema.xml:31
 msgid ""
-"The height of the paper in tenths of a mm (or 0 for automatic paper detection)."
+"The height of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
 msgstr "بلندای کاغذ به دهم میلی‌متر (یا ۰ برای تشخیص خودکار کاغذ)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:35
@@ -105,8 +124,7 @@ msgstr "شاخه مربوط به ذخیرهٔ پرونده‌ها"
 #: data/org.gnome.SimpleScan.gschema.xml:61
 msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
-msgstr ""
-"شاخه‌ای که پرونده‌ها در آن ذخیره می‌شوند. اگر تنظیم نشود، پیش‌فرض شاخهٔ نوشتارها."
+msgstr "شاخهٔ ذخیرهٔ پرونده‌ها. پیش‌گزیده به شاخهٔ سندها در صورت تنظیم نبودن."
 
 #: data/org.gnome.SimpleScan.gschema.xml:65
 msgid "File format that is used for saving image files"
@@ -114,11 +132,11 @@ msgstr "قالب پرونده‌ای که برای ذخیرهٔ پرونده‌�
 
 #: data/org.gnome.SimpleScan.gschema.xml:66
 msgid ""
-"MIME type that is used for saving image files. Examples of supported MIME types: "
-"image/jpeg, image/png, application/pdf"
+"MIME type that is used for saving image files. Examples of supported MIME "
+"types: image/jpeg, image/png, application/pdf"
 msgstr ""
-"گونهٔ MIME که برای ذخیرهٔ پرونده‌های تصویر استفاده می‌شود. مثال‌هایی از گونه‌های MIME "
-"پشتیبانی‌شده: mage/jpeg، image/png، application/pdf"
+"گونهٔ MIME که برای ذخیرهٔ پرونده‌های تصویر استفاده می‌شود. مثال‌هایی از گونه‌های "
+"MIME پشتیبانی‌شده: mage/jpeg، image/png، application/pdf"
 
 #: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
@@ -166,45 +184,31 @@ msgstr "این که پروندهٔ اصلی پردازش‌نشده نگه دا�
 
 #: data/org.gnome.SimpleScan.gschema.xml:98
 msgid ""
-"Whether or not to keep the original, unprocessed file. The \"_orig\" filename "
-"will be added to the filename immediately before the file extension."
+"Whether or not to keep the original, unprocessed file. The \"_orig\" "
+"filename will be added to the filename immediately before the file extension."
 msgstr ""
 "این که پروندهٔ اصلی پردازش‌نشده نگه داشته شود یا نه. نام ‪_orig‬ بلافاصله پیش از "
 "افوزنه به نام پرونده اضافه خواهد شد."
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:138 src/app-window.vala:1240
-msgid "Document Scanner"
-msgstr "پویشگر پرونده"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "گرفتن یک رونوشت دیجیتالی از عکس‌ها و سندهایتان"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
-"A really easy way to scan both text and images. You can crop out the bad parts "
-"of an image and rotate it if it is the wrong way round. You can print your "
-"scans, export them to pdf, or save them in a range of image formats."
+"A really easy way to scan both text and images. You can crop out the bad "
+"parts of an image and rotate it if it is the wrong way round. You can print "
+"your scans, export them to pdf, or save them in a range of image formats."
 msgstr ""
-"راهی ساده برای پویش اسناد و تصاویر. می‌توانید قسمت‌های نامناسب عکس را بریده و در "
-"صورت اشتباه بودن جهت، آن را بچرخانید. می‌توانید پویش‌های خود را چاپ، به pdf "
+"راهی ساده برای پویش اسناد و تصاویر. می‌توانید قسمت‌های نامناسب عکس را بریده و "
+"در صورت اشتباه بودن جهت، آن را بچرخانید. می‌توانید پویش‌های خود را چاپ، به pdf "
 "برون‌ریزی یا در بازه‌ای در قالب‌های تصویری ذخیره کنید."
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
-msgstr "این کاره از چهارچوب SANE برای پشتیبانی از پویشگرهای موجود استفاده می‌کند."
+msgstr ""
+"این کاره از چهارچوب SANE برای پشتیبانی از پویشگرهای موجود استفاده می‌کند."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "پروژهٔ گنوم"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr "scan;scanner;flatbed;adf;simple-scan;simplescan;پویش;پویشگر;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -367,7 +371,8 @@ msgstr "_نام کاربری برای منبع"
 msgid "_Password"
 msgstr "_گذرواژه"
 
-#: data/ui/authorize-dialog.ui:53 src/app-window.vala:532 src/app-window.vala:661
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:532
+#: src/app-window.vala:673
 msgid "_Cancel"
 msgstr "_لغو"
 
@@ -387,7 +392,7 @@ msgstr "قبول"
 #: data/ui/help-overlay.ui:10
 msgctxt "shortcut window"
 msgid "Scanning"
-msgstr "در حال پویش"
+msgstr "پوییدن"
 
 #: data/ui/help-overlay.ui:14
 msgctxt "shortcut window"
@@ -585,37 +590,37 @@ msgid "_Brightness"
 msgstr "_روشنایی"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:150
+#: data/ui/preferences-dialog.ui:151
 msgid "_Contrast"
 msgstr "_سایه‌روشن"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:165
+#: data/ui/preferences-dialog.ui:167
 msgid "Compression"
 msgstr "فشرده‌سازی"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:182
+#: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
 msgstr "پس‌پردازش"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:185
+#: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
 msgstr "_به کار انداختن پس‌پردازش"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:204
+#: data/ui/preferences-dialog.ui:206
 msgid "_Script"
 msgstr "_کد‌نوشته"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:223
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
 msgstr "_آرگومان‌های کدنوشته"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:242
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "_نگه داشتن پروندهٔ اصلی"
 
@@ -657,7 +662,7 @@ msgstr "برای دسترسی به (%s) نیاز به نام کاربری و ر�
 #. Label shown when searching for scanners
 #: src/app-window.vala:226
 msgid "Searching for Scanners…"
-msgstr "در حال جست‌وجو برای پویشگرها…"
+msgstr "جست‌وجو کردن پویشگرها…"
 
 #. Label shown when detected a scanner
 #: src/app-window.vala:234
@@ -672,10 +677,11 @@ msgstr "نرم افزار اضافی مورد نیاز است"
 #. Instructions to install driver software
 #: src/app-window.vala:246
 msgid ""
-"You need to <a href=\"install-firmware\">install driver software</a> for your "
-"scanner"
+"You need to <a href=\"install-firmware\">install driver software</a> for "
+"your scanner"
 msgstr ""
-"باید <a href=\"install-firmware\">نرم‌افزازِ راه‌انداز</a> برای پویشگرتان نصب شود."
+"باید <a href=\"install-firmware\">نرم‌افزازِ راه‌انداز</a> برای پویشگرتان نصب "
+"شود"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:253
@@ -704,7 +710,7 @@ msgstr "_بله"
 msgid "Save As…"
 msgstr "ذخیره به عنوان…"
 
-#: src/app-window.vala:388 src/app-window.vala:662
+#: src/app-window.vala:388 src/app-window.vala:674
 msgid "_Save"
 msgstr "_ذخیره"
 
@@ -745,46 +751,51 @@ msgstr "_جایگزینی"
 
 #: src/app-window.vala:620
 msgid "Saving"
-msgstr "درحال ذخیره"
+msgstr "ذخیره کردن"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:640
+#: src/app-window.vala:638
 msgid "Failed to save file"
 msgstr "ذخیره پرونده شکست خورد"
 
-#: src/app-window.vala:658
+#. Title of error dialog when postprocessing failed
+#: src/app-window.vala:655
+msgid "Failed to run postprocessing"
+msgstr "شکست در اجرای پس‌پردازش"
+
+#: src/app-window.vala:670
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "اگر پرونده را ذخیره نکنید تغییرات برای همیشه از بین میرود."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:706
+#: src/app-window.vala:718
 msgid "Save current document?"
 msgstr "ذخیره سند جاری؟"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:708
+#: src/app-window.vala:720
 msgid "_Discard Changes"
 msgstr "_دورانداختن تغییرات"
 
 #. Label shown when scan started
-#: src/app-window.vala:776
+#: src/app-window.vala:788
 msgid "Contacting Scanner…"
-msgstr "در حال برقراری ارتباط با پویشگر…"
+msgstr "ارتباط برقرار کردن با پویشگر…"
 
-#: src/app-window.vala:888
+#: src/app-window.vala:900
 msgid "Scan a Single Page"
 msgstr "پویشِ یک صفحه"
 
-#: src/app-window.vala:893 src/app-window.vala:898
+#: src/app-window.vala:905 src/app-window.vala:910
 msgid "Scan Multiple Pages"
 msgstr "پویشِ چند صفحه"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1013
+#: src/app-window.vala:1025
 msgid "Unable to save image for preview"
 msgstr "نمی‌توان پرونده را برای پیش‌نمایش ذخیره کرد"
 
-#: src/app-window.vala:1237
+#: src/app-window.vala:1250
 msgid "translator-credits"
 msgstr ""
 "آرش موسوی <mousavi.arash@gmail.com>\n"
@@ -793,50 +804,50 @@ msgstr ""
 "صالح شجاعی<shojaeisaleh@gmail.com>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1258
+#: src/app-window.vala:1271
 msgid "Save document before quitting?"
 msgstr "ذخیره پرونده قبل از خروج؟"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1260
+#: src/app-window.vala:1273
 msgid "_Quit without Saving"
 msgstr "_خروج بدون ذخیره‌سازی"
 
-#: src/app-window.vala:1371
+#: src/app-window.vala:1384
 msgid "_Email…"
 msgstr "_رایانامه…"
 
-#: src/app-window.vala:1372
+#: src/app-window.vala:1385
 msgid "Pri_nt…"
 msgstr "_چاپ…"
 
-#: src/app-window.vala:1373
+#: src/app-window.vala:1386
 msgctxt "menu"
 msgid "_Reorder Pages…"
-msgstr "_ترتیب دوبارهٔ صفحه‌ها"
+msgstr "_ترتیب دوبارهٔ صفحه‌ها…"
 
-#: src/app-window.vala:1376
+#: src/app-window.vala:1389
 msgid "_Preferences"
 msgstr "_ترجیحات"
 
-#: src/app-window.vala:1377
+#: src/app-window.vala:1390
 msgid "_Keyboard Shortcuts"
 msgstr "_میان‌برهای صفحه‌کلید"
 
-#: src/app-window.vala:1378
+#: src/app-window.vala:1391
 msgid "_Help"
 msgstr "_راهنما"
 
-#: src/app-window.vala:1379
+#: src/app-window.vala:1392
 msgid "_About Document Scanner"
 msgstr "_دربارهٔ پویشگر سند"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1566
+#: src/app-window.vala:1579
 msgid "Cancel"
 msgstr "لغو"
 
-#: src/book.vala:384 src/book.vala:390
+#: src/book.vala:392 src/book.vala:398
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "خطا در رمزگذاری صفحه %Ii"
@@ -858,24 +869,25 @@ msgstr ""
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
 msgid ""
-"You appear to have a Canon scanner, which is supported by the <a href=\"http://"
-"www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
 msgstr ""
-"به نظر می‌رسد یک پویشگر کنون دارید که با <a href=\"http://www.sane-project.org/"
-"man/sane-pixma.5.html\">پشتانهٔ SANE پیکسما</a> پشتیبانی می‌شود."
+"به نظر می‌رسد یک پویشگر کنون دارید که با <a href=\"http://www.sane-"
+"project.org/man/sane-pixma.5.html\">پشتانهٔ SANE پیکسما</a> پشتیبانی می‌شود."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/drivers-dialog.vala:84
 msgid ""
 "Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
-"devices.html\">scanner is supported by SANE</a>, otherwise report the issue to "
-"the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-"
-"devel\">SANE mailing list</a>."
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">SANE mailing list</a>."
 msgstr ""
 "لطفاً بررسی کنید که <a href=\"http://www.sane-project.org/sane-supported-"
-"devices.html\">پویشگرتان توسّط SANE پشتیبانی شود</a>. در غیر این صورت، مشکل را به "
-"<a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-"
-"devel\">فهرست پستی SANE</a> گزارش کنید."
+"devices.html\">پویشگرتان توسّط SANE پشتیبانی شود</a>. در غیر این صورت، مشکل "
+"را به <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">فهرست پستی SANE</a> گزارش کنید."
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/drivers-dialog.vala:88
@@ -889,8 +901,8 @@ msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"راه‌اندازهای این دستگاه روی<a href=\"http://support.hp.com\">پایگاه وب اچ‌پی</a> "
-"موجودند (اچ‌پی کسب‌وکار چاپ سامسونگ را خریده)."
+"راه‌اندازهای این دستگاه روی<a href=\"http://support.hp.com\">پایگاه وب اچ‌پی</"
+"a> موجودند (اچ‌پی کسب‌وکار چاپ سامسونگ را خریده)."
 
 #. Message to indicate a HP scanner has been detected
 #: src/drivers-dialog.vala:96
@@ -906,8 +918,8 @@ msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
 msgstr ""
-"راه‌اندازهای این دستگاه روی <a href=\"http://support.hp.com\">پایگاه وب اچ‌پی</a> "
-"موجودند."
+"راه‌اندازهای این دستگاه روی <a href=\"http://support.hp.com\">پایگاه وب اچ‌پی</"
+"a> موجودند."
 
 #. Message to indicate an Epson scanner has been detected
 #: src/drivers-dialog.vala:108
@@ -917,11 +929,11 @@ msgstr "به نظر می‌رسد یک پویشگر اپسون دارید."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson.com\">Epson "
-"website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.epson.com\">Epson website</a>."
 msgstr ""
-"راه‌اندازهای این دستگاه روی <a href=\"http://support.epson.com\">پایگاه وب اپسون</"
-"a> موجودند."
+"راه‌اندازهای این دستگاه روی <a href=\"http://support.epson.com\">پایگاه وب "
+"اپسون</a> موجودند."
 
 #. Message to indicate a Lexmark scanner has been detected
 #: src/drivers-dialog.vala:114
@@ -940,7 +952,7 @@ msgstr ""
 #. Label shown while installing drivers
 #: src/drivers-dialog.vala:130
 msgid "Installing drivers…"
-msgstr "در حال نصب راه‌اندازها…"
+msgstr "نصب کردن راه‌اندازها…"
 
 #. Label shown once drivers successfully installed
 #: src/drivers-dialog.vala:135
@@ -1002,25 +1014,25 @@ msgstr "جزییات کامل"
 #: src/preferences-dialog.vala:372
 #, c-format
 msgid "%d dpi (default)"
-msgstr "%Id dpi (پیش فرض)"
+msgstr "‏%Id dpi (پیش فرض)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
 #: src/preferences-dialog.vala:375
 #, c-format
 msgid "%d dpi (draft)"
-msgstr "%Id dpi (پیش نویس)"
+msgstr "‏%Id dpi (پیش نویس)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
 #: src/preferences-dialog.vala:378
 #, c-format
 msgid "%d dpi (high resolution)"
-msgstr "%Id dpi (بالاترین تفکیک‌پذیری)"
+msgstr "‏%Id dpi (بالاترین تفکیک‌پذیری)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
 #: src/preferences-dialog.vala:381
 #, c-format
 msgid "%d dpi"
-msgstr "%Id dpi"
+msgstr "‏%Id dpi"
 
 #. Error displayed when no scanners to scan with
 #: src/scanner.vala:901
@@ -1043,14 +1055,14 @@ msgstr "خوراک‌دهندهٔ سند خالی است"
 #: src/scanner.vala:1369
 msgid ""
 "Insufficient memory to perform scan.\n"
-"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in <tt>Preferences</"
-"tt> menu. For some scanners when scanning in high resolution, the scan size is "
-"restricted."
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
+"<tt>Preferences</tt> menu. For some scanners when scanning in high "
+"resolution, the scan size is restricted."
 msgstr ""
 "حافظهٔ ناکافی برای انجام پویش.\n"
-"تلاش کنید <tt>تفکیک‌پذیری</tt> یا <tt>اندازهٔ صفحه</tt> را در فهرست <tt>ترجیحات</"
-"tt> کاهش دهید. برای برخی پویشگرها هنام پویش در تفکیک‌پذیری بالا، اندازهٔ پویش "
-"محدود می‌شود."
+"تلاش کنید <tt>تفکیک‌پذیری</tt> یا <tt>اندازهٔ صفحه</tt> را در فهرست "
+"<tt>ترجیحات</tt> کاهش دهید. برای برخی پویشگرها هنام پویش در تفکیک‌پذیری بالا، "
+"اندازهٔ پویش محدود می‌شود."
 
 #. Error display when unable to start scan
 #: src/scanner.vala:1382
@@ -1077,22 +1089,22 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "تعمیر پرونده‌های PDF  ساخته شده با نگارش‌های قدیمی‌تر این‌کاره"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1764
+#: src/simple-scan.vala:1766
 msgid "Failed to scan"
 msgstr "شکست در پویش"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1779
+#: src/simple-scan.vala:1781
 msgid "Scan in progress"
 msgstr "در حال پویش"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1963
+#: src/simple-scan.vala:1965
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[DEVICE…] — ابزار پویش"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1973
+#: src/simple-scan.vala:1975
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "برای مشاهده راهنمای خط فرمان (%s --help) را وارد کنید."
@@ -1147,20 +1159,20 @@ msgstr "برای مشاهده راهنمای خط فرمان (%s --help) را و
 #~ "You should have received a copy of the GNU General Public License\n"
 #~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 #~ msgstr ""
-#~ "این نرم‌افزار، یک نرم‌افزار آزاد است؛ شما می‌توانید آن را تحت شرایط اجازه‌نامهٔ "
-#~ "همگانی عمومی گنو\n"
-#~ "که بنیاد نرم‌افزارهای آزاد منتشر کرده است،‌ تغییر دهید یا دوباره توزیع کنید. یا "
-#~ "نگارش‌ی ۲ اجازه‌نامه\n"
+#~ "این نرم‌افزار، یک نرم‌افزار آزاد است؛ شما می‌توانید آن را تحت شرایط "
+#~ "اجازه‌نامهٔ همگانی عمومی گنو\n"
+#~ "که بنیاد نرم‌افزارهای آزاد منتشر کرده است،‌ تغییر دهید یا دوباره توزیع "
+#~ "کنید. یا نگارش‌ی ۲ اجازه‌نامه\n"
 #~ "یا (به اختیار خودتان) هر نگارش‌ی بالاتر دیگری.\n"
 #~ "\n"
-#~ "این برنامه با این امید توزیع شده است که به درد بخور باشد، اما بدون هر گونه "
-#~ "ضمانتی؛ حتی بدون\n"
-#~ "ضمانت ضمنی قابل فروش بودن یا مناسب بودن برای یک هدف مشخص. برای جزئیات بیشتر "
-#~ "به\n"
+#~ "این برنامه با این امید توزیع شده است که به درد بخور باشد، اما بدون هر "
+#~ "گونه ضمانتی؛ حتی بدون\n"
+#~ "ضمانت ضمنی قابل فروش بودن یا مناسب بودن برای یک هدف مشخص. برای جزئیات "
+#~ "بیشتر به\n"
 #~ "اجازه‌نامهٔ همگانی عمومی گنو را ببینید.\n"
 #~ "\n"
-#~ "شما باید به همراه این برنامه رونوشتی از اجازه‌نامهٔ عمومی همگانی گنو را دریافت "
-#~ "می‌کردید،\n"
+#~ "شما باید به همراه این برنامه رونوشتی از اجازه‌نامهٔ عمومی همگانی گنو را "
+#~ "دریافت می‌کردید،\n"
 #~ "اگر این‌گونه نیست، «http://www.gnu.org/licenses» را ببینید."
 
 #~ msgid "Email"
