@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2025-03-23 18:13+0000\n"
+"POT-Creation-Date: 2025-07-10 17:45+0000\n"
 "PO-Revision-Date: 2025-03-23 08:00+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
@@ -22,6 +22,26 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 "X-Generator: Poedit 3.5\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1253
+msgid "Document Scanner"
+msgstr "Belge Tarayıcı"
+
+#: data/org.gnome.SimpleScan.desktop.in:4
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "Resim ve belgelerinizin sayısal kopyasını oluşturun"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:6
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr ""
+"scan;scanner;flatbed;adf;simple-scan;simplescan;tara;tarama;tarayıcı;düz "
+"yatak;düzyatak;düz yataklı;düzyataklı;otomatik belge beslemeli;kendiliğinden "
+"belge beslemeli;obb;kbb;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -183,17 +203,7 @@ msgstr ""
 "Özgün, işlenmemiş dosyanın tutulup tutulmayacağı. Dosya uzantısından hemen "
 "önce dosya adına \"_orig\" eklenecektir."
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:138 src/app-window.vala:1240
-msgid "Document Scanner"
-msgstr "Belge Tarayıcı"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "Resim ve belgelerinizin sayısal kopyasını oluşturun"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -203,23 +213,15 @@ msgstr ""
 "yanlış yöndeyse döndürebilirsiniz. Taramalarınızı yazdırabilir, pdf’ye "
 "aktarabilir veya resim biçimlerinde kaydedebilirsiniz."
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Bu uygulama var olan birçok tarayıcı desteği için SANE altyapısını kullanır."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "GNOME Projesi"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr ""
-"scan;scanner;flatbed;adf;simple-scan;simplescan;tara;tarama;tarayıcı;düz "
-"yatak;düzyatak;düz yataklı;düzyataklı;otomatik belge beslemeli;kendiliğinden "
-"belge beslemeli;obb;kbb;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -385,7 +387,7 @@ msgid "_Password"
 msgstr "_Parola"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:532
-#: src/app-window.vala:661
+#: src/app-window.vala:673
 msgid "_Cancel"
 msgstr "İ_ptal"
 
@@ -603,37 +605,37 @@ msgid "_Brightness"
 msgstr "_Parlaklık"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:150
+#: data/ui/preferences-dialog.ui:151
 msgid "_Contrast"
 msgstr "_Karşıtlık"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:165
+#: data/ui/preferences-dialog.ui:167
 msgid "Compression"
 msgstr "Sıkıştırma"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:182
+#: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
 msgstr "Art İşleme"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:185
+#: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
 msgstr "Art işlemeyi _etkinleştir"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:204
+#: data/ui/preferences-dialog.ui:206
 msgid "_Script"
 msgstr "_Betik"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:223
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
 msgstr "_Betik argümanları"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:242
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "Özgün dosyayı _tut"
 
@@ -723,7 +725,7 @@ msgstr "_Evet"
 msgid "Save As…"
 msgstr "Farklı Kaydet…"
 
-#: src/app-window.vala:388 src/app-window.vala:662
+#: src/app-window.vala:388 src/app-window.vala:674
 msgid "_Save"
 msgstr "_Kaydet"
 
@@ -767,94 +769,98 @@ msgid "Saving"
 msgstr "Kaydediliyor"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:640
+#: src/app-window.vala:638
 msgid "Failed to save file"
 msgstr "Dosya kaydedilemedi"
 
-#: src/app-window.vala:658
+#. Title of error dialog when postprocessing failed
+#: src/app-window.vala:655
+msgid "Failed to run postprocessing"
+msgstr "Art işleme çalıştırılamadı"
+
+#: src/app-window.vala:670
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Eğer kaydetmezseniz değişiklikler kalıcı olarak yitirilecek."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:706
+#: src/app-window.vala:718
 msgid "Save current document?"
 msgstr "Geçerli belge kaydedilsin mi?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:708
+#: src/app-window.vala:720
 msgid "_Discard Changes"
 msgstr "Değişiklikleri _Gözden Çıkar"
 
 #. Label shown when scan started
-#: src/app-window.vala:776
+#: src/app-window.vala:788
 msgid "Contacting Scanner…"
 msgstr "Tarayıcıyla İletişim Kuruluyor…"
 
-#: src/app-window.vala:888
+#: src/app-window.vala:900
 msgid "Scan a Single Page"
 msgstr "Tek Sayfa Tara"
 
-#: src/app-window.vala:893 src/app-window.vala:898
+#: src/app-window.vala:905 src/app-window.vala:910
 msgid "Scan Multiple Pages"
 msgstr "Çoklu Sayfa Tara"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1013
+#: src/app-window.vala:1025
 msgid "Unable to save image for preview"
 msgstr "Resim, ön izleme için kaydedilemiyor"
 
-#: src/app-window.vala:1237
+#: src/app-window.vala:1250
 msgid "translator-credits"
 msgstr ""
 "Emin Tufan Çetin <etcetin@gmail.com>\n"
-"Muhammet Kara <muhammetk@gnome.org>\n"
 "Sabri Ünal <yakushabb@gmail.com>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1258
+#: src/app-window.vala:1271
 msgid "Save document before quitting?"
 msgstr "Çıkmadan önce belge kaydedilsin mi?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1260
+#: src/app-window.vala:1273
 msgid "_Quit without Saving"
 msgstr "_Kaydetmeden Çık"
 
-#: src/app-window.vala:1371
+#: src/app-window.vala:1384
 msgid "_Email…"
 msgstr "_E-posta…"
 
-#: src/app-window.vala:1372
+#: src/app-window.vala:1385
 msgid "Pri_nt…"
 msgstr "Y_azdır…"
 
-#: src/app-window.vala:1373
+#: src/app-window.vala:1386
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "Sayfaları _Yeniden Sırala…"
 
-#: src/app-window.vala:1376
+#: src/app-window.vala:1389
 msgid "_Preferences"
 msgstr "_Tercihler"
 
-#: src/app-window.vala:1377
+#: src/app-window.vala:1390
 msgid "_Keyboard Shortcuts"
 msgstr "_Klavye Kısayolları"
 
-#: src/app-window.vala:1378
+#: src/app-window.vala:1391
 msgid "_Help"
 msgstr "_Yardım"
 
-#: src/app-window.vala:1379
+#: src/app-window.vala:1392
 msgid "_About Document Scanner"
 msgstr "Belge Tarayıcı _Hakkında"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1566
+#: src/app-window.vala:1579
 msgid "Cancel"
 msgstr "İptal"
 
-#: src/book.vala:384 src/book.vala:390
+#: src/book.vala:392 src/book.vala:398
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "%i. sayfa kodlanamıyor"
@@ -1096,22 +1102,22 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Bu uygulamanın eski sürümlerince üretilen PDF dosyalarını düzelt"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1764
+#: src/simple-scan.vala:1766
 msgid "Failed to scan"
 msgstr "Taranamadı"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1779
+#: src/simple-scan.vala:1781
 msgid "Scan in progress"
 msgstr "Tarama sürüyor"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1963
+#: src/simple-scan.vala:1965
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[AYGIT…] — Tarama uygulaması"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1973
+#: src/simple-scan.vala:1975
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
