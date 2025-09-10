@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2025-03-23 18:13+0000\n"
-"PO-Revision-Date: 2025-03-27 00:03+0100\n"
+"POT-Creation-Date: 2025-09-06 20:37+0000\n"
+"PO-Revision-Date: 2025-09-08 08:35+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -18,8 +18,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1253
+msgid "Document Scanner"
+msgstr "Szkenner"
+
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "Készítsen digitális másolatot a fényképeiről és dokumentumairól"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr "szkennelés;szkenner;beolvasó;síkágyas;adf;simple-scan;simplescan;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -178,17 +195,7 @@ msgstr ""
 "Tartsa-e meg vagy sem az eredeti, feldolgozatlan fájlt. Az „_orig” fájlnév "
 "hozzá lesz adva a fájlnévhez közvetlenül a fájl kiterjesztése előtt."
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:138 src/app-window.vala:1240
-msgid "Document Scanner"
-msgstr "Szkenner"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "Készítsen digitális másolatot a fényképeiről és dokumentumairól"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -198,22 +205,16 @@ msgstr ""
 "fölösleges részeit, és elforgathatja azokat. Kinyomtathatja, PDF-be vagy "
 "számos képformátumba is exportálhatja a szkennelt dokumentumokat."
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Ez az alkalmazás a SANE keretrendszert használja a legtöbb létező szkenner "
 "támogatása érdekében."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "A GNOME projekt"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/simple-scan.desktop.in:6
-#| msgid "scan;scanner;flatbed;adf;"
-msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr "szkennelés;szkenner;beolvasó;síkágyas;adf;simple-scan;simplescan;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -377,7 +378,7 @@ msgid "_Password"
 msgstr "_Jelszó"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:532
-#: src/app-window.vala:661
+#: src/app-window.vala:673
 msgid "_Cancel"
 msgstr "_Mégse"
 
@@ -595,37 +596,37 @@ msgid "_Brightness"
 msgstr "Fénye_rő"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:150
+#: data/ui/preferences-dialog.ui:151
 msgid "_Contrast"
 msgstr "Kon_traszt"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:165
+#: data/ui/preferences-dialog.ui:167
 msgid "Compression"
 msgstr "Tömörítés"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:182
+#: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
 msgstr "Utófeldolgozás"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:185
+#: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
 msgstr "Utófeldolgozás _engedélyezése"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:204
+#: data/ui/preferences-dialog.ui:206
 msgid "_Script"
 msgstr "_Parancsfájl"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:223
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
 msgstr "_Parancsfájl argumentumai"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:242
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "_Eredeti fájl megtartása"
 
@@ -715,7 +716,7 @@ msgstr "_Igen"
 msgid "Save As…"
 msgstr "Mentés másként…"
 
-#: src/app-window.vala:388 src/app-window.vala:662
+#: src/app-window.vala:388 src/app-window.vala:674
 msgid "_Save"
 msgstr "_Mentés"
 
@@ -759,43 +760,48 @@ msgid "Saving"
 msgstr "Mentés"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:640
+#: src/app-window.vala:638
 msgid "Failed to save file"
-msgstr "A fájl mentése sikertelen"
+msgstr "Nem sikerült elmenteni a fájlt"
 
-#: src/app-window.vala:658
+#. Title of error dialog when postprocessing failed
+#: src/app-window.vala:655
+msgid "Failed to run postprocessing"
+msgstr "Nem sikerült az utófeldolgozás futtatása"
+
+#: src/app-window.vala:670
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Ha nem menti, akkor a változtatások véglegesen elvesznek."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:706
+#: src/app-window.vala:718
 msgid "Save current document?"
 msgstr "Menti a jelenlegi dokumentumot?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:708
+#: src/app-window.vala:720
 msgid "_Discard Changes"
 msgstr "Módosítások el_vetése"
 
 #. Label shown when scan started
-#: src/app-window.vala:776
+#: src/app-window.vala:788
 msgid "Contacting Scanner…"
 msgstr "Kapcsolatfelvétel a szkennerrel…"
 
-#: src/app-window.vala:888
+#: src/app-window.vala:900
 msgid "Scan a Single Page"
 msgstr "Egy oldal szkennelése"
 
-#: src/app-window.vala:893 src/app-window.vala:898
+#: src/app-window.vala:905 src/app-window.vala:910
 msgid "Scan Multiple Pages"
 msgstr "Több oldal szkennelése"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1013
+#: src/app-window.vala:1025
 msgid "Unable to save image for preview"
 msgstr "A képfájlt nem lehet elmenteni előnézethez"
 
-#: src/app-window.vala:1237
+#: src/app-window.vala:1250
 msgid "translator-credits"
 msgstr ""
 "Meskó Balázs <mesko dot balazs at fsf dot hu>\n"
@@ -814,50 +820,50 @@ msgstr ""
 "  Úr Balázs https://launchpad.net/~urbalazs"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1258
+#: src/app-window.vala:1271
 msgid "Save document before quitting?"
 msgstr "Menti a dokumentumot kilépés előtt?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1260
+#: src/app-window.vala:1273
 msgid "_Quit without Saving"
 msgstr "_Kilépés mentés nélkül"
 
-#: src/app-window.vala:1371
+#: src/app-window.vala:1384
 msgid "_Email…"
 msgstr "Küldés _e-mailben…"
 
-#: src/app-window.vala:1372
+#: src/app-window.vala:1385
 msgid "Pri_nt…"
 msgstr "Nyom_tatás…"
 
-#: src/app-window.vala:1373
+#: src/app-window.vala:1386
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "Oldalak át_rendezése…"
 
-#: src/app-window.vala:1376
+#: src/app-window.vala:1389
 msgid "_Preferences"
 msgstr "_Beállítások"
 
-#: src/app-window.vala:1377
+#: src/app-window.vala:1390
 msgid "_Keyboard Shortcuts"
 msgstr "_Gyorsbillentyűk"
 
-#: src/app-window.vala:1378
+#: src/app-window.vala:1391
 msgid "_Help"
 msgstr "_Súgó"
 
-#: src/app-window.vala:1379
+#: src/app-window.vala:1392
 msgid "_About Document Scanner"
 msgstr "A Szkenner _névjegye"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1566
+#: src/app-window.vala:1579
 msgid "Cancel"
 msgstr "Mégse"
 
-#: src/book.vala:384 src/book.vala:390
+#: src/book.vala:392 src/book.vala:398
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "A(z) %i. lap nem kódolható"
@@ -870,8 +876,8 @@ msgstr "Úgy tűnik, Brother márkájú szkennere van."
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother."
-"com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.brother.com\">Brother website</a>."
 msgstr ""
 "Ehhez a <a href=\"http://support.brother.com\">Brother weboldaláról</a> "
 "érhetők el illesztőprogramok."
@@ -940,8 +946,8 @@ msgstr "Úgy tűnik, Epson márkájú szkennere van."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson."
-"com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.epson.com\">Epson website</a>."
 msgstr ""
 "Ehhez az <a href=\"http://support.epson.com\">Epson weboldaláról</a> érhetők "
 "el illesztőprogramok."
@@ -954,8 +960,8 @@ msgstr "Úgy tűnik, Lexmark márkájú szkennere van."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark."
-"com\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.lexmark.com\">Lexmark website</a>."
 msgstr ""
 "Ehhez a <a href=\"http://support.lexmark.com\">Lexmark weboldaláról</a> "
 "érhetők el illesztőprogramok."
@@ -974,12 +980,12 @@ msgstr "Az illesztőprogramok sikeresen telepítve!"
 #: src/drivers-dialog.vala:145
 #, c-format
 msgid "Failed to install drivers (error code %d)."
-msgstr "Az illesztőprogramok telepítése meghiúsult (hibakód: %d)."
+msgstr "Nem sikerült az illesztőprogramok telepítése (hibakód: %d)."
 
 #. Label shown if failed to install drivers
 #: src/drivers-dialog.vala:152
 msgid "Failed to install drivers."
-msgstr "Az illesztőprogramok telepítése meghiúsult."
+msgstr "Nem sikerült az illesztőprogramok telepítése."
 
 #: src/drivers-dialog.vala:161
 msgid "Once installed you will need to restart this app."
@@ -1057,14 +1063,14 @@ msgid "Unable to connect to scanner"
 msgstr "Nem sikerült csatlakozni a szkennerhez"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1495
+#: src/scanner.vala:1376 src/scanner.vala:1511
 msgid "Document feeder empty"
 msgstr "A dokumentumadagoló üres"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1369
+#: src/scanner.vala:1385
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1077,12 +1083,12 @@ msgstr ""
 "szkennel, akkor a kép mérete korlátozott."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1382
+#: src/scanner.vala:1398
 msgid "Unable to start scan"
 msgstr "Nem sikerült elindítani a szkennelést"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1505
+#: src/scanner.vala:1411 src/scanner.vala:1521
 msgid "Error communicating with scanner"
 msgstr "Kommunikációs hiba a szkennerrel"
 
@@ -1101,17 +1107,17 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Ezen alkalmazás régebbi verzióival készült PDF fájlok javítása"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1764
+#: src/simple-scan.vala:1766
 msgid "Failed to scan"
-msgstr "A szkennelés meghiúsult"
+msgstr "Nem sikerült a szkennelés"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1779
+#: src/simple-scan.vala:1781
 msgid "Scan in progress"
 msgstr "Szkennelés folyamatban"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1963
+#: src/simple-scan.vala:1965
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ESZKÖZ…] – Szkennelő segédprogram"
 
