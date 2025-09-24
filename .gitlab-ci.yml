@@ -41,6 +41,9 @@ include:
     file: "flatpak/flatpak_ci_initiative.yml"
   - project: "GNOME/citemplates"
     file: "templates/default-rules.yml"
+  - component: gitlab.gnome.org/GNOME/citemplates/release-service@master
+    inputs:
+      dist-job-name: "flatpak"
 
 flatpak:
   variables:
@@ -50,6 +53,3 @@ flatpak:
     RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
     BUNDLE: "simple-scan.flatpak"
   extends: '.flatpak'
-  # Make CI pass while I figure things out
-  allow_failure: true
-
