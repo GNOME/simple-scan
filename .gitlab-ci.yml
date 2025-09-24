@@ -36,7 +36,9 @@ build-arch:
     - ninja -C _build install
   allow_failure: true
 
-include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
+include:
+  - project: "GNOME/citemplates"
+    file: "flatpak/flatpak_ci_initiative.yml"
 
 flatpak:
   variables:
