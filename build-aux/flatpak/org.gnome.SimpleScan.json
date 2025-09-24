@@ -28,19 +28,6 @@
     ],
     "modules" : [
         {
-            "name" : "libusb1",
-            "buildsystem" : "autotools",
-            "config-opts" : [
-                "--disable-udev"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://github.com/libusb/libusb.git"
-                }
-            ]
-        },
-        {
             "name" : "gusb",
             "buildsystem" : "meson",
             "config-opts" : [
