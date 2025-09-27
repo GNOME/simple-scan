@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2025-03-23 18:13+0000\n"
-"PO-Revision-Date: 2025-03-24 18:27+0800\n"
+"POT-Creation-Date: 2025-08-21 19:03+0000\n"
+"PO-Revision-Date: 2025-08-25 08:17+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -21,7 +21,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Gtranslator 47.1\n"
+"X-Generator: Gtranslator 48.0\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1253
+msgid "Document Scanner"
+msgstr "文档扫描仪"
+
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "将您的照片与文档数字化后保存在计算机里"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr "scan;scanner;flatbed;adf;simple-scan;simplescan;扫描;扫描仪;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -172,17 +189,7 @@ msgid ""
 "filename will be added to the filename immediately before the file extension."
 msgstr "是否保留原始未处理的文件。文件名“_orig”将立即被添加至文件扩展名前面。"
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:138 src/app-window.vala:1240
-msgid "Document Scanner"
-msgstr "文档扫描仪"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "将您的照片与文档数字化后保存在计算机里"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -191,19 +198,14 @@ msgstr ""
 "简单的文档和照片扫描软件。如果图片显示有误，您可以根据需要通过裁剪、旋转等方"
 "式调整照片。您也可以打印扫描件、导出 PDF 格式、或者保存为图片。"
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "此应用使用 SANE 框架以支持大多数现有的扫描仪。"
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "GNOME 项目"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr "scan;scanner;flatbed;adf;simple-scan;simplescan;扫描;扫描仪;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -368,7 +370,7 @@ msgid "_Password"
 msgstr "密码(_P)"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:532
-#: src/app-window.vala:661
+#: src/app-window.vala:673
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -586,37 +588,37 @@ msgid "_Brightness"
 msgstr "亮度(_B)"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:150
+#: data/ui/preferences-dialog.ui:151
 msgid "_Contrast"
 msgstr "对比度(_C)"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:165
+#: data/ui/preferences-dialog.ui:167
 msgid "Compression"
 msgstr "压缩"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:182
+#: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
 msgstr "后处理"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:185
+#: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
 msgstr "启用后处理(_E)"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:204
+#: data/ui/preferences-dialog.ui:206
 msgid "_Script"
 msgstr "脚本(_S)"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:223
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
 msgstr "脚本参数(_S)"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:242
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "保留原始文件(_K)"
 
@@ -704,7 +706,7 @@ msgstr "是(_Y)"
 msgid "Save As…"
 msgstr "另存为…"
 
-#: src/app-window.vala:388 src/app-window.vala:662
+#: src/app-window.vala:388 src/app-window.vala:674
 msgid "_Save"
 msgstr "保存(_S)"
 
@@ -748,43 +750,48 @@ msgid "Saving"
 msgstr "正在保存"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:640
+#: src/app-window.vala:638
 msgid "Failed to save file"
 msgstr "保存文件错误"
 
-#: src/app-window.vala:658
+#. Title of error dialog when postprocessing failed
+#: src/app-window.vala:655
+msgid "Failed to run postprocessing"
+msgstr "运行后处理失败"
+
+#: src/app-window.vala:670
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "如果您不保存，变更将永久丢失。"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:706
+#: src/app-window.vala:718
 msgid "Save current document?"
 msgstr "保存当前文档？"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:708
+#: src/app-window.vala:720
 msgid "_Discard Changes"
 msgstr "放弃更改(_D)"
 
 #. Label shown when scan started
-#: src/app-window.vala:776
+#: src/app-window.vala:788
 msgid "Contacting Scanner…"
 msgstr "正在访问扫描仪…"
 
-#: src/app-window.vala:888
+#: src/app-window.vala:900
 msgid "Scan a Single Page"
 msgstr "扫描单页"
 
-#: src/app-window.vala:893 src/app-window.vala:898
+#: src/app-window.vala:905 src/app-window.vala:910
 msgid "Scan Multiple Pages"
 msgstr "扫描多页"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1013
+#: src/app-window.vala:1025
 msgid "Unable to save image for preview"
 msgstr "无法保存用以预览的图像"
 
-#: src/app-window.vala:1237
+#: src/app-window.vala:1250
 msgid "translator-credits"
 msgstr ""
 "Mingcong Bai <jeffbai@aosc.xyz>, 2017, 2018.\n"
@@ -810,50 +817,50 @@ msgstr ""
 "  zixue.liu https://launchpad.net/~zixue"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1258
+#: src/app-window.vala:1271
 msgid "Save document before quitting?"
 msgstr "退出前保存文档？"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1260
+#: src/app-window.vala:1273
 msgid "_Quit without Saving"
 msgstr "退出且不保存(_Q)"
 
-#: src/app-window.vala:1371
+#: src/app-window.vala:1384
 msgid "_Email…"
 msgstr "电子邮件(_E)…"
 
-#: src/app-window.vala:1372
+#: src/app-window.vala:1385
 msgid "Pri_nt…"
 msgstr "打印(_N)…"
 
-#: src/app-window.vala:1373
+#: src/app-window.vala:1386
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "页面重新排序(_R)…"
 
-#: src/app-window.vala:1376
+#: src/app-window.vala:1389
 msgid "_Preferences"
 msgstr "首选项(_P)"
 
-#: src/app-window.vala:1377
+#: src/app-window.vala:1390
 msgid "_Keyboard Shortcuts"
 msgstr "键盘快捷键(_K)"
 
-#: src/app-window.vala:1378
+#: src/app-window.vala:1391
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: src/app-window.vala:1379
+#: src/app-window.vala:1392
 msgid "_About Document Scanner"
 msgstr "关于文档扫描仪(_A)"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1566
+#: src/app-window.vala:1579
 msgid "Cancel"
 msgstr "取消"
 
-#: src/book.vala:384 src/book.vala:390
+#: src/book.vala:392 src/book.vala:398
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "无法编码页面 %i"
@@ -1046,14 +1053,14 @@ msgid "Unable to connect to scanner"
 msgstr "无法连接到扫描仪"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1495
+#: src/scanner.vala:1376 src/scanner.vala:1511
 msgid "Document feeder empty"
 msgstr "文档进纸器为空"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1369
+#: src/scanner.vala:1385
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1065,12 +1072,12 @@ msgstr ""
 "仪在进行高分辨率扫描时可支持的扫描尺寸有限。"
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1382
+#: src/scanner.vala:1398
 msgid "Unable to start scan"
 msgstr "无法开始扫描"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1505
+#: src/scanner.vala:1411 src/scanner.vala:1521
 msgid "Error communicating with scanner"
 msgstr "与扫描仪通信错误"
 
@@ -1089,22 +1096,22 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "修复旧版应用生成的 PDF 文件"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1764
+#: src/simple-scan.vala:1766
 msgid "Failed to scan"
 msgstr "扫描失败"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1779
+#: src/simple-scan.vala:1781
 msgid "Scan in progress"
 msgstr "正在扫描"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1963
+#: src/simple-scan.vala:1965
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[设备…] — 扫描工具"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1973
+#: src/simple-scan.vala:1975
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "运行“%s --help”来查看可用命令行选项的完整列表。"

@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2025-04-01 06:38+0000\n"
-"PO-Revision-Date: 2025-04-06 00:42+0200\n"
+"POT-Creation-Date: 2025-09-04 20:18+0000\n"
+"PO-Revision-Date: 2025-09-05 10:30+0200\n"
 "Last-Translator: Jordi Mas i Heranàndez <jmas@softcatala.org>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "Language: ca\n"
@@ -26,8 +26,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.6\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1253
+msgid "Document Scanner"
+msgstr "Escàner de documents"
+
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "Feu una còpia digital de les vostres fotografies i documents"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr "escanejar;escàner;pla;adf;simple-scan;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -189,19 +206,7 @@ msgstr ""
 "«_orig» s'afegirà al nom del fitxer immediatament abans de l'extensió del "
 "fitxer."
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6
-#: data/org.gnome.SimpleScan.desktop.in:3 data/ui/app-window.ui:138
-#: src/app-window.vala:1240
-msgid "Document Scanner"
-msgstr "Escàner de documents"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7
-#: data/org.gnome.SimpleScan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "Feu una còpia digital de les vostres fotografies i documents"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -212,21 +217,16 @@ msgstr ""
 "incorrecta.  Podeu imprimir els vostres escanejos, exportar-los a pdf, o "
 "desar-los en diversos formats d'imatge."
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Aquesta aplicació utilitza el marc de treball SANE per a donar suport a la "
 "majoria dels escàners existents."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "El projecte GNOME"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.SimpleScan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr "escanejar;escàner;pla;adf;simple-scan;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -390,7 +390,7 @@ msgid "_Password"
 msgstr "_Contrasenya"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:532
-#: src/app-window.vala:661
+#: src/app-window.vala:673
 msgid "_Cancel"
 msgstr "_Cancel·la"
 
@@ -608,37 +608,37 @@ msgid "_Brightness"
 msgstr "_Brillantor"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:150
+#: data/ui/preferences-dialog.ui:151
 msgid "_Contrast"
 msgstr "_Contrast"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:165
+#: data/ui/preferences-dialog.ui:167
 msgid "Compression"
 msgstr "Compressió"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:182
+#: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
 msgstr "Postprocessat"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:185
+#: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
 msgstr "_Habilita el postprocessament"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:204
+#: data/ui/preferences-dialog.ui:206
 msgid "_Script"
 msgstr "_Script"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:223
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
 msgstr "Arguments de l'_script"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:242
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "_Manté el fitxer original"
 
@@ -728,7 +728,7 @@ msgstr "_Sí"
 msgid "Save As…"
 msgstr "Anomena i desa…"
 
-#: src/app-window.vala:388 src/app-window.vala:662
+#: src/app-window.vala:388 src/app-window.vala:674
 msgid "_Save"
 msgstr "De_sa"
 
@@ -772,43 +772,48 @@ msgid "Saving"
 msgstr "S'està desant"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:640
+#: src/app-window.vala:638
 msgid "Failed to save file"
 msgstr "No s'ha pogut desar el fitxer"
 
-#: src/app-window.vala:658
+#. Title of error dialog when postprocessing failed
+#: src/app-window.vala:655
+msgid "Failed to run postprocessing"
+msgstr "No s'ha pogut executar el postprocessament"
+
+#: src/app-window.vala:670
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Si no ho deseu, els canvis es perdran per sempre més."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:706
+#: src/app-window.vala:718
 msgid "Save current document?"
 msgstr "Voleu desar el document actual?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:708
+#: src/app-window.vala:720
 msgid "_Discard Changes"
 msgstr "_Descarta els canvis"
 
 #. Label shown when scan started
-#: src/app-window.vala:776
+#: src/app-window.vala:788
 msgid "Contacting Scanner…"
 msgstr "S'està contactant amb l'escàner…"
 
-#: src/app-window.vala:888
+#: src/app-window.vala:900
 msgid "Scan a Single Page"
 msgstr "Escaneja una sola pàgina"
 
-#: src/app-window.vala:893 src/app-window.vala:898
+#: src/app-window.vala:905 src/app-window.vala:910
 msgid "Scan Multiple Pages"
 msgstr "Escaneja diverses pàgines"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1013
+#: src/app-window.vala:1025
 msgid "Unable to save image for preview"
 msgstr "No s'ha pogut desar la imatge per a previsualitzar-la"
 
-#: src/app-window.vala:1237
+#: src/app-window.vala:1250
 msgid "translator-credits"
 msgstr ""
 "equip de traducció:\n"
@@ -818,50 +823,50 @@ msgstr ""
 "Maite Guix <maite.guix@me.com> (2021)"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1258
+#: src/app-window.vala:1271
 msgid "Save document before quitting?"
 msgstr "Voleu desar el document abans de sortir?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1260
+#: src/app-window.vala:1273
 msgid "_Quit without Saving"
 msgstr "_Surt sense desar"
 
-#: src/app-window.vala:1371
+#: src/app-window.vala:1384
 msgid "_Email…"
 msgstr "_Correu electrònic…"
 
-#: src/app-window.vala:1372
+#: src/app-window.vala:1385
 msgid "Pri_nt…"
 msgstr "Imp_rimeix…"
 
-#: src/app-window.vala:1373
+#: src/app-window.vala:1386
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "_Reordena les pàgines…"
 
-#: src/app-window.vala:1376
+#: src/app-window.vala:1389
 msgid "_Preferences"
 msgstr "_Preferències"
 
-#: src/app-window.vala:1377
+#: src/app-window.vala:1390
 msgid "_Keyboard Shortcuts"
 msgstr "_Dreceres del teclat"
 
-#: src/app-window.vala:1378
+#: src/app-window.vala:1391
 msgid "_Help"
 msgstr "_Ajuda"
 
-#: src/app-window.vala:1379
+#: src/app-window.vala:1392
 msgid "_About Document Scanner"
 msgstr "_Quant a l'Escàner de documents"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1566
+#: src/app-window.vala:1579
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: src/book.vala:384 src/book.vala:390
+#: src/book.vala:392 src/book.vala:398
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "No s'ha pogut codificar la pàgina %i"
@@ -874,11 +879,11 @@ msgstr "Sembla que teniu un escàner Brother."
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother."
-"com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.brother.com\">Brother website</a>."
 msgstr ""
-"Hi ha controladors disponibles a la <a href=\"http://support.brother."
-"com\">pàgina web de Brother</a>."
+"Hi ha controladors disponibles a la <a href=\"http://"
+"support.brother.com\">pàgina web de Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
@@ -915,8 +920,9 @@ msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"Hi ha controladors disponibles a la <a href=\"https://support.hp."
-"com\">pàgina web d'HP</a> (HP va adquirir el negoci d'impressió de Samsung)."
+"Hi ha controladors disponibles a la <a href=\"https://"
+"support.hp.com\">pàgina web d'HP</a> (HP va adquirir el negoci d'impressió "
+"de Samsung)."
 
 #. Message to indicate a HP scanner has been detected
 #: src/drivers-dialog.vala:96
@@ -932,8 +938,8 @@ msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
 msgstr ""
-"Hi ha controladors disponibles a la <a href=\"https://support.hp."
-"com\">pàgina web d'HP</a>."
+"Hi ha controladors disponibles a la <a href=\"https://"
+"support.hp.com\">pàgina web d'HP</a>."
 
 #. Message to indicate an Epson scanner has been detected
 #: src/drivers-dialog.vala:108
@@ -943,11 +949,11 @@ msgstr "Sembla que teniu un escàner Epson."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson."
-"com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.epson.com\">Epson website</a>."
 msgstr ""
-"Hi ha controladors disponibles a la <a href=\"http://support.epson."
-"com\">pàgina web d'Epson</a>."
+"Hi ha controladors disponibles a la <a href=\"http://"
+"support.epson.com\">pàgina web d'Epson</a>."
 
 #. Message to indicate a Lexmark scanner has been detected
 #: src/drivers-dialog.vala:114
@@ -957,11 +963,11 @@ msgstr "Sembla que teniu un escàner Lexmark."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark."
-"com\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.lexmark.com\">Lexmark website</a>."
 msgstr ""
-"Hi ha controladors disponibles a la <a href=\"http://support.lexmark."
-"com\">pàgina web de Lexmark</a>."
+"Hi ha controladors disponibles a la <a href=\"http://"
+"support.lexmark.com\">pàgina web de Lexmark</a>."
 
 #. Label shown while installing drivers
 #: src/drivers-dialog.vala:130
@@ -1060,14 +1066,14 @@ msgid "Unable to connect to scanner"
 msgstr "No s'ha pogut connectar a l'escàner"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1495
+#: src/scanner.vala:1376 src/scanner.vala:1511
 msgid "Document feeder empty"
 msgstr "L'alimentador de documents està buit"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1369
+#: src/scanner.vala:1385
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1080,12 +1086,12 @@ msgstr ""
 "resolució la mida de l'escaneig està restringida."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1382
+#: src/scanner.vala:1398
 msgid "Unable to start scan"
 msgstr "No s'ha pogut iniciar l'escaneig"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1505
+#: src/scanner.vala:1411 src/scanner.vala:1521
 msgid "Error communicating with scanner"
 msgstr "S'ha produït un error en comunicar-se amb l'escàner"
 
