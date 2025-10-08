@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-09-10 10:01+0000\n"
-"PO-Revision-Date: 2024-09-14 16:41+0200\n"
+"POT-Creation-Date: 2025-09-06 20:37+0000\n"
+"PO-Revision-Date: 2025-09-07 13:32+0200\n"
 "Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
@@ -19,7 +19,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1253
+msgid "Document Scanner"
+msgstr "Skener dokumentov"
+
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "Vytvára digitálne kópie vašich fotografií a dokumentov"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr "skenovanie;skenovať;skener;plochý;adf;jednoduché skenovanie;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -183,17 +200,7 @@ msgstr ""
 "Určuje, či sa má alebo nemá zachovať pôvodný nespracovaný súbor. Do názvu "
 "súboru bude pridaný text „_orig“ hneď pred príponu súboru."
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:139 src/app-window.vala:1245
-msgid "Document Scanner"
-msgstr "Skener dokumentov"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "Vytvára digitálne kópie vašich fotografií a dokumentov"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -204,21 +211,16 @@ msgstr ""
 "dokumenty môžete vytlačiť, exportovať ich do pdf, alebo ich uložiť v rôznych "
 "formátoch obrázkov."
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Táto aplikácia využíva rozhranie SANE, kvôli podpore väčšiny existujúcich "
 "skenerov."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:29
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "Projekt GNOME"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;"
-msgstr "skenovanie;skenovať;skener;plochý;adf;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -324,57 +326,57 @@ msgid "_Image"
 msgstr "O_brázok"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:164
+#: data/ui/app-window.ui:163
 msgid "Stop"
 msgstr "Zastaviť"
 
-#: data/ui/app-window.ui:178
+#: data/ui/app-window.ui:177
 msgid "S_top"
 msgstr "Zas_taviť"
 
-#: data/ui/app-window.ui:203
+#: data/ui/app-window.ui:202
 msgid "_Scan"
 msgstr "_Skenovať"
 
-#: data/ui/app-window.ui:211
+#: data/ui/app-window.ui:210
 msgid "Scan Options"
 msgstr "Voľby skenovania"
 
-#: data/ui/app-window.ui:220
+#: data/ui/app-window.ui:219
 msgid "Main Menu"
 msgstr "Hlavná ponuka"
 
 # tooltip
-#: data/ui/app-window.ui:228
+#: data/ui/app-window.ui:227
 msgid "Export"
 msgstr "Exportuje"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:283
+#: data/ui/app-window.ui:282
 msgid "Refresh Device List"
 msgstr "Obnoví zoznam zariadení"
 
-#: data/ui/app-window.ui:313
+#: data/ui/app-window.ui:312
 msgid "New Document"
 msgstr "Nový dokument"
 
 # tooltip
-#: data/ui/app-window.ui:327
+#: data/ui/app-window.ui:326
 msgid "Rotate Left (counter-clockwise)"
 msgstr "Otočí doľava (v protismere hodinových ručičiek)"
 
 # tooltip
-#: data/ui/app-window.ui:335
+#: data/ui/app-window.ui:334
 msgid "Rotate Right (clockwise)"
 msgstr "Otočí doprava (v smere hodinových ručičiek)"
 
 # tooltip
-#: data/ui/app-window.ui:343
+#: data/ui/app-window.ui:342
 msgid "Crop Selected Page"
 msgstr "Oreže vybranú stránku"
 
 # tooltip
-#: data/ui/app-window.ui:351
+#: data/ui/app-window.ui:350
 msgid "Delete Selected Page"
 msgstr "Odstráni vybranú stránku"
 
@@ -386,8 +388,8 @@ msgstr "_Užívateľské meno pre zdroj"
 msgid "_Password"
 msgstr "_Heslo"
 
-#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
-#: src/app-window.vala:665
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:532
+#: src/app-window.vala:673
 msgid "_Cancel"
 msgstr "Z_rušiť"
 
@@ -399,6 +401,10 @@ msgstr "Ove_riť"
 #: data/ui/drivers-dialog.ui:17
 msgid "Install drivers"
 msgstr "Inštalácia ovládačov"
+
+#: data/ui/drivers-dialog.ui:119
+msgid "OK"
+msgstr "OK"
 
 #: data/ui/help-overlay.ui:10
 msgctxt "shortcut window"
@@ -517,92 +523,92 @@ msgid "Quit"
 msgstr "Ukončiť"
 
 #. Preferences Dialog: Section label for scanning settings
-#: data/ui/preferences-dialog.ui:32
+#: data/ui/preferences-dialog.ui:30
 msgid "Scanning"
 msgstr "Skenovanie"
 
 #. Label beside scan side combo box
-#: data/ui/preferences-dialog.ui:35
+#: data/ui/preferences-dialog.ui:33
 msgid "Scan _Sides"
 msgstr "Skenované stran_y"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:44
+#: data/ui/preferences-dialog.ui:42
 msgid "Front"
 msgstr "Predná strana"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: data/ui/preferences-dialog.ui:49
+#: data/ui/preferences-dialog.ui:47
 msgid "Back"
 msgstr "Zadná strana"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: data/ui/preferences-dialog.ui:55
+#: data/ui/preferences-dialog.ui:53
 msgid "Both"
 msgstr "Obe"
 
 #. Label beside page size combo box
-#: data/ui/preferences-dialog.ui:68
+#: data/ui/preferences-dialog.ui:66
 msgid "_Page Size"
 msgstr "_Veľkosť stránky"
 
 #. Label beside page delay scale
-#: data/ui/preferences-dialog.ui:74
+#: data/ui/preferences-dialog.ui:72
 msgid "_Delay in Seconds"
 msgstr "O_neskorenie v sekundách"
 
 #. Provides context for the page delay scale
-#: data/ui/preferences-dialog.ui:75
+#: data/ui/preferences-dialog.ui:73
 msgid "Interval to scan multiple pages"
 msgstr "Interval skenovania viacerých stránok"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:84
+#: data/ui/preferences-dialog.ui:82
 msgid "0"
 msgstr "0"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:89
+#: data/ui/preferences-dialog.ui:87
 msgid "3"
 msgstr "3"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:95
+#: data/ui/preferences-dialog.ui:93
 msgid "6"
 msgstr "6"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:101
+#: data/ui/preferences-dialog.ui:99
 msgid "10"
 msgstr "10"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:107
+#: data/ui/preferences-dialog.ui:105
 msgid "15"
 msgstr "15"
 
 #. Preferences Dialog: Section label for quality settings
-#: data/ui/preferences-dialog.ui:122
+#: data/ui/preferences-dialog.ui:120
 msgid "Quality"
 msgstr "Kvalita"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:125
+#: data/ui/preferences-dialog.ui:123
 msgid "_Text Resolution"
 msgstr "Rozlíšenie _textu"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:131
+#: data/ui/preferences-dialog.ui:129
 msgid "_Image Resolution"
 msgstr "Rozlíšenie _obrázkov"
 
 #. Label beside brightness scale
-#: data/ui/preferences-dialog.ui:137
+#: data/ui/preferences-dialog.ui:135
 msgid "_Brightness"
 msgstr "_Jas"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:152
+#: data/ui/preferences-dialog.ui:151
 msgid "_Contrast"
 msgstr "Ko_ntrast"
 
@@ -661,33 +667,33 @@ msgstr "Preklopiť párne stránky hore nohami"
 msgid "Reverse"
 msgstr "Obrátiť"
 
-#: src/app-window.vala:206
+#: src/app-window.vala:205
 msgid "_Close"
 msgstr "_Zavrieť"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:214
+#: src/app-window.vala:213
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Pre prístup k „%s“ je potrebné zadať meno používateľa a heslo"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:227
+#: src/app-window.vala:226
 msgid "Searching for Scanners…"
 msgstr "Vyhľadávajú sa skenery…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:235
+#: src/app-window.vala:234
 msgid "Ready to Scan"
 msgstr "Skenovanie pripravené"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:245
+#: src/app-window.vala:244
 msgid "Additional Software Needed"
 msgstr "Vyžaduje sa dodatočný softvér"
 
 #. Instructions to install driver software
-#: src/app-window.vala:247
+#: src/app-window.vala:246
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner"
@@ -696,115 +702,120 @@ msgstr ""
 "váš skener"
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:254
+#: src/app-window.vala:253
 msgid "No Scanners Detected"
 msgstr "Neboli rozpoznané žiadne skenery"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:256
+#: src/app-window.vala:255
 msgid "Please check your scanner is connected and powered on"
 msgstr "Prosím, skontrolujte, či je skener pripojený a zapnutý"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:306
+#: src/app-window.vala:304
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Existuje automaticky uložená kniha. Chcete ju otvoriť?"
 
-#: src/app-window.vala:308
+#: src/app-window.vala:306
 msgid "_No"
 msgstr "_Nie"
 
-#: src/app-window.vala:309
+#: src/app-window.vala:307
 msgid "_Yes"
 msgstr "Án_o"
 
-#: src/app-window.vala:388
+#: src/app-window.vala:386
 msgid "Save As…"
 msgstr "Uloženie ako…"
 
-#: src/app-window.vala:390 src/app-window.vala:666
+#: src/app-window.vala:388 src/app-window.vala:674
 msgid "_Save"
 msgstr "_Uložiť"
 
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:406
+#: src/app-window.vala:404
 msgid "Scanned Document"
 msgstr "Naskenovaný dokument"
 
-#: src/app-window.vala:412
+#: src/app-window.vala:410
 msgid "PDF (multi-page document)"
 msgstr "PDF (dokument s viacerými stránkami)"
 
-#: src/app-window.vala:418
+#: src/app-window.vala:416
 msgid "JPEG (compressed)"
 msgstr "JPEG (komprimovaný)"
 
-#: src/app-window.vala:425
+#: src/app-window.vala:423
 msgid "PNG (lossless)"
 msgstr "PNG (bezstratový)"
 
-#: src/app-window.vala:431
+#: src/app-window.vala:429
 msgid "WebP (compressed)"
 msgstr "WebP (komprimovaný)"
 
-#: src/app-window.vala:437
+#: src/app-window.vala:435
 msgid "All Files"
 msgstr "Všetky súbory"
 
-#: src/app-window.vala:528
+#: src/app-window.vala:526
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Súbor s názvom „%s“ už existuje. Chcete ho nahradiť?"
 
-#: src/app-window.vala:536
+#: src/app-window.vala:533
 msgid "_Replace"
 msgstr "_Nahradiť"
 
-#: src/app-window.vala:623
+#: src/app-window.vala:620
 msgid "Saving"
 msgstr "Ukladá sa"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:643
+#: src/app-window.vala:638
 msgid "Failed to save file"
 msgstr "Ukladanie súboru zlyhalo"
 
-#: src/app-window.vala:662
+#. Title of error dialog when postprocessing failed
+#: src/app-window.vala:655
+msgid "Failed to run postprocessing"
+msgstr "Zlyhalo spustenie následného spracovania"
+
+#: src/app-window.vala:670
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Ak dokument neuložíte, zmeny budú natrvalo stratené."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:710
+#: src/app-window.vala:718
 msgid "Save current document?"
 msgstr "Uložiť aktuálny dokument?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:712
+#: src/app-window.vala:720
 msgid "_Discard Changes"
 msgstr "_Zahodiť zmeny"
 
 #. Label shown when scan started
-#: src/app-window.vala:780
+#: src/app-window.vala:788
 msgid "Contacting Scanner…"
 msgstr "Kontaktuje sa skener…"
 
 # tooltip
-#: src/app-window.vala:892
+#: src/app-window.vala:900
 msgid "Scan a Single Page"
 msgstr "Naskenuje jednu stránku"
 
 # tooltip
-#: src/app-window.vala:897 src/app-window.vala:902
+#: src/app-window.vala:905 src/app-window.vala:910
 msgid "Scan Multiple Pages"
 msgstr "Naskenuje viacero stránok"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1017
+#: src/app-window.vala:1025
 msgid "Unable to save image for preview"
 msgstr "Nepodarilo sa uložiť obraz na náhľad"
 
-#: src/app-window.vala:1242
+#: src/app-window.vala:1250
 msgid "translator-credits"
 msgstr ""
 "Prispievatelia zo služby Launchpad:\n"
@@ -817,41 +828,41 @@ msgstr ""
 "  Robert Ancell https://launchpad.net/~robert-ancell"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1263
+#: src/app-window.vala:1271
 msgid "Save document before quitting?"
 msgstr "Uložiť dokument pred ukončením?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1265
+#: src/app-window.vala:1273
 msgid "_Quit without Saving"
 msgstr "_Ukončiť bez uloženia"
 
-#: src/app-window.vala:1382
+#: src/app-window.vala:1384
 msgid "_Email…"
 msgstr "O_doslať emailom…"
 
-#: src/app-window.vala:1383
+#: src/app-window.vala:1385
 msgid "Pri_nt…"
 msgstr "_Tlač…"
 
-#: src/app-window.vala:1384
+#: src/app-window.vala:1386
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "Zmeniť _poradie stránok…"
 
-#: src/app-window.vala:1387
+#: src/app-window.vala:1389
 msgid "_Preferences"
 msgstr "_Nastavenia"
 
-#: src/app-window.vala:1388
+#: src/app-window.vala:1390
 msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové skratky"
 
-#: src/app-window.vala:1389
+#: src/app-window.vala:1391
 msgid "_Help"
 msgstr "_Pomocník"
 
-#: src/app-window.vala:1390
+#: src/app-window.vala:1392
 msgid "_About Document Scanner"
 msgstr "_O aplikácii Skener dokumentov"
 
@@ -860,7 +871,7 @@ msgstr "_O aplikácii Skener dokumentov"
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: src/book.vala:384 src/book.vala:390
+#: src/book.vala:392 src/book.vala:398
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Nie je možné dekódovať stránku č. %i"
@@ -873,11 +884,11 @@ msgstr "Zdá sa, že máte skener značky Brother."
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother."
-"com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.brother.com\">Brother website</a>."
 msgstr ""
-"Ovládače pre tento skener sú dostupné na <a href=\"http://support.brother."
-"com\">webovej stránke výrobcu Brother</a>."
+"Ovládače pre tento skener sú dostupné na <a href=\"http://"
+"support.brother.com\">webovej stránke výrobcu Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
@@ -915,9 +926,9 @@ msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a> (HP acquired Samsung's printing business)."
 msgstr ""
-"Ovládače pre tento skener sú dostupné na <a href=\"https://support.hp."
-"com\">webovej stránke výrobcu HP</a> (Spoločnosť HP nadobudla tlačové "
-"záležitosti spoločnosti Samsung)."
+"Ovládače pre tento skener sú dostupné na <a href=\"https://"
+"support.hp.com\">webovej stránke výrobcu HP</a> (Spoločnosť HP nadobudla "
+"tlačové záležitosti spoločnosti Samsung)."
 
 #. Message to indicate a HP scanner has been detected
 #: src/drivers-dialog.vala:96
@@ -933,8 +944,8 @@ msgid ""
 "Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
 "website</a>."
 msgstr ""
-"Ovládače pre tento skener sú dostupné na <a href=\"https://support.hp."
-"com\">webovej stránke výrobcu HP</a>."
+"Ovládače pre tento skener sú dostupné na <a href=\"https://"
+"support.hp.com\">webovej stránke výrobcu HP</a>."
 
 #. Message to indicate an Epson scanner has been detected
 #: src/drivers-dialog.vala:108
@@ -944,8 +955,8 @@ msgstr "Zdá sa, že máte skener značky Epson."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson."
-"com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.epson.com\">Epson website</a>."
 msgstr ""
 "Ovládače pre tento skener sú dostupné na <a href=\"http://www.epson.sk/sk/sk/"
 "viewcon/corporatesite/support\">webovej stránke výrobcu Epson</a>."
@@ -958,11 +969,11 @@ msgstr "Zdá sa, že máte skener značky Lexmark."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark."
-"com\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.lexmark.com\">Lexmark website</a>."
 msgstr ""
-"Ovládače pre tento skener sú dostupné na <a href=\"http://support.lexmark."
-"com\">webovej stránke výrobcu Lexmark</a>."
+"Ovládače pre tento skener sú dostupné na <a href=\"http://"
+"support.lexmark.com\">webovej stránke výrobcu Lexmark</a>."
 
 #. Label shown while installing drivers
 #: src/drivers-dialog.vala:130
@@ -1062,14 +1073,14 @@ msgid "Unable to connect to scanner"
 msgstr "Nie je možné pripojiť sa ku skeneru"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1495
+#: src/scanner.vala:1376 src/scanner.vala:1511
 msgid "Document feeder empty"
 msgstr "Podávač dokumentov je prázdny"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1369
+#: src/scanner.vala:1385
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1082,12 +1093,12 @@ msgstr ""
 "vysokého rozlíšenia."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1382
+#: src/scanner.vala:1398
 msgid "Unable to start scan"
 msgstr "Nie je možné začať skenovať"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1505
+#: src/scanner.vala:1411 src/scanner.vala:1521
 msgid "Error communicating with scanner"
 msgstr "Chyba v komunikácii so skenerom"
 
@@ -1106,22 +1117,22 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Opraviť súbory PDF vytvorené staršími verziami tejto aplikácie"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1760
+#: src/simple-scan.vala:1766
 msgid "Failed to scan"
 msgstr "Skenovanie zlyhalo"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1775
+#: src/simple-scan.vala:1781
 msgid "Scan in progress"
 msgstr "Prebieha skenovanie"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1959
+#: src/simple-scan.vala:1965
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ZARIADENIE…] — Nástroj na skenovanie"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1969
+#: src/simple-scan.vala:1975
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
