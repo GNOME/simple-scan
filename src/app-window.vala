@@ -33,6 +33,7 @@ public class AppWindow : Adw.ApplicationWindow
         { "delete_page", delete_page_cb },
         { "reorder", reorder_document_cb },
         { "save", save_document_cb },
+        { "open_folder", open_folder_cb, "s" },
         { "email", email_document_cb },
         { "print", print_document_cb },
         { "preferences", preferences_cb },
@@ -90,6 +91,8 @@ public class AppWindow : Adw.ApplicationWindow
 
     [GtkChild]
     private unowned Gtk.MenuButton menu_button;
+    [GtkChild]
+    private unowned Adw.ToastOverlay toast_overlay;
 
     private bool have_devices = false;
     private string? missing_driver = null;
@@ -658,6 +661,14 @@ public class AppWindow : Adw.ApplicationWindow
 
         book_needs_saving = false;
         book_uri = uri;
+        var saved_toast = new Adw.Toast (_("Document Saved")) {
+        button_label = _("Open Folder"),
+        action_name = "app.open_folder",
+        action_target = new Variant.string (file.get_uri ())
+        };
+
+        toast_overlay.add_toast (saved_toast);
+
         return true;
     }
 
@@ -1205,6 +1216,22 @@ public class AppWindow : Adw.ApplicationWindow
             warning ("Unable to email document: %s", e.message);
         }
     }
+    private void  open_folder_cb (SimpleAction action, Variant? parameter)
+        requires (parameter != null)
+    {
+        string uri = parameter.get_string ();
+        var file = File.new_for_uri (uri);
+
+        var launcher = new Gtk.FileLauncher (file);
+        launcher.open_containing_folder.begin (this, null, (obj, res) => {
+            try {
+                launcher.open_containing_folder.end (res);
+            } catch (Error e) {
+                warning ("Failed to open containing folder: %s", e.message);
+            }
+        });
+    }
+
 
     private void print_document ()
     {
@@ -1309,6 +1336,7 @@ public class AppWindow : Adw.ApplicationWindow
         
         base.unmap ();
     }
+
 
     [GtkCallback]
     private bool window_close_request_cb (Gtk.Window window)
