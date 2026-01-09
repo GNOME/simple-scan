@@ -4,14 +4,15 @@
 # Claude Paroz <claude@2xlibre.net>, 2021-2022.
 # Charles Monzat <charles.monzat@free.fr>, 2018-2023.
 # Mathis Joussemet <joussemetmathis@gmail.com>, 2025.
+# Julien Humbert <julroy67@gmail.com>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2025-03-23 18:13+0000\n"
-"PO-Revision-Date: 2025-03-27 10:01+0100\n"
-"Last-Translator: Mathis Joussemet <joussemetmathis@gmail.com>\n"
+"POT-Creation-Date: 2025-09-10 23:15+0000\n"
+"PO-Revision-Date: 2025-09-11 13:58+0900\n"
+"Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +25,23 @@ msgstr ""
 "X-DL-Branch: master\n"
 "X-DL-Domain: po\n"
 "X-DL-State: Translating\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1253
+msgid "Document Scanner"
+msgstr "Numériseur de documents"
+
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "Faites une copie numérique de vos photos et documents"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr "numériser;scanner;numériseur à plat;adf;simple-scan;simplescan;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -188,17 +206,7 @@ msgstr ""
 "Indique si le fichier original non traité doit être conservé. Le suffixe "
 "« _orig » sera ajouté au nom de fichier juste avant l’extension de fichier."
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:138 src/app-window.vala:1240
-msgid "Document Scanner"
-msgstr "Numériseur de documents"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "Faites une copie numérique de vos photos et documents"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -209,21 +217,16 @@ msgstr ""
 "Vous pouvez imprimer vos numérisations, les exporter au format pdf ou les "
 "enregistrer dans d’autres formats d’image."
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Cette application utilise la structure logicielle de SANE pour prendre en "
 "charge la plupart des périphériques de numérisation existants."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "Le projet GNOME"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr "numériser;scanner;numériseur à plat;adf;simple-scan;simplescan;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -387,7 +390,7 @@ msgid "_Password"
 msgstr "_Mot de passe"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:532
-#: src/app-window.vala:661
+#: src/app-window.vala:673
 msgid "_Cancel"
 msgstr "A_nnuler"
 
@@ -605,37 +608,37 @@ msgid "_Brightness"
 msgstr "_Luminosité"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:150
+#: data/ui/preferences-dialog.ui:151
 msgid "_Contrast"
 msgstr "_Contraste"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:165
+#: data/ui/preferences-dialog.ui:167
 msgid "Compression"
 msgstr "Compression"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:182
+#: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
 msgstr "Post-traitement"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:185
+#: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
 msgstr "_Activer le post-traitement"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:204
+#: data/ui/preferences-dialog.ui:206
 msgid "_Script"
 msgstr "_Script"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:223
+#: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
 msgstr "Paramètres de _script"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:242
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "_Conserver le fichier original"
 
@@ -727,7 +730,7 @@ msgstr "_Oui"
 msgid "Save As…"
 msgstr "Enregistrer sous…"
 
-#: src/app-window.vala:388 src/app-window.vala:662
+#: src/app-window.vala:388 src/app-window.vala:674
 msgid "_Save"
 msgstr "_Enregistrer"
 
@@ -771,44 +774,49 @@ msgid "Saving"
 msgstr "Enregistrement"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:640
+#: src/app-window.vala:638
 msgid "Failed to save file"
 msgstr "Impossible d’enregistrer le fichier"
 
-#: src/app-window.vala:658
+#. Title of error dialog when postprocessing failed
+#: src/app-window.vala:655
+msgid "Failed to run postprocessing"
+msgstr "Échec de l’exécution du post-traitement"
+
+#: src/app-window.vala:670
 msgid "If you don’t save, changes will be permanently lost."
 msgstr ""
 "Si vous n’enregistrez pas, les modifications seront définitivement perdues."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:706
+#: src/app-window.vala:718
 msgid "Save current document?"
 msgstr "Enregistrer le document actuel ?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:708
+#: src/app-window.vala:720
 msgid "_Discard Changes"
 msgstr "_Abandonner les modifications"
 
 #. Label shown when scan started
-#: src/app-window.vala:776
+#: src/app-window.vala:788
 msgid "Contacting Scanner…"
 msgstr "Contact du périphérique de numérisation…"
 
-#: src/app-window.vala:888
+#: src/app-window.vala:900
 msgid "Scan a Single Page"
 msgstr "Numériser une seule page"
 
-#: src/app-window.vala:893 src/app-window.vala:898
+#: src/app-window.vala:905 src/app-window.vala:910
 msgid "Scan Multiple Pages"
 msgstr "Numériser plusieurs pages"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1013
+#: src/app-window.vala:1025
 msgid "Unable to save image for preview"
 msgstr "Impossible d’enregistrer l’image pour la prévisualiser"
 
-#: src/app-window.vala:1237
+#: src/app-window.vala:1250
 msgid "translator-credits"
 msgstr ""
 "Contributions sur Launchpad :\n"
@@ -848,50 +856,50 @@ msgstr ""
 "  torglut https://launchpad.net/~torglut"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1258
+#: src/app-window.vala:1271
 msgid "Save document before quitting?"
 msgstr "Enregistrer le document avant de quitter ?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1260
+#: src/app-window.vala:1273
 msgid "_Quit without Saving"
 msgstr "_Quitter sans enregistrer"
 
-#: src/app-window.vala:1371
+#: src/app-window.vala:1384
 msgid "_Email…"
 msgstr "_Courriel…"
 
-#: src/app-window.vala:1372
+#: src/app-window.vala:1385
 msgid "Pri_nt…"
 msgstr "Im_primer…"
 
-#: src/app-window.vala:1373
+#: src/app-window.vala:1386
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "_Réorganiser les pages…"
 
-#: src/app-window.vala:1376
+#: src/app-window.vala:1389
 msgid "_Preferences"
 msgstr "_Préférences"
 
-#: src/app-window.vala:1377
+#: src/app-window.vala:1390
 msgid "_Keyboard Shortcuts"
 msgstr "Raccourcis _clavier"
 
-#: src/app-window.vala:1378
+#: src/app-window.vala:1391
 msgid "_Help"
 msgstr "Aid_e"
 
-#: src/app-window.vala:1379
+#: src/app-window.vala:1392
 msgid "_About Document Scanner"
 msgstr "À _propos du Numériseur de documents"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1566
+#: src/app-window.vala:1579
 msgid "Cancel"
 msgstr "Annuler"
 
-#: src/book.vala:384 src/book.vala:390
+#: src/book.vala:392 src/book.vala:398
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Impossible de coder la page %i"
@@ -904,11 +912,11 @@ msgstr "Il semblerait que vous ayez un périphérique de numérisation Brother."
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother."
-"com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.brother.com\">Brother website</a>."
 msgstr ""
-"Les pilotes sont disponibles sur le <a href=\"http://support.brother."
-"com\">site web de Brother</a>."
+"Les pilotes sont disponibles sur le <a href=\"http://"
+"support.brother.com\">site web de Brother</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
@@ -918,8 +926,8 @@ msgid ""
 "backend</a>."
 msgstr ""
 "Il semblerait que vous ayez un périphérique de numérisation Canon, qui est "
-"pris en charge par <a href=\"http://www.sane-project.org/man/sane-pixma.5."
-"html\">le moteur SANE Pixma SANE</a>."
+"pris en charge par <a href=\"http://www.sane-project.org/man/sane-"
+"pixma.5.html\">le moteur SANE Pixma SANE</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/drivers-dialog.vala:84
@@ -975,11 +983,11 @@ msgstr "Il semblerait que vous ayez un périphérique de numérisation Epson."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson."
-"com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.epson.com\">Epson website</a>."
 msgstr ""
-"Les pilotes sont disponibles sur le <a href=\"http://support.epson."
-"com\">site web d’Epson</a>."
+"Les pilotes sont disponibles sur le <a href=\"http://"
+"support.epson.com\">site web d’Epson</a>."
 
 #. Message to indicate a Lexmark scanner has been detected
 #: src/drivers-dialog.vala:114
@@ -989,11 +997,11 @@ msgstr "Il semblerait que vous ayez un périphérique de numérisation Lexmark."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark."
-"com\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.lexmark.com\">Lexmark website</a>."
 msgstr ""
-"Les pilotes sont disponibles sur le <a href=\"http://support.lexmark."
-"com\">site web de Lexmark</a>."
+"Les pilotes sont disponibles sur le <a href=\"http://"
+"support.lexmark.com\">site web de Lexmark</a>."
 
 #. Label shown while installing drivers
 #: src/drivers-dialog.vala:130
@@ -1093,14 +1101,14 @@ msgid "Unable to connect to scanner"
 msgstr "Impossible de se connecter au périphérique de numérisation"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1495
+#: src/scanner.vala:1376 src/scanner.vala:1511
 msgid "Document feeder empty"
 msgstr "Bac d’alimentation vide"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1369
+#: src/scanner.vala:1385
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1113,12 +1121,12 @@ msgstr ""
 "lors d’une utilisation en haute résolution, la taille est restreinte."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1382
+#: src/scanner.vala:1398
 msgid "Unable to start scan"
 msgstr "Impossible de démarrer la numérisation"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1505
+#: src/scanner.vala:1411 src/scanner.vala:1521
 msgid "Error communicating with scanner"
 msgstr "Erreur de communication avec le périphérique de numérisation"
 
@@ -1139,132 +1147,24 @@ msgstr ""
 "application"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1764
+#: src/simple-scan.vala:1766
 msgid "Failed to scan"
 msgstr "Échec de la numérisation"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1779
+#: src/simple-scan.vala:1781
 msgid "Scan in progress"
 msgstr "Numérisation en cours"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1963
+#: src/simple-scan.vala:1965
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[PÉRIPHÉRIQUE…] — Outil de numérisation"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1973
+#: src/simple-scan.vala:1975
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Exécutez « %s --help » pour voir la liste complète des options disponibles "
 "en ligne de commande."
-
-#~ msgid "Stop the current scan"
-#~ msgstr "Arrêter la numérisation en cours"
-
-#~ msgid "Save document to a file"
-#~ msgstr "Enregistrer le document dans un fichier"
-
-#~ msgid "Rotate the page to the right (clockwise)"
-#~ msgstr "Faire pivoter la page vers la droite (sens horaire)"
-
-#~ msgid "Scan a single page from the scanner"
-#~ msgstr "Numériser une seule page depuis le numériseur"
-
-#~ msgid "Scan multiple pages from the scanner"
-#~ msgstr "Numériser plusieurs pages depuis le numériseur"
-
-#~ msgid "Image Files"
-#~ msgstr "Fichiers image"
-
-#~ msgid "File format:"
-#~ msgstr "Format du fichier :"
-
-#~ msgid "Unable to open image preview application"
-#~ msgstr "Impossible d’ouvrir l’aperçu de l’image"
-
-#~ msgid "Keep unchanged"
-#~ msgstr "Maintenir inchangé"
-
-#~ msgid "Unable to open help file"
-#~ msgstr "Impossible d’ouvrir le fichier d’aide"
-
-#~ msgid "About Document Scanner"
-#~ msgstr "À propos du Numériseur de documents"
-
-#~ msgid "Simple document scanning tool"
-#~ msgstr "Numériser simplement vos documents"
-
-#~ msgid ""
-#~ "This program is free software: you can redistribute it and/or modify\n"
-#~ "it under the terms of the GNU General Public License as published by\n"
-#~ "the Free Software Foundation, either version 3 of the License, or\n"
-#~ "(at your option) any later version.\n"
-#~ "\n"
-#~ "This program is distributed in the hope that it will be useful,\n"
-#~ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-#~ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-#~ "GNU General Public License for more details.\n"
-#~ "\n"
-#~ "You should have received a copy of the GNU General Public License\n"
-#~ "along with this program.  If not, see <http://www.gnu.org/licenses/>."
-#~ msgstr ""
-#~ "Ce programme est libre, vous pouvez le redistribuer et, ou le modifier\n"
-#~ "selon les termes de la licence publique générale (GPL) GNU publiée\n"
-#~ "par la Free Software Foundation, dans sa version 3 ou supérieure\n"
-#~ "(selon votre choix).\n"
-#~ "\n"
-#~ "Ce programme est distribué dans l’espoir d’être utile, mais\n"
-#~ "SANS AUCUNE GARANTIE, y compris les garanties de \n"
-#~ "COMMERCIALISATION ou d’ADAPTATION À UN BUT SPÉCIFIQUE.\n"
-#~ "Consultez la licence publique générale GNU pour plus de détails.\n"
-#~ "\n"
-#~ "Vous devez avoir reçu une copie de la licence publique générale GNU\n"
-#~ "en même temps que ce programme ; si ce n’est pas le cas, consultez\n"
-#~ "<http://www.gnu.org/licenses/>."
-
-#~ msgid "Start Again…"
-#~ msgstr "Recommencer…"
-
-#~ msgid "_Delay"
-#~ msgstr "_Délai"
-
-#~ msgid "Multiple pages from flatbed"
-#~ msgstr "Pages multiples depuis un numériseur à plat"
-
-#~ msgid "_Scanning"
-#~ msgstr "_Numérisation"
-
-#~ msgid "Resolution for photo scans"
-#~ msgstr "Résolution des numérisations de photos"
-
-#~ msgid "The resolution in dots-per-inch to use when scanning photos."
-#~ msgstr ""
-#~ "La résolution en points par pouce à utiliser lors de la numérisation de "
-#~ "photos."
-
-#~ msgid "_Scanner"
-#~ msgstr "_Numériseur"
-
-#~ msgid "_Photo Resolution"
-#~ msgstr "Résolution de la _photo"
-
-#~ msgid "Simple Scan"
-#~ msgstr "Outil de numérisation Simple Scan"
-
-#~ msgid "About Simple Scan"
-#~ msgstr "À propos de Simple Scan"
-
-#~ msgid "Photo"
-#~ msgstr "Photo"
-
-#~ msgid "Sc_an"
-#~ msgstr "Nu_mériser"
-
-#~ msgid "_Stop Scan"
-#~ msgstr "_Arrêter la numérisation"
-
-#~ msgid "_Page"
-#~ msgstr "_Page"
