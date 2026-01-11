@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2024-02-22 01:12+0000\n"
-"PO-Revision-Date: 2024-02-24 23:59+0600\n"
+"POT-Creation-Date: 2025-10-16 21:28+0000\n"
+"PO-Revision-Date: 2026-01-11 13:47+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <kk@li.org>\n"
 "Language: kk\n"
@@ -16,8 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.8\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.4.2\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2 data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138 src/app-window.vala:1253
+msgid "Document Scanner"
+msgstr "Құжат сканері"
+
+#: data/org.gnome.SimpleScan.desktop.in:3 data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "Фотосуреттеріңіз бен құжаттарыңыздың цифрлық көшірмесін жасау"
+
+#. Translators: Search terms to find this application. Do NOT translate or
+#. localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr "scan;scanner;flatbed;adf;simple-scan;simplescan;сканерлеу;сканер;планшетті;автоматты беруші;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -25,39 +40,31 @@ msgstr "Сканерлеуге арналған құрылғы"
 
 #: data/org.gnome.SimpleScan.gschema.xml:12
 msgid "SANE device to acquire images from."
-msgstr ""
+msgstr "Суреттерді алуға арналған SANE құрылғысы."
 
 #: data/org.gnome.SimpleScan.gschema.xml:20
 msgid "Type of document being scanned"
 msgstr "Сканерленетін құжаттың түрі"
 
 #: data/org.gnome.SimpleScan.gschema.xml:21
-msgid ""
-"Type of document being scanned. This setting decides on the scan resolution, "
-"colors and post-processing."
-msgstr ""
-"Сканерленетін құжаттың түрі. Бұл параметр сканерлеу ажыратымдылығы, түстері "
-"және кейінгі өңдеуге әсер етеді."
+msgid "Type of document being scanned. This setting decides on the scan resolution, colors and post-processing."
+msgstr "Сканерленетін құжаттың түрі. Бұл параметр сканерлеу ажыратымдылығы, түстері және кейінгі өңдеуге әсер етеді."
 
 #: data/org.gnome.SimpleScan.gschema.xml:25
 msgid "Width of paper in tenths of a mm"
-msgstr ""
+msgstr "Қағаздың ені (мм-дің оннан бір бөлігімен)"
 
 #: data/org.gnome.SimpleScan.gschema.xml:26
-msgid ""
-"The width of the paper in tenths of a mm (or 0 for automatic paper "
-"detection)."
-msgstr ""
+msgid "The width of the paper in tenths of a mm (or 0 for automatic paper detection)."
+msgstr "Қағаздың ені, мм-дің оннан бір бөлігімен (немесе қағазды автоматты түрде анықтау үшін 0)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:30
 msgid "Height of paper in tenths of a mm"
-msgstr ""
+msgstr "Қағаздың биіктігі (мм-дің оннан бір бөлігімен)"
 
 #: data/org.gnome.SimpleScan.gschema.xml:31
-msgid ""
-"The height of the paper in tenths of a mm (or 0 for automatic paper "
-"detection)."
-msgstr ""
+msgid "The height of the paper in tenths of a mm (or 0 for automatic paper detection)."
+msgstr "Қағаздың биіктігі, мм-дің оннан бір бөлігімен (немесе қағазды автоматты түрде анықтау үшін 0)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:35
 msgid "Brightness of scan"
@@ -65,7 +72,7 @@ msgstr "Сканерлеу жарықтығы"
 
 #: data/org.gnome.SimpleScan.gschema.xml:36
 msgid "The brightness adjustment from -100 to 100 (0 being none)."
-msgstr ""
+msgstr "Жарықтылықты -100-ден 100-ге дейін реттеу (0 - ешқандай)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:40
 msgid "Contrast of scan"
@@ -73,15 +80,15 @@ msgstr "Сканерлеу контрасты"
 
 #: data/org.gnome.SimpleScan.gschema.xml:41
 msgid "The contrast adjustment from -100 to 100 (0 being none)."
-msgstr ""
+msgstr "Контрастты -100-ден 100-ге дейін реттеу (0 - ешқандай)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:45
 msgid "Resolution for text scans"
-msgstr ""
+msgstr "Мәтінді сканерлеу ажыратылымдығы"
 
 #: data/org.gnome.SimpleScan.gschema.xml:46
 msgid "The resolution in dots-per-inch to use when scanning text."
-msgstr ""
+msgstr "Мәтінді сканерлеу кезінде қолданылатын ажыратылым (дюймдегі нүктелер санымен)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
 msgid "Resolution for image scans"
@@ -89,7 +96,7 @@ msgstr "Суреттерді сканерле ажыратымдылығы"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
 msgid "The resolution in dots-per-inch to use when scanning images."
-msgstr ""
+msgstr "Суреттерді сканерлеу кезінде қолданылатын ажыратылым (дюймдегі нүктелер санымен)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -104,22 +111,16 @@ msgid "Directory to save files to"
 msgstr "Файлдарды сақтау бумасы"
 
 #: data/org.gnome.SimpleScan.gschema.xml:61
-msgid ""
-"The directory to save files to. Defaults to the documents directory if unset."
-msgstr ""
-"Файлдарды сақтауға арналған бума. Орнатылмаса, құжаттар бумасына көрсетеді."
+msgid "The directory to save files to. Defaults to the documents directory if unset."
+msgstr "Файлдарды сақтауға арналған бума. Орнатылмаса, құжаттар бумасына көрсетеді."
 
 #: data/org.gnome.SimpleScan.gschema.xml:65
 msgid "File format that is used for saving image files"
 msgstr "Сурет файлдарын сақтау үшін пайдаланылатын файл пішімі"
 
 #: data/org.gnome.SimpleScan.gschema.xml:66
-msgid ""
-"MIME type that is used for saving image files. Examples of supported MIME "
-"types: image/jpeg, image/png, application/pdf"
-msgstr ""
-"Сурет файлдарын сақтау үшін қолданылатын MIME түрі. Қолдау көрсетілген MIME "
-"түрлерінің мысалдары: image/jpeg, image/png, application/pdf"
+msgid "MIME type that is used for saving image files. Examples of supported MIME types: image/jpeg, image/png, application/pdf"
+msgstr "Сурет файлдарын сақтау үшін қолданылатын MIME түрі. Қолдау көрсетілген MIME түрлерінің мысалдары: image/jpeg, image/png, application/pdf"
 
 #: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
@@ -139,74 +140,52 @@ msgstr "Беттер арасындағы кідіріс уақыты, милл�
 
 #: data/org.gnome.SimpleScan.gschema.xml:82
 msgid "Whether or not postprocessing is enabled"
-msgstr ""
+msgstr "Кейінгі өңдеу іске қосылған ба, жоқ па"
 
 #: data/org.gnome.SimpleScan.gschema.xml:83
 msgid "Whether or not postprocessing is enabled."
-msgstr ""
+msgstr "Кейінгі өңдеу іске қосылған ба, жоқ па."
 
 #: data/org.gnome.SimpleScan.gschema.xml:87
 msgid "The path to the postprocessing script"
-msgstr ""
+msgstr "Кейінгі өңдеу скрипт жолы"
 
 #: data/org.gnome.SimpleScan.gschema.xml:88
 msgid "The path to the postprocessing script."
-msgstr ""
+msgstr "Кейінгі өңдеу скрипт жолы."
 
 #: data/org.gnome.SimpleScan.gschema.xml:92
 msgid "Additional arguments for the postprocessing script"
-msgstr ""
+msgstr "Кейінгі өңдеу скриптіне арналған қосымша аргументтер"
 
 #: data/org.gnome.SimpleScan.gschema.xml:93
 msgid "Additional arguments for the postprocessing script."
-msgstr ""
+msgstr "Кейінгі өңдеу скриптіне арналған қосымша аргументтер."
 
 #: data/org.gnome.SimpleScan.gschema.xml:97
 msgid "Whether or not to keep the original, unprocessed file"
-msgstr ""
+msgstr "Түпнұсқа, өңделмеген файлды сақтау керек пе, жоқ па"
 
 #: data/org.gnome.SimpleScan.gschema.xml:98
+msgid "Whether or not to keep the original, unprocessed file. The \"_orig\" filename will be added to the filename immediately before the file extension."
+msgstr "Түпнұсқа, өңделмеген файлды сақтау керек пе, жоқ па. Файл атына файл кеңейтуінің алдында бірден \"_orig\" қосылады."
+
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
-"Whether or not to keep the original, unprocessed file. The \"_orig\" "
-"filename will be added to the filename immediately before the file extension."
+"A really easy way to scan both text and images. You can crop out the bad parts of an image and rotate it if it is the wrong way round. You can print your scans, export them to pdf, or save "
+"them in a range of image formats."
 msgstr ""
+"Мәтінді де, суреттерді де сканерлеудің шынымен де оңай жолы. Кескіннің жаман бөліктерін қиып алып, ал бағдары қате болса, оны айналдыруға болады. Сканерлеуді басып шығаруға, оларды pdf-ке "
+"экспорттауға немесе әр түрлі сурет пішімдеріне сақтауға болады."
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6 data/simple-scan.desktop.in:3
-#: data/ui/app-window.ui:139 src/app-window.vala:1245
-msgid "Document Scanner"
-msgstr "Құжат сканері"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7 data/simple-scan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "Фотосуреттеріңіз бен құжаттарыңыздың цифрлық көшірмесін жасау"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
-msgid ""
-"A really easy way to scan both text and images. You can crop out the bad "
-"parts of an image and rotate it if it is the wrong way round. You can print "
-"your scans, export them to pdf, or save them in a range of image formats."
-msgstr ""
-"Мәтінді де, суреттерді де сканерлеудің шынымен де оңай жолы. Кескіннің жаман "
-"бөліктерін қиып алып, ал бағдары қате болса, оны айналдыруға болады. "
-"Сканерлеуді басып шығаруға, оларды pdf-ке экспорттауға немесе әр түрлі сурет "
-"пішімдеріне сақтауға болады."
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
-msgstr ""
-"Бұл бағдарлама қолданыстағы сканерлердің көпшілігін қолдау үшін SANE "
-"пайдаланады."
+msgstr "Бұл бағдарлама қолданыстағы сканерлердің көпшілігін қолдау үшін SANE пайдаланады."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:29
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "GNOME жобасы"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/simple-scan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;"
-msgstr "scan;scanner;flatbed;adf;сканерлеу;сканер;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -271,7 +250,7 @@ msgstr "Таң_дауыңызша"
 #. Menu item to rotate the crop area
 #: data/ui/app-window.ui:76
 msgid "_Rotate Crop"
-msgstr ""
+msgstr "Кесуді _бұру"
 
 #. Menu item to move the selected page to the left
 #: data/ui/app-window.ui:83
@@ -293,15 +272,15 @@ msgstr "Өшіру"
 
 #: data/ui/app-window.ui:103
 msgid "_Single Page"
-msgstr ""
+msgstr "_Бір бет"
 
 #: data/ui/app-window.ui:109
 msgid "All Pages From _Feeder"
-msgstr ""
+msgstr "Беруші_ден барлық беттер"
 
 #: data/ui/app-window.ui:115
 msgid "_Multiple Pages From Flatbed"
-msgstr ""
+msgstr "Планшеттен бір_неше бет"
 
 #: data/ui/app-window.ui:123
 msgid "_Text"
@@ -312,26 +291,33 @@ msgid "_Image"
 msgstr "_Сурет"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:164
-msgid "Stop the current scan"
-msgstr "Ағымдағы сканерлеуді тоқтату"
+#: data/ui/app-window.ui:163
+msgid "Stop"
+msgstr "Тоқтау"
 
-#: data/ui/app-window.ui:178
+#: data/ui/app-window.ui:177
 msgid "S_top"
 msgstr "_Тоқтату"
 
-#: data/ui/app-window.ui:203
+#: data/ui/app-window.ui:202
 msgid "_Scan"
 msgstr "_Сканерлеу"
 
-#. Tooltip for save toolbar button
+#: data/ui/app-window.ui:210
+msgid "Scan Options"
+msgstr "Сканерлеу опциялары"
+
+#: data/ui/app-window.ui:219
+msgid "Main Menu"
+msgstr "Басты мәзір"
+
 #: data/ui/app-window.ui:227
-msgid "Save document to a file"
-msgstr "Құжатты файлға сақтау"
+msgid "Export"
+msgstr "Экспорттау"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:282
-msgid "Refresh device list"
+msgid "Refresh Device List"
 msgstr "Құрылғылар тізімін жаңарту"
 
 #: data/ui/app-window.ui:312
@@ -339,31 +325,30 @@ msgid "New Document"
 msgstr "Жаңа құжат"
 
 #: data/ui/app-window.ui:326
-msgid "Rotate the page to the left (counter-clockwise)"
-msgstr "Бетті солға бұру (сағат тіліне қарсы)"
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Солға бұру (сағат тіліне қарсы)"
 
 #: data/ui/app-window.ui:334
-msgid "Rotate the page to the right (clockwise)"
-msgstr "Бетті оңға бұрау (сағат тілі бойымен)"
+msgid "Rotate Right (clockwise)"
+msgstr "Оңға бұру (сағат тілімен)"
 
 #: data/ui/app-window.ui:342
-msgid "Crop the selected page"
+msgid "Crop Selected Page"
 msgstr "Таңдалған бетті қиып алу"
 
 #: data/ui/app-window.ui:350
-msgid "Delete the selected page"
+msgid "Delete Selected Page"
 msgstr "Таңдалған бетті өшіру"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
-msgstr ""
+msgstr "Ресурс үшін _пайдаланушы аты"
 
 #: data/ui/authorize-dialog.ui:38
 msgid "_Password"
 msgstr "_Пароль"
 
-#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
-#: src/app-window.vala:665
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:532 src/app-window.vala:673
 msgid "_Cancel"
 msgstr "_Бас тарту"
 
@@ -375,6 +360,10 @@ msgstr "_Авторизациялау"
 #: data/ui/drivers-dialog.ui:17
 msgid "Install drivers"
 msgstr "Драйверлерді орнату"
+
+#: data/ui/drivers-dialog.ui:119
+msgid "OK"
+msgstr "ОК"
 
 #: data/ui/help-overlay.ui:10
 msgctxt "shortcut window"
@@ -492,92 +481,100 @@ msgid "Quit"
 msgstr "Шығу"
 
 #. Preferences Dialog: Section label for scanning settings
-#: data/ui/preferences-dialog.ui:32
+#: data/ui/preferences-dialog.ui:30
 msgid "Scanning"
 msgstr "Сканерлеу"
 
 #. Label beside scan side combo box
-#: data/ui/preferences-dialog.ui:35
+#: data/ui/preferences-dialog.ui:33
 msgid "Scan _Sides"
 msgstr "_Парақ беттерін сканерлеу"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:44
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
+#: data/ui/preferences-dialog.ui:42
 msgid "Front"
 msgstr "Бет жағы"
 
-#. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: data/ui/preferences-dialog.ui:49
+#. Preferences Dialog: Toggle button to select scanning on the back side of a
+#. page
+#: data/ui/preferences-dialog.ui:47
 msgid "Back"
 msgstr "Сырты"
 
-#. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: data/ui/preferences-dialog.ui:55
+#. Preferences Dialog: Toggle button to select scanning on both sides of a
+#. page
+#: data/ui/preferences-dialog.ui:53
 msgid "Both"
 msgstr "Екеуі де"
 
 #. Label beside page size combo box
-#: data/ui/preferences-dialog.ui:68
+#: data/ui/preferences-dialog.ui:66
 msgid "_Page Size"
 msgstr "_Бет өлшемі"
 
 #. Label beside page delay scale
-#: data/ui/preferences-dialog.ui:74
+#: data/ui/preferences-dialog.ui:72
 msgid "_Delay in Seconds"
-msgstr ""
+msgstr "_Кідіріс, секундпен"
 
 #. Provides context for the page delay scale
-#: data/ui/preferences-dialog.ui:75
+#: data/ui/preferences-dialog.ui:73
 msgid "Interval to scan multiple pages"
 msgstr "Бірнеше бетті сканерлеу аралығы"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:84
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
+#: data/ui/preferences-dialog.ui:82
 msgid "0"
 msgstr "0"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:89
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
+#: data/ui/preferences-dialog.ui:87
 msgid "3"
 msgstr "3"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:95
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
+#: data/ui/preferences-dialog.ui:93
 msgid "6"
 msgstr "6"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:101
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
+#: data/ui/preferences-dialog.ui:99
 msgid "10"
 msgstr "10"
 
-#. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:107
+#. Preferences Dialog: Toggle button to select scanning on front side of a
+#. page
+#: data/ui/preferences-dialog.ui:105
 msgid "15"
 msgstr "15"
 
 #. Preferences Dialog: Section label for quality settings
-#: data/ui/preferences-dialog.ui:122
+#: data/ui/preferences-dialog.ui:120
 msgid "Quality"
 msgstr "Сапасы"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:125
+#: data/ui/preferences-dialog.ui:123
 msgid "_Text Resolution"
 msgstr "_Мәтін ажыратылымдығы"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:131
+#: data/ui/preferences-dialog.ui:129
 msgid "_Image Resolution"
 msgstr "С_урет ажыратылымдығы"
 
 #. Label beside brightness scale
-#: data/ui/preferences-dialog.ui:137
+#: data/ui/preferences-dialog.ui:135
 msgid "_Brightness"
 msgstr "Жар_ықтылығы"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:152
+#: data/ui/preferences-dialog.ui:151
 msgid "_Contrast"
 msgstr "_Контраст"
 
@@ -589,27 +586,27 @@ msgstr "Сығуы"
 #. Preferences Dialog: Section label for postprocessing settings
 #: data/ui/preferences-dialog.ui:184
 msgid "Postprocessing"
-msgstr ""
+msgstr "Кейінгі өңдеу"
 
 #. Switch to enable postprocessing
 #: data/ui/preferences-dialog.ui:187
 msgid "_Enable Postprocessing"
-msgstr ""
+msgstr "Кейінгі өңдеуді іск_е қосу"
 
 #. Label beside postprocesing script name entry
 #: data/ui/preferences-dialog.ui:206
 msgid "_Script"
-msgstr ""
+msgstr "_Скрипт"
 
 #. Label beside postprocesing arguments entry
 #: data/ui/preferences-dialog.ui:225
 msgid "_Script arguments"
-msgstr ""
+msgstr "_Скрипт аргументтері"
 
 #. Label beside keep keep original file radio
 #: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
-msgstr ""
+msgstr "Түпнұсқа файлды _сақтау"
 
 #: data/ui/reorder-pages-dialog.ui:9
 msgctxt "dialog title"
@@ -626,157 +623,161 @@ msgstr "Жақтарын біріктіру (кері)"
 
 #: data/ui/reorder-pages-dialog.ui:55
 msgid "Flip odd pages upside-down"
-msgstr ""
+msgstr "Тақ беттерді төмен қаратып аудару"
 
 #: data/ui/reorder-pages-dialog.ui:63
 msgid "Flip even pages upside-down"
-msgstr ""
+msgstr "Жұп беттерді төмен қаратып аудару"
 
 #: data/ui/reorder-pages-dialog.ui:78
 msgid "Reverse"
 msgstr "Кері"
 
-#: src/app-window.vala:206
+#: src/app-window.vala:205
 msgid "_Close"
 msgstr "_Жабу"
 
-#. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:214
+#. Label in authorization dialog.  “%s” is replaced with the name of the
+#. resource requesting authorization
+#: src/app-window.vala:213
 #, c-format
 msgid "Username and password required to access “%s”"
-msgstr ""
+msgstr "“%s” үшін қол жеткізуге пайдаланушы аты мен пароль қажет"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:227
+#: src/app-window.vala:226
 msgid "Searching for Scanners…"
 msgstr "Сканерлерді іздеу…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:235
+#: src/app-window.vala:234
 msgid "Ready to Scan"
 msgstr "Сканерлеуге дайын"
 
-#. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:245
+#. Warning displayed when no drivers are installed but a compatible scanner is
+#. detected
+#: src/app-window.vala:244
 msgid "Additional Software Needed"
 msgstr "Қосымша бағдарламалық қамтама қажет"
 
 #. Instructions to install driver software
-#: src/app-window.vala:247
-msgid ""
-"You need to <a href=\"install-firmware\">install driver software</a> for "
-"your scanner."
-msgstr ""
-"Сканеріңіз үшін <a href=\"install-firmware\">драйвер БҚ орнату</a> қажет."
+#: src/app-window.vala:246
+msgid "You need to <a href=\"install-firmware\">install driver software</a> for your scanner"
+msgstr "Сканеріңіз үшін <a href=\"install-firmware\">драйвер бағдарламалық қамтамасын орнату</a> қажет"
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:254
+#: src/app-window.vala:253
 msgid "No Scanners Detected"
 msgstr "Сканерлер табылмады"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:256
-msgid "Please check your scanner is connected and powered on."
-msgstr "Сканердің жалғанғанын және іске қосылғанын тексеріңіз."
+#: src/app-window.vala:255
+msgid "Please check your scanner is connected and powered on"
+msgstr "Сканердің қосылғанын және қуат алып тұрғанын тексеріңіз"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:306
+#: src/app-window.vala:304
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Автоматты түрде сақталған кітап бар. Оны ашуды қалайсыз ба?"
 
-#: src/app-window.vala:308
+#: src/app-window.vala:306
 msgid "_No"
 msgstr "_Жоқ"
 
-#: src/app-window.vala:309
+#: src/app-window.vala:307
 msgid "_Yes"
 msgstr "_Иә"
 
-#: src/app-window.vala:388
+#: src/app-window.vala:386
 msgid "Save As…"
 msgstr "Қалайша сақтау…"
 
-#: src/app-window.vala:390 src/app-window.vala:666
+#: src/app-window.vala:388 src/app-window.vala:674
 msgid "_Save"
 msgstr "_Сақтау"
 
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:406
+#: src/app-window.vala:404
 msgid "Scanned Document"
 msgstr "Сканерленген құжат"
 
-#: src/app-window.vala:412
+#: src/app-window.vala:410
 msgid "PDF (multi-page document)"
 msgstr "PDF (көпбетті құжат)"
 
-#: src/app-window.vala:418
+#: src/app-window.vala:416
 msgid "JPEG (compressed)"
 msgstr "JPEG (сығылған)"
 
-#: src/app-window.vala:425
+#: src/app-window.vala:423
 msgid "PNG (lossless)"
 msgstr "PNG (жоғалтусыз)"
 
-#: src/app-window.vala:431
+#: src/app-window.vala:429
 msgid "WebP (compressed)"
 msgstr "WebP (сығылған)"
 
-#: src/app-window.vala:437
+#: src/app-window.vala:435
 msgid "All Files"
 msgstr "Бүкіл файлдар"
 
-#: src/app-window.vala:528
+#: src/app-window.vala:526
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "\"%s\" деп аталатын файл бар болып тұр. Оны алмастыруды қалайсыз ба?"
 
-#: src/app-window.vala:536
+#: src/app-window.vala:533
 msgid "_Replace"
 msgstr "А_лмастыру"
 
-#: src/app-window.vala:623
+#: src/app-window.vala:620
 msgid "Saving"
 msgstr "Сақталуда"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:643
+#: src/app-window.vala:638
 msgid "Failed to save file"
 msgstr "Файлды сақтау сәтсіз аяқталды"
 
-#: src/app-window.vala:662
+#. Title of error dialog when postprocessing failed
+#: src/app-window.vala:655
+msgid "Failed to run postprocessing"
+msgstr "Кейінгі өңдеуді орындау мүмкін емес"
+
+#: src/app-window.vala:670
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Сақтамасаңыз, өзгерістер қайтпастай жоғалады."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:710
+#: src/app-window.vala:718
 msgid "Save current document?"
 msgstr "Ағымдағы құжатты сақтау керек пе?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:712
+#: src/app-window.vala:720
 msgid "_Discard Changes"
 msgstr "Өз_герістерді елемеу"
 
 #. Label shown when scan started
-#: src/app-window.vala:780
+#: src/app-window.vala:788
 msgid "Contacting Scanner…"
 msgstr "Сканерге хабарласу…"
 
-#: src/app-window.vala:892
-msgid "Scan a single page from the scanner"
-msgstr "Сканерден бір бетті сканерлеу"
+#: src/app-window.vala:900
+msgid "Scan a Single Page"
+msgstr "Бір бетті сканерлеу"
 
-#: src/app-window.vala:897 src/app-window.vala:902
-msgid "Scan multiple pages from the scanner"
-msgstr "Сканерден бірнеше бетті сканерлеу"
+#: src/app-window.vala:905 src/app-window.vala:910
+msgid "Scan Multiple Pages"
+msgstr "Бірнеше бетті сканерлеу"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1017
+#: src/app-window.vala:1025
 msgid "Unable to save image for preview"
 msgstr "Суретті алдын-ала қарау үшін сақтау мүмкін емес"
 
-#: src/app-window.vala:1242
+#: src/app-window.vala:1250
 msgid "translator-credits"
 msgstr ""
 "Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
@@ -785,134 +786,122 @@ msgstr ""
 "  jmb_kz https://launchpad.net/~jmb-kz"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1263
+#: src/app-window.vala:1271
 msgid "Save document before quitting?"
 msgstr "Жабу алдында құжатты сақтау керек пе?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1265
+#: src/app-window.vala:1273
 msgid "_Quit without Saving"
 msgstr "Сақтамай-ақ _шығу"
 
-#: src/app-window.vala:1382
-msgid "_Email"
-msgstr "_Эл. пошта"
-
-#: src/app-window.vala:1383
-msgid "Pri_nt"
-msgstr "Бас_паға шығару"
-
 #: src/app-window.vala:1384
-msgctxt "menu"
-msgid "_Reorder Pages"
-msgstr ""
+msgid "_Email…"
+msgstr "_Электрондық пошта…"
 
-#: src/app-window.vala:1387
+#: src/app-window.vala:1385
+msgid "Pri_nt…"
+msgstr "Ба_сып шығару…"
+
+#: src/app-window.vala:1386
+msgctxt "menu"
+msgid "_Reorder Pages…"
+msgstr "Беттер ретін ө_згерту…"
+
+#: src/app-window.vala:1389
 msgid "_Preferences"
 msgstr "_Баптаулар"
 
-#: src/app-window.vala:1388
+#: src/app-window.vala:1390
 msgid "_Keyboard Shortcuts"
 msgstr "П_ернетақта жарлықтары"
 
-#: src/app-window.vala:1389
+#: src/app-window.vala:1391
 msgid "_Help"
 msgstr "_Көмек"
 
-#: src/app-window.vala:1390
+#: src/app-window.vala:1392
 msgid "_About Document Scanner"
-msgstr ""
+msgstr "Құ_жаттар сканері туралы"
 
 #. Text of button for cancelling save
 #: src/app-window.vala:1579
 msgid "Cancel"
 msgstr "Бас тарту"
 
-#: src/book.vala:384 src/book.vala:390
+#: src/book.vala:392 src/book.vala:398
 #, c-format
 msgid "Unable to encode page %i"
-msgstr ""
+msgstr "%i бетін кодтау мүмкін емес"
 
 #. Message to indicate a Brother scanner has been detected
 #: src/drivers-dialog.vala:76
 msgid "You appear to have a Brother scanner."
-msgstr ""
+msgstr "Сізде Brother сканері бар сияқты."
 
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
-msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother."
-"com\">Brother website</a>."
-msgstr ""
+msgid "Drivers for this are available on the <a href=\"http://support.brother.com\">Brother website</a>."
+msgstr "Ол үшін драйверлер <a href=\"http://support.brother.com\">Brother веб-сайтында</a> қолжетімді."
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
-msgid ""
-"You appear to have a Canon scanner, which is supported by the <a "
-"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
-"backend</a>."
-msgstr ""
+msgid "You appear to have a Canon scanner, which is supported by the <a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
+msgstr "Сізде Canon сканері бар сияқты, оған <a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a> қолдау көрсетеді."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/drivers-dialog.vala:84
 msgid ""
-"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
-"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
-"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
-"sane-devel\">SANE mailing list</a>."
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-devices.html\">scanner is supported by SANE</a>, otherwise report the issue to the <a href=\"https://alioth-"
+"lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE mailing list</a>."
 msgstr ""
+"<a href=\"http://www.sane-project.org/sane-supported-devices.html\">Сканеріңізге SANE тарапынан қолдау көрсетілетінін</a> тексеріңіз, әйтпесе мәселе туралы <a href=\"https://alioth-"
+"lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE пошталық тізіміне</a> хабарлаңыз."
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/drivers-dialog.vala:88
 msgid "You appear to have a Samsung scanner."
-msgstr ""
+msgstr "Сізде Samsung сканері бар сияқты."
 
 #. Instructions on how to install Samsung scanner drivers.
-#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
+#. Because HP acquired Samsung's global printing business in 2017, the support
+#. is made on HP site.
 #: src/drivers-dialog.vala:91
-msgid ""
-"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
-"website</a> (HP acquired Samsung's printing business)."
-msgstr ""
+msgid "Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a> (HP acquired Samsung's printing business)."
+msgstr "Ол үшін драйверлер <a href=\"https://support.hp.com\">HP веб-сайтында</a> қолжетімді (HP компаниясы Samsung-тың басып шығару бизнесін сатып алды)."
 
 #. Message to indicate a HP scanner has been detected
 #: src/drivers-dialog.vala:96
 msgid "You appear to have an HP scanner."
-msgstr ""
+msgstr "Сізде HP сканері бар сияқты."
 
 #. Instructions on how to install HP scanner drivers.
 #. smfp is rebranded and slightly modified Samsung devices,
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
 #: src/drivers-dialog.vala:104
-msgid ""
-"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
-"website</a>."
-msgstr ""
+msgid "Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a>."
+msgstr "Ол үшін драйверлер <a href=\"https://support.hp.com\">HP веб-сайтында</a> қолжетімді."
 
 #. Message to indicate an Epson scanner has been detected
 #: src/drivers-dialog.vala:108
 msgid "You appear to have an Epson scanner."
-msgstr ""
+msgstr "Сізде Epson сканері бар сияқты."
 
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
-msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson."
-"com\">Epson website</a>."
-msgstr ""
+msgid "Drivers for this are available on the <a href=\"http://support.epson.com\">Epson website</a>."
+msgstr "Ол үшін драйверлер <a href=\"http://support.epson.com\">Epson веб-сайтында</a> қолжетімді."
 
 #. Message to indicate a Lexmark scanner has been detected
 #: src/drivers-dialog.vala:114
 msgid "You appear to have a Lexmark scanner."
-msgstr ""
+msgstr "Сізде Lexmark сканері бар сияқты."
 
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
-msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark."
-"com\">Lexmark website</a>."
-msgstr ""
+msgid "Drivers for this are available on the <a href=\"http://support.lexmark.com\">Lexmark website</a>."
+msgstr "Ол үшін драйверлер <a href=\"http://support.lexmark.com\">Lexmark веб-сайтында</a> қолжетімді."
 
 #. Label shown while installing drivers
 #: src/drivers-dialog.vala:130
@@ -937,14 +926,15 @@ msgstr "Драйверлерді орнату сәтсіз аяқталды."
 
 #: src/drivers-dialog.vala:161
 msgid "Once installed you will need to restart this app."
-msgstr ""
+msgstr "Орнатылғаннан кейін бұл қолданбаны қайта іске қосу керек болады."
 
-#. Label shown to prompt user to install packages (when PackageKit not available)
+#. Label shown to prompt user to install packages (when PackageKit not
+#. available)
 #: src/drivers-dialog.vala:176
 #, c-format
 msgid "You need to install the %s package."
 msgid_plural "You need to install the %s packages."
-msgstr[0] ""
+msgstr[0] "Сізге %s дестені орнату керек."
 
 #. Combo box value for automatic paper size
 #: src/preferences-dialog.vala:113
@@ -993,7 +983,8 @@ msgstr "%d dpi (жоба)"
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (жоғары ажыратымдылық)"
 
-#. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
+#. Preferences dialog: Label for resolution value in resolution list (dpi =
+#. dots per inch)
 #: src/preferences-dialog.vala:381
 #, c-format
 msgid "%d dpi"
@@ -1010,28 +1001,28 @@ msgid "Unable to connect to scanner"
 msgstr "Сканерге байланысу мүмкін болмады"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1495
+#: src/scanner.vala:1376 src/scanner.vala:1511
 msgid "Document feeder empty"
 msgstr "Құжат бергіші бос"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1369
+#: src/scanner.vala:1385
 msgid ""
 "Insufficient memory to perform scan.\n"
-"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
-"<tt>Preferences</tt> menu. For some scanners when scanning in high "
-"resolution, the scan size is restricted."
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in <tt>Preferences</tt> menu. For some scanners when scanning in high resolution, the scan size is restricted."
 msgstr ""
+"Сканерлеуді орындау үшін жад жеткіліксіз.\n"
+"<tt>Баптаулар</tt> мәзірінде <tt>Ажыратымдылықты</tt> немесе <tt>Бет өлшемін</tt> азайтып көріңіз. Кейбір сканерлер үшін жоғары ажыратымдылықта сканерлеу кезінде сканерлеу өлшемі шектеледі."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1382
+#: src/scanner.vala:1398
 msgid "Unable to start scan"
 msgstr "Сканерлеуді бастау мүмкін емес"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1505
+#: src/scanner.vala:1411 src/scanner.vala:1521
 msgid "Error communicating with scanner"
 msgstr "Сканермен байланысу қатесі"
 
@@ -1050,26 +1041,40 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Бұл қолданбаның ескі нұсқаларымен жасалған PDF файлдарын жөндеу"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1760
+#: src/simple-scan.vala:1766
 msgid "Failed to scan"
 msgstr "Сканерлеу сәтсіз аяқталды"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1775
+#: src/simple-scan.vala:1781
 msgid "Scan in progress"
 msgstr "Сканерлеу жүріп жатыр"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1959
+#: src/simple-scan.vala:1965
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ҚҰРЫЛҒЫ…] — Сканерлеу утилитасы"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1969
+#: src/simple-scan.vala:1975
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
-msgstr ""
-"Командалық жолдың барлық опцияларын қарау үшін \"%s --help\" енгізіңіз."
+msgstr "Командалық жолдың барлық опцияларын қарау үшін \"%s --help\" енгізіңіз."
+
+#~ msgid "Stop the current scan"
+#~ msgstr "Ағымдағы сканерлеуді тоқтату"
+
+#~ msgid "Save document to a file"
+#~ msgstr "Құжатты файлға сақтау"
+
+#~ msgid "Rotate the page to the right (clockwise)"
+#~ msgstr "Бетті оңға бұрау (сағат тілі бойымен)"
+
+#~ msgid "Scan a single page from the scanner"
+#~ msgstr "Сканерден бір бетті сканерлеу"
+
+#~ msgid "Scan multiple pages from the scanner"
+#~ msgstr "Сканерден бірнеше бетті сканерлеу"
 
 #~ msgid "Image Files"
 #~ msgstr "Сурет файлдары"
@@ -1112,9 +1117,6 @@ msgstr ""
 
 #~ msgid "_Scanning"
 #~ msgstr "_Сканерлеу"
-
-#~ msgid "Stop"
-#~ msgstr "Тоқтау"
 
 #~ msgid "_Scanner"
 #~ msgstr "_Сканер"
