@@ -411,6 +411,7 @@ public class BookView : Gtk.Box
         layout_into (width, height, out book_width, out book_height);
 
         drawing_area.set_size_request(book_width, -1);
+        drawing_area.queue_resize();
         if (show_selected_page)
             show_page_view (selected_page_view);
 
