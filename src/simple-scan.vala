@@ -1760,6 +1760,8 @@ public class SimpleScan : Adw.Application
     {
         remove_empty_page ();
         scanned_page = null;
+        if (book.n_pages == 0)
+            app.clear_document ();
         if (error_code != Sane.Status.CANCELLED)
         {
             app.show_error_dialog (/* Title of error dialog when scan failed */

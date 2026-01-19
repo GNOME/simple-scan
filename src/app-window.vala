@@ -712,7 +712,7 @@ public class AppWindow : Adw.ApplicationWindow
         }
     }
 
-    private void clear_document ()
+    public void clear_document ()
     {
         book.clear ();
         book_needs_saving = false;
