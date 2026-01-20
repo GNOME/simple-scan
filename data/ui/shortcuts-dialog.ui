@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="AdwShortcutsDialog" id="shortcuts_dialog">
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcut window">General</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.help</property>
+            <property name="title" translatable="yes" context="shortcut window">Show Help</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="accelerator">F10</property>
+            <property name="title" translatable="yes" context="shortcut window">Open Menu</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.preferences</property>
+            <property name="title" translatable="yes" context="shortcut window">Show Preferences</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.shortcuts</property>
+            <property name="title" translatable="yes" context="shortcut window">Keyboard Shortcuts</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.quit</property>
+            <property name="title" translatable="yes" context="shortcut window">Quit</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcut window">Scanning</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.scan_single</property>
+            <property name="title" translatable="yes" context="shortcut window">Scan a Single Page</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.scan_adf</property>
+            <property name="title" translatable="yes" context="shortcut window">Scan all Pages From Document Feeder</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.scan_batch</property>
+            <property name="title" translatable="yes" context="shortcut window">Scan Continuously From Flatbed Scanner</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.scan_stop</property>
+            <property name="title" translatable="yes" context="shortcut window">Stop Scan in Progress</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcut window">Document Modification</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.move_left</property>
+            <property name="title" translatable="yes" context="shortcut window">Move Page Left</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.move_right</property>
+            <property name="title" translatable="yes" context="shortcut window">Move Page Right</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.rotate_left</property>
+            <property name="title" translatable="yes" context="shortcut window">Rotate Page to the Left (Anti-Clockwise)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.rotate_right</property>
+            <property name="title" translatable="yes" context="shortcut window">Rotate Page to the Right (Clockwise)</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.delete_page</property>
+            <property name="title" translatable="yes" context="shortcut window">Delete Page</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="AdwShortcutsSection">
+        <property name="title" translatable="yes" context="shortcut window">Document Management</property>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.new_document</property>
+            <property name="title" translatable="yes" context="shortcut window">Start new Document</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.save</property>
+            <property name="title" translatable="yes" context="shortcut window">Save Scanned Document</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.email</property>
+            <property name="title" translatable="yes" context="shortcut window">Email Scanned Document</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.print</property>
+            <property name="title" translatable="yes" context="shortcut window">Print Scanned Document</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwShortcutsItem">
+            <property name="action-name">app.copy_page</property>
+            <property name="title" translatable="yes" context="shortcut window">Copy Current Page to Clipboard</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

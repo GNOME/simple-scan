@@ -1404,7 +1404,7 @@ public class AppWindow : Adw.ApplicationWindow
         app.set_accels_for_action ("app.help", { "F1" });
         app.set_accels_for_action ("app.quit", { "<Ctrl>Q" });
         app.set_accels_for_action ("app.preferences", { "<Ctrl>comma" });
-        app.set_accels_for_action ("win.show-help-overlay", { "<Ctrl>question" });
+        app.set_accels_for_action ("app.shortcuts", { "<Ctrl>question" });
 
         var gear_menu = new Menu ();
         var section = new Menu ();
@@ -1415,7 +1415,7 @@ public class AppWindow : Adw.ApplicationWindow
         section = new Menu ();
         gear_menu.append_section (null, section);
         section.append (_("_Preferences"), "app.preferences");
-        section.append (_("_Keyboard Shortcuts"), "win.show-help-overlay");
+        section.append (_("_Keyboard Shortcuts"), "app.shortcuts");
         section.append (_("_Help"), "app.help");
         section.append (_("_About Document Scanner"), "app.about");
         menu_button.set_menu_model (gear_menu);

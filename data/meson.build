@@ -50,10 +50,10 @@ resource_files = files([
     'ui/app-window.ui',
     'ui/authorize-dialog.ui',
     'ui/drivers-dialog.ui',
-    'ui/help-overlay.ui',
     'ui/preferences-dialog.ui',
     'ui/reorder-pages-item.ui',
     'ui/reorder-pages-dialog.ui',
+    'ui/shortcuts-dialog.ui',
 ])
 resources = gnome.compile_resources ('resources', 'simple-scan.gresource.xml',
                                      dependencies: resource_files,
