@@ -4,14 +4,14 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 # Lucian Adrian Grijincu <lucian.grijincu@gmail.com>, 2010.
 # Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>, 2018.
-# Antonio Marin <gnmer.6qxyg@slmail.me>, 2025.
+# Antonio Marin <gnmer.6qxyg@slmail.me>, 2025-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2025-06-22 13:29+0000\n"
-"PO-Revision-Date: 2025-06-26 19:02+0200\n"
+"POT-Creation-Date: 2026-01-20 16:36+0000\n"
+"PO-Revision-Date: 2026-01-26 11:07+0100\n"
 "Last-Translator: Antonio Marin <gnmer.6qxyg@slmail.me>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
@@ -23,6 +23,23 @@ msgstr ""
 "X-Generator: Gtranslator 48.0\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1280
+msgid "Document Scanner"
+msgstr "Scaner de documente"
+
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "Face o copie digitală a fotografiilor și documentelor"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr "scan;scanner;flatbed;adf;simple-scan;simplescan;scaner;scana;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -183,19 +200,7 @@ msgstr ""
 "„_orig” va fi adaugat la numele de fișier imediat înaintea extensiei de "
 "fișier."
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6
-#: data/org.gnome.SimpleScan.desktop.in:3 data/ui/app-window.ui:138
-#: src/app-window.vala:1253
-msgid "Document Scanner"
-msgstr "Scaner de documente"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7
-#: data/org.gnome.SimpleScan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "Face o copie digitală a fotografiilor și documentelor"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -206,21 +211,16 @@ msgstr ""
 "Puteți tipări scanările, exporta în pdf, sau să le salvați într-o serie de "
 "formate de imagine."
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Această aplicație folosește platforma SANE pentru compatibilitate cu "
 "majoritatea scanerelor existente."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "Proiectul GNOME"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.SimpleScan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr "scan;scanner;flatbed;adf;simple-scan;simplescan;scaner;scana;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -330,48 +330,48 @@ msgstr "_Imagine"
 msgid "Stop"
 msgstr "Oprește"
 
-#: data/ui/app-window.ui:177
+#: data/ui/app-window.ui:175
 msgid "S_top"
 msgstr "Opreș_te"
 
-#: data/ui/app-window.ui:202
+#: data/ui/app-window.ui:200
 msgid "_Scan"
 msgstr "_Scanează"
 
-#: data/ui/app-window.ui:210
+#: data/ui/app-window.ui:208
 msgid "Scan Options"
 msgstr "Opțiuni scanare"
 
-#: data/ui/app-window.ui:219
+#: data/ui/app-window.ui:217
 msgid "Main Menu"
 msgstr "Opțiuni"
 
-#: data/ui/app-window.ui:227
+#: data/ui/app-window.ui:225
 msgid "Export"
 msgstr "Exportă"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
+#: data/ui/app-window.ui:281
 msgid "Refresh Device List"
 msgstr "Actualizează lista de aparate"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:311
 msgid "New Document"
 msgstr "Document nou"
 
-#: data/ui/app-window.ui:326
+#: data/ui/app-window.ui:325
 msgid "Rotate Left (counter-clockwise)"
 msgstr "Rotește la stânga (în sens anti-orar)"
 
-#: data/ui/app-window.ui:334
+#: data/ui/app-window.ui:333
 msgid "Rotate Right (clockwise)"
 msgstr "Rotește la dreapta (în sens orar)"
 
-#: data/ui/app-window.ui:342
+#: data/ui/app-window.ui:341
 msgid "Crop Selected Page"
 msgstr "Decupează pagina aleasă"
 
-#: data/ui/app-window.ui:350
+#: data/ui/app-window.ui:349
 msgid "Delete Selected Page"
 msgstr "Șterge pagina aleasă"
 
@@ -383,8 +383,8 @@ msgstr "Numele de _utilizator pentru resursă"
 msgid "_Password"
 msgstr "_Parola"
 
-#: data/ui/authorize-dialog.ui:53 src/app-window.vala:532
-#: src/app-window.vala:673
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
+#: src/app-window.vala:684
 msgid "_Cancel"
 msgstr "_Anulează"
 
@@ -401,120 +401,120 @@ msgstr "Instalare drivere"
 msgid "OK"
 msgstr "Bine"
 
-#: data/ui/help-overlay.ui:10
-msgctxt "shortcut window"
-msgid "Scanning"
-msgstr "Scanare"
-
-#: data/ui/help-overlay.ui:14
-msgctxt "shortcut window"
-msgid "Scan a single page"
-msgstr "Scanează o singură pagină"
-
-#: data/ui/help-overlay.ui:20
-msgctxt "shortcut window"
-msgid "Scan all pages from document feeder"
-msgstr "Scanează toate paginilie din tava cu documente"
-
-#: data/ui/help-overlay.ui:26
-msgctxt "shortcut window"
-msgid "Scan continuously from a flatbed scanner"
-msgstr "Scanează continuu de la un scaner cu capac"
-
-#: data/ui/help-overlay.ui:32
-msgctxt "shortcut window"
-msgid "Stop scan in progress"
-msgstr "Oprește scanarea în curs"
-
-#: data/ui/help-overlay.ui:39
-msgctxt "shortcut window"
-msgid "Document Modification"
-msgstr "Modificarea documentului"
-
-#: data/ui/help-overlay.ui:43
-msgctxt "shortcut window"
-msgid "Move page left"
-msgstr "Mută pagina la stânga"
-
-#: data/ui/help-overlay.ui:49
-msgctxt "shortcut window"
-msgid "Move page right"
-msgstr "Mută pagina la dreapta"
-
-#: data/ui/help-overlay.ui:55
-msgctxt "shortcut window"
-msgid "Rotate page to the left (anti-clockwise)"
-msgstr "Rotește pagina la stânga (în sens invers acelor de ceasornic)"
-
-#: data/ui/help-overlay.ui:61
-msgctxt "shortcut window"
-msgid "Rotate page to the right (clockwise)"
-msgstr "Rotește pagina la dreapta (în sensul acelor de ceasornic)"
-
-#: data/ui/help-overlay.ui:67
-msgctxt "shortcut window"
-msgid "Delete page"
-msgstr "Șterge pagina"
-
-#: data/ui/help-overlay.ui:74
-msgctxt "shortcut window"
-msgid "Document Management"
-msgstr "Administrarea documentelor"
-
-#: data/ui/help-overlay.ui:78
-msgctxt "shortcut window"
-msgid "Start new document"
-msgstr "Un document nou"
-
-#: data/ui/help-overlay.ui:84
-msgctxt "shortcut window"
-msgid "Save scanned document"
-msgstr "Salvează documentul scanat"
-
-#: data/ui/help-overlay.ui:90
-msgctxt "shortcut window"
-msgid "Email scanned document"
-msgstr "Trimite prin e-mail documentul scanat"
-
-#: data/ui/help-overlay.ui:96
-msgctxt "shortcut window"
-msgid "Print scanned document"
-msgstr "Tipărește documentul scanat"
-
-#: data/ui/help-overlay.ui:102
-msgctxt "shortcut window"
-msgid "Copy current page to clipboard"
-msgstr "Copiază pagina actuală"
-
-#: data/ui/help-overlay.ui:109
+#: data/ui/shortcuts-dialog.ui:6
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Generale"
 
-#: data/ui/help-overlay.ui:113
+#: data/ui/shortcuts-dialog.ui:10
 msgctxt "shortcut window"
-msgid "Show help"
+msgid "Show Help"
 msgstr "Arată ajutorul"
 
-#: data/ui/help-overlay.ui:119
+#: data/ui/shortcuts-dialog.ui:16
 msgctxt "shortcut window"
-msgid "Open menu"
+msgid "Open Menu"
 msgstr "Deschide opțiunile"
 
-#: data/ui/help-overlay.ui:125
+#: data/ui/shortcuts-dialog.ui:22
 msgctxt "shortcut window"
-msgid "Show preferences"
+msgid "Show Preferences"
 msgstr "Arată preferințele"
 
-#: data/ui/help-overlay.ui:131
+#: data/ui/shortcuts-dialog.ui:28
 msgctxt "shortcut window"
-msgid "Keyboard shortcuts"
-msgstr "Scurtături"
+msgid "Keyboard Shortcuts"
+msgstr "Scurtăt_uri"
 
-#: data/ui/help-overlay.ui:137
+#: data/ui/shortcuts-dialog.ui:34
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Închide"
+
+#: data/ui/shortcuts-dialog.ui:41
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Scanare"
+
+#: data/ui/shortcuts-dialog.ui:45
+msgctxt "shortcut window"
+msgid "Scan a Single Page"
+msgstr "Scanează o singură pagină"
+
+#: data/ui/shortcuts-dialog.ui:51
+msgctxt "shortcut window"
+msgid "Scan all Pages From Document Feeder"
+msgstr "Scanează toate paginile din tava cu documente"
+
+#: data/ui/shortcuts-dialog.ui:57
+msgctxt "shortcut window"
+msgid "Scan Continuously From Flatbed Scanner"
+msgstr "Scanează continuu de la un scaner cu capac"
+
+#: data/ui/shortcuts-dialog.ui:63
+msgctxt "shortcut window"
+msgid "Stop Scan in Progress"
+msgstr "Oprește scanarea în curs"
+
+#: data/ui/shortcuts-dialog.ui:70
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Modificarea documentului"
+
+#: data/ui/shortcuts-dialog.ui:74
+msgctxt "shortcut window"
+msgid "Move Page Left"
+msgstr "Mută pagina la stânga"
+
+#: data/ui/shortcuts-dialog.ui:80
+msgctxt "shortcut window"
+msgid "Move Page Right"
+msgstr "Mută pagina la dreapta"
+
+#: data/ui/shortcuts-dialog.ui:86
+msgctxt "shortcut window"
+msgid "Rotate Page to the Left (Anti-Clockwise)"
+msgstr "Rotește pagina la stânga (în sens invers acelor de ceasornic)"
+
+#: data/ui/shortcuts-dialog.ui:92
+msgctxt "shortcut window"
+msgid "Rotate Page to the Right (Clockwise)"
+msgstr "Rotește pagina la dreapta (în sensul acelor de ceasornic)"
+
+#: data/ui/shortcuts-dialog.ui:98
+msgctxt "shortcut window"
+msgid "Delete Page"
+msgstr "Șterge pagina"
+
+#: data/ui/shortcuts-dialog.ui:105
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Administrarea documentelor"
+
+#: data/ui/shortcuts-dialog.ui:109
+msgctxt "shortcut window"
+msgid "Start new Document"
+msgstr "Un document nou"
+
+#: data/ui/shortcuts-dialog.ui:115
+msgctxt "shortcut window"
+msgid "Save Scanned Document"
+msgstr "Salvează documentul scanat"
+
+#: data/ui/shortcuts-dialog.ui:121
+msgctxt "shortcut window"
+msgid "Email Scanned Document"
+msgstr "Trimite prin e-mail documentul scanat"
+
+#: data/ui/shortcuts-dialog.ui:127
+msgctxt "shortcut window"
+msgid "Print Scanned Document"
+msgstr "Tipărește documentul scanat"
+
+#: data/ui/shortcuts-dialog.ui:133
+msgctxt "shortcut window"
+msgid "Copy Current Page to Clipboard"
+msgstr "Copiază pagina actuală"
 
 #. Preferences Dialog: Section label for scanning settings
 #: data/ui/preferences-dialog.ui:30
@@ -661,33 +661,33 @@ msgstr "Întoarce paginile pare cu susul în jos"
 msgid "Reverse"
 msgstr "Invers"
 
-#: src/app-window.vala:205
+#: src/app-window.vala:208
 msgid "_Close"
 msgstr "În_chide"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:213
+#: src/app-window.vala:216
 #, c-format
 msgid "Username and password required to access “%s”"
 msgstr "Sunt necesare numele de utilizator și parola pentru a accesa „%s”"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:226
+#: src/app-window.vala:229
 msgid "Searching for Scanners…"
 msgstr "Se caută scanere…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:234
+#: src/app-window.vala:237
 msgid "Ready to Scan"
 msgstr "Gata de scanat"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:244
+#: src/app-window.vala:247
 msgid "Additional Software Needed"
 msgstr "Sunt necesare programe suplimentare"
 
 #. Instructions to install driver software
-#: src/app-window.vala:246
+#: src/app-window.vala:249
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner"
@@ -696,118 +696,126 @@ msgstr ""
 "pentru scaner"
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:253
+#: src/app-window.vala:256
 msgid "No Scanners Detected"
 msgstr "Nu a fost detectat niciun scaner"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:255
+#: src/app-window.vala:258
 msgid "Please check your scanner is connected and powered on"
 msgstr "Trebuie verificat dacă scanerul este conectat și pornit"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:304
+#: src/app-window.vala:307
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "O carte autosalvată există deja. Să o deschid?"
 
-#: src/app-window.vala:306
+#: src/app-window.vala:309
 msgid "_No"
 msgstr "_Nu"
 
-#: src/app-window.vala:307
+#: src/app-window.vala:310
 msgid "_Yes"
 msgstr "_Da"
 
-#: src/app-window.vala:386
+#: src/app-window.vala:389
 msgid "Save As…"
 msgstr "Salvează ca…"
 
-#: src/app-window.vala:388 src/app-window.vala:674
+#: src/app-window.vala:391 src/app-window.vala:685
 msgid "_Save"
 msgstr "_Salvează"
 
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:404
+#: src/app-window.vala:407
 msgid "Scanned Document"
 msgstr "Document scanat"
 
-#: src/app-window.vala:410
+#: src/app-window.vala:413
 msgid "PDF (multi-page document)"
 msgstr "PDF (document cu mai multe pagini)"
 
-#: src/app-window.vala:416
+#: src/app-window.vala:419
 msgid "JPEG (compressed)"
 msgstr "JPEG (comprimat)"
 
-#: src/app-window.vala:423
+#: src/app-window.vala:426
 msgid "PNG (lossless)"
 msgstr "PNG (fără pierderi)"
 
-#: src/app-window.vala:429
+#: src/app-window.vala:432
 msgid "WebP (compressed)"
 msgstr "WebP (comprimat)"
 
-#: src/app-window.vala:435
+#: src/app-window.vala:438
 msgid "All Files"
 msgstr "Toate fișierele"
 
-#: src/app-window.vala:526
+#: src/app-window.vala:529
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Un fișier numit „%s” există deja. Să-l înlocuiesc?"
 
-#: src/app-window.vala:533
+#: src/app-window.vala:536
 msgid "_Replace"
 msgstr "Înlo_cuiește"
 
-#: src/app-window.vala:620
+#: src/app-window.vala:623
 msgid "Saving"
 msgstr "Salvare"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:638
+#: src/app-window.vala:641
 msgid "Failed to save file"
 msgstr "Salvarea fișierului a eșuat"
 
 #. Title of error dialog when postprocessing failed
-#: src/app-window.vala:655
+#: src/app-window.vala:658
 msgid "Failed to run postprocessing"
 msgstr "Nu s-a putut porni postprocesarea"
 
-#: src/app-window.vala:670
+#: src/app-window.vala:664
+msgid "Document Saved"
+msgstr "Document salvat"
+
+#: src/app-window.vala:665
+msgid "Open Folder"
+msgstr "Deschide dosarul"
+
+#: src/app-window.vala:681
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Dacă nu sunt salvate, modificările vor fi pierdute definitiv."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:718
+#: src/app-window.vala:729
 msgid "Save current document?"
 msgstr "Salvez documentul actual?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:720
+#: src/app-window.vala:731
 msgid "_Discard Changes"
 msgstr "_Nu salva"
 
 #. Label shown when scan started
-#: src/app-window.vala:788
+#: src/app-window.vala:799
 msgid "Contacting Scanner…"
 msgstr "Se contactează scanerul…"
 
-#: src/app-window.vala:900
+#: src/app-window.vala:911
 msgid "Scan a Single Page"
 msgstr "Scanează o singură pagină"
 
-#: src/app-window.vala:905 src/app-window.vala:910
+#: src/app-window.vala:916 src/app-window.vala:921
 msgid "Scan Multiple Pages"
 msgstr "Scanează pagini multiple"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1025
+#: src/app-window.vala:1036
 msgid "Unable to save image for preview"
 msgstr "Nu se poate salva imaginea pentru a prezenta o previzualizare"
 
-#: src/app-window.vala:1250
+#: src/app-window.vala:1277
 msgid "translator-credits"
 msgstr ""
 "Antonio Marin <gnmer.6qxyg@slmail.me>, 2025\n"
@@ -825,46 +833,46 @@ msgstr ""
 "  sfantu https://launchpad.net/~sfantus1"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1271
+#: src/app-window.vala:1298
 msgid "Save document before quitting?"
 msgstr "Salvez documentul înainte de închidere?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1273
+#: src/app-window.vala:1300
 msgid "_Quit without Saving"
 msgstr "Î_nchide fără a salva"
 
-#: src/app-window.vala:1384
+#: src/app-window.vala:1412
 msgid "_Email…"
 msgstr "_E-mail…"
 
-#: src/app-window.vala:1385
+#: src/app-window.vala:1413
 msgid "Pri_nt…"
 msgstr "_Tipărește…"
 
-#: src/app-window.vala:1386
+#: src/app-window.vala:1414
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "_Rearanjează paginile…"
 
-#: src/app-window.vala:1389
+#: src/app-window.vala:1417
 msgid "_Preferences"
 msgstr "_Preferințe"
 
-#: src/app-window.vala:1390
+#: src/app-window.vala:1418
 msgid "_Keyboard Shortcuts"
 msgstr "Scurtăt_uri"
 
-#: src/app-window.vala:1391
+#: src/app-window.vala:1419
 msgid "_Help"
 msgstr "Ajut_or"
 
-#: src/app-window.vala:1392
+#: src/app-window.vala:1420
 msgid "_About Document Scanner"
 msgstr "Despre Sc_aner de documente"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1579
+#: src/app-window.vala:1607
 msgid "Cancel"
 msgstr "Anulează"
 
@@ -1069,14 +1077,14 @@ msgid "Unable to connect to scanner"
 msgstr "Nu s-a putut realiza conexiunea la scaner"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1495
+#: src/scanner.vala:1376 src/scanner.vala:1511
 msgid "Document feeder empty"
 msgstr "Tava cu foi de hârtie este goală"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1369
+#: src/scanner.vala:1385
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1089,12 +1097,12 @@ msgstr ""
 "înaltă, mărimea scanării este restricționată."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1382
+#: src/scanner.vala:1398
 msgid "Unable to start scan"
 msgstr "Nu s-a putut porni scanarea"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1505
+#: src/scanner.vala:1411 src/scanner.vala:1521
 msgid "Error communicating with scanner"
 msgstr "Eroare la comunicarea cu scanerul"
 
