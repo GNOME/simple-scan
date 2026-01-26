@@ -4,14 +4,14 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 # Lucian Adrian Grijincu <lucian.grijincu@gmail.com>, 2010.
 # Daniel Șerbănescu <daniel [at] serbanescu [dot] dk>, 2018.
-# Antonio Marin <gnmer.6qxyg@slmail.me>, 2025.
+# Antonio Marin <gnmer.6qxyg@slmail.me>, 2025-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2025-06-22 13:29+0000\n"
-"PO-Revision-Date: 2025-06-26 19:02+0200\n"
+"POT-Creation-Date: 2025-10-16 21:28+0000\n"
+"PO-Revision-Date: 2026-01-26 10:42+0100\n"
 "Last-Translator: Antonio Marin <gnmer.6qxyg@slmail.me>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
@@ -23,6 +23,23 @@ msgstr ""
 "X-Generator: Gtranslator 48.0\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1253
+msgid "Document Scanner"
+msgstr "Scaner de documente"
+
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "Face o copie digitală a fotografiilor și documentelor"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr "scan;scanner;flatbed;adf;simple-scan;simplescan;scaner;scana;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -183,19 +200,7 @@ msgstr ""
 "„_orig” va fi adaugat la numele de fișier imediat înaintea extensiei de "
 "fișier."
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6
-#: data/org.gnome.SimpleScan.desktop.in:3 data/ui/app-window.ui:138
-#: src/app-window.vala:1253
-msgid "Document Scanner"
-msgstr "Scaner de documente"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7
-#: data/org.gnome.SimpleScan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "Face o copie digitală a fotografiilor și documentelor"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -206,21 +211,16 @@ msgstr ""
 "Puteți tipări scanările, exporta în pdf, sau să le salvați într-o serie de "
 "formate de imagine."
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Această aplicație folosește platforma SANE pentru compatibilitate cu "
 "majoritatea scanerelor existente."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "Proiectul GNOME"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.SimpleScan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr "scan;scanner;flatbed;adf;simple-scan;simplescan;scaner;scana;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -414,7 +414,7 @@ msgstr "Scanează o singură pagină"
 #: data/ui/help-overlay.ui:20
 msgctxt "shortcut window"
 msgid "Scan all pages from document feeder"
-msgstr "Scanează toate paginilie din tava cu documente"
+msgstr "Scanează toate paginile din tava cu documente"
 
 #: data/ui/help-overlay.ui:26
 msgctxt "shortcut window"
@@ -1069,14 +1069,14 @@ msgid "Unable to connect to scanner"
 msgstr "Nu s-a putut realiza conexiunea la scaner"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1495
+#: src/scanner.vala:1376 src/scanner.vala:1511
 msgid "Document feeder empty"
 msgstr "Tava cu foi de hârtie este goală"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1369
+#: src/scanner.vala:1385
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1089,12 +1089,12 @@ msgstr ""
 "înaltă, mărimea scanării este restricționată."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1382
+#: src/scanner.vala:1398
 msgid "Unable to start scan"
 msgstr "Nu s-a putut porni scanarea"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1505
+#: src/scanner.vala:1411 src/scanner.vala:1521
 msgid "Error communicating with scanner"
 msgstr "Eroare la comunicarea cu scanerul"
 
