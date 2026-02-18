@@ -64,7 +64,11 @@ public class BookView : Gtk.Box
     public signal void show_page (Page page);
     public signal void show_menu (Gtk.Widget from, double x, double y);
 
-    public int x_offset { get; set; }
+    public int x_offset
+    {
+        get { return (int) scrolled_window.get_hadjustment ().get_value (); }
+        set { scrolled_window.get_hadjustment ().set_value ((double) value); }
+    }
 
     public BookView (Book book)
     {
@@ -140,6 +144,8 @@ public class BookView : Gtk.Box
         focus_controller.leave.connect_after (focus_cb);
         drawing_area.add_controller(focus_controller);
 
+        scrolled_window.get_hadjustment ().value_changed.connect (scroll_cb);
+
         drawing_area.visible = true;
     }
 
@@ -159,6 +165,7 @@ public class BookView : Gtk.Box
         secondary_click_gesture.released.disconnect (secondary_released_cb);
         focus_controller.enter.disconnect (focus_cb);
         focus_controller.leave.disconnect (focus_cb);
+        scrolled_window.get_hadjustment ().value_changed.disconnect (scroll_cb);
     }
 
     private PageView get_nth_page (int n)
@@ -424,8 +431,8 @@ public class BookView : Gtk.Box
     {
         layout ();
 
-        double left, top, right, bottom;
-        context.clip_extents (out left, out top, out right, out bottom);
+        var scroll_x = (double) x_offset;
+        var scroll_right = scroll_x + scrolled_window.get_allocated_width ();
 
         var pages = new List<PageView> ();
         for (var i = 0; i < book.n_pages; i++)
@@ -438,21 +445,20 @@ public class BookView : Gtk.Box
         /* Render each page */
         foreach (var page in pages)
         {
-            var left_edge = page.x_offset - x_offset;
-            var right_edge = page.x_offset + page.width - x_offset;
+            var left_edge = page.x_offset;
+            var right_edge = page.x_offset + page.width;
 
             /* Page not visible, don't render */
-            if (right_edge < left || left_edge > right)
+            if (right_edge < scroll_x || left_edge > scroll_right)
                 continue;
 
             context.save ();
-            context.translate (-x_offset, 0);
             page.render (context, page == selected_page_view ? ruler_color_selected : ruler_color);
             context.restore ();
 
             if (page.selected)
                 drawing_area.get_style_context ().render_focus (context,
-                                                                page.x_offset - x_offset,
+                                                                page.x_offset,
                                                                 page.y_offset,
                                                                 page.width,
                                                                 page.height);
@@ -508,7 +514,7 @@ public class BookView : Gtk.Box
 
         int x = 0, y = 0;
         if (press)
-            select_page_view (get_page_at ((int) ((int) dx + x_offset), (int) dy, out x, out y));
+            select_page_view (get_page_at ((int) dx, (int) dy, out x, out y));
 
         if (selected_page_view == null)
             return;
@@ -551,7 +557,7 @@ public class BookView : Gtk.Box
         /* Dragging */
         if (selected_page_view != null && (event_state & Gdk.ModifierType.BUTTON1_MASK) != 0)
         {
-            var x = (int) (event_x + x_offset - selected_page_view.x_offset);
+            var x = (int) (event_x - selected_page_view.x_offset);
             var y = (int) (event_y - selected_page_view.y_offset);
             selected_page_view.motion (x, y);
             cursor = selected_page_view.cursor;
@@ -559,7 +565,7 @@ public class BookView : Gtk.Box
         else
         {
             int x, y;
-            var over_page = get_page_at ((int) (event_x + x_offset), (int) event_y, out x, out y);
+            var over_page = get_page_at ((int) (event_x), (int) event_y, out x, out y);
             if (over_page != null)
             {
                 over_page.motion (x, y);
@@ -590,6 +596,12 @@ public class BookView : Gtk.Box
         default:
             return false;
         }
+    }
+
+    private void scroll_cb (Gtk.Adjustment adjustment)
+    {
+        if (!laying_out)
+            redraw ();
     }
 
     private void focus_cb (Gtk.EventControllerFocus controler)
