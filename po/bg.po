@@ -1,470 +1,1145 @@
-# Bulgarian translation of snapshot po-file.
-# Copyright (C) 2024 twlvnn kraftwerk <kraft_werk@tutanota.com>.
-# Copyright (C) 2024 Alexander Shopov <ash@kambanaria.org>.
-# This file is distributed under the same license as the snapshot package.
-# twlvnn kraftwerk <kraft_werk@tutanota.com>, 2024.
-# Alexander Shopov <ash@kambanaria.org>, 2024.
+# Bulgarian translation of simple-scan po-file
+# Copyright (C) 2009 Rosetta Contributors and Canonical Ltd 2009
+# Copyright (C) 2021, 2022, 2023, 2024, 2026 Alexander Shopov.
+# Copyright (C) 2024, 2026 twlvnn kraftwerk <kraft_werk@tutanota.com>.
+# This file is distributed under the same license as the simple-scan package.
+# Svetoslav Stefanov <svetlisashkov@yahoo.com>, 2009.
+# Alexander Shopov <ash@kambanaria.org>, 2021, 2022, 2023, 2026.
+# twlvnn kraftwerk <kraft_werk@tutanota.com>, 2024, 2026.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: snapshot main\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/snapshot/-/issues\n"
-"POT-Creation-Date: 2026-01-31 15:53+0000\n"
-"PO-Revision-Date: 2025-09-20 16:37+0200\n"
+"Project-Id-Version: simple-scan master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
+"POT-Creation-Date: 2026-01-27 18:58+0000\n"
+"PO-Revision-Date: 2026-02-23 16:15+0100\n"
 "Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
-"Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
+"Language-Team: Bulgarian <dict@ludost.net>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
-#: data/org.gnome.Snapshot.desktop.in.in:2
-#: data/resources/org.gnome.Snapshot.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:4 data/resources/ui/window.ui:11 src/main.rs:23
-msgid "Camera"
-msgstr "Камера"
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1280
+msgid "Document Scanner"
+msgstr "Сканиране на документи"
 
-#: data/org.gnome.Snapshot.desktop.in.in:3
-#: data/resources/org.gnome.Snapshot.metainfo.xml.in.in:8
-msgid "Take pictures and videos"
-msgstr "Заснемане на снимки и видео клипове"
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "Създаване на цифров дубликат на снимки и документи"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.Snapshot.desktop.in.in:9
-msgid "picture;photos;camera;webcam;snapshot;"
-msgstr "снимка;снимки;камера;picture;photos;camera;webcam;snapshot;"
-
-#: data/org.gnome.Snapshot.gschema.xml.in:14
-#: data/org.gnome.Snapshot.gschema.xml.in:15
-msgid "Default window width"
-msgstr "Стандартна широчина на прозореца"
-
-#: data/org.gnome.Snapshot.gschema.xml.in:19
-#: data/org.gnome.Snapshot.gschema.xml.in:20
-msgid "Default window height"
-msgstr "Стандартна височина на прозореца"
-
-#: data/org.gnome.Snapshot.gschema.xml.in:24
-msgid "Default window maximized behaviour"
-msgstr "Стандартно поведение на максимизиран прозорец"
-
-#: data/org.gnome.Snapshot.gschema.xml.in:29
-msgid "Play shutter sound"
-msgstr "Пускане на звук при снимка"
-
-#: data/org.gnome.Snapshot.gschema.xml.in:30
-msgid "Whether to play a shutter sound when taking pictures"
-msgstr "Дали да се пуска звук при правене на снимки"
-
-#: data/org.gnome.Snapshot.gschema.xml.in:34
-msgid "Show composition guidelines"
-msgstr "Показване на водачите за композицията"
-
-#: data/org.gnome.Snapshot.gschema.xml.in:35
-msgid "Whether to show composition guidelines when using the camera"
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
 msgstr ""
-"Дали да се покажат водачите за композицията, когато се използва камерата"
+"scan;scanner;flatbed;adf;скенер;simple-"
+"scan;сканиране;копие;копиране;плоскост;"
 
-#: data/org.gnome.Snapshot.gschema.xml.in:39
-msgid "Enable audio recording"
-msgstr "Включване на записване на аудиото"
+#: data/org.gnome.SimpleScan.gschema.xml:11
+msgid "Device to scan from"
+msgstr "Устройство-скенер"
 
-#: data/org.gnome.Snapshot.gschema.xml.in:40
-msgid "Whether to record audio when recording video"
-msgstr "Дали да се записва и аудио при видео запис"
+#: data/org.gnome.SimpleScan.gschema.xml:12
+msgid "SANE device to acquire images from."
+msgstr "Устройство за извличане на изображения по SANE."
 
-#: data/org.gnome.Snapshot.gschema.xml.in:44
-msgid "Enable hardware recording"
-msgstr "Включване на хардуерно записване"
+#: data/org.gnome.SimpleScan.gschema.xml:20
+msgid "Type of document being scanned"
+msgstr "Вид на сканирания документ"
 
-#: data/org.gnome.Snapshot.gschema.xml.in:45
-msgid "Whether to record video using hardware encoding"
-msgstr "Дали да записвате видео с хардуерно кодиране"
+#: data/org.gnome.SimpleScan.gschema.xml:21
+msgid ""
+"Type of document being scanned. This setting decides on the scan resolution, "
+"colors and post-processing."
+msgstr ""
+"Видът на сканирания документ. Тази настройка определя разделителната "
+"способност, дълбочината на цветовете, както и допълнителната обработка."
 
-#: data/org.gnome.Snapshot.gschema.xml.in:49
-msgid "Countdown timer"
-msgstr "Таймер за обратно броене"
+#: data/org.gnome.SimpleScan.gschema.xml:25
+msgid "Width of paper in tenths of a mm"
+msgstr "Широчина на хартията [десети от милиметъра]"
 
-#: data/org.gnome.Snapshot.gschema.xml.in:50
-msgid "The duration of the countdown for taking photos, in seconds"
-msgstr "Продължителността на обратното броене при снимки [секунди]"
+#: data/org.gnome.SimpleScan.gschema.xml:26
+msgid ""
+"The width of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+"Широчина на листа [десети от милиметъра] (0 за автоматично разпознаване)."
 
-#: data/org.gnome.Snapshot.gschema.xml.in:54
-msgid "Capture mode"
-msgstr "Режим на заснемане"
+#: data/org.gnome.SimpleScan.gschema.xml:30
+msgid "Height of paper in tenths of a mm"
+msgstr "Височина на хартията [десети от милиметъра]"
 
-#: data/org.gnome.Snapshot.gschema.xml.in:55
-msgid "Whether to take pictures or videos"
-msgstr "Дали да се правят снимки или видео клипове"
+#: data/org.gnome.SimpleScan.gschema.xml:31
+msgid ""
+"The height of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+"Височина на хартията [десети от милиметъра] (0 за автоматично разпознаване)."
 
-#: data/org.gnome.Snapshot.gschema.xml.in:59
-msgid "Picture format"
-msgstr "Формат на снимката"
+#: data/org.gnome.SimpleScan.gschema.xml:35
+msgid "Brightness of scan"
+msgstr "Яркост на изображението"
 
-#: data/org.gnome.Snapshot.gschema.xml.in:60
-msgid "Whether to save pictures as png or jpeg"
-msgstr "Дали снимките да се запазват като png или jpeg"
+#: data/org.gnome.SimpleScan.gschema.xml:36
+msgid "The brightness adjustment from -100 to 100 (0 being none)."
+msgstr "Настройката на яркостта от -100 до 100 (0 — без промяна)."
 
-#: data/org.gnome.Snapshot.gschema.xml.in:64
-msgid "Last Camera Used ID"
-msgstr "Идентификатор на последно използваната камерата"
+#: data/org.gnome.SimpleScan.gschema.xml:40
+msgid "Contrast of scan"
+msgstr "Контраст на изображението"
 
-#: data/org.gnome.Snapshot.gschema.xml.in:65
-msgid "An ID representing the last used camera"
-msgstr "Идентификатор, представящ последно използваната камера"
+#: data/org.gnome.SimpleScan.gschema.xml:41
+msgid "The contrast adjustment from -100 to 100 (0 being none)."
+msgstr "Настройката на контраста от -100 до 100 (0 — без промяна)."
 
-#: data/resources/org.gnome.Snapshot.metainfo.xml.in.in:10
-msgid "Take pictures and videos on your computer, tablet, or phone."
-msgstr "Заснимане на снимки и видео клипове с компютър, таблет или телефон."
+#: data/org.gnome.SimpleScan.gschema.xml:45
+msgid "Resolution for text scans"
+msgstr "Разделителна способност при сканиране на текст"
 
-#: data/resources/org.gnome.Snapshot.metainfo.xml.in.in:17
-msgid "Camera's main interface"
-msgstr "Основен интерфейс на камерата"
+#: data/org.gnome.SimpleScan.gschema.xml:46
+msgid "The resolution in dots-per-inch to use when scanning text."
+msgstr "Разделителна способност [точки/инч] при сканиране на текст."
 
-#: data/resources/org.gnome.Snapshot.metainfo.xml.in.in:21
-msgid "Camera's gallery viewer"
-msgstr "Галерия на камерата"
+#: data/org.gnome.SimpleScan.gschema.xml:50
+msgid "Resolution for image scans"
+msgstr "Разделителна способност при сканиране на изображения"
+
+#: data/org.gnome.SimpleScan.gschema.xml:51
+msgid "The resolution in dots-per-inch to use when scanning images."
+msgstr "Разделителна способност [точки/инч] при сканиране на изображения."
+
+#: data/org.gnome.SimpleScan.gschema.xml:55
+msgid "Page side to scan"
+msgstr "Страна на листа за сканиране"
+
+#: data/org.gnome.SimpleScan.gschema.xml:56
+msgid "The page side to scan."
+msgstr "Коя страница на листа да се сканира."
+
+#: data/org.gnome.SimpleScan.gschema.xml:60
+msgid "Directory to save files to"
+msgstr "Папка за съхраняване на файловете"
+
+#: data/org.gnome.SimpleScan.gschema.xml:61
+msgid ""
+"The directory to save files to. Defaults to the documents directory if unset."
+msgstr ""
+"Папка за съхраняване на файловете. По подразбиране се използва папката за "
+"документи."
+
+#: data/org.gnome.SimpleScan.gschema.xml:65
+msgid "File format that is used for saving image files"
+msgstr "Формат на запазваните файлове за изображения"
+
+#: data/org.gnome.SimpleScan.gschema.xml:66
+msgid ""
+"MIME type that is used for saving image files. Examples of supported MIME "
+"types: image/jpeg, image/png, application/pdf"
+msgstr ""
+"Вид MIME за запазваните файлове за изображения. Напр.: „image/jpeg“, „image/"
+"png“, „application/pdf“"
+
+#: data/org.gnome.SimpleScan.gschema.xml:71
+msgid "Quality value to use for JPEG compression"
+msgstr "Стойността на качеството, за използваната JPEG компресия"
+
+#: data/org.gnome.SimpleScan.gschema.xml:72
+msgid "Quality value to use for JPEG compression."
+msgstr "Стойността на качеството за използваната компресия за JPEG."
+
+#: data/org.gnome.SimpleScan.gschema.xml:77
+msgid "Delay in millisecond between pages"
+msgstr "Забавяне [милисекунди] между страниците"
+
+#: data/org.gnome.SimpleScan.gschema.xml:78
+msgid "Delay in millisecond between pages."
+msgstr "Забавяне в милисекунди между страниците."
+
+#: data/org.gnome.SimpleScan.gschema.xml:82
+msgid "Whether or not postprocessing is enabled"
+msgstr "Дали допълнителната обработка е включена"
+
+#: data/org.gnome.SimpleScan.gschema.xml:83
+msgid "Whether or not postprocessing is enabled."
+msgstr "Дали допълнителната обработка е включена."
+
+#: data/org.gnome.SimpleScan.gschema.xml:87
+msgid "The path to the postprocessing script"
+msgstr "Път до скрипта за допълнителна обработка"
+
+#: data/org.gnome.SimpleScan.gschema.xml:88
+msgid "The path to the postprocessing script."
+msgstr "Път до скрипта за допълнителна обработка."
+
+#: data/org.gnome.SimpleScan.gschema.xml:92
+msgid "Additional arguments for the postprocessing script"
+msgstr "Допълнителни аргументи за скрипта за допълнителна обработка"
+
+#: data/org.gnome.SimpleScan.gschema.xml:93
+msgid "Additional arguments for the postprocessing script."
+msgstr "Допълнителни аргументи за скрипта за допълнителна обработка."
+
+#: data/org.gnome.SimpleScan.gschema.xml:97
+msgid "Whether or not to keep the original, unprocessed file"
+msgstr "Дали оригиналният, необработен файл да се запазва"
+
+#: data/org.gnome.SimpleScan.gschema.xml:98
+msgid ""
+"Whether or not to keep the original, unprocessed file. The \"_orig\" "
+"filename will be added to the filename immediately before the file extension."
+msgstr ""
+"Дали оригиналният, необработен файл да се запазва. В края на името на "
+"първоначалния файл се добавя „_orig“."
+
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
+msgid ""
+"A really easy way to scan both text and images. You can crop out the bad "
+"parts of an image and rotate it if it is the wrong way round. You can print "
+"your scans, export them to pdf, or save them in a range of image formats."
+msgstr ""
+"Много лесен способ за сканиране на текст и изображения. Може да изрязвате "
+"ненужното и да завъртате документите. Може да печататe, изнасяте към pdf или "
+"други формати за изображения."
+
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
+msgid "This app uses the SANE framework to support most existing scanners."
+msgstr "Тази програма ползва SANE за поддръжката на повечето скенери."
 
 #. developer_name tag deprecated with Appstream 1.0
-#: data/resources/org.gnome.Snapshot.metainfo.xml.in.in:260
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "Проектът GNOME"
 
-#: data/resources/ui/camera.ui:75 data/resources/ui/camera.ui:139
-#: data/resources/ui/camera.ui:545
+#. Menu item to rotate page to left (anti-clockwise)
+#: data/ui/app-window.ui:8
+msgid "Rotate _Left"
+msgstr "Завъртане на_ляво"
+
+#. Menu item to rotate page to right (clockwise)
+#: data/ui/app-window.ui:12
+msgid "Rotate _Right"
+msgstr "Завъртане на_дясно"
+
+#. Label for page crop submenu
+#: data/ui/app-window.ui:16
+msgid "_Crop"
+msgstr "_Изрязване"
+
+#. Radio button for no crop
+#: data/ui/app-window.ui:20
+msgid "_None"
+msgstr "_Нищо"
+
+#. Radio button for cropping page to A4 size
+#: data/ui/app-window.ui:26
+msgid "A_4"
+msgstr "A_4"
+
+#. Radio button for cropping page to A5 size
+#: data/ui/app-window.ui:32
+msgid "A_5"
+msgstr "A_5"
+
+#. Radio button for cropping page to A6 size
+#: data/ui/app-window.ui:38
+msgid "A_6"
+msgstr "A_6"
+
+#. Radio button for cropping page to US letter size
+#: data/ui/app-window.ui:44
+msgid "_Letter"
+msgstr "US _Letter"
+
+#. Radio button for cropping to page to US legal size
+#: data/ui/app-window.ui:50
+msgid "Le_gal"
+msgstr "US Le_gal"
+
+#. Radio button for cropping page to 4x6 inch
+#: data/ui/app-window.ui:56
+msgid "4×6"
+msgstr "4×6"
+
+#. Radio button for cropping page to A3
+#: data/ui/app-window.ui:62
+msgid "A_3"
+msgstr "A_3"
+
+#. Radio button for cropping to custom page size
+#: data/ui/app-window.ui:68
+msgid "_Custom"
+msgstr "_Персонализирано"
+
+#. Menu item to rotate the crop area
+#: data/ui/app-window.ui:76
+msgid "_Rotate Crop"
+msgstr "_Завъртане на изрязаното"
+
+#. Menu item to move the selected page to the left
+#: data/ui/app-window.ui:83
+msgid "Move Left"
+msgstr "Преместване наляво ←"
+
+#. Menu item to move the selected page to the right
+#: data/ui/app-window.ui:87
+msgid "Move Right"
+msgstr "Преместване надясно →"
+
+#: data/ui/app-window.ui:91
+msgid "Copy"
+msgstr "Копиране"
+
+#: data/ui/app-window.ui:95
+msgid "Delete"
+msgstr "Изтриване"
+
+#: data/ui/app-window.ui:103
+msgid "_Single Page"
+msgstr "_Една страница"
+
+#: data/ui/app-window.ui:109
+msgid "All Pages From _Feeder"
+msgstr "Всички страници от _листоподаващото устройство"
+
+#: data/ui/app-window.ui:115
+msgid "_Multiple Pages From Flatbed"
+msgstr "_Много страници от прозрачната плоскост на скенера"
+
+#: data/ui/app-window.ui:123
+msgid "_Text"
+msgstr "_Текст"
+
+#: data/ui/app-window.ui:129
+msgid "_Image"
+msgstr "_Изображение"
+
+#. Tooltip for stop button
+#: data/ui/app-window.ui:163
+msgid "Stop"
+msgstr "Спиране"
+
+#: data/ui/app-window.ui:175
+msgid "S_top"
+msgstr "_Спиране"
+
+#: data/ui/app-window.ui:200
+msgid "_Scan"
+msgstr "_Сканиране"
+
+#: data/ui/app-window.ui:208
+msgid "Scan Options"
+msgstr "Настройки на сканиране"
+
+#: data/ui/app-window.ui:217
 msgid "Main Menu"
 msgstr "Основно меню"
 
-#: data/resources/ui/camera.ui:84
-msgid "No Camera Found"
-msgstr "Няма камера"
+#: data/ui/app-window.ui:225
+msgid "Export"
+msgstr "Изнасяне"
 
-#: data/resources/ui/camera.ui:85
-msgid "Connect a camera device"
-msgstr "Свържете камера"
+#. Tooltip for stop button
+#: data/ui/app-window.ui:281
+msgid "Refresh Device List"
+msgstr "Опресняване на списъка с устройства"
 
-#: data/resources/ui/camera.ui:127 data/resources/ui/camera.ui:567
-msgid "Countdown"
-msgstr "Отброяване"
+#: data/ui/app-window.ui:311
+msgid "New Document"
+msgstr "Нов документ"
 
-#: data/resources/ui/camera.ui:164
-msgid "Picture Mode"
-msgstr "Режим на снимане"
+#: data/ui/app-window.ui:325
+msgid "Rotate Left (counter-clockwise)"
+msgstr "Завъртане на страницата наляво ↶"
 
-#: data/resources/ui/camera.ui:170
-msgid "Recording Mode"
-msgstr "Режим на записване"
+#: data/ui/app-window.ui:333
+msgid "Rotate Right (clockwise)"
+msgstr "Завъртане на страницата надясно ↷"
 
-#: data/resources/ui/camera.ui:177
-msgid "QR Code Scanning Mode"
-msgstr "Режим на сканиране на QR код"
+#: data/ui/app-window.ui:341
+msgid "Crop Selected Page"
+msgstr "Изрязване на избраната страница"
 
-#: data/resources/ui/camera.ui:554
-msgid "Missing Camera Permission"
-msgstr "Липсват права за камерата"
+#: data/ui/app-window.ui:349
+msgid "Delete Selected Page"
+msgstr "Изтриване на избраната страница"
 
-#: data/resources/ui/camera.ui:555
-msgid "Allow camera usage in Settings"
-msgstr "Позволете права за камерата в настройките"
+#: data/ui/authorize-dialog.ui:31
+msgid "_Username for resource"
+msgstr "_Потребителско име за ресурса"
 
-#. TRANSLATORS this indicates the countdown is disabled
-#: data/resources/ui/camera.ui:570
-msgid "None"
-msgstr "Без"
+#: data/ui/authorize-dialog.ui:38
+msgid "_Password"
+msgstr "_Парола"
 
-#. TRANSLATORS this is time for a countdown in seconds
-#: data/resources/ui/camera.ui:575
-msgid "3s"
-msgstr "3s"
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
+#: src/app-window.vala:684
+msgid "_Cancel"
+msgstr "_Отмяна"
 
-#. TRANSLATORS this is time for a countdown in seconds
-#: data/resources/ui/camera.ui:580
-msgid "5s"
-msgstr "5s"
+#. Button to submit authorization dialog
+#: data/ui/authorize-dialog.ui:61
+msgid "_Authorize"
+msgstr "_Идентификация"
 
-#. TRANSLATORS this is time for a countdown in seconds
-#: data/resources/ui/camera.ui:585
-msgid "10s"
-msgstr "10s"
+#: data/ui/drivers-dialog.ui:17
+msgid "Install drivers"
+msgstr "Инсталиране на драйвери"
 
-#: data/resources/ui/camera.ui:593
-msgid "_Preferences"
-msgstr "_Настройки"
+#: data/ui/drivers-dialog.ui:119
+msgid "OK"
+msgstr "Добре"
 
-#: data/resources/ui/camera.ui:597
-msgid "_Keyboard Shortcuts"
-msgstr "_Клавишни комбинации"
-
-#: data/resources/ui/camera.ui:601
-msgid "_About Camera"
-msgstr "_Относно „Камера“"
-
-#: data/resources/ui/camera_controls.ui:17
-msgid "Open Gallery"
-msgstr "Отваряне на галерията"
-
-#. Set a fallback tooltip
-#: data/resources/ui/camera_controls.ui:25 src/widgets/shutter_button.rs:71
-#: src/widgets/shutter_button.rs:120
-msgid "Take Picture"
-msgstr "Заснимане"
-
-#: data/resources/ui/camera_controls.ui:35
-msgid "Select Camera"
-msgstr "Избор на камера"
-
-#: data/resources/ui/camera_controls.ui:48
-msgctxt "Switch between front and back camera button"
-msgid "Switch Camera"
-msgstr "Превключване на камерата"
-
-#: data/resources/ui/gallery.ui:24
-msgid "Gallery Menu"
-msgstr "Меню на галерията"
-
-#: data/resources/ui/gallery.ui:53
-msgid "Next Image"
-msgstr "Следващо изображение"
-
-#: data/resources/ui/gallery.ui:67
-msgid "Previous Image"
-msgstr "Предишно изображение"
-
-#: data/resources/ui/gallery.ui:81
-msgid "Open in Image Viewer"
-msgstr "Отваряне в програма за преглед на изображения"
-
-#: data/resources/ui/preferences_window.ui:7
-#: data/resources/ui/preferences_window.ui:11
-msgid "General"
-msgstr "Общи"
-
-#: data/resources/ui/preferences_window.ui:14
-msgid "_Shutter Sound"
-msgstr "_Звук при снимка"
-
-#: data/resources/ui/preferences_window.ui:21
-msgid "_Composition Guidelines"
-msgstr "_Водачи за композицията"
-
-#: data/resources/ui/preferences_window.ui:30
-msgid "Video Recording"
-msgstr "Видео запис"
-
-#: data/resources/ui/preferences_window.ui:33
-msgid "_Record Audio"
-msgstr "Запис на _аудио"
-
-#: data/resources/ui/preferences_window.ui:42
-msgid "Experimental"
-msgstr "Експериментално"
-
-#: data/resources/ui/preferences_window.ui:43
-msgid ""
-"Some graphic drivers may cause the system to be unstable or crash. In these "
-"cases, reboot the system and disable the option."
-msgstr ""
-"Някои графични драйвери могат да причинят нестабилност или срив на "
-"системата. В такива случаи рестартирайте системата и деактивирайте опцията."
-
-#: data/resources/ui/preferences_window.ui:46
-msgid "_Hardware Video Encoding"
-msgstr "_Хардуерно видео кодиране"
-
-#: data/resources/ui/qr_bottom_sheet.ui:10
-msgid "Code Detected"
-msgstr "Открит е код"
-
-#: data/resources/ui/qr_bottom_sheet.ui:13
-msgid "Contents"
-msgstr "Съдържание"
-
-#: data/resources/ui/qr_bottom_sheet.ui:22
-msgid "Copy to Clipboard"
-msgstr "Копирано в буфера за обмен"
-
-#: data/resources/ui/qr_bottom_sheet.ui:34
-msgid "Open Link"
-msgstr "Отваряне на връзката"
-
-#: data/resources/ui/shortcuts.ui:6
+#: data/ui/shortcuts-dialog.ui:6
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Общи"
 
-#: data/resources/ui/shortcuts.ui:9
+#: data/ui/shortcuts-dialog.ui:10
 msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Показване на клавишните комбинации"
+msgid "Show Help"
+msgstr "Извеждане на помощта"
 
-#: data/resources/ui/shortcuts.ui:15
+#: data/ui/shortcuts-dialog.ui:16
 msgctxt "shortcut window"
-msgid "Main Menu"
-msgstr "Основно меню"
+msgid "Open Menu"
+msgstr "Отваряне на менюто"
 
-#: data/resources/ui/shortcuts.ui:21
-msgctxt "Shortcut window description"
-msgid "Open Preferences"
-msgstr "Отваряне на настройките"
-
-#: data/resources/ui/shortcuts.ui:27
+#: data/ui/shortcuts-dialog.ui:22
 msgctxt "shortcut window"
-msgid "Close Window"
-msgstr "Затваряне на прозореца"
+msgid "Show Preferences"
+msgstr "Показване на настройките"
 
-#: data/resources/ui/shortcuts.ui:33
+#: data/ui/shortcuts-dialog.ui:28
+msgctxt "shortcut window"
+msgid "Keyboard Shortcuts"
+msgstr "Клавишни комбинации"
+
+#: data/ui/shortcuts-dialog.ui:34
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Спиране на програмата"
 
-#: data/resources/ui/shortcuts.ui:41
+#: data/ui/shortcuts-dialog.ui:41
 msgctxt "shortcut window"
-msgid "Camera"
-msgstr "Kamera"
+msgid "Scanning"
+msgstr "Сканиране"
 
-#: data/resources/ui/shortcuts.ui:44
+#: data/ui/shortcuts-dialog.ui:45
 msgctxt "shortcut window"
-msgid "Picture Mode"
-msgstr "Режим на снимане"
+msgid "Scan a Single Page"
+msgstr "Сканиране на единична страница със скенера"
 
-#: data/resources/ui/shortcuts.ui:50
+#: data/ui/shortcuts-dialog.ui:51
 msgctxt "shortcut window"
-msgid "Recording Mode"
-msgstr "Режим на записване"
+msgid "Scan all Pages From Document Feeder"
+msgstr "Сканиране на всички страници в листоподаващото устройство"
 
-#: data/resources/ui/shortcuts.ui:56
+#: data/ui/shortcuts-dialog.ui:57
 msgctxt "shortcut window"
-msgid "Take Picture or Start Recording"
-msgstr "Направете снимка или започнете запис"
+msgid "Scan Continuously From Flatbed Scanner"
+msgstr "Непрекъснато сканиране от прозрачната плоскост на скенер"
 
-#: data/resources/ui/shortcuts.ui:62
+#: data/ui/shortcuts-dialog.ui:63
 msgctxt "shortcut window"
-msgid "Show/Hide Composition Guidelines"
-msgstr "Показване/Скриване на указанията за композицията"
+msgid "Stop Scan in Progress"
+msgstr "Спиране на текущото сканиране"
 
-#: data/resources/ui/shortcuts.ui:70
+#: data/ui/shortcuts-dialog.ui:70
 msgctxt "shortcut window"
-msgid "Gallery"
-msgstr "Галерия"
+msgid "Document Modification"
+msgstr "Промяна на документа"
 
-#: data/resources/ui/shortcuts.ui:73
+#: data/ui/shortcuts-dialog.ui:74
 msgctxt "shortcut window"
-msgid "Open/Close Gallery"
-msgstr "Отваряне/Затваряне на галерията"
+msgid "Move Page Left"
+msgstr "Преместване на страница наляво"
 
-#: data/resources/ui/shortcuts.ui:79
+#: data/ui/shortcuts-dialog.ui:80
 msgctxt "shortcut window"
-msgid "Next"
-msgstr "Следващо"
+msgid "Move Page Right"
+msgstr "Преместване на страница надясно"
 
-#: data/resources/ui/shortcuts.ui:85
+#: data/ui/shortcuts-dialog.ui:86
 msgctxt "shortcut window"
-msgid "Previous"
-msgstr "Предишно"
+msgid "Rotate Page to the Left (Anti-Clockwise)"
+msgstr "Завъртане на страницата наляво ↶"
 
-#: data/resources/ui/window.ui:21
-msgid "Gallery"
-msgstr "Галерия"
+#: data/ui/shortcuts-dialog.ui:92
+msgctxt "shortcut window"
+msgid "Rotate Page to the Right (Clockwise)"
+msgstr "Завъртане на страницата надясно ↷"
 
-#: src/application.rs:34
-msgid "Enable debug messages"
-msgstr "Включване на съобщенията за отстраняване на грешки"
+#: data/ui/shortcuts-dialog.ui:98
+msgctxt "shortcut window"
+msgid "Delete Page"
+msgstr "Изтриване на страница"
 
-#. TRANSLATORS This is the image format presented in the preferences
-#. window.
-#: src/enums.rs:27
-msgid "JPEG"
-msgstr "JPEG"
+#: data/ui/shortcuts-dialog.ui:105
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Управление на документи"
 
-#. TRANSLATORS Do NOT translate {date}. This will appear as, e.g. "Photo
-#. from 2023-05-21 11-05-59.12345" and it will be used as a file name.
-#: src/utils.rs:22
-#, rust-format
-msgid "Photo from {date}"
-msgstr "Снимка от {date}"
+#: data/ui/shortcuts-dialog.ui:109
+msgctxt "shortcut window"
+msgid "Start new Document"
+msgstr "Създаване на нов документ"
 
-#. TRANSLATORS Do NOT translate {number}. This will appear as, e.g.
-#. "Photo 12345" and it will be used as a file name.
-#: src/utils.rs:28
-#, rust-format
-msgid "Photo {number}"
-msgstr "Снимка {number}"
+#: data/ui/shortcuts-dialog.ui:115
+msgctxt "shortcut window"
+msgid "Save Scanned Document"
+msgstr "Запазване на сканиран документ"
 
-#. TRANSLATORS Do NOT translate {date}. This will appear as, e.g.
-#. "Recording from 2023-05-21 11-05-59.12345" and it will be used as a
-#. file name.
-#: src/utils.rs:42
-#, rust-format
-msgid "Recording from {date}"
-msgstr "Запис от {date}"
+#: data/ui/shortcuts-dialog.ui:121
+msgctxt "shortcut window"
+msgid "Email Scanned Document"
+msgstr "Пращане на сканиран документ по е-поща"
 
-#. TRANSLATORS Do NOT translate {number}. This will appear as, e.g.
-#. "Recording 12345" and it will be used as a file name.
-#: src/utils.rs:48
-#, rust-format
-msgid "Recording {number}"
-msgstr "Запис {number}"
+#: data/ui/shortcuts-dialog.ui:127
+msgctxt "shortcut window"
+msgid "Print Scanned Document"
+msgstr "Печат на сканиран документ"
 
-#: src/utils.rs:139
-msgid "_Copy Picture"
-msgstr "_Копиране на снимката"
+#: data/ui/shortcuts-dialog.ui:133
+msgctxt "shortcut window"
+msgid "Copy Current Page to Clipboard"
+msgstr "Копиране на текущата страница в буфера за обмен"
 
-#: src/utils.rs:141
-msgid "_Copy Video"
-msgstr "_Копиране на видеото"
+#. Preferences Dialog: Section label for scanning settings
+#: data/ui/preferences-dialog.ui:30
+msgid "Scanning"
+msgstr "Сканиране"
 
-#: src/utils.rs:143
-msgid "_Delete"
-msgstr "_Изтриване"
+#. Label beside scan side combo box
+#: data/ui/preferences-dialog.ui:33
+msgid "Scan _Sides"
+msgstr "Сканиране на _страни"
 
-#: src/widgets/camera.rs:613
-msgid "Could not play camera stream"
-msgstr "Камерата не може да се пусне"
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:42
+msgid "_Front"
+msgstr "_Предна страна"
 
-#: src/widgets/gallery.rs:420 src/widgets/qr_bottom_sheet.rs:104
-msgid "Copied to clipboard"
-msgstr "Копирано в буфера за обмен"
+#. Preferences Dialog: Toggle button to select scanning on the back side of a page
+#: data/ui/preferences-dialog.ui:49
+msgid "B_ack"
+msgstr "_Обратна страна"
 
-#: src/widgets/gallery.rs:461
-msgid "Picture deleted"
-msgstr "Снимката е изтрита"
+#. Preferences Dialog: Toggle button to select scanning on both sides of a page
+#: data/ui/preferences-dialog.ui:56
+msgid "B_oth"
+msgstr "И _двете страни"
 
-#: src/widgets/gallery.rs:463
-msgid "Video deleted"
-msgstr "Видеото е изтрито"
+#. Label beside page size combo box
+#: data/ui/preferences-dialog.ui:66
+msgid "_Page Size"
+msgstr "_Размер на страницата"
 
-#: src/widgets/qr_screen_bin.rs:50
-msgid "Scan Code"
-msgstr "Сканиране на код"
+#. Label beside page delay scale
+#: data/ui/preferences-dialog.ui:72
+msgid "_Delay in Seconds"
+msgstr "_Забавяне в секунди"
 
-#: src/widgets/shutter_button.rs:82
-msgid "Start Recording"
-msgstr "Начало на запис"
+#. Provides context for the page delay scale
+#: data/ui/preferences-dialog.ui:73
+msgid "Interval to scan multiple pages"
+msgstr "Интервал между сканирането на множество страници"
 
-#: src/widgets/shutter_button.rs:93
-msgid "Stop Recording"
-msgstr "Край на запис"
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:81
+msgid "0"
+msgstr "0"
 
-#: src/widgets/window.rs:107
-msgid "Could not take picture"
-msgstr "Снимката не може да бъде запазена"
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:87
+msgid "3"
+msgstr "3"
 
-#: src/widgets/window.rs:111
-msgid "Could not record video"
-msgstr "Видеото не може да бъде запазено"
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:93
+msgid "6"
+msgstr "6"
 
-#: src/widgets/window.rs:314
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:99
+msgid "10"
+msgstr "10"
+
+#. Preferences Dialog: Toggle button to select scanning on front side of a page
+#: data/ui/preferences-dialog.ui:105
+msgid "15"
+msgstr "15"
+
+#. Preferences Dialog: Section label for quality settings
+#: data/ui/preferences-dialog.ui:117
+msgid "Quality"
+msgstr "Качество"
+
+#. Label beside scan resolution combo box
+#: data/ui/preferences-dialog.ui:120
+msgid "_Text Resolution"
+msgstr "Разделителна способност за _текст"
+
+#. Label beside scan resolution combo box
+#: data/ui/preferences-dialog.ui:126
+msgid "_Image Resolution"
+msgstr "_Разделителна способност за _изображения"
+
+#. Label beside brightness scale
+#: data/ui/preferences-dialog.ui:132
+msgid "_Brightness"
+msgstr "_Яркост"
+
+#. Label beside contrast scale
+#: data/ui/preferences-dialog.ui:148
+msgid "_Contrast"
+msgstr "_Контраст"
+
+#. Label beside compression scale
+#: data/ui/preferences-dialog.ui:164
+msgid "Compression"
+msgstr "Компресия"
+
+#. Preferences Dialog: Section label for postprocessing settings
+#: data/ui/preferences-dialog.ui:181
+msgid "Postprocessing"
+msgstr "Допълнителна обработка"
+
+#. Switch to enable postprocessing
+#: data/ui/preferences-dialog.ui:184
+msgid "_Enable Postprocessing"
+msgstr "_Допълнителна обработка"
+
+#. Label beside postprocesing script name entry
+#: data/ui/preferences-dialog.ui:203
+msgid "_Script"
+msgstr "_Скрипт"
+
+#. Label beside postprocesing arguments entry
+#: data/ui/preferences-dialog.ui:222
+msgid "_Script arguments"
+msgstr "_Аргументи на скрипта"
+
+#. Label beside keep keep original file radio
+#: data/ui/preferences-dialog.ui:241
+msgid "_Keep original file"
+msgstr "_Запазване на оригинала"
+
+#: data/ui/reorder-pages-dialog.ui:9
+msgctxt "dialog title"
+msgid "Reorder Pages"
+msgstr "Преподреждане на страниците"
+
+#: data/ui/reorder-pages-dialog.ui:34
+msgid "Combine sides"
+msgstr "Сглобяване на страниците"
+
+#: data/ui/reorder-pages-dialog.ui:42
+msgid "Combine sides (reverse)"
+msgstr "Сглобяване на страниците (обратно)"
+
+#: data/ui/reorder-pages-dialog.ui:55
+msgid "Flip odd pages upside-down"
+msgstr "Завъртане на нечетните страници обратно"
+
+#: data/ui/reorder-pages-dialog.ui:63
+msgid "Flip even pages upside-down"
+msgstr "Завъртане на четните страници обратно"
+
+#: data/ui/reorder-pages-dialog.ui:78
+msgid "Reverse"
+msgstr "Обратно"
+
+#: src/app-window.vala:208
+msgid "_Close"
+msgstr "_Затваряне"
+
+#. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
+#: src/app-window.vala:216
+#, c-format
+msgid "Username and password required to access “%s”"
+msgstr "За достъп до „%s“ са необходими потребителско име и парола"
+
+#. Label shown when searching for scanners
+#: src/app-window.vala:229
+msgid "Searching for Scanners…"
+msgstr "Търсене на скенери…"
+
+#. Label shown when detected a scanner
+#: src/app-window.vala:237
+msgid "Ready to Scan"
+msgstr "Готовност за сканиране"
+
+#. Warning displayed when no drivers are installed but a compatible scanner is detected
+#: src/app-window.vala:247
+msgid "Additional Software Needed"
+msgstr "Необходим е допълнителен софтуер"
+
+#. Instructions to install driver software
+#: src/app-window.vala:249
+msgid ""
+"You need to <a href=\"install-firmware\">install driver software</a> for "
+"your scanner"
+msgstr ""
+"Трябва да инсталирате <a href='install-firmware'>драйвера</a> на скенера си"
+
+#. Warning displayed when no scanners are detected
+#: src/app-window.vala:256
+msgid "No Scanners Detected"
+msgstr "Не са открити скенери"
+
+#. Hint to user on why there are no scanners detected
+#: src/app-window.vala:258
+msgid "Please check your scanner is connected and powered on"
+msgstr "Проверете дали скенерът ви е свързан и включен"
+
+#. Contents of dialog that shows if autosaved book should be loaded.
+#: src/app-window.vala:307
+msgid "An autosaved book exists. Do you want to open it?"
+msgstr "Има автоматично запазена книга. Искате ли да я отворите?"
+
+#: src/app-window.vala:309
+msgid "_No"
+msgstr "_Не"
+
+#: src/app-window.vala:310
+msgid "_Yes"
+msgstr "_Да"
+
+#: src/app-window.vala:389
+msgid "Save As…"
+msgstr "Запазване като…"
+
+#: src/app-window.vala:391 src/app-window.vala:685
+msgid "_Save"
+msgstr "_Запазване"
+
+#. Default filename to use when saving document.
+#. To that filename the extension will be added, eg. "Scanned Document.pdf"
+#: src/app-window.vala:407
+msgid "Scanned Document"
+msgstr "Сканиран документ"
+
+#: src/app-window.vala:413
+msgid "PDF (multi-page document)"
+msgstr "PDF (документ с много страници)"
+
+#: src/app-window.vala:419
+msgid "JPEG (compressed)"
+msgstr "JPEG (компресиран)"
+
+#: src/app-window.vala:426
+msgid "PNG (lossless)"
+msgstr "PNG (без загуба на качеството)"
+
+#: src/app-window.vala:432
+msgid "WebP (compressed)"
+msgstr "WebP (компресирани)"
+
+#: src/app-window.vala:438
+msgid "All Files"
+msgstr "Всички файлове"
+
+#: src/app-window.vala:529
+#, c-format
+msgid "A file named “%s” already exists.  Do you want to replace it?"
+msgstr "Вече има файл с име „%s“. Искате ли да го замените?"
+
+#: src/app-window.vala:536
+msgid "_Replace"
+msgstr "_Замяна"
+
+#: src/app-window.vala:623
+msgid "Saving"
+msgstr "Запазване"
+
+#. Title of error dialog when save failed
+#: src/app-window.vala:641
+msgid "Failed to save file"
+msgstr "Неуспешно съхраняване на файла"
+
+#. Title of error dialog when postprocessing failed
+#: src/app-window.vala:658
+msgid "Failed to run postprocessing"
+msgstr "Допълнителната обработка не може да се изпълни"
+
+#: src/app-window.vala:664
+msgid "Document Saved"
+msgstr "Документът е запазен"
+
+#: src/app-window.vala:665
+msgid "Open Folder"
+msgstr "Отваряне на папката"
+
+#: src/app-window.vala:681
+msgid "If you don’t save, changes will be permanently lost."
+msgstr "Ако не запазите, промените ще бъдат изгубени."
+
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:729
+msgid "Save current document?"
+msgstr "Да се запази ли текущият документ?"
+
+#. Button in dialog to create new document and discard unsaved document
+#: src/app-window.vala:731
+msgid "_Discard Changes"
+msgstr "_Отказване на промените"
+
+#. Label shown when scan started
+#: src/app-window.vala:799
+msgid "Contacting Scanner…"
+msgstr "Свързване със скенера…"
+
+#: src/app-window.vala:911
+msgid "Scan a Single Page"
+msgstr "Сканиране на единична страница със скенера"
+
+#: src/app-window.vala:916 src/app-window.vala:921
+msgid "Scan Multiple Pages"
+msgstr "Сканиране на множество страници със скенера"
+
+#. Error message display when unable to save image for preview
+#: src/app-window.vala:1036
+msgid "Unable to save image for preview"
+msgstr "Изображението не може да се запази за предварителен преглед"
+
+#: src/app-window.vala:1277
 msgid "translator-credits"
 msgstr ""
-"twlvnn &lt;<a href='mailto:kraft_werk@tutanota.com'>kraft_werk@tutanota.com</"
-"a>&gt;"
+"Светослав Стефанов &lt;<a "
+"href='mailto:svetlisashkov@yahoo.com'>svetlisashkov@yahoo.com</a>&gt;\n"
+"Александър Шопов &lt;<a href='mailto:ash@kambanaria.org'>ash@kambanaria.org</"
+"a>&gt;\n"
+"Twlvnn Kraftwerk &lt;<a "
+"href='mailto:kraft_werk@tutanota.com'>kraft_werk@tutanota.com</a>&gt;\n"
+"\n"
+"Проектът за превод на GNOME има нужда от подкрепа.\n"
+"Научете повече за нас на <a href='https://fsa-bg.org/project/gtp'>уеб сайта</"
+"a> ни.\n"
+"Докладвайте за грешки в превода в <a href='https://fsa-bg.org/project/gtp/"
+"newticket'>съответния раздел</a>.<\n"
+"\n"
+"Сътрудници в Launchpad:\n"
+"<a href='https://launchpad.net/~zdar'>Атанас Ковачки</a>\n"
+"<a href='https://launchpad.net/~lz1dsb'>Боян Сотиров</a>\n"
+"<a href='https://launchpad.net/~kchonov'>Красимир Чонов</a>\n"
+"<a href='https://launchpad.net/~svetlisashkov'>Светослав Стефанов</a>\n"
+"<a href='https://launchpad.net/~tora-shiro'>Тора Широ</a>\n"
+"<a href='https://launchpad.net/~ivaylo-raynov'>Ивайло Райнов</a>\n"
+"<a href='https://launchpad.net/~vonodna'>Филип Андонов</a>"
 
-#~ msgid "Open in Video Player"
-#~ msgstr "Отваряне във видео плеър"
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:1298
+msgid "Save document before quitting?"
+msgstr "Да се запази ли документът преди спирането на програмата?"
 
-#~ msgid "Video format"
-#~ msgstr "Формат на видеото"
+#. Text in dialog warning when a document is about to be lost
+#: src/app-window.vala:1300
+msgid "_Quit without Saving"
+msgstr "Спиране _без запазване"
 
-#~ msgid "Whether to save videos as mp4 or webm"
-#~ msgstr "Дали видео клиповете да се запазват като mp4 или webm"
+#: src/app-window.vala:1412
+msgid "_Email…"
+msgstr "_E-поща…"
+
+#: src/app-window.vala:1413
+msgid "Pri_nt…"
+msgstr "_Печат…"
+
+#: src/app-window.vala:1414
+msgctxt "menu"
+msgid "_Reorder Pages…"
+msgstr "П_реподреждане на страниците…"
+
+#: src/app-window.vala:1417
+msgid "_Preferences"
+msgstr "_Настройки"
+
+#: src/app-window.vala:1418
+msgid "_Keyboard Shortcuts"
+msgstr "_Клавишни комбинации"
+
+#: src/app-window.vala:1419
+msgid "_Help"
+msgstr "Помо_щ"
+
+#: src/app-window.vala:1420
+msgid "_About Document Scanner"
+msgstr "_Относно „Сканиране на документи“"
+
+#. Text of button for cancelling save
+#: src/app-window.vala:1607
+msgid "Cancel"
+msgstr "Отмяна"
+
+#: src/book.vala:392 src/book.vala:398
+#, c-format
+msgid "Unable to encode page %i"
+msgstr "Страница %i не може да се кодира"
+
+#. Message to indicate a Brother scanner has been detected
+#: src/drivers-dialog.vala:76
+msgid "You appear to have a Brother scanner."
+msgstr "Изглежда, че скенерът ви е произведен от Brother."
+
+#. Instructions on how to install Brother scanner drivers
+#: src/drivers-dialog.vala:78
+msgid ""
+"Drivers for this are available on the <a href=\"http://"
+"support.brother.com\">Brother website</a>."
+msgstr ""
+"Може да свалите драйвери за него от <a href='http://support.brother.com'>уеб "
+"сайта на Brother</a>."
+
+#. Message to indicate a Canon Pixma scanner has been detected
+#: src/drivers-dialog.vala:82
+msgid ""
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
+msgstr ""
+"Изглежда, че скенерът ви е произведен от Canon. Може да свалите драйвери за "
+"него от <a href='http://www.sane-project.org/man/sane-pixma.5.html'>уеб "
+"сайта Pixma SANE</a>."
+
+#. Instructions on how to resolve issue with SANE scanner drivers
+#: src/drivers-dialog.vala:84
+msgid ""
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">SANE mailing list</a>."
+msgstr ""
+"Проверете дали вашият скенер <a href='http://www.sane-project.org/sane-"
+"supported-devices.html'>се поддържа от SANE</a>. Ако не се поддържа, подайте "
+"доклад до <a href='https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel'>пощенските списъци на проекта SANE</a>."
+
+#. Message to indicate a Samsung scanner has been detected
+#: src/drivers-dialog.vala:88
+msgid "You appear to have a Samsung scanner."
+msgstr "Изглежда, че скенерът ви е произведен от Samsung."
+
+#. Instructions on how to install Samsung scanner drivers.
+#. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
+#: src/drivers-dialog.vala:91
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a> (HP acquired Samsung's printing business)."
+msgstr ""
+"Може да свалите драйвери за него от <a href='http://support.hp.com'>уеб "
+"сайта на HP</a> (HP придоби бизнеса на Samsung за печат)."
+
+#. Message to indicate a HP scanner has been detected
+#: src/drivers-dialog.vala:96
+msgid "You appear to have an HP scanner."
+msgstr "Изглежда, че скенерът ви е произведен от HP."
+
+#. Instructions on how to install HP scanner drivers.
+#. smfp is rebranded and slightly modified Samsung devices,
+#. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
+#. It require custom drivers, not available in hpaio package
+#: src/drivers-dialog.vala:104
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a>."
+msgstr ""
+"Може да свалите драйвери за него от <a href='http://support.hp.com'>уеб "
+"сайта на HP</a>."
+
+#. Message to indicate an Epson scanner has been detected
+#: src/drivers-dialog.vala:108
+msgid "You appear to have an Epson scanner."
+msgstr "Изглежда, че скенерът ви е произведен от Epson."
+
+#. Instructions on how to install Epson scanner drivers
+#: src/drivers-dialog.vala:110
+msgid ""
+"Drivers for this are available on the <a href=\"http://"
+"support.epson.com\">Epson website</a>."
+msgstr ""
+"Може да свалите драйвери за него от <a href='http://support.epson.com'>уеб "
+"сайта на Epson</a>."
+
+#. Message to indicate a Lexmark scanner has been detected
+#: src/drivers-dialog.vala:114
+msgid "You appear to have a Lexmark scanner."
+msgstr "Изглежда, че скенерът ви е произведен от Lexmark."
+
+#. Instructions on how to install Lexmark scanner drivers
+#: src/drivers-dialog.vala:116
+msgid ""
+"Drivers for this are available on the <a href=\"http://"
+"support.lexmark.com\">Lexmark website</a>."
+msgstr ""
+"Може да свалите драйвери за него от <a href='http://support.lexmark.com'>уеб "
+"сайта на Lexmark</a>."
+
+#. Label shown while installing drivers
+#: src/drivers-dialog.vala:130
+msgid "Installing drivers…"
+msgstr "Инсталиране на драйвери…"
+
+#. Label shown once drivers successfully installed
+#: src/drivers-dialog.vala:135
+msgid "Drivers installed successfully!"
+msgstr "Драйверите са успешно инсталирани!"
+
+#. Label shown if failed to install drivers
+#: src/drivers-dialog.vala:145
+#, c-format
+msgid "Failed to install drivers (error code %d)."
+msgstr "Неуспешно инсталиране на драйвери (код за грешка: %d)."
+
+#. Label shown if failed to install drivers
+#: src/drivers-dialog.vala:152
+msgid "Failed to install drivers."
+msgstr "Неуспешно инсталиране на драйвери."
+
+#: src/drivers-dialog.vala:161
+msgid "Once installed you will need to restart this app."
+msgstr "След инсталацията им ще трябва да рестартирате тази програма."
+
+#. Label shown to prompt user to install packages (when PackageKit not available)
+#: src/drivers-dialog.vala:176
+#, c-format
+msgid "You need to install the %s package."
+msgid_plural "You need to install the %s packages."
+msgstr[0] "Трябва да инсталирате пакета %s."
+msgstr[1] "Трябва да инсталирате пакетите %s."
+
+#. Combo box value for automatic paper size
+#: src/preferences-dialog.vala:105
+msgid "Automatic"
+msgstr "Автоматично"
+
+#: src/preferences-dialog.vala:161
+msgid "Darker"
+msgstr "По-тъмно"
+
+#: src/preferences-dialog.vala:163
+msgid "Lighter"
+msgstr "По-светло"
+
+#: src/preferences-dialog.vala:171
+msgid "Less"
+msgstr "Малко"
+
+#: src/preferences-dialog.vala:173
+msgid "More"
+msgstr "Много"
+
+#: src/preferences-dialog.vala:180
+msgid "Minimum size"
+msgstr "Минимален размер"
+
+#: src/preferences-dialog.vala:184
+msgid "Full detail"
+msgstr "Висока детайлност"
+
+#. Preferences dialog: Label for default resolution in resolution list
+#: src/preferences-dialog.vala:357
+#, c-format
+msgid "%d dpi (default)"
+msgstr "%d dpi (стандартно)"
+
+#. Preferences dialog: Label for minimum resolution in resolution list
+#: src/preferences-dialog.vala:360
+#, c-format
+msgid "%d dpi (draft)"
+msgstr "%d dpi (чернова)"
+
+#. Preferences dialog: Label for maximum resolution in resolution list
+#: src/preferences-dialog.vala:363
+#, c-format
+msgid "%d dpi (high resolution)"
+msgstr "%d dpi (висока разделителна способност)"
+
+#. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
+#: src/preferences-dialog.vala:366
+#, c-format
+msgid "%d dpi"
+msgstr "%d dpi"
+
+#. Error displayed when no scanners to scan with
+#: src/scanner.vala:901
+msgid "No scanners available.  Please connect a scanner."
+msgstr "Няма налични скенери. Свържете такъв."
+
+#. Error displayed when cannot connect to scanner
+#: src/scanner.vala:931
+msgid "Unable to connect to scanner"
+msgstr "Не може да се осъществи връзка със скенера"
+
+#. Error displayed when no documents at the start of scanning
+#: src/scanner.vala:1376 src/scanner.vala:1511
+msgid "Document feeder empty"
+msgstr "Листоподаващото устройство е празно"
+
+#. Out of memory error message with help instruction.
+#. Message written in Pango text markup language,
+#. A carriage return makes a line break, <tt> tag makes a monospace font
+#: src/scanner.vala:1385
+msgid ""
+"Insufficient memory to perform scan.\n"
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
+"<tt>Preferences</tt> menu. For some scanners when scanning in high "
+"resolution, the scan size is restricted."
+msgstr ""
+"Недостатъчно памет за сканирането.\n"
+"Пробвайте да намалите <tt>Разделителната способност</tt> или <tt>Размера на "
+"страницата</tt> в менюто за <tt>Настройки</tt>. При някои скенери високата "
+"разделителна способност води до ограничения на размера на сканираното."
+
+#. Error display when unable to start scan
+#: src/scanner.vala:1398
+msgid "Unable to start scan"
+msgstr "Сканирането не може да се стартира"
+
+#. Error displayed when communication with scanner broken
+#: src/scanner.vala:1411 src/scanner.vala:1521
+msgid "Error communicating with scanner"
+msgstr "Грешка при комуникацията със скенера"
+
+#. Help string for command line --version flag
+#: src/simple-scan.vala:21
+msgid "Show release version"
+msgstr "Извеждане на версията"
+
+#. Help string for command line --debug flag
+#: src/simple-scan.vala:24
+msgid "Print debugging messages"
+msgstr "Извеждане на съобщения за изчистване на грешки"
+
+#: src/simple-scan.vala:26
+msgid "Fix PDF files generated with older versions of this app"
+msgstr ""
+"Поправяне на документи PDF, създадени с по-стари версии на тази програма"
+
+#. Title of error dialog when scan failed
+#: src/simple-scan.vala:1768
+msgid "Failed to scan"
+msgstr "Неуспешно сканиране"
+
+#. Attempt to inhibit the screensaver when scanning
+#: src/simple-scan.vala:1783
+msgid "Scan in progress"
+msgstr "В момента се сканира"
+
+#. Arguments and description for --help text
+#: src/simple-scan.vala:1967
+msgid "[DEVICE…] — Scanning utility"
+msgstr "[УСТРОЙСТВО…] — инструмент за сканиране"
+
+#. Text printed out when an unknown command-line argument provided
+#: src/simple-scan.vala:1977
+#, c-format
+msgid "Run “%s --help” to see a full list of available command line options."
+msgstr ""
+"Изпълнете „%s --help“, за да видите списъка с всички опции на командния ред."
