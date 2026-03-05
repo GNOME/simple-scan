@@ -53,3 +53,7 @@ flatpak:
     RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
     BUNDLE: "simple-scan.flatpak"
   extends: '.flatpak'
+
+publish_nightly:
+  extends: ".publish_nightly"
+  needs: ["flatpak"]
