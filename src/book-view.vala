@@ -92,7 +92,7 @@ public class BookView : Gtk.Box
 
         need_layout = true;
         page_data = new HashTable<Page, PageView> (direct_hash, direct_equal);
-        cursor = "arrow";
+        cursor = "default";
 
         drawing_area = new Gtk.DrawingArea ();
         drawing_area.set_size_request (200, 100);
@@ -547,7 +547,7 @@ public class BookView : Gtk.Box
 
     private void motion_cb (Gtk.EventControllerMotion controler, double dx, double dy)
     {
-        string cursor = "arrow";
+        string cursor = "default";
         
         int event_x = (int) dx;
         int event_y = (int) dy;

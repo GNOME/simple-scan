@@ -69,7 +69,7 @@ public class PageView : Object
     private int selected_crop_h;
 
     /* Cursor over this page */
-    public string cursor { get; private set; default = "arrow"; }
+    public string cursor { get; private set; default = "default"; }
 
     private int animate_n_segments = 7;
     private int animate_segment;
@@ -222,34 +222,34 @@ public class PageView : Object
         switch (location)
         {
         case CropLocation.MIDDLE:
-            cursor = "hand1";
+            cursor = "all-resize";
             break;
         case CropLocation.TOP:
-            cursor = "top_side";
+            cursor = "n-resize";
             break;
         case CropLocation.BOTTOM:
-            cursor = "bottom_side";
+            cursor = "s-resize";
             break;
         case CropLocation.LEFT:
-            cursor = "left_side";
+            cursor = "w-resize";
             break;
         case CropLocation.RIGHT:
-            cursor = "right_side";
+            cursor = "e-resize";
             break;
         case CropLocation.TOP_LEFT:
-            cursor = "top_left_corner";
+            cursor = "nw-resize";
             break;
         case CropLocation.TOP_RIGHT:
-            cursor = "top_right_corner";
+            cursor = "ne-resize";
             break;
         case CropLocation.BOTTOM_LEFT:
-            cursor = "bottom_left_corner";
+            cursor = "sw-resize";
             break;
         case CropLocation.BOTTOM_RIGHT:
-            cursor = "bottom_right_corner";
+            cursor = "se-resize";
             break;
         default:
-            cursor = "arrow";
+            cursor = "default";
             break;
         }
 
