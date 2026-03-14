@@ -204,11 +204,12 @@ private class PreferencesDialog : Adw.PreferencesDialog
 
         // Postprocessing settings
         var postproc_enabled = settings.get_boolean ("postproc-enabled");
-        postproc_enable_switch.set_state(postproc_enabled);
+        postproc_enable_switch.set_active (postproc_enabled);
         toggle_postproc_visibility (postproc_enabled);
-        postproc_enable_switch.state_set.connect ((is_active) => {  toggle_postproc_visibility (is_active);
-                                                                    settings.set_boolean("postproc-enabled", is_active);
-                                                                    return true; });
+        postproc_enable_switch.notify["active"].connect (() => {
+            toggle_postproc_visibility (postproc_enable_switch.active);
+            settings.set_boolean ("postproc-enabled", postproc_enable_switch.active);
+        });
 
         var postproc_script = settings.get_string("postproc-script");
         postproc_script_entry.set_text(postproc_script);
@@ -219,9 +220,10 @@ private class PreferencesDialog : Adw.PreferencesDialog
         postproc_args_entry.changed.connect (() => { settings.set_string("postproc-arguments", postproc_args_entry.get_text()); });
 
         var postproc_keep_original = settings.get_boolean ("postproc-keep-original");
-        postproc_keep_original_switch.set_state(postproc_keep_original);
-        postproc_keep_original_switch.state_set.connect ((is_active) => {   settings.set_boolean("postproc-keep-original", is_active);
-                                                                            return true; });
+        postproc_keep_original_switch.set_active (postproc_keep_original);
+        postproc_keep_original_switch.notify["active"].connect (() => {
+            settings.set_boolean ("postproc-keep-original", postproc_keep_original_switch.active);
+        });
     }
 
     private void toggle_postproc_visibility(bool enabled) {
