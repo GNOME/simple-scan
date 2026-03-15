@@ -1218,6 +1218,9 @@ public class AppWindow : Adw.ApplicationWindow
         catch (Error e)
         {
             warning ("Unable to email document: %s", e.message);
+            show_error_dialog (/* Title of error dialog when email document failed */
+                              _("Failed to email document"),
+                               e.message);
         }
     }
     private void  open_folder_cb (SimpleAction action, Variant? parameter)
