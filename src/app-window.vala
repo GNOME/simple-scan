@@ -635,7 +635,7 @@ public class AppWindow : Adw.ApplicationWindow
         catch (Error e)
         {
             save_button.sensitive = true;
-            progress_bar.destroy ();
+            action_bar.remove (progress_bar);
             warning ("Error saving file: %s", e.message);
             show_error_dialog (/* Title of error dialog when save failed */
                               _("Failed to save file"),
