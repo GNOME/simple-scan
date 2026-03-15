@@ -1,4 +1,4 @@
-[![Build Status](https://gitlab.gnome.org/GNOME/simple-scan/badges/master/build.svg)](https://gitlab.gnome.org/GNOME/simple-scan/pipelines)
+[![Build Status](https://gitlab.gnome.org/GNOME/simple-scan/badges/master/pipeline.svg)](https://gitlab.gnome.org/GNOME/simple-scan/pipelines)
 [![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://gitlab.gnome.org/GNOME/simple-scan/blob/master/COPYING)
 
 # Introduction
