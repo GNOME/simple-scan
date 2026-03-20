@@ -183,6 +183,7 @@
               <object class="AdwActionRow">
                 <property name="title" translatable="yes" comments="Switch to enable postprocessing">_Enable Postprocessing</property>
                 <property name="use_underline">True</property>
+                <property name="subtitle" translatable="yes">Run a custom post-processing script after saving a document. This can be used for Optical Character Recognition using ocrmypdf (if installed) with the "simple-scan-postprocessing.sh" script, for example.</property>
                 <property name="activatable_widget">postproc_enable_box</property>
                 <child>
                   <object class="GtkBox" id="postproc_enable_box">
@@ -211,6 +212,7 @@
                     <child>
                       <object class="GtkEntry" id="postproc_script_entry">
                         <property name="hexpand">True</property>
+                        <property name="placeholder-text" translatable="yes">E.g.: /usr/bin/simple-scan-postprocessing.sh</property>
                       </object>
                     </child>
                   </object>
@@ -230,6 +232,7 @@
                     <child>
                       <object class="GtkEntry" id="postproc_args_entry">
                         <property name="hexpand">True</property>
+                        <property name="placeholder-text" translatable="yes">E.g.: --force-ocr</property>
                       </object>
                     </child>
                   </object>
