@@ -252,14 +252,22 @@ public class BookView : Gtk.Box
         if (page == null)
             return;
 
-        int allocation_width = drawing_area.get_allocated_width();
+        // width of the visible area (x_offset is the position)
+        int scrolled_window_width = scrolled_window.get_allocated_width();
+        // absolute edge position of the page
         var left_edge = page.x_offset;
         var right_edge = page.x_offset + page.width;
 
-        if (left_edge - x_offset < 0)
+        //  left edge outside visible area
+        if (left_edge < x_offset) 
+        {
             x_offset = left_edge;
-        else if (right_edge - x_offset > allocation_width)
-            x_offset = right_edge - allocation_width;
+        }
+        // right edge outside visible area
+        else if (right_edge > x_offset + scrolled_window_width) 
+        {
+            x_offset = right_edge - scrolled_window_width;
+        }
     }
 
     private void select_page_view (PageView? page)
@@ -411,7 +419,7 @@ public class BookView : Gtk.Box
 
         laying_out = true;
 
-        int width = drawing_area.get_allocated_width();
+        int width = scrolled_window.get_allocated_width();
         int height = this.get_allocated_height();
 
         int book_width, book_height;
