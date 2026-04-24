@@ -1758,7 +1758,7 @@ public class SimpleScan : Adw.Application
     private void remove_empty_page ()
     {
         var page = book.get_page ((int) book.n_pages - 1);
-        if (!page.has_data)
+        if (page == null || !page.has_data)
             book.delete_page (page);
     }
 

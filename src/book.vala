@@ -141,8 +141,10 @@ public class Book : Object
         changed ();
     }
 
-    public void delete_page (Page page)
+    public void delete_page (Page? page)
     {
+        if (page == null)
+            return;
         page.pixels_changed.disconnect (page_changed_cb);
         page.crop_changed.disconnect (page_changed_cb);
         pages.remove (page);

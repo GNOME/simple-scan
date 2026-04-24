@@ -878,6 +878,8 @@ public class AppWindow : Adw.ApplicationWindow
     private void move_left_cb ()
     {
         var page = book_view.selected_page;
+        if (page == null)
+            return;
         var index = book.get_page_index (page);
         if (index > 0)
             book.move_page (page, index - 1);
@@ -886,6 +888,8 @@ public class AppWindow : Adw.ApplicationWindow
     private void move_right_cb ()
     {
         var page = book_view.selected_page;
+        if (page == null)
+            return;
         var index = book.get_page_index (page);
         if (index < book.n_pages - 1)
             book.move_page (page, book.get_page_index (page) + 1);
