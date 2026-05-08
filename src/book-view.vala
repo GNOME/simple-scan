@@ -252,7 +252,7 @@ public class BookView : Gtk.Box
         if (page == null)
             return;
 
-        int allocation_width = drawing_area.get_allocated_width();
+        int allocation_width = scrolled_window.get_allocated_width();
         var left_edge = page.x_offset;
         var right_edge = page.x_offset + page.width;
 
@@ -411,8 +411,15 @@ public class BookView : Gtk.Box
 
         laying_out = true;
 
-        int width = drawing_area.get_allocated_width();
+        int width = scrolled_window.get_allocated_width();
         int height = this.get_allocated_height();
+
+        /* Don't layout before widgets are allocated */
+        if (width <= 0 || height <= 0)
+        {
+            laying_out = false;
+            return;
+        }
 
         int book_width, book_height;
         layout_into (width, height, out book_width, out book_height);
