@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2025-04-01 06:38+0000\n"
-"PO-Revision-Date: 2025-04-01 21:39+0300\n"
+"POT-Creation-Date: 2026-04-02 19:47+0000\n"
+"PO-Revision-Date: 2026-05-12 14:45+0300\n"
 "Last-Translator: Yuras Shumovich <shumovichy@gmail.com>\n"
 "Language-Team: Belarusian <i18n-bel-gnome@googlegroups.com>\n"
 "Language: be\n"
@@ -17,7 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.8\n"
+
+#. Title of scan window
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1280
+msgid "Document Scanner"
+msgstr "Сканер дакументаў"
+
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
+msgid "Make a digital copy of your photos and documents"
+msgstr "Зрабіце лічбавыя копіі сваіх фатаграфій і дакументаў"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/org.gnome.SimpleScan.desktop.in:5
+msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
+msgstr ""
+"scan;scanner;flatbed;adf;simple-"
+"scan;simplescan;сканіраванне;сканаванне;планшэтны;сканер;аўтападача;аўтападатчык;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -36,8 +55,8 @@ msgid ""
 "Type of document being scanned. This setting decides on the scan resolution, "
 "colors and post-processing."
 msgstr ""
-"Тып дакумента, які будзе сканавацца. Гэтыя налады ўплываюць на раздзяляльнасць "
-"сканавання, колеры і наступную апрацоўку."
+"Тып дакумента, які будзе сканавацца. Гэтыя налады ўплываюць на "
+"раздзяляльнасць сканавання, колеры і наступную апрацоўку."
 
 #: data/org.gnome.SimpleScan.gschema.xml:25
 msgid "Width of paper in tenths of a mm"
@@ -94,7 +113,9 @@ msgstr "Раздзяляльнасць сканавання відарысаў"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
 msgid "The resolution in dots-per-inch to use when scanning images."
-msgstr "Раздзяляльнасць у кропках на цалю, якое ўжываецца падчас сканавання відарысаў."
+msgstr ""
+"Раздзяляльнасць у кропках на цалю, якое ўжываецца падчас сканавання "
+"відарысаў."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -124,8 +145,8 @@ msgid ""
 "MIME type that is used for saving image files. Examples of supported MIME "
 "types: image/jpeg, image/png, application/pdf"
 msgstr ""
-"Тып MIME, які выкарыстоўваецца для захавання файлаў відарысаў. Прыклады тыпаў "
-"MIME, якія падтрымліваюцца: image/jpeg, image/png, application/pdf"
+"Тып MIME, які выкарыстоўваецца для захавання файлаў відарысаў. Прыклады "
+"тыпаў MIME, якія падтрымліваюцца: image/jpeg, image/png, application/pdf"
 
 #: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
@@ -179,19 +200,7 @@ msgstr ""
 "Ці захоўваць першапачатковы, неапрацаваны файл. Перад пашырэннем файла, у "
 "яго назве будзе дададзена частка «_orig»."
 
-#. Title of scan window
-#: data/org.gnome.SimpleScan.appdata.xml.in:6
-#: data/org.gnome.SimpleScan.desktop.in:3 data/ui/app-window.ui:138
-#: src/app-window.vala:1240
-msgid "Document Scanner"
-msgstr "Сканер дакументаў"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:7
-#: data/org.gnome.SimpleScan.desktop.in:4
-msgid "Make a digital copy of your photos and documents"
-msgstr "Зрабіце лічбавыя копіі сваіх фатаграфій і дакументаў"
-
-#: data/org.gnome.SimpleScan.appdata.xml.in:9
+#: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
 "A really easy way to scan both text and images. You can crop out the bad "
 "parts of an image and rotate it if it is the wrong way round. You can print "
@@ -201,23 +210,16 @@ msgstr ""
 "сапсаваныя часткі відарыса і павярнуць яе, калі тая размешчана няправільна. "
 "Сканы можна надрукаваць, экспартаваць у PDF або захаваць у іншых фарматах."
 
-#: data/org.gnome.SimpleScan.appdata.xml.in:14
+#: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
 "Каб забяспечыць падтрымку большасці існых сканераў, гэта праграма "
 "выкарыстоўвае фрэймворк SANE."
 
-#. developer_name tag deprecated with Appstream 1.0
-#: data/org.gnome.SimpleScan.appdata.xml.in:44
+#. developer_name tag deprecaIf multiple pages in book-view the horizontal scroll bar is not shown, except a resize event occurs.ted with Appstream 1.0
+#: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "Праект GNOME"
-
-#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/org.gnome.SimpleScan.desktop.in:6
-msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr ""
-"scan;scanner;flatbed;adf;simple-scan;simplescan;сканіраванне;сканаванне;"
-"планшэтны;сканер;аўтападача;аўтападатчык;"
 
 #. Menu item to rotate page to left (anti-clockwise)
 #: data/ui/app-window.ui:8
@@ -327,48 +329,48 @@ msgstr "_Відарыс"
 msgid "Stop"
 msgstr "Стоп"
 
-#: data/ui/app-window.ui:177
+#: data/ui/app-window.ui:175
 msgid "S_top"
 msgstr "С_пыніць"
 
-#: data/ui/app-window.ui:202
+#: data/ui/app-window.ui:200
 msgid "_Scan"
 msgstr "_Сканаваць"
 
-#: data/ui/app-window.ui:210
+#: data/ui/app-window.ui:208
 msgid "Scan Options"
 msgstr "Параметры сканавання"
 
-#: data/ui/app-window.ui:219
+#: data/ui/app-window.ui:217
 msgid "Main Menu"
 msgstr "Галоўнае меню"
 
-#: data/ui/app-window.ui:227
+#: data/ui/app-window.ui:225
 msgid "Export"
 msgstr "Экспартаваць"
 
 #. Tooltip for stop button
-#: data/ui/app-window.ui:282
+#: data/ui/app-window.ui:281
 msgid "Refresh Device List"
 msgstr "Абнавіць спіс прылад"
 
-#: data/ui/app-window.ui:312
+#: data/ui/app-window.ui:311
 msgid "New Document"
 msgstr "Новы дакумент"
 
-#: data/ui/app-window.ui:326
+#: data/ui/app-window.ui:325
 msgid "Rotate Left (counter-clockwise)"
 msgstr "Павярнуць улева (супраць гадзіннікавай стрэлкі)"
 
-#: data/ui/app-window.ui:334
+#: data/ui/app-window.ui:333
 msgid "Rotate Right (clockwise)"
 msgstr "Павярнуць управа (па ходу гадзіннікавай стрэлкі)"
 
-#: data/ui/app-window.ui:342
+#: data/ui/app-window.ui:341
 msgid "Crop Selected Page"
 msgstr "Абрэзаць выбраную старонку"
 
-#: data/ui/app-window.ui:350
+#: data/ui/app-window.ui:349
 msgid "Delete Selected Page"
 msgstr "Выдаліць выбраную старонку"
 
@@ -380,8 +382,8 @@ msgstr "_Імя карыстальніка для рэсурсу"
 msgid "_Password"
 msgstr "_Пароль"
 
-#: data/ui/authorize-dialog.ui:53 src/app-window.vala:532
-#: src/app-window.vala:661
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
+#: src/app-window.vala:684
 msgid "_Cancel"
 msgstr "_Скасаваць"
 
@@ -398,120 +400,121 @@ msgstr "Усталяваць драйверы"
 msgid "OK"
 msgstr "ОК"
 
-#: data/ui/help-overlay.ui:10
-msgctxt "shortcut window"
-msgid "Scanning"
-msgstr "Сканаванне"
-
-#: data/ui/help-overlay.ui:14
-msgctxt "shortcut window"
-msgid "Scan a single page"
-msgstr "Сканаваць адну старонку"
-
-#: data/ui/help-overlay.ui:20
-msgctxt "shortcut window"
-msgid "Scan all pages from document feeder"
-msgstr "Сканаванне ўсіх старонак з прылады падачы дакументаў"
-
-#: data/ui/help-overlay.ui:26
-msgctxt "shortcut window"
-msgid "Scan continuously from a flatbed scanner"
-msgstr "Бесперапыннае сканаванне з планшэтнага сканера"
-
-#: data/ui/help-overlay.ui:32
-msgctxt "shortcut window"
-msgid "Stop scan in progress"
-msgstr "Выконваецца спыненне сканавання"
-
-#: data/ui/help-overlay.ui:39
-msgctxt "shortcut window"
-msgid "Document Modification"
-msgstr "Змена дакумента"
-
-#: data/ui/help-overlay.ui:43
-msgctxt "shortcut window"
-msgid "Move page left"
-msgstr "Перамясціць старонку ўлева"
-
-#: data/ui/help-overlay.ui:49
-msgctxt "shortcut window"
-msgid "Move page right"
-msgstr "Перамясціць старонку ўправа"
-
-#: data/ui/help-overlay.ui:55
-msgctxt "shortcut window"
-msgid "Rotate page to the left (anti-clockwise)"
-msgstr "Паварот старонкі налева (супраць ходу гадзіннікавай стрэлкі)"
-
-#: data/ui/help-overlay.ui:61
-msgctxt "shortcut window"
-msgid "Rotate page to the right (clockwise)"
-msgstr "Павярнуць старонку ўправа (па ходу гадзіннікавай стрэлкі)"
-
-#: data/ui/help-overlay.ui:67
-msgctxt "shortcut window"
-msgid "Delete page"
-msgstr "Выдаліць старонку"
-
-#: data/ui/help-overlay.ui:74
-msgctxt "shortcut window"
-msgid "Document Management"
-msgstr "Кіраванне дакументамі"
-
-#: data/ui/help-overlay.ui:78
-msgctxt "shortcut window"
-msgid "Start new document"
-msgstr "Стварыць новы дакумент"
-
-#: data/ui/help-overlay.ui:84
-msgctxt "shortcut window"
-msgid "Save scanned document"
-msgstr "Захаваць адсканаваны дакумент"
-
-#: data/ui/help-overlay.ui:90
-msgctxt "shortcut window"
-msgid "Email scanned document"
-msgstr "Адправіць адсканаваны дакумент па электроннай пошце"
-
-#: data/ui/help-overlay.ui:96
-msgctxt "shortcut window"
-msgid "Print scanned document"
-msgstr "Друк адсканаванага дакумента"
-
-#: data/ui/help-overlay.ui:102
-msgctxt "shortcut window"
-msgid "Copy current page to clipboard"
-msgstr "Капіраваць цяперашнюю старонку ў буфер абмену"
-
-#: data/ui/help-overlay.ui:109
+#: data/ui/shortcuts-dialog.ui:6
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Агульныя"
 
-#: data/ui/help-overlay.ui:113
+#: data/ui/shortcuts-dialog.ui:10
 msgctxt "shortcut window"
-msgid "Show help"
+msgid "Show Help"
 msgstr "Паказаць даведку"
 
-#: data/ui/help-overlay.ui:119
+#: data/ui/shortcuts-dialog.ui:16
 msgctxt "shortcut window"
-msgid "Open menu"
+msgid "Open Menu"
 msgstr "Адкрыць меню"
 
-#: data/ui/help-overlay.ui:125
+#: data/ui/shortcuts-dialog.ui:22
 msgctxt "shortcut window"
-msgid "Show preferences"
+msgid "Show Preferences"
 msgstr "Паказаць налады"
 
-#: data/ui/help-overlay.ui:131
+#: data/ui/shortcuts-dialog.ui:28
 msgctxt "shortcut window"
-msgid "Keyboard shortcuts"
+msgid "Keyboard Shortcuts"
 msgstr "Спалучэнні клавіш"
 
-#: data/ui/help-overlay.ui:137
+#: data/ui/shortcuts-dialog.ui:34
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Выйсці"
+
+#: data/ui/shortcuts-dialog.ui:41
+msgctxt "shortcut window"
+msgid "Scanning"
+msgstr "Сканаванне"
+
+#: data/ui/shortcuts-dialog.ui:45
+#| msgid "Scan a Single Page"
+msgctxt "shortcut window"
+msgid "Scan a Single Page"
+msgstr "Сканаваць адну старонку"
+
+#: data/ui/shortcuts-dialog.ui:51
+msgctxt "shortcut window"
+msgid "Scan all Pages From Document Feeder"
+msgstr "Сканаванне ўсіх старонак з прылады падачы дакументаў"
+
+#: data/ui/shortcuts-dialog.ui:57
+msgctxt "shortcut window"
+msgid "Scan Continuously From Flatbed Scanner"
+msgstr "Бесперапыннае сканаванне з планшэтнага сканера"
+
+#: data/ui/shortcuts-dialog.ui:63
+msgctxt "shortcut window"
+msgid "Stop Scan in Progress"
+msgstr "Спыніць дзейнае сканаванне"
+
+#: data/ui/shortcuts-dialog.ui:70
+msgctxt "shortcut window"
+msgid "Document Modification"
+msgstr "Змена дакумента"
+
+#: data/ui/shortcuts-dialog.ui:74
+msgctxt "shortcut window"
+msgid "Move Page Left"
+msgstr "Перамясціць старонку ўлева"
+
+#: data/ui/shortcuts-dialog.ui:80
+msgctxt "shortcut window"
+msgid "Move Page Right"
+msgstr "Перамясціць старонку ўправа"
+
+#: data/ui/shortcuts-dialog.ui:86
+msgctxt "shortcut window"
+msgid "Rotate Page to the Left (Anti-Clockwise)"
+msgstr "Павярнуць старонку ўлева (↶)"
+
+#: data/ui/shortcuts-dialog.ui:92
+msgctxt "shortcut window"
+msgid "Rotate Page to the Right (Clockwise)"
+msgstr "Павярнуць старонку ўправа (↷)"
+
+#: data/ui/shortcuts-dialog.ui:98
+msgctxt "shortcut window"
+msgid "Delete Page"
+msgstr "Выдаліць старонку"
+
+#: data/ui/shortcuts-dialog.ui:105
+msgctxt "shortcut window"
+msgid "Document Management"
+msgstr "Кіраванне дакументамі"
+
+#: data/ui/shortcuts-dialog.ui:109
+msgctxt "shortcut window"
+msgid "Start new Document"
+msgstr "Стварыць новы дакумент"
+
+#: data/ui/shortcuts-dialog.ui:115
+msgctxt "shortcut window"
+msgid "Save Scanned Document"
+msgstr "Захаваць адсканаваны дакумент"
+
+#: data/ui/shortcuts-dialog.ui:121
+msgctxt "shortcut window"
+msgid "Email Scanned Document"
+msgstr "Адправіць адсканаваны дакумент па эл. пошце"
+
+#: data/ui/shortcuts-dialog.ui:127
+msgctxt "shortcut window"
+msgid "Print Scanned Document"
+msgstr "Друк адсканаванага дакумента"
+
+#: data/ui/shortcuts-dialog.ui:133
+msgctxt "shortcut window"
+msgid "Copy Current Page to Clipboard"
+msgstr "Скапіяваць бягучую старонку ў буфер абмену"
 
 #. Preferences Dialog: Section label for scanning settings
 #: data/ui/preferences-dialog.ui:30
@@ -525,18 +528,18 @@ msgstr "Сканаваць _бакі"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:42
-msgid "Front"
-msgstr "Пярэдні бок"
+msgid "_Front"
+msgstr "_Пярэдні бок"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
-#: data/ui/preferences-dialog.ui:47
-msgid "Back"
-msgstr "Адваротны бок"
+#: data/ui/preferences-dialog.ui:49
+msgid "B_ack"
+msgstr "_Адваротны бок"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
-#: data/ui/preferences-dialog.ui:53
-msgid "Both"
-msgstr "Абодва бакі"
+#: data/ui/preferences-dialog.ui:56
+msgid "B_oth"
+msgstr "Аб_одва бакі"
 
 #. Label beside page size combo box
 #: data/ui/preferences-dialog.ui:66
@@ -554,7 +557,7 @@ msgid "Interval to scan multiple pages"
 msgstr "Інтэрвал сканавання для некалькіх старонак"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
-#: data/ui/preferences-dialog.ui:82
+#: data/ui/preferences-dialog.ui:81
 msgid "0"
 msgstr "0"
 
@@ -579,57 +582,57 @@ msgid "15"
 msgstr "15"
 
 #. Preferences Dialog: Section label for quality settings
-#: data/ui/preferences-dialog.ui:120
+#: data/ui/preferences-dialog.ui:117
 msgid "Quality"
 msgstr "Якасць"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:123
+#: data/ui/preferences-dialog.ui:120
 msgid "_Text Resolution"
 msgstr "_Раздзяляльнасць тэксту"
 
 #. Label beside scan resolution combo box
-#: data/ui/preferences-dialog.ui:129
+#: data/ui/preferences-dialog.ui:126
 msgid "_Image Resolution"
 msgstr "_Раздзяляльнасць відарысаў"
 
 #. Label beside brightness scale
-#: data/ui/preferences-dialog.ui:135
+#: data/ui/preferences-dialog.ui:132
 msgid "_Brightness"
 msgstr "_Яркасць"
 
 #. Label beside contrast scale
-#: data/ui/preferences-dialog.ui:150
+#: data/ui/preferences-dialog.ui:148
 msgid "_Contrast"
 msgstr "_Кантраст"
 
 #. Label beside compression scale
-#: data/ui/preferences-dialog.ui:165
+#: data/ui/preferences-dialog.ui:164
 msgid "Compression"
 msgstr "Сцісканне"
 
 #. Preferences Dialog: Section label for postprocessing settings
-#: data/ui/preferences-dialog.ui:182
+#: data/ui/preferences-dialog.ui:181
 msgid "Postprocessing"
 msgstr "Постапрацоўка"
 
 #. Switch to enable postprocessing
-#: data/ui/preferences-dialog.ui:185
+#: data/ui/preferences-dialog.ui:184
 msgid "_Enable Postprocessing"
 msgstr "_Уключыць постапрацоўку"
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:204
+#: data/ui/preferences-dialog.ui:203
 msgid "_Script"
 msgstr "_Сцэнарый"
 
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:223
+#: data/ui/preferences-dialog.ui:222
 msgid "_Script arguments"
 msgstr "_Аргументы сцэнарыя"
 
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:242
+#: data/ui/preferences-dialog.ui:241
 msgid "_Keep original file"
 msgstr "Захаваць _першапачатковы файл"
 
@@ -658,33 +661,33 @@ msgstr "Перакуліць цотныя старонкі"
 msgid "Reverse"
 msgstr "У адваротным парадку"
 
-#: src/app-window.vala:205
+#: src/app-window.vala:208
 msgid "_Close"
 msgstr "_Закрыць"
 
 #. Label in authorization dialog.  “%s” is replaced with the name of the resource requesting authorization
-#: src/app-window.vala:213
+#: src/app-window.vala:216
 #, c-format
 msgid "Username and password required to access “%s”"
-msgstr "Для ўваходу ў “%s” неабходнае імя ўдзельніка і пароль"
+msgstr "Для ўваходу ў «%s» патрабуецца імя карыстальніка і пароль"
 
 #. Label shown when searching for scanners
-#: src/app-window.vala:226
+#: src/app-window.vala:229
 msgid "Searching for Scanners…"
 msgstr "Пошук сканераў…"
 
 #. Label shown when detected a scanner
-#: src/app-window.vala:234
+#: src/app-window.vala:237
 msgid "Ready to Scan"
-msgstr "Гатовы для сканавання"
+msgstr "Гатовы да сканавання"
 
 #. Warning displayed when no drivers are installed but a compatible scanner is detected
-#: src/app-window.vala:244
+#: src/app-window.vala:247
 msgid "Additional Software Needed"
 msgstr "Патрэбна дадатковае праграмнае забеспячэнне"
 
 #. Instructions to install driver software
-#: src/app-window.vala:246
+#: src/app-window.vala:249
 msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner"
@@ -693,161 +696,174 @@ msgstr ""
 "сканера"
 
 #. Warning displayed when no scanners are detected
-#: src/app-window.vala:253
+#: src/app-window.vala:256
 msgid "No Scanners Detected"
-msgstr "Сканераў не знойдзена"
+msgstr "Сканеры не знойдзены"
 
 #. Hint to user on why there are no scanners detected
-#: src/app-window.vala:255
+#: src/app-window.vala:258
 msgid "Please check your scanner is connected and powered on"
 msgstr "Праверце ці падлучаны і ўключаны сканер"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
-#: src/app-window.vala:304
+#: src/app-window.vala:307
 msgid "An autosaved book exists. Do you want to open it?"
 msgstr "Маецца кніга захаваная аўтаматычна. Хочаце яе адкрыць?"
 
-#: src/app-window.vala:306
+#: src/app-window.vala:309
 msgid "_No"
 msgstr "_Не"
 
-#: src/app-window.vala:307
+#: src/app-window.vala:310
 msgid "_Yes"
 msgstr "_Так"
 
-#: src/app-window.vala:386
+#: src/app-window.vala:389
 msgid "Save As…"
 msgstr "Захаваць як…"
 
-#: src/app-window.vala:388 src/app-window.vala:662
+#: src/app-window.vala:391 src/app-window.vala:685
 msgid "_Save"
 msgstr "_Захаваць"
 
 #. Default filename to use when saving document.
 #. To that filename the extension will be added, eg. "Scanned Document.pdf"
-#: src/app-window.vala:404
+#: src/app-window.vala:407
 msgid "Scanned Document"
 msgstr "Адсканаваны дакумент"
 
-#: src/app-window.vala:410
+#: src/app-window.vala:413
 msgid "PDF (multi-page document)"
 msgstr "PDF (шматстаронкавы дакумент)"
 
-#: src/app-window.vala:416
+#: src/app-window.vala:419
 msgid "JPEG (compressed)"
 msgstr "JPEG (сціснуты)"
 
-#: src/app-window.vala:423
+#: src/app-window.vala:426
 msgid "PNG (lossless)"
 msgstr "PNG (без страты якасці)"
 
-#: src/app-window.vala:429
+#: src/app-window.vala:432
 msgid "WebP (compressed)"
 msgstr "WebP (сціснуты)"
 
-#: src/app-window.vala:435
+#: src/app-window.vala:438
 msgid "All Files"
 msgstr "Усе файлы"
 
-#: src/app-window.vala:526
+#: src/app-window.vala:529
 #, c-format
 msgid "A file named “%s” already exists.  Do you want to replace it?"
 msgstr "Файл з назвай «%s» ужо існуе. Хочаце яго замяніць?"
 
-#: src/app-window.vala:533
+#: src/app-window.vala:536
 msgid "_Replace"
 msgstr "_Замяніць"
 
-#: src/app-window.vala:620
+#: src/app-window.vala:623
 msgid "Saving"
 msgstr "Захаванне"
 
 #. Title of error dialog when save failed
-#: src/app-window.vala:640
+#: src/app-window.vala:641
 msgid "Failed to save file"
 msgstr "Не ўдалося захаваць файл"
 
+#. Title of error dialog when postprocessing failed
 #: src/app-window.vala:658
+msgid "Failed to run postprocessing"
+msgstr "Не ўдалося запусціць постапрацоўку"
+
+#: src/app-window.vala:664
+msgid "Document Saved"
+msgstr "Дакумент захаваны"
+
+#: src/app-window.vala:665
+msgid "Open Folder"
+msgstr "Адкрыць папку"
+
+#: src/app-window.vala:681
 msgid "If you don’t save, changes will be permanently lost."
-msgstr "Калі вы не захаваеце, змены будуць страчаны назаўсёды."
+msgstr "Калі не захаваць, змены будуць страчаны назаўсёды."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:706
+#: src/app-window.vala:729
 msgid "Save current document?"
-msgstr "Захаваць цяперашні дакумент?"
+msgstr "Захаваць бягучы дакумент?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:708
+#: src/app-window.vala:731
 msgid "_Discard Changes"
-msgstr "_Скасаваць змены"
+msgstr "_Не захоўваць змены"
 
 #. Label shown when scan started
-#: src/app-window.vala:776
+#: src/app-window.vala:799
 msgid "Contacting Scanner…"
 msgstr "Злучэнне са сканерам…"
 
-#: src/app-window.vala:888
+#: src/app-window.vala:911
 msgid "Scan a Single Page"
 msgstr "Сканаваць адну старонку"
 
-#: src/app-window.vala:893 src/app-window.vala:898
+#: src/app-window.vala:916 src/app-window.vala:921
 msgid "Scan Multiple Pages"
 msgstr "Сканаваць некалькі старонак"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1013
+#: src/app-window.vala:1036
 msgid "Unable to save image for preview"
 msgstr "Немагчыма захаваць відарыс для перадпрагляду"
 
-#: src/app-window.vala:1237
+#: src/app-window.vala:1277
 msgid "translator-credits"
 msgstr "Uladzimir Manulenka <vlma@tut.by>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1258
+#: src/app-window.vala:1298
 msgid "Save document before quitting?"
 msgstr "Захаваць дакумент перад выхадам з праграмы?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1260
+#: src/app-window.vala:1300
 msgid "_Quit without Saving"
 msgstr "_Выйсці без захавання"
 
-#: src/app-window.vala:1371
+#: src/app-window.vala:1412
 msgid "_Email…"
 msgstr "_Электронная пошта…"
 
-#: src/app-window.vala:1372
+#: src/app-window.vala:1413
 msgid "Pri_nt…"
 msgstr "_Друк…"
 
-#: src/app-window.vala:1373
+#: src/app-window.vala:1414
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "_Пераўпарадкаваць старонкі…"
 
-#: src/app-window.vala:1376
+#: src/app-window.vala:1417
 msgid "_Preferences"
 msgstr "_Налады"
 
-#: src/app-window.vala:1377
+#: src/app-window.vala:1418
 msgid "_Keyboard Shortcuts"
 msgstr "_Спалучэнні клавіш"
 
-#: src/app-window.vala:1378
+#: src/app-window.vala:1419
 msgid "_Help"
 msgstr "_Даведка"
 
-#: src/app-window.vala:1379
+#: src/app-window.vala:1420
 msgid "_About Document Scanner"
 msgstr "_Аб праграме"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1566
+#: src/app-window.vala:1607
 msgid "Cancel"
 msgstr "Скасаваць"
 
-#: src/book.vala:384 src/book.vala:390
+#: src/book.vala:392 src/book.vala:398
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Немагчыма пераўтварыць старонку %i"
@@ -860,8 +876,8 @@ msgstr "Падобна, што ў вас сканер кампаніі Brother."
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.brother."
-"com\">Brother website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.brother.com\">Brother website</a>."
 msgstr ""
 "Драйверы для яго даступны на <a href=\"http://support.brother.com\">сайце "
 "Brother</a>."
@@ -928,8 +944,8 @@ msgstr "Падобна, што ў вас сканер кампаніі Epson."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.epson."
-"com\">Epson website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.epson.com\">Epson website</a>."
 msgstr ""
 "Драйверы для яго даступны на <a href=\"http://support.epson.com\">сайце "
 "Epson</a>."
@@ -942,8 +958,8 @@ msgstr "Падобна, што ў вас сканер кампаніі Lexmark."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://support.lexmark."
-"com\">Lexmark website</a>."
+"Drivers for this are available on the <a href=\"http://"
+"support.lexmark.com\">Lexmark website</a>."
 msgstr ""
 "Драйверы для яго даступны на <a href=\"http://support.lexmark.com\">сайце "
 "Lexmark</a>."
@@ -951,12 +967,12 @@ msgstr ""
 #. Label shown while installing drivers
 #: src/drivers-dialog.vala:130
 msgid "Installing drivers…"
-msgstr "Драйверы ўсталёўваюцца…"
+msgstr "Ідзе ўсталяванне драйвераў…"
 
 #. Label shown once drivers successfully installed
 #: src/drivers-dialog.vala:135
 msgid "Drivers installed successfully!"
-msgstr "Драйверы паспяхова ўсталяваныя!"
+msgstr "Драйверы паспяхова ўсталяваны!"
 
 #. Label shown if failed to install drivers
 #: src/drivers-dialog.vala:145
@@ -983,54 +999,54 @@ msgstr[1] "Вам неабходна ўсталяваць %s пакеты."
 msgstr[2] "Вам неабходна ўсталяваць %s пакетаў."
 
 #. Combo box value for automatic paper size
-#: src/preferences-dialog.vala:113
+#: src/preferences-dialog.vala:105
 msgid "Automatic"
 msgstr "Аўтаматычна"
 
-#: src/preferences-dialog.vala:162
+#: src/preferences-dialog.vala:161
 msgid "Darker"
 msgstr "Цямней"
 
-#: src/preferences-dialog.vala:164
+#: src/preferences-dialog.vala:163
 msgid "Lighter"
 msgstr "Святлей"
 
-#: src/preferences-dialog.vala:172
+#: src/preferences-dialog.vala:171
 msgid "Less"
 msgstr "Меней"
 
-#: src/preferences-dialog.vala:174
+#: src/preferences-dialog.vala:173
 msgid "More"
 msgstr "Болей"
 
-#: src/preferences-dialog.vala:181
+#: src/preferences-dialog.vala:180
 msgid "Minimum size"
 msgstr "Мінімальны памер"
 
-#: src/preferences-dialog.vala:185
+#: src/preferences-dialog.vala:184
 msgid "Full detail"
 msgstr "Поўныя звесткі"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:372
+#: src/preferences-dialog.vala:357
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (прадвызначана)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:375
+#: src/preferences-dialog.vala:360
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (чарнавік)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:378
+#: src/preferences-dialog.vala:363
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (высокая раздзяляльнасць)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:381
+#: src/preferences-dialog.vala:366
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
@@ -1038,7 +1054,7 @@ msgstr "%d dpi"
 #. Error displayed when no scanners to scan with
 #: src/scanner.vala:901
 msgid "No scanners available.  Please connect a scanner."
-msgstr "Сканераў не знойдзена. Калі ласка, падлучыце сканер."
+msgstr "Сканеры не знойдзены.  Падлучыце сканер."
 
 #. Error displayed when cannot connect to scanner
 #: src/scanner.vala:931
@@ -1046,14 +1062,14 @@ msgid "Unable to connect to scanner"
 msgstr "Немагчыма падлучыцца да сканера"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1361 src/scanner.vala:1495
+#: src/scanner.vala:1376 src/scanner.vala:1511
 msgid "Document feeder empty"
 msgstr "Прылада падачы дакументаў пустая"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1369
+#: src/scanner.vala:1385
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1066,12 +1082,12 @@ msgstr ""
 "раздзяляльнасцю, памер сканавання абмежаваны."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1382
+#: src/scanner.vala:1398
 msgid "Unable to start scan"
 msgstr "Немагчыма запусціць сканаванне"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1395 src/scanner.vala:1505
+#: src/scanner.vala:1411 src/scanner.vala:1521
 msgid "Error communicating with scanner"
 msgstr "Памылка сувязі са сканерам"
 
@@ -1090,22 +1106,36 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Выправіць PDF-файлы створаныя папярэдняй версіяй гэтай праграмы"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1766
+#: src/simple-scan.vala:1768
 msgid "Failed to scan"
 msgstr "Памылка сканавання"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1781
+#: src/simple-scan.vala:1783
 msgid "Scan in progress"
 msgstr "Выконваецца сканаванне"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1965
+#: src/simple-scan.vala:1967
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[DEVICE…] — прылада сканавання"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1975
+#: src/simple-scan.vala:1977
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Выканайце «%s --help», каб паглядзець поўны спіс даступных параметраў."
+
+#~ msgctxt "shortcut window"
+#~ msgid "Scan a single page"
+#~ msgstr "Сканаваць адну старонку"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Спалучэнні клавіш"
+
+#~ msgid "Back"
+#~ msgstr "Адваротны бок"
+
+#~ msgid "Both"
+#~ msgstr "Абодва бакі"
