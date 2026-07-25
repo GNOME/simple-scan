@@ -1460,7 +1460,41 @@ public class AppWindow : Adw.ApplicationWindow
 
     private string state_filename
     {
-        owned get { return Path.build_filename (Environment.get_user_config_dir (), "simple-scan", "state"); }
+        owned get {
+            /*
+               Historically, the state file was stored in $XDG_CONFIG_HOME/simple-scan/state.
+               The new location is $XDG_STATE_HOME/simple-scan/state.
+
+               Multiple scenarios may be encountered:
+               1) Neither file exists: in this case, we just return $XDG_STATE_HOME/simple-scan/state;
+               2) $XDG_CONFIG_HOME/simple-scan/state exists, but not $XDG_STATE_HOME/simple-scan/state:
+                  we move $XDG_CONFIG_HOME/simple-scan/state to $XDG_STATE_HOME/simple-scan/state;
+               3) $XDG_CONFIG_HOME/simple-scan/state does not exist, but $XDG_STATE_HOME/simple-scan/state does:
+                  perfect, this is the expected scenario, we do nothing;
+               4) Both files exist: weird state, but we assume $XDG_STATE_HOME/simple-scan/state is
+                  the right choice.
+
+               We always return $XDG_STATE_HOME/simple-scan/state, unless we failed to move the state file.
+             */
+            var xdg_state_filename = Path.build_filename (Environment.get_user_state_dir (), "simple-scan", "state");
+            var xdg_config_filename = Path.build_filename (Environment.get_user_config_dir (), "simple-scan", "state");
+
+            var xdg_state_file = File.new_for_path (xdg_state_filename);
+            var xdg_config_file = File.new_for_path (xdg_config_filename);
+
+            if (xdg_config_file.query_exists () && !xdg_state_file.query_exists () ) {
+                try {
+                    var state_dir = Path.build_filename (Environment.get_user_state_dir (), "simple-scan");
+                    debug ("Creating %s and moving %s to it", state_dir, xdg_config_filename);
+                    DirUtils.create_with_parents (state_dir, 0700);
+                    xdg_config_file.move (xdg_state_file, FileCopyFlags.NONE, null, null);
+                } catch (Error e) {
+                    warning ("Could not move state file: %s\n", e.message);
+                    return xdg_config_filename;
+                }
+            }
+            return xdg_state_filename;
+        }
     }
 
     private void load_state ()
