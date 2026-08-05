@@ -54,8 +54,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2026-01-27 18:58+0000\n"
-"PO-Revision-Date: 2026-02-04 21:29+0100\n"
+"POT-Creation-Date: 2026-04-02 19:47+0000\n"
+"PO-Revision-Date: 2026-08-05 23:32+0200\n"
 "Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -64,14 +64,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #. Title of scan window
 #: data/org.gnome.SimpleScan.desktop.in:2
 #: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
 #: src/app-window.vala:1280
 msgid "Document Scanner"
-msgstr "Dokument-Scanner"
+msgstr "Dokumentenscanner"
 
 #: data/org.gnome.SimpleScan.desktop.in:3
 #: data/org.gnome.SimpleScan.metainfo.xml.in:7
@@ -208,11 +208,11 @@ msgstr "Verzögerung zwischen Seiten in Millisekunden."
 
 #: data/org.gnome.SimpleScan.gschema.xml:82
 msgid "Whether or not postprocessing is enabled"
-msgstr "Legt fest, ob Nachbearbeitung eingeschaltet ist"
+msgstr "Festlegen, ob die Nachbearbeitung eingeschaltet ist"
 
 #: data/org.gnome.SimpleScan.gschema.xml:83
 msgid "Whether or not postprocessing is enabled."
-msgstr "Legt fest, ob Nachbearbeitung eingeschaltet ist."
+msgstr "Festlegen, ob die Nachbearbeitung eingeschaltet ist."
 
 #: data/org.gnome.SimpleScan.gschema.xml:87
 msgid "The path to the postprocessing script"
@@ -260,7 +260,7 @@ msgstr ""
 "Diese Anwendung verwendet das SANE-Framework für die Unterstützung der "
 "meisten verfügbaren Scanner."
 
-#. developer_name tag deprecated with Appstream 1.0
+#. developer_name tag deprecaIf multiple pages in book-view the horizontal scroll bar is not shown, except a resize event occurs.ted with Appstream 1.0
 #: data/org.gnome.SimpleScan.metainfo.xml.in:44
 msgid "The GNOME Project"
 msgstr "Das GNOME-Projekt"
@@ -358,7 +358,7 @@ msgstr "Alle Seiten aus dem _Papiereinzug"
 
 #: data/ui/app-window.ui:115
 msgid "_Multiple Pages From Flatbed"
-msgstr "_Mehrere Seiten aus Flachbett"
+msgstr "_Mehrere Seiten mit Flachbett"
 
 #: data/ui/app-window.ui:123
 msgid "_Text"
@@ -698,15 +698,15 @@ msgstr "Seiten zusammenfügen (umgekehrte Reihenfolge)"
 
 #: data/ui/reorder-pages-dialog.ui:55
 msgid "Flip odd pages upside-down"
-msgstr "Ungerade Seiten auf den Kopf stellen"
+msgstr "Ungerade Seiten auf den Kopf drehen"
 
 #: data/ui/reorder-pages-dialog.ui:63
 msgid "Flip even pages upside-down"
-msgstr "Gerade Seiten auf den Kopf stellen"
+msgstr "Gerade Seiten auf den Kopf drehen"
 
 #: data/ui/reorder-pages-dialog.ui:78
 msgid "Reverse"
-msgstr "Vertauschen"
+msgstr "Reihenfolge umkehren"
 
 #: src/app-window.vala:208
 msgid "_Close"
@@ -716,13 +716,12 @@ msgstr "S_chließen"
 #: src/app-window.vala:216
 #, c-format
 msgid "Username and password required to access “%s”"
-msgstr ""
-"Für den Zugriff auf »%s« werden ein Benutzername und ein Passwort benötigt"
+msgstr "Für den Zugriff auf »%s« werden Benutzername und Passwort benötigt"
 
 #. Label shown when searching for scanners
 #: src/app-window.vala:229
 msgid "Searching for Scanners…"
-msgstr "Nach Scannern wird gesucht …"
+msgstr "Scanner werden gesucht …"
 
 #. Label shown when detected a scanner
 #: src/app-window.vala:237
@@ -751,14 +750,12 @@ msgstr "Kein Scanner gefunden"
 #. Hint to user on why there are no scanners detected
 #: src/app-window.vala:258
 msgid "Please check your scanner is connected and powered on"
-msgstr ""
-"Bitte überprüfen Sie, ob Ihr Scanner angeschlossen und eingeschaltet ist"
+msgstr "Bitte prüfen Sie, ob Ihr Scanner angeschlossen und eingeschaltet ist"
 
 #. Contents of dialog that shows if autosaved book should be loaded.
 #: src/app-window.vala:307
 msgid "An autosaved book exists. Do you want to open it?"
-msgstr ""
-"Ein automatisch gespeichertes Buch existiert. Möchten Sie dieses öffnen?"
+msgstr "Es gibt ein automatisch gespeichertes Buch. Möchten Sie es öffnen?"
 
 #: src/app-window.vala:309
 msgid "_No"
@@ -851,15 +848,15 @@ msgstr "Änderungen _verwerfen"
 #. Label shown when scan started
 #: src/app-window.vala:799
 msgid "Contacting Scanner…"
-msgstr "Scanner wird kontaktiert …"
+msgstr "Scanner wird verbunden …"
 
 #: src/app-window.vala:911
 msgid "Scan a Single Page"
-msgstr "Eine einzelne Seite vom Scanner einscannen"
+msgstr "Einzelne Seite scannen"
 
 #: src/app-window.vala:916 src/app-window.vala:921
 msgid "Scan Multiple Pages"
-msgstr "Mehrere Seiten vom Scanner einscannen"
+msgstr "Mehrere Seiten scannen"
 
 #. Error message display when unable to save image for preview
 #: src/app-window.vala:1036
@@ -954,7 +951,7 @@ msgstr "_Hilfe"
 
 #: src/app-window.vala:1420
 msgid "_About Document Scanner"
-msgstr "_Info zu Dokument-Scanner"
+msgstr "_Info zu Dokumentenscanner"
 
 #. Text of button for cancelling save
 #: src/app-window.vala:1607
@@ -1124,7 +1121,7 @@ msgstr "Minimale Größe"
 
 #: src/preferences-dialog.vala:184
 msgid "Full detail"
-msgstr "Volle Details"
+msgstr "Alle Details"
 
 #. Preferences dialog: Label for default resolution in resolution list
 #: src/preferences-dialog.vala:357
@@ -1163,7 +1160,7 @@ msgstr "Verbindung zum Scanner konnte nicht hergestellt werden"
 #. Error displayed when no documents at the start of scanning
 #: src/scanner.vala:1376 src/scanner.vala:1511
 msgid "Document feeder empty"
-msgstr "Dokumenteneinzug ist leer"
+msgstr "Der Dokumenteneinzug ist leer"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
