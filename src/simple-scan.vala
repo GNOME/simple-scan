@@ -103,6 +103,17 @@ public class SimpleScan : Adw.Application
 
     public override void shutdown ()
     {
+        /*  disconnect scanner signals so that no calls to app are made  */
+        scanner.update_devices.disconnect (update_scan_devices_cb);
+        scanner.request_authorization.disconnect (authorize_cb);
+        scanner.expect_page.disconnect (scanner_new_page_cb);
+        scanner.got_page_info.disconnect (scanner_page_info_cb);
+        scanner.got_line.disconnect (scanner_line_cb);
+        scanner.page_done.disconnect (scanner_page_done_cb);
+        scanner.document_done.disconnect (scanner_document_done_cb);
+        scanner.scan_failed.disconnect (scanner_failed_cb);
+        scanner.scanning_changed.disconnect (scanner_scanning_changed_cb);
+
         base.shutdown ();
         book = null;
         app = null;
