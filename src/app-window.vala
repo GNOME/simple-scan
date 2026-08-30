@@ -661,12 +661,16 @@ public class AppWindow : Adw.ApplicationWindow
 
         book_needs_saving = false;
         book_uri = uri;
-        var saved_toast = new Adw.Toast (_("Document Saved")) {
-        button_label = _("Open Folder"),
-        action_name = "app.open_folder",
-        action_target = new Variant.string (file.get_uri ())
-        };
 
+        var output_file_path = file.get_uri ();
+        /*  several pages may be saved with "-1", "-2", and so on added to the file name  */
+        if (!File.new_for_uri (output_file_path).query_exists ())
+            output_file_path = make_indexed_file(output_file_path, 0, 2).get_uri ();
+        var saved_toast = new Adw.Toast (_("Document Saved")) {
+            button_label = _("Open Folder"),
+            action_name = "app.open_folder",
+            action_target = new Variant.string (output_file_path)
+        };
         toast_overlay.add_toast (saved_toast);
 
         return true;
