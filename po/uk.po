@@ -2,13 +2,13 @@
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the simple-scan package.
 #
-# Yuri Chornoivan <yurchor@gmail.com>, 2009, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
+# SPDX-FileCopyrightText: 2009, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Yuri Chornoivan <yurchor@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2026-01-27 18:58+0000\n"
-"PO-Revision-Date: 2026-01-28 04:28+0200\n"
+"POT-Creation-Date: 2026-09-01 20:26+0000\n"
+"PO-Revision-Date: 2026-09-02 20:48+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -16,14 +16,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Lokalize 23.04.3\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Lokalize 25.12.1\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>="
+"2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. Title of scan window
 #: data/org.gnome.SimpleScan.desktop.in:2
 #: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
-#: src/app-window.vala:1280
+#: src/app-window.vala:1291
 msgid "Document Scanner"
 msgstr "Засіб для сканування документів"
 
@@ -216,8 +216,9 @@ msgstr ""
 "У цій програмі використано бібліотеки SANE для забезпечення підтримки "
 "більшості наявних сканерів."
 
-#. developer_name tag deprecated with Appstream 1.0
+#. developer_name tag deprecaIf multiple pages in book-view the horizontal scroll bar is not shown, except a resize event occurs.ted with Appstream 1.0
 #: data/org.gnome.SimpleScan.metainfo.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:46
 msgid "The GNOME Project"
 msgstr "Проєкт GNOME"
 
@@ -383,7 +384,7 @@ msgid "_Password"
 msgstr "_Пароль"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
-#: src/app-window.vala:684
+#: src/app-window.vala:688
 msgid "_Cancel"
 msgstr "_Скасувати"
 
@@ -527,7 +528,6 @@ msgstr "Сторони с_канування"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:42
-#| msgid "Front"
 msgid "_Front"
 msgstr "З_овнішній бік"
 
@@ -621,18 +621,37 @@ msgstr "Остаточна обробка"
 msgid "_Enable Postprocessing"
 msgstr "_Увімкнути остаточну обробку"
 
+#: data/ui/preferences-dialog.ui:186
+msgid ""
+"Run a custom post-processing script after saving a document. This can be "
+"used for Optical Character Recognition using ocrmypdf (if installed) with "
+"the \"simple-scan-postprocessing.sh\" script, for example."
+msgstr ""
+"Запустити нетиповий сценарій остаточної обробки після збереження документа. Й"
+"ого можна використовувати для оптичного розпізнавання символів за допомогою o"
+"crmypdf (якщо встановлено), наприклад, зі скриптом «simple-scan-postprocessin"
+"g.sh»."
+
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:204
 msgid "_Script"
 msgstr "С_крипт"
 
+#: data/ui/preferences-dialog.ui:215
+msgid "E.g.: /usr/bin/simple-scan-postprocessing.sh"
+msgstr "Приклад: /usr/bin/simple-scan-postprocessing.sh"
+
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:222
+#: data/ui/preferences-dialog.ui:224
 msgid "_Script arguments"
 msgstr "_Аргументи скрипту"
 
+#: data/ui/preferences-dialog.ui:235
+msgid "E.g.: --force-ocr"
+msgstr "Приклад: --force-ocr"
+
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:241
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "З_берегти початковий файл"
 
@@ -722,7 +741,7 @@ msgstr "_Так"
 msgid "Save As…"
 msgstr "Зберегти як…"
 
-#: src/app-window.vala:391 src/app-window.vala:685
+#: src/app-window.vala:391 src/app-window.vala:689
 msgid "_Save"
 msgstr "З_берегти"
 
@@ -775,47 +794,53 @@ msgstr "Не вдалося зберегти файл"
 msgid "Failed to run postprocessing"
 msgstr "Не вдалося запустити остаточну обробку"
 
-#: src/app-window.vala:664
+#: src/app-window.vala:669
 msgid "Document Saved"
 msgstr "Документ збережено"
 
-#: src/app-window.vala:665
+#: src/app-window.vala:670
 msgid "Open Folder"
 msgstr "Відкрити теку"
 
-#: src/app-window.vala:681
+#: src/app-window.vala:685
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Якщо ви не збережете внесені зміни, їх буде втрачено остаточно."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:729
+#: src/app-window.vala:733
 msgid "Save current document?"
 msgstr "Зберегти поточний документ?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:731
+#: src/app-window.vala:735
 msgid "_Discard Changes"
 msgstr "_Відкинути зміни"
 
 #. Label shown when scan started
-#: src/app-window.vala:799
+#: src/app-window.vala:803
 msgid "Contacting Scanner…"
 msgstr "Встановлюємо зв'язок зі сканером…"
 
-#: src/app-window.vala:911
+#: src/app-window.vala:919
 msgid "Scan a Single Page"
 msgstr "Сканувати одну сторінку"
 
-#: src/app-window.vala:916 src/app-window.vala:921
+#: src/app-window.vala:924 src/app-window.vala:929
 msgid "Scan Multiple Pages"
 msgstr "Сканувати декілька сторінок"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1036
+#: src/app-window.vala:1044
 msgid "Unable to save image for preview"
 msgstr "Не вдалося зберегти зображення для попереднього перегляду"
 
-#: src/app-window.vala:1277
+#. Title of error dialog when email document failed
+#: src/app-window.vala:1226
+#| msgid "Failed to save file"
+msgid "Failed to email document"
+msgstr "Не вдалося надіслати документ електронною поштою"
+
+#: src/app-window.vala:1288
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
@@ -826,50 +851,50 @@ msgstr ""
 "  Микола Ткач https://launchpad.net/~stuartlittle1970"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1298
+#: src/app-window.vala:1309
 msgid "Save document before quitting?"
 msgstr "Зберегти документ перед виходом?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1300
+#: src/app-window.vala:1311
 msgid "_Quit without Saving"
 msgstr "В_ийти без збереження"
 
-#: src/app-window.vala:1412
+#: src/app-window.vala:1423
 msgid "_Email…"
 msgstr "_Надіслати поштою…"
 
-#: src/app-window.vala:1413
+#: src/app-window.vala:1424
 msgid "Pri_nt…"
 msgstr "Н_адрукувати…"
 
-#: src/app-window.vala:1414
+#: src/app-window.vala:1425
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "П_еревпорядкувати сторінки…"
 
-#: src/app-window.vala:1417
+#: src/app-window.vala:1428
 msgid "_Preferences"
 msgstr "_Налаштування"
 
-#: src/app-window.vala:1418
+#: src/app-window.vala:1429
 msgid "_Keyboard Shortcuts"
 msgstr "_Клавіатурні скорочення"
 
-#: src/app-window.vala:1419
+#: src/app-window.vala:1430
 msgid "_Help"
 msgstr "_Довідка"
 
-#: src/app-window.vala:1420
+#: src/app-window.vala:1431
 msgid "_About Document Scanner"
 msgstr "_Про програму для сканування документів"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1607
+#: src/app-window.vala:1652
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/book.vala:392 src/book.vala:398
+#: src/book.vala:394 src/book.vala:400
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Не вдалося декодувати сторінку %i"
@@ -1119,22 +1144,22 @@ msgstr ""
 "програми"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1768
+#: src/simple-scan.vala:1779
 msgid "Failed to scan"
 msgstr "Помилка сканування"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1783
+#: src/simple-scan.vala:1794
 msgid "Scan in progress"
 msgstr "Виконуємо сканування"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1978
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[ПРИСТРІЙ…] — програма для сканування"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1977
+#: src/simple-scan.vala:1988
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
