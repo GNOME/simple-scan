@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2026-01-27 18:58+0000\n"
-"PO-Revision-Date: 2026-02-23 16:15+0100\n"
+"POT-Creation-Date: 2026-09-01 20:26+0000\n"
+"PO-Revision-Date: 2026-09-04 17:24+0200\n"
 "Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict@ludost.net>\n"
 "Language: bg\n"
@@ -25,7 +25,7 @@ msgstr ""
 #. Title of scan window
 #: data/org.gnome.SimpleScan.desktop.in:2
 #: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
-#: src/app-window.vala:1280
+#: src/app-window.vala:1291
 msgid "Document Scanner"
 msgstr "Сканиране на документи"
 
@@ -212,8 +212,9 @@ msgstr ""
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "Тази програма ползва SANE за поддръжката на повечето скенери."
 
-#. developer_name tag deprecated with Appstream 1.0
+#. developer_name tag deprecaIf multiple pages in book-view the horizontal scroll bar is not shown, except a resize event occurs.ted with Appstream 1.0
 #: data/org.gnome.SimpleScan.metainfo.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:46
 msgid "The GNOME Project"
 msgstr "Проектът GNOME"
 
@@ -379,7 +380,7 @@ msgid "_Password"
 msgstr "_Парола"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
-#: src/app-window.vala:684
+#: src/app-window.vala:688
 msgid "_Cancel"
 msgstr "_Отмяна"
 
@@ -616,18 +617,36 @@ msgstr "Допълнителна обработка"
 msgid "_Enable Postprocessing"
 msgstr "_Допълнителна обработка"
 
+#: data/ui/preferences-dialog.ui:186
+msgid ""
+"Run a custom post-processing script after saving a document. This can be "
+"used for Optical Character Recognition using ocrmypdf (if installed) with "
+"the \"simple-scan-postprocessing.sh\" script, for example."
+msgstr ""
+"Изпълнение на скрипт за обработка след запазване на документ. Напр. текстът "
+"в документа може да се разчете автоматично със скрипта „simple-scan-"
+"postprocessing.sh“ чрез „ocrmypdf“, стига да е инсталиран."
+
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:204
 msgid "_Script"
 msgstr "_Скрипт"
 
+#: data/ui/preferences-dialog.ui:215
+msgid "E.g.: /usr/bin/simple-scan-postprocessing.sh"
+msgstr "Напр.: /usr/bin/simple-scan-postprocessing.sh"
+
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:222
+#: data/ui/preferences-dialog.ui:224
 msgid "_Script arguments"
 msgstr "_Аргументи на скрипта"
 
+#: data/ui/preferences-dialog.ui:235
+msgid "E.g.: --force-ocr"
+msgstr "Напр.: --force-ocr"
+
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:241
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "_Запазване на оригинала"
 
@@ -716,7 +735,7 @@ msgstr "_Да"
 msgid "Save As…"
 msgstr "Запазване като…"
 
-#: src/app-window.vala:391 src/app-window.vala:685
+#: src/app-window.vala:391 src/app-window.vala:689
 msgid "_Save"
 msgstr "_Запазване"
 
@@ -769,47 +788,52 @@ msgstr "Неуспешно съхраняване на файла"
 msgid "Failed to run postprocessing"
 msgstr "Допълнителната обработка не може да се изпълни"
 
-#: src/app-window.vala:664
+#: src/app-window.vala:669
 msgid "Document Saved"
 msgstr "Документът е запазен"
 
-#: src/app-window.vala:665
+#: src/app-window.vala:670
 msgid "Open Folder"
 msgstr "Отваряне на папката"
 
-#: src/app-window.vala:681
+#: src/app-window.vala:685
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Ако не запазите, промените ще бъдат изгубени."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:729
+#: src/app-window.vala:733
 msgid "Save current document?"
 msgstr "Да се запази ли текущият документ?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:731
+#: src/app-window.vala:735
 msgid "_Discard Changes"
 msgstr "_Отказване на промените"
 
 #. Label shown when scan started
-#: src/app-window.vala:799
+#: src/app-window.vala:803
 msgid "Contacting Scanner…"
 msgstr "Свързване със скенера…"
 
-#: src/app-window.vala:911
+#: src/app-window.vala:919
 msgid "Scan a Single Page"
 msgstr "Сканиране на единична страница със скенера"
 
-#: src/app-window.vala:916 src/app-window.vala:921
+#: src/app-window.vala:924 src/app-window.vala:929
 msgid "Scan Multiple Pages"
 msgstr "Сканиране на множество страници със скенера"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1036
+#: src/app-window.vala:1044
 msgid "Unable to save image for preview"
 msgstr "Изображението не може да се запази за предварителен преглед"
 
-#: src/app-window.vala:1277
+#. Title of error dialog when email document failed
+#: src/app-window.vala:1226
+msgid "Failed to email document"
+msgstr "Неуспешно изпращане на документ по е-поща"
+
+#: src/app-window.vala:1288
 msgid "translator-credits"
 msgstr ""
 "Светослав Стефанов &lt;<a "
@@ -835,50 +859,50 @@ msgstr ""
 "<a href='https://launchpad.net/~vonodna'>Филип Андонов</a>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1298
+#: src/app-window.vala:1309
 msgid "Save document before quitting?"
 msgstr "Да се запази ли документът преди спирането на програмата?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1300
+#: src/app-window.vala:1311
 msgid "_Quit without Saving"
 msgstr "Спиране _без запазване"
 
-#: src/app-window.vala:1412
+#: src/app-window.vala:1423
 msgid "_Email…"
 msgstr "_E-поща…"
 
-#: src/app-window.vala:1413
+#: src/app-window.vala:1424
 msgid "Pri_nt…"
 msgstr "_Печат…"
 
-#: src/app-window.vala:1414
+#: src/app-window.vala:1425
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "П_реподреждане на страниците…"
 
-#: src/app-window.vala:1417
+#: src/app-window.vala:1428
 msgid "_Preferences"
 msgstr "_Настройки"
 
-#: src/app-window.vala:1418
+#: src/app-window.vala:1429
 msgid "_Keyboard Shortcuts"
 msgstr "_Клавишни комбинации"
 
-#: src/app-window.vala:1419
+#: src/app-window.vala:1430
 msgid "_Help"
 msgstr "Помо_щ"
 
-#: src/app-window.vala:1420
+#: src/app-window.vala:1431
 msgid "_About Document Scanner"
 msgstr "_Относно „Сканиране на документи“"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1607
+#: src/app-window.vala:1652
 msgid "Cancel"
 msgstr "Отмяна"
 
-#: src/book.vala:392 src/book.vala:398
+#: src/book.vala:394 src/book.vala:400
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Страница %i не може да се кодира"
@@ -1123,22 +1147,22 @@ msgstr ""
 "Поправяне на документи PDF, създадени с по-стари версии на тази програма"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1768
+#: src/simple-scan.vala:1779
 msgid "Failed to scan"
 msgstr "Неуспешно сканиране"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1783
+#: src/simple-scan.vala:1794
 msgid "Scan in progress"
 msgstr "В момента се сканира"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1978
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[УСТРОЙСТВО…] — инструмент за сканиране"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1977
+#: src/simple-scan.vala:1988
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
