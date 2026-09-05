@@ -9,8 +9,8 @@
 msgid ""
 msgstr "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2026-01-27 18:58+0000\n"
-"PO-Revision-Date: 2026-02-01 10:00+0100\n"
+"POT-Creation-Date: 2026-09-01 20:26+0000\n"
+"PO-Revision-Date: 2026-010:00+0100\n"
 "Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -22,7 +22,7 @@ msgstr "Project-Id-Version: simple-scan\n"
 #. Title of scan window
 #: data/org.gnome.SimpleScan.desktop.in:2
 #: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
-#: src/app-window.vala:1280
+#: src/app-window.vala:1291
 msgid "Document Scanner"
 msgstr "Dokumentuen eskanerra"
 
@@ -194,8 +194,9 @@ msgstr "Testuak eta irudiak aldi berean eskaneatzeko modu erraza. Irudi baten za
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr "Aplikazio honek SANE lan-markoa erabiltzen du dauden eskaner gehienei sostengua emateko."
 
-#. developer_name tag deprecated with Appstream 1.0
+#. developer_name tag deprecaIf multiple pages in book-view the horizontal scroll bar is not shown, except a resize event occurs.ted with Appstream 1.0
 #: data/org.gnome.SimpleScan.metainfo.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:46
 msgid "The GNOME Project"
 msgstr "GNOME proiektua"
 
@@ -361,7 +362,7 @@ msgid "_Password"
 msgstr "_Pasahitza"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
-#: src/app-window.vala:684
+#: src/app-window.vala:688
 msgid "_Cancel"
 msgstr "_Utzi"
 
@@ -598,18 +599,33 @@ msgstr "Postprozesatzea"
 msgid "_Enable Postprocessing"
 msgstr "_Gaitu postprozesatzea"
 
+#: data/ui/preferences-dialog.ui:186
+msgid ""
+"Run a custom post-processing script after saving a document. This can be "
+"used for Optical Character Recognition using ocrmypdf (if installed) with "
+"the \"simple-scan-postprocessing.sh\" script, for example."
+msgstr "Exekutatu posprozesatze-scripta dokumentu bat gorde ondoren. Karaktereen ezagutza optikorako erabili daiteke adibidez ocrmypdf erabiliz (instalatuta badago), \"simple-scan-postprocessing.sh\" scriptarekin.."
+
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:204
 msgid "_Script"
 msgstr "_Scripta"
 
+#: data/ui/preferences-dialog.ui:215
+msgid "E.g.: /usr/bin/simple-scan-postprocessing.sh"
+msgstr "Adibidez: /usr/bin/simple-scan-postprocessing.sh"
+
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:222
+#: data/ui/preferences-dialog.ui:224
 msgid "_Script arguments"
 msgstr "_Script-argumentuak"
 
+#: data/ui/preferences-dialog.ui:235
+msgid "E.g.: --force-ocr"
+msgstr "Adibidez: --force-ocr"
+
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:241
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "_Mantendu jatorrizko fitxategia"
 
@@ -697,7 +713,7 @@ msgstr "_Bai"
 msgid "Save As…"
 msgstr "Gorde honela…"
 
-#: src/app-window.vala:391 src/app-window.vala:685
+#: src/app-window.vala:391 src/app-window.vala:689
 msgid "_Save"
 msgstr "_Gorde"
 
@@ -750,95 +766,100 @@ msgstr "Huts egin du fitxategia gordetzeak"
 msgid "Failed to run postprocessing"
 msgstr "Huts egin du postprozesua exekutatzeak"
 
-#: src/app-window.vala:664
+#: src/app-window.vala:669
 msgid "Document Saved"
 msgstr "Dokumentua gorde da"
 
-#: src/app-window.vala:665
+#: src/app-window.vala:670
 msgid "Open Folder"
 msgstr "Ireki karpeta"
 
-#: src/app-window.vala:681
+#: src/app-window.vala:685
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Gordetzen ez baduzu, aldaketak betiko galduko dira."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:729
+#: src/app-window.vala:733
 msgid "Save current document?"
 msgstr "Gorde uneko dokumentua?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:731
+#: src/app-window.vala:735
 msgid "_Discard Changes"
 msgstr "Ba_ztertu aldaketak"
 
 #. Label shown when scan started
-#: src/app-window.vala:799
+#: src/app-window.vala:803
 msgid "Contacting Scanner…"
 msgstr "Eskanerrarekin kontaktuan jartzen…"
 
-#: src/app-window.vala:911
+#: src/app-window.vala:919
 msgid "Scan a Single Page"
 msgstr "Eskaneatu orrialde bakarra"
 
-#: src/app-window.vala:916 src/app-window.vala:921
+#: src/app-window.vala:924 src/app-window.vala:929
 msgid "Scan Multiple Pages"
 msgstr "Eskaneatu orrialde anitz"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1036
+#: src/app-window.vala:1044
 msgid "Unable to save image for preview"
 msgstr "Ezin izan da aurrebistarako irudia gorde"
 
-#: src/app-window.vala:1277
+#. Title of error dialog when email document failed
+#: src/app-window.vala:1226
+msgid "Failed to email document"
+msgstr "Huts egin du dokumentua posta bidez bidaltzeak"
+
+#: src/app-window.vala:1288
 msgid "translator-credits"
 msgstr "Asier Saratsua Garmendia <asiersarasua@ni.eus>"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1298
+#: src/app-window.vala:1309
 msgid "Save document before quitting?"
 msgstr "Gorde dokumentua irten baino lehen?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1300
+#: src/app-window.vala:1311
 msgid "_Quit without Saving"
 msgstr "_Irten gorde gabe"
 
-#: src/app-window.vala:1412
+#: src/app-window.vala:1423
 msgid "_Email…"
 msgstr "Posta _elektronikoa…"
 
-#: src/app-window.vala:1413
+#: src/app-window.vala:1424
 msgid "Pri_nt…"
 msgstr "I_nprimatu…"
 
-#: src/app-window.vala:1414
+#: src/app-window.vala:1425
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "Be_rrordenatu orrialdeak…"
 
-#: src/app-window.vala:1417
+#: src/app-window.vala:1428
 msgid "_Preferences"
 msgstr "_Hobespenak"
 
-#: src/app-window.vala:1418
+#: src/app-window.vala:1429
 msgid "_Keyboard Shortcuts"
 msgstr "Las_ter-teklak"
 
-#: src/app-window.vala:1419
+#: src/app-window.vala:1430
 msgid "_Help"
 msgstr "_Laguntza"
 
-#: src/app-window.vala:1420
+#: src/app-window.vala:1431
 msgid "_About Document Scanner"
 msgstr "Dokumentuen eskanerrari _buruz"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1607
+#: src/app-window.vala:1652
 msgid "Cancel"
 msgstr "Utzi"
 
-#: src/book.vala:392 src/book.vala:398
+#: src/book.vala:394 src/book.vala:400
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Ezin da %i. orria kodetu"
@@ -1062,22 +1083,22 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Konpondu aplikazio honen bertsio zaharragoekin sortutako PDF fitxategiak"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1768
+#: src/simple-scan.vala:1779
 msgid "Failed to scan"
 msgstr "Ezin izan da eskaneatu"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1783
+#: src/simple-scan.vala:1794
 msgid "Scan in progress"
 msgstr "Eskaneatzea abian"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1978
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[DEVICE…] — Eskaneatze-tresna"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1977
+#: src/simple-scan.vala:1988
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "Exekutatu “%s --help“ komando-lerroko aukera erabilgarrien zerrenda ikusteko."
