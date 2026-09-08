@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2026-01-27 18:58+0000\n"
+"POT-Creation-Date: 2026-09-01 20:26+0000\n"
 "PO-Revision-Date: 2026-01-28 10:37+0100\n"
 "Last-Translator: Antonio Marin <gnmer.6qxyg@slmail.me>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
@@ -27,7 +27,7 @@ msgstr ""
 #. Title of scan window
 #: data/org.gnome.SimpleScan.desktop.in:2
 #: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
-#: src/app-window.vala:1280
+#: src/app-window.vala:1291
 msgid "Document Scanner"
 msgstr "Scaner de documente"
 
@@ -217,8 +217,9 @@ msgstr ""
 "Această aplicație folosește platforma SANE pentru compatibilitate cu "
 "majoritatea scanerelor existente."
 
-#. developer_name tag deprecated with Appstream 1.0
+#. developer_name tag deprecaIf multiple pages in book-view the horizontal scroll bar is not shown, except a resize event occurs.ted with Appstream 1.0
 #: data/org.gnome.SimpleScan.metainfo.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:46
 msgid "The GNOME Project"
 msgstr "Proiectul GNOME"
 
@@ -384,7 +385,7 @@ msgid "_Password"
 msgstr "_Parola"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
-#: src/app-window.vala:684
+#: src/app-window.vala:688
 msgid "_Cancel"
 msgstr "_Anulează"
 
@@ -621,18 +622,33 @@ msgstr "Postprocesare"
 msgid "_Enable Postprocessing"
 msgstr "Activ_ează postprocesarea"
 
+#: data/ui/preferences-dialog.ui:186
+msgid ""
+"Run a custom post-processing script after saving a document. This can be "
+"used for Optical Character Recognition using ocrmypdf (if installed) with "
+"the \"simple-scan-postprocessing.sh\" script, for example."
+msgstr "Execută un script de post-procesare personalizat după salvarea documentului. Acesta poate fi folosit, de exemplu, pentru recunoașterea optică a caracterelor (OCR) cu ocrmypdf (dacă este instalat), folosind, de exemplu, scriptul „simple-scan-postprocessing.sh”."
+
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:204
 msgid "_Script"
 msgstr "_Script"
 
+#: data/ui/preferences-dialog.ui:215
+msgid "E.g.: /usr/bin/simple-scan-postprocessing.sh"
+msgstr "Ex.: /usr/bin/simple-scan-postprocessing.sh"
+
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:222
+#: data/ui/preferences-dialog.ui:224
 msgid "_Script arguments"
 msgstr "Argumente de _script"
 
+#: data/ui/preferences-dialog.ui:235
+msgid "E.g.: --force-ocr"
+msgstr "Ex.: --force-ocr"
+
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:241
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "Păstr_ează fișierul original"
 
@@ -722,7 +738,7 @@ msgstr "_Da"
 msgid "Save As…"
 msgstr "Salvează ca…"
 
-#: src/app-window.vala:391 src/app-window.vala:685
+#: src/app-window.vala:391 src/app-window.vala:689
 msgid "_Save"
 msgstr "_Salvează"
 
@@ -775,47 +791,52 @@ msgstr "Salvarea fișierului a eșuat"
 msgid "Failed to run postprocessing"
 msgstr "Nu s-a putut porni postprocesarea"
 
-#: src/app-window.vala:664
+#: src/app-window.vala:669
 msgid "Document Saved"
 msgstr "Document salvat"
 
-#: src/app-window.vala:665
+#: src/app-window.vala:670
 msgid "Open Folder"
 msgstr "Deschide dosarul"
 
-#: src/app-window.vala:681
+#: src/app-window.vala:685
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Dacă nu sunt salvate, modificările vor fi pierdute definitiv."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:729
+#: src/app-window.vala:733
 msgid "Save current document?"
 msgstr "Salvez documentul actual?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:731
+#: src/app-window.vala:735
 msgid "_Discard Changes"
 msgstr "_Nu salva"
 
 #. Label shown when scan started
-#: src/app-window.vala:799
+#: src/app-window.vala:803
 msgid "Contacting Scanner…"
 msgstr "Se contactează scanerul…"
 
-#: src/app-window.vala:911
+#: src/app-window.vala:919
 msgid "Scan a Single Page"
 msgstr "Scanează o singură pagină"
 
-#: src/app-window.vala:916 src/app-window.vala:921
+#: src/app-window.vala:924 src/app-window.vala:929
 msgid "Scan Multiple Pages"
 msgstr "Scanează pagini multiple"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1036
+#: src/app-window.vala:1044
 msgid "Unable to save image for preview"
 msgstr "Nu se poate salva imaginea pentru a prezenta o previzualizare"
 
-#: src/app-window.vala:1277
+#. Title of error dialog when email document failed
+#: src/app-window.vala:1226
+msgid "Failed to email document"
+msgstr "Nu s-a putut trimite documentul prin e-mail"
+
+#: src/app-window.vala:1288
 msgid "translator-credits"
 msgstr ""
 "Florentina Mușat <florentina [dot] musat [dot] 28 [at] gmail [dot] com>\n"
@@ -833,50 +854,50 @@ msgstr ""
 "  sfantu https://launchpad.net/~sfantus1"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1298
+#: src/app-window.vala:1309
 msgid "Save document before quitting?"
 msgstr "Salvez documentul înainte de închidere?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1300
+#: src/app-window.vala:1311
 msgid "_Quit without Saving"
 msgstr "Î_nchide fără a salva"
 
-#: src/app-window.vala:1412
+#: src/app-window.vala:1423
 msgid "_Email…"
 msgstr "_E-mail…"
 
-#: src/app-window.vala:1413
+#: src/app-window.vala:1424
 msgid "Pri_nt…"
 msgstr "_Tipărește…"
 
-#: src/app-window.vala:1414
+#: src/app-window.vala:1425
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "_Rearanjează paginile…"
 
-#: src/app-window.vala:1417
+#: src/app-window.vala:1428
 msgid "_Preferences"
 msgstr "_Preferințe"
 
-#: src/app-window.vala:1418
+#: src/app-window.vala:1429
 msgid "_Keyboard Shortcuts"
 msgstr "Scurtăt_uri"
 
-#: src/app-window.vala:1419
+#: src/app-window.vala:1430
 msgid "_Help"
 msgstr "Ajut_or"
 
-#: src/app-window.vala:1420
+#: src/app-window.vala:1431
 msgid "_About Document Scanner"
 msgstr "Despre Sc_aner de documente"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1607
+#: src/app-window.vala:1652
 msgid "Cancel"
 msgstr "Anulează"
 
-#: src/book.vala:392 src/book.vala:398
+#: src/book.vala:394 src/book.vala:400
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Nu s-a putut codifica pagina %i"
@@ -1122,22 +1143,22 @@ msgstr ""
 "Repară fișierele PDF generate cu versiuni mai vechi ale acestei aplicații"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1768
+#: src/simple-scan.vala:1779
 msgid "Failed to scan"
 msgstr "Scanarea a eșuat"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1783
+#: src/simple-scan.vala:1794
 msgid "Scan in progress"
 msgstr "Scanare în curs"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1978
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[APARAT…] — Pentru scanare"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1977
+#: src/simple-scan.vala:1988
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
