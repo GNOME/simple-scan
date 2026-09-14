@@ -4,36 +4,42 @@
 # Борисав Живановић <borisavzivanovic@gmail.com>, 2017.
 # Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011—2022.
 # Марко М. Костић <marko.m.kostic@gmail.com>, 2024.
-# aceydot <aceydot@tuta.io>, 2025.
+# aceydot <aceydot@proton.me>, 2025-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2026-01-27 18:58+0000\n"
-"PO-Revision-Date: 2026-03-16 21:03+0100\n"
-"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
+"POT-Creation-Date: 2026-09-01 20:26+0000\n"
+"PO-Revision-Date: 2026-09-03 18:25+0200\n"
+"Last-Translator: aceydot <aceydot@proton.me>\n"
 "Language-Team: Serbian <српски <gnome-sr@googlegroups.org>>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Poedit 3.9\n"
 
 #. Title of scan window
-#: data/org.gnome.SimpleScan.desktop.in:2 data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138 src/app-window.vala:1280
+#: data/org.gnome.SimpleScan.desktop.in:2
+#: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
+#: src/app-window.vala:1291
 msgid "Document Scanner"
 msgstr "Скенер докумената"
 
-#: data/org.gnome.SimpleScan.desktop.in:3 data/org.gnome.SimpleScan.metainfo.xml.in:7
+#: data/org.gnome.SimpleScan.desktop.in:3
+#: data/org.gnome.SimpleScan.metainfo.xml.in:7
 msgid "Make a digital copy of your photos and documents"
 msgstr "Направите дигитални примерак ваших фотографија и докумената"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.SimpleScan.desktop.in:5
 msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr "scan;scanner;flatbed;adf;simple-scan;simplescan;скенирање;скенер;копирање;skeniranje;skener;kopiranje;"
+msgstr ""
+"scan;scanner;flatbed;adf;simple-"
+"scan;simplescan;скенирање;скенер;копирање;skeniranje;skener;kopiranje;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -41,31 +47,43 @@ msgstr "Уређај са кога се скенира"
 
 #: data/org.gnome.SimpleScan.gschema.xml:12
 msgid "SANE device to acquire images from."
-msgstr "САНЕ уређај са кога се преузимају слике."
+msgstr "SANE уређај са кога се преузимају слике."
 
 #: data/org.gnome.SimpleScan.gschema.xml:20
 msgid "Type of document being scanned"
 msgstr "Врста документа који се скенира"
 
 #: data/org.gnome.SimpleScan.gschema.xml:21
-msgid "Type of document being scanned. This setting decides on the scan resolution, colors and post-processing."
-msgstr "Врста документа који се скенира. Ово подешавање утиче на резолуцију, боје и накнадну обраду."
+msgid ""
+"Type of document being scanned. This setting decides on the scan resolution, "
+"colors and post-processing."
+msgstr ""
+"Врста документа који се скенира. Ово подешавање утиче на резолуцију, боје и "
+"накнадну обраду."
 
 #: data/org.gnome.SimpleScan.gschema.xml:25
 msgid "Width of paper in tenths of a mm"
 msgstr "Ширина папира у десетим деловима милиметра"
 
 #: data/org.gnome.SimpleScan.gschema.xml:26
-msgid "The width of the paper in tenths of a mm (or 0 for automatic paper detection)."
-msgstr "Ширина папира у десетим деловима милиметра (унети 0 за аутоматско препознавање папира)."
+msgid ""
+"The width of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+"Ширина папира у десетим деловима милиметра (унети 0 за аутоматско "
+"препознавање папира)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:30
 msgid "Height of paper in tenths of a mm"
 msgstr "Висина папира у десетим деловима милиметра"
 
 #: data/org.gnome.SimpleScan.gschema.xml:31
-msgid "The height of the paper in tenths of a mm (or 0 for automatic paper detection)."
-msgstr "Висина папира у десетим деловима милиметра (унети 0 за аутоматско препознавање папира)."
+msgid ""
+"The height of the paper in tenths of a mm (or 0 for automatic paper "
+"detection)."
+msgstr ""
+"Висина папира у десетим деловима милиметра (унети 0 за аутоматско "
+"препознавање папира)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:35
 msgid "Brightness of scan"
@@ -89,7 +107,8 @@ msgstr "Резолуција скенирања текста"
 
 #: data/org.gnome.SimpleScan.gschema.xml:46
 msgid "The resolution in dots-per-inch to use when scanning text."
-msgstr "Резолуција у тачкама по инчу која ће се користити приликом скенирања текста."
+msgstr ""
+"Резолуција у тачкама по инчу која ће се користити приликом скенирања текста."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
 msgid "Resolution for image scans"
@@ -97,7 +116,8 @@ msgstr "Резолуција скенирања слика"
 
 #: data/org.gnome.SimpleScan.gschema.xml:51
 msgid "The resolution in dots-per-inch to use when scanning images."
-msgstr "Резолуција у тачкама по инчу која ће се користити приликом скенирања слика."
+msgstr ""
+"Резолуција у тачкама по инчу која ће се користити приликом скенирања слика."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -112,16 +132,23 @@ msgid "Directory to save files to"
 msgstr "Директоријум за чување датотека"
 
 #: data/org.gnome.SimpleScan.gschema.xml:61
-msgid "The directory to save files to. Defaults to the documents directory if unset."
-msgstr "Директоријум у који се чувају датотеке. Подразумева се директоријум за документе ако није постављено."
+msgid ""
+"The directory to save files to. Defaults to the documents directory if unset."
+msgstr ""
+"Директоријум у који се чувају датотеке. Подразумева се директоријум за "
+"документе ако није постављено."
 
 #: data/org.gnome.SimpleScan.gschema.xml:65
 msgid "File format that is used for saving image files"
 msgstr "Формат датотеке који се користи за чување слика"
 
 #: data/org.gnome.SimpleScan.gschema.xml:66
-msgid "MIME type that is used for saving image files. Examples of supported MIME types: image/jpeg, image/png, application/pdf"
-msgstr "МИМЕ врста која се користи за чување слика. Примери подржаних МИМЕ врста: image/jpeg, image/png, application/pdf"
+msgid ""
+"MIME type that is used for saving image files. Examples of supported MIME "
+"types: image/jpeg, image/png, application/pdf"
+msgstr ""
+"МИМЕ врста која се користи за чување слика. Примери подржаних МИМЕ врста: "
+"image/jpeg, image/png, application/pdf"
 
 #: data/org.gnome.SimpleScan.gschema.xml:71
 msgid "Quality value to use for JPEG compression"
@@ -168,19 +195,32 @@ msgid "Whether or not to keep the original, unprocessed file"
 msgstr "Да ли треба задржати изворну, необрађену датотеку"
 
 #: data/org.gnome.SimpleScan.gschema.xml:98
-msgid "Whether or not to keep the original, unprocessed file. The \"_orig\" filename will be added to the filename immediately before the file extension."
-msgstr "Да ли треба задржати изворну, необрађену датотеку. Суфикс \"_orig\" биће додат називу датотеке одмах пре проширења датотеке."
+msgid ""
+"Whether or not to keep the original, unprocessed file. The \"_orig\" "
+"filename will be added to the filename immediately before the file extension."
+msgstr ""
+"Да ли треба задржати изворну, необрађену датотеку. Суфикс \"_orig\" биће "
+"додат називу датотеке одмах пре проширења датотеке."
 
 #: data/org.gnome.SimpleScan.metainfo.xml.in:9
-msgid "A really easy way to scan both text and images. You can crop out the bad parts of an image and rotate it if it is the wrong way round. You can print your scans, export them to pdf, or save them in a range of image formats."
-msgstr "Веома једноставан начин за скенирање текста и слика. Можете исећи лоше делове слике и ротирати је ако је окренута на погрешну страну. Можете штампати скениране снимке, извести их у ПДФ или их сачувати у великом избору формата слика."
+msgid ""
+"A really easy way to scan both text and images. You can crop out the bad "
+"parts of an image and rotate it if it is the wrong way round. You can print "
+"your scans, export them to pdf, or save them in a range of image formats."
+msgstr ""
+"Веома једноставан начин за скенирање текста и слика. Можете исећи лоше "
+"делове слике и ротирати је ако је окренута на погрешну страну. Можете "
+"штампати скениране снимке, извести их у ПДФ или их сачувати у великом избору "
+"формата слика."
 
 #: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
-msgstr "Овај програм користи САНЕ радни оквир као подршку за велики број скенера."
+msgstr ""
+"Овај програм користи SANE радни оквир као подршку за велики број скенера."
 
-#. developer_name tag deprecated with Appstream 1.0
+#. developer_name tag deprecaIf multiple pages in book-view the horizontal scroll bar is not shown, except a resize event occurs.ted with Appstream 1.0
 #: data/org.gnome.SimpleScan.metainfo.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:46
 msgid "The GNOME Project"
 msgstr "Гномов пројекат"
 
@@ -345,7 +385,8 @@ msgstr "_Корисничко име за ресурс"
 msgid "_Password"
 msgstr "_Лозинка"
 
-#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535 src/app-window.vala:684
+#: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
+#: src/app-window.vala:688
 msgid "_Cancel"
 msgstr "От_кажи"
 
@@ -582,18 +623,36 @@ msgstr "Накнадна обрада"
 msgid "_Enable Postprocessing"
 msgstr "Омо_гући накнадну обраду"
 
+#: data/ui/preferences-dialog.ui:186
+msgid ""
+"Run a custom post-processing script after saving a document. This can be "
+"used for Optical Character Recognition using ocrmypdf (if installed) with "
+"the \"simple-scan-postprocessing.sh\" script, for example."
+msgstr ""
+"Покреће произвољну скрипту за накнадну обраду након чувања документа. Ово се "
+"може користити за оптичко препознавање знакова (OCR) помоћу ocrmypdf-a (ако "
+"је инсталиран), на пример скриптом „simple-scan-postprocessing.sh\"."
+
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:204
 msgid "_Script"
 msgstr "_Скрипта"
 
+#: data/ui/preferences-dialog.ui:215
+msgid "E.g.: /usr/bin/simple-scan-postprocessing.sh"
+msgstr "Нпр.: /usr/bin/simple-scan-postprocessing.sh"
+
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:222
+#: data/ui/preferences-dialog.ui:224
 msgid "_Script arguments"
 msgstr "Аргументи _скрипте"
 
+#: data/ui/preferences-dialog.ui:235
+msgid "E.g.: --force-ocr"
+msgstr "Нпр.: --force-ocr"
+
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:241
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "Задржи изворну датоте_ку"
 
@@ -649,8 +708,11 @@ msgstr "Потребан је додатни софтвер"
 
 #. Instructions to install driver software
 #: src/app-window.vala:249
-msgid "You need to <a href=\"install-firmware\">install driver software</a> for your scanner"
-msgstr "Треба да <a href=\"install-firmware\">инсталирате управљача</a> за ваш скенер"
+msgid ""
+"You need to <a href=\"install-firmware\">install driver software</a> for "
+"your scanner"
+msgstr ""
+"Треба да <a href=\"install-firmware\">инсталирате управљаче</a> за ваш скенер"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:256
@@ -679,7 +741,7 @@ msgstr "_Да"
 msgid "Save As…"
 msgstr "Сачувај као…"
 
-#: src/app-window.vala:391 src/app-window.vala:685
+#: src/app-window.vala:391 src/app-window.vala:689
 msgid "_Save"
 msgstr "_Сачувај"
 
@@ -725,54 +787,59 @@ msgstr "Чување"
 #. Title of error dialog when save failed
 #: src/app-window.vala:641
 msgid "Failed to save file"
-msgstr "Чување датотеке није успело"
+msgstr "Не могу да сачувам датотеку"
 
 #. Title of error dialog when postprocessing failed
 #: src/app-window.vala:658
 msgid "Failed to run postprocessing"
 msgstr "Не могу да покренем накнадну обраду"
 
-#: src/app-window.vala:664
+#: src/app-window.vala:669
 msgid "Document Saved"
 msgstr "Документ је сачуван"
 
-#: src/app-window.vala:665
+#: src/app-window.vala:670
 msgid "Open Folder"
 msgstr "Отвори фасциклу"
 
-#: src/app-window.vala:681
+#: src/app-window.vala:685
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Ако не сачувате, измене ће бити трајно изгубљене."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:729
+#: src/app-window.vala:733
 msgid "Save current document?"
 msgstr "Сачувати тренутни документ?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:731
+#: src/app-window.vala:735
 msgid "_Discard Changes"
 msgstr "О_дбаци измене"
 
 #. Label shown when scan started
-#: src/app-window.vala:799
+#: src/app-window.vala:803
 msgid "Contacting Scanner…"
 msgstr "Контактирам скенер…"
 
-#: src/app-window.vala:911
+#: src/app-window.vala:919
 msgid "Scan a Single Page"
 msgstr "Скенирај једну страницу"
 
-#: src/app-window.vala:916 src/app-window.vala:921
+#: src/app-window.vala:924 src/app-window.vala:929
 msgid "Scan Multiple Pages"
 msgstr "Скенирање више страница"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1036
+#: src/app-window.vala:1044
 msgid "Unable to save image for preview"
-msgstr "Чување пробне слике није успело"
+msgstr "Не могу да сачувам пробну слику"
 
-#: src/app-window.vala:1277
+#. Title of error dialog when email document failed
+#: src/app-window.vala:1226
+msgid "Failed to email document"
+msgstr "Не могу да пошаљем документ е-поштом"
+
+#: src/app-window.vala:1288
 msgid "translator-credits"
 msgstr ""
 "  Ivan Petrovic https://launchpad.net/~ivanpetrovic\n"
@@ -785,53 +852,54 @@ msgstr ""
 "Српски тим на Гномовој преводилачкој платформи:\n"
 "  Борисав Живановић <borisavzivanovic@gmail.com>\n"
 "  Марко М. Костић <marko.m.kostic@gmail.com>\n"
+"  aceydot <aceydot@proton.me>\n"
 "  https://гном.срб - превод Гнома на српски језик."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1298
+#: src/app-window.vala:1309
 msgid "Save document before quitting?"
 msgstr "Да сачувам документ пре него што изађем?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1300
+#: src/app-window.vala:1311
 msgid "_Quit without Saving"
 msgstr "_Изађи без чувања"
 
-#: src/app-window.vala:1412
+#: src/app-window.vala:1423
 msgid "_Email…"
 msgstr "_Е-пошта…"
 
-#: src/app-window.vala:1413
+#: src/app-window.vala:1424
 msgid "Pri_nt…"
 msgstr "Шта_мпај…"
 
-#: src/app-window.vala:1414
+#: src/app-window.vala:1425
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "П_ромени редослед страница…"
 
-#: src/app-window.vala:1417
+#: src/app-window.vala:1428
 msgid "_Preferences"
 msgstr "_Поставке"
 
-#: src/app-window.vala:1418
+#: src/app-window.vala:1429
 msgid "_Keyboard Shortcuts"
 msgstr "Пречице на та_статури"
 
-#: src/app-window.vala:1419
+#: src/app-window.vala:1430
 msgid "_Help"
 msgstr "По_моћ"
 
-#: src/app-window.vala:1420
+#: src/app-window.vala:1431
 msgid "_About Document Scanner"
 msgstr "О Скенеру докумен_ата"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1607
+#: src/app-window.vala:1652
 msgid "Cancel"
 msgstr "Откажи"
 
-#: src/book.vala:392 src/book.vala:398
+#: src/book.vala:394 src/book.vala:400
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Кодирање странице %i није могуће"
@@ -843,19 +911,35 @@ msgstr "Изгледа да имате Брадеров (Brother) скенер."
 
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
-msgid "Drivers for this are available on the <a href=\"http://support.brother.com\">Brother website</a>."
-msgstr "Управљачи се налазе на  <a href=\"http://support.brother.com\">вебсајту Брадера</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"http://"
+"support.brother.com\">Brother website</a>."
+msgstr ""
+"Управљачи се налазе на  <a href=\"http://support.brother.com\">веб-сајту "
+"Брадера</a>."
 
 #. Message to indicate a Canon Pixma scanner has been detected
 #: src/drivers-dialog.vala:82
-msgid "You appear to have a Canon scanner, which is supported by the <a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE backend</a>."
-msgstr "Изгледа да имате Кенонов (Canon) скенер који подржава <a href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE позадинац</a>."
+msgid ""
+"You appear to have a Canon scanner, which is supported by the <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
+"backend</a>."
+msgstr ""
+"Изгледа да имате Кенонов (Canon) скенер који подржава <a href=\"http://"
+"www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE позадинац</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/drivers-dialog.vala:84
 msgid ""
-"Please check if your <a href=\"http://www.sane-project.org/sane-supported-devices.html\">scanner is supported by SANE</a>, otherwise report the issue to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE mailing list</a>."
-msgstr "Проверите да ли је ваш <a href=\"http://www.sane-project.org/sane-supported-devices.html\">скенер подржан у SANE-у</a>, у супротном пријавите проблем на <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">SANE дописну листу</a>."
+"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
+"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
+"sane-devel\">SANE mailing list</a>."
+msgstr ""
+"Проверите да ли је ваш <a href=\"http://www.sane-project.org/sane-supported-"
+"devices.html\">скенер подржан у SANE-у</a>, у супротном пријавите проблем на "
+"<a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-"
+"devel\">SANE дописну листу</a>."
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/drivers-dialog.vala:88
@@ -865,8 +949,12 @@ msgstr "Изгледа да имате Самсунгов скенер."
 #. Instructions on how to install Samsung scanner drivers.
 #. Because HP acquired Samsung's global printing business in 2017, the support is made on HP site.
 #: src/drivers-dialog.vala:91
-msgid "Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a> (HP acquired Samsung's printing business)."
-msgstr "Управљачи су доступни на <a href=\"https://support.hp.com\">веб-сајту HP-а</a> (HP је купио Самсунгово пословање са штампачима)."
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a> (HP acquired Samsung's printing business)."
+msgstr ""
+"Управљачи су доступни на <a href=\"https://support.hp.com\">веб-сајту HP-а</"
+"a> (HP је купио Самсунгово пословање са штампачима)."
 
 #. Message to indicate a HP scanner has been detected
 #: src/drivers-dialog.vala:96
@@ -878,8 +966,12 @@ msgstr "Изгледа да имате ХП-ов скенер."
 #. for example: HP Laser MFP 135a is rebranded Samsung Xpress SL-M2070.
 #. It require custom drivers, not available in hpaio package
 #: src/drivers-dialog.vala:104
-msgid "Drivers for this are available on the <a href=\"https://support.hp.com\">HP website</a>."
-msgstr "Управљачи су доступни на <a href=\"https://support.hp.com\">веб-сајту HP-а</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"https://support.hp.com\">HP "
+"website</a>."
+msgstr ""
+"Управљачи су доступни на <a href=\"https://support.hp.com\">веб-сајту HP-а</"
+"a>."
 
 #. Message to indicate an Epson scanner has been detected
 #: src/drivers-dialog.vala:108
@@ -888,8 +980,12 @@ msgstr "Изгледа да имате Епсонов скенер."
 
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
-msgid "Drivers for this are available on the <a href=\"http://support.epson.com\">Epson website</a>."
-msgstr "Управљачи су доступни на <a href=\"http://support.epson.com\">веб-сајту Епсона</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"http://"
+"support.epson.com\">Epson website</a>."
+msgstr ""
+"Управљачи су доступни на <a href=\"http://support.epson.com\">веб-сајту "
+"Епсона</a>."
 
 #. Message to indicate a Lexmark scanner has been detected
 #: src/drivers-dialog.vala:114
@@ -898,8 +994,12 @@ msgstr "Изгледа да имате Лексмарков скенер."
 
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
-msgid "Drivers for this are available on the <a href=\"http://support.lexmark.com\">Lexmark website</a>."
-msgstr "Управљачи су доступни на <a href=\"http://support.lexmark.com\">веб-сајту Лексмарка</a>."
+msgid ""
+"Drivers for this are available on the <a href=\"http://"
+"support.lexmark.com\">Lexmark website</a>."
+msgstr ""
+"Управљачи су доступни на <a href=\"http://support.lexmark.com\">веб-сајту "
+"Лексмарка</a>."
 
 #. Label shown while installing drivers
 #: src/drivers-dialog.vala:130
@@ -997,7 +1097,7 @@ msgstr "Ниједан скенер није доступан. Повежите 
 #. Error displayed when cannot connect to scanner
 #: src/scanner.vala:931
 msgid "Unable to connect to scanner"
-msgstr "Није могуће повезивање са скенером"
+msgstr "Не могу да се повежем са скенером"
 
 #. Error displayed when no documents at the start of scanning
 #: src/scanner.vala:1376 src/scanner.vala:1511
@@ -1010,15 +1110,19 @@ msgstr "Држач папира је празан"
 #: src/scanner.vala:1385
 msgid ""
 "Insufficient memory to perform scan.\n"
-"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in <tt>Preferences</tt> menu. For some scanners when scanning in high resolution, the scan size is restricted."
+"Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
+"<tt>Preferences</tt> menu. For some scanners when scanning in high "
+"resolution, the scan size is restricted."
 msgstr ""
 "Недовољно меморије за скенирање.\n"
-"Пробајте да смањите <tt>резолуцију</tt> или <tt>величину странице</tt> у менију са <tt>поставкама</tt>. За неке скенери је величина скенирања ограничена при високим резолуцијама."
+"Пробајте да смањите <tt>резолуцију</tt> или <tt>величину странице</tt> у "
+"менију са <tt>поставкама</tt>. За неке скенере је величина скенирања "
+"ограничена при високим резолуцијама."
 
 #. Error display when unable to start scan
 #: src/scanner.vala:1398
 msgid "Unable to start scan"
-msgstr "Није могуће почети скенирање"
+msgstr "Не могу да почнем скенирање"
 
 #. Error displayed when communication with scanner broken
 #: src/scanner.vala:1411 src/scanner.vala:1521
@@ -1040,22 +1144,24 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Поправи ПДФ датотеке које су направила старија издања овог програма"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1768
+#: src/simple-scan.vala:1779
 msgid "Failed to scan"
 msgstr "Скенирање није успело"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1783
+#: src/simple-scan.vala:1794
 msgid "Scan in progress"
 msgstr "Скенирање у току"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1978
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[УРЕЂАЈ…] — Алат за скенирање"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1977
+#: src/simple-scan.vala:1988
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
-msgstr "Покрените „%s --help“ да бисте видели читав списак доступних опција командне линије."
+msgstr ""
+"Покрените „%s --help“ да бисте видели читав списак доступних опција командне "
+"линије."
