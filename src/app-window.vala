@@ -915,7 +915,7 @@ public class AppWindow : Adw.ApplicationWindow
         {
         case ScanType.SINGLE:
             scan_type_action.set_state ("single");
-            scan_button_content.icon_name = "scanner-symbolic";
+            scan_button_content.icon_name = "simple-scan-scanner-symbolic";
             scan_button.tooltip_text = _("Scan a Single Page");
             break;
         case ScanType.ADF:
