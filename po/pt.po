@@ -4,21 +4,22 @@
 # Juliano Camargo <julianosc@pm.me>, 2020.
 # Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 #
+# SPDX-FileCopyrightText: 2026 Cátia Silva <catias89@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
 "POT-Creation-Date: 2026-09-01 20:26+0000\n"
-"PO-Revision-Date: 2026-09-25 11:18+0100\n"
-"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
-"Language-Team: Portuguese <https://l10n.gnome.org/teams/pt/>\n"
+"PO-Revision-Date: 2026-09-25 18:24+0100\n"
+"Last-Translator: Cátia Silva <catias89@gmail.com>\n"
+"Language-Team: Portuguese Team\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #. Title of scan window
 #: data/org.gnome.SimpleScan.desktop.in:2
@@ -142,7 +143,7 @@ msgid ""
 "MIME type that is used for saving image files. Examples of supported MIME "
 "types: image/jpeg, image/png, application/pdf"
 msgstr ""
-"Tipo MIMI usado para gravar ficheiros de imagens. Exemplo de tipos MIME "
+"Tipo MIME usado para gravar ficheiros de imagens. Exemplo de tipos MIME "
 "suportados: imagem/jpeg, imagem/png, aplicação/pdf"
 
 #: data/org.gnome.SimpleScan.gschema.xml:71
@@ -205,8 +206,8 @@ msgid ""
 "your scans, export them to pdf, or save them in a range of image formats."
 msgstr ""
 "Uma forma muito fácil para digitalizar textos e imagens. Pode cortar as "
-"partes ruins da imagem e rodá-la caso esteja de ponta-cabeça. Pode imprimir "
-"as digitalizações, exportá-las em PDF, ou gravá-las numa multitude de "
+"partes ruins da imagem e roda-la caso esteja de ponta-cabeça. Pode imprimir "
+"as digitalizações, exporta-las em PDF, ou grava-las numa multitude de "
 "formatos de imagem."
 
 #: data/org.gnome.SimpleScan.metainfo.xml.in:14
@@ -627,10 +628,11 @@ msgid ""
 "used for Optical Character Recognition using ocrmypdf (if installed) with "
 "the \"simple-scan-postprocessing.sh\" script, for example."
 msgstr ""
-"Execute um script de pós-processamento personalizado após guardar um "
-"documento. Isto pode ser utilizado para o Reconhecimento Ótico de Caracteres "
-"(OCR) utilizando o ocrmypdf (se estiver instalado) com o script \"simple-"
-"scan-postprocessing.sh\", por exemplo."
+"Execute um script de pós-processamento personalizado após gravar um"
+" documento.\n"
+"Isto pode ser utilizado para o Reconhecimento Ótico de Caracteres através do"
+" ocrmypdf \n"
+"(se instalado), por exemplo, com o script \"simple-scan-postprocessing.sh\"."
 
 #. Label beside postprocesing script name entry
 #: data/ui/preferences-dialog.ui:204
@@ -639,7 +641,7 @@ msgstr "_Script"
 
 #: data/ui/preferences-dialog.ui:215
 msgid "E.g.: /usr/bin/simple-scan-postprocessing.sh"
-msgstr "Por exemplo: /usr/bin/simple-scan-postprocessing.sh"
+msgstr "P.ex.: /usr/bin/simple-scan-postprocessing.sh"
 
 #. Label beside postprocesing arguments entry
 #: data/ui/preferences-dialog.ui:224
@@ -648,7 +650,7 @@ msgstr "Argumentos do _script"
 
 #: data/ui/preferences-dialog.ui:235
 msgid "E.g.: --force-ocr"
-msgstr "Por exemplo: --force-ocr"
+msgstr "P.ex.: --force-ocr"
 
 #. Label beside keep keep original file radio
 #: data/ui/preferences-dialog.ui:244
@@ -836,14 +838,16 @@ msgstr "Incapaz de gravar imagem para pré-visualização"
 
 #. Title of error dialog when email document failed
 #: src/app-window.vala:1226
+#| msgid "Failed to save file"
 msgid "Failed to email document"
-msgstr "Falhou ao enviar o documento por e-mail"
+msgstr "Falha ao enviar o documento por e-mail"
 
 #: src/app-window.vala:1288
 msgid "translator-credits"
 msgstr ""
 "Juliano Camargo <julianosc@pm.me>\n"
-"Hugo Carvalho <hugokarvalho@hotmail.com>"
+"Hugo Carvalho <hugokarvalho@hotmail.com>\n"
+"Cátia Silva <catias89@gmail.com>"
 
 #. Text in dialog warning when a document is about to be lost
 #: src/app-window.vala:1309
@@ -1471,3 +1475,5 @@ msgstr ""
 
 #~ msgid "Select File _Type"
 #~ msgstr "Selecionar _tipo de ficheiro"
+
+
