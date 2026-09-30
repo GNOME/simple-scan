@@ -74,6 +74,10 @@ public class SimpleScan : Adw.Application
         try
         {
             usb_context = new GUsb.Context ();
+            /* GUsb only reports hotplug events once the devices have been
+               listed. Do it before connecting, as listing reports every device
+               that is already there. */
+            usb_context.enumerate ();
             usb_context.device_added.connect (() => { scanner.redetect (); });
             usb_context.device_removed.connect (() => { scanner.redetect (); });
         }
