@@ -343,6 +343,13 @@ public class Scanner : Object
 
     private void do_redetect ()
     {
+        /* A backend may free the devices it no longer finds, even one that is
+           still open, which leaves the handle pointing at freed memory. The
+           fujitsu backend does this when a scanner is switched off or wakes up
+           from standby under a new USB address. The next scan opens the
+           device again. */
+        close_handle ();
+
         unowned Sane.Device[] device_list = null;
         var status = Sane.get_devices (out device_list, false);
         debug ("sane_get_devices () -> %s", Sane.status_to_string (status));
@@ -817,7 +824,7 @@ public class Scanner : Object
         authorize_queue.push (credentials);
     }
 
-    private void close_device ()
+    private void close_handle ()
     {
         if (have_handle)
         {
@@ -829,6 +836,11 @@ public class Scanner : Object
             have_handle = false;
             options = null;
         }
+    }
+
+    private void close_device ()
+    {
+        close_handle ();
 
         buffer = null;
         job_queue = null;
