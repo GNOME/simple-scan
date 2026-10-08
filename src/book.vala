@@ -684,7 +684,7 @@ private class BookSaver
                    xmlns:xmp="http://ns.adobe.com/xap/1.0/">
     <pdfaid:part>1</pdfaid:part>
     <pdfaid:conformance>A</pdfaid:conformance>
-    <xmp:CreatorTool>Simple Scan %s</xmp:CreatorTool>
+    <xmp:CreatorTool>GNOME Document Scanner %s</xmp:CreatorTool>
     <xmp:CreateDate>%s</xmp:CreateDate>
     <xmp:ModifyDate>%s</xmp:ModifyDate>
     <xmp:MetadataDate>%s</xmp:MetadataDate>
