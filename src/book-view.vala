@@ -22,6 +22,10 @@ public class BookView : Gtk.Box
     private bool need_layout;
     private bool laying_out;
     private bool show_selected_page;
+
+    /* Whether the view stays at its right end, where the last page is */
+    private bool keep_at_end;
+    private uint scroll_to_end_source = 0;
     
     /* Currently selected page */
     private PageView? selected_page_view = null;
@@ -145,6 +149,7 @@ public class BookView : Gtk.Box
         drawing_area.add_controller(focus_controller);
 
         scrolled_window.get_hadjustment ().value_changed.connect (scroll_cb);
+        scrolled_window.get_hadjustment ().changed.connect (scroll_range_changed_cb);
 
         drawing_area.visible = true;
     }
@@ -166,6 +171,7 @@ public class BookView : Gtk.Box
         focus_controller.enter.disconnect (focus_cb);
         focus_controller.leave.disconnect (focus_cb);
         scrolled_window.get_hadjustment ().value_changed.disconnect (scroll_cb);
+        scrolled_window.get_hadjustment ().changed.disconnect (scroll_range_changed_cb);
     }
 
     private PageView get_nth_page (int n)
@@ -252,6 +258,18 @@ public class BookView : Gtk.Box
         if (page == null)
             return;
 
+        /* A page that was just scanned is the last one, and the scrolled
+         * window only takes on the width it adds a moment later. Scrolling to
+         * where the page sits would stop short of it until then, so go to the
+         * right end instead and stay there while the width grows, until
+         * another page is chosen. */
+        keep_at_end = get_next_page (page) == page;
+        if (keep_at_end)
+        {
+            scroll_to_end ();
+            return;
+        }
+
         // width of the visible area (x_offset is the position)
         int scrolled_window_width = scrolled_window.get_allocated_width();
         // absolute edge position of the page
@@ -268,6 +286,30 @@ public class BookView : Gtk.Box
         {
             x_offset = right_edge - scrolled_window_width;
         }
+    }
+
+    private void scroll_to_end ()
+    {
+        var adjustment = scrolled_window.get_hadjustment ();
+        adjustment.value = adjustment.upper - adjustment.page_size;
+    }
+
+    /* The scroll range changes while the scrolled window is being laid
+     * out, and a scroll position set right then is not acted on, so the
+     * pages stay where they were until something else moves them. Scroll
+     * once that is done instead. */
+    private void scroll_range_changed_cb (Gtk.Adjustment adjustment)
+    {
+        if (!keep_at_end || scroll_to_end_source != 0)
+            return;
+
+        scroll_to_end_source = Idle.add (() =>
+        {
+            scroll_to_end_source = 0;
+            if (keep_at_end)
+                scroll_to_end ();
+            return Source.REMOVE;
+        });
     }
 
     private void select_page_view (PageView? page)
