@@ -425,10 +425,27 @@ public class BookView : Gtk.Box
         int book_width, book_height;
         layout_into (width, height, out book_width, out book_height);
 
-        drawing_area.set_size_request(book_width, -1);
-        drawing_area.queue_resize();
-        if (show_selected_page)
-            show_page_view (selected_page_view);
+        /* This runs while the pages are being drawn. A resize queued in the
+         * middle of drawing is dropped, so the new width would only reach the
+         * scrolled window with the next resize of the window, which leaves
+         * pages that were already there when the view first showed up without
+         * a scrollbar. Scrolling in the middle of drawing goes wrong as well:
+         * the pages are drawn for the old position and then shown at the new
+         * one, so pages that were left out as out of sight are missing. Hand
+         * both over once drawing is done. */
+        var resize = drawing_area.width_request != book_width;
+        var show = show_selected_page;
+        if (resize || show)
+        {
+            Idle.add (() =>
+            {
+                if (resize)
+                    drawing_area.set_size_request (book_width, -1);
+                if (show)
+                    show_page_view (selected_page_view);
+                return Source.REMOVE;
+            });
+        }
 
         need_layout = false;
         show_selected_page = false;
@@ -439,8 +456,13 @@ public class BookView : Gtk.Box
     {
         layout ();
 
-        var scroll_x = (double) x_offset;
-        var scroll_right = scroll_x + scrolled_window.get_allocated_width ();
+        /* Pages out of sight are left out, with a margin of a whole view on
+         * either side. What is drawn here is kept and moved along as the view
+         * scrolls, and the margin keeps a page from going missing when the
+         * view moves before it is drawn again. */
+        var view_width = scrolled_window.get_allocated_width ();
+        var scroll_x = (double) x_offset - view_width;
+        var scroll_right = (double) x_offset + 2 * view_width;
 
         var pages = new List<PageView> ();
         for (var i = 0; i < book.n_pages; i++)
