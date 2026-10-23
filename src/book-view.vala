@@ -216,6 +216,7 @@ public class BookView : Gtk.Box
     private void page_view_size_changed_cb (PageView page)
     {
         need_layout = true;
+        layout ();
         redraw ();
     }
 
@@ -226,6 +227,7 @@ public class BookView : Gtk.Box
         page_view.size_changed.connect (page_view_size_changed_cb);
         page_data.insert (page, page_view);
         need_layout = true;
+        layout ();
         redraw ();
     }
 
@@ -252,7 +254,11 @@ public class BookView : Gtk.Box
         if (page == null)
             return;
 
-        int allocation_width = drawing_area.get_allocated_width();
+        /* Use ScrolledWindow viewport width rather than DrawingArea full content width */
+        int allocation_width = scrolled_window.get_allocated_width ();
+        if (allocation_width <= 0)
+            return;
+
         var left_edge = page.x_offset;
         var right_edge = page.x_offset + page.width;
 
@@ -302,12 +308,14 @@ public class BookView : Gtk.Box
         select_page_view (new_selection);
 
         need_layout = true;
+        layout ();
         redraw ();
     }
 
     private void reorder_cb (Book book)
     {
         need_layout = true;
+        layout ();
         redraw ();
     }
 
@@ -317,6 +325,7 @@ public class BookView : Gtk.Box
         selected_page_view = null;
         page_selected (null);
         need_layout = true;
+        layout ();
         redraw ();
     }
 
@@ -411,14 +420,21 @@ public class BookView : Gtk.Box
 
         laying_out = true;
 
-        int width = drawing_area.get_allocated_width();
-        int height = this.get_allocated_height();
+        int width = scrolled_window.get_allocated_width ();
+        int height = this.get_allocated_height ();
+
+        /* Wait until the widget hierarchy has a valid allocation */
+        if (width <= 0 || height <= 0)
+        {
+            laying_out = false;
+            return;
+        }
 
         int book_width, book_height;
         layout_into (width, height, out book_width, out book_height);
 
-        drawing_area.set_size_request(book_width, -1);
-        drawing_area.queue_resize();
+        drawing_area.set_size_request (book_width, -1);
+        drawing_area.queue_resize ();
         if (show_selected_page)
             show_page_view (selected_page_view);
 
@@ -429,7 +445,27 @@ public class BookView : Gtk.Box
 
     public void draw_cb (Gtk.DrawingArea drawing_area, Cairo.Context context, int width, int height)
     {
-        layout ();
+        /*
+         * Avoid mutating widget size requests or scrollbar adjustments inside
+         * draw_cb during the GTK4 snapshot phase, which invalidates the
+         * GtkScrollbar and GtkGizmo allocations mid-frame. If a layout is
+         * still pending on initial draw, compute page coordinates for this
+         * frame and defer the widget size request update to the main loop.
+         */
+        if (need_layout)
+        {
+            int view_w = scrolled_window.get_allocated_width ();
+            int view_h = this.get_allocated_height ();
+            if (view_w > 0 && view_h > 0)
+            {
+                int book_width, book_height;
+                layout_into (view_w, view_h, out book_width, out book_height);
+            }
+            Idle.add (() => {
+                layout ();
+                return Source.REMOVE;
+            });
+        }
 
         var scroll_x = (double) x_offset;
         var scroll_right = scroll_x + scrolled_window.get_allocated_width ();
