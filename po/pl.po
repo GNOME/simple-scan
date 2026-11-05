@@ -4,14 +4,16 @@
 # Piotr Drąg <piotrdrag@gmail.com>, 2010-2025.
 # Aviary.pl <community-poland@mozilla.org>, 2017-2025.
 # Victoria Niedzielska <victorian@gnome.org>, 2026.
+# Marcel Mrówka <micro.mail88@gmail.com>, 2026.
+# Tomasz Bojanowski <tomasz@bojanowski.me>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2026-04-02 19:47+0000\n"
-"PO-Revision-Date: 2026-07-14 22:35+0200\n"
-"Last-Translator: Victoria Niedzielska <victorian@gnome.org>\n"
+"POT-Creation-Date: 2026-10-30 21:03+0000\n"
+"PO-Revision-Date: 2026-11-05 17:40+0100\n"
+"Last-Translator: Tomasz Bojanowski <tomasz@bojanowski.me>\n"
 "Language-Team: Polish <https://l10n.gnome.org/teams/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -24,20 +26,21 @@ msgstr ""
 #. Title of scan window
 #: data/org.gnome.SimpleScan.desktop.in:2
 #: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
-#: src/app-window.vala:1280
+#: src/app-window.vala:1291
 msgid "Document Scanner"
 msgstr "Skaner dokumentów"
 
 #: data/org.gnome.SimpleScan.desktop.in:3
 #: data/org.gnome.SimpleScan.metainfo.xml.in:7
 msgid "Make a digital copy of your photos and documents"
-msgstr "Tworzenie cyfrowej kopii zdjęć i dokumentów"
+msgstr "Twórz cyfrowe kopie zdjęć i dokumentów"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.SimpleScan.desktop.in:5
 msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
 msgstr ""
-"skan;skanowanie;skaner;scan;scanner;flatbed;adf;simple-scan;simplescan;"
+"skan;skanowanie;skaner;scan;scanner;flatbed;adf;simple-"
+"scan;simplescan;ksero;xero;kserówka;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -61,27 +64,27 @@ msgstr ""
 
 #: data/org.gnome.SimpleScan.gschema.xml:25
 msgid "Width of paper in tenths of a mm"
-msgstr "Szerokość papieru w dziesiątkach milimetrów"
+msgstr "Szerokość papieru w dziesiątych częściach milimetra"
 
 #: data/org.gnome.SimpleScan.gschema.xml:26
 msgid ""
 "The width of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
-"Szerokość papieru w dziesiątkach milimetrów (lub 0 dla automatycznego "
-"wykrywania papieru)."
+"Szerokość papieru w dziesiątych częściach milimetra (lub 0 dla "
+"automatycznego wykrywania papieru)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:30
 msgid "Height of paper in tenths of a mm"
-msgstr "Wysokość papieru w dziesiątkach milimetrów"
+msgstr "Wysokość papieru w dziesiątych częściach milimetra"
 
 #: data/org.gnome.SimpleScan.gschema.xml:31
 msgid ""
 "The height of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
-"Wysokość papieru w dziesiątkach milimetrów (lub 0 dla automatycznego "
-"wykrywania papieru)."
+"Wysokość papieru w dziesiątych częściach milimetra (lub 0 dla "
+"automatycznego wykrywania papieru)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:35
 msgid "Brightness of scan"
@@ -134,7 +137,7 @@ msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
 msgstr ""
 "Katalog do zapisywania plików. Jeśli nie ustawiono, używa domyślnego "
-"katalogu Dokumenty."
+"katalogu dokumentów."
 
 #: data/org.gnome.SimpleScan.gschema.xml:65
 msgid "File format that is used for saving image files"
@@ -206,7 +209,7 @@ msgid ""
 "parts of an image and rotate it if it is the wrong way round. You can print "
 "your scans, export them to pdf, or save them in a range of image formats."
 msgstr ""
-"Bardzo prosty sposób na skanowanie tekstu i obrazów. Umożliwia kadrowanie "
+"Bardzo prosty sposób na skanowanie tekstu i obrazów. Umożliwia przycinanie "
 "i obracanie obrazów, drukowanie, eksportowanie do formatu PDF oraz "
 "zapisywanie w wielu formatach."
 
@@ -218,6 +221,7 @@ msgstr ""
 
 #. developer_name tag deprecaIf multiple pages in book-view the horizontal scroll bar is not shown, except a resize event occurs.ted with Appstream 1.0
 #: data/org.gnome.SimpleScan.metainfo.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:46
 msgid "The GNOME Project"
 msgstr "Projekt GNOME"
 
@@ -234,7 +238,7 @@ msgstr "Obróć w p_rawo"
 #. Label for page crop submenu
 #: data/ui/app-window.ui:16
 msgid "_Crop"
-msgstr "_Kadruj"
+msgstr "_Przytnij"
 
 #. Radio button for no crop
 #: data/ui/app-window.ui:20
@@ -284,7 +288,7 @@ msgstr "_Niestandardowy"
 #. Menu item to rotate the crop area
 #: data/ui/app-window.ui:76
 msgid "_Rotate Crop"
-msgstr "Ob_róć obszar kadrowania"
+msgstr "Ob_róć obszar przycinania"
 
 #. Menu item to move the selected page to the left
 #: data/ui/app-window.ui:83
@@ -327,7 +331,7 @@ msgstr "_Obraz"
 #. Tooltip for stop button
 #: data/ui/app-window.ui:163
 msgid "Stop"
-msgstr "Zatrzymuje"
+msgstr "Zatrzymaj"
 
 #: data/ui/app-window.ui:175
 msgid "S_top"
@@ -347,12 +351,12 @@ msgstr "Menu główne"
 
 #: data/ui/app-window.ui:225
 msgid "Export"
-msgstr "Eksportuje"
+msgstr "Eksportuj"
 
 #. Tooltip for stop button
 #: data/ui/app-window.ui:281
 msgid "Refresh Device List"
-msgstr "Odświeża listę urządzeń"
+msgstr "Odśwież listę urządzeń"
 
 #: data/ui/app-window.ui:311
 msgid "New Document"
@@ -360,19 +364,19 @@ msgstr "Nowy dokument"
 
 #: data/ui/app-window.ui:325
 msgid "Rotate Left (counter-clockwise)"
-msgstr "Obraca w lewo (przeciwnie do ruchu wskazówek zegara)"
+msgstr "Obróć w lewo (przeciwnie do ruchu wskazówek zegara)"
 
 #: data/ui/app-window.ui:333
 msgid "Rotate Right (clockwise)"
-msgstr "Obraca w prawo (zgodnie z ruchem wskazówek zegara)"
+msgstr "Obróć w prawo (zgodnie z ruchem wskazówek zegara)"
 
 #: data/ui/app-window.ui:341
 msgid "Crop Selected Page"
-msgstr "Kadruje zaznaczoną stronę"
+msgstr "Przytnij zaznaczoną stronę"
 
 #: data/ui/app-window.ui:349
 msgid "Delete Selected Page"
-msgstr "Usuwa zaznaczoną stronę"
+msgstr "Usuń zaznaczoną stronę"
 
 #: data/ui/authorize-dialog.ui:31
 msgid "_Username for resource"
@@ -383,7 +387,7 @@ msgid "_Password"
 msgstr "_Hasło"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
-#: src/app-window.vala:684
+#: src/app-window.vala:688
 msgid "_Cancel"
 msgstr "_Anuluj"
 
@@ -394,7 +398,7 @@ msgstr "Upow_ażnij"
 
 #: data/ui/drivers-dialog.ui:17
 msgid "Install drivers"
-msgstr "Instalacja sterowników"
+msgstr "Zainstaluj sterowniki"
 
 #: data/ui/drivers-dialog.ui:119
 msgid "OK"
@@ -523,22 +527,22 @@ msgstr "Skanowanie"
 #. Label beside scan side combo box
 #: data/ui/preferences-dialog.ui:33
 msgid "Scan _Sides"
-msgstr "_Skanowanie stron"
+msgstr "_Skanowane strony"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:42
 msgid "_Front"
-msgstr "_Przód"
+msgstr "_Przednie"
 
 #. Preferences Dialog: Toggle button to select scanning on the back side of a page
 #: data/ui/preferences-dialog.ui:49
 msgid "B_ack"
-msgstr "_Tył"
+msgstr "_Tylne"
 
 #. Preferences Dialog: Toggle button to select scanning on both sides of a page
 #: data/ui/preferences-dialog.ui:56
 msgid "B_oth"
-msgstr "_Oba"
+msgstr "_Obie"
 
 #. Label beside page size combo box
 #: data/ui/preferences-dialog.ui:66
@@ -553,7 +557,7 @@ msgstr "_Opóźnienie w sekundach"
 #. Provides context for the page delay scale
 #: data/ui/preferences-dialog.ui:73
 msgid "Interval to scan multiple pages"
-msgstr "Czas między stronami podczas skanowania wielu stron"
+msgstr "Czas przerw pomiędzy skanami podczas skanowania wielu stron"
 
 #. Preferences Dialog: Toggle button to select scanning on front side of a page
 #: data/ui/preferences-dialog.ui:81
@@ -588,7 +592,7 @@ msgstr "Jakość"
 #. Label beside scan resolution combo box
 #: data/ui/preferences-dialog.ui:120
 msgid "_Text Resolution"
-msgstr "_Rozdzielczość tekstu"
+msgstr "Rozdzielczość _tekstu"
 
 #. Label beside scan resolution combo box
 #: data/ui/preferences-dialog.ui:126
@@ -618,22 +622,41 @@ msgstr "Przetwarzanie końcowe"
 #. Switch to enable postprocessing
 #: data/ui/preferences-dialog.ui:184
 msgid "_Enable Postprocessing"
-msgstr "_Włączone"
+msgstr "_Włącz przetwarzanie końcowe"
+
+#: data/ui/preferences-dialog.ui:186
+msgid ""
+"Run a custom post-processing script after saving a document. This can be "
+"used for Optical Character Recognition using ocrmypdf (if installed) with "
+"the \"simple-scan-postprocessing.sh\" script, for example."
+msgstr ""
+"Uruchamia własny skrypt przetwarzania końcowego po zapisaniu dokumentu. "
+"Można go użyć na przykład do optycznego rozpoznawania znaków za pomocą "
+"programu ocrmypdf (jeśli jest zainstalowany) ze skryptem "
+"„simple-scan-postprocessing.sh”."
 
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:204
 msgid "_Script"
 msgstr "_Skrypt"
 
+#: data/ui/preferences-dialog.ui:215
+msgid "E.g.: /usr/bin/simple-scan-postprocessing.sh"
+msgstr "Np. /usr/bin/simple-scan-postprocessing.sh"
+
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:222
+#: data/ui/preferences-dialog.ui:224
 msgid "_Script arguments"
 msgstr "_Parametry skryptu"
 
+#: data/ui/preferences-dialog.ui:235
+msgid "E.g.: --force-ocr"
+msgstr "Np. --force-ocr"
+
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:241
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
-msgstr "_Zachowywanie oryginalnego pliku"
+msgstr "_Zachowaj oryginalny plik"
 
 #: data/ui/reorder-pages-dialog.ui:9
 msgctxt "dialog title"
@@ -717,9 +740,9 @@ msgstr "_Tak"
 
 #: src/app-window.vala:389
 msgid "Save As…"
-msgstr "Zapis jako…"
+msgstr "Zapisz jako…"
 
-#: src/app-window.vala:391 src/app-window.vala:685
+#: src/app-window.vala:391 src/app-window.vala:689
 msgid "_Save"
 msgstr "_Zapisz"
 
@@ -772,52 +795,59 @@ msgstr "Zapisanie pliku się nie powiodło"
 msgid "Failed to run postprocessing"
 msgstr "Wykonanie przetwarzania końcowego się nie powiodło"
 
-#: src/app-window.vala:664
+#: src/app-window.vala:669
 msgid "Document Saved"
 msgstr "Zapisano dokument"
 
-#: src/app-window.vala:665
+#: src/app-window.vala:670
 msgid "Open Folder"
-msgstr "Otwarcie katalogu"
+msgstr "Otwórz katalog"
 
-#: src/app-window.vala:681
+#: src/app-window.vala:685
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Zmiany zostaną bezpowrotnie utracone, jeśli nie zostaną zapisane."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:729
+#: src/app-window.vala:733
 msgid "Save current document?"
 msgstr "Zapisać bieżący dokument?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:731
+#: src/app-window.vala:735
 msgid "_Discard Changes"
 msgstr "_Odrzuć zmiany"
 
 #. Label shown when scan started
-#: src/app-window.vala:799
+#: src/app-window.vala:803
 msgid "Contacting Scanner…"
 msgstr "Łączenie ze skanerem…"
 
-#: src/app-window.vala:911
+#: src/app-window.vala:919
 msgid "Scan a Single Page"
-msgstr "Skanuje pojedynczą stronę"
+msgstr "Skanuj pojedynczą stronę"
 
-#: src/app-window.vala:916 src/app-window.vala:921
+#: src/app-window.vala:924 src/app-window.vala:929
 msgid "Scan Multiple Pages"
-msgstr "Skanuje wiele stron"
+msgstr "Skanuj wiele stron"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1036
+#: src/app-window.vala:1044
 msgid "Unable to save image for preview"
 msgstr "Nie można zapisać podglądu obrazu"
 
-#: src/app-window.vala:1277
+#. Title of error dialog when email document failed
+#: src/app-window.vala:1226
+msgid "Failed to email document"
+msgstr "Wysłanie dokumentu e-mailem się nie powiodło"
+
+#: src/app-window.vala:1288
 msgid "translator-credits"
 msgstr ""
 "Piotr Drąg <piotrdrag@gmail.com>, 2010-2025\n"
 "Aviary.pl <community-poland@mozilla.org>, 2017-2025\n"
 "Victoria Niedzielska <victorian@gnome.org>, 2026\n"
+"Marcel Mrówka <micro.mail88@gmail.com>, 2026\n"
+"Tomasz Bojanowski <tomasz@bojanowski.me>, 2026\n"
 "\n"
 "Launchpad Contributions:\n"
 "  Arkadiusz Błasiak https://launchpad.net/~ares1112\n"
@@ -835,50 +865,50 @@ msgstr ""
 "  Wiatrak https://launchpad.net/~wiatrak."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1298
+#: src/app-window.vala:1309
 msgid "Save document before quitting?"
 msgstr "Zapisać dokument przed zakończeniem działania?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1300
+#: src/app-window.vala:1311
 msgid "_Quit without Saving"
 msgstr "Za_kończ bez zapisywania"
 
-#: src/app-window.vala:1412
+#: src/app-window.vala:1423
 msgid "_Email…"
 msgstr "Wyślij _e-mailem…"
 
-#: src/app-window.vala:1413
+#: src/app-window.vala:1424
 msgid "Pri_nt…"
 msgstr "Wy_drukuj…"
 
-#: src/app-window.vala:1414
+#: src/app-window.vala:1425
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "Zmień _kolejność stron…"
 
-#: src/app-window.vala:1417
+#: src/app-window.vala:1428
 msgid "_Preferences"
 msgstr "_Preferencje"
 
-#: src/app-window.vala:1418
+#: src/app-window.vala:1429
 msgid "_Keyboard Shortcuts"
 msgstr "_Skróty klawiszowe"
 
-#: src/app-window.vala:1419
+#: src/app-window.vala:1430
 msgid "_Help"
 msgstr "Pomo_c"
 
-#: src/app-window.vala:1420
+#: src/app-window.vala:1431
 msgid "_About Document Scanner"
 msgstr "_O aplikacji"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1607
+#: src/app-window.vala:1652
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: src/book.vala:392 src/book.vala:398
+#: src/book.vala:394 src/book.vala:400
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Nie można zakodować %i. strony"
@@ -990,7 +1020,7 @@ msgstr "Instalowanie sterowników…"
 #. Label shown once drivers successfully installed
 #: src/drivers-dialog.vala:135
 msgid "Drivers installed successfully!"
-msgstr "Zainstalowano sterowniki."
+msgstr "Pomyślnie zainstalowano sterowniki!"
 
 #. Label shown if failed to install drivers
 #: src/drivers-dialog.vala:145
@@ -1031,11 +1061,11 @@ msgstr "Jaśniej"
 
 #: src/preferences-dialog.vala:171
 msgid "Less"
-msgstr "Mniejszy"
+msgstr "Mniej"
 
 #: src/preferences-dialog.vala:173
 msgid "More"
-msgstr "Większy"
+msgstr "Więcej"
 
 #: src/preferences-dialog.vala:180
 msgid "Minimum size"
@@ -1070,24 +1100,24 @@ msgid "%d dpi"
 msgstr "%d DPI"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:901
+#: src/scanner.vala:913
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Brak dostępnych skanerów. Proszę podłączyć skaner."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:931
+#: src/scanner.vala:943
 msgid "Unable to connect to scanner"
 msgstr "Nie można połączyć ze skanerem"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1376 src/scanner.vala:1511
+#: src/scanner.vala:1388 src/scanner.vala:1523
 msgid "Document feeder empty"
 msgstr "Podajnik dokumentów jest pusty"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1385
+#: src/scanner.vala:1397
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1100,12 +1130,12 @@ msgstr ""
 "podczas skanowania w wysokiej rozdzielczości jest ograniczony."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1398
+#: src/scanner.vala:1410
 msgid "Unable to start scan"
 msgstr "Nie można rozpocząć skanowania"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1411 src/scanner.vala:1521
+#: src/scanner.vala:1423 src/scanner.vala:1533
 msgid "Error communicating with scanner"
 msgstr "Błąd podczas komunikacji ze skanerem"
 
@@ -1124,22 +1154,22 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Naprawia pliki PDF utworzone za pomocą starszych wersji tej aplikacji"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1768
+#: src/simple-scan.vala:1783
 msgid "Failed to scan"
 msgstr "Skanowanie się nie powiodło"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1783
+#: src/simple-scan.vala:1798
 msgid "Scan in progress"
 msgstr "Trwa skanowanie"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1982
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[URZĄDZENIE…] — narzędzie do skanowania"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1977
+#: src/simple-scan.vala:1992
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr ""
