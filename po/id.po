@@ -4,14 +4,15 @@
 # Andika Triwidada <andika@gmail.com>, 2017, 2020, 2024, 2025.
 # Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2023.
 # Sucipto <sucipto@pm.me>, 2020.
+# Herpiko Dwi Aguno <herpiko@gmail.com>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2026-01-27 18:58+0000\n"
-"PO-Revision-Date: 2026-01-28 12:52+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"POT-Creation-Date: 2026-10-31 05:14+0000\n"
+"PO-Revision-Date: 2026-11-12 15:12+0000\n"
+"Last-Translator: Herpiko Dwi Aguno <herpiko@gmail.com>\n"
 "Language-Team: Indonesian <id@li.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -19,12 +20,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Launchpad-Export-Date: 2017-04-25 06:10+0000\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: pelokalan.blankon.id\n"
 
 #. Title of scan window
 #: data/org.gnome.SimpleScan.desktop.in:2
 #: data/org.gnome.SimpleScan.metainfo.xml.in:6 data/ui/app-window.ui:138
-#: src/app-window.vala:1280
+#: src/app-window.vala:1291
 msgid "Document Scanner"
 msgstr "Pemindai Dokumen"
 
@@ -212,8 +213,9 @@ msgstr ""
 "Aplikasi ini memakai framework SANE untuk mendukung kebanyakan pemindai yang "
 "ada."
 
-#. developer_name tag deprecated with Appstream 1.0
+#. developer_name tag deprecaIf multiple pages in book-view the horizontal scroll bar is not shown, except a resize event occurs.ted with Appstream 1.0
 #: data/org.gnome.SimpleScan.metainfo.xml.in:44
+#: data/org.gnome.SimpleScan.metainfo.xml.in:46
 msgid "The GNOME Project"
 msgstr "Proyek GNOME"
 
@@ -379,7 +381,7 @@ msgid "_Password"
 msgstr "Kata _Sandi"
 
 #: data/ui/authorize-dialog.ui:53 src/app-window.vala:535
-#: src/app-window.vala:684
+#: src/app-window.vala:688
 msgid "_Cancel"
 msgstr "_Batal"
 
@@ -616,18 +618,36 @@ msgstr "Pasca pemrosesan"
 msgid "_Enable Postprocessing"
 msgstr "_Aktifkan Pasca pemrosesan"
 
+#: data/ui/preferences-dialog.ui:186
+msgid ""
+"Run a custom post-processing script after saving a document. This can be "
+"used for Optical Character Recognition using ocrmypdf (if installed) with "
+"the \"simple-scan-postprocessing.sh\" script, for example."
+msgstr ""
+"Jalankan skrip ubahan pasca-pemrosesan sesudah menyimpan dokumen. Ini bisa "
+"dipakai untuk Pengenalan Karakter Optik menggunakan ocrmypdf (jika "
+"terpasang), misalnya dengan skrip \"simple-scan-postprocessing.sh\"."
+
 #. Label beside postprocesing script name entry
-#: data/ui/preferences-dialog.ui:203
+#: data/ui/preferences-dialog.ui:204
 msgid "_Script"
 msgstr "_Skrip"
 
+#: data/ui/preferences-dialog.ui:215
+msgid "E.g.: /usr/bin/simple-scan-postprocessing.sh"
+msgstr "Misalnya: /usr/bin/simple-scan-postprocessing.sh"
+
 #. Label beside postprocesing arguments entry
-#: data/ui/preferences-dialog.ui:222
+#: data/ui/preferences-dialog.ui:224
 msgid "_Script arguments"
 msgstr "Argumen _skrip"
 
+#: data/ui/preferences-dialog.ui:235
+msgid "E.g.: --force-ocr"
+msgstr "Misalnya: --force-ocr"
+
 #. Label beside keep keep original file radio
-#: data/ui/preferences-dialog.ui:241
+#: data/ui/preferences-dialog.ui:244
 msgid "_Keep original file"
 msgstr "Pertahan_kan berkas asli"
 
@@ -687,8 +707,8 @@ msgid ""
 "You need to <a href=\"install-firmware\">install driver software</a> for "
 "your scanner"
 msgstr ""
-"Anda perlu <a href=\"install-firmware\">memasang perangkat lunak penggerak</"
-"a> bagi pemindai Anda"
+"Anda perlu <a href=\"install-firmware\">memasang perangkat lunak "
+"penggerak</a> bagi pemindai Anda"
 
 #. Warning displayed when no scanners are detected
 #: src/app-window.vala:256
@@ -717,7 +737,7 @@ msgstr "_Ya"
 msgid "Save As…"
 msgstr "Simpan Sebagai…"
 
-#: src/app-window.vala:391 src/app-window.vala:685
+#: src/app-window.vala:391 src/app-window.vala:689
 msgid "_Save"
 msgstr "_Simpan"
 
@@ -770,52 +790,58 @@ msgstr "Gagal menyimpan berkas"
 msgid "Failed to run postprocessing"
 msgstr "Gagal menjalankan pasca pemrosesan"
 
-#: src/app-window.vala:664
+#: src/app-window.vala:669
 msgid "Document Saved"
 msgstr "Dokumen Disimpan"
 
-#: src/app-window.vala:665
+#: src/app-window.vala:670
 msgid "Open Folder"
 msgstr "Buka Folder"
 
-#: src/app-window.vala:681
+#: src/app-window.vala:685
 msgid "If you don’t save, changes will be permanently lost."
 msgstr "Jika Anda tidak menyimpan, perubahan akan hilang secara permanen."
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:729
+#: src/app-window.vala:733
 msgid "Save current document?"
 msgstr "Simpan dokumen saat ini?"
 
 #. Button in dialog to create new document and discard unsaved document
-#: src/app-window.vala:731
+#: src/app-window.vala:735
 msgid "_Discard Changes"
 msgstr "_Buang Perubahan"
 
 #. Label shown when scan started
-#: src/app-window.vala:799
+#: src/app-window.vala:803
 msgid "Contacting Scanner…"
 msgstr "Menghubungi Pemindai…"
 
-#: src/app-window.vala:911
+#: src/app-window.vala:919
 msgid "Scan a Single Page"
 msgstr "Pindai Satu Halaman"
 
-#: src/app-window.vala:916 src/app-window.vala:921
+#: src/app-window.vala:924 src/app-window.vala:929
 msgid "Scan Multiple Pages"
 msgstr "Pindai Beberapa Halaman"
 
 #. Error message display when unable to save image for preview
-#: src/app-window.vala:1036
+#: src/app-window.vala:1044
 msgid "Unable to save image for preview"
 msgstr "Tak dapat menyimpan gambar untuk pratinjau"
 
-#: src/app-window.vala:1277
+#. Title of error dialog when email document failed
+#: src/app-window.vala:1226
+msgid "Failed to email document"
+msgstr "Gagal mengirim dokumen surel"
+
+#: src/app-window.vala:1288
 msgid "translator-credits"
 msgstr ""
 "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2017-2023.\n"
 "Andika Triwidada <atriwidada@gnome.org>, 2017, 2020, 2024-2026.\n"
 "Sucipto <sucipto@pm.me>, 2020.\n"
+"Herpiko Dwi Aguno <herpiko@gmail.com>, 2026\n"
 "\n"
 "Launchpad Contributions:\n"
 "  Abdul Munif Hanafi https://launchpad.net/~nafica-coroz\n"
@@ -833,50 +859,50 @@ msgstr ""
 "  jemmy surya https://launchpad.net/~jemmy"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1298
+#: src/app-window.vala:1309
 msgid "Save document before quitting?"
 msgstr "Simpan dokumen sebelum keluar?"
 
 #. Text in dialog warning when a document is about to be lost
-#: src/app-window.vala:1300
+#: src/app-window.vala:1311
 msgid "_Quit without Saving"
 msgstr "_Keluar tanpa menyimpan"
 
-#: src/app-window.vala:1412
+#: src/app-window.vala:1423
 msgid "_Email…"
 msgstr "Sur_el…"
 
-#: src/app-window.vala:1413
+#: src/app-window.vala:1424
 msgid "Pri_nt…"
 msgstr "Ceta_k…"
 
-#: src/app-window.vala:1414
+#: src/app-window.vala:1425
 msgctxt "menu"
 msgid "_Reorder Pages…"
 msgstr "Atu_r Ulang Halaman…"
 
-#: src/app-window.vala:1417
+#: src/app-window.vala:1428
 msgid "_Preferences"
 msgstr "_Preferensi"
 
-#: src/app-window.vala:1418
+#: src/app-window.vala:1429
 msgid "_Keyboard Shortcuts"
 msgstr "Pintasan Papan Ti_k"
 
-#: src/app-window.vala:1419
+#: src/app-window.vala:1430
 msgid "_Help"
 msgstr "_Bantuan"
 
-#: src/app-window.vala:1420
+#: src/app-window.vala:1431
 msgid "_About Document Scanner"
 msgstr "Tent_ang Pemindai Dokumen"
 
 #. Text of button for cancelling save
-#: src/app-window.vala:1607
+#: src/app-window.vala:1652
 msgid "Cancel"
 msgstr "Batal"
 
-#: src/book.vala:392 src/book.vala:398
+#: src/book.vala:394 src/book.vala:400
 #, c-format
 msgid "Unable to encode page %i"
 msgstr "Tak dapat mengkodekan halaman %i"
@@ -889,8 +915,8 @@ msgstr "Nampaknya Anda punya pemindai Brother."
 #. Instructions on how to install Brother scanner drivers
 #: src/drivers-dialog.vala:78
 msgid ""
-"Drivers for this are available on the <a href=\"http://"
-"support.brother.com\">Brother website</a>."
+"Drivers for this are available on the <a "
+"href=\"http://support.brother.com\">Brother website</a>."
 msgstr ""
 "Penggerak bagi ini tersedia di <a href=\"http://support.brother.com\">situs "
 "web Brother</a>."
@@ -902,21 +928,24 @@ msgid ""
 "href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
 "backend</a>."
 msgstr ""
-"Anda tampaknya memiliki pemindai Canon, yang didukung oleh <a href=\"http://"
-"www.sane-project.org/man/sane-pixma.5.html\">backend Pixma SANE</a>."
+"Anda tampaknya memiliki pemindai Canon, yang didukung oleh <a "
+"href=\"http://www.sane-project.org/man/sane-pixma.5.html\">backend Pixma "
+"SANE</a>."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/drivers-dialog.vala:84
 msgid ""
-"Please check if your <a href=\"http://www.sane-project.org/sane-supported-"
-"devices.html\">scanner is supported by SANE</a>, otherwise report the issue "
-"to the <a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/"
-"sane-devel\">SANE mailing list</a>."
+"Please check if your <a "
+"href=\"http://www.sane-project.org/sane-supported-devices.html\">scanner is "
+"supported by SANE</a>, otherwise report the issue to the <a "
+"href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">"
+"SANE mailing list</a>."
 msgstr ""
-"Harap periksa apakah <a href=\"http://www.sane-project.org/sane-supported-"
-"devices.html\">pemindai didukung oleh SANE</a>, atau laporkan masalah ini ke "
-"<a href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-"
-"devel\">milis SANE</a>."
+"Harap periksa apakah <a "
+"href=\"http://www.sane-project.org/sane-supported-devices.html\">pemindai "
+"didukung oleh SANE</a>, atau laporkan masalah ini ke <a "
+"href=\"https://alioth-lists.debian.net/cgi-bin/mailman/listinfo/sane-devel\">"
+"milis SANE</a>."
 
 #. Message to indicate a Samsung scanner has been detected
 #: src/drivers-dialog.vala:88
@@ -958,8 +987,8 @@ msgstr "Nampaknya Anda punya pemindai Epson."
 #. Instructions on how to install Epson scanner drivers
 #: src/drivers-dialog.vala:110
 msgid ""
-"Drivers for this are available on the <a href=\"http://"
-"support.epson.com\">Epson website</a>."
+"Drivers for this are available on the <a "
+"href=\"http://support.epson.com\">Epson website</a>."
 msgstr ""
 "Penggerak bagi ini tersedia di <a href=\"http://support.epson.com\">situs "
 "web Epson</a>."
@@ -972,8 +1001,8 @@ msgstr "Anda tampaknya memiliki pemindai Lexmark."
 #. Instructions on how to install Lexmark scanner drivers
 #: src/drivers-dialog.vala:116
 msgid ""
-"Drivers for this are available on the <a href=\"http://"
-"support.lexmark.com\">Lexmark website</a>."
+"Drivers for this are available on the <a "
+"href=\"http://support.lexmark.com\">Lexmark website</a>."
 msgstr ""
 "Penggerak bagi ini tersedia di <a href=\"http://support.lexmark.com\">situs "
 "web Lexmark</a>."
@@ -1064,24 +1093,24 @@ msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:901
+#: src/scanner.vala:913
 msgid "No scanners available.  Please connect a scanner."
 msgstr "Tidak ada pemindai yang tersedia. Mohon hubungkan pemindai."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:931
+#: src/scanner.vala:943
 msgid "Unable to connect to scanner"
 msgstr "Tak dapat terhubung ke pemindai"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1376 src/scanner.vala:1511
+#: src/scanner.vala:1388 src/scanner.vala:1523
 msgid "Document feeder empty"
 msgstr "Pengumpan dokumen kosong"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1385
+#: src/scanner.vala:1397
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1094,12 +1123,12 @@ msgstr ""
 "tinggi, ukuran pemindaian dibatasi."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1398
+#: src/scanner.vala:1410
 msgid "Unable to start scan"
 msgstr "Tak dapat memulai pemindaian"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1411 src/scanner.vala:1521
+#: src/scanner.vala:1423 src/scanner.vala:1533
 msgid "Error communicating with scanner"
 msgstr "Galat saat berhubungan dengan pemindai"
 
@@ -1118,23 +1147,24 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "Perbaiki berkas PDF yang dibuat dengan versi lawas aplikasi ini"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1768
+#: src/simple-scan.vala:1783
 msgid "Failed to scan"
 msgstr "Gagal memindai"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1783
+#: src/simple-scan.vala:1798
 msgid "Scan in progress"
 msgstr "Pemindaian sedang berlangsung"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1967
+#: src/simple-scan.vala:1982
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[PERANGKAT...] — Utilitas pemindaian"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1977
+#: src/simple-scan.vala:1992
 #, c-format
-msgid "Run “%s --help” to see a full list of available command line options."
+msgid ""
+"Run “%s --help” to see a full list of available command line options."
 msgstr ""
 "Jalankan \"%s --help\" untuk melihat daftar lengkap opsi yang tersedia."
