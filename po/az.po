@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scan\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2026-10-31 05:14+0000\n"
-"PO-Revision-Date: 2026-11-06 12:08+0400\n"
+"POT-Creation-Date: 2026-11-16 20:49+0000\n"
+"PO-Revision-Date: 2026-11-18 10:45+0400\n"
 "Last-Translator: Nicat Məmmədov <n1c4t97@gmail.com>\n"
 "Language-Team: Azerbaijani <az@li.org>\n"
 "Language: az\n"
@@ -53,6 +53,8 @@ msgid ""
 "Type of document being scanned. This setting decides on the scan resolution, "
 "colors and post-processing."
 msgstr ""
+"Skan edilən sənəd növü. Bu ayar skan ayırdetmə dəqiqliyi, rənglər və sonrakı "
+"emalsonrası haqqında qərar verir."
 
 #: data/org.gnome.SimpleScan.gschema.xml:25
 msgid "Width of paper in tenths of a mm"
@@ -63,6 +65,8 @@ msgid ""
 "The width of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
+"Kağızın eninin millimetrin onda biri ilə (və ya avtomatik kağız aşkarlanması "
+"üçün 0)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:30
 msgid "Height of paper in tenths of a mm"
@@ -73,6 +77,8 @@ msgid ""
 "The height of the paper in tenths of a mm (or 0 for automatic paper "
 "detection)."
 msgstr ""
+"Kağızın hündürlüyü millimetrin onda biri ilə (və ya avtomatik kağız "
+"aşkarlanması üçün 0)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:35
 msgid "Brightness of scan"
@@ -81,6 +87,8 @@ msgstr "Skanın parlaqlığı"
 #: data/org.gnome.SimpleScan.gschema.xml:36
 msgid "The brightness adjustment from -100 to 100 (0 being none)."
 msgstr ""
+"-100 ilə 100 arasında parlaqlıq tənzimlənməsi (0 heç bir dəyişiklik "
+"olmadığını bildirir)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:40
 msgid "Contrast of scan"
@@ -89,6 +97,8 @@ msgstr "Skanın kontrastı"
 #: data/org.gnome.SimpleScan.gschema.xml:41
 msgid "The contrast adjustment from -100 to 100 (0 being none)."
 msgstr ""
+"-100 ilə 100 arasında kontrast tənzimlənməsi (0 heç bir dəyişiklik "
+"olmadığını bildirir)."
 
 #: data/org.gnome.SimpleScan.gschema.xml:45
 msgid "Resolution for text scans"
@@ -97,6 +107,8 @@ msgstr "Mətn skanı üçün ayırdetmə bacarığı"
 #: data/org.gnome.SimpleScan.gschema.xml:46
 msgid "The resolution in dots-per-inch to use when scanning text."
 msgstr ""
+"Mətnləri skan edərkən istifadə olunacaq nöqtə/düym (DPI) ilə ölçülən təsvir "
+"ölçüsü."
 
 #: data/org.gnome.SimpleScan.gschema.xml:50
 msgid "Resolution for image scans"
@@ -105,6 +117,8 @@ msgstr "Təsvir skanı üçün ayırdetmə bacarığı"
 #: data/org.gnome.SimpleScan.gschema.xml:51
 msgid "The resolution in dots-per-inch to use when scanning images."
 msgstr ""
+"Təsvirləri skan edərkən istifadə olunacaq nöqtə/düym (DPI) ilə ölçülən "
+"təsvir ölçüsü."
 
 #: data/org.gnome.SimpleScan.gschema.xml:55
 msgid "Page side to scan"
@@ -122,6 +136,8 @@ msgstr "Faylların saxlanılacağı kataloq"
 msgid ""
 "The directory to save files to. Defaults to the documents directory if unset."
 msgstr ""
+"Faylların saxlanılacağı kataloq. Ayarlanmadıqda varsayılan olaraq sənədlər "
+"kataloquna keçir."
 
 #: data/org.gnome.SimpleScan.gschema.xml:65
 msgid "File format that is used for saving image files"
@@ -186,6 +202,8 @@ msgid ""
 "Whether or not to keep the original, unprocessed file. The \"_orig\" "
 "filename will be added to the filename immediately before the file extension."
 msgstr ""
+"Orijinal, emal edilməmiş faylın saxlanılıb-saxlanılmaması. \"_orijinal\" "
+"fayl adı fayl uzantısından dərhal əvvəl fayl adına əlavə ediləcək."
 
 #: data/org.gnome.SimpleScan.metainfo.xml.in:9
 msgid ""
@@ -201,6 +219,8 @@ msgstr ""
 #: data/org.gnome.SimpleScan.metainfo.xml.in:14
 msgid "This app uses the SANE framework to support most existing scanners."
 msgstr ""
+"Bu tətbiq mövcud skanerlərin əksəriyyətini dəstəkləmək üçün SANE "
+"çərçivəsindən istifadə edir."
 
 #. developer_name tag deprecaIf multiple pages in book-view the horizontal scroll bar is not shown, except a resize event occurs.ted with Appstream 1.0
 #: data/org.gnome.SimpleScan.metainfo.xml.in:44
@@ -748,7 +768,7 @@ msgstr "JPEG (sıxılmış)"
 
 #: src/app-window.vala:426
 msgid "PNG (lossless)"
-msgstr ""
+msgstr "PNG (itkisiz)"
 
 #: src/app-window.vala:432
 msgid "WebP (compressed)"
@@ -880,7 +900,7 @@ msgstr "İmtina"
 #: src/book.vala:394 src/book.vala:400
 #, c-format
 msgid "Unable to encode page %i"
-msgstr ""
+msgstr "%i. səhifə kodlaşdırıla bilmir"
 
 #. Message to indicate a Brother scanner has been detected
 #: src/drivers-dialog.vala:76
@@ -903,6 +923,9 @@ msgid ""
 "href=\"http://www.sane-project.org/man/sane-pixma.5.html\">Pixma SANE "
 "backend</a>."
 msgstr ""
+"Görünür, sizdə <a href=\"http://www.sane-project.org/man/sane-"
+"pixma.5.html\">Pixma SANE arxa plan proqramı</a> tərəfindən dəstəklənən "
+"Canon skaneri var."
 
 #. Instructions on how to resolve issue with SANE scanner drivers
 #: src/drivers-dialog.vala:84
@@ -1040,25 +1063,25 @@ msgid "Full detail"
 msgstr "Tam təfərrüat"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:357
+#: src/preferences-dialog.vala:359
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (varsayılan)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:360
+#: src/preferences-dialog.vala:362
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (qaralama)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:363
+#: src/preferences-dialog.vala:365
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (yüksək ayıretmə)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:366
+#: src/preferences-dialog.vala:368
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
