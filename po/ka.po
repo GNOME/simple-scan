@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: simple-scam\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/simple-scan/issues\n"
-"POT-Creation-Date: 2026-09-01 20:26+0000\n"
-"PO-Revision-Date: 2026-09-02 06:17+0200\n"
+"POT-Creation-Date: 2026-11-16 20:49+0000\n"
+"PO-Revision-Date: 2026-11-19 13:33+0100\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #. Title of scan window
 #: data/org.gnome.SimpleScan.desktop.in:2
@@ -33,7 +33,7 @@ msgstr "შექმენით თქვენი სურათების�
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/org.gnome.SimpleScan.desktop.in:5
 msgid "scan;scanner;flatbed;adf;simple-scan;simplescan;"
-msgstr "scan;scanner;flatbed;adf;სკანირება;სკანერი;;simplescan;"
+msgstr "scan;scanner;flatbed;adf;სკანირება;სკანერი;simplescan;"
 
 #: data/org.gnome.SimpleScan.gschema.xml:11
 msgid "Device to scan from"
@@ -1046,48 +1046,48 @@ msgid "Full detail"
 msgstr "სრული დეტალები"
 
 #. Preferences dialog: Label for default resolution in resolution list
-#: src/preferences-dialog.vala:357
+#: src/preferences-dialog.vala:359
 #, c-format
 msgid "%d dpi (default)"
 msgstr "%d dpi (ნაგულისხმევი)"
 
 #. Preferences dialog: Label for minimum resolution in resolution list
-#: src/preferences-dialog.vala:360
+#: src/preferences-dialog.vala:362
 #, c-format
 msgid "%d dpi (draft)"
 msgstr "%d dpi (მონახაზი)"
 
 #. Preferences dialog: Label for maximum resolution in resolution list
-#: src/preferences-dialog.vala:363
+#: src/preferences-dialog.vala:365
 #, c-format
 msgid "%d dpi (high resolution)"
 msgstr "%d dpi (მაღალი გაფართოება)"
 
 #. Preferences dialog: Label for resolution value in resolution list (dpi = dots per inch)
-#: src/preferences-dialog.vala:366
+#: src/preferences-dialog.vala:368
 #, c-format
 msgid "%d dpi"
 msgstr "%d dpi"
 
 #. Error displayed when no scanners to scan with
-#: src/scanner.vala:901
+#: src/scanner.vala:913
 msgid "No scanners available.  Please connect a scanner."
 msgstr "სკანერები აღმოჩენილი არაა.   მიაერთეთ სკანერი."
 
 #. Error displayed when cannot connect to scanner
-#: src/scanner.vala:931
+#: src/scanner.vala:943
 msgid "Unable to connect to scanner"
 msgstr "სკანერთან მიერთების შეცდომა"
 
 #. Error displayed when no documents at the start of scanning
-#: src/scanner.vala:1376 src/scanner.vala:1511
+#: src/scanner.vala:1388 src/scanner.vala:1523
 msgid "Document feeder empty"
 msgstr "დოკუმენტის მიმწოდებელი ცარიელია"
 
 #. Out of memory error message with help instruction.
 #. Message written in Pango text markup language,
 #. A carriage return makes a line break, <tt> tag makes a monospace font
-#: src/scanner.vala:1385
+#: src/scanner.vala:1397
 msgid ""
 "Insufficient memory to perform scan.\n"
 "Try to decrease <tt>Resolution</tt> or <tt>Page Size</tt> in "
@@ -1100,12 +1100,12 @@ msgstr ""
 "ზომა შეზღუდული აქვს."
 
 #. Error display when unable to start scan
-#: src/scanner.vala:1398
+#: src/scanner.vala:1410
 msgid "Unable to start scan"
 msgstr "სკანირების დაწყების შეცდომა"
 
 #. Error displayed when communication with scanner broken
-#: src/scanner.vala:1411 src/scanner.vala:1521
+#: src/scanner.vala:1423 src/scanner.vala:1533
 msgid "Error communicating with scanner"
 msgstr "სკანერთან ურთიერთობს შეცდომა"
 
@@ -1124,22 +1124,22 @@ msgid "Fix PDF files generated with older versions of this app"
 msgstr "ამ აპის ძველი ვერსიების მიერ შექმნილი PDF ფაილების გასწორება"
 
 #. Title of error dialog when scan failed
-#: src/simple-scan.vala:1779
+#: src/simple-scan.vala:1783
 msgid "Failed to scan"
 msgstr "სკანირების შეცდომა"
 
 #. Attempt to inhibit the screensaver when scanning
-#: src/simple-scan.vala:1794
+#: src/simple-scan.vala:1798
 msgid "Scan in progress"
 msgstr "მიმდინარეობს სკანირება"
 
 #. Arguments and description for --help text
-#: src/simple-scan.vala:1978
+#: src/simple-scan.vala:1982
 msgid "[DEVICE…] — Scanning utility"
 msgstr "[მოწყობილობა…] — სკანირების პროგრამა"
 
 #. Text printed out when an unknown command-line argument provided
-#: src/simple-scan.vala:1988
+#: src/simple-scan.vala:1992
 #, c-format
 msgid "Run “%s --help” to see a full list of available command line options."
 msgstr "გაშვების ხელმისაწვდომი პარამეტრების სანახავად გაუშვით \"%s --help\"."
